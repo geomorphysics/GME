@@ -1,0 +1,111 @@
+{
+	"job": {
+		"title": "Unset",
+		"subtitle" : "",
+		"group_name": "Generic",
+		"short_name": "unnamed",
+		"verbose" : true,
+		"very_verbose" : false,
+		"debug" : false
+	},
+
+	"model": {
+		"eta" : "sy.Rational(1,1)",
+		"mu" :  "sy.Rational(1,2)",
+		"varphi_type" : "ramp",
+		"ibc_type" : "concave-up",
+		"x_1" : 1,
+		"varepsilon" : "sy.Rational(1,100)",
+		"xiv_0" : "None",
+		"varphi_0" : 300,
+		"t_xiv0_list" : "None",
+		"kappa_h" : "sy.Rational(3,2)",
+		"h_0" : "sy.Rational(1,2)",
+		"x_sigma" : 0.01,
+		"x_h" : 1,
+		"do_geodesic" : false
+	},
+
+	"solve": {
+		"do_dense" : true,
+		"choice" : "Hamilton",
+		"method" : {"Hamilton": "DOP853", "geodesic": "LSODA",
+					"choices": ["RK45", "RK23", "Radau", "DOP853", "LSODA"]},
+		"t_end" : 0.01,
+		"ray_n_t" : 301,
+		"t_distribn" : 2,
+		"do_ip" : false,
+		"do_ic" : false,
+		"do_vb" : false,
+		"ip_res" : 101,
+		"ic_res" : 31,
+		"vb_res" : 101,
+		"do_geodesic" : true
+	},
+
+	"resolve": {
+		"t_isochrone_max" : 0.01,
+		"tolerance" : "None",
+		"n_isochrones" : 30,
+		"do_eliminate_caustics": true,
+		"spline_order" : 3
+	},
+
+	"plot": {
+		"do_pub_labeling": false,
+		"pub_labels": ["(a)","(a)","(b)"],
+		"do_profile_schematic": false,
+		"do_profile_extra": false,
+		"do_ray_conjugacy": false,
+		"do_huygens_wavelets": false,
+		"fig_size" : [8,8],
+		"big_fig_size" : [10,7],
+		"medium_fig_size" : [7,6],
+		"small_fig_size" : [7,3],
+		"ray_subsetting": 10,
+		"ray_y_limits" : "None",
+		"aniso_y_limits" : "None",
+		"aniso_n_points" : 45,
+		"aniso_arrow_exponent" : 0.9,
+		"aniso_arrow_size" : 0.5,
+		"ray_eta_xy": "None",
+		"dimx_limits" : [-0.03,1.03],
+		"dimz_limits" : [-0.01,0.6],
+		"dimx_limits_zoom" : [0.2,0.3],
+		"dimz_limits_zoom" : [-0.25,-0.23],
+		"isochrone_subsetting" : 1,
+		"do_extra_annotations" : false,
+		"ang_x_limits" : "None",
+		"ang_y_limits" : "None",
+		"angdisp_x_limits" : "None",
+		"angdisp_y_limits" : "None",
+		"idtx_logpolar_y_limits" : [-2,1],
+		"idtx_pz_min" : 1e-3,
+		"idtx_pz_max" : 1e5,
+		"fgtx_pz_min" : 1e-3,
+		"fgtx_pz_max" : 1e5,
+		"idtx_n_points" : 100,
+		"idtx_varphi_list" : [0.1, 0.15, 0.5, 1, 1.3, 2, 3],
+		"ray_n_points" : 26,
+		"rays_n_points" : 40,
+		"profile_n_points" : 101,
+		"profile_ray_n_points" : 121,
+		"misc_n_points" : 101,
+		"ray_acceln_legend_loc" : "lower right",
+		"profile_evec_legend_loc" : "upper left",
+		"profile_det_eta_label_xy" : [0.5,0.5],
+		"profile_evec_eta_label_xy" : "None",
+		"profile_eval_eta_label_xy" : "None",
+		"profile_cusp_speed_legend_loc" : "None",
+		"profile_cusp_speed_y_limits" : [-10,30]
+	},
+
+	"save": {
+		"figs_path" : ["..","..","Plots"],
+		"figs_format" : ["png"],
+		"figs_options" : {
+			"dpi": 300,
+			"bbox_inches": "tight"
+			}
+	}
+}

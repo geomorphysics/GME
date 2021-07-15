@@ -1,0 +1,22 @@
+{
+	"job": {
+		"title": "Single ray solution on top of time-invariant parameters",
+		"group_name": "OneRaySolutions",
+		"short_name": "oneray"
+	},
+
+	"model": {
+		"varepsilon" : "sy.Rational(1,1000)"
+	},
+
+	"solve": {
+		"t_distribn" : 3
+	},
+
+	"plot": {
+		"ray_n_points" : 51,
+		"ray_y_limits" : [-0.25,0.05],
+		"ray_eta_xy" : [0.15,0.20],
+		"ray_init_xy" : [-0.03,0.33]
+	}
+}

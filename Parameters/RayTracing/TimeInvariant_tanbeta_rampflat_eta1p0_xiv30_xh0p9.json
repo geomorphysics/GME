@@ -1,0 +1,38 @@
+{
+	"job": {
+		"title": "Time-invariant profile solution: ramp-flat, eta=1, tan(beta) model",
+		"group_name": "TimeInvariantSolutions",
+		"short_name": "tis"
+	},
+
+	"model": {
+		"eta" : 1,
+		"beta_type" : "tan",
+		"varphi_type" : "ramp-flat",
+		"x_h" : 0.9,
+		"x_sigma" : 0.009,
+		"xiv_0" : 30,
+		"varphi_0" : 10
+	},
+
+	"solve": {
+		"method": {"Hamilton": "Radau", "geodesic": "LSODA"},
+		"t_end" : 0.0115
+	},
+
+	"plot": {
+		"do_pub_labeling": true,
+		"pub_labels": ["(a)","(a)","(b)"],
+		"do_profile_schematic" : true,
+		"do_ray_conjugacy": true,
+		"do_huygens_wavelets": true,
+		"do_profile_extra": true,
+		"ang_x_limits" : [0,60],
+		"ang_y_limits" : [-10,40],
+		"angdisp_x_limits" : [0,60],
+		"angdisp_y_limits" : [50,90],
+		"ray_acceln_legend_loc" : "upper left",
+		"profile_eval_eta_label_xy" : [0.5,0.5],
+		"profile_evec_eta_label_xy" : [0.5,0.75]
+	}
+}

@@ -1,0 +1,40 @@
+{
+	"job": {
+		"title": "Composite solution: ramp, concave-up, slow",
+		"group_name": "CompositeSolutions",
+		"short_name": "cs"
+	},
+
+	"model": {
+		"beta_type" : "tan",
+		"varphi_type" : "ramp",
+		"ibc_type" : "concave-up",
+		"kappa_h" : "sy.Rational(3,2)",
+		"x_h" : 1,
+		"xiv_0" : 10
+	},
+
+	"solve": {
+		"method": {"Hamilton": "Radau", "geodesic": "LSODA"},
+		"t_end": 0.02,
+		"t_slip_end": 0.05,
+		"do_ip" : true,
+		"do_ic" : true,
+		"do_vb" : true,
+		"ip_res" : 101,
+		"ic_res" : 31,
+		"vb_res" : 101
+	},
+
+	"resolve": {
+		"t_isochrone_max" : "None",
+		"t_isochrone_max_fraction": 1,
+		"tolerance" : 1e-5,
+		"n_isochrones" : 50
+	},
+
+	"plot": {
+		"ray_subsetting": 3,
+		"dimz_limits" : [-0.5,0.57]
+	}
+}

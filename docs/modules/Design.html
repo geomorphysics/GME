@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GME software design &#8212; GME 1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pydoctheme.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
+    
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    
+    <script src="../_static/sidebar.js"></script>
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Dependencies" href="Dependencies.html" />
+    <link rel="prev" title="The Geometric Mechanics of Erosion (GME)" href="../index.html" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <link rel="shortcut icon" type="image/png" href="../_static/favicon.png" />
+    <meta name="viewport" content="width=device-width,initial-scale=0.8">
+    
+    
+
+  </head><body>
+    <!-- <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="responsive-menu"><a href="#sidebar-anchor" title="Navigation">&#9776;</a></li>
+        <li><a href="../index.html">GME 1.0 documentation</a> &#187;</li> 
+      </ul>
+    </div> -->
+    <!-- 
+        <div class="badge">
+            <a href="https://github.com/cstarkjp/GME/">Fork me on GitHub</a>
+            <img src="../_static/right-red@2x.png">
+        </div>
+     -->
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="gme-software-design">
+<h1>GME software design<a class="headerlink" href="#gme-software-design" title="Permalink to this headline">¶</a></h1>
+<p>The GME software is designed around three elements:</p>
+<ol class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">gme</span></code> and <code class="docutils literal notranslate"><span class="pre">gmplib</span></code> Python packages</p></li>
+<li><p>Jupyter/IPython notebooks</p></li>
+<li><p>JSON parameter files</p></li>
+</ol>
+<p>Each of these elements is described in more detail below.</p>
+<div class="section" id="python-packages">
+<h2>1) Python packages<a class="headerlink" href="#python-packages" title="Permalink to this headline">¶</a></h2>
+<p>The main <code class="docutils literal notranslate"><span class="pre">GME</span></code> project package <code class="docutils literal notranslate"><span class="pre">gme</span></code> facilitates the following:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Computer_algebra_system">CAS</a> (aka automated symbolic) solution of the geomorphic Hamiltonian and related equations using SymPy.</p></li>
+<li><p>integration of systems of 1st order ODEs (Hamilton’s equations) for ray tracing</p></li>
+<li><p>post-processing of rays to resolve topographic surface isochrones, knickpoints, eta_choice</p></li>
+<li><p>visualization of rays, isochrones, and a variety of analyses of the results</p></li>
+</ul>
+<p>The counterpart geomorphysics library package <code class="docutils literal notranslate"><span class="pre">gmplib</span></code> provides basic utility functions for graph plotting, JSON parameter file parsing, and file output. It is split from the <code class="docutils literal notranslate"><span class="pre">gme</span></code> package so that it can be used comfortably by other Python-based projects.</p>
+</div>
+<div class="section" id="jupyter-ipython-notebooks">
+<h2>2) Jupyter/IPython notebooks<a class="headerlink" href="#jupyter-ipython-notebooks" title="Permalink to this headline">¶</a></h2>
+<p>Jupyter notebooks are used to organize a sequence of processing and visualization tasks into a single file. The majority of the notebooks load and parse a parameter file (or several), solve the set of GME equations, execute a particular numerical integration (such as the tracing of a single ray), carry out post-processing (such as construction of a time-invariant surface from a single ray), visualize these results, and write the graphics to files.</p>
+<p>Wrapper shell scripts make it possible to do bulk processing of multiple notebook jobs. The notebooks themselves are written in such a way that a sequence of parameter files can be specified externally by one of these shell scripts and passed in turn to the notebook in order to run each job in turn. Currently these wrapper scripts induce the notebook to successively overwrite itself upon completion of each job, but a simple modification would allow each notebook execution to be saved as a separate, appropriately named, file. This would allow in-situ examination of the results of each job.</p>
+</div>
+<div class="section" id="json-parameter-files">
+<h2>3) JSON parameter files<a class="headerlink" href="#json-parameter-files" title="Permalink to this headline">¶</a></h2>
+<p>Each GME processing job is controlled by a small set of JSON parameter files.
+A JSON file is a convenient means of communicating the information required to formulate the full GME equation set (e.g., by specifying eta and mu) and to set up a numerical solution (e.g., by specifying erosion rate parameters, domain size, processing resolution, visualization parameters, etc).  A <code class="docutils literal notranslate"><span class="pre">gmplib</span></code> utility converts the combined JSON files into a Python dictionary containing the desired parameters, and this dictionary is mapped into the data properties of a parameters object (class instance)</p>
+<p>At minimum, a notebook will parse a defaults JSON file and one job JSON file; some notebooks combine several job JSON files.</p>
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+    <a id="sidebar-anchor"></a>
+    
+
+<div id="searchbox" style="display: none" role="search">
+    <a class="biglink" href="../index.html">
+        <img src="../_static/gme_icon.png" />
+    </a>
+  <h3></h3>
+    <form class="search" action="../search.html" method="get">
+      <div class="ui action left icon input">
+        <i class="search icon"></i>
+        <input type="text" name="q" placeholder="Search...">
+        <div class="ui teal button"></div>
+      </div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<!-- <br> -->
+<script type="text/javascript">$('#searchbox').show(0);</script>
+    <!-- <h3><a href="../index.html">This page</a></h3> -->
+    <!-- <ul>
+<li><a class="reference internal" href="#">GME software design</a><ul>
+<li><a class="reference internal" href="#python-packages">1) Python packages</a></li>
+<li><a class="reference internal" href="#jupyter-ipython-notebooks">2) Jupyter/IPython notebooks</a></li>
+<li><a class="reference internal" href="#json-parameter-files">3) JSON parameter files</a></li>
+</ul>
+</li>
+</ul>
+ -->
+    <!-- <p class="biglink"> -->
+        <h3><a href="../genindex.html"> Index</a></h3>
+    <!-- </p> -->
+  <!-- <br> -->
+  <!-- <p class="biglink"><a class="biglink" href="../py-modindex.html">
+         Module index</a>
+  <br><br> --><h3><a href="../index.html">Contents</a></h3>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">  Software design</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#python-packages">1) Python packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#jupyter-ipython-notebooks">2) Jupyter/IPython notebooks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#json-parameter-files">3) JSON parameter files</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Dependencies.html">  Dependencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Installation.html">  Installation and set-up</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Running.html">  Running the notebooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Python.html">  Python package docs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Notebooks.html">  Notebook docs</a></li>
+</ul>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="Dependencies.html" title="Dependencies"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../index.html" title="The Geometric Mechanics of Erosion (GME)"
+             accesskey="P">previous</a> |</li>
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, CPS.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.3.
+    </div>
+  </body>
+</html>

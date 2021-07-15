@@ -1,0 +1,21 @@
+{
+	"job": {
+		"title": "Indicatrix & figuratrix viz, eta=1, tan(beta) xi model",
+		"group_name": "Theory",
+		"short_name": "indicatrix"
+	},
+
+	"model": {
+		"eta" : 1,
+		"beta_type" : "tan",
+		"varphi_type" : "ramp"
+	},
+
+	"plot": {
+		"idtx_logpolar_y_limits" : [-2,2],
+		"idtx_pz_min" : 1e-3,
+		"idtx_pz_max" : 1e2,
+		"fgtx_pz_min" : 1e-3,
+		"fgtx_pz_max" : 1e5
+	}
+}

@@ -1,0 +1,36 @@
+{
+	"job": {
+		"title" : "Variable velocity boundary solution: vertical, ramp, xiv0=15,90",
+		"group_name" : "VariableVelocityBoundarySolutions",
+		"short_name" : "vvbs"
+	},
+
+	"model": {
+		"eta" : "sy.Rational(1,2)",
+		"beta_type" : "tan",
+		"varphi_type" : "ramp",
+		"vb_type" : "vertical",
+		"tp_xiv0_list" : [[0.4,15],[0.5,90]],
+		"t_change" : 0.08
+	},
+
+	"solve": {
+		"t_end" : 0.045,
+		"t_slip_end" : 0.04,
+		"vb_res" : 1001
+	},
+
+	"resolve": {
+		"t_isochrone_max" : 0.045,
+		"tolerance" : 1e-5,
+		"n_isochrones" : 500
+	},
+
+	"plot": {
+		"ray_subsetting" : 20,
+		"isochrone_subsetting" : 5,
+		"dimz_limits" : [-0.6,0.01],
+		"dimx_limits_zoom" : [0.2,0.3],
+		"dimz_limits_zoom" : [-0.31,-0.29]
+	}
+}

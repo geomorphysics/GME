@@ -1,0 +1,34 @@
+{
+	"job": {
+		"title": "Initial profile solution: ramp, concave-up, sin(beta) xi model",
+		"group_name": "InitialProfileSolutions",
+		"short_name": "ips"
+	},
+
+	"model": {
+		"eta" : "sy.Rational(1,1)",
+		"beta_type" : "sin",
+		"varphi_type" : "ramp",
+		"ibc_type" : "concave-up",
+		"kappa_h" : "sy.Rational(3,2)",
+		"x_h" : 1
+	},
+
+	"solve": {
+		"method": {"Hamilton": "RK45", "geodesic": "LSODA"},
+		"t_end": 0.02,
+		"ip_res" : 101
+	},
+
+	"resolve": {
+		"t_isochrone_max" : 0.015,
+		"tolerance" : 1e-5,
+		"n_isochrones" : 200
+	},
+
+	"plot": {
+		"ray_subsetting": 5,
+		"isochrone_subsetting" : 5,
+		"dimz_limits" : [-0.01,0.55]
+	}
+}

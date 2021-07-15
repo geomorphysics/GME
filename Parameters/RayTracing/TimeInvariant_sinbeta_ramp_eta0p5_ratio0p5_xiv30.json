@@ -1,0 +1,63 @@
+{
+	"job": {
+		"title": "Time-invariant profile solution: ramp, eta=1/2, sin(beta) model",
+		"group_name": "TimeInvariantSolutions",
+		"short_name": "tis"
+	},
+
+	"model": {
+		"eta" : "sy.Rational(1,2)",
+		"beta_type" : "sin",
+		"varphi_type" : "ramp",
+		"xiv_0" : 30,
+		"mu" : "sy.Rational(1,4)"
+	},
+
+	"solve": {
+		"t_end" : 0.02,
+		"method" : {"Hamilton": "DOP853", "geodesic": "LSODA"}
+	},
+
+	"plot": {
+		"do_pub_labeling": true,
+		"pub_labels": {
+			"profile_vdot": "",
+			"profile_v": "",
+			"profile_vxz": "(c)",
+			"profile_xi": "(a)",
+			"profile_xihorizontal": "",
+			"profile_xivertical": "(d)",
+			"profile_aniso": "(b)",
+			"profile_beta": "(b)",
+			"profile_h_rays": "(b)",
+			"profile_h_ray": "(c)",
+			"alpha_beta": "(b)",
+			"angular_disparity": "(b)",
+			"profile_angular_disparity": "(b)"
+		},
+		"pub_label_posns": {
+			"profile_vdot": "None",
+			"profile_v": "None",
+			"profile_vxz": "None",
+			"profile_xi": "None",
+			"profile_xihorizontal": "None",
+			"profile_xivertical": "None",
+			"profile_aniso": "None",
+			"profile_beta": [0.93,0.2],
+			"profile_h_rays": [0.93,0.9],
+			"profile_h_ray": [0.85,0.7],
+			"alpha_beta": [0.88,0.3],
+			"angular_disparity": [0.15,0.15],
+			"profile_angular_disparity": [0.6,0.35]
+		},
+		"do_profile_extra": false,
+		"ray_y_limits" : [-0.02,0.3],
+		"ang_x_limits" : [0,90],
+		"ang_y_limits" : [-30,10],
+		"angdisp_x_limits" : [0,90],
+		"angdisp_y_limits" : [0,90],
+		"ray_acceln_legend_loc" : "upper left",
+		"profile_evec_legend_loc" : "lower left",
+		"profile_evec_eta_label_xy" : [0.5,0.25]
+	}
+}

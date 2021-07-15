@@ -1,0 +1,33 @@
+{
+	"job": {
+		"title": "Initial profile solution: ramp, concave-up, tan(beta) xi model",
+		"group_name": "InitialProfileSolutions",
+		"short_name": "ips"
+	},
+
+	"model": {
+		"eta" : "sy.Rational(1,2)",
+		"beta_type" : "tan",
+		"varphi_type" : "ramp",
+		"ibc_type" : "concave-up",
+		"kappa_h" : "sy.Rational(3,2)",
+		"x_h" : 1
+	},
+
+	"solve": {
+		"t_end": 0.02,
+		"ip_res" : 101
+	},
+
+	"resolve": {
+		"t_isochrone_max" : 0.007,
+		"tolerance" : 1e-5,
+		"n_isochrones" : 200
+	},
+
+	"plot": {
+		"ray_subsetting": 5,
+		"isochrone_subsetting" : 5,
+		"dimz_limits" : [-0.18,0.55]
+	}
+}

@@ -1,0 +1,22 @@
+{
+	"job": {
+		"title": "Indicatrix & figuratrix viz, eta=3/2, sin(beta) xi model",
+		"group_name": "Theory",
+		"short_name": "indicatrix"
+	},
+
+	"model": {
+		"eta" : "sy.Rational(3,2)",
+		"beta_type" : "sin",
+		"varphi_type" : "ramp"
+	},
+
+	"plot": {
+		"idtx_logpolar_y_limits" : [-2,1],
+		"idtx_pz_min" : 1e-1,
+		"idtx_pz_max" : 1e7,
+		"fgtx_pz_min" : 1e-1,
+		"fgtx_pz_max" : 100,
+		"idtx_varphi_list" : [1, 1.3, 2, 3]
+	}
+}

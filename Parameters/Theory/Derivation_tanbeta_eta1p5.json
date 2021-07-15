@@ -1,0 +1,14 @@
+{
+	"job": {
+		"title": "Derivation of GME equations for tan(beta) erosion model, eta=3/2",
+		"group_name": "Theory",
+		"short_name": "derivation"
+	},
+
+	"model": {
+		"eta" : "sy.Rational(3,2)",
+		"beta_type" : "tan",
+		"varphi_type" : "ramp",
+		"xiv_0" : 30
+	}
+}

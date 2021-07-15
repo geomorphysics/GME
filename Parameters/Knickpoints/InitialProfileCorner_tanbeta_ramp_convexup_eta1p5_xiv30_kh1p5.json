@@ -1,0 +1,38 @@
+{
+	"job": {
+		"title" : "Initial profile-corner combo solution: ramp, convex-up, fast",
+		"group_name" : "InitialProfileCornerSolutions",
+		"short_name" : "ipcs"
+	},
+
+	"model": {
+		"eta" : "sy.Rational(3,2)",
+		"beta_type" : "tan",
+		"varphi_type" : "ramp",
+		"ibc_type" : "convex-up",
+		"kappa_h" : "sy.Rational(3,2)",
+		"x_h" : 1,
+		"xiv_0" : 30
+	},
+
+	"solve": {
+		"method": {"Hamilton": "DOP853", "geodesic": "LSODA"},
+		"t_end": 0.01,
+		"do_ip" : true,
+		"do_ic" : true,
+		"ip_res" : 101,
+		"ic_res" : 51
+	},
+
+	"resolve": {
+		"t_isochrone_max" : 0.01,
+		"tolerance" : 1e-5,
+		"n_isochrones" : 300
+	},
+
+	"plot": {
+		"ray_subsetting" : 3,
+		"isochrone_subsetting" : 5,
+		"dimz_limits" : [-0.01,0.6]
+	}
+}

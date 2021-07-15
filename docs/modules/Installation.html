@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Installation and set-up &#8212; GME 1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pydoctheme.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
+    
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    
+    <script src="../_static/sidebar.js"></script>
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Running GME notebooks" href="Running.html" />
+    <link rel="prev" title="Dependencies" href="Dependencies.html" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <link rel="shortcut icon" type="image/png" href="../_static/favicon.png" />
+    <meta name="viewport" content="width=device-width,initial-scale=0.8">
+    
+    
+
+  </head><body>
+    <!-- <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="responsive-menu"><a href="#sidebar-anchor" title="Navigation">&#9776;</a></li>
+        <li><a href="../index.html">GME 1.0 documentation</a> &#187;</li> 
+      </ul>
+    </div> -->
+    <!-- 
+        <div class="badge">
+            <a href="https://github.com/cstarkjp/GME/">Fork me on GitHub</a>
+            <img src="../_static/right-red@2x.png">
+        </div>
+     -->
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="installation-and-set-up">
+<h1>Installation and set-up<a class="headerlink" href="#installation-and-set-up" title="Permalink to this headline">¶</a></h1>
+<p>The notes here are written for MacOS users, but will likely work with little to no modification on Linux.</p>
+<p>Steps:</p>
+<ol>
+<li><p>The best way to ensure a robust installation and runtime environment is to create a virtual environment and use it to install a fresh version of Python and the rest from scratch. While this sounds onerous, it can often be a time saver in the long run.</p></li>
+<li><p>Using <code class="docutils literal notranslate"><span class="pre">pip</span></code>, make sure all the Python, IPython and Jupyter
+<a class="reference internal" href="Dependencies.html"><span class="doc">dependencies</span></a>  are met.</p></li>
+<li><p>Choose a parent directory for both <code class="docutils literal notranslate"><span class="pre">GMPLib</span></code> and <code class="docutils literal notranslate"><span class="pre">GME</span></code> and enter that directory. Here we will assume this directory is located in <code class="docutils literal notranslate"><span class="pre">${HOME}/Projects</span></code></p></li>
+<li><p>Clone both of the repositories into this directory:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">cstarkjp</span><span class="o">/</span><span class="n">GMPLib</span><span class="o">.</span><span class="n">git</span>
+<span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">cstarkjp</span><span class="o">/</span><span class="n">GME</span><span class="o">.</span><span class="n">git</span>
+</pre></div>
+</div>
+</li>
+<li><p>Add the following environment variables to your <code class="docutils literal notranslate"><span class="pre">.bash_profile</span></code> or equivalent, modifying to match your choice of parent directory location:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">export</span> <span class="n">GMPLHOME</span><span class="o">=</span><span class="s2">&quot;$</span><span class="si">{HOME}</span><span class="s2">/Projects/GMPLib&quot;</span>
+<span class="n">export</span> <span class="n">GMEHOME</span><span class="o">=</span><span class="s2">&quot;$</span><span class="si">{HOME}</span><span class="s2">/Projects/GME&quot;</span>
+<span class="n">export</span> <span class="n">PATH</span><span class="o">=</span><span class="s2">&quot;$</span><span class="si">{PATH}</span><span class="s2">:$</span><span class="si">{GMPLHOME}</span><span class="s2">/Packages/gmplib:$</span><span class="si">{GMEHOME}</span><span class="s2">/Packages/gme&quot;</span>
+<span class="n">export</span> <span class="n">PYTHONPATH</span><span class="o">=</span><span class="s2">&quot;$</span><span class="si">{PYTHONPATH}</span><span class="s2">:$</span><span class="si">{GMPLHOME}</span><span class="s2">/Packages:$</span><span class="si">{GMEHOME}</span><span class="s2">/Packages&quot;</span>
+</pre></div>
+</div>
+<p>To enact these additions, either source this amended file or launch a new shell.</p>
+</li>
+</ol>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+    <a id="sidebar-anchor"></a>
+    
+
+<div id="searchbox" style="display: none" role="search">
+    <a class="biglink" href="../index.html">
+        <img src="../_static/gme_icon.png" />
+    </a>
+  <h3></h3>
+    <form class="search" action="../search.html" method="get">
+      <div class="ui action left icon input">
+        <i class="search icon"></i>
+        <input type="text" name="q" placeholder="Search...">
+        <div class="ui teal button"></div>
+      </div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<!-- <br> -->
+<script type="text/javascript">$('#searchbox').show(0);</script><h3><a href="../index.html">Contents</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Design.html">  Software design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Dependencies.html">  Dependencies</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">  Installation and set-up</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Running.html">  Running the notebooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Python.html">  Python package docs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Notebooks.html">  Notebook docs</a></li>
+</ul>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="Running.html" title="Running GME notebooks"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="Dependencies.html" title="Dependencies"
+             accesskey="P">previous</a> |</li>
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, CPS.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.3.
+    </div>
+  </body>
+</html>

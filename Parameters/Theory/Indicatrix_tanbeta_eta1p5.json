@@ -1,0 +1,13 @@
+{
+	"job": {
+		"title": "Indicatrix & figuratrix viz, eta=3/2, tan(beta) xi model",
+		"group_name": "Theory",
+		"short_name": "indicatrix"
+	},
+
+	"model": {
+		"eta" : "sy.Rational(3,2)",
+		"beta_type" : "tan",
+		"varphi_type" : "ramp"
+	}
+}

@@ -1,0 +1,6 @@
+{
+	"solve": {
+		"choice" : "Hamilton",
+		"method": {"Hamilton": "RK45", "geodesic": "LSODA"}
+	}
+}

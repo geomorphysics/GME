@@ -1,0 +1,32 @@
+{
+	"job": {
+		"title": "Initial corner solution: ramp, convex-up, fast, tan(beta) xi model",
+		"group_name": "InitialCornerSolutions",
+		"short_name": "ics"
+	},
+
+	"model": {
+		"eta" : "sy.Rational(1,2)",
+		"beta_type" : "tan",
+		"varphi_type" : "ramp",
+		"ibc_type" : "convex-up",
+		"xiv_0" : 30
+	},
+
+	"solve": {
+		"t_end": 0.01,
+		"ip_res" : 101
+	},
+
+	"resolve": {
+		"t_isochrone_max" : 0.01,
+		"tolerance" : 1e-5,
+		"n_isochrones" : 300
+	},
+
+	"plot": {
+		"ray_subsetting": 5,
+		"isochrone_subsetting" : 5,
+		"dimz_limits" : [-0.15,0.5]
+	}
+}

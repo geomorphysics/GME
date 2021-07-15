@@ -1,0 +1,28 @@
+{#
+    basic/searchbox.html
+    ~~~~~~~~~~~~~~~~~~~~
+
+    Sphinx sidebar template: quick search box.
+
+    :copyright: Copyright 2007-2017 by the Sphinx team, see AUTHORS.
+    :license: BSD, see LICENSE for details.
+#}
+{%- if pagename != "search" and builder != "singlehtml" %}
+<div id="searchbox" style="display: none" role="search">
+    <a class="biglink" href="{{ pathto(master_doc) }}">
+        <img src="{{ pathto('_static/gme_icon.png', 1) }}" />
+    </a>
+  <h3>{{ _('') }}</h3>
+    <form class="search" action="{{ pathto('search') }}" method="get">
+      <div class="ui action left icon input">
+        <i class="search icon"></i>
+        <input type="text" name="q" placeholder="Search...">
+        <div class="ui teal button"></div>
+      </div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<!-- <br> -->
+<script type="text/javascript">$('#searchbox').show(0);</script>
+{%- endif %}

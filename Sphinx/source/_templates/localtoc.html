@@ -1,0 +1,20 @@
+{#
+    basic/localtoc.html
+    ~~~~~~~~~~~~~~~~~~~
+
+    Sphinx sidebar template: local table of contents.
+
+    :copyright: Copyright 2007-2017 by the Sphinx team, see AUTHORS.
+    :license: BSD, see LICENSE for details.
+#}
+{%- if display_toc %}
+    <!-- <h3><a href="{{ pathto(master_doc) }}">{{ _('This page') }}</a></h3> -->
+    <!-- {{ toc }} -->
+    <!-- <p class="biglink"> -->
+        <h3><a href="{{ pathto("genindex") }}"> {{ _('Index') }}</a></h3>
+    <!-- </p> -->
+  <!-- <br> -->
+  <!-- <p class="biglink"><a class="biglink" href="{{ pathto("py-modindex") }}">
+         {{ _('Module index') }}</a>
+  <br><br> -->
+{%- endif %}
