@@ -1,6 +1,9 @@
 # The Geometric Mechanics of Erosion (GME)
 
-[![Zenodo Badge](https://zenodo.org/badge/TBD/cstarkjp/gme.svg)](https://zenodo.org/badge/latestdoi/TBD/cstarkjp/gme)
+
+[![DOI](https://zenodo.org/badge/386205725.svg)](https://zenodo.org/badge/latestdoi/386205725)
+
+
 
   * [Introduction](Summary.md) to GME theory
   * GME software
