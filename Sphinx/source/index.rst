@@ -1,6 +1,6 @@
------------------------------------------------------------
+------------------------------------------------------------
 The Geometric Mechanics of Erosion (GME)
------------------------------------------------------------
+------------------------------------------------------------
 
 *Exploring how landscapes evolve using the tools of classical mechanics and differential geometry*
 
