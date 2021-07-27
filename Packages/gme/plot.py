@@ -1692,8 +1692,8 @@ class TimeDependentPlots(Graphing):
                                                                    reversed(gmes.rpt_arrays['rz']),
                                                                    reversed(gmes.rpt_arrays['t']))):
                 if (i_ray//ray_subsetting-i_ray/ray_subsetting)==0:
-                    this_ray_label=(ray_label+' ($t_{\mathrm{newest}}$)' if i_ray==0 else
-                                    ray_label+' ($t_{\mathrm{oldest}}$)' if i_ray==n_rays-1 else
+                    this_ray_label=(ray_label+' ($t_{\mathrm{oldest}}$)' if i_ray==0 else
+                                    ray_label+' ($t_{\mathrm{newest}}$)' if i_ray==n_rays-1 else
                                     None)
                     if do_annotate_rays:
                         self.arrow_annotate_ray_custom(rx_array, rz_array, axes, sub, i_ray, ray_subsetting, n_rays,

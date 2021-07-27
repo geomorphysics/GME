@@ -555,7 +555,13 @@ class Equations:
         self.tanbeta_alpha_eqn = Eq(tan(beta), simplify([soln for soln in solns
             if sy.im(soln.subs(ta,0).subs(eta_sub))==0 or sy.im(soln.subs(ta,0.01).subs(eta_sub))==0 or sy.im(soln.subs(ta,1).subs(eta_sub))==0
                                     ][0])).subs({ta:tan(alpha)})
-
+        self.tanbeta_alpha_eqns = [Eq(tan(beta), soln.subs({ta:tan(alpha)})) for soln in solns]
+        self.tanalpha_crit_eqns = [Eq(tan(alpha_crit),soln) for soln in solve(Eq(-numer((self.tanbeta_alpha_eqns[0]).rhs)+(eta-1),0),tan(alpha))]
+        self.tanalpha_crit_eqn = self.tanalpha_crit_eqns[0] if self.eta<1 else self.tanalpha_crit_eqns[1]
+        self.tanbeta_crit_eqns = [factor(tanbeta_alpha_eqn_.subs({beta:beta_crit,alpha:alpha_crit}).subs(e2d(tanalpha_crit_eqn_)))
+                                        for tanalpha_crit_eqn_,tanbeta_alpha_eqn_
+                                        in zip(self.tanalpha_crit_eqns, self.tanbeta_alpha_eqns)]
+        self.tanbeta_crit_eqn = self.tanbeta_crit_eqns[0] if self.eta<1 else self.tanbeta_crit_eqns[1]
 
     def define_g_eqns(self):
         r"""

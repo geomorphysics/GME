@@ -1,0 +1,19 @@
+{
+	"job": {
+		"title": "Exploration of metric space for sin(beta) erosion model, eta=3/2",
+		"group_name": "Theory",
+		"short_name": "metricspace"
+	},
+
+	"model": {
+		"eta" : "sy.Rational(3,2)",
+		"mu" : "sy.Rational(3,4)",
+		"beta_type" : "sin",
+		"varphi_type" : "ramp",
+		"varphi_0" : 20,
+		"xiv_0" : 30
+	},
+
+	"plot": {
+	}
+}

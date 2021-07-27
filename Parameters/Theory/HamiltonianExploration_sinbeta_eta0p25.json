@@ -1,0 +1,24 @@
+{
+	"job": {
+		"title": "Exploration of Hamiltonian for sin(beta) erosion model, eta=1/4",
+		"group_name": "Theory",
+		"short_name": "hamiltonian"
+	},
+
+	"model": {
+		"eta" : "sy.Rational(1,4)",
+		"mu" : "sy.Rational(1,2)",
+		"beta_type" : "sin",
+		"varphi_type" : "ramp",
+		"varepsilon" : "sy.Rational(1,1000)",
+		"xiv_0" : 1000
+	},
+
+	"plot": {
+		"px_min" : 0.00325,
+		"px_max" : 0.05,
+		"n_rx_pts" : 501,
+		"n_px_pts" : 401,
+		"n_levels" : 15
+	}
+}
