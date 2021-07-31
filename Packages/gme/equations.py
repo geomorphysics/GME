@@ -525,6 +525,8 @@ class Equations:
             tanbeta_alpha_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
                 :math:`\tan{\left(\beta \right)} \
                 = \dfrac{\eta - \sqrt{\eta^{2} - 4 \eta \tan^{2}{\left(\alpha \right)} - 2 \eta + 1} - 1}{2 \tan{\left(\alpha \right)}}`
+
+        TODO: update attributes
         """
         eta_sub = {eta: self.eta}
         #TODO: this is a stationary point, not a min, so change name to minmax
@@ -552,16 +554,21 @@ class Equations:
             return
         solns = sy.solve(self.tanalpha_beta_eqn.subs({tan(alpha):ta}),tan(beta))
         # # We get multiple roots for tan(beta), so guess which is real by evaluating it at an fairly arbitrary tan(alpha)
-        self.tanbeta_alpha_eqn = Eq(tan(beta), simplify([soln for soln in solns
-            if sy.im(soln.subs(ta,0).subs(eta_sub))==0 or sy.im(soln.subs(ta,0.01).subs(eta_sub))==0 or sy.im(soln.subs(ta,1).subs(eta_sub))==0
-                                    ][0])).subs({ta:tan(alpha)})
+        # self.tanbeta_alpha_eqn = Eq(tan(beta), simplify([soln for soln in solns
+        #     if sy.im(soln.subs(ta,0).subs(eta_sub))==0 or sy.im(soln.subs(ta,0.01).subs(eta_sub))==0 or sy.im(soln.subs(ta,1).subs(eta_sub))==0
+        #                             ][0])).subs({ta:tan(alpha)})
         self.tanbeta_alpha_eqns = [Eq(tan(beta), soln.subs({ta:tan(alpha)})) for soln in solns]
-        self.tanalpha_crit_eqns = [Eq(tan(alpha_crit),soln) for soln in solve(Eq(-numer((self.tanbeta_alpha_eqns[0]).rhs)+(eta-1),0),tan(alpha))]
+        # Bit of a hack - extracts the square root term in tan(beta) as a fn of tan(alpha), which then gives the critical alpha
+        root_terms = [([arg_ for arg__ in arg_.args if type(arg__)==sy.core.power.Pow or type(arg_)==sy.core.power.Pow])
+                        for arg_ in numer(self.tanbeta_alpha_eqns[0].rhs).args
+                        if type(arg_)==sy.core.mul.Mul or type(arg_)==sy.core.power.Pow]
+        self.tanalpha_crit_eqns = [Eq(tan(alpha_crit),soln) for soln in solve(Eq(root_terms[0][0],0),tan(alpha)) ]
         self.tanalpha_crit_eqn = self.tanalpha_crit_eqns[0] if self.eta<1 else self.tanalpha_crit_eqns[1]
         self.tanbeta_crit_eqns = [factor(tanbeta_alpha_eqn_.subs({beta:beta_crit,alpha:alpha_crit}).subs(e2d(tanalpha_crit_eqn_)))
                                         for tanalpha_crit_eqn_,tanbeta_alpha_eqn_
                                         in zip(self.tanalpha_crit_eqns, self.tanbeta_alpha_eqns)]
         self.tanbeta_crit_eqn = self.tanbeta_crit_eqns[0] if self.eta<1 else self.tanbeta_crit_eqns[1]
+        return self.tanbeta_alpha_eqns[0]
 
     def define_g_eqns(self):
         r"""
