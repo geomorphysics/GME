@@ -42,7 +42,7 @@ from sympy import Eq, S, Rational, Reals, N, \
                     simplify, trigsimp, factor, expand, lambdify, collect, \
                     solve, solveset, diff, Matrix, det, \
                     exp, tan, atan, sin, cos, Abs, sign, log, re, im, \
-                    integrate, derive_by_array, poly
+                    integrate, derive_by_array, poly, Piecewise
 from functools import reduce
 
 __all__ = ['Equations']
@@ -508,67 +508,53 @@ class Equations:
                                     .subs({self.rdotz_on_rdotx_eqn.lhs:self.rdotz_on_rdotx_tanbeta_eqn.rhs})
 
 
-    def define_tanbeta_eqns(self, do_find_extrema=True):
+    def define_tanbeta_eqns(self):
         r"""
         Define equations for surface tilt angle :math:`\beta)`
 
-        Args:
-            do_find_extrema (bool) :
-                find extremal values for :math:`\alpha`, and then find the corresponding value of :math:`\beta` at each extremum
-
-
         Attributes:
-            beta_at_alpha_extremum_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
-                :math:`\beta_{\text{extremum}\{\alpha\}} = \operatorname{atan}{\left(\sqrt{\eta} \right)}`
-            beta_at_alpha_extremum_numerical_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
-                :math:`\beta_{\text{extremum}\{\alpha\}} = 0.886077123792614`
+            tanbeta_alpha_eqns   (list of :class:`sympy.Eq <sympy.core.relational.Equality>`) :
+                :math:`\left[ \tan{\left(\beta \right)} \
+                = \dfrac{\eta - \sqrt{\eta^{2} - 4 \eta \tan^{2}{\left(\alpha \right)} - 2 \eta + 1} - 1}{2 \tan{\left(\alpha \right)}},
+                \tan{\left(\beta \right)} = \dfrac{\eta + \sqrt{\eta^{2} - 4 \eta \tan^{2}{\left(\alpha \right)} - 2 \eta + 1} - 1}{2 \tan{\left(\alpha \right)}}\right]`
             tanbeta_alpha_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
-                :math:`\tan{\left(\beta \right)} \
+                :math:`\tan{\left(\beta \right)}
                 = \dfrac{\eta - \sqrt{\eta^{2} - 4 \eta \tan^{2}{\left(\alpha \right)} - 2 \eta + 1} - 1}{2 \tan{\left(\alpha \right)}}`
-
-        TODO: update attributes
+            tanalpha_crit_eqns   (list of :class:`sympy.Eq <sympy.core.relational.Equality>`) :
+                :math:`\left[ \tan{\left(\alpha_c \right)} = - \frac{\sqrt{\eta - 2 + \frac{1}{\eta}}}{2},
+                \tan{\left(\alpha_c \right)} = \frac{\sqrt{\eta - 2 + \frac{1}{\eta}}}{2}\right]`
+            tanalpha_crit_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
+                :math:`\tan{\left(\alpha_c \right)} = \dfrac{\eta - 1}{2 \sqrt{\eta}}`
+            tanbeta_crit_eqns   (list of :class:`sympy.Eq <sympy.core.relational.Equality>`) :
+                :math:`\left[ \tan{\left(\beta_c \right)} = - \dfrac{\eta - 1}{\sqrt{\eta - 2 + \frac{1}{\eta}}},
+                \tan{\left(\beta_c \right)} = \dfrac{\eta - 1}{\sqrt{\eta - 2 + \frac{1}{\eta}}}\right]`
+            tanbeta_crit_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
+                :math:`\tan{\left(\beta_c \right)} = \sqrt{\eta}`
         """
-        eta_sub = {eta: self.eta}
-        #TODO: this is a stationary point, not a min, so change name to minmax
-        self.beta_at_alpha_extremum_eqn = None
-        self.beta_at_alpha_extremum_numerical_eqn = None
-        self.tanbeta_alpha_eqn = None
 
-        if do_find_extrema:
-            alpha_extrema = [simplify(soln) for soln in solve( Eq(diff(self.tanalpha_beta_eqn.rhs, beta),0), beta )]
-            alpha_extrema_real_positive = [extremum for extremum in alpha_extrema
-                                                if sy.im(extremum.subs(eta_sub))==0 and extremum.subs(eta_sub)>0]
-            if alpha_extrema_real_positive != []:
-                self.beta_at_alpha_extremum_eqn = Eq(beta_at_alpha_extremum, alpha_extrema_real_positive[0])
-                self.beta_at_alpha_extremum_numerical_eqn = Eq(beta_at_alpha_extremum, (float(sy.N(self.beta_at_alpha_extremum_eqn.rhs.subs(eta_sub)))))
-            elif alpha_extrema != []:
-                self.beta_at_alpha_extremum_eqn = Eq(beta_at_alpha_extremum,alpha_extrema[0])
-                self.beta_at_alpha_extremum_numerical_eqn = Eq(beta_at_alpha_extremum, sy.N(alpha_extrema[0].subs(eta_sub)))
-                print('Warning: real positive root for beta not found')
-            else:
-                self.beta_at_alpha_extremum_eqn = Eq(beta_at_alpha_extremum,0)
-                self.beta_at_alpha_extremum_numerical_eqn = Eq(beta_at_alpha_extremum.subs(eta_sub), 0)
+        eta_sub = {eta: self.eta}
 
         if self.eta==1 and self.beta_type=='sin':
             print(r'Cannot compute all $\beta$ equations for $\sin\beta$ model and $\eta=1$')
             return
         solns = sy.solve(self.tanalpha_beta_eqn.subs({tan(alpha):ta}),tan(beta))
-        # # We get multiple roots for tan(beta), so guess which is real by evaluating it at an fairly arbitrary tan(alpha)
-        # self.tanbeta_alpha_eqn = Eq(tan(beta), simplify([soln for soln in solns
-        #     if sy.im(soln.subs(ta,0).subs(eta_sub))==0 or sy.im(soln.subs(ta,0.01).subs(eta_sub))==0 or sy.im(soln.subs(ta,1).subs(eta_sub))==0
-        #                             ][0])).subs({ta:tan(alpha)})
         self.tanbeta_alpha_eqns = [Eq(tan(beta), soln.subs({ta:tan(alpha)})) for soln in solns]
         # Bit of a hack - extracts the square root term in tan(beta) as a fn of tan(alpha), which then gives the critical alpha
         root_terms = [([arg_ for arg__ in arg_.args if type(arg__)==sy.core.power.Pow or type(arg_)==sy.core.power.Pow])
                         for arg_ in numer(self.tanbeta_alpha_eqns[0].rhs).args
                         if type(arg_)==sy.core.mul.Mul or type(arg_)==sy.core.power.Pow]
         self.tanalpha_crit_eqns = [Eq(tan(alpha_crit),soln) for soln in solve(Eq(root_terms[0][0],0),tan(alpha)) ]
-        self.tanalpha_crit_eqn = self.tanalpha_crit_eqns[0] if self.eta<1 else self.tanalpha_crit_eqns[1]
+
+        tac_lt1 = simplify((factor(simplify(self.tanalpha_crit_eqns[0].rhs*sqrt(eta)))/sqrt(eta)).subs({Abs(eta-1):1-eta}))
+        tac_gt1 = simplify((factor(simplify(self.tanalpha_crit_eqns[1].rhs*sqrt(eta)))/sqrt(eta)).subs({Abs(eta-1):eta-1}))
+        self.tanalpha_crit_eqn = Eq( tan(alpha_crit), Piecewise( (tac_lt1, eta<1), (tac_gt1, True)) )
+
         self.tanbeta_crit_eqns = [factor(tanbeta_alpha_eqn_.subs({beta:beta_crit,alpha:alpha_crit}).subs(e2d(tanalpha_crit_eqn_)))
                                         for tanalpha_crit_eqn_,tanbeta_alpha_eqn_
                                         in zip(self.tanalpha_crit_eqns, self.tanbeta_alpha_eqns)]
-        self.tanbeta_crit_eqn = self.tanbeta_crit_eqns[0] if self.eta<1 else self.tanbeta_crit_eqns[1]
-        return self.tanbeta_alpha_eqns[0]
+        # This is a hack, because SymPy simplify can't handle it
+        self.tanbeta_crit_eqn = Eq(tan(beta_crit), sqrt(simplify( (self.tanbeta_crit_eqns[0].rhs)**2 )))
+
 
     def define_g_eqns(self):
         r"""

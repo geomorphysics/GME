@@ -891,31 +891,17 @@ domain=\mathbb{Z}\left[\varphi{\left(\mathbf{r} \right)}, \xi^{\downarrow}\right
 
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.equations.Equations.define_tanbeta_eqns">
-<span class="sig-name descname"><span class="pre">define_tanbeta_eqns</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">do_find_extrema</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gme.equations.Equations.define_tanbeta_eqns" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">define_tanbeta_eqns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gme.equations.Equations.define_tanbeta_eqns" title="Permalink to this definition">¶</a></dt>
 <dd><p>Define equations for surface tilt angle <span class="math notranslate nohighlight">\(\beta)\)</span></p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>do_find_extrema</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – find extremal values for <span class="math notranslate nohighlight">\(\alpha\)</span>, and then find the corresponding value of <span class="math notranslate nohighlight">\(\beta\)</span> at each extremum</p>
-</dd>
-</dl>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="gme.equations.Equations.beta_at_alpha_extremum_eqn">
-<span class="sig-name descname"><span class="pre">beta_at_alpha_extremum_eqn</span></span><a class="headerlink" href="#gme.equations.Equations.beta_at_alpha_extremum_eqn" title="Permalink to this definition">¶</a></dt>
-<dd><p><span class="math notranslate nohighlight">\(\beta_{\text{extremum}\{\alpha\}} = \operatorname{atan}{\left(\sqrt{\eta} \right)}\)</span></p>
+<dt class="sig sig-object py" id="gme.equations.Equations.tanbeta_alpha_eqns">
+<span class="sig-name descname"><span class="pre">tanbeta_alpha_eqns</span></span><a class="headerlink" href="#gme.equations.Equations.tanbeta_alpha_eqns" title="Permalink to this definition">¶</a></dt>
+<dd><p><span class="math notranslate nohighlight">\(\left[ \tan{\left(\beta \right)} \
+= \dfrac{\eta - \sqrt{\eta^{2} - 4 \eta \tan^{2}{\left(\alpha \right)} - 2 \eta + 1} - 1}{2 \tan{\left(\alpha \right)}},
+\tan{\left(\beta \right)} = \dfrac{\eta + \sqrt{\eta^{2} - 4 \eta \tan^{2}{\left(\alpha \right)} - 2 \eta + 1} - 1}{2 \tan{\left(\alpha \right)}}\right]\)</span></p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.sympy.org/latest/modules/core.html#sympy.core.relational.Equality" title="(in SymPy v1.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">sympy.Eq</span></code></a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="gme.equations.Equations.beta_at_alpha_extremum_numerical_eqn">
-<span class="sig-name descname"><span class="pre">beta_at_alpha_extremum_numerical_eqn</span></span><a class="headerlink" href="#gme.equations.Equations.beta_at_alpha_extremum_numerical_eqn" title="Permalink to this definition">¶</a></dt>
-<dd><p><span class="math notranslate nohighlight">\(\beta_{\text{extremum}\{\alpha\}} = 0.886077123792614\)</span></p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.sympy.org/latest/modules/core.html#sympy.core.relational.Equality" title="(in SymPy v1.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">sympy.Eq</span></code></a></p>
+<dd class="field-odd"><p>list of <a class="reference external" href="https://docs.sympy.org/latest/modules/core.html#sympy.core.relational.Equality" title="(in SymPy v1.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">sympy.Eq</span></code></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -923,7 +909,7 @@ domain=\mathbb{Z}\left[\varphi{\left(\mathbf{r} \right)}, \xi^{\downarrow}\right
 <dl class="py attribute">
 <dt class="sig sig-object py" id="gme.equations.Equations.tanbeta_alpha_eqn">
 <span class="sig-name descname"><span class="pre">tanbeta_alpha_eqn</span></span><a class="headerlink" href="#gme.equations.Equations.tanbeta_alpha_eqn" title="Permalink to this definition">¶</a></dt>
-<dd><p><span class="math notranslate nohighlight">\(\tan{\left(\beta \right)} \
+<dd><p><span class="math notranslate nohighlight">\(\tan{\left(\beta \right)}
 = \dfrac{\eta - \sqrt{\eta^{2} - 4 \eta \tan^{2}{\left(\alpha \right)} - 2 \eta + 1} - 1}{2 \tan{\left(\alpha \right)}}\)</span></p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -932,7 +918,52 @@ domain=\mathbb{Z}\left[\varphi{\left(\mathbf{r} \right)}, \xi^{\downarrow}\right
 </dl>
 </dd></dl>
 
-<p>TODO: update attributes</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gme.equations.Equations.tanalpha_crit_eqns">
+<span class="sig-name descname"><span class="pre">tanalpha_crit_eqns</span></span><a class="headerlink" href="#gme.equations.Equations.tanalpha_crit_eqns" title="Permalink to this definition">¶</a></dt>
+<dd><p><span class="math notranslate nohighlight">\(\left[ \tan{\left(\alpha_c \right)} = - \frac{\sqrt{\eta - 2 + \frac{1}{\eta}}}{2},
+\tan{\left(\alpha_c \right)} = \frac{\sqrt{\eta - 2 + \frac{1}{\eta}}}{2}\right]\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>list of <a class="reference external" href="https://docs.sympy.org/latest/modules/core.html#sympy.core.relational.Equality" title="(in SymPy v1.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">sympy.Eq</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gme.equations.Equations.tanalpha_crit_eqn">
+<span class="sig-name descname"><span class="pre">tanalpha_crit_eqn</span></span><a class="headerlink" href="#gme.equations.Equations.tanalpha_crit_eqn" title="Permalink to this definition">¶</a></dt>
+<dd><p><span class="math notranslate nohighlight">\(\tan{\left(\alpha_c \right)} = \dfrac{\eta - 1}{2 \sqrt{\eta}}\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.sympy.org/latest/modules/core.html#sympy.core.relational.Equality" title="(in SymPy v1.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">sympy.Eq</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gme.equations.Equations.tanbeta_crit_eqns">
+<span class="sig-name descname"><span class="pre">tanbeta_crit_eqns</span></span><a class="headerlink" href="#gme.equations.Equations.tanbeta_crit_eqns" title="Permalink to this definition">¶</a></dt>
+<dd><p><span class="math notranslate nohighlight">\(\left[ \tan{\left(\beta_c \right)} = - \dfrac{\eta - 1}{\sqrt{\eta - 2 + \frac{1}{\eta}}},
+\tan{\left(\beta_c \right)} = \dfrac{\eta - 1}{\sqrt{\eta - 2 + \frac{1}{\eta}}}\right]\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>list of <a class="reference external" href="https://docs.sympy.org/latest/modules/core.html#sympy.core.relational.Equality" title="(in SymPy v1.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">sympy.Eq</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gme.equations.Equations.tanbeta_crit_eqn">
+<span class="sig-name descname"><span class="pre">tanbeta_crit_eqn</span></span><a class="headerlink" href="#gme.equations.Equations.tanbeta_crit_eqn" title="Permalink to this definition">¶</a></dt>
+<dd><p><span class="math notranslate nohighlight">\(\tan{\left(\beta_c \right)} = \sqrt{\eta}\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.sympy.org/latest/modules/core.html#sympy.core.relational.Equality" title="(in SymPy v1.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">sympy.Eq</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="py method">
@@ -1505,7 +1536,7 @@ The derivations below are for an erosion model with
                     <span class="n">simplify</span><span class="p">,</span> <span class="n">trigsimp</span><span class="p">,</span> <span class="n">factor</span><span class="p">,</span> <span class="n">expand</span><span class="p">,</span> <span class="n">lambdify</span><span class="p">,</span> <span class="n">collect</span><span class="p">,</span> \
                     <span class="n">solve</span><span class="p">,</span> <span class="n">solveset</span><span class="p">,</span> <span class="n">diff</span><span class="p">,</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">det</span><span class="p">,</span> \
                     <span class="n">exp</span><span class="p">,</span> <span class="n">tan</span><span class="p">,</span> <span class="n">atan</span><span class="p">,</span> <span class="n">sin</span><span class="p">,</span> <span class="n">cos</span><span class="p">,</span> <span class="n">Abs</span><span class="p">,</span> <span class="n">sign</span><span class="p">,</span> <span class="n">log</span><span class="p">,</span> <span class="n">re</span><span class="p">,</span> <span class="n">im</span><span class="p">,</span> \
-                    <span class="n">integrate</span><span class="p">,</span> <span class="n">derive_by_array</span><span class="p">,</span> <span class="n">poly</span>
+                    <span class="n">integrate</span><span class="p">,</span> <span class="n">derive_by_array</span><span class="p">,</span> <span class="n">poly</span><span class="p">,</span> <span class="n">Piecewise</span>
 <span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">reduce</span>
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Equations&#39;</span><span class="p">]</span>
@@ -1971,67 +2002,53 @@ The derivations below are for an erosion model with
                                     <span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="bp">self</span><span class="o">.</span><span class="n">rdotz_on_rdotx_eqn</span><span class="o">.</span><span class="n">lhs</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">rdotz_on_rdotx_tanbeta_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">})</span>
 
 
-    <span class="k">def</span> <span class="nf">define_tanbeta_eqns</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">do_find_extrema</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">define_tanbeta_eqns</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Define equations for surface tilt angle :math:`\beta)`</span>
 
-<span class="sd">        Args:</span>
-<span class="sd">            do_find_extrema (bool) :</span>
-<span class="sd">                find extremal values for :math:`\alpha`, and then find the corresponding value of :math:`\beta` at each extremum</span>
-
-
 <span class="sd">        Attributes:</span>
-<span class="sd">            beta_at_alpha_extremum_eqn   (:class:`sympy.Eq &lt;sympy.core.relational.Equality&gt;`) :</span>
-<span class="sd">                :math:`\beta_{\text{extremum}\{\alpha\}} = \operatorname{atan}{\left(\sqrt{\eta} \right)}`</span>
-<span class="sd">            beta_at_alpha_extremum_numerical_eqn   (:class:`sympy.Eq &lt;sympy.core.relational.Equality&gt;`) :</span>
-<span class="sd">                :math:`\beta_{\text{extremum}\{\alpha\}} = 0.886077123792614`</span>
+<span class="sd">            tanbeta_alpha_eqns   (list of :class:`sympy.Eq &lt;sympy.core.relational.Equality&gt;`) :</span>
+<span class="sd">                :math:`\left[ \tan{\left(\beta \right)} \</span>
+<span class="sd">                = \dfrac{\eta - \sqrt{\eta^{2} - 4 \eta \tan^{2}{\left(\alpha \right)} - 2 \eta + 1} - 1}{2 \tan{\left(\alpha \right)}},</span>
+<span class="sd">                \tan{\left(\beta \right)} = \dfrac{\eta + \sqrt{\eta^{2} - 4 \eta \tan^{2}{\left(\alpha \right)} - 2 \eta + 1} - 1}{2 \tan{\left(\alpha \right)}}\right]`</span>
 <span class="sd">            tanbeta_alpha_eqn   (:class:`sympy.Eq &lt;sympy.core.relational.Equality&gt;`) :</span>
-<span class="sd">                :math:`\tan{\left(\beta \right)} \</span>
+<span class="sd">                :math:`\tan{\left(\beta \right)}</span>
 <span class="sd">                = \dfrac{\eta - \sqrt{\eta^{2} - 4 \eta \tan^{2}{\left(\alpha \right)} - 2 \eta + 1} - 1}{2 \tan{\left(\alpha \right)}}`</span>
-
-<span class="sd">        TODO: update attributes</span>
+<span class="sd">            tanalpha_crit_eqns   (list of :class:`sympy.Eq &lt;sympy.core.relational.Equality&gt;`) :</span>
+<span class="sd">                :math:`\left[ \tan{\left(\alpha_c \right)} = - \frac{\sqrt{\eta - 2 + \frac{1}{\eta}}}{2},</span>
+<span class="sd">                \tan{\left(\alpha_c \right)} = \frac{\sqrt{\eta - 2 + \frac{1}{\eta}}}{2}\right]`</span>
+<span class="sd">            tanalpha_crit_eqn   (:class:`sympy.Eq &lt;sympy.core.relational.Equality&gt;`) :</span>
+<span class="sd">                :math:`\tan{\left(\alpha_c \right)} = \dfrac{\eta - 1}{2 \sqrt{\eta}}`</span>
+<span class="sd">            tanbeta_crit_eqns   (list of :class:`sympy.Eq &lt;sympy.core.relational.Equality&gt;`) :</span>
+<span class="sd">                :math:`\left[ \tan{\left(\beta_c \right)} = - \dfrac{\eta - 1}{\sqrt{\eta - 2 + \frac{1}{\eta}}},</span>
+<span class="sd">                \tan{\left(\beta_c \right)} = \dfrac{\eta - 1}{\sqrt{\eta - 2 + \frac{1}{\eta}}}\right]`</span>
+<span class="sd">            tanbeta_crit_eqn   (:class:`sympy.Eq &lt;sympy.core.relational.Equality&gt;`) :</span>
+<span class="sd">                :math:`\tan{\left(\beta_c \right)} = \sqrt{\eta}`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">eta_sub</span> <span class="o">=</span> <span class="p">{</span><span class="n">eta</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">eta</span><span class="p">}</span>
-        <span class="c1">#TODO: this is a stationary point, not a min, so change name to minmax</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">beta_at_alpha_extremum_eqn</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">beta_at_alpha_extremum_numerical_eqn</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">tanbeta_alpha_eqn</span> <span class="o">=</span> <span class="kc">None</span>
 
-        <span class="k">if</span> <span class="n">do_find_extrema</span><span class="p">:</span>
-            <span class="n">alpha_extrema</span> <span class="o">=</span> <span class="p">[</span><span class="n">simplify</span><span class="p">(</span><span class="n">soln</span><span class="p">)</span> <span class="k">for</span> <span class="n">soln</span> <span class="ow">in</span> <span class="n">solve</span><span class="p">(</span> <span class="n">Eq</span><span class="p">(</span><span class="n">diff</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tanalpha_beta_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">,</span> <span class="n">beta</span><span class="p">),</span><span class="mi">0</span><span class="p">),</span> <span class="n">beta</span> <span class="p">)]</span>
-            <span class="n">alpha_extrema_real_positive</span> <span class="o">=</span> <span class="p">[</span><span class="n">extremum</span> <span class="k">for</span> <span class="n">extremum</span> <span class="ow">in</span> <span class="n">alpha_extrema</span>
-                                                <span class="k">if</span> <span class="n">sy</span><span class="o">.</span><span class="n">im</span><span class="p">(</span><span class="n">extremum</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">eta_sub</span><span class="p">))</span><span class="o">==</span><span class="mi">0</span> <span class="ow">and</span> <span class="n">extremum</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">eta_sub</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">]</span>
-            <span class="k">if</span> <span class="n">alpha_extrema_real_positive</span> <span class="o">!=</span> <span class="p">[]:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">beta_at_alpha_extremum_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">beta_at_alpha_extremum</span><span class="p">,</span> <span class="n">alpha_extrema_real_positive</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">beta_at_alpha_extremum_numerical_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">beta_at_alpha_extremum</span><span class="p">,</span> <span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">sy</span><span class="o">.</span><span class="n">N</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">beta_at_alpha_extremum_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">eta_sub</span><span class="p">)))))</span>
-            <span class="k">elif</span> <span class="n">alpha_extrema</span> <span class="o">!=</span> <span class="p">[]:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">beta_at_alpha_extremum_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">beta_at_alpha_extremum</span><span class="p">,</span><span class="n">alpha_extrema</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">beta_at_alpha_extremum_numerical_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">beta_at_alpha_extremum</span><span class="p">,</span> <span class="n">sy</span><span class="o">.</span><span class="n">N</span><span class="p">(</span><span class="n">alpha_extrema</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">eta_sub</span><span class="p">)))</span>
-                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Warning: real positive root for beta not found&#39;</span><span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">beta_at_alpha_extremum_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">beta_at_alpha_extremum</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">beta_at_alpha_extremum_numerical_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">beta_at_alpha_extremum</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">eta_sub</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">eta_sub</span> <span class="o">=</span> <span class="p">{</span><span class="n">eta</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">eta</span><span class="p">}</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eta</span><span class="o">==</span><span class="mi">1</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">beta_type</span><span class="o">==</span><span class="s1">&#39;sin&#39;</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Cannot compute all $\beta$ equations for $\sin\beta$ model and $\eta=1$&#39;</span><span class="p">)</span>
             <span class="k">return</span>
         <span class="n">solns</span> <span class="o">=</span> <span class="n">sy</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tanalpha_beta_eqn</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">tan</span><span class="p">(</span><span class="n">alpha</span><span class="p">):</span><span class="n">ta</span><span class="p">}),</span><span class="n">tan</span><span class="p">(</span><span class="n">beta</span><span class="p">))</span>
-        <span class="c1"># # We get multiple roots for tan(beta), so guess which is real by evaluating it at an fairly arbitrary tan(alpha)</span>
-        <span class="c1"># self.tanbeta_alpha_eqn = Eq(tan(beta), simplify([soln for soln in solns</span>
-        <span class="c1">#     if sy.im(soln.subs(ta,0).subs(eta_sub))==0 or sy.im(soln.subs(ta,0.01).subs(eta_sub))==0 or sy.im(soln.subs(ta,1).subs(eta_sub))==0</span>
-        <span class="c1">#                             ][0])).subs({ta:tan(alpha)})</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tanbeta_alpha_eqns</span> <span class="o">=</span> <span class="p">[</span><span class="n">Eq</span><span class="p">(</span><span class="n">tan</span><span class="p">(</span><span class="n">beta</span><span class="p">),</span> <span class="n">soln</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">ta</span><span class="p">:</span><span class="n">tan</span><span class="p">(</span><span class="n">alpha</span><span class="p">)}))</span> <span class="k">for</span> <span class="n">soln</span> <span class="ow">in</span> <span class="n">solns</span><span class="p">]</span>
         <span class="c1"># Bit of a hack - extracts the square root term in tan(beta) as a fn of tan(alpha), which then gives the critical alpha</span>
         <span class="n">root_terms</span> <span class="o">=</span> <span class="p">[([</span><span class="n">arg_</span> <span class="k">for</span> <span class="n">arg__</span> <span class="ow">in</span> <span class="n">arg_</span><span class="o">.</span><span class="n">args</span> <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">arg__</span><span class="p">)</span><span class="o">==</span><span class="n">sy</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">power</span><span class="o">.</span><span class="n">Pow</span> <span class="ow">or</span> <span class="nb">type</span><span class="p">(</span><span class="n">arg_</span><span class="p">)</span><span class="o">==</span><span class="n">sy</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">power</span><span class="o">.</span><span class="n">Pow</span><span class="p">])</span>
                         <span class="k">for</span> <span class="n">arg_</span> <span class="ow">in</span> <span class="n">numer</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tanbeta_alpha_eqns</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">rhs</span><span class="p">)</span><span class="o">.</span><span class="n">args</span>
                         <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">arg_</span><span class="p">)</span><span class="o">==</span><span class="n">sy</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">mul</span><span class="o">.</span><span class="n">Mul</span> <span class="ow">or</span> <span class="nb">type</span><span class="p">(</span><span class="n">arg_</span><span class="p">)</span><span class="o">==</span><span class="n">sy</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">power</span><span class="o">.</span><span class="n">Pow</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tanalpha_crit_eqns</span> <span class="o">=</span> <span class="p">[</span><span class="n">Eq</span><span class="p">(</span><span class="n">tan</span><span class="p">(</span><span class="n">alpha_crit</span><span class="p">),</span><span class="n">soln</span><span class="p">)</span> <span class="k">for</span> <span class="n">soln</span> <span class="ow">in</span> <span class="n">solve</span><span class="p">(</span><span class="n">Eq</span><span class="p">(</span><span class="n">root_terms</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span><span class="mi">0</span><span class="p">),</span><span class="n">tan</span><span class="p">(</span><span class="n">alpha</span><span class="p">))</span> <span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">tanalpha_crit_eqn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tanalpha_crit_eqns</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eta</span><span class="o">&lt;</span><span class="mi">1</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">tanalpha_crit_eqns</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="n">tac_lt1</span> <span class="o">=</span> <span class="n">simplify</span><span class="p">((</span><span class="n">factor</span><span class="p">(</span><span class="n">simplify</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tanalpha_crit_eqns</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">rhs</span><span class="o">*</span><span class="n">sqrt</span><span class="p">(</span><span class="n">eta</span><span class="p">)))</span><span class="o">/</span><span class="n">sqrt</span><span class="p">(</span><span class="n">eta</span><span class="p">))</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">Abs</span><span class="p">(</span><span class="n">eta</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span><span class="mi">1</span><span class="o">-</span><span class="n">eta</span><span class="p">}))</span>
+        <span class="n">tac_gt1</span> <span class="o">=</span> <span class="n">simplify</span><span class="p">((</span><span class="n">factor</span><span class="p">(</span><span class="n">simplify</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tanalpha_crit_eqns</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">rhs</span><span class="o">*</span><span class="n">sqrt</span><span class="p">(</span><span class="n">eta</span><span class="p">)))</span><span class="o">/</span><span class="n">sqrt</span><span class="p">(</span><span class="n">eta</span><span class="p">))</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">Abs</span><span class="p">(</span><span class="n">eta</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span><span class="n">eta</span><span class="o">-</span><span class="mi">1</span><span class="p">}))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tanalpha_crit_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span> <span class="n">tan</span><span class="p">(</span><span class="n">alpha_crit</span><span class="p">),</span> <span class="n">Piecewise</span><span class="p">(</span> <span class="p">(</span><span class="n">tac_lt1</span><span class="p">,</span> <span class="n">eta</span><span class="o">&lt;</span><span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="n">tac_gt1</span><span class="p">,</span> <span class="kc">True</span><span class="p">))</span> <span class="p">)</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">tanbeta_crit_eqns</span> <span class="o">=</span> <span class="p">[</span><span class="n">factor</span><span class="p">(</span><span class="n">tanbeta_alpha_eqn_</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">beta</span><span class="p">:</span><span class="n">beta_crit</span><span class="p">,</span><span class="n">alpha</span><span class="p">:</span><span class="n">alpha_crit</span><span class="p">})</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="n">tanalpha_crit_eqn_</span><span class="p">)))</span>
                                         <span class="k">for</span> <span class="n">tanalpha_crit_eqn_</span><span class="p">,</span><span class="n">tanbeta_alpha_eqn_</span>
                                         <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tanalpha_crit_eqns</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tanbeta_alpha_eqns</span><span class="p">)]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">tanbeta_crit_eqn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tanbeta_crit_eqns</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eta</span><span class="o">&lt;</span><span class="mi">1</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">tanbeta_crit_eqns</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tanbeta_alpha_eqns</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="c1"># This is a hack, because SymPy simplify can&#39;t handle it</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tanbeta_crit_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">tan</span><span class="p">(</span><span class="n">beta_crit</span><span class="p">),</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">simplify</span><span class="p">(</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tanbeta_crit_eqns</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">rhs</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="p">)))</span>
+
 
     <span class="k">def</span> <span class="nf">define_g_eqns</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
