@@ -821,9 +821,6 @@ class Equations:
         self.g_ij_mat_lambdified = None
         self.gstar_ij_mat_lambdified = None
 
-        # if self.eta>=1 and self.beta_type=='sin':
-        #     print(r'Cannot compute geodesic equations for $\sin\beta$ model and $\eta>=1$')
-        #     return
         mu_eta_sub = {mu: self.mu, eta: self.eta}
 
         # if parameters is None: return
@@ -842,28 +839,14 @@ class Equations:
         sinbeta_eqn = Eq(sin(beta), sqrt(1-1/(1+tan(beta)**2)))
         sintwobeta_eqn = Eq(sin(2*beta), cos(beta)**2-sin(beta)**2)
 
-        # FIX THIS
         self.gstar_ij_tanbeta_mat = expand_trig(simplify( gstar_ij_pxpz_mat.subs(e2d(self.px_pz_tanbeta_eqn)) )).subs(e2d(cosbeta_eqn))
         self.g_ij_tanbeta_mat =  expand_trig(simplify( g_ij_pxpz_mat.subs(e2d(self.px_pz_tanbeta_eqn)) )).subs(e2d(cosbeta_eqn))
-
-        # HACK!!!   These choices of solutions should not be hardwired but should be dependent
-        #           on a search for the real, non-zero solution
-
-        # tb_poly_eqn = Eq(tb**3*sy.poly(
-        #     self.tanalpha_beta_eqn.subs({tan(alpha):ta, tan(beta):-tb}), tb**3).as_expr())
-        # #TODO: replace with more generic solutions to be defined above
-        # # tanbeta_eqn = self.tanbeta_alpha_eqn.subs({tan(alpha):ta})
-        # self.tb_tmp1 = solve(tb_poly_eqn, tb)
-        # self.tb_tmp2 = solve(tb_poly_eqn, tb**2)
-        # tanbeta_eqn = Eq(tan(beta),simplify( solve(tb_poly_eqn, tb)[0] ))
-        # tan2beta_eqn = Eq(tan(beta)**2,simplify( solve(tb_poly_eqn, tb**2)[1] ))
 
         tanalpha_beta_eqn = self.tanalpha_beta_eqn.subs(mu_eta_sub)
         tanbeta_poly_eqn = Eq(
             sy.numer(tanalpha_beta_eqn.rhs) - tanalpha_beta_eqn.lhs*sy.denom(tanalpha_beta_eqn.rhs), 0) \
                                         .subs({tan(alpha):ta})
 
-        # HACK!!!  which of the (?) two roots should be chosen?
         tanbeta_eqn  = (Eq(tan(beta), solve(tanbeta_poly_eqn, tan(beta))[0]))
         self.tanbeta_poly_eqn = tanbeta_poly_eqn
         self.tanbeta_eqn = tanbeta_eqn
@@ -875,9 +858,9 @@ class Equations:
                                         .subs(e2d(cosbeta_eqn))
                                         .subs(e2d(tanbeta_eqn))
                                         ).subs(mu_eta_sub)
-        # Use tan(alpha) equation instead of hardwired sub here
         self.gstar_ij_mat = ( self.gstar_ij_tanalpha_mat
-                                        .subs({ta:rdotz/rdotx})
+                                        .subs({ta:tan(alpha)})
+                                        .subs(e2d(self.tanalpha_rdot_eqn))
                                         .subs(e2d(self.varphi_rx_eqn.subs({varphi_r:varphi_rx})))
                                         .subs(parameters) ).subs(mu_eta_sub)
         self.g_ij_tanalpha_mat = ( sy.expand_trig(self.g_ij_tanbeta_mat)
@@ -886,12 +869,10 @@ class Equations:
                                         .subs(e2d(cosbeta_eqn))
                                         .subs(e2d(tanbeta_eqn))
                                         ).subs(mu_eta_sub)
-        # return self.g_ij_tanalpha_mat
         self.g_ij_mat = ( self.g_ij_tanalpha_mat
                                         .subs({ta:rdotz/rdotx})
                                         .subs(e2d(self.varphi_rx_eqn.subs({varphi_r:varphi_rx})))
                                         .subs(parameters) ).subs(mu_eta_sub)
-        # return self.g_ij_mat
         self.g_ij_mat_lambdified = lambdify( (rx,rdotx,rdotz, varepsilon), self.g_ij_mat, 'numpy')
         self.gstar_ij_mat_lambdified = lambdify( (rx,rdotx,rdotz, varepsilon), self.gstar_ij_mat, 'numpy')
 
