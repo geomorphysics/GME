@@ -39,7 +39,7 @@ from gmplib.utils import e2d
 from gme.symbols import *
 from sympy import Eq, S, Rational, Reals, N, \
                     pi, sqrt, numer, denom, \
-                    simplify, trigsimp, factor, expand, lambdify, collect, \
+                    simplify, trigsimp, factor, expand, lambdify, collect, expand_trig, \
                     solve, solveset, diff, Matrix, det, \
                     exp, tan, atan, sin, cos, Abs, sign, log, re, im, \
                     integrate, derive_by_array, poly, Piecewise
@@ -512,6 +512,9 @@ class Equations:
         r"""
         Define equations for surface tilt angle :math:`\beta)`
 
+
+
+
         Attributes:
             tanbeta_alpha_eqns   (list of :class:`sympy.Eq <sympy.core.relational.Equality>`) :
                 :math:`\left[ \tan{\left(\beta \right)} \
@@ -530,6 +533,10 @@ class Equations:
                 \tan{\left(\beta_c \right)} = \dfrac{\eta - 1}{\sqrt{\eta - 2 + \frac{1}{\eta}}}\right]`
             tanbeta_crit_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
                 :math:`\tan{\left(\beta_c \right)} = \sqrt{\eta}`
+            tanbeta_rdotxz_pz_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
+                :math:`\tan{\left(\beta \right)} = \frac{v^{z} - \frac{1}{p_{z}}}{v^{x}}`
+            tanbeta_rdotxz_xiv_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
+                :math:`\tan{\left(\beta \right)} = \frac{\xi^{\downarrow} + v^{z}}{v^{x}}`
         """
 
         eta_sub = {eta: self.eta}
@@ -554,6 +561,9 @@ class Equations:
                                         in zip(self.tanalpha_crit_eqns, self.tanbeta_alpha_eqns)]
         # This is a hack, because SymPy simplify can't handle it
         self.tanbeta_crit_eqn = Eq(tan(beta_crit), sqrt(simplify( (self.tanbeta_crit_eqns[0].rhs)**2 )))
+
+        self.tanbeta_rdotxz_pz_eqn = Eq(tan(beta), (rdotz - 1/pz)/rdotx )
+        self.tanbeta_rdotxz_xiv_eqn = self.tanbeta_rdotxz_pz_eqn.subs({pz:self.pz_xiv_eqn.rhs})
 
 
     def define_g_eqns(self):
@@ -811,9 +821,9 @@ class Equations:
         self.g_ij_mat_lambdified = None
         self.gstar_ij_mat_lambdified = None
 
-        if self.eta>=1 and self.beta_type=='sin':
-            print(r'Cannot compute geodesic equations for $\sin\beta$ model and $\eta>=1$')
-            return
+        # if self.eta>=1 and self.beta_type=='sin':
+        #     print(r'Cannot compute geodesic equations for $\sin\beta$ model and $\eta>=1$')
+        #     return
         mu_eta_sub = {mu: self.mu, eta: self.eta}
 
         # if parameters is None: return
@@ -828,9 +838,13 @@ class Equations:
         gstar_ij_pxpz_mat = gstar_ij_mat.subs({varphi_r:varphi_rx})
         g_ij_pxpz_mat = gstar_ij_mat.inv().subs({varphi_r:varphi_rx})
 
+        cosbeta_eqn = Eq(cos(beta), 1/sqrt(1+tan(beta)**2))
+        sinbeta_eqn = Eq(sin(beta), sqrt(1-1/(1+tan(beta)**2)))
+        sintwobeta_eqn = Eq(sin(2*beta), cos(beta)**2-sin(beta)**2)
+
         # FIX THIS
-        self.gstar_ij_tanbeta_mat = simplify( gstar_ij_pxpz_mat.subs(e2d(self.px_pz_tanbeta_eqn)) )
-        self.g_ij_tanbeta_mat = simplify( g_ij_pxpz_mat.subs(e2d(self.px_pz_tanbeta_eqn)) )
+        self.gstar_ij_tanbeta_mat = expand_trig(simplify( gstar_ij_pxpz_mat.subs(e2d(self.px_pz_tanbeta_eqn)) )).subs(e2d(cosbeta_eqn))
+        self.g_ij_tanbeta_mat =  expand_trig(simplify( g_ij_pxpz_mat.subs(e2d(self.px_pz_tanbeta_eqn)) )).subs(e2d(cosbeta_eqn))
 
         # HACK!!!   These choices of solutions should not be hardwired but should be dependent
         #           on a search for the real, non-zero solution
@@ -853,9 +867,6 @@ class Equations:
         tanbeta_eqn  = (Eq(tan(beta), solve(tanbeta_poly_eqn, tan(beta))[0]))
         self.tanbeta_poly_eqn = tanbeta_poly_eqn
         self.tanbeta_eqn = tanbeta_eqn
-        cosbeta_eqn = Eq(cos(beta), 1/sqrt(1+tan(beta)**2))
-        sinbeta_eqn = Eq(sin(beta), sqrt(1-1/(1+tan(beta)**2)))
-        sintwobeta_eqn = Eq(sin(2*beta), cos(beta)**2-sin(beta)**2)
 
         # Replace all refs to beta with refs to alpha
         self.gstar_ij_tanalpha_mat = ( self.gstar_ij_tanbeta_mat
@@ -869,12 +880,13 @@ class Equations:
                                         .subs({ta:rdotz/rdotx})
                                         .subs(e2d(self.varphi_rx_eqn.subs({varphi_r:varphi_rx})))
                                         .subs(parameters) ).subs(mu_eta_sub)
-        self.g_ij_tanalpha_mat = ( self.g_ij_tanbeta_mat
+        self.g_ij_tanalpha_mat = ( sy.expand_trig(self.g_ij_tanbeta_mat)
                                         .subs(e2d(sintwobeta_eqn))
                                         .subs(e2d(sinbeta_eqn))
                                         .subs(e2d(cosbeta_eqn))
                                         .subs(e2d(tanbeta_eqn))
                                         ).subs(mu_eta_sub)
+        # return self.g_ij_tanalpha_mat
         self.g_ij_mat = ( self.g_ij_tanalpha_mat
                                         .subs({ta:rdotz/rdotx})
                                         .subs(e2d(self.varphi_rx_eqn.subs({varphi_r:varphi_rx})))
@@ -924,9 +936,9 @@ class Equations:
         self.geodesic_eqns = None
         self.vdotx_lambdified = None
         self.vdotz_lambdified = None
-        if self.eta>=1 and self.beta_type=='sin':
-            print(r'Cannot compute geodesic equations for $\sin\beta$ model and $\eta>=1$')
-            return
+        # if self.eta>=1 and self.beta_type=='sin':
+        #     print(r'Cannot compute geodesic equations for $\sin\beta$ model and $\eta>=1$')
+        #     return
         eta_sub = {eta: self.eta}
 
         # Manipulate metric tensors

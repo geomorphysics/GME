@@ -6,7 +6,8 @@
 	},
 
 	"model": {
-		"eta" : "sy.Rational(1,4)",
+		"eta" : "sy.Rational(1,3)",
+		"mu" :  "sy.Rational(1,3)",
 		"beta_type" : "sin",
 		"varphi_type" : "ramp",
 		"xiv_0" : 30

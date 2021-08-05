@@ -964,6 +964,28 @@ domain=\mathbb{Z}\left[\varphi{\left(\mathbf{r} \right)}, \xi^{\downarrow}\right
 </dl>
 </dd></dl>
 
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gme.equations.Equations.tanbeta_rdotxz_pz_eqn">
+<span class="sig-name descname"><span class="pre">tanbeta_rdotxz_pz_eqn</span></span><a class="headerlink" href="#gme.equations.Equations.tanbeta_rdotxz_pz_eqn" title="Permalink to this definition">¶</a></dt>
+<dd><p><span class="math notranslate nohighlight">\(\tan{\left(\beta \right)} = \frac{v^{z} - \frac{1}{p_{z}}}{v^{x}}\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.sympy.org/latest/modules/core.html#sympy.core.relational.Equality" title="(in SymPy v1.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">sympy.Eq</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gme.equations.Equations.tanbeta_rdotxz_xiv_eqn">
+<span class="sig-name descname"><span class="pre">tanbeta_rdotxz_xiv_eqn</span></span><a class="headerlink" href="#gme.equations.Equations.tanbeta_rdotxz_xiv_eqn" title="Permalink to this definition">¶</a></dt>
+<dd><p><span class="math notranslate nohighlight">\(\tan{\left(\beta \right)} = \frac{\xi^{\downarrow} + v^{z}}{v^{x}}\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.sympy.org/latest/modules/core.html#sympy.core.relational.Equality" title="(in SymPy v1.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">sympy.Eq</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="py method">
@@ -1533,7 +1555,7 @@ The derivations below are for an erosion model with
 <span class="kn">from</span> <span class="nn">gme.symbols</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">Eq</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">Rational</span><span class="p">,</span> <span class="n">Reals</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> \
                     <span class="n">pi</span><span class="p">,</span> <span class="n">sqrt</span><span class="p">,</span> <span class="n">numer</span><span class="p">,</span> <span class="n">denom</span><span class="p">,</span> \
-                    <span class="n">simplify</span><span class="p">,</span> <span class="n">trigsimp</span><span class="p">,</span> <span class="n">factor</span><span class="p">,</span> <span class="n">expand</span><span class="p">,</span> <span class="n">lambdify</span><span class="p">,</span> <span class="n">collect</span><span class="p">,</span> \
+                    <span class="n">simplify</span><span class="p">,</span> <span class="n">trigsimp</span><span class="p">,</span> <span class="n">factor</span><span class="p">,</span> <span class="n">expand</span><span class="p">,</span> <span class="n">lambdify</span><span class="p">,</span> <span class="n">collect</span><span class="p">,</span> <span class="n">expand_trig</span><span class="p">,</span> \
                     <span class="n">solve</span><span class="p">,</span> <span class="n">solveset</span><span class="p">,</span> <span class="n">diff</span><span class="p">,</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">det</span><span class="p">,</span> \
                     <span class="n">exp</span><span class="p">,</span> <span class="n">tan</span><span class="p">,</span> <span class="n">atan</span><span class="p">,</span> <span class="n">sin</span><span class="p">,</span> <span class="n">cos</span><span class="p">,</span> <span class="n">Abs</span><span class="p">,</span> <span class="n">sign</span><span class="p">,</span> <span class="n">log</span><span class="p">,</span> <span class="n">re</span><span class="p">,</span> <span class="n">im</span><span class="p">,</span> \
                     <span class="n">integrate</span><span class="p">,</span> <span class="n">derive_by_array</span><span class="p">,</span> <span class="n">poly</span><span class="p">,</span> <span class="n">Piecewise</span>
@@ -2006,6 +2028,9 @@ The derivations below are for an erosion model with
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Define equations for surface tilt angle :math:`\beta)`</span>
 
+
+
+
 <span class="sd">        Attributes:</span>
 <span class="sd">            tanbeta_alpha_eqns   (list of :class:`sympy.Eq &lt;sympy.core.relational.Equality&gt;`) :</span>
 <span class="sd">                :math:`\left[ \tan{\left(\beta \right)} \</span>
@@ -2024,6 +2049,10 @@ The derivations below are for an erosion model with
 <span class="sd">                \tan{\left(\beta_c \right)} = \dfrac{\eta - 1}{\sqrt{\eta - 2 + \frac{1}{\eta}}}\right]`</span>
 <span class="sd">            tanbeta_crit_eqn   (:class:`sympy.Eq &lt;sympy.core.relational.Equality&gt;`) :</span>
 <span class="sd">                :math:`\tan{\left(\beta_c \right)} = \sqrt{\eta}`</span>
+<span class="sd">            tanbeta_rdotxz_pz_eqn   (:class:`sympy.Eq &lt;sympy.core.relational.Equality&gt;`) :</span>
+<span class="sd">                :math:`\tan{\left(\beta \right)} = \frac{v^{z} - \frac{1}{p_{z}}}{v^{x}}`</span>
+<span class="sd">            tanbeta_rdotxz_xiv_eqn   (:class:`sympy.Eq &lt;sympy.core.relational.Equality&gt;`) :</span>
+<span class="sd">                :math:`\tan{\left(\beta \right)} = \frac{\xi^{\downarrow} + v^{z}}{v^{x}}`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">eta_sub</span> <span class="o">=</span> <span class="p">{</span><span class="n">eta</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">eta</span><span class="p">}</span>
@@ -2048,6 +2077,9 @@ The derivations below are for an erosion model with
                                         <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tanalpha_crit_eqns</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tanbeta_alpha_eqns</span><span class="p">)]</span>
         <span class="c1"># This is a hack, because SymPy simplify can&#39;t handle it</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tanbeta_crit_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">tan</span><span class="p">(</span><span class="n">beta_crit</span><span class="p">),</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">simplify</span><span class="p">(</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tanbeta_crit_eqns</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">rhs</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="p">)))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">tanbeta_rdotxz_pz_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">tan</span><span class="p">(</span><span class="n">beta</span><span class="p">),</span> <span class="p">(</span><span class="n">rdotz</span> <span class="o">-</span> <span class="mi">1</span><span class="o">/</span><span class="n">pz</span><span class="p">)</span><span class="o">/</span><span class="n">rdotx</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tanbeta_rdotxz_xiv_eqn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tanbeta_rdotxz_pz_eqn</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">pz</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">pz_xiv_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">})</span>
 
 
     <span class="k">def</span> <span class="nf">define_g_eqns</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -2305,9 +2337,9 @@ The derivations below are for an erosion model with
         <span class="bp">self</span><span class="o">.</span><span class="n">g_ij_mat_lambdified</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">gstar_ij_mat_lambdified</span> <span class="o">=</span> <span class="kc">None</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eta</span><span class="o">&gt;=</span><span class="mi">1</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">beta_type</span><span class="o">==</span><span class="s1">&#39;sin&#39;</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Cannot compute geodesic equations for $\sin\beta$ model and $\eta&gt;=1$&#39;</span><span class="p">)</span>
-            <span class="k">return</span>
+        <span class="c1"># if self.eta&gt;=1 and self.beta_type==&#39;sin&#39;:</span>
+        <span class="c1">#     print(r&#39;Cannot compute geodesic equations for $\sin\beta$ model and $\eta&gt;=1$&#39;)</span>
+        <span class="c1">#     return</span>
         <span class="n">mu_eta_sub</span> <span class="o">=</span> <span class="p">{</span><span class="n">mu</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">mu</span><span class="p">,</span> <span class="n">eta</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">eta</span><span class="p">}</span>
 
         <span class="c1"># if parameters is None: return</span>
@@ -2322,9 +2354,13 @@ The derivations below are for an erosion model with
         <span class="n">gstar_ij_pxpz_mat</span> <span class="o">=</span> <span class="n">gstar_ij_mat</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">varphi_r</span><span class="p">:</span><span class="n">varphi_rx</span><span class="p">})</span>
         <span class="n">g_ij_pxpz_mat</span> <span class="o">=</span> <span class="n">gstar_ij_mat</span><span class="o">.</span><span class="n">inv</span><span class="p">()</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">varphi_r</span><span class="p">:</span><span class="n">varphi_rx</span><span class="p">})</span>
 
+        <span class="n">cosbeta_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">cos</span><span class="p">(</span><span class="n">beta</span><span class="p">),</span> <span class="mi">1</span><span class="o">/</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">tan</span><span class="p">(</span><span class="n">beta</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+        <span class="n">sinbeta_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">sin</span><span class="p">(</span><span class="n">beta</span><span class="p">),</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">tan</span><span class="p">(</span><span class="n">beta</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)))</span>
+        <span class="n">sintwobeta_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">beta</span><span class="p">),</span> <span class="n">cos</span><span class="p">(</span><span class="n">beta</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="o">-</span><span class="n">sin</span><span class="p">(</span><span class="n">beta</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+
         <span class="c1"># FIX THIS</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">gstar_ij_tanbeta_mat</span> <span class="o">=</span> <span class="n">simplify</span><span class="p">(</span> <span class="n">gstar_ij_pxpz_mat</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">px_pz_tanbeta_eqn</span><span class="p">))</span> <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">g_ij_tanbeta_mat</span> <span class="o">=</span> <span class="n">simplify</span><span class="p">(</span> <span class="n">g_ij_pxpz_mat</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">px_pz_tanbeta_eqn</span><span class="p">))</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gstar_ij_tanbeta_mat</span> <span class="o">=</span> <span class="n">expand_trig</span><span class="p">(</span><span class="n">simplify</span><span class="p">(</span> <span class="n">gstar_ij_pxpz_mat</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">px_pz_tanbeta_eqn</span><span class="p">))</span> <span class="p">))</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="n">cosbeta_eqn</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">g_ij_tanbeta_mat</span> <span class="o">=</span>  <span class="n">expand_trig</span><span class="p">(</span><span class="n">simplify</span><span class="p">(</span> <span class="n">g_ij_pxpz_mat</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">px_pz_tanbeta_eqn</span><span class="p">))</span> <span class="p">))</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="n">cosbeta_eqn</span><span class="p">))</span>
 
         <span class="c1"># HACK!!!   These choices of solutions should not be hardwired but should be dependent</span>
         <span class="c1">#           on a search for the real, non-zero solution</span>
@@ -2347,9 +2383,6 @@ The derivations below are for an erosion model with
         <span class="n">tanbeta_eqn</span>  <span class="o">=</span> <span class="p">(</span><span class="n">Eq</span><span class="p">(</span><span class="n">tan</span><span class="p">(</span><span class="n">beta</span><span class="p">),</span> <span class="n">solve</span><span class="p">(</span><span class="n">tanbeta_poly_eqn</span><span class="p">,</span> <span class="n">tan</span><span class="p">(</span><span class="n">beta</span><span class="p">))[</span><span class="mi">0</span><span class="p">]))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tanbeta_poly_eqn</span> <span class="o">=</span> <span class="n">tanbeta_poly_eqn</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tanbeta_eqn</span> <span class="o">=</span> <span class="n">tanbeta_eqn</span>
-        <span class="n">cosbeta_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">cos</span><span class="p">(</span><span class="n">beta</span><span class="p">),</span> <span class="mi">1</span><span class="o">/</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">tan</span><span class="p">(</span><span class="n">beta</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
-        <span class="n">sinbeta_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">sin</span><span class="p">(</span><span class="n">beta</span><span class="p">),</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">tan</span><span class="p">(</span><span class="n">beta</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)))</span>
-        <span class="n">sintwobeta_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">beta</span><span class="p">),</span> <span class="n">cos</span><span class="p">(</span><span class="n">beta</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="o">-</span><span class="n">sin</span><span class="p">(</span><span class="n">beta</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
 
         <span class="c1"># Replace all refs to beta with refs to alpha</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">gstar_ij_tanalpha_mat</span> <span class="o">=</span> <span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">gstar_ij_tanbeta_mat</span>
@@ -2363,12 +2396,13 @@ The derivations below are for an erosion model with
                                         <span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">ta</span><span class="p">:</span><span class="n">rdotz</span><span class="o">/</span><span class="n">rdotx</span><span class="p">})</span>
                                         <span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">varphi_rx_eqn</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">varphi_r</span><span class="p">:</span><span class="n">varphi_rx</span><span class="p">})))</span>
                                         <span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">parameters</span><span class="p">)</span> <span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">mu_eta_sub</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">g_ij_tanalpha_mat</span> <span class="o">=</span> <span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">g_ij_tanbeta_mat</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">g_ij_tanalpha_mat</span> <span class="o">=</span> <span class="p">(</span> <span class="n">sy</span><span class="o">.</span><span class="n">expand_trig</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">g_ij_tanbeta_mat</span><span class="p">)</span>
                                         <span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="n">sintwobeta_eqn</span><span class="p">))</span>
                                         <span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="n">sinbeta_eqn</span><span class="p">))</span>
                                         <span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="n">cosbeta_eqn</span><span class="p">))</span>
                                         <span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="n">tanbeta_eqn</span><span class="p">))</span>
                                         <span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">mu_eta_sub</span><span class="p">)</span>
+        <span class="c1"># return self.g_ij_tanalpha_mat</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">g_ij_mat</span> <span class="o">=</span> <span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">g_ij_tanalpha_mat</span>
                                         <span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">ta</span><span class="p">:</span><span class="n">rdotz</span><span class="o">/</span><span class="n">rdotx</span><span class="p">})</span>
                                         <span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">varphi_rx_eqn</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">varphi_r</span><span class="p">:</span><span class="n">varphi_rx</span><span class="p">})))</span>
@@ -2418,9 +2452,9 @@ The derivations below are for an erosion model with
         <span class="bp">self</span><span class="o">.</span><span class="n">geodesic_eqns</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">vdotx_lambdified</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">vdotz_lambdified</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eta</span><span class="o">&gt;=</span><span class="mi">1</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">beta_type</span><span class="o">==</span><span class="s1">&#39;sin&#39;</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Cannot compute geodesic equations for $\sin\beta$ model and $\eta&gt;=1$&#39;</span><span class="p">)</span>
-            <span class="k">return</span>
+        <span class="c1"># if self.eta&gt;=1 and self.beta_type==&#39;sin&#39;:</span>
+        <span class="c1">#     print(r&#39;Cannot compute geodesic equations for $\sin\beta$ model and $\eta&gt;=1$&#39;)</span>
+        <span class="c1">#     return</span>
         <span class="n">eta_sub</span> <span class="o">=</span> <span class="p">{</span><span class="n">eta</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">eta</span><span class="p">}</span>
 
         <span class="c1"># Manipulate metric tensors</span>

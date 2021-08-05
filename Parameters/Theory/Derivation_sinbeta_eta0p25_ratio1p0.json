@@ -1,12 +1,13 @@
 {
 	"job": {
-		"title": "Derivation of GME equations for sin(beta) erosion model, eta=1/2",
+		"title": "Derivation of GME equations for sin(beta) erosion model, eta=1/4",
 		"group_name": "Theory",
 		"short_name": "derivation"
 	},
 
 	"model": {
-		"eta" : "sy.Rational(1,2)",
+		"eta" : "sy.Rational(1,4)",
+		"mu" :  "sy.Rational(1,4)",
 		"beta_type" : "sin",
 		"varphi_type" : "ramp",
 		"xiv_0" : 30
