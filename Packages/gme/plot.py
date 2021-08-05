@@ -189,7 +189,7 @@ class OneRayPlots(Graphing):
     def profile_h_ray( self, gmes, gmeq, sub, name, fig_size=None, dpi=None,
                         y_limits=None, ray_eta_xy=None, n_points=101, aspect=None,
                         do_direct=True, ray_subsetting=10, do_schematic=False,
-                        do_simple=False, do_t_sampling=True,
+                        do_simple=False, do_t_sampling=True, do_eta_label=True,
                         do_pub_label=False, pub_label='', pub_label_posn=[0.15,0.50] ):
         r"""
         Plot a set of erosion rays for a time-invariant topographic profile solution of Hamilton's equations.
@@ -251,9 +251,10 @@ class OneRayPlots(Graphing):
         if ray_eta_xy is None:
             ray_eta_xy = (0.92,0.15)
         if not do_schematic and not do_simple:
-            plt.text(*ray_eta_xy, rf'$\eta={gmeq.eta}$', transform=axes.transAxes,
-                     horizontalalignment='center', verticalalignment='center',
-                     fontsize=13, color='k')
+            if do_eta_label:
+                plt.text(*ray_eta_xy, rf'$\eta={gmeq.eta}$', transform=axes.transAxes,
+                         horizontalalignment='center', verticalalignment='center',
+                         fontsize=13, color='k')
             if do_pub_label:
                 plt.text(*pub_label_posn, pub_label,
                          transform=axes.transAxes, horizontalalignment='center', verticalalignment='center', fontsize=16, color='k')
@@ -262,8 +263,9 @@ class OneRayPlots(Graphing):
 
     def profile_h_rays( self, gmes, gmeq, sub, name, fig_size=None, dpi=None,
                         y_limits=None, ray_eta_xy=None, n_points=101,
-                        do_direct=True, ray_subsetting=10, do_schematic=False,
-                        do_simple=False, do_one_ray=False, do_t_sampling=True,
+                        do_direct=True, ray_subsetting=10,
+                        do_schematic=False, do_legend=True, do_profile_points=True,
+                        do_simple=False, do_one_ray=False, do_t_sampling=True, do_eta_label=True,
                         do_pub_label=False, pub_label='', pub_label_posn=[0.93,0.33] ):
         r"""
         Plot a set of erosion rays for a time-invariant topographic profile solution of Hamilton's equations.
@@ -325,7 +327,8 @@ class OneRayPlots(Graphing):
         # Markers = topo profile from ray terminations
         if not do_schematic and not do_one_ray:
             plt.plot( gmes.x_array[::ray_subsetting], gmes.h_array[::ray_subsetting],
-                        'ks',  ms=3, label=r'$T(\mathbf{r})$ from rays $\mathbf{r}(t)$' )
+                        'k'+('s' if do_profile_points else '-'),  
+                        ms=3, label=r'$T(\mathbf{r})$ from rays $\mathbf{r}(t)$' )
 
         # Solid line = topo profile from direct integration of gradient array
         if (do_direct or do_schematic) and not do_one_ray:
@@ -343,7 +346,7 @@ class OneRayPlots(Graphing):
         plt.grid(True, ls=':')
         plt.xlabel('Distance, $x/x_1$  [-]', fontsize=13 if do_schematic else 16)
         plt.ylabel('Elevation, $z/x_1$  [-]', fontsize=13 if do_schematic else 16)
-        if not do_schematic and not do_one_ray:
+        if not do_schematic and not do_one_ray and do_legend:
             plt.legend(loc='upper right' if do_schematic
                        else ('upper left' if not do_simple
                        else (0.38,0.75)), fontsize=9 if do_schematic
@@ -352,9 +355,10 @@ class OneRayPlots(Graphing):
         if ray_eta_xy is None:
             ray_eta_xy = (0.92,0.15)
         if not do_schematic and not do_simple:
-            plt.text(*ray_eta_xy, rf'$\eta={gmeq.eta}$', transform=axes.transAxes,
-                     horizontalalignment='center', verticalalignment='center',
-                     fontsize=16, color='k')
+            if do_eta_label:
+                plt.text(*ray_eta_xy, rf'$\eta={gmeq.eta}$', transform=axes.transAxes,
+                         horizontalalignment='center', verticalalignment='center',
+                         fontsize=16, color='k')
             if do_pub_label:
                 plt.text(*pub_label_posn, pub_label,
                          transform=axes.transAxes, horizontalalignment='center', verticalalignment='center', fontsize=16, color='k')
