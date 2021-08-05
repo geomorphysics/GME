@@ -279,7 +279,7 @@ class Equations:
         # The implicit assumption here is that upstream area A ~ x^2, which will not be true
         #   for a "hillslope" component, and for which we should have a transition to A ~ x
         self.varphi_model_ramp_eqn = Eq(varphi_r, varphi_0*((x/x_1)**(mu*2) + varepsilon)).subs({x:x_1-rx})
-        self.varphi_model_rampmu_chi0_eqn = Eq(varphi_r, varphi_0*((x/x_1)**(mu*2) + varepsilon)).subs({x:x_1-rx})
+        # self.varphi_model_rampmu_chi0_eqn = Eq(varphi_r, varphi_0*((x/x_1)**(mu*2) + varepsilon)).subs({x:x_1-rx})
         self.varphi_model_rampflat_eqn = Eq(varphi_r, simplify(
             varphi_0*(  (chi/(x_1))*integrate(1/(1+sy.exp(-x/x_sigma)),x) + 1 )
                                 .subs({x:-rx+x_1}) ))

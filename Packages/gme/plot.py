@@ -187,7 +187,7 @@ class Graphing(GraphingBase):
 class OneRayPlots(Graphing):
 
     def profile_h_ray( self, gmes, gmeq, sub, name, fig_size=None, dpi=None,
-                        y_limits=None, ray_eta_xy=None, n_points=101,
+                        y_limits=None, ray_eta_xy=None, n_points=101, aspect=None,
                         do_direct=True, ray_subsetting=10, do_schematic=False,
                         do_simple=False, do_t_sampling=True,
                         do_pub_label=False, pub_label='', pub_label_posn=[0.15,0.50] ):
@@ -244,7 +244,7 @@ class OneRayPlots(Graphing):
                                           t_rsmpld_array, rx_rsmpld_array, rz_rsmpld_array, v_rsmpld_array,
                                           ls='-', sf=1, do_one_ray=True, color='0.5' )
 
-        axes.set_aspect(1)
+        axes.set_aspect(aspect if aspect is not None else 1)
         plt.grid(True, ls=':')
         plt.xlabel('Distance, $x/x_1$  [-]', fontsize=13)
         plt.ylabel('Elevation, $z/x_1$  [-]', fontsize=13)
