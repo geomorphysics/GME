@@ -534,9 +534,9 @@ class Equations:
             tanbeta_crit_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
                 :math:`\tan{\left(\beta_c \right)} = \sqrt{\eta}`
             tanbeta_rdotxz_pz_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
-                :math:`\tan{\left(\beta \right)} = \frac{v^{z} - \frac{1}{p_{z}}}{v^{x}}`
+                :math:`\tan{\left(\beta \right)} = \dfrac{v^{z} - \frac{1}{p_{z}}}{v^{x}}`
             tanbeta_rdotxz_xiv_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
-                :math:`\tan{\left(\beta \right)} = \frac{\xi^{\downarrow} + v^{z}}{v^{x}}`
+                :math:`\tan{\left(\beta \right)} = \dfrac{\xi^{\downarrow} + v^{z}}{v^{x}}`
         """
 
         eta_sub = {eta: self.eta}
