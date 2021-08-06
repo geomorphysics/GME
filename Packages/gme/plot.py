@@ -122,7 +122,7 @@ class Graphing(GraphingBase):
                 plt.plot( rx_array[:i+1], rz_array[:i+1]-t_offset, ls,
                           label='$t_0={}$'.format(i_max-i-1) if do_labels else None,
                           color=color)
-            if (i+i_off)//i_step==(i+i_off)/i_step:
+            # if (i+i_off)//i_step==(i+i_off)/i_step:
                 for q in range(1,i-1,3):
                     if do_one_ray:
                         v_rel = ( (v_array[q]-v_min)/(v_max-v_min) )**0.5
@@ -187,8 +187,8 @@ class Graphing(GraphingBase):
 
 class OneRayPlots(Graphing):
 
-    def profile_h_ray( self, gmes, gmeq, sub, name, fig_size=None, dpi=None,
-                        y_limits=None, ray_eta_xy=None, n_points=101, aspect=None,
+    def profile_ray( self, gmes, gmeq, sub, name, fig_size=None, dpi=None,
+                        y_limits=None, eta_label_xy=None, n_points=101, aspect=None,
                         do_direct=True, do_schematic=False,
                         do_simple=False, do_t_sampling=True, do_eta_label=True,
                         do_pub_label=False, pub_label='', pub_label_posn=[0.15,0.50] ):
@@ -249,11 +249,11 @@ class OneRayPlots(Graphing):
         plt.grid(True, ls=':')
         plt.xlabel('Distance, $x/x_1$  [-]', fontsize=13)
         plt.ylabel('Elevation, $z/x_1$  [-]', fontsize=13)
-        if ray_eta_xy is None:
-            ray_eta_xy = (0.92,0.15)
+        if eta_label_xy is None:
+            eta_label_xy = (0.92,0.15)
         if not do_schematic and not do_simple:
             if do_eta_label:
-                plt.text(*ray_eta_xy, rf'$\eta={gmeq.eta}$', transform=axes.transAxes,
+                plt.text(*eta_label_xy, rf'$\eta={gmeq.eta}$', transform=axes.transAxes,
                          horizontalalignment='center', verticalalignment='center',
                          fontsize=13, color='k')
             if do_pub_label:
@@ -263,7 +263,7 @@ class OneRayPlots(Graphing):
             plt.ylim(*y_limits)
 
     def profile_h_rays( self, gmes, gmeq, sub, name, fig_size=None, dpi=None,
-                        y_limits=None, ray_eta_xy=None, n_points=101,
+                        y_limits=None, eta_label_xy=None, n_points=101,
                         do_direct=True, n_rays=4, profile_subsetting=5,
                         do_schematic=False, do_legend=True, do_profile_points=True,
                         do_simple=False, do_one_ray=False, do_t_sampling=True, do_eta_label=True,
@@ -354,14 +354,14 @@ class OneRayPlots(Graphing):
         if not do_schematic and not do_one_ray and do_legend:
             plt.legend(loc='upper right' if do_schematic
                        else ('upper left' if not do_simple
-                       else (0.38,0.75)), fontsize=9 if do_schematic
-                       else 11,
+                       else (0.38,0.75)),
+                       fontsize=9 if do_schematic else 11,
                        framealpha=0.95)
-        if ray_eta_xy is None:
-            ray_eta_xy = (0.92,0.15)
+        if eta_label_xy is None:
+            eta_label_xy = (0.92,0.15)
         if not do_schematic and not do_simple:
             if do_eta_label:
-                plt.text(*ray_eta_xy, rf'$\eta={gmeq.eta}$', transform=axes.transAxes,
+                plt.text(*eta_label_xy, rf'$\eta={gmeq.eta}$', transform=axes.transAxes,
                          horizontalalignment='center', verticalalignment='center',
                          fontsize=16, color='k')
             if do_pub_label:
@@ -420,8 +420,66 @@ class OneRayPlots(Graphing):
                            length_includes_head=True, shape=shape_,
                            facecolor='r', edgecolor='r' )
 
+    def profile_h( self, gmes, gmeq, sub, name, fig_size=None, dpi=None,
+                    y_limits=None, eta_label_xy=None, n_points=101,
+                    do_direct=True,  do_legend=True, do_profile_points=True,
+                    profile_subsetting=5,
+                    do_t_sampling=True, do_eta_label=True,
+                    do_pub_label=False, pub_label='', pub_label_posn=[0.93,0.33] ):
+        r"""
+        Plot a time-invariant topographic profile solution of Hamilton's equations.
+
+
+        """
+        fig = self.create_figure(name, fig_size=fig_size, dpi=dpi)
+        axes = plt.gca()
+
+        t_array  = gmes.t_array #[::ray_subsetting]
+        rx_array = gmes.rx_array #[::ray_subsetting]
+        rz_array = gmes.rz_array #[::ray_subsetting]
+        print()
+
+        if do_t_sampling:
+            t_begin, t_end = t_array[0], t_array[-1]
+            t_rsmpld_array = np.linspace(t_begin, t_end, n_points)
+        else:
+            x_rsmpld_array = np.linspace(rx_array[0], rx_array[-1], n_points)
+            t_rsmpld_array = gmes.t_interp_x(x_rsmpld_array)
+        rx_rsmpld_array = gmes.rx_interp_t(t_rsmpld_array)
+        rz_rsmpld_array = gmes.rz_interp_t(t_rsmpld_array)
+
+        # Markers = topo profile from ray terminations
+        plt.plot( gmes.x_array[::profile_subsetting], gmes.h_array[::profile_subsetting],
+                    'k'+('s' if do_profile_points else '-'),
+                    ms=3, label=r'$T(\mathbf{r})$ from rays $\mathbf{r}(t)$' )
+
+        # Solid line = topo profile from direct integration of gradient array
+        plt.plot(gmes.h_x_array,(gmes.h_z_array-gmes.h_z_array[0]), 'k',
+                 label='$T(\mathbf{r})$ by integration' )
+        axes.set_aspect(1)
+        plt.grid(True, ls=':')
+        plt.xlabel('Distance, $x/x_1$  [-]', fontsize=15)
+        plt.ylabel('Elevation, $z/x_1$  [-]', fontsize=15)
+        if do_legend:
+            plt.legend(loc=(0.38,0.75),
+                       fontsize=9 if do_schematic else 11,
+                       framealpha=0.95)
+        if eta_label_xy is None:
+            eta_label_xy = (0.92,0.15)
+        if do_eta_label:
+            plt.text(*eta_label_xy, rf'$\eta={gmeq.eta}$', transform=axes.transAxes,
+                     horizontalalignment='center', verticalalignment='center',
+                     fontsize=16, color='k')
+        if do_pub_label:
+            plt.text(*pub_label_posn, pub_label,
+                     transform=axes.transAxes, horizontalalignment='center', verticalalignment='center',
+                     fontsize=16, color='k')
+        if y_limits is not None:
+            plt.ylim(*y_limits)
+
+
     def alpha_beta( self, gmes, gmeq, sub, name, fig_size=None, dpi=None, aspect=1,
-                    n_points=201, x_limits=None, y_limits=None, do_legend=True,
+                    n_points=201, x_limits=None, y_limits=None, do_legend=True, do_eta_label=True,
                     do_pub_label=False, pub_label='', pub_label_posn=[0.88,0.7] ):
         r"""
         Plot ray vector angle :math:`\alpha` versus normal-slowness covector angle :math:`\beta`
@@ -464,8 +522,9 @@ class OneRayPlots(Graphing):
             axes.set_ylim(*y_limits)
         if do_legend:
             plt.legend()
-        plt.text(0.5,0.85, r'$\eta={}$'.format(gmeq.eta), transform=axes.transAxes,
-                 horizontalalignment='center', verticalalignment='center', fontsize=14, color='k')
+        if do_eta_label:
+            plt.text(0.5,0.85, r'$\eta={}$'.format(gmeq.eta), transform=axes.transAxes,
+                     horizontalalignment='center', verticalalignment='center', fontsize=14, color='k')
         if do_pub_label:
             plt.text(*pub_label_posn, pub_label,
             transform=axes.transAxes, horizontalalignment='center', verticalalignment='center', fontsize=16, color='k')
@@ -578,7 +637,7 @@ class OneRayPlots(Graphing):
         x_array = np.linspace(0,1,11)
         pz0_ = gmes.pz0
         alpha_array = [(np.mod(180+np.rad2deg(float(
-            sy.atan(gmeq.tanalpha_pxpz_eqn.rhs.subs({px:gmes.px_value(x_,pz0_,sub),pz:pz0_})))),180))
+            sy.atan(gmeq.tanalpha_pxpz_eqn.rhs.subs({px:gmes.px_value(x_,pz0_),pz:pz0_})))),180))
             for x_ in x_array]
         plt.xlabel('Distance, $x/x_1$  [-]')
         plt.ylabel(r'Ray dip  $\alpha\!\,$  [$^\circ$ from horiz]')
@@ -591,7 +650,7 @@ class OneRayPlots(Graphing):
                  horizontalalignment='center', verticalalignment='center', fontsize=14, color='k')
 
     def profile_v( self, gmes, gmeq, sub, name, fig_size=None, dpi=None,
-                   n_points=201, do_pub_label=False, pub_label='',
+                   n_points=201, do_pub_label=False, pub_label='', do_eta_label=True,
                    xi_norm=None, legend_loc='lower right', do_mod_v=False ):
         r"""
         Plot velocity :math:`\dot{r}` along a ray.
@@ -613,7 +672,9 @@ class OneRayPlots(Graphing):
         else:
             xi_norm = float(sy.N(xi_norm))
             rate_label = r'${v}/\xi^{\!\downarrow_{\!\!0}}$  [-]'
-        x_array = np.linspace(0,1,n_points)
+        rx_array = gmes.rx_array
+        x_min, x_max = rx_array[0], rx_array[-1]
+        x_array = np.linspace(x_min, x_max,n_points)
         t_array  = gmes.t_interp_x(x_array)
         vx_array = gmes.rdotx_interp(x_array)/xi_norm
         vz_array = gmes.rdotz_interp(x_array)/xi_norm
@@ -643,12 +704,13 @@ class OneRayPlots(Graphing):
         plt.grid(True, ls=':')
         plt.xlabel('Distance, $x/x_1$  [-]', fontsize=13)
         plt.legend(loc=legend_loc, fontsize=14, framealpha=0.95)
-        plt.text(0.6,0.8, pub_label if do_pub_label else r'$\eta={}$'.format(gmeq.eta),
-                 transform=axes.transAxes,
-                 horizontalalignment='center', verticalalignment='center', fontsize=16, color='k')
+        if do_eta_label:
+            plt.text(0.6,0.8, pub_label if do_pub_label else r'$\eta={}$'.format(gmeq.eta),
+                     transform=axes.transAxes,
+                     horizontalalignment='center', verticalalignment='center', fontsize=16, color='k')
 
     def profile_vdot( self, gmes, gmeq, sub, name, fig_size=None, dpi=None,
-                      n_points=201, do_pub_label=False, pub_label='', xi_norm=None,
+                      n_points=201, do_pub_label=False, pub_label='', xi_norm=None, do_eta_label=True,
                       legend_loc='lower right', do_legend=True, do_mod_vdot=False, do_geodesic=False ):
         r"""
         Plot acceleration :math:`\ddot{r}` along a ray.
@@ -673,7 +735,9 @@ class OneRayPlots(Graphing):
             rate_label = r'$\dot{v}/\xi^{\!\downarrow_{\!\!0}}$  [T$^{-1}$]'
 
         # Specify sampling in x and t
-        x_array = np.linspace(0,1,n_points)
+        rx_array = gmes.rx_array
+        x_min, x_max = rx_array[0], rx_array[-1]
+        x_array = np.linspace(x_min, x_max,n_points)
         t_array  = gmes.t_interp_x(x_array)
 
         # Get ray velocities
@@ -736,15 +800,19 @@ class OneRayPlots(Graphing):
         plt.xlabel('Distance, $x/x_1$  [-]', fontsize=14)
         # axes.set_ylim(ylim[0]*1.1,-0)
         if do_legend: plt.legend(loc=legend_loc, fontsize=13, framealpha=0.95)
-        plt.text(0.6,0.8, pub_label if do_pub_label else r'$\eta={}$'.format(gmeq.eta),
-                 transform=axes.transAxes,
-                 horizontalalignment='center', verticalalignment='center', fontsize=14, color='k')
+        if do_eta_label:
+            plt.text(0.6,0.8, pub_label if do_pub_label else r'$\eta={}$'.format(gmeq.eta),
+                     transform=axes.transAxes,
+                     horizontalalignment='center', verticalalignment='center', fontsize=14, color='k')
 
     def prep_g_arrays( self, gmes, gmeq, n_points, do_recompute=False ):
         if not hasattr(self,'x_array') or n_points!=len(self.x_array):
             do_recompute=True
             print('(Re)computing g matrices')
-        self.x_array = np.linspace(0,1,n_points) \
+
+        rx_array = gmes.rx_array
+        x_min, x_max = rx_array[0], rx_array[-1]
+        self.x_array = np.linspace(x_min, x_max, n_points) \
                         if do_recompute or not hasattr(self,'x_array') else self.x_array
         self.t_array  = gmes.t_interp_x(self.x_array) \
                         if do_recompute or not hasattr(self,'t_array') else self.t_array
@@ -802,7 +870,7 @@ class OneRayPlots(Graphing):
                               y_limits=[None,None],
                               n_points=121, do_pub_label=False, pub_label='',
                               do_gstar=False, do_det=False, do_eigenvectors=False,
-                              eta_label_xy=None,
+                              eta_label_xy=None, do_eta_label=True,
                               legend_loc='lower left', do_mod_v=False, do_pv=False,
                               do_recompute=False ):
         r"""
@@ -925,9 +993,10 @@ class OneRayPlots(Graphing):
         plt.xlabel('Distance, $x/x_1$  [-]', fontsize=14)
         # axes.set_ylim(ylim[0]*1.1,-0)
         plt.legend(loc=legend_loc, fontsize=12, framealpha=0.95)
-        plt.text(*eta_label_xy, pub_label if do_pub_label else r'$\eta={}$'.format(gmeq.eta),
-                 transform=axes.transAxes,
-                 horizontalalignment='center', verticalalignment='center', fontsize=14, color='k')
+        if do_eta_label:
+            plt.text(*eta_label_xy, pub_label if do_pub_label else r'$\eta={}$'.format(gmeq.eta),
+                     transform=axes.transAxes,
+                     horizontalalignment='center', verticalalignment='center', fontsize=14, color='k')
 
 
 class TimeInvariantPlots(OneRayPlots):
@@ -1127,7 +1196,7 @@ class TimeInvariantPlots(OneRayPlots):
         return area_array, slope_array
 
     def profile_aniso(self, gmes, gmeq, sub, name, fig_size=None, dpi=None,
-                      y_limits=None, ray_eta_xy=None, v_scale=0.4, v_exponent=1,
+                      y_limits=None, eta_label_xy=None, v_scale=0.4, v_exponent=1,
                       sf=None, n_points=51, n_arrows=26, xf_stop=0.995,
                       do_pub_label=False, pub_label='' ):
         r"""
@@ -1175,7 +1244,9 @@ class TimeInvariantPlots(OneRayPlots):
         #     cmap_choice = 'cividis_r'
         shape='full'
 
-        x_array = np.linspace(0,1*xf_stop,n_arrows)
+        rx_array = gmes.rx_array
+        x_min, x_max = rx_array[0], rx_array[-1]
+        x_array = np.linspace(x_min,x_max*xf_stop,n_arrows)
         h_array = gmes.h_interp(x_array)
         beta_array = gmes.beta_p_interp(x_array)
         alpha_array = gmes.alpha_interp(x_array)
@@ -1354,7 +1425,8 @@ class TimeInvariantPlots(OneRayPlots):
             plt.text(0.93,0.15, pub_label,
                      transform=axes.transAxes, horizontalalignment='center', verticalalignment='center', fontsize=16, color='k')
 
-    def profile_beta( self, gmes, gmeq, sub, name, fig_size=None, dpi=None, n_points=26, xf_stop=0.995,
+    def profile_beta( self, gmes, gmeq, sub, name, fig_size=None, dpi=None, n_points=26, xf_stop=1,
+                      legend_loc='upper left', do_eta_label=True,
                       do_pub_label=False, pub_label='', pub_label_posn=[0.88,0.7] ):
         r"""
         For a time-invariant (steady-state) topographic profile,
@@ -1383,8 +1455,10 @@ class TimeInvariantPlots(OneRayPlots):
         """
         fig = self.create_figure(name, fig_size=fig_size, dpi=dpi)
 
-        x_array = np.linspace(0,1*xf_stop,n_points)
-        x_dbl_array = np.linspace(0,1*xf_stop,n_points*2-1)
+        rx_array = gmes.rx_array
+        x_min, x_max = rx_array[0], rx_array[-1]
+        x_array = np.linspace(x_min,x_max*xf_stop,n_points)
+        x_dbl_array = np.linspace(x_min,x_max*xf_stop,n_points*2-1)
         plt.plot(x_dbl_array, np.rad2deg(gmes.beta_vt_interp(x_dbl_array)),
                  'bs', ls='-', ms=3, label=r'$\beta_{vt}$ from $(v^z+\xi^{\!\downarrow\!})/v^x$')
         plt.plot(x_array, np.rad2deg(gmes.beta_ts_interp(x_array)),
@@ -1403,8 +1477,9 @@ class TimeInvariantPlots(OneRayPlots):
         plt.grid(True, ls=':')
 
         axes = plt.gca()
-        plt.legend(loc='upper left', fontsize=11, framealpha=0.95)
-        plt.text(0.6,0.8, r'$\eta={}$'.format(gmeq.eta), transform=axes.transAxes,
+        plt.legend(loc=legend_loc, fontsize=11, framealpha=0.95)
+        if do_eta_label:
+            plt.text(0.6,0.8, r'$\eta={}$'.format(gmeq.eta), transform=axes.transAxes,
                  horizontalalignment='center', verticalalignment='center', fontsize=14, color='k')
         if do_pub_label:
             plt.text(*pub_label_posn, pub_label,
@@ -1434,7 +1509,9 @@ class TimeInvariantPlots(OneRayPlots):
         """
         fig = self.create_figure(name, fig_size=fig_size, dpi=dpi)
 
-        x_array = np.linspace(0,1*xf_stop,n_points)
+        rx_array = gmes.rx_array
+        x_min, x_max = rx_array[0], rx_array[-1]
+        x_array = np.linspace(x_min,x_max*xf_stop,n_points)
         plt.plot(x_array, gmes.beta_vt_error_interp(x_array),
                  'b', ls='-', label=r'$\dfrac{\beta_{vt}-\beta_{p}}{\beta_{p}}$')
         plt.plot(x_array, gmes.beta_ts_error_interp(x_array),
@@ -1450,7 +1527,7 @@ class TimeInvariantPlots(OneRayPlots):
         plt.text(0.5,0.9, r'$\eta={}$'.format(gmeq.eta), transform=axes.transAxes,
                  horizontalalignment='center', verticalalignment='center', fontsize=14, color='k')
 
-    def profile_xi( self, gmes, gmeq, sub, name, fig_size=None, dpi=None, xf_stop=0.995,
+    def profile_xi( self, gmes, gmeq, sub, name, fig_size=None, dpi=None, xf_stop=1,
                     n_points=201, do_pub_label=False, pub_label='(a)', xi_norm=None ):
         r"""
         Plot surface-normal erosion speed :math:`\xi^{\perp}`  along a time-invariant profile.
@@ -1472,7 +1549,9 @@ class TimeInvariantPlots(OneRayPlots):
         else:
             xi_norm = float(sy.N(xi_norm))
             rate_label = r'$\xi^{\!\perp\!}/\xi^{\!\downarrow_{\!\!0}}$  [-]'
-        x_array = np.linspace(0,1*xf_stop,n_points)
+        rx_array = gmes.rx_array
+        x_min, x_max = rx_array[0], rx_array[-1]
+        x_array = np.linspace(x_min,x_max*xf_stop,n_points)
         u_array = gmes.u_interp(x_array)
         u_from_rdot_array = gmes.u_from_rdot_interp(x_array)
         dashes = [1, 2.]
@@ -1497,7 +1576,7 @@ class TimeInvariantPlots(OneRayPlots):
         plt.text(0.85,0.23, r'$\xi^{\perp}$' if do_pub_label else '',
                  transform=axes.transAxes, horizontalalignment='center', verticalalignment='center', fontsize=18, color='k')
 
-    def profile_xihorizontal( self, gmes, gmeq, sub, name, fig_size=None, dpi=None, xf_stop=0.995,
+    def profile_xihorizontal( self, gmes, gmeq, sub, name, fig_size=None, dpi=None, xf_stop=1,
                               n_points=201, do_pub_label=False, pub_label='(d)', xi_norm=None ):
         r"""
         Plot horizontal erosion speed :math:`\xi^{\rightarrow}` along a time-invariant profile.
@@ -1519,7 +1598,9 @@ class TimeInvariantPlots(OneRayPlots):
         else:
             xi_norm = float(sy.N(xi_norm))
             rate_label = r'$\xi^{\!\rightarrow\!\!}/\xi^{\!\downarrow_{\!\!0}}$  [-]'
-        x_array = np.linspace(0,1*xf_stop,n_points)
+        rx_array = gmes.rx_array
+        x_min, x_max = rx_array[0], rx_array[-1]
+        x_array = np.linspace(x_min,x_max*xf_stop,n_points)
         uhorizontal_p_array = gmes.uhorizontal_p_interp(x_array)/xi_norm
         uhorizontal_v_array = gmes.uhorizontal_v_interp(x_array)/xi_norm
         dashes = [1, 2.]
@@ -1547,7 +1628,7 @@ class TimeInvariantPlots(OneRayPlots):
                  transform=axes.transAxes, horizontalalignment='center',
                  verticalalignment='center', fontsize=18, color='k')
 
-    def profile_xivertical( self, gmes, gmeq, sub, name, fig_size=None, dpi=None, xf_stop=0.995,
+    def profile_xivertical( self, gmes, gmeq, sub, name, fig_size=None, dpi=None, xf_stop=1,
                            n_points=201, y_limits=None, do_pub_label=False, pub_label='(e)', xi_norm=None ):
         r"""
         Plot vertical erosion speed :math:`\xi^{\downarrow}` along a time-invariant profile.
@@ -1571,7 +1652,9 @@ class TimeInvariantPlots(OneRayPlots):
         else:
             xi_norm = float(sy.N(xi_norm))
             rate_label = r'$\xi^{\!\downarrow}\!\!/\xi^{\!\downarrow_{\!\!0}}$  [-]'
-        x_array = np.linspace(0,1*xf_stop,n_points)
+        rx_array = gmes.rx_array
+        x_min, x_max = rx_array[0], rx_array[-1]
+        x_array = np.linspace(x_min,x_max*xf_stop,n_points)
         xiv_p_array = gmes.xiv_p_interp(x_array)/xi_norm
         xiv_v_array = gmes.xiv_v_interp(x_array)/xi_norm
         if not do_pub_label:
@@ -1579,7 +1662,7 @@ class TimeInvariantPlots(OneRayPlots):
             plt.plot(x_array,xiv_v_array, 'b', ls='-', label=r'$\xi^{\!\downarrow\!}(x)$ from $1/p$')
         else:
             plt.plot(x_array,xiv_p_array, 'g', ls='-', label=r'from $v$')
-            plt.plot(x_array,xiv_v_array, 'b', ls='-', label=r'from $1/p$')
+            plt.plot(x_array,xiv_v_array, 'b', ls=':', lw=3, label=r'from $1/p$')
         axes = plt.gca()
         ylim = plt.ylim()
         plt.grid(True, ls=':')

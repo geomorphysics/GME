@@ -565,6 +565,8 @@ class Equations:
         self.tanbeta_rdotxz_pz_eqn = Eq(tan(beta), (rdotz - 1/pz)/rdotx )
         self.tanbeta_rdotxz_xiv_eqn = self.tanbeta_rdotxz_pz_eqn.subs({pz:self.pz_xiv_eqn.rhs})
 
+        self.tanalpha_crit = float(N(self.tanalpha_crit_eqn.rhs.subs({eta: self.eta})))
+        self.tanbeta_crit = float(N(self.tanbeta_crit_eqn.rhs.subs({eta: self.eta})))
 
     def define_g_eqns(self):
         r"""
