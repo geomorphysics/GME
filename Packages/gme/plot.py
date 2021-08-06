@@ -94,6 +94,7 @@ class Graphing(GraphingBase):
             return np.pi+angle
 
     def draw_rays_with_arrows_simple( self, axes, sub, t_array, rx_array, rz_array, v_array=None,
+                                      n_t=None, n_rays=4,
                                       ls='-', sf=1, color=None, do_labels=True, do_one_ray=False ):
         """
         Plot ray and arrowheads along the ray to visualize the direction of motion.
@@ -106,8 +107,8 @@ class Graphing(GraphingBase):
             rz_array (numpy.ndarray): z coordinates along the sampled ray
             ls (str): optional line style
         """
-        i_max = len(t_array) #if i_max is None else i_max
-        i_step = 10
+        i_max = len(t_array) if n_t is None else n_t
+        i_step = i_max//n_rays
         i_off = i_step*(1+i_max//i_step)-i_max + 1
         my_arrow_style = mpatches.ArrowStyle.Fancy(head_length=.99*sf, head_width=.6*sf,
                                                    tail_width=0.01*sf)
@@ -122,7 +123,7 @@ class Graphing(GraphingBase):
                           label='$t_0={}$'.format(i_max-i-1) if do_labels else None,
                           color=color)
             if (i+i_off)//i_step==(i+i_off)/i_step:
-                for q in range(0,i-1,3):
+                for q in range(1,i-1,3):
                     if do_one_ray:
                         v_rel = ( (v_array[q]-v_min)/(v_max-v_min) )**0.5
                         rgba = color_map(v_rel*0.8)
@@ -188,7 +189,7 @@ class OneRayPlots(Graphing):
 
     def profile_h_ray( self, gmes, gmeq, sub, name, fig_size=None, dpi=None,
                         y_limits=None, ray_eta_xy=None, n_points=101, aspect=None,
-                        do_direct=True, ray_subsetting=10, do_schematic=False,
+                        do_direct=True, do_schematic=False,
                         do_simple=False, do_t_sampling=True, do_eta_label=True,
                         do_pub_label=False, pub_label='', pub_label_posn=[0.15,0.50] ):
         r"""
@@ -214,7 +215,6 @@ class OneRayPlots(Graphing):
                     GME model equations class instance defined in :mod:`~.equations`
             sub (dict): dictionary of model parameter values to be used for equation substitutions
             do_direct (bool): plot directly integrated ray trajectory (from :math:`\mathbf{\widetilde{p}}` values) as a solid curve
-            ray_subsetting (int): optional ray subsampling rate (typically far more rays are computed than should be plotted)
             do_schematic (bool):
                 optionally plot in more schematic form for expository purposes?
             do_simple (bool): optionally simplify?
@@ -224,7 +224,7 @@ class OneRayPlots(Graphing):
         axes = plt.gca()
 
         t_array  = gmes.t_array
-        # rx_array = gmes.rx_array
+        rx_array = gmes.rx_array
         # rz_array = gmes.rz_array
         # v_array = n.sqrt(gmes.rdotx_array**2 + gmes.rdotz_array**2)
 
@@ -232,7 +232,7 @@ class OneRayPlots(Graphing):
             t_begin, t_end = t_array[0], t_array[-1]
             t_rsmpld_array = np.linspace(t_begin, t_end, n_points)
         else:
-            x_rsmpld_array = np.linspace(0, 1, n_points)
+            x_rsmpld_array = np.linspace(rx_array[0], rx_array[-1], n_points)
             t_rsmpld_array = gmes.t_interp_x(x_rsmpld_array)
         rx_rsmpld_array = gmes.rx_interp_t(t_rsmpld_array)
         rz_rsmpld_array = gmes.rz_interp_t(t_rsmpld_array)
@@ -242,6 +242,7 @@ class OneRayPlots(Graphing):
         # Plot arrow-annotated rays
         self.draw_rays_with_arrows_simple( axes, sub,
                                           t_rsmpld_array, rx_rsmpld_array, rz_rsmpld_array, v_rsmpld_array,
+                                          n_rays=1, n_t=None,
                                           ls='-', sf=1, do_one_ray=True, color='0.5' )
 
         axes.set_aspect(aspect if aspect is not None else 1)
@@ -263,7 +264,7 @@ class OneRayPlots(Graphing):
 
     def profile_h_rays( self, gmes, gmeq, sub, name, fig_size=None, dpi=None,
                         y_limits=None, ray_eta_xy=None, n_points=101,
-                        do_direct=True, ray_subsetting=10,
+                        do_direct=True, n_rays=4, profile_subsetting=5,
                         do_schematic=False, do_legend=True, do_profile_points=True,
                         do_simple=False, do_one_ray=False, do_t_sampling=True, do_eta_label=True,
                         do_pub_label=False, pub_label='', pub_label_posn=[0.93,0.33] ):
@@ -299,15 +300,16 @@ class OneRayPlots(Graphing):
         fig = self.create_figure(name, fig_size=fig_size, dpi=dpi)
         axes = plt.gca()
 
-        t_array  = gmes.t_array[::ray_subsetting]
-        rx_array = gmes.rx_array[::ray_subsetting]
-        rz_array = gmes.rz_array[::ray_subsetting]
+        t_array  = gmes.t_array #[::ray_subsetting]
+        rx_array = gmes.rx_array #[::ray_subsetting]
+        rz_array = gmes.rz_array #[::ray_subsetting]
+        print()
 
         if do_t_sampling:
             t_begin, t_end = t_array[0], t_array[-1]
             t_rsmpld_array = np.linspace(t_begin, t_end, n_points)
         else:
-            x_rsmpld_array = np.linspace(0, 1, n_points)
+            x_rsmpld_array = np.linspace(rx_array[0], rx_array[-1], n_points)
             t_rsmpld_array = gmes.t_interp_x(x_rsmpld_array)
         rx_rsmpld_array = gmes.rx_interp_t(t_rsmpld_array)
         rz_rsmpld_array = gmes.rz_interp_t(t_rsmpld_array)
@@ -315,19 +317,22 @@ class OneRayPlots(Graphing):
         # Plot arrow-annotated rays
         self.draw_rays_with_arrows_simple( axes, sub,
                                            t_rsmpld_array, rx_rsmpld_array, rz_rsmpld_array,
+                                           n_rays=n_rays, n_t=None,
                                            ls='-' if do_schematic else '-',
                                            sf=0.5 if do_schematic else 1, do_one_ray=do_one_ray )
+
         if do_schematic:
             # For schematic fig, also plot mirror-image topo profile on opposite side of drainage divide
             self.draw_rays_with_arrows_simple( axes, sub,
                                                t_rsmpld_array, 2-rx_rsmpld_array, rz_rsmpld_array,
+                                               n_rays=n_rays, n_t=None,
                                                ls='-' if do_schematic else '-',
                                                sf=0.5 if do_schematic else 1, do_labels=False )
 
         # Markers = topo profile from ray terminations
         if not do_schematic and not do_one_ray:
-            plt.plot( gmes.x_array[::ray_subsetting], gmes.h_array[::ray_subsetting],
-                        'k'+('s' if do_profile_points else '-'),  
+            plt.plot( gmes.x_array[::profile_subsetting], gmes.h_array[::profile_subsetting],
+                        'k'+('s' if do_profile_points else '-'),
                         ms=3, label=r'$T(\mathbf{r})$ from rays $\mathbf{r}(t)$' )
 
         # Solid line = topo profile from direct integration of gradient array

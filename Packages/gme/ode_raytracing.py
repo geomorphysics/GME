@@ -196,11 +196,11 @@ class TimeInvariantSolution(OneRaySolution):
         self.beta_ts_error_interp = lambda x_: 100*( self.beta_ts_interp(x_)-self.beta_p_interp(x_) ) \
                                                     /self.beta_p_interp(x_)
 
-    def integrate_h_profile(self, n_pts=301, do_truncate=True):
+    def integrate_h_profile(self, n_pts=301, do_truncate=True, do_use_newton=False):
         self.h_x_array = np.linspace(0,float(x_1.subs(self.parameters)),n_pts)
         if do_truncate:
             h_x_array = self.h_x_array[:-2]
-            gradient_array = np.array([self.gradient_value(x_,parameters=self.parameters)
+            gradient_array = np.array([self.gradient_value(x_, do_use_newton, parameters=self.parameters)
                                        for x_ in h_x_array])
             h_z_array = cumtrapz(gradient_array, h_x_array, initial=0)
             h_z_interp  = InterpolatedUnivariateSpline( h_x_array, h_z_array, k=2, ext=0 )
@@ -209,7 +209,7 @@ class TimeInvariantSolution(OneRaySolution):
             h_x_array = self.h_x_array
             # for x_ in h_x_array:
             #     print(x_,self.gradient_value(x_,parameters=self.parameters))
-            gradient_array = np.array([self.gradient_value(x_,parameters=self.parameters)
+            gradient_array = np.array([self.gradient_value(x_, do_use_newton, parameters=self.parameters)
                                        for x_ in h_x_array])
             self.h_z_array = cumtrapz(gradient_array, h_x_array, initial=0)
 

@@ -133,17 +133,25 @@ class BaseSolution():
         pz0_ = self.gmeq.pz_xiv_eqn.rhs.subs({xiv:xiv_0}).subs(self.parameters)
         return (px0_,pz0_)
 
-    def px_value(self, x_, pz_, parameters={}):
-        px_poly = poly(self.px0_poly_eqn.subs({rx:x_,pz:pz_}).subs({mu:self.gmeq.mu}))
-        px_poly_roots = nroots(px_poly)
-        pxgen = [root_ for root_ in px_poly_roots if Abs(im(root_))<1e-10 and re(root_)>0][0]
-        return solve(Eq(px_poly.gens[0],pxgen),px)[0]
+    def px_value_newton(self, x_, pz_, px_guess=0.01):
+        px_poly_eqn = poly(self.px0_poly_eqn.subs({rx:x_,pz:pz_}).subs({mu:self.gmeq.mu}))
+        px_poly_lambda = lambdify( [px], px_poly_eqn.as_expr() )
+        dpx_poly_lambda = lambdify( [px], diff(px_poly_eqn.as_expr(),px) )
+        px_root_search = root_scalar( px_poly_lambda, fprime=dpx_poly_lambda, method='newton', x0=px_guess )
+        px_ = px_root_search.root
+        return px_
 
-    def gradient_value(self, x_, parameters={}):
+    def px_value(self, x_, pz_):
+        px_poly_eqn = poly(self.px0_poly_eqn.subs({rx:x_,pz:pz_}).subs({mu:self.gmeq.mu}))
+        px_poly_roots = nroots(px_poly_eqn)
+        pxgen = [root_ for root_ in px_poly_roots if Abs(im(root_))<1e-10 and re(root_)>0][0]
+        return solve(Eq(px_poly_eqn.gens[0],pxgen),px)[0]
+
+    def gradient_value(self, x_, do_use_newton=False, parameters={}):
         # Hack
         pz_ = self.pz0
-        px_ = -self.px_value(x_,pz_,parameters)
-        return float((-self.px_value(x_,pz_,parameters)/pz_).subs(parameters))
+        px_ = -self.px_value_newton(x_,pz_) if do_use_newton else -self.px_value(x_,pz_)
+        return float(px_/pz_)
 
     def prep_arrays(self):
         self.ref_t_array = np.linspace(0,1,self.n_t)**self.t_distribn * self.t_end
