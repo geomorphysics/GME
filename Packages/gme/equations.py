@@ -722,8 +722,14 @@ class Equations:
         )
         pz_cosbeta_varphi_eqn = Eq( pz_cosbeta_varphi_tmp_eqn.lhs**self.eta_dbldenom,
                                     pz_cosbeta_varphi_tmp_eqn.rhs**self.eta_dbldenom )
-        self.pz_cosbeta_varphi_eqn = pz_cosbeta_varphi_eqn
 
+        # New
+        # pz_cosbeta_varphi_eqn = (self.pz_varphi_beta_eqn.subs({Abs(sin(beta)**self.eta):sin(beta)**self.eta})
+        #                                  .subs({varphi_r:varphi})
+        #                                  .subs({sin(beta):sqrt(1-cos(beta)**2)}))
+        # cosbetasqrd_pz_varphi_soln = (sy.solve( pz_cosbeta_varphi_eqn, cos(beta)**2 ))[0]
+
+        self.pz_cosbeta_varphi_eqn = pz_cosbeta_varphi_eqn
         self.cosbetasqrd_pz_varphi_solns = None
         self.cosbetasqrd_pz_varphi_soln = None
         self.fgtx_cossqrdbeta_pz_varphi_eqn = None
@@ -740,6 +746,8 @@ class Equations:
             return [ soln for soln in self.cosbetasqrd_pz_varphi_solns
                                                      if Abs(im(sy.N(soln.subs(sub))))<1e-20
                                                      and (re(sy.N(soln.subs(sub))))>=0 ]
+
+
         self.cosbetasqrd_pz_varphi_soln = find_cosbetasqrd_root({varphi:1,pz:-0.01})
         if self.cosbetasqrd_pz_varphi_soln==[]:
             self.cosbetasqrd_pz_varphi_soln = find_cosbetasqrd_root({varphi:10,pz:-0.5})

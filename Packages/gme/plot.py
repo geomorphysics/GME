@@ -1946,7 +1946,7 @@ class TheoryPlots(Graphing):
                             varphi_=1, n_points=100,
                             idtx_pz_min=1e-3, idtx_pz_max=1000,
                             fgtx_pz_min=1e-3, fgtx_pz_max=1000,
-                            y_limits=None):
+                            y_limits=None, do_beta_crit=True):
         """
         Plot both indicatrix and figuratrix on one log-polar graph.
 
@@ -2001,6 +2001,12 @@ class TheoryPlots(Graphing):
         # plt.polar( idtx_theta_negrdot_array, idtx_rdot_negrdot_array, 'k', ls='-', lw=3)
         plt.polar(unit_circle_beta_array, unit_circle_beta_array*0, 'g', ':', lw=1, label='unit circle')
 
+        # Critical angles
+        beta_crit = np.arctan(float(gmeq.tanbeta_crit))
+        alpha_crit = np.pi/2+np.arctan(float(gmeq.tanalpha_crit))
+        plt.polar([beta_crit,beta_crit], [-2,3], ':', color='DarkBlue', label=fr'$\beta=\beta_c$')
+        plt.polar([alpha_crit,alpha_crit], [-2,3], ':', color='DarkRed', label=fr'$\alpha=\alpha_c$')
+
         # Labelling etc
         posn_list = [0, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75]
         xtick_posns = [(-np.pi/i_ if i_ != 0 else np.pi) for i_ in posn_list]
@@ -2012,11 +2018,11 @@ class TheoryPlots(Graphing):
         xtick_labels = [
             r'$\beta=0$',
             r'$\beta=\frac{\pi}{4}$',
-            r'$\qquad\alpha,\beta=\frac{\pi}{2}$',
-            r'$\alpha=\frac{3\pi}{4}$',
-            r'$\alpha={\pi}$',
-            r'$\alpha=-\frac{3\pi}{4}$',
-            r'$\alpha,\beta=-\frac{\pi}{2}\quad$',
+            r'$\qquad\alpha=0,\beta=\frac{\pi}{2}$',
+            r'$\alpha=\frac{\pi}{4}$',
+            r'$\alpha=\pm\frac{\pi}{2}$',
+            r'$\alpha=-\frac{\pi}{4}$',
+            r'$\alpha=0,\beta=-\frac{\pi}{2}\quad$',
             r'$\beta=-\frac{\pi}{4}$'
         ]
         plt.xticks(xtick_posns, xtick_labels)
@@ -2031,12 +2037,12 @@ class TheoryPlots(Graphing):
         plt.yticks(ytick_posns, ytick_labels)
 
         axes = plt.gca()
-        plt.text(np.pi/1.6,(1+y_limits[1]-y_limits[0])*2/3+y_limits[0], '$\eta={}$'.format(gmeq.eta),fontsize=16)
+        plt.text(np.pi/1.1,(1+y_limits[1]-y_limits[0])*2/3+y_limits[0], '$\eta={}$'.format(gmeq.eta),fontsize=16)
 
         axes.set_theta_zero_location("S")
 
         handles, labels = axes.get_legend_handles_labels()
-        subset = [3,2,0]
+        subset = [3,2,0,5,6]
         handles = [handles[idx] for idx in subset]
         labels = [labels[idx] for idx in subset]
         # Hacked fix to bug in Matplotlib that adds a bogus entry here
@@ -2139,18 +2145,24 @@ class TheoryPlots(Graphing):
 
     def figuratrix(self, gmeq, varphi_, n_points, pz_min=1e-5, pz_max=50):
         px_pz_eqn = Eq( px, factor(gmeq.fgtx_px_pz_varphi_eqn.rhs.subs({varphi:varphi_})) )
+        px_pz_lambda = lambdify( [pz], re(sy.N(px_pz_eqn.rhs)) )
         fgtx_pz_array = -np.power(10,np.linspace(np.log10(pz_max),np.log10(pz_min), n_points))
-        fgtx_px_array = np.array([float(re(sy.N(px_pz_eqn.rhs.subs({pz:pz_})))) for pz_ in fgtx_pz_array])
+        # fgtx_px_array = np.array([float(re(sy.N(px_pz_eqn.rhs.subs({pz:pz_})))) for pz_ in fgtx_pz_array])
+        fgtx_px_array = np.array([float(px_pz_lambda(pz_)) for pz_ in fgtx_pz_array])
         return fgtx_px_array, fgtx_pz_array, px_pz_eqn
 
     def indicatrix(self, gmeq, varphi_, n_points, pz_min=1e-5, pz_max=300):
         rdotx_pz_eqn = gmeq.idtx_rdotx_pz_varphi_eqn.subs({varphi:varphi_})
         rdotz_pz_eqn = gmeq.idtx_rdotz_pz_varphi_eqn.subs({varphi:varphi_})
+        rdotx_pz_lambda = lambdify( [pz], re(sy.N(rdotx_pz_eqn.rhs)) )
+        rdotz_pz_lambda = lambdify( [pz], re(sy.N(rdotz_pz_eqn.rhs)) )
         fgtx_pz_array = -np.power(10,np.linspace(np.log10(pz_max),np.log10(pz_min), n_points))
-        idtx_rdotx_array = np.array([float(re(sy.N(rdotx_pz_eqn.rhs.subs({pz:pz_}))))
-                                        for pz_ in fgtx_pz_array])
-        idtx_rdotz_array = np.array([float(re(sy.N(rdotz_pz_eqn.rhs.subs({pz:pz_}))))
-                                        for pz_ in fgtx_pz_array])
+        # idtx_rdotx_array = np.array([float(re(sy.N(rdotx_pz_eqn.rhs.subs({pz:pz_}))))
+        #                                 for pz_ in fgtx_pz_array])
+        # idtx_rdotz_array = np.array([float(re(sy.N(rdotz_pz_eqn.rhs.subs({pz:pz_}))))
+        #                                 for pz_ in fgtx_pz_array])
+        idtx_rdotx_array = np.array([float(rdotx_pz_lambda(pz_)) for pz_ in fgtx_pz_array])
+        idtx_rdotz_array = np.array([float(rdotz_pz_lambda(pz_)) for pz_ in fgtx_pz_array])
         return idtx_rdotx_array, idtx_rdotz_array, rdotx_pz_eqn, rdotz_pz_eqn
 
     @staticmethod
