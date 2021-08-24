@@ -1,0 +1,22 @@
+{
+	"job": {
+		"title": "Exploration of Lagrangian on-shell for sin(beta) erosion model, eta=3/2",
+		"group_name": "Theory",
+		"short_name": "lagrangian_exploration"
+	},
+
+	"model": {
+		"eta" : "sy.Rational(3,2)",
+		"mu" : "sy.Rational(3,4)",
+		"beta_type" : "sin",
+		"varphi_type" : "ramp",
+		"varepsilon" : "sy.Rational(1,1000)",
+		"varphi_0" : 300,
+		"x_1" : 1,
+		"xiv_0" : 30,
+		"kappa_h" : "sy.Rational(3,2)",
+		"h_0" : "sy.Rational(1,2)",
+		"x_sigma" : 0.01,
+		"x_h" : 1
+	}
+}
