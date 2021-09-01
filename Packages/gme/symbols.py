@@ -23,8 +23,8 @@ from sympy import symbols, MatrixSymbol, Function
 
 i,j,k, l, m = symbols('i j k, l, m',  real=True)
 F = symbols('F',  real=True, positive=True)
-Fstar = symbols(r'F^*',  real=True, positive=True)
-Fstar_px_pz = symbols(r'F^{*}(p_x\,p_z)',  real=True, positive=True)
+Fstar = symbols(r'F_*',  real=True, positive=True)
+Fstar_px_pz = symbols(r'F_{*}(p_x\,p_z)',  real=True, positive=True)
 H = symbols('H',  real=True, negative=False)
 L = symbols('L',  real=True, negative=False) # ideally, both should be positive=True
 G1 = symbols('G1')
@@ -113,8 +113,8 @@ varepsilon       = symbols(r'\varepsilon',  real=True, positive=True)
 
 J       = MatrixSymbol('J',2,2)
 g       = MatrixSymbol('g',2,2)
-gstar   = MatrixSymbol('g^*',2,2)
-det_gstar = symbols(r'\det\left(g^*\right)')
+gstar   = MatrixSymbol('g_*',2,2)
+det_gstar = symbols(r'\det\left(g_*\right)')
 pcovec_wrong    = MatrixSymbol(r'\mathbf{\widetilde{p}}',2,1)
 pcovec    = MatrixSymbol(r'\mathbf{\widetilde{p}}',1,2)
 pdotcovec    = MatrixSymbol(r'\mathbf{\dot{\widetilde{p}}}',1,2)
