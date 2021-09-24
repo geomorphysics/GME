@@ -10,5 +10,5 @@ In preparation:
   - Stark, C. P.: "Channel self-formation by salt dissolution."
 
 Other:
-  - [Stark, C. P.: Zenodo archive of Geometric Mechanics 95 of Erosion software package (GME, version 1.0-beta), 2021](https://doi.org/10.5281/zenodo.5105597)
+  - [Stark, C. P.: Zenodo archive of Geometric Mechanics of Erosion software package (GME, version 1.0-beta), 2021](https://doi.org/10.5281/zenodo.5105597)
   - [Stark, C. P.: Zenodo archive of Geomorphysics Python library (GMPLib, version 1.0-beta), 2021](https://doi.org/10.5281/zenodo.5105574)
