@@ -32,6 +32,9 @@ Contents
 .. toctree::
   :maxdepth: 1
 
+    Presentations <../modules/Presentations>
+    Publications <../modules/Publications>
+    
     Software design <../modules/Design>
     Dependencies <../modules/Dependencies>
     Installation and set-up<../modules/Installation>
