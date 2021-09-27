@@ -607,12 +607,16 @@ class OneRayPlots(Graphing):
         plt.grid(True, ls=':')
 
         plt.xlabel('Distance, $x/x_1$  [-]', fontsize=13)
-        plt.ylabel(r'Anisotropy,  $(\alpha-\beta)+90$  [$^\circ$]', fontsize=12)
+        plt.ylabel(r'Anisotropy,  $\psi = \alpha-\beta+90$  [$^\circ$]', fontsize=12)
         if not do_pub_label:
             plt.legend(loc='lower left', fontsize=11, framealpha=0.95)
         plt.text(*pub_label_posn, pub_label if do_pub_label else r'$\eta={}$'.format(gmeq.eta),
                  transform=axes.transAxes, horizontalalignment='center', verticalalignment='center', fontsize=16, color='k')
-        plt.text(0.2,0.25, r'$\alpha-\beta+90^{\circ}$' if do_pub_label else '',
+        if gmeq.eta>1:
+            loc = [0.85,0.81]
+        else:
+            loc = [0.85,0.81]
+        plt.text(*loc, r'$\psi(x)$' if do_pub_label else '',
                  transform=axes.transAxes, horizontalalignment='center', verticalalignment='center', fontsize=18, color='k')
 
     def profile_alpha( self, gmes, gmeq, sub, name, fig_size=None, dpi=None, n_points=201, do_legend=True):
@@ -708,6 +712,9 @@ class OneRayPlots(Graphing):
             plt.text(0.6,0.8, pub_label if do_pub_label else r'$\eta={}$'.format(gmeq.eta),
                      transform=axes.transAxes,
                      horizontalalignment='center', verticalalignment='center', fontsize=16, color='k')
+        label = r'${v}(x)$' if do_mod_v else r'$\mathbf{v}(x)$'
+        plt.text(0.85,0.83, label if do_pub_label else '',
+                 transform=axes.transAxes, horizontalalignment='center', verticalalignment='center', fontsize=18, color='k')
 
     def profile_vdot( self, gmes, gmeq, sub, name, fig_size=None, dpi=None,
                       n_points=201, do_pub_label=False, pub_label='', xi_norm=None, do_eta_label=True,
@@ -1419,7 +1426,7 @@ class TimeInvariantPlots(OneRayPlots):
         colorbar_axes = divider.append_axes('right', size="5%", pad=0.2)
         colorbar_axes.set_aspect(5)
         colorbar = plt.colorbar(colorbar_im, cax=colorbar_axes)
-        colorbar.set_label(r'Anisotropy  $\alpha-\beta+90$  [$^\circ$]', rotation=270, labelpad=20)
+        colorbar.set_label(r'Anisotropy  $\psi = \alpha-\beta+90$  [$^\circ$]', rotation=270, labelpad=20)
 
         if do_pub_label:
             plt.text(0.93,0.15, pub_label,
@@ -1573,7 +1580,12 @@ class TimeInvariantPlots(OneRayPlots):
         plt.legend(loc='lower left', fontsize=11, framealpha=0.95)
         plt.text(0.6,0.23, pub_label if do_pub_label else r'$\eta={}$'.format(gmeq.eta),
                  transform=axes.transAxes, horizontalalignment='center', verticalalignment='center', fontsize=16, color='k')
-        plt.text(0.85,0.23, r'$\xi^{\perp}$' if do_pub_label else '',
+        # 0.85,0.23
+        if gmeq.eta>1:
+            loc = [0.85,0.83]
+        else:
+            loc = [0.8,0.7]
+        plt.text(*loc, r'$\xi^{\perp}(x)$' if do_pub_label else '',
                  transform=axes.transAxes, horizontalalignment='center', verticalalignment='center', fontsize=18, color='k')
 
     def profile_xihorizontal( self, gmes, gmeq, sub, name, fig_size=None, dpi=None, xf_stop=1,
@@ -1624,7 +1636,11 @@ class TimeInvariantPlots(OneRayPlots):
         plt.text(0.6,0.8, pub_label if do_pub_label else r'$\eta={}$'.format(gmeq.eta),
                  transform=axes.transAxes, horizontalalignment='center',
                  verticalalignment='center', fontsize=16, color='k')
-        plt.text(0.85,0.8, r'$\xi^{\rightarrow}$' if do_pub_label else '',
+        if gmeq.eta>1:
+            loc = [0.85,0.81]
+        else:
+            loc = [0.85,0.75]
+        plt.text(*loc, r'$\xi^{\rightarrow}(x)$' if do_pub_label else '',
                  transform=axes.transAxes, horizontalalignment='center',
                  verticalalignment='center', fontsize=18, color='k')
 
@@ -1675,7 +1691,7 @@ class TimeInvariantPlots(OneRayPlots):
         plt.text(0.6,0.85, pub_label if do_pub_label else r'$\eta={}$'.format(gmeq.eta),
                  transform=axes.transAxes, horizontalalignment='center',
                  verticalalignment='center', fontsize=16, color='k')
-        plt.text(0.85,0.85, r'$\xi^{\downarrow}$' if do_pub_label else '',
+        plt.text(0.85,0.81, r'$\xi^{\downarrow}(x)$' if do_pub_label else '',
                  transform=axes.transAxes, horizontalalignment='center',
                  verticalalignment='center', fontsize=18, color='k')
 
