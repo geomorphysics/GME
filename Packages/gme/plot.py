@@ -28,7 +28,7 @@ Imports symbols from :mod:`.symbols` module.
 
 from gmplib.plot_utils import GraphingBase
 
-from sympy import Eq, factor, re, Abs, lambdify
+from sympy import Eq, factor, re, Abs, lambdify, Rational
 from gme.symbols import *
 import numpy as np
 from scipy.linalg import eig, eigh, det
@@ -247,8 +247,8 @@ class OneRayPlots(Graphing):
 
         axes.set_aspect(aspect if aspect is not None else 1)
         plt.grid(True, ls=':')
-        plt.xlabel('Distance, $x/x_1$  [-]', fontsize=13)
-        plt.ylabel('Elevation, $z/x_1$  [-]', fontsize=13)
+        plt.xlabel(r'Distance, $x/L_{\mathrm{c}}$  [-]', fontsize=13)
+        plt.ylabel(r'Elevation, $z/L_{\mathrm{c}}$  [-]', fontsize=13)
         if eta_label_xy is None:
             eta_label_xy = (0.92,0.15)
         if not do_schematic and not do_simple:
@@ -349,8 +349,8 @@ class OneRayPlots(Graphing):
 
         axes.set_aspect(1)
         plt.grid(True, ls=':')
-        plt.xlabel('Distance, $x/x_1$  [-]', fontsize=13 if do_schematic else 16)
-        plt.ylabel('Elevation, $z/x_1$  [-]', fontsize=13 if do_schematic else 16)
+        plt.xlabel(r'Distance, $x/L_{\mathrm{c}}$  [-]', fontsize=13 if do_schematic else 16)
+        plt.ylabel(r'Elevation, $z/L_{\mathrm{c}}$  [-]', fontsize=13 if do_schematic else 16)
         if not do_schematic and not do_one_ray and do_legend:
             plt.legend(loc='upper right' if do_schematic
                        else ('upper left' if not do_simple
@@ -458,8 +458,8 @@ class OneRayPlots(Graphing):
                  label='$T(\mathbf{r})$ by integration' )
         axes.set_aspect(1)
         plt.grid(True, ls=':')
-        plt.xlabel('Distance, $x/x_1$  [-]', fontsize=15)
-        plt.ylabel('Elevation, $z/x_1$  [-]', fontsize=15)
+        plt.xlabel(r'Distance, $x/L_{\mathrm{c}}$  [-]', fontsize=15)
+        plt.ylabel(r'Elevation, $z/L_{\mathrm{c}}$  [-]', fontsize=15)
         if do_legend:
             plt.legend(loc=(0.38,0.75),
                        fontsize=9 if do_schematic else 11,
@@ -606,7 +606,7 @@ class OneRayPlots(Graphing):
         axes.set_ylim( -5,95 )
         plt.grid(True, ls=':')
 
-        plt.xlabel('Distance, $x/x_1$  [-]', fontsize=13)
+        plt.xlabel(r'Distance, $x/L_{\mathrm{c}}$  [-]', fontsize=13)
         plt.ylabel(r'Anisotropy,  $\psi = \alpha-\beta+90$  [$^\circ$]', fontsize=12)
         if not do_pub_label:
             plt.legend(loc='lower left', fontsize=11, framealpha=0.95)
@@ -643,7 +643,7 @@ class OneRayPlots(Graphing):
         alpha_array = [(np.mod(180+np.rad2deg(float(
             sy.atan(gmeq.tanalpha_pxpz_eqn.rhs.subs({px:gmes.px_value(x_,pz0_),pz:pz0_})))),180))
             for x_ in x_array]
-        plt.xlabel('Distance, $x/x_1$  [-]')
+        plt.xlabel(r'Distance, $x/L_{\mathrm{c}}$  [-]')
         plt.ylabel(r'Ray dip  $\alpha\!\,$  [$^\circ$ from horiz]')
         plt.grid(True, ls=':')
 
@@ -689,7 +689,7 @@ class OneRayPlots(Graphing):
 
         if do_mod_v:
             plt.plot( x_array, v_array, 'DarkBlue', ls='-', lw=1.5, label=r'${v}(x)$')
-            plt.ylabel('Ray speed  '+rate_label, fontsize=13)
+            plt.ylabel(r'Ray speed  '+rate_label, fontsize=13)
             legend_loc = 'lower left'
         else:
             sfx = np.power(10,np.round(np.log10(vz_max/v_max),0))
@@ -698,7 +698,7 @@ class OneRayPlots(Graphing):
                                 label=r'${v}^x(x)$'+label_suffix)
             plt.plot( x_array, vz_array, 'b', ls='-', lw=1.5,
                                 label=r'${v}^z(x)$')
-            plt.ylabel('Ray velocity  '+rate_label, fontsize=13)
+            plt.ylabel(r'Ray velocity  '+rate_label, fontsize=13)
 
         axes = plt.gca()
         ylim = plt.ylim()
@@ -706,7 +706,7 @@ class OneRayPlots(Graphing):
         if ylim[0]>0: axes.set_ylim(0,ylim[1])
         # axes.set_ylim( -(ylim[1]-ylim[0])/20,ylim[1] )
         plt.grid(True, ls=':')
-        plt.xlabel('Distance, $x/x_1$  [-]', fontsize=13)
+        plt.xlabel(r'Distance, $x/L_{\mathrm{c}}$  [-]', fontsize=13)
         plt.legend(loc=legend_loc, fontsize=14, framealpha=0.95)
         if do_eta_label:
             plt.text(0.6,0.8, pub_label if do_pub_label else r'$\eta={}$'.format(gmeq.eta),
@@ -765,12 +765,12 @@ class OneRayPlots(Graphing):
         vdotz_label = r'$\dot{v}^z'+choice+'(x)$'
         if do_mod_vdot:
             plt.plot( x_array, vdot_array, 'DarkBlue', ls='-', lw=1.5, label=r'$\dot{v}'+choice+'(x)$')
-            plt.ylabel('Ray acceleration  '+rate_label, fontsize=13)
+            plt.ylabel(r'Ray acceleration  '+rate_label, fontsize=13)
             legend_loc = 'lower left'
         else:
             plt.plot( x_array, vdotx_array*sfx, 'r', ls='-', lw=1.5, label=vdotx_label)
             plt.plot( x_array, vdotz_array, 'b', ls='-', lw=1.5, label=vdotz_label)
-            plt.ylabel('Ray acceleration  '+rate_label, fontsize=14)
+            plt.ylabel(r'Ray acceleration  '+rate_label, fontsize=14)
 
         ylim = plt.ylim()
 
@@ -789,7 +789,7 @@ class OneRayPlots(Graphing):
             if do_mod_vdot:
                 plt.plot( x_array, vdot_gdsc_array, 'DarkBlue', ls=':', lw=3,
                             label=r'$\dot{v}_\mathrm{gdsc}(x)$')
-                plt.ylabel('Ray acceleration  '+rate_label, fontsize=13)
+                plt.ylabel(r'Ray acceleration  '+rate_label, fontsize=13)
                 legend_loc = 'lower left'
             else:
                 plt.plot( x_array, vdotx_gdsc_array*sfx, 'DarkRed', ls=':', lw=3, label=vdotx_label)
@@ -804,7 +804,7 @@ class OneRayPlots(Graphing):
         axes.set_ylim(*ylim)
         plt.grid(True, ls=':')
 
-        plt.xlabel('Distance, $x/x_1$  [-]', fontsize=14)
+        plt.xlabel(r'Distance, $x/L_{\mathrm{c}}$  [-]', fontsize=14)
         # axes.set_ylim(ylim[0]*1.1,-0)
         if do_legend: plt.legend(loc=legend_loc, fontsize=13, framealpha=0.95)
         if do_eta_label:
@@ -997,7 +997,7 @@ class OneRayPlots(Graphing):
         elif do_pv:
             axes.set_ylim(0,2)
         plt.grid(True, ls=':')
-        plt.xlabel('Distance, $x/x_1$  [-]', fontsize=14)
+        plt.xlabel(r'Distance, $x/L_{\mathrm{c}}$  [-]', fontsize=14)
         # axes.set_ylim(ylim[0]*1.1,-0)
         plt.legend(loc=legend_loc, fontsize=12, framealpha=0.95)
         if do_eta_label:
@@ -1039,7 +1039,7 @@ class TimeInvariantPlots(OneRayPlots):
 
         # axes.set_aspect(1)
         plt.grid(True, ls=':')
-        plt.xlabel('Dimensionless horizontal distance, $x/x_1$  [-]')
+        plt.xlabel(r'Dimensionless horizontal distance, $x/L_{\mathrm{c}}$  [-]')
         plt.ylabel(r'$\varphi(x)$  [-]')
         if do_subtitling:
             # plt.legend(loc='upper left', fontsize=11, framealpha=0.95)
@@ -1058,7 +1058,7 @@ class TimeInvariantPlots(OneRayPlots):
         varphi_h_ = float(gmeq.varphi_rx_eqn.rhs.subs({rx:x_h}).subs(sub))
         # plt.plot(x_h_,varphi_h_,'bo', label='$x_h$')
         plt.plot([x_h_,x_h_],[varphi_h_-30,varphi_h_+70],'b:')
-        plt.text(x_h_,varphi_h_+77, '$x_h/x_1$', #transform=axes.transAxes,
+        plt.text(x_h_,varphi_h_+77, '$x_h/L_{\mathrm{c}}$', #transform=axes.transAxes,
                      horizontalalignment='center', verticalalignment='bottom', fontsize=12, color='b')
 
         plt.legend(loc='upper right', fontsize=11, framealpha=0.95)
@@ -1171,7 +1171,7 @@ class TimeInvariantPlots(OneRayPlots):
 
         # axes.set_aspect(1)
         plt.grid(True, ls=':')
-        plt.xlabel('Dimensionless area, $(x_1-x)^2/x_1^2$  [-]')
+        plt.xlabel(r'Dimensionless area, $(x_1-x)^2/x_1^2$  [-]')
         plt.ylabel(r'Slope, $|\tan\beta|$  [-]')
         # plt.legend(loc='upper left', fontsize=11, framealpha=0.95)
 
@@ -1237,8 +1237,8 @@ class TimeInvariantPlots(OneRayPlots):
         plt.plot(x_array, h_array, 'o',
                  mec='k', mfc='gray', ms=3, fillstyle='full', markeredgewidth=0.5)
 
-        plt.xlabel('Distance, $x/x_1$  [-]', fontsize=16)
-        plt.ylabel('Elevation, $z/x_1$  [-]', fontsize=16)
+        plt.xlabel(r'Distance, $x/L_{\mathrm{c}}$  [-]', fontsize=16)
+        plt.ylabel(r'Elevation, $z/L_{\mathrm{c}}$  [-]', fontsize=16)
         plt.grid(True, ls=':')
 
         axes = plt.gca()
@@ -1328,11 +1328,11 @@ class TimeInvariantPlots(OneRayPlots):
         axes.set_aspect(1)
         plt.xlim(-0.05,1.08)
         if sf is None:
-            if gmeq.eta <= sy.Rational(1,2):
+            if gmeq.eta <= Rational(1,2):
                 sf = (3,6.)
-            elif gmeq.eta < sy.Rational(3,4):
+            elif gmeq.eta < Rational(3,4):
                 sf = (1.5,4.3)
-            elif gmeq.eta >= sy.Rational(3,2):
+            elif gmeq.eta >= Rational(3,2):
                 sfy = float(sy.N((9-4.3)*(gmeq.eta-0.5)+4.3))*0.3
                 sf = (sfy,sfy)
             else:
@@ -1479,7 +1479,7 @@ class TimeInvariantPlots(OneRayPlots):
         #          'bo', ls='-', ms=4, label=r'$\beta_{ts}$ from topo gradient')
         # plt.plot(gmes.rx_array,np.rad2deg(gmes.beta_vt_array),
         #          'r', ls='-', label=r'$\beta_{vt}$ from $(v^z+\xi^{\!\downarrow\!})/v^x$')
-        plt.xlabel('Distance, $x/x_1$  [-]', fontsize=13)
+        plt.xlabel(r'Distance, $x/L_{\mathrm{c}}$  [-]', fontsize=13)
         plt.ylabel(r'Angle $\beta$  [$\circ$]', fontsize=13)
         plt.grid(True, ls=':')
 
@@ -1523,8 +1523,8 @@ class TimeInvariantPlots(OneRayPlots):
                  'b', ls='-', label=r'$\dfrac{\beta_{vt}-\beta_{p}}{\beta_{p}}$')
         plt.plot(x_array, gmes.beta_ts_error_interp(x_array),
                  'g', ls='-', label=r'$\dfrac{\beta_{ts}-\beta_{p}}{\beta_{p}}$')
-        plt.xlabel('Distance, $x/x_1$  [-]', fontsize=13)
-        plt.ylabel('Error  [%]', fontsize=13)
+        plt.xlabel(r'Distance, $x/L_{\mathrm{c}}$  [-]', fontsize=13)
+        plt.ylabel(r'Error  [%]', fontsize=13)
         plt.grid(True, ls=':')
 
         axes = plt.gca()
@@ -1570,8 +1570,8 @@ class TimeInvariantPlots(OneRayPlots):
         else:
             plt.plot(x_array,u_from_rdot_array/xi_norm, 'g', ls='-', lw=1.5, label=r'from $v$')
             plt.plot(x_array,u_array/xi_norm, 'b', dashes=dashes, lw=3, label=r'from $1/p$')
-        plt.xlabel('Distance, $x/x_1$  [-]', fontsize=13)
-        plt.ylabel('Normal erosion rate  '+rate_label, fontsize=12)
+        plt.xlabel(r'Distance, $x/L_{\mathrm{c}}$  [-]', fontsize=13)
+        plt.ylabel(r'Normal erosion rate  '+rate_label, fontsize=12)
         plt.grid(True, ls=':')
 
         axes = plt.gca()
@@ -1629,8 +1629,8 @@ class TimeInvariantPlots(OneRayPlots):
         axes.set_ylim( -(ylim[1]-ylim[0])/20,ylim[1] )
         plt.grid(True, ls=':')
 
-        plt.xlabel('Distance, $x/x_1$  [-]', fontsize=13)
-        plt.ylabel('Horiz erosion rate  '+rate_label, fontsize=12)
+        plt.xlabel(r'Distance, $x/L_{\mathrm{c}}$  [-]', fontsize=13)
+        plt.ylabel(r'Horiz erosion rate  '+rate_label, fontsize=12)
         # axes.set_ylim(ylim[0]*1.1,-0)
         plt.legend(loc='lower left', fontsize=11, framealpha=0.95)
         plt.text(0.6,0.8, pub_label if do_pub_label else r'$\eta={}$'.format(gmeq.eta),
@@ -1683,8 +1683,8 @@ class TimeInvariantPlots(OneRayPlots):
         ylim = plt.ylim()
         plt.grid(True, ls=':')
 
-        plt.xlabel('Distance, $x/x_1$  [-]', fontsize=13)
-        plt.ylabel('Vertical erosion rate  '+rate_label, fontsize=12)
+        plt.xlabel(r'Distance, $x/L_{\mathrm{c}}$  [-]', fontsize=13)
+        plt.ylabel(r'Vertical erosion rate  '+rate_label, fontsize=12)
         if y_limits is not None:
             axes.set_ylim(*y_limits)
         plt.legend(loc='upper left', fontsize=11, framealpha=0.95)
@@ -1871,8 +1871,8 @@ class TimeDependentPlots(Graphing):
                                   arrowprops=dict(arrowstyle=my_arrow_style, color='r', alpha=0.4 ))
 
         # Label axes
-        plt.xlabel('Distance, $x/x_1$  [-]', fontsize=16)
-        plt.ylabel('Elevation, $z/x_1$  [-]', fontsize=16)
+        plt.xlabel(r'Distance, $x/L_{\mathrm{c}}$  [-]', fontsize=16)
+        plt.ylabel(r'Elevation, $z/L_{\mathrm{c}}$  [-]', fontsize=16)
 
         if do_legend or do_alt_legend:
             plt.legend(loc='upper left', fontsize=10, framealpha=0.95)
@@ -1929,10 +1929,10 @@ class TimeDependentPlots(Graphing):
         plt.plot(x_or_t_array, vc_array, '.', ms=7, label='measured')
 
         if do_x:
-            plt.xlabel('Distance, $x/x_1$  [-]')
+            plt.xlabel(r'Distance, $x/L_{\mathrm{c}}$  [-]')
         else:
-            plt.xlabel('Time, $t$')
-        plt.ylabel('Cusp horiz propagation speed,  $c^x$')
+            plt.xlabel(r'Time, $t$')
+        plt.ylabel(r'Cusp horiz propagation speed,  $c^x$')
 
         axes = plt.gca()
         plt.text(0.15,0.2, r'$\eta={}$'.format(gmeq.eta), transform=axes.transAxes,
@@ -2249,8 +2249,8 @@ class TheoryPlots(Graphing):
         zoomz = np.array([-y_minmax, y_minmax]) * zoom_factor
         plt.xlim(zoomx)
         plt.ylim(zoomz)
-        plt.xlabel('Horizontal component')
-        plt.ylabel('Vertical component')
+        plt.xlabel(r'Horizontal component')
+        plt.ylabel(r'Vertical component')
 
         # Prep
         recip_fn = lambda x_, z_: [x_/(x_**2+z_**2), z_/(x_**2+z_**2)]
@@ -2289,6 +2289,89 @@ class TheoryPlots(Graphing):
         if do_annotations: self.annotations(beta_, tanalpha_)
         self.legend(gmeq, axes, do_legend, do_half, do_ray_slowness)
 
+    def alpha_beta(self, gmeq, name, alpha_array, beta_array, tanalpha_crit_, tanbeta_crit_, fig_size=None, dpi=None ):
+        # Create figure
+        fig = self.create_figure(name, fig_size=fig_size, dpi=dpi)
+        # fig = gr.create_figure(job_name+'_alpha_beta', fig_size=(6,3))
+        plt.plot(beta_array, alpha_array, 'b');
+        x_,y_ = np.rad2deg(np.arctan(float(tanbeta_crit_))), np.rad2deg(np.arctan(float(tanalpha_crit_)))
+        plt.plot( x_,y_, 'ob' )
+        plt.text( x_,y_-y_/9, r'$\beta_c, \,\alpha_c$', color='b', horizontalalignment='center', fontsize=14)
+        eta_label = fr'$\eta = ${gmeq.eta}'
+        plt.text( 40,y_/4, fr'$\eta = ${gmeq.eta}', color='k', horizontalalignment='center', fontsize=14)
+        plt.text( 87,y_*0.67, '(a)' if gmeq.eta==Rational(3,2) else ('(b)' if gmeq.eta==Rational(1,2) else ''),
+                  color='k', horizontalalignment='center', fontsize=16 )
+        plt.grid('on')
+        plt.xlabel(r'Surface tilt  $\beta$   [$^\circ\!$ from horiz]')
+        plt.ylabel(r'Ray angle  $\alpha$   [$^\circ\!$ from horiz]');
+        np.rad2deg(np.arctan(float(tanbeta_crit_))), np.rad2deg(np.arctan(float(tanalpha_crit_)));
+
+    def beta_anisotropy(self, gmeq, name, alpha_array, beta_array, tanalpha_crit_, tanbeta_crit_, fig_size=None, dpi=None ):
+        # Create figure
+        fig = self.create_figure(name, fig_size=fig_size, dpi=dpi)
+        plt.plot(beta_array, alpha_array-beta_array+90, 'b');
+        x_,y_ = np.rad2deg(np.arctan(float(tanbeta_crit_))), np.rad2deg(np.arctan(float(tanalpha_crit_)))
+        plt.plot( x_,y_-x_+90, 'ob' )
+        if gmeq.eta<1:
+            plt.text( x_*(1.0 if gmeq.eta<Rational(1,2) else 1.0),
+                     (y_-x_+90)*(1.15), r'$\beta_c$', color='b', horizontalalignment='center', fontsize=14)
+        else:
+            plt.text( x_*1,(y_-x_+90)*(0.85), r'$\beta_c$', color='b', horizontalalignment='center', fontsize=14)
+        eta_label = fr'$\eta = ${gmeq.eta}'
+        plt.text( 75,55, fr'$\eta = ${gmeq.eta}', color='k',
+                 horizontalalignment='center', verticalalignment='center', fontsize=15)
+        if gmeq.eta==Rational(3,2):
+            plt.text( 30,15, '(a)', color='k', horizontalalignment='center', verticalalignment='center', fontsize=17 )
+        elif gmeq.eta==Rational(1,2):
+            plt.text( 30,15, '(b)', color='k', horizontalalignment='center', verticalalignment='center', fontsize=17 )
+        plt.grid('on')
+        plt.xlabel(r'Surface normal angle  $\beta$   [$^\circ\!$ from vertical]')
+        plt.ylabel(r'Anisotropy   $\psi = \alpha-\beta+90^{\circ}$   [$^\circ\!$]');
+        axes = plt.gca()
+        axes.set_aspect(1)
+        plt.xlim(0,90)
+        plt.ylim(0,90);
+        plt.plot(beta_array, beta_array, ':');
+
+    def alpha_anisotropy(self, gmeq, name, alpha_array, beta_array, tanalpha_crit_, tanbeta_crit_, fig_size=None, dpi=None ):
+        # Create figure
+        fig = self.create_figure(name, fig_size=fig_size, dpi=dpi)
+        plt.plot(alpha_array-beta_array+90, alpha_array, 'b');
+        eta_label = fr'$\eta = ${gmeq.eta}'
+        if gmeq.eta>1:
+            plt.text( 40,5, fr'$\eta = ${gmeq.eta}', color='k',
+                     horizontalalignment='center', verticalalignment='center', fontsize=15)
+        else:
+            plt.text( 40,-5, fr'$\eta = ${gmeq.eta}', color='k',
+                     horizontalalignment='center', verticalalignment='center', fontsize=15)
+        if gmeq.eta==Rational(3,2):
+            plt.text( 10,7.5, '(a)', color='k', horizontalalignment='center', verticalalignment='center', fontsize=17 )
+        elif gmeq.eta==Rational(1,2):
+            plt.text( 7,-16.5, '(b)', color='k', horizontalalignment='center', verticalalignment='center', fontsize=17 )
+        plt.grid('on')
+        plt.ylabel(r'Ray angle  $\alpha$   [$^\circ\!$]')
+        plt.xlabel(r'Anisotropy   $\psi = \alpha-\beta+90^{\circ}$   [$^\circ\!$]');
+        axes = plt.gca()
+        axes.invert_xaxis()
+        axes.set_aspect(2)
+
+    def alpha_image(self, gmeq, name, alpha_array, beta_array, tanalpha_crit_, tanbeta_crit_, fig_size=None, dpi=None ):
+        # Create figure
+        fig = self.create_figure(name, fig_size=fig_size, dpi=dpi)
+        plt.plot(beta_array, beta_array-(alpha_array-beta_array+90), 'b');
+        x_,y_ = np.rad2deg(np.arctan(float(tanbeta_crit_))), np.rad2deg(np.arctan(float(tanalpha_crit_)))
+        plt.plot( x_,x_-(y_-x_+90), 'ob' )
+        plt.text( x_,-15, r'$\beta_c$', color='b', horizontalalignment='center', fontsize=14)
+        eta_label = fr'$\eta = ${gmeq.eta}'
+        plt.text( 40,62.5, fr'$\eta = ${gmeq.eta}', color='k',
+                 horizontalalignment='center', verticalalignment='center', fontsize=15)
+        plt.text( 70,-62.5, '(a)' if gmeq.eta==Rational(3,2) else '(b)', color='k', horizontalalignment='center', verticalalignment='center', fontsize=17 )
+        plt.grid('on')
+        plt.ylabel(r'Image ray angle  $\beta-\psi$   [$^\circ\!$ from vertical]')
+        plt.xlabel(r'Surface normal angle  $\beta$   [$^\circ\!$ from vertical]')
+        axes = plt.gca()
+        # axes.invert_xaxis()
+        # axes.set_aspect(2)
 
 class ManuscriptPlots(Graphing):
 
@@ -2520,7 +2603,7 @@ class ManuscriptPlots(Graphing):
         inset_axes_ = inset_axes(axes, width='{}%'.format(31.5), height=0.15, loc=2)
         plt.xticks(np.linspace(0,2,3),labels=[0,0.25,0.5])
         plt.yticks([])
-        plt.xlabel('distance  [mm]')
+        plt.xlabel(r'distance  [mm]')
         inset_axes_.spines['top'].set_visible(False)
         inset_axes_.spines['left'].set_visible(False)
         inset_axes_.spines['right'].set_visible(False)
@@ -2705,7 +2788,7 @@ class ManuscriptPlots(Graphing):
                   label=r'point $\mathbf{r}+\Delta{\mathbf{r}}$')
 
         plt.grid(True, ls=':')
-        plt.xlabel('Distance, $x/x_1$  [-]', fontsize=14)
-        plt.ylabel('Elevation, $z/x_1$  [-]', fontsize=14)
+        plt.xlabel(r'Distance, $x/L_{\mathrm{c}}$  [-]', fontsize=14)
+        plt.ylabel(r'Elevation, $z/L_{\mathrm{c}}$  [-]', fontsize=14)
         if do_legend:
             plt.legend(loc='upper left', fontsize=legend_fontsize, framealpha=0.95)

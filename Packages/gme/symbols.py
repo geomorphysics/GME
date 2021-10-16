@@ -98,7 +98,7 @@ kappa_h = symbols(r'\kappa_\mathrm{h}',  real=True, positive=True)
 
 
 u_0 = symbols('u_0',  real=True, positive=True)
-x_1 = symbols('x_1',  real=True, positive=True)
+x_1 = symbols('L_\mathrm{c}',  real=True, positive=True)
 xi = symbols(r'\xi^{\perp}',  real=True, positive=True)
 xiv = symbols(r'\xi^{\downarrow}',  real=True)
 xiv_0 = symbols(r'\xi^{\downarrow{0}}',  real=True)
