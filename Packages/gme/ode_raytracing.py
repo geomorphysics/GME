@@ -196,8 +196,9 @@ class TimeInvariantSolution(OneRaySolution):
         self.beta_ts_error_interp = lambda x_: 100*( self.beta_ts_interp(x_)-self.beta_p_interp(x_) ) \
                                                     /self.beta_p_interp(x_)
 
-    def integrate_h_profile(self, n_pts=301, do_truncate=True, do_use_newton=False):
-        self.h_x_array = np.linspace(0,float(x_1.subs(self.parameters)),n_pts)
+    def integrate_h_profile(self, n_pts=301, x_max=None, do_truncate=True, do_use_newton=False):
+        x_max = float(x_1.subs(self.parameters)) if x_max is None else x_max
+        self.h_x_array = np.linspace(0,x_max,n_pts)
         if do_truncate:
             h_x_array = self.h_x_array[:-2]
             gradient_array = np.array([self.gradient_value(x_, do_use_newton, parameters=self.parameters)
