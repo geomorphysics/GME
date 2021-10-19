@@ -64,7 +64,7 @@ class Equations:
     """
     def __init__( self, parameters=None, eta=Rational(3,2), mu=Rational(3,4),
                   beta_type='sin', varphi_type='ramp', ibc_type='convex-up',
-                  do_raw=False, do_idtx=False, do_geodesic=False, do_nothing=False ):
+                  do_raw=False, do_idtx=False, do_geodesic=False, do_nothing=False, do_new_varphi_model=True ):
         """
         Initialize class instance.
         Define/derive all the GME equations (unless `'do_nothing'` is true) using :mod:`SymPy <sympy>`.
@@ -99,7 +99,7 @@ class Equations:
         self.define_xi_eqns()
         self.define_xi_model_eqn()
         self.define_xi_related_eqns()
-        self.define_varphi_model_eqn()
+        self.define_varphi_model_eqn(do_new=do_new_varphi_model)
         self.define_varphi_related_eqns()
         self.define_Fstar_eqns()
         self.define_H_eqns()
@@ -258,7 +258,7 @@ class Equations:
         self.eta_dbldenom = eta_dbldenom
 
 
-    def define_varphi_model_eqn(self):
+    def define_varphi_model_eqn(self, do_new=True):
         r"""
         Define flow component of erosion model function
 
@@ -278,7 +278,12 @@ class Equations:
         """
         # The implicit assumption here is that upstream area A ~ x^2, which will not be true
         #   for a "hillslope" component, and for which we should have a transition to A ~ x
-        self.varphi_model_ramp_eqn = Eq(varphi_r, varphi_0*((x/x_1)**(mu*2) + varepsilon)).subs({x:x_1-rx})
+        if do_new:
+            self.varphi_model_ramp_eqn = Eq(varphi_r, varphi_0*(x+varepsilon)**(mu*2) ).subs({x:x_1-rx})
+        else:
+            self.varphi_model_ramp_eqn = Eq(varphi_r, varphi_0*((x/x_1)**(mu*2) + varepsilon)).subs({x:x_1-rx})
+
+
         # self.varphi_model_rampmu_chi0_eqn = Eq(varphi_r, varphi_0*((x/x_1)**(mu*2) + varepsilon)).subs({x:x_1-rx})
         self.varphi_model_rampflat_eqn = Eq(varphi_r, simplify(
             varphi_0*(  (chi/(x_1))*integrate(1/(1+sy.exp(-x/x_sigma)),x) + 1 )

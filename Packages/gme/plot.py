@@ -1164,14 +1164,14 @@ class TimeInvariantPlots(OneRayPlots):
         0.0016, 0.0009, 0.0004, 0.0001]
 
         if eta_==1.0 and not do_simple:
-            plt.loglog(eta1p5_area_array,eta1p5_slope_array,'-', label=r'$\eta=3/2\,,\,\,x_h/x_1=0.9$', color=self.colors[1])
-            plt.loglog(eta0p5_area_array,eta0p5_slope_array,'-', label=r'$\eta=1/2\,,\,\,x_h/x_1=0.9$', color=self.colors[2])
-            plt.loglog(eta1p0_area_array,eta1p0_slope_array,'-', label=r'$\eta=1\,,\,\,x_h/x_1=0.9$', color=self.colors[0])
+            plt.loglog(eta1p5_area_array,eta1p5_slope_array,'-', label=r'$\eta=3/2\,,\,\,x_h/L_{\mathrm{c}}=0.9$', color=self.colors[1])
+            plt.loglog(eta0p5_area_array,eta0p5_slope_array,'-', label=r'$\eta=1/2\,,\,\,x_h/L_{\mathrm{c}}=0.9$', color=self.colors[2])
+            plt.loglog(eta1p0_area_array,eta1p0_slope_array,'-', label=r'$\eta=1\,,\,\,x_h/L_{\mathrm{c}}=0.9$', color=self.colors[0])
             plt.loglog(eta1p0_xh1p0_area_array,eta1p0_xh1p0_slope_array,'--', label=r'channel-only model', color=self.colors[0])
 
         # axes.set_aspect(1)
         plt.grid(True, ls=':')
-        plt.xlabel(r'Dimensionless area, $(x_1-x)^2/x_1^2$  [-]')
+        plt.xlabel(r'Dimensionless area, $(L_{\mathrm{c}}-x)^2/L_{\mathrm{c}}^2$  [-]')
         plt.ylabel(r'Slope, $|\tan\beta|$  [-]')
         # plt.legend(loc='upper left', fontsize=11, framealpha=0.95)
 
@@ -1192,7 +1192,7 @@ class TimeInvariantPlots(OneRayPlots):
         slope_h_ = gmes.beta_vt_interp(float(x_h_))
         plt.plot([area_h_,area_h_],[slope_h_*0.45,slope_h_*1.5],'b:')
         if area_h_>0.0:
-            plt.text(area_h_,slope_h_*0.4, r'$\dfrac{(x_1-x_h)^2}{x_1^2}$', #transform=axes.transAxes,
+            plt.text(area_h_,slope_h_*0.4, r'$\dfrac{(L_{\mathrm{c}}-x_h)^2}{L_{\mathrm{c}}^2}$', #transform=axes.transAxes,
                          horizontalalignment='center', verticalalignment='top', fontsize=12, color='b')
 
         if not do_simple:
@@ -1439,7 +1439,7 @@ class TimeInvariantPlots(OneRayPlots):
         For a time-invariant (steady-state) topographic profile,
         plot the surface-normal covector angle :math:`\beta` from vertical,
         aka the surface tilt angle from horizontal, as a function of
-        dimensionless horizontal distance :math:`x/x_1`.
+        dimensionless horizontal distance :math:`x/L_{\mathrm{c}}`.
 
         This angle is named and calculated in three ways:
         (1) :math:`\beta_p`: directly from the series of :math:`\mathbf{\widetilde{p}}` values
@@ -1497,12 +1497,12 @@ class TimeInvariantPlots(OneRayPlots):
         r"""
         For a time-invariant (steady-state) topographic profile,
         plot the error in the estimated surface-normal covector angle :math:`\beta`
-        as a function of dimensionless horizontal distance :math:`x/x_1`.
+        as a function of dimensionless horizontal distance :math:`x/L_{\mathrm{c}}`.
 
         This error, expressed as a percentage, is defined as one of the following normalized differences:
         (1) :math:`100(\beta_{ts}-\beta_{p})/\beta_{p}`, or
         (2) :math:`100(\beta_{vt}-\beta_{p})/\beta_{p}`.
-        The error in :math:`\beta_{vt}` can be non-trivial for $x/x_1 \rightarrow 0$ and :math:`\eta < 1`
+        The error in :math:`\beta_{vt}` can be non-trivial for $x/L_{\mathrm{c}} \rightarrow 0$ and :math:`\eta < 1`
         if the number of rays used to construct the topographic profile is insufficient.
 
         Args:
@@ -1909,7 +1909,7 @@ class TimeDependentPlots(Graphing):
             y_limits (list of float):
                 optional [z_min, z_max] vertical plot range
             do_x (bool):
-                optional plot x-axis as dimensionless horizontal distance :math:`x/x_1`;
+                optional plot x-axis as dimensionless horizontal distance :math:`x/L_{\mathrm{c}}`;
                 otherwise plot as time :math:`t`
             do_infer_initiation (bool):
                 optional draw dotted line inferring cusp initiation at the left boundary
