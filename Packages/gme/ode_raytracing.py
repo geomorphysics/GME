@@ -19,6 +19,7 @@ Imports symbols from :mod:`.symbols` module
 
 import numpy as np
 from gmplib.utils import vprint, e2d
+from gme.equations import gradient_value, pxpz0_from_xiv0
 from gme.ode_base import BaseSolution
 from gme.symbols import *
 from sympy import N, sign, atan, atan2, sin, cos, tan, re, im, sqrt, \
@@ -52,7 +53,9 @@ class OneRaySolution(BaseSolution):
 
     def initial_conditions(self):
         rz0_, rx0_ = 0, 0
-        px0_, pz0_ = self.pxpz0_from_xiv0()
+        px0_, pz0_ = pxpz0_from_xiv0(self.parameters,
+                                     self.gmeq.pz_xiv_eqn.subs({xiv:xiv_0, mu:self.gmeq.mu}),
+                                     self.gmeq.poly_px_xiv0_eqn.subs({mu:self.gmeq.mu}))
         return [rz0_, rx0_ , px0_, pz0_]
 
     def solve(self):
@@ -199,9 +202,11 @@ class TimeInvariantSolution(OneRaySolution):
     def integrate_h_profile(self, n_pts=301, x_max=None, do_truncate=True, do_use_newton=False):
         x_max = float(x_1.subs(self.parameters)) if x_max is None else x_max
         self.h_x_array = np.linspace(0,x_max,n_pts)
+        px0_poly_eqn = poly(self.gmeq.poly_px_xiv0_eqn.subs(self.parameters).subs({mu:self.gmeq.mu}),px)
         if do_truncate:
             h_x_array = self.h_x_array[:-2]
-            gradient_array = np.array([self.gradient_value(x_, do_use_newton, parameters=self.parameters)
+            gradient_array = np.array([gradient_value(x_, pz_=self.pz0, px_poly_eqn=px0_poly_eqn,
+                                        do_use_newton=do_use_newton, parameters=self.parameters)
                                        for x_ in h_x_array])
             h_z_array = cumtrapz(gradient_array, h_x_array, initial=0)
             h_z_interp  = InterpolatedUnivariateSpline( h_x_array, h_z_array, k=2, ext=0 )
@@ -210,7 +215,8 @@ class TimeInvariantSolution(OneRaySolution):
             h_x_array = self.h_x_array
             # for x_ in h_x_array:
             #     print(x_,self.gradient_value(x_,parameters=self.parameters))
-            gradient_array = np.array([self.gradient_value(x_, do_use_newton, parameters=self.parameters)
+            gradient_array = np.array([gradient_value(x_, pz_=self.pz0, px_poly_eqn=px0_poly_eqn,
+                                        do_use_newton=do_use_newton, parameters=self.parameters)
                                        for x_ in h_x_array])
             self.h_z_array = cumtrapz(gradient_array, h_x_array, initial=0)
 

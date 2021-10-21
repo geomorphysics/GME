@@ -22,10 +22,10 @@ from gmplib.utils import vprint, e2d
 from gme.symbols import *
 from sympy import N, sign, atan, atan2, sin, cos, tan, re, im, sqrt, \
     Matrix, lambdify, Abs, simplify, expand, solve, Eq, Rational, diff, \
-    nroots, poly
+    poly
 from scipy.integrate import solve_ivp, cumtrapz
 from scipy.interpolate import InterpolatedUnivariateSpline, interp1d
-from scipy.optimize import root_scalar, fsolve
+from scipy.optimize import fsolve
 from copy import copy
 
 rp_list = ['rx','rz','px','pz']
@@ -89,7 +89,7 @@ class BaseSolution():
         pzpx_unity_eqn = self.gmeq.pzpx_unity_eqn
         px_poly_tmp = expand(simplify(pzpx_unity_eqn
                               .subs({varphi:self.gmeq.varphi_rx_eqn.rhs})
-                              .subs({mu:self.gmeq.mu})
+                              .subs({mu:self.gmeq.mu, eta:self.gmeq.eta})
                               .subs(self.parameters) ))
         self.px_poly_lambda = lambdify( [rx,pz], (poly(px_poly_tmp)).as_expr() )
         self.pz_velocity_boundary_eqn = gmeq.pz0_xiv0_eqn
@@ -113,7 +113,7 @@ class BaseSolution():
             vprint(self.verbose and do_verbose, 'Constructing model Hamilton\'s equations')
             drpdt_eqn_matrix = simplify( Matrix(([eq_.rhs for eq_ in self.gmeq.hamiltons_eqns[0:4] ]))
                                         .subs(self.parameters)
-                                        .subs({mu: self.gmeq.mu})
+                                        .subs({mu:self.gmeq.mu, eta:self.gmeq.eta})
                                         .subs({-pz:Abs(pz)}) )
             drpdt_raw_lambda = lambdify( [rx, px, pz], drpdt_eqn_matrix )
             return lambda t_, rp_: np.ndarray.flatten( drpdt_raw_lambda(rp_[0],rp_[2],rp_[3]) )
@@ -122,36 +122,6 @@ class BaseSolution():
             drvdt_eqn_matrix = Matrix(([(eq_.rhs) for eq_ in self.gmeq.geodesic_eqns ])) #factor
             drvdt_raw_lambda = lambdify( [rx, rdotx, rdotz], drvdt_eqn_matrix )
             return lambda t_, rv_: np.ndarray.flatten( drvdt_raw_lambda(rv_[0],rv_[2],rv_[3]) )
-
-    def pxpz0_from_xiv0(self):
-        self.px0_poly_eqn = self.gmeq.poly_px_xiv0_eqn.subs(self.parameters).subs({mu:self.gmeq.mu})
-        px0_poly_rx0_eqn = self.px0_poly_eqn.subs({rx:0})
-        px0_poly_lambda = lambdify( [px], px0_poly_rx0_eqn.lhs.as_expr() )
-        dpx0_poly_lambda = lambdify( [px], diff(px0_poly_rx0_eqn.lhs.as_expr(),px) )
-        px0_root_search = root_scalar( px0_poly_lambda, fprime=dpx0_poly_lambda, method='newton', x0=0.01 )
-        px0_ = px0_root_search.root
-        pz0_ = self.gmeq.pz_xiv_eqn.rhs.subs({xiv:xiv_0}).subs(self.parameters)
-        return (px0_,pz0_)
-
-    def px_value_newton(self, x_, pz_, px_guess=0.01):
-        px_poly_eqn = poly(self.px0_poly_eqn.subs({rx:x_,pz:pz_}).subs({mu:self.gmeq.mu}))
-        px_poly_lambda = lambdify( [px], px_poly_eqn.as_expr() )
-        dpx_poly_lambda = lambdify( [px], diff(px_poly_eqn.as_expr(),px) )
-        px_root_search = root_scalar( px_poly_lambda, fprime=dpx_poly_lambda, method='newton', x0=px_guess )
-        px_ = px_root_search.root
-        return px_
-
-    def px_value(self, x_, pz_):
-        px_poly_eqn = poly(self.px0_poly_eqn.subs({rx:x_,pz:pz_}).subs({mu:self.gmeq.mu}))
-        px_poly_roots = nroots(px_poly_eqn)
-        pxgen = [root_ for root_ in px_poly_roots if Abs(im(root_))<1e-10 and re(root_)>0][0]
-        return solve(Eq(px_poly_eqn.gens[0],pxgen),px)[0]
-
-    def gradient_value(self, x_, do_use_newton=False, parameters={}):
-        # Hack
-        pz_ = self.pz0
-        px_ = -self.px_value_newton(x_,pz_) if do_use_newton else -self.px_value(x_,pz_)
-        return float(px_/pz_)
 
     def prep_arrays(self):
         self.ref_t_array = np.linspace(0,1,self.n_t)**self.t_distribn * self.t_end

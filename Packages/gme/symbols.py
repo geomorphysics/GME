@@ -22,11 +22,11 @@ import sympy as sy
 from sympy import symbols, MatrixSymbol, Function
 
 i,j,k, l, m = symbols(r'i j k, l, m',  real=True)
-F = symbols(r'\mathrm{F}',  real=True, positive=True)
-Fstar = symbols(r'F_*',  real=True, positive=True)
-Fstar_px_pz = symbols(r'\mathrm{F}_{*}(p_x\,p_z)',  real=True, positive=True)
-H = symbols(r'\mathrm{H}',  real=True, negative=False)
-L = symbols(r'\mathrm{L}',  real=True, negative=False) # ideally, both should be positive=True
+F = symbols(r'\mathcal{F}',  real=True, positive=True)
+Fstar = symbols(r'\mathcal{F}_*',  real=True, positive=True)
+Fstar_px_pz = symbols(r'\mathcal{F}_{*}(p_x\,p_z)',  real=True, positive=True)
+H = symbols(r'\mathcal{H}',  real=True, negative=False)
+L = symbols(r'\mathcal{L}',  real=True, negative=False) # ideally, both should be positive=True
 G1 = symbols(r'G1')
 G2 = symbols(r'G2')
 p = symbols(r'p',  real=True, positive=True)
