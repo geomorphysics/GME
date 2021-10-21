@@ -48,7 +48,7 @@ from sympy import Eq, S, Rational, Reals, N, \
 from scipy.optimize import root_scalar
 from functools import reduce
 
-__all__ = ['Equations']
+__all__ = ['Equations', 'pxpz0_from_xiv0', 'gradient_value', 'px_value_newton', 'px_value']
 
 
 
@@ -71,10 +71,22 @@ def pxpz0_from_xiv0(parameters, pz_xiv_eqn, px0_poly_eqn):
     return (px0_,pz0_)
 
 def gradient_value(x_, pz_, px_poly_eqn, do_use_newton=False, parameters={}):
+    """
+    TODO.
+
+    Args:
+        TODO
+    """
     px_ = -px_value_newton(x_,pz_, px_poly_eqn) if do_use_newton else -px_value(x_,pz_, px_poly_eqn)
     return float(px_/pz_)
 
 def px_value_newton(x_, pz_, px_poly_eqn, px_guess=0.01):
+    """
+    TODO.
+
+    Args:
+        TODO
+    """
     px_poly_eqn_ = px_poly_eqn.subs({rx:x_,x:x_,pz:pz_})
     px_poly_lambda = lambdify( [px], px_poly_eqn_.as_expr() )
     dpx_poly_lambda = lambdify( [px], diff(px_poly_eqn_.as_expr(),px) )
@@ -83,6 +95,12 @@ def px_value_newton(x_, pz_, px_poly_eqn, px_guess=0.01):
     return px_
 
 def px_value(x_, pz_, px_poly_eqn):
+    """
+    TODO.
+
+    Args:
+        TODO
+    """
     px_poly_eqn_ = px_poly_eqn.subs({rx:x_,x:x_,pz:pz_})
     px_poly_roots = nroots(px_poly_eqn_)
     pxgen = [root_ for root_ in px_poly_roots if Abs(im(root_))<1e-10 and re(root_)>0][0]
