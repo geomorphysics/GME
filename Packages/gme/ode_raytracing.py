@@ -53,9 +53,7 @@ class OneRaySolution(BaseSolution):
 
     def initial_conditions(self):
         rz0_, rx0_ = 0, 0
-        px0_, pz0_ = pxpz0_from_xiv0(self.parameters,
-                                     self.gmeq.pz_xiv_eqn.subs({xiv:xiv_0, mu:self.gmeq.mu}),
-                                     self.gmeq.poly_px_xiv0_eqn.subs({mu:self.gmeq.mu}))
+        px0_, pz0_ = pxpz0_from_xiv0(self.parameters, self.gmeq.pz_xiv_eqn, self.gmeq.poly_px_xiv_eqn )
         return [rz0_, rx0_ , px0_, pz0_]
 
     def solve(self):
@@ -202,7 +200,7 @@ class TimeInvariantSolution(OneRaySolution):
     def integrate_h_profile(self, n_pts=301, x_max=None, do_truncate=True, do_use_newton=False):
         x_max = float(x_1.subs(self.parameters)) if x_max is None else x_max
         self.h_x_array = np.linspace(0,x_max,n_pts)
-        px0_poly_eqn = poly(self.gmeq.poly_px_xiv0_eqn.subs(self.parameters).subs({mu:self.gmeq.mu}),px)
+        px0_poly_eqn = poly(self.gmeq.poly_px_xiv_eqn.subs({xiv:xiv_0}).subs(self.parameters),px) #.subs({mu:self.gmeq.mu})
         if do_truncate:
             h_x_array = self.h_x_array[:-2]
             gradient_array = np.array([gradient_value(x_, pz_=self.pz0, px_poly_eqn=px0_poly_eqn,
@@ -219,6 +217,7 @@ class TimeInvariantSolution(OneRaySolution):
                                         do_use_newton=do_use_newton, parameters=self.parameters)
                                        for x_ in h_x_array])
             self.h_z_array = cumtrapz(gradient_array, h_x_array, initial=0)
+
 
 class VelocityBoundarySolution(BaseSolution):
     """

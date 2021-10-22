@@ -1482,6 +1482,7 @@ class TimeInvariantPlots(OneRayPlots):
         plt.xlabel(r'Distance, $x/L_{\mathrm{c}}$  [-]', fontsize=13)
         plt.ylabel(r'Angle $\beta$  [$\circ$]', fontsize=13)
         plt.grid(True, ls=':')
+        plt.ylim(1e-9,)
 
         axes = plt.gca()
         plt.legend(loc=legend_loc, fontsize=11, framealpha=0.95)

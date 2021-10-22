@@ -48,26 +48,26 @@ from sympy import Eq, S, Rational, Reals, N, \
 from scipy.optimize import root_scalar
 from functools import reduce
 
-__all__ = ['Equations', 'pxpz0_from_xiv0', 'gradient_value', 'px_value_newton', 'px_value']
+__all__ = ['Equations', 'EquationSubset',
+            'pxpz0_from_xiv0', 'gradient_value', 'px_value_newton', 'px_value']
 
 
 
 
-def pxpz0_from_xiv0(parameters, pz_xiv_eqn, px0_poly_eqn):
+def pxpz0_from_xiv0(parameters, pz_xiv_eqn, poly_px_xiv_eqn):
     """
     TODO.
 
     Args:
         TODO
     """
-    # px0_poly_eqn = self.gmeq.poly_px_xiv0_eqn.subs(self.parameters).subs({mu:self.gmeq.mu})
-    px0_poly_rx0_eqn = px0_poly_eqn.subs(parameters).subs({rx:0})
+    pz0_xiv0_eqn = pz_xiv_eqn.subs({xiv:xiv_0}).subs(parameters)
+    px0_poly_rx0_eqn = poly_px_xiv_eqn.subs({rx:0}).subs({xiv:xiv_0}).subs(parameters)
     px0_poly_lambda = lambdify( [px], px0_poly_rx0_eqn.lhs.as_expr() )
     dpx0_poly_lambda = lambdify( [px], diff(px0_poly_rx0_eqn.lhs.as_expr(),px) )
     px0_root_search = root_scalar( px0_poly_lambda, fprime=dpx0_poly_lambda, method='newton', x0=0.01 )
     px0_ = px0_root_search.root
-    # pz0_ = self.gmeq.pz_xiv_eqn.rhs.subs({xiv:xiv_0}).subs(self.parameters)
-    pz0_ = pz_xiv_eqn.rhs.subs({xiv:xiv_0}).subs(parameters)
+    pz0_ = pz0_xiv0_eqn.rhs
     return (px0_,pz0_)
 
 def gradient_value(x_, pz_, px_poly_eqn, do_use_newton=False, parameters={}):
@@ -105,6 +105,18 @@ def px_value(x_, pz_, px_poly_eqn):
     px_poly_roots = nroots(px_poly_eqn_)
     pxgen = [root_ for root_ in px_poly_roots if Abs(im(root_))<1e-10 and re(root_)>0][0]
     return solve(Eq(px_poly_eqn.gens[0],pxgen),px)[0]
+
+
+class EquationSubset:
+    def __init__( self, gmeq, parameters, do_ndim=False ):
+        sub = parameters.copy()
+        sub.update({mu:gmeq.mu, eta:gmeq.eta})
+        self.varphi_rx_eqn   = (gmeq.varphihat_eqn       if do_ndim else gmeq.varphi_rx_eqn).subs(sub).n()
+        self.pz_xiv_eqn      = (gmeq.pz_xiv_eqn.subs({xiv:xiv/xih_0}).subs({pz:pzhat})
+                                if do_ndim else gmeq.pz_xiv_eqn).subs(sub).n()
+        self.poly_px_xiv_eqn = (gmeq.poly_px_xiv_eqn.subs({xiv:xiv/xih_0}).subs({px:pxhat, pz:pzhat})  
+                                if do_ndim else gmeq.poly_px_xiv_eqn).subs(sub).n()
+        self.hamiltons_eqns  = (gmeq.hamiltons_ndim_eqns if do_ndim else gmeq.hamiltons_eqns).subs(sub).n()
 
 
 class Equations:
@@ -166,6 +178,7 @@ class Equations:
         self.define_pdot_eqns()
         self.define_Hamiltons_eqns()
         self.nondimensionalize()
+        self.define_nodimensionalized_Hamiltons_eqns()
         self.define_tanalpha_eqns()
         self.define_tanbeta_eqns()
         self.define_g_eqns()
@@ -367,6 +380,7 @@ class Equations:
                 varphi_model_eqn = self.varphi_model_rampflatmu_eqn
         else:
             raise ValueError('Unknown flow model')
+        # self.varphi_rx_eqn = varphi_model_eqn.subs({varphi_r:varphi_rx})
         self.varphi_rx_eqn = varphi_model_eqn
 
 
@@ -548,12 +562,22 @@ class Equations:
                 \dot{p}_z = 0
                 \end{matrix}\right]`
         """
-        self.hamiltons_eqns = Matrix(
-             (factor(simplify(self.rdotx_pxpz_eqn.subs(e2d(self.varphi_rx_eqn))).subs({rdotx:rdotx_true, rdotz:rdotz_true})).subs({Abs(px):px}),
-              factor(simplify(self.rdotz_pxpz_eqn.subs(e2d(self.varphi_rx_eqn))).subs({rdotx:rdotx_true, rdotz:rdotz_true})).subs({Abs(px):px}),
-              factor(simplify(self.pdotx_pxpz_eqn.subs(e2d(self.varphi_rx_eqn))).subs({rdotx:rdotx_true, rdotz:rdotz_true})).subs({Abs(px):px}),
-              factor(simplify(self.pdotz_pxpz_eqn.subs(e2d(self.varphi_rx_eqn))).subs({rdotx:rdotx_true, rdotz:rdotz_true})).subs({Abs(px):px})
-             ))
+        self.hamiltons_eqns = Matrix((
+                                        self.rdotx_pxpz_eqn.subs(e2d(self.varphi_rx_eqn)).subs({rdotx:rdotx_tfn}),
+                                        self.rdotz_pxpz_eqn.subs(e2d(self.varphi_rx_eqn)).subs({rdotz:rdotz_tfn}),
+                                        self.pdotx_pxpz_eqn.subs(e2d(self.varphi_rx_eqn)).subs({pdotx:pdotx_tfn}),
+                                        self.pdotz_pxpz_eqn.subs(e2d(self.varphi_rx_eqn)).subs({pdotz:pdotz_tfn})
+                                    ))
+        # self.hamiltons_eqns = Matrix(
+        #      (factor(simplify(self.rdotx_pxpz_eqn.subs(e2d(self.varphi_rx_eqn)))
+        #         .subs({rdotx:rdotx_true, rdotz:rdotz_true})).subs({Abs(px):px}),
+        #       factor(simplify(self.rdotz_pxpz_eqn.subs(e2d(self.varphi_rx_eqn)))
+        #         .subs({rdotx:rdotx_true, rdotz:rdotz_true})).subs({Abs(px):px}),
+        #       factor(simplify(self.pdotx_pxpz_eqn.subs(e2d(self.varphi_rx_eqn)))
+        #         .subs({rdotx:rdotx_true, rdotz:rdotz_true})).subs({Abs(px):px}),
+        #       factor(simplify(self.pdotz_pxpz_eqn.subs(e2d(self.varphi_rx_eqn)))
+        #         .subs({rdotx:rdotx_true, rdotz:rdotz_true})).subs({Abs(px):px})
+        #      ))
 
 
     def nondimensionalize(self):
@@ -594,19 +618,14 @@ class Equations:
                                            .subs({rxhat:0}).subs(varsub) ) )
         self.xih0_xiv0_eqn = Eq((xih_0),
                 xiv_0*simplify( (xih_0/xiv_0).subs(e2d(self.xiv0_eqn)).subs(e2d(self.xih0_eqn)) ))
-
-        # Eq((xiv_0/xih_0),
-        #    simplify( (xiv_0/xih_0).subs(e2d(self.xiv0_eqn)).subs(e2d(self.xih0_eqn)) ))
+        self.xih_xiv_eqn = Eq(xih, xiv/tan(beta))
+        self.xiv_xih_eqn = Eq(xiv, solve(self.xih_xiv_eqn, xiv)[0]) #Eq(xiv, xih*tan(beta))
 
         self.th0_xih0_eqn = Eq(th_0, (Lc/xih_0))
         self.tv0_xiv0_eqn = Eq(tv_0, (Lc/xiv_0))
 
         self.th0_beta0_eqn = factor(simplify( self.th0_xih0_eqn.subs(e2d(self.xih0_eqn)) ))
         self.tv0_beta0_eqn = simplify( self.tv0_xiv0_eqn.subs(e2d(self.xiv0_eqn)) )
-
-        # Eq(tv_0, th_0*simplify((tv_0/th_0)
-        #                          .subs(e2d(self.tv0_beta0_eqn))
-        #                          .subs(e2d(self.th0_beta0_eqn))) )
 
         self.t_that_eqn = Eq(t, th_0*that)
         self.px_pxhat_eqn = Eq(px, pxhat/xih_0)
@@ -630,14 +649,28 @@ class Equations:
                                     .subs({sin(beta_0)*sin(beta_0)**(-eta):(sin(beta_0)**(1-eta))})
                                     .subs({(sin(beta_0)**(1-eta))**(-1/(eta-1)):sin(beta_0)}) )
         self.Ci_beta0_eqn = Eq(Ci, asin(self.sinCi_beta0_eqn.rhs) )
+        self.beta0_Ci_eqn = Eq(beta_0, sy.solve(self.Ci_beta0_eqn, beta_0)[1])
 
         self.rdotxhat_eqn = Eq(rdotxhat_thatfn, simplify(sy.diff(self.H_Ci_eqn.rhs,pxhat)))
         self.rdotzhat_eqn = Eq(rdotzhat_thatfn, simplify(sy.diff(self.H_Ci_eqn.rhs,pzhat)))
-        # Matrix([rdotxhat_eqn, rdotzhat_eqn])
 
         self.pdotxhat_eqn = Eq(pdotxhat_thatfn, simplify(-sy.diff(self.H_Ci_eqn.rhs,rxhat)))
         self.pdotzhat_eqn = Eq(pdotzhat_thatfn, simplify(-sy.diff(self.H_Ci_eqn.rhs,rzhat)))
-        # Matrix([self.pdotxhat_eqn, self.pdotzhat_eqn])</sympy>
+
+
+    def define_nodimensionalized_Hamiltons_eqns(self):
+        self.hamiltons_ndim_eqns = Matrix((
+                                        self.rdotxhat_eqn,
+                                        self.rdotzhat_eqn,
+                                        self.pdotxhat_eqn,
+                                        self.pdotzhat_eqn
+                                    ))
+        # self.hamiltons_ndim_eqns = Matrix(
+        #      (factor(simplify(self.rdotxhat_eqn).subs({rdotx:rdotx_true, rdotz:rdotz_true})).subs({Abs(px):px}),
+        #       factor(simplify(self.rdotzhat_eqn).subs({rdotx:rdotx_true, rdotz:rdotz_true})).subs({Abs(px):px}),
+        #       factor(simplify(self.pdotxhat_eqn).subs({rdotx:rdotx_true, rdotz:rdotz_true})).subs({Abs(px):px}),
+        #       factor(simplify(self.pdotzhat_eqn).subs({rdotx:rdotx_true, rdotz:rdotz_true})).subs({Abs(px):px})
+        #      ))
 
 
     def define_tanalpha_eqns(self):
@@ -1131,6 +1164,8 @@ class Equations:
 
     def define_px_poly_eqn(self, eta_choice=None):
         r"""
+        TODO: xiv_0
+
         Define polynomial form of function combining normal-slowness covector components :math:`(p_x,p_z)`
         (where the latter is given in terms of the vertical erosion rate :math:`\xi^{\downarrow} = -\dfrac{1}{p_z}`)
         and the erosion model flow component :math:`\varphi(\mathbf{r})`
@@ -1145,7 +1180,7 @@ class Equations:
                 :math:`\operatorname{Poly}{\left( \left(\xi^{\downarrow}\right)^{4} \varphi^{4}{\left(\mathbf{r} \right)} p_{x}^{6}
                 -  \left(\xi^{\downarrow}\right)^{4} p_{x}^{2} -  \left(\xi^{\downarrow}\right)^{2}, p_{x},
                 domain=\mathbb{Z}\left[\varphi{\left(\mathbf{r} \right)}, \xi^{\downarrow}\right] \right)}`
-            poly_px_xiv0_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
+            poly_px_xiv_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
                 :math:`\varphi_0^{4} \left(\xi^{\downarrow{0}}\right)^{4} p_{x}^{6} \left(\varepsilon
                 + \left(\frac{x_{1} - {r}^x}{x_{1}}\right)^{2 \mu}\right)^{4}
                 - \left(\xi^{\downarrow{0}}\right)^{4} p_{x}^{2}
@@ -1156,8 +1191,7 @@ class Equations:
             self.poly_px_xiv_varphi_eqn = poly( tmp_eqn.lhs, px)
         else:
             self.poly_px_xiv_varphi_eqn = poly(numer(tmp_eqn.lhs), px)
-        self.poly_px_xiv0_eqn = Eq(self.poly_px_xiv_varphi_eqn.subs(e2d(self.varphi_rx_eqn)) \
-                                                              .subs({xiv:xiv_0}), 0)
+        self.poly_px_xiv_eqn = Eq(self.poly_px_xiv_varphi_eqn.subs(e2d(self.varphi_rx_eqn)), 0)
 
 
     def prep_ibc_eqns(self):

@@ -102,7 +102,7 @@ class InitialCornerSolution(BaseSolution):
         self.beta_surface_corner \
              = float(atan2(self.gmeq.px_initial_eqn.rhs.subs({x:0}).subs(self.parameters),
                           -self.gmeq.pz_initial_eqn.rhs.subs({x:0}).subs(self.parameters)))
-        pz_velocity_corner = self.pz_velocity_boundary_eqn.rhs.subs(self.parameters)
+        pz_velocity_corner = self.pz_velocity_boundary_eqn
         # HACK!!!  doing this to set up px0_poly_eqn
         _ = self.pxpz0_from_xiv0()
         px_velocity_corner = self.px_value(x_=0, pz_=pz_velocity_corner, parameters=self.parameters)

@@ -20,6 +20,13 @@ Requires Python packages/modules:
 
 import sympy as sy
 from sympy import symbols, MatrixSymbol, Function
+# Import units & dimensions
+from sympy.physics.units \
+    import Quantity, Dimension, \
+            length, speed, velocity, time, \
+            km, cm, mm, meter, meters, \
+            convert_to, percent, degrees, radians
+from sympy.physics.units.systems import SI
 
 i,j,k, l, m = symbols(r'i j k, l, m',  real=True)
 F = symbols(r'\mathcal{F}',  real=True, positive=True)
@@ -60,6 +67,7 @@ beta = symbols(r'\beta',  real=True)
 beta_ = symbols(r'\beta_x',  real=True)
 beta_crit = symbols(r'\beta_c',  real=True)
 beta_0 = symbols(r'\beta_0',  real=True, positive=True)  # NEW: positive=True
+SI.set_quantity_dimension(beta_0, 1)
 betaplus = symbols(r'\beta^+',  real=True, positive=True)
 alpha = symbols(r'\alpha',  real=True)
 alpha_crit = symbols(r'\alpha_c',  real=True)

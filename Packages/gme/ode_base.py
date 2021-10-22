@@ -86,20 +86,21 @@ class BaseSolution():
 
         # ODEs & related
         # HACK: clumsy way to sub in value of mu
-        pzpx_unity_eqn = self.gmeq.pzpx_unity_eqn
-        px_poly_tmp = expand(simplify(pzpx_unity_eqn
-                              .subs({varphi:self.gmeq.varphi_rx_eqn.rhs})
-                              .subs({mu:self.gmeq.mu, eta:self.gmeq.eta})
-                              .subs(self.parameters) ))
-        self.px_poly_lambda = lambdify( [rx,pz], (poly(px_poly_tmp)).as_expr() )
-        self.pz_velocity_boundary_eqn = gmeq.pz0_xiv0_eqn
+        # px_poly_tmp = expand(simplify(self.gmeq.pzpx_unity_eqn
+        #                       .subs({varphi:self.gmeq.varphi_rx_eqn.rhs})
+        #                       # .subs({mu:self.gmeq.mu, eta:self.gmeq.eta})
+        #                       .subs(self.parameters) ))
+        # self.px_poly_lambda = lambdify( [rx,pz], (poly(px_poly_tmp)).as_expr() )
+        self.pz_velocity_boundary_eqn = gmeq.pz_xiv_eqn.subs({pz:pz_0, xiv:xiv_0}).subs(self.parameters)
+
         # self.px_varphi_xiv_eqn = simplify( Eq( self.gmeq.xiv_varphi_pxpz_eqn.lhs**2/xiv**2,
         #                                          self.gmeq.xiv_varphi_pxpz_eqn.rhs**2/xiv**2) )
         # self.px_varphi_xiv_eqn = self.gmeq.px_varphi_xiv_eqn
 
         # Initial condition equations
-        self.px_initial_surface_eqn = self.gmeq.px_initial_eqn #.subs({rx:x})
-        self.pz_initial_surface_eqn = self.gmeq.pz_initial_eqn #.subs({rx:x})
+        # HACK!!
+        # self.px_initial_surface_eqn = self.gmeq.px_initial_eqn #.subs({rx:x})
+        # self.pz_initial_surface_eqn = self.gmeq.pz_initial_eqn #.subs({rx:x})
 
         # Misc
         self.model_dXdt_lambda = None
@@ -113,7 +114,7 @@ class BaseSolution():
             vprint(self.verbose and do_verbose, 'Constructing model Hamilton\'s equations')
             drpdt_eqn_matrix = simplify( Matrix(([eq_.rhs for eq_ in self.gmeq.hamiltons_eqns[0:4] ]))
                                         .subs(self.parameters)
-                                        .subs({mu:self.gmeq.mu, eta:self.gmeq.eta})
+                                        # .subs({mu:self.gmeq.mu, eta:self.gmeq.eta})
                                         .subs({-pz:Abs(pz)}) )
             drpdt_raw_lambda = lambdify( [rx, px, pz], drpdt_eqn_matrix )
             return lambda t_, rp_: np.ndarray.flatten( drpdt_raw_lambda(rp_[0],rp_[2],rp_[3]) )
