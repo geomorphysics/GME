@@ -110,13 +110,18 @@ def px_value(x_, pz_, px_poly_eqn):
 class EquationSubset:
     def __init__( self, gmeq, parameters, do_ndim=False ):
         sub = parameters.copy()
+        undimsub = {pxhat:px, pzhat:pz, rxhat:rx, varphi_rhat:varphi_rx, varphi_rxhat:varphi_rx,
+                    rdotxhat_thatfn:rdotx_tfn, rdotzhat_thatfn:rdotz_tfn,
+                    pdotxhat_thatfn:pdotx_tfn, pdotzhat_thatfn:pdotz_tfn}
         sub.update({mu:gmeq.mu, eta:gmeq.eta})
-        self.varphi_rx_eqn   = (gmeq.varphihat_eqn       if do_ndim else gmeq.varphi_rx_eqn).subs(sub).n()
-        self.pz_xiv_eqn      = (gmeq.pz_xiv_eqn.subs({xiv:xiv/xih_0}).subs({pz:pzhat})
-                                if do_ndim else gmeq.pz_xiv_eqn).subs(sub).n()
-        self.poly_px_xiv_eqn = (gmeq.poly_px_xiv_eqn.subs({xiv:xiv/xih_0}).subs({px:pxhat, pz:pzhat})  
-                                if do_ndim else gmeq.poly_px_xiv_eqn).subs(sub).n()
-        self.hamiltons_eqns  = (gmeq.hamiltons_ndim_eqns if do_ndim else gmeq.hamiltons_eqns).subs(sub).n()
+        self.varphi_rx_eqn   = (gmeq.varphi_rxhat_eqn
+                                if do_ndim else gmeq.varphi_rx_eqn).subs(sub).n().subs(undimsub)
+        self.pz_xiv_eqn      = (gmeq.pzhat_xiv_eqn
+                                if do_ndim else gmeq.pz_xiv_eqn).subs(sub).n().subs(undimsub)
+        self.poly_px_xiv_eqn = (gmeq.poly_pxhat_xiv_eqn
+                                if do_ndim else gmeq.poly_px_xiv_eqn).subs(sub).n().subs(undimsub)
+        self.hamiltons_eqns  = (gmeq.hamiltons_ndim_eqns
+                                if do_ndim else gmeq.hamiltons_eqns).subs(sub).n().subs(undimsub)
 
 
 class Equations:
@@ -186,7 +191,8 @@ class Equations:
         if do_geodesic:
             self.prep_geodesic_eqns(parameters if not do_raw else None)
             self.define_geodesic_eqns(parameters if not do_raw else None)
-        self.define_px_poly_eqn(eta_choice=self.eta)
+        self.define_px_poly_eqn(eta_choice=self.eta, do_ndim=False)
+        self.define_px_poly_eqn(eta_choice=self.eta, do_ndim=True)
         self.prep_ibc_eqns()
         self.define_ibc_eqns()
         self.set_ibc_eqns()
@@ -596,7 +602,7 @@ class Equations:
         self.varepsilonhat_varepsilon_eqn = Eq(varepsilonhat,
                                     solve(self.varepsilon_varepsilonhat_eqn,varepsilonhat)[0])
 
-        self.varphihat_eqn = Eq(varphi_rxhat,
+        self.varphi_rxhat_eqn = Eq(varphi_rxhat,
                                     factor(self.varphi_rx_eqn.rhs
                                            .subs(e2d(self.rx_rxhat_eqn))
                                            .subs(e2d(self.varepsilon_varepsilonhat_eqn))
@@ -604,7 +610,7 @@ class Equations:
 
         self.xi_rxhat_eqn = simplify( self.xi_varphi_beta_eqn
                                         .subs({varphi_r:varphi_rxhat})
-                                        .subs(e2d(self.varphihat_eqn)) )
+                                        .subs(e2d(self.varphi_rxhat_eqn)) )
 
         self.xih0_eqn = simplify( Eq(xih_0,
                                        (self.xi_rxhat_eqn.rhs / sin(beta_0))
@@ -631,6 +637,8 @@ class Equations:
         self.px_pxhat_eqn = Eq(px, pxhat/xih_0)
         self.pz_pzhat_eqn = Eq(pz, pzhat/xih_0)
 
+        self.pzhat_xiv_eqn = Eq(pzhat, sy.solve(self.pz_xiv_eqn.subs(e2d(self.pz_pzhat_eqn)), pzhat)[0])
+
         self.H_varphi_rxhat_eqn = factor(simplify( self.H_varphi_rx_eqn
                                                     .subs(varsub)
                                                     .subs(e2d(self.varepsilon_varepsilonhat_eqn))
@@ -640,7 +648,7 @@ class Equations:
 
         self.H_split = (
             2*pxhat**(-2*eta) * (pxhat**2+pzhat**2)**(eta-1) * (1-rxhat+varepsilonhat)**(-4*mu) )
-        self.H_Ci_eqn = Eq(H, simplify((Ci**(2*(1-eta))/self.H_split)
+        self.H_Ci_eqn = Eq(H, simplify(((sin(Ci))**(2*(1-eta))/self.H_split)
                                       .subs(e2d(self.H_varphi_rxhat_eqn))) )
         self.sinCi_xih0_eqn = Eq(sin(Ci), (((sqrt(simplify((H*self.H_split)
                                     .subs(e2d(self.H_varphi_rxhat_eqn)))))**(1/(1-eta)))) )
@@ -656,6 +664,7 @@ class Equations:
 
         self.pdotxhat_eqn = Eq(pdotxhat_thatfn, simplify(-sy.diff(self.H_Ci_eqn.rhs,rxhat)))
         self.pdotzhat_eqn = Eq(pdotzhat_thatfn, simplify(-sy.diff(self.H_Ci_eqn.rhs,rzhat)))
+
 
 
     def define_nodimensionalized_Hamiltons_eqns(self):
@@ -1162,9 +1171,9 @@ class Equations:
         self.vdotz_lambdified = sy.lambdify( (rx, rdotx,rdotz, varepsilon), (self.geodesic_eqns[3].rhs), 'numpy')
 
 
-    def define_px_poly_eqn(self, eta_choice=None):
+    def define_px_poly_eqn(self, eta_choice=None, do_ndim=False):
         r"""
-        TODO: xiv_0
+        TODO: remove ref to xiv_0
 
         Define polynomial form of function combining normal-slowness covector components :math:`(p_x,p_z)`
         (where the latter is given in terms of the vertical erosion rate :math:`\xi^{\downarrow} = -\dfrac{1}{p_z}`)
@@ -1186,12 +1195,22 @@ class Equations:
                 - \left(\xi^{\downarrow{0}}\right)^{4} p_{x}^{2}
                 - \left(\xi^{\downarrow{0}}\right)^{2} = 0`
         """
-        tmp_eqn = simplify(self.px_xiv_varphi_eqn.subs({eta:eta_choice}))
-        if eta_choice<=1:
-            self.poly_px_xiv_varphi_eqn = poly( tmp_eqn.lhs, px)
+        if do_ndim:
+            # Non-dimensionalized version
+            varphi0_eqn = Eq(varphi_0, solve( self.sinCi_xih0_eqn.subs({eta:eta_choice}), varphi_0)[0])
+            self.poly_pxhat_xiv_eqn = simplify(self.px_xiv_varphi_eqn
+                                   .subs({eta:eta_choice})
+                                   .subs({varphi_r:self.varphi_rxhat_eqn.rhs})
+                                   .subs(e2d(self.px_pxhat_eqn))
+                                   .subs(e2d(varphi0_eqn)))
         else:
-            self.poly_px_xiv_varphi_eqn = poly(numer(tmp_eqn.lhs), px)
-        self.poly_px_xiv_eqn = Eq(self.poly_px_xiv_varphi_eqn.subs(e2d(self.varphi_rx_eqn)), 0)
+            # Dimensioned version
+            tmp_eqn = simplify(self.px_xiv_varphi_eqn.subs({eta:eta_choice}))
+            if eta_choice<=1:
+                self.poly_px_xiv_varphi_eqn = poly( tmp_eqn.lhs, px)
+            else:
+                self.poly_px_xiv_varphi_eqn = poly(numer(tmp_eqn.lhs), px)
+            self.poly_px_xiv_eqn = Eq(self.poly_px_xiv_varphi_eqn.subs(e2d(self.varphi_rx_eqn)), 0)
 
 
     def prep_ibc_eqns(self):

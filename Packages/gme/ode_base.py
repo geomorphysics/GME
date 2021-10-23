@@ -40,7 +40,7 @@ class BaseSolution():
     """
     def __init__( self, gmeq, parameters,
                   choice='Hamilton',
-                  method='Radau', do_dense=True, xf_stop=0.999,
+                  method='Radau', do_dense=True, xhat_stop=0.999,
                   t_end=0.04, t_slip_end=0.08, t_distribn=2,
                   n_rays=20, n_t=101,
                   tp_xiv0_list=None, customize_t_fn=None,
@@ -70,7 +70,7 @@ class BaseSolution():
         str += f' using {method} method of integration'
         vprint(self.verbose, str)
         self.do_dense = do_dense
-        self.xf_stop = xf_stop
+        self.xhat_stop = xhat_stop
 
         # Rays
         self.tp_xiv0_list = tp_xiv0_list
@@ -131,7 +131,7 @@ class BaseSolution():
 
     def solve_Hamiltons_equations(self, t_array, t_lag=0):
         soln_ivp, rpt_arrays, i_end = self.solve_ODE_system(t_array=t_array, t_lag=t_lag,
-                                                            xf_stop=self.xf_stop)
+                                                            xhat_stop=self.xhat_stop)
         # print('solve_Hamiltons_equations #1:', i_end, len(rpt_arrays['rx']), rpt_arrays['rx'])
         self.solns = [soln_ivp]
         # print(f"i_end={i_end}, {len(rpt_arrays['t'])}, {len(rpt_arrays['rx'])}")
@@ -146,14 +146,14 @@ class BaseSolution():
         # print('solve_Hamiltons_equations #2:', rpt_arrays['rx'])
         return rpt_arrays
 
-    def solve_ODE_system(self, t_array, t_lag=0, xf_stop=0.999):
+    def solve_ODE_system(self, t_array, t_lag=0, xhat_stop=0.999):
         # Define stop condition
         def almost_reached_divide(t,y):
-            # function yielding >0 if rx<x1*xf_stop ~ along profile
-            #              and  <0 if rx>x1*xf_stop ≈ @divide
-            #  - thus triggers an event when rx surpasses x1*xf_stop
+            # function yielding >0 if rx<x1*xhat_stop ~ along profile
+            #              and  <0 if rx>x1*xhat_stop ≈ @divide
+            #  - thus triggers an event when rx surpasses x1*xhat_stop
             #    because = zero-crossing in -ve sense
-            return y[0]-self.parameters[x_1]*xf_stop
+            return y[0]-self.parameters[x_1]*xhat_stop
         almost_reached_divide.terminal = True
 
         # Perform ODE integration
