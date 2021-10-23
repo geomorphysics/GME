@@ -174,7 +174,8 @@ class TimeInvariantSolution(OneRaySolution):
         super().__init__(gmeq, parameters, **kwargs)
 
     def more_postprocessing(self, spline_order=2, extrapolation_mode=0):
-        self.beta_vt_array = np.arctan( (self.rdotz_array+(self.parameters[xiv_0]))/self.rdotx_array )
+        xiv0_ = float( (xiv_0/xih_0).subs(self.parameters) )
+        self.beta_vt_array = np.arctan( (self.rdotz_array+xiv0_)/self.rdotx_array )
         self.beta_vt_interp = InterpolatedUnivariateSpline( self.rx_array, self.beta_vt_array,
                                                             k=spline_order, ext=extrapolation_mode )
         self.beta_vt_error_interp = lambda x_: 100*( self.beta_vt_interp(x_)-self.beta_p_interp(x_) ) \
@@ -184,9 +185,9 @@ class TimeInvariantSolution(OneRaySolution):
         for i in range(0,len(self.t_array),1):
             if i<len(self.t_array):
                 self.rays += [np.array([self.rx_array[:i+1],
-                                self.rz_array[:i+1]+self.t_array[i]*(self.parameters[xiv_0])])]
+                                self.rz_array[:i+1]+self.t_array[i]*xiv0_])]
             self.x_array[i] = self.rx_array[i]
-            self.h_array[i] = self.rz_array[i]+self.t_array[i]*(self.parameters[xiv_0])
+            self.h_array[i] = self.rz_array[i]+self.t_array[i]*xiv0_
         self.h_interp  = InterpolatedUnivariateSpline( self.x_array, self.h_array,
                                                        k=spline_order, ext=extrapolation_mode )
         dhdx_interp = InterpolatedUnivariateSpline( self.x_array, self.h_array,

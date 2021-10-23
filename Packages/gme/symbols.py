@@ -121,8 +121,10 @@ x_1 = symbols(r'L_\mathrm{c}',  real=True, positive=True)
 Lc = x_1
 xi = symbols(r'\xi^{\perp}',  real=True, positive=True)
 xiv = symbols(r'\xi^{\downarrow}',  real=True)
+xivhat = symbols(r'\hat{\xi}^{\downarrow}',  real=True)
 xiv_0 = symbols(r'\xi^{\downarrow{0}}',  real=True, positive=True)   # NEW: positive=True
 xih = symbols(r'\xi^{\rightarrow}',  real=True)
+xihhat = symbols(r'\hat{\xi}^{\rightarrow}',  real=True)
 xih_0 = symbols(r'\xi^{\rightarrow{0}}',  real=True, positive=True)   # NEW: positive=True
 xiv_0_sqrd = symbols(r'\xi^{\downarrow{0}}^2',  real=True)
 
@@ -140,7 +142,7 @@ varepsilonhat    = symbols(r'\hat{\varepsilon}',  real=True, positive=True)
 J       = MatrixSymbol(r'J',2,2)
 g       = MatrixSymbol(r'g',2,2)
 gstar   = MatrixSymbol(r'g_*',2,2)
-det_gstar = symbols(r'\det\left(g_*\right)')
+det_gstar = symbols(r'{\det}\left(g_*\right)')
 pcovec_wrong    = MatrixSymbol(r'\mathbf{\widetilde{p}}',2,1)
 pcovec    = MatrixSymbol(r'\mathbf{\widetilde{p}}',1,2)
 pdotcovec    = MatrixSymbol(r'\mathbf{\dot{\widetilde{p}}}',1,2)

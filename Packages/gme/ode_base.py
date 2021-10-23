@@ -112,7 +112,7 @@ class BaseSolution():
         #     and the rest as numbers
         if self.choice=='Hamilton':
             vprint(self.verbose and do_verbose, 'Constructing model Hamilton\'s equations')
-            drpdt_eqn_matrix = simplify( Matrix(([eq_.rhs for eq_ in self.gmeq.hamiltons_eqns[0:4] ]))
+            drpdt_eqn_matrix = simplify( Matrix(([eq_ for eq_ in self.gmeq.hamiltons_eqns[0:4] ]))
                                         .subs(self.parameters)
                                         # .subs({mu:self.gmeq.mu, eta:self.gmeq.eta})
                                         .subs({-pz:Abs(pz)}) )

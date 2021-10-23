@@ -108,17 +108,23 @@ def px_value(x_, pz_, px_poly_eqn):
 
 
 class EquationSubset:
-    def __init__( self, gmeq, parameters, do_ndim=False ):
+    def __init__( self, gmeq, parameters, do_ndim=False, do_revert=True ):
         sub = parameters.copy()
-        undimsub = {pxhat:px, pzhat:pz, rxhat:rx, varphi_rhat:varphi_rx, varphi_rxhat:varphi_rx,
-                    rdotxhat_thatfn:rdotx_tfn, rdotzhat_thatfn:rdotz_tfn,
-                    pdotxhat_thatfn:pdotx_tfn, pdotzhat_thatfn:pdotz_tfn}
+        if do_revert:
+            undimsub = {pxhat:px, pzhat:pz, rxhat:rx, xivhat:xiv,
+                        varphi_rhat:varphi_rx, varphi_rxhat:varphi_rx,
+                        rdotxhat_thatfn:rdotx_tfn, rdotzhat_thatfn:rdotz_tfn,
+                        pdotxhat_thatfn:pdotx_tfn, pdotzhat_thatfn:pdotz_tfn}
+        else:
+            undimsub = {}
         sub.update({mu:gmeq.mu, eta:gmeq.eta})
+        # xisub = {xiv:xivhat*xih_0}
+        xisub = {}
         self.varphi_rx_eqn   = (gmeq.varphi_rxhat_eqn
                                 if do_ndim else gmeq.varphi_rx_eqn).subs(sub).n().subs(undimsub)
-        self.pz_xiv_eqn      = (gmeq.pzhat_xiv_eqn
-                                if do_ndim else gmeq.pz_xiv_eqn).subs(sub).n().subs(undimsub)
-        self.poly_px_xiv_eqn = (gmeq.poly_pxhat_xiv_eqn
+        self.pz_xiv_eqn      = (gmeq.pzhat_xiv_eqn.subs(xisub)
+                                if do_ndim else gmeq.pz_xiv_eqn).subs(sub).n().subs(undimsub) #.subs({xiv:xiv/xih_0})
+        self.poly_px_xiv_eqn = (Eq(simplify((gmeq.poly_pxhat_xiv_eqn.lhs.subs(xisub))/xih_0**2),0)
                                 if do_ndim else gmeq.poly_px_xiv_eqn).subs(sub).n().subs(undimsub)
         self.hamiltons_eqns  = (gmeq.hamiltons_ndim_eqns
                                 if do_ndim else gmeq.hamiltons_eqns).subs(sub).n().subs(undimsub)
@@ -514,9 +520,9 @@ class Equations:
         """
         self.rdotx_rdot_alpha_eqn = Eq( rdotx, rdot*cos(alpha) )
         self.rdotz_rdot_alpha_eqn = Eq( rdotz, rdot*sin(alpha) )
-        self.rdotx_pxpz_eqn = simplify( Eq(rdotx, sy.diff(self.H_eqn.rhs,px)) )
+        self.rdotx_pxpz_eqn = factor( Eq(rdotx, sy.diff(self.H_eqn.rhs,px)) )
                                 # simplify(sy.diff(self.H_eqn.rhs,px)).subs({Abs(px):px,sy.sign(px):1}) ) )
-        self.rdotz_pxpz_eqn = simplify( Eq( rdotz, sy.diff(self.H_eqn.rhs,pz)) )
+        self.rdotz_pxpz_eqn = factor( Eq( rdotz, sy.diff(self.H_eqn.rhs,pz)) )
         # self.rdotz_pxpz_eqn = simplify( simplify( Eq( rdotz, simplify(sy.diff(self.H_eqn.rhs,pz))\
         #                                 .subs({Abs(px):px,sy.sign(px):1}) ) )
         #                                     .subs({px:pxp}) ) \
@@ -569,10 +575,10 @@ class Equations:
                 \end{matrix}\right]`
         """
         self.hamiltons_eqns = Matrix((
-                                        self.rdotx_pxpz_eqn.subs(e2d(self.varphi_rx_eqn)).subs({rdotx:rdotx_tfn}),
-                                        self.rdotz_pxpz_eqn.subs(e2d(self.varphi_rx_eqn)).subs({rdotz:rdotz_tfn}),
-                                        self.pdotx_pxpz_eqn.subs(e2d(self.varphi_rx_eqn)).subs({pdotx:pdotx_tfn}),
-                                        self.pdotz_pxpz_eqn.subs(e2d(self.varphi_rx_eqn)).subs({pdotz:pdotz_tfn})
+                                        self.rdotx_pxpz_eqn.rhs.subs(e2d(self.varphi_rx_eqn)),
+                                        self.rdotz_pxpz_eqn.rhs.subs(e2d(self.varphi_rx_eqn)),
+                                        self.pdotx_pxpz_eqn.rhs.subs(e2d(self.varphi_rx_eqn)),
+                                        self.pdotz_pxpz_eqn.rhs.subs(e2d(self.varphi_rx_eqn))  #.subs({pdotz:pdotz_tfn})
                                     ))
         # self.hamiltons_eqns = Matrix(
         #      (factor(simplify(self.rdotx_pxpz_eqn.subs(e2d(self.varphi_rx_eqn)))
@@ -669,10 +675,10 @@ class Equations:
 
     def define_nodimensionalized_Hamiltons_eqns(self):
         self.hamiltons_ndim_eqns = Matrix((
-                                        self.rdotxhat_eqn,
-                                        self.rdotzhat_eqn,
-                                        self.pdotxhat_eqn,
-                                        self.pdotzhat_eqn
+                                        self.rdotxhat_eqn.rhs,
+                                        self.rdotzhat_eqn.rhs,
+                                        self.pdotxhat_eqn.rhs,
+                                        self.pdotzhat_eqn.rhs
                                     ))
         # self.hamiltons_ndim_eqns = Matrix(
         #      (factor(simplify(self.rdotxhat_eqn).subs({rdotx:rdotx_true, rdotz:rdotz_true})).subs({Abs(px):px}),
@@ -1153,22 +1159,36 @@ class Equations:
 
         # Obtain geodesic equations as a set of coupled 1st order ODEs
         self.geodesic_eqns = Matrix([
-            Eq(rdotx_true, rdotx),
-            Eq(rdotz_true, rdotz),
+            rdotx,
+            rdotz,
             # Use symmetry to abbreviate sum of diagonal terms
-            Eq(vdotx, (-self.christoffel_ij_k_rx_rdot_lambda(0,0,0)*rdotx*rdotx
-                       -2*self.christoffel_ij_k_rx_rdot_lambda(0,1,0)*rdotx*rdotz
-                       #-christoffel_ij_k_rx_rdot_lambda(1,0,0)*rdotz*rdotx
-                       -self.christoffel_ij_k_rx_rdot_lambda(1,1,0)*rdotz*rdotz) ),
+            (-self.christoffel_ij_k_rx_rdot_lambda(0,0,0)*rdotx*rdotx
+                   -2*self.christoffel_ij_k_rx_rdot_lambda(0,1,0)*rdotx*rdotz
+                   #-christoffel_ij_k_rx_rdot_lambda(1,0,0)*rdotz*rdotx
+                   -self.christoffel_ij_k_rx_rdot_lambda(1,1,0)*rdotz*rdotz) ,
             # Use symmetry to abbreviate sum of diagonal terms
-            Eq(vdotz, (-self.christoffel_ij_k_rx_rdot_lambda(0,0,1)*rdotx*rdotx
-                       -2*self.christoffel_ij_k_rx_rdot_lambda(0,1,1)*rdotx*rdotz
-                       #-christoffel_ij_k_rx_rdot_lambda(1,0,1)*rdotz*rdotx
-                       -self.christoffel_ij_k_rx_rdot_lambda(1,1,1)*rdotz*rdotz) )
+            (-self.christoffel_ij_k_rx_rdot_lambda(0,0,1)*rdotx*rdotx
+                   -2*self.christoffel_ij_k_rx_rdot_lambda(0,1,1)*rdotx*rdotz
+                   #-christoffel_ij_k_rx_rdot_lambda(1,0,1)*rdotz*rdotx
+                   -self.christoffel_ij_k_rx_rdot_lambda(1,1,1)*rdotz*rdotz)
         ])
+        # self.geodesic_eqns = Matrix([
+        #     Eq(rdotx_true, rdotx),
+        #     Eq(rdotz_true, rdotz),
+        #     # Use symmetry to abbreviate sum of diagonal terms
+        #     Eq(vdotx, (-self.christoffel_ij_k_rx_rdot_lambda(0,0,0)*rdotx*rdotx
+        #                -2*self.christoffel_ij_k_rx_rdot_lambda(0,1,0)*rdotx*rdotz
+        #                #-christoffel_ij_k_rx_rdot_lambda(1,0,0)*rdotz*rdotx
+        #                -self.christoffel_ij_k_rx_rdot_lambda(1,1,0)*rdotz*rdotz) ),
+        #     # Use symmetry to abbreviate sum of diagonal terms
+        #     Eq(vdotz, (-self.christoffel_ij_k_rx_rdot_lambda(0,0,1)*rdotx*rdotx
+        #                -2*self.christoffel_ij_k_rx_rdot_lambda(0,1,1)*rdotx*rdotz
+        #                #-christoffel_ij_k_rx_rdot_lambda(1,0,1)*rdotz*rdotx
+        #                -self.christoffel_ij_k_rx_rdot_lambda(1,1,1)*rdotz*rdotz) )
+        # ])
         # Use of 'factor' here messes things up for eta<1
-        self.vdotx_lambdified = sy.lambdify( (rx, rdotx,rdotz, varepsilon), (self.geodesic_eqns[2].rhs), 'numpy')
-        self.vdotz_lambdified = sy.lambdify( (rx, rdotx,rdotz, varepsilon), (self.geodesic_eqns[3].rhs), 'numpy')
+        self.vdotx_lambdified = sy.lambdify( (rx, rdotx,rdotz, varepsilon), (self.geodesic_eqns[2]), 'numpy')
+        self.vdotz_lambdified = sy.lambdify( (rx, rdotx,rdotz, varepsilon), (self.geodesic_eqns[3]), 'numpy')
 
 
     def define_px_poly_eqn(self, eta_choice=None, do_ndim=False):
