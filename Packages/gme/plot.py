@@ -1686,8 +1686,8 @@ class TimeInvariantPlots(OneRayPlots):
 
         plt.xlabel(r'Distance, $x/L_{\mathrm{c}}$  [-]', fontsize=13)
         plt.ylabel(r'Vertical erosion rate  '+rate_label, fontsize=12)
-        # if y_limits is not None:
-        #     axes.set_ylim(*y_limits)
+        if y_limits is not None:
+            axes.set_ylim(*y_limits)
         plt.legend(loc='upper left', fontsize=11, framealpha=0.95)
         plt.text(0.6,0.85, pub_label if do_pub_label else r'$\eta={}$'.format(gmeq.eta),
                  transform=axes.transAxes, horizontalalignment='center',
