@@ -9,8 +9,7 @@
 		"eta" : "sy.Rational(3,2)",
 		"mu" :  "sy.Rational(3,4)",
 		"Ci" : "sy.rad(4)",
-		"varepsilonhat" : "sy.Rational(1,100)",
-		"varphi_0" : 37.861e-9
+		"varepsilonhat" : "sy.Rational(1,100)"
 	},
 
 	"solve": {
@@ -39,7 +38,7 @@
 		"pub_label_posns": {
 			"profile_vdot": "None",
 			"profile_v": "None",
-			"profile_vxz": "None",
+			"profile_vxz": [0.5,0.5],
 			"profile_xi": "None",
 			"profile_xihorizontal": "None",
 			"profile_xivertical": "None",
@@ -49,12 +48,12 @@
 			"profile_h_ray": [0.85,0.7],
 			"alpha_beta": [0.88,0.3],
 			"angular_disparity": [0.15,0.15],
-			"profile_angular_disparity": [0.6,0.35]
+			"profile_angular_disparity": [0.5,0.35]
 		},
 		"do_profile_extra": false,
 		"ray_y_limits" : [-0.015,0.42],
 		"ang_x_limits" : [0,90],
-		"ang_y_limits" : [-30,10],
+		"ang_y_limits" : [-5,25],
 		"angdisp_x_limits" : [0,90],
 		"angdisp_y_limits" : [0,90],
 		"ray_acceln_legend_loc" : "upper left",
