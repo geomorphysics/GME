@@ -8,7 +8,7 @@
 	"model": {
 		"eta" : "sy.Rational(1,2)",
 		"mu" :  "sy.Rational(1,4)",
-		"Ci" : "sy.rad(4)",
+		"Ci" :  "sy.rad(4)",
 		"varepsilonhat" : "sy.Rational(1,100)"
 	},
 
@@ -30,7 +30,7 @@
 			"profile_aniso": "(a)",
 			"profile_beta": "(b)",
 			"profile_h_rays": "(b)",
-			"profile_h_ray": "(c)",
+			"profile_h_ray": "(b)",
 			"alpha_beta": "(b)",
 			"angular_disparity": "(b)",
 			"profile_angular_disparity": "(a)"
