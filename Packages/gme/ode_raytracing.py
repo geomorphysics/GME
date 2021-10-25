@@ -51,14 +51,14 @@ class OneRaySolution(BaseSolution):
         """
         super().__init__(gmeq, parameters, **kwargs)
 
-    def initial_conditions(self):
+    def initial_conditions(self, px_guess):
         rz0_, rx0_ = 0, 0
-        px0_, pz0_ = pxpz0_from_xiv0(self.parameters, self.gmeq.pz_xiv_eqn, self.gmeq.poly_px_xiv_eqn )
+        px0_, pz0_ = pxpz0_from_xiv0(self.parameters, self.gmeq.pz_xiv_eqn, self.gmeq.poly_px_xiv_eqn, px_guess=px_guess )
         return [rz0_, rx0_ , px0_, pz0_]
 
-    def solve(self):
+    def solve(self, px_guess=1):
         self.prep_arrays()
-        self.ic = self.initial_conditions()
+        self.ic = self.initial_conditions(px_guess=px_guess)
         #if self.model_dXdt_lambda is None:
         self.model_dXdt_lambda = self.make_model()
         self.rpt_arrays = self.solve_Hamiltons_equations(t_array=self.ref_t_array.copy())

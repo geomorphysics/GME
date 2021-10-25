@@ -54,7 +54,7 @@ __all__ = ['Equations', 'EquationSubset',
 
 
 
-def pxpz0_from_xiv0(parameters, pz_xiv_eqn, poly_px_xiv_eqn):
+def pxpz0_from_xiv0(parameters, pz_xiv_eqn, poly_px_xiv_eqn, px_guess):
     """
     TODO.
 
@@ -65,7 +65,11 @@ def pxpz0_from_xiv0(parameters, pz_xiv_eqn, poly_px_xiv_eqn):
     px0_poly_rx0_eqn = poly_px_xiv_eqn.subs({rx:0}).subs({xiv:xiv_0}).subs(parameters)
     px0_poly_lambda = lambdify( [px], px0_poly_rx0_eqn.lhs.as_expr() )
     dpx0_poly_lambda = lambdify( [px], diff(px0_poly_rx0_eqn.lhs.as_expr(),px) )
-    px0_root_search = root_scalar( px0_poly_lambda, fprime=dpx0_poly_lambda, method='newton', x0=0.01 )
+    px0_root_search = None
+    for px_guess_ in [1, px_guess]:
+        px0_root_search = root_scalar( px0_poly_lambda, fprime=dpx0_poly_lambda, method='newton', x0=px_guess_ )
+        if px0_root_search.converged:
+            break
     px0_ = px0_root_search.root
     pz0_ = pz0_xiv0_eqn.rhs
     return (px0_,pz0_)
@@ -90,7 +94,11 @@ def px_value_newton(x_, pz_, px_poly_eqn, px_guess=0.01):
     px_poly_eqn_ = px_poly_eqn.subs({rx:x_,x:x_,pz:pz_})
     px_poly_lambda = lambdify( [px], px_poly_eqn_.as_expr() )
     dpx_poly_lambda = lambdify( [px], diff(px_poly_eqn_.as_expr(),px) )
-    px_root_search = root_scalar( px_poly_lambda, fprime=dpx_poly_lambda, method='newton', x0=px_guess )
+    for px_guess_ in [1, px_guess]:
+        px_root_search = root_scalar( px_poly_lambda, fprime=dpx_poly_lambda, method='newton', x0=px_guess_ )
+        if px_root_search.converged:
+            break
+    # px_root_search = root_scalar( px_poly_lambda, fprime=dpx_poly_lambda, method='newton', x0=px_guess )
     px_ = px_root_search.root
     return px_
 
@@ -110,7 +118,7 @@ def px_value(x_, pz_, px_poly_eqn):
 class EquationSubset:
     def __init__( self, gmeq, parameters, do_ndim=False, do_revert=True ):
         sub = parameters.copy()
-        if do_revert:
+        if do_revert and do_ndim:
             undimsub = {pxhat:px, pzhat:pz, rxhat:rx, xivhat:xiv,
                         varphi_rhat:varphi_rx, varphi_rxhat:varphi_rx,
                         rdotxhat_thatfn:rdotx_tfn, rdotzhat_thatfn:rdotz_tfn,
@@ -124,7 +132,7 @@ class EquationSubset:
                                 if do_ndim else gmeq.varphi_rx_eqn).subs(sub).n().subs(undimsub)
         self.pz_xiv_eqn      = (gmeq.pzhat_xiv_eqn.subs(xisub)
                                 if do_ndim else gmeq.pz_xiv_eqn).subs(sub).n().subs(undimsub) #.subs({xiv:xiv/xih_0})
-        self.poly_px_xiv_eqn = (Eq(simplify((gmeq.poly_pxhat_xiv_eqn.lhs.subs(xisub))/xih_0**2),0)
+        self.poly_px_xiv_eqn = (gmeq.poly_pxhat_xiv_eqn #Eq(simplify((gmeq.poly_pxhat_xiv_eqn.lhs.subs(xisub))/xih_0**2),0)
                                 if do_ndim else gmeq.poly_px_xiv_eqn).subs(sub).n().subs(undimsub)
         self.hamiltons_eqns  = (gmeq.hamiltons_ndim_eqns
                                 if do_ndim else gmeq.hamiltons_eqns).subs(sub).n().subs(undimsub)
@@ -1218,18 +1226,26 @@ class Equations:
         if do_ndim:
             # Non-dimensionalized version
             varphi0_eqn = Eq(varphi_0, solve( self.sinCi_xih0_eqn.subs({eta:eta_choice}), varphi_0)[0])
-            self.poly_pxhat_xiv_eqn = simplify(self.px_xiv_varphi_eqn
-                                   .subs({eta:eta_choice})
-                                   .subs({varphi_r:self.varphi_rxhat_eqn.rhs})
-                                   .subs(e2d(self.px_pxhat_eqn))
-                                   .subs(e2d(varphi0_eqn)))
+            if eta_choice<=1:
+                self.poly_pxhat_xiv_eqn = simplify(self.px_xiv_varphi_eqn
+                                                   .subs({eta:eta_choice})
+                                                   .subs({varphi_r:self.varphi_rxhat_eqn.rhs})
+                                                   .subs(e2d(self.px_pxhat_eqn))
+                                                   .subs(e2d(varphi0_eqn)))
+            else:
+                tmp_eqn = sy.separatevars(simplify(self.px_xiv_varphi_eqn
+                                                   .subs({eta:eta_choice})
+                                                   .subs({varphi_r:self.varphi_rxhat_eqn.rhs})
+                                                   .subs(e2d(self.px_pxhat_eqn))
+                                                   .subs(e2d(varphi0_eqn))))
+                self.poly_pxhat_xiv_eqn = Eq( (numer(tmp_eqn.lhs)-denom(tmp_eqn.lhs)*(tmp_eqn.rhs))/xiv**2, 0)
         else:
             # Dimensioned version
             tmp_eqn = simplify(self.px_xiv_varphi_eqn.subs({eta:eta_choice}))
             if eta_choice<=1:
                 self.poly_px_xiv_varphi_eqn = poly( tmp_eqn.lhs, px)
             else:
-                self.poly_px_xiv_varphi_eqn = poly(numer(tmp_eqn.lhs), px)
+                self.poly_px_xiv_varphi_eqn = poly(numer(tmp_eqn.lhs)-denom(tmp_eqn.lhs)*(tmp_eqn.rhs), px)
             self.poly_px_xiv_eqn = Eq(self.poly_px_xiv_varphi_eqn.subs(e2d(self.varphi_rx_eqn)), 0)
 
 
