@@ -588,16 +588,6 @@ class Equations:
                                         self.pdotx_pxpz_eqn.rhs.subs(e2d(self.varphi_rx_eqn)),
                                         self.pdotz_pxpz_eqn.rhs.subs(e2d(self.varphi_rx_eqn))  #.subs({pdotz:pdotz_tfn})
                                     ))
-        # self.hamiltons_eqns = Matrix(
-        #      (factor(simplify(self.rdotx_pxpz_eqn.subs(e2d(self.varphi_rx_eqn)))
-        #         .subs({rdotx:rdotx_true, rdotz:rdotz_true})).subs({Abs(px):px}),
-        #       factor(simplify(self.rdotz_pxpz_eqn.subs(e2d(self.varphi_rx_eqn)))
-        #         .subs({rdotx:rdotx_true, rdotz:rdotz_true})).subs({Abs(px):px}),
-        #       factor(simplify(self.pdotx_pxpz_eqn.subs(e2d(self.varphi_rx_eqn)))
-        #         .subs({rdotx:rdotx_true, rdotz:rdotz_true})).subs({Abs(px):px}),
-        #       factor(simplify(self.pdotz_pxpz_eqn.subs(e2d(self.varphi_rx_eqn)))
-        #         .subs({rdotx:rdotx_true, rdotz:rdotz_true})).subs({Abs(px):px})
-        #      ))
 
 
     def nondimensionalize(self):
@@ -680,7 +670,6 @@ class Equations:
         self.pdotzhat_eqn = Eq(pdotzhat_thatfn, simplify(-sy.diff(self.H_Ci_eqn.rhs,rzhat)))
 
 
-
     def define_nodimensionalized_Hamiltons_eqns(self):
         self.hamiltons_ndim_eqns = Matrix((
                                         self.rdotxhat_eqn.rhs,
@@ -688,12 +677,6 @@ class Equations:
                                         self.pdotxhat_eqn.rhs,
                                         self.pdotzhat_eqn.rhs
                                     ))
-        # self.hamiltons_ndim_eqns = Matrix(
-        #      (factor(simplify(self.rdotxhat_eqn).subs({rdotx:rdotx_true, rdotz:rdotz_true})).subs({Abs(px):px}),
-        #       factor(simplify(self.rdotzhat_eqn).subs({rdotx:rdotx_true, rdotz:rdotz_true})).subs({Abs(px):px}),
-        #       factor(simplify(self.pdotxhat_eqn).subs({rdotx:rdotx_true, rdotz:rdotz_true})).subs({Abs(px):px}),
-        #       factor(simplify(self.pdotzhat_eqn).subs({rdotx:rdotx_true, rdotz:rdotz_true})).subs({Abs(px):px})
-        #      ))
 
 
     def define_tanalpha_eqns(self):

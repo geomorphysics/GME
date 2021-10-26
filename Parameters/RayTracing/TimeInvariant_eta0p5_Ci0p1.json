@@ -1,0 +1,33 @@
+{
+	"job": {
+		"title": "Time-invariant profile solution: sin(beta), ramp, eta=1/2, mu=1/4, Ci=0.1deg",
+		"group_name": "TimeInvariantSolutions",
+		"short_name": "tis"
+	},
+
+	"model": {
+		"eta" : "sy.Rational(1,2)",
+		"mu" :  "sy.Rational(1,4)",
+		"Ci" :  "sy.rad(Rational(1,10))",
+		"varepsilonhat" : "sy.Rational(1,100)"
+	},
+
+	"solve": {
+		"t_end" : 10,
+		"method" : {"Hamilton": "DOP853", "geodesic": "LSODA"}
+	},
+
+	"plot": {
+		"do_pub_labeling": false,
+		"do_profile_extra": false,
+		"ray_y_limits" : [-0.02,0.37],
+		"ang_x_limits" : [0,90],
+		"ang_y_limits" : [-30,10],
+		"angdisp_x_limits" : [0,90],
+		"angdisp_y_limits" : [0,90],
+		"ray_acceln_legend_loc" : "upper left",
+		"profile_evec_legend_loc" : "lower left",
+		"profile_evec_eta_label_xy" : [0.5,0.25],
+		"aniso_y_limits": [-0.03,0.30001]
+	}
+}

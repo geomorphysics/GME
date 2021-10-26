@@ -61,8 +61,8 @@ mu = symbols(r'\mu',  real=True, positive=True)
 epsilon = symbols(r'\epsilon',  real=True, positive=True)
 t = symbols(r't',  real=True, negative=False)  # New: negative=False
 that = symbols(r'\hat{t}',  real=True, negative=False)  # New: negative=False
-tv_0 = symbols(r't_{\downarrow{0}}',  real=True, positive=True)
-th_0 = symbols(r't_{\rightarrow{0}}',  real=True, positive=True)
+tv_0 = symbols(r't^{\downarrow{0}}',  real=True, positive=True)
+th_0 = symbols(r't^{\rightarrow{0}}',  real=True, positive=True)
 beta = symbols(r'\beta',  real=True)
 beta_ = symbols(r'\beta_x',  real=True)
 beta_crit = symbols(r'\beta_c',  real=True)

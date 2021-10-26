@@ -587,7 +587,7 @@ class OneRayPlots(Graphing):
             transform=axes.transAxes, horizontalalignment='center', verticalalignment='center', fontsize=16, color='k')
 
     def profile_angular_disparity( self, gmes, gmeq, sub, name, fig_size=None, dpi=None, n_points=201,
-                                   pub_label_xy=[0.5,0.2], eta_label_xy=[0.5,0.81], var_label_xy=[0.8,0.35],
+                                   pub_label_xy=[0.5,0.2], eta_label_xy=[0.25,0.5], var_label_xy=[0.8,0.35],
                                    do_pub_label=False, pub_label='(a)' ):
         r"""
         Plot horizontal erosion speed :math:`\xi^{\rightarrow}` along a time-invariant profile.
@@ -621,6 +621,9 @@ class OneRayPlots(Graphing):
                  transform=axes.transAxes, horizontalalignment='center', verticalalignment='center', fontsize=16, color='k')
         plt.text(*var_label_xy, r'$\psi(x)$' if do_pub_label else '',
                  transform=axes.transAxes, horizontalalignment='center', verticalalignment='center', fontsize=18, color='k')
+        plt.text(*eta_label_xy, r'$\eta='+rf'{gmeq.eta}'+r'\quad\mathsf{Ci}='+rf'{round(float(sy.deg(Ci.subs(sub))))}'+'{\degree}$',
+                 transform=axes.transAxes,
+                 horizontalalignment='center', verticalalignment='center', fontsize=14, color='k')
 
     def profile_alpha( self, gmes, gmeq, sub, name, fig_size=None, dpi=None, n_points=201, do_legend=True):
         r"""
@@ -679,7 +682,7 @@ class OneRayPlots(Graphing):
             rate_label = '${v}$'
         else:
             xi_norm = float(sy.N(xi_norm))
-            rate_label = r'${v}/\xi^{\!\downarrow_{\!\!0}}$  [-]'
+            rate_label = r'${v}/\xi^{\!\rightarrow_{\!\!0}}$  [-]'
         rx_array = gmes.rx_array
         x_min, x_max = rx_array[0], rx_array[-1]
         x_array = np.linspace(x_min, x_max,n_points)
@@ -747,7 +750,7 @@ class OneRayPlots(Graphing):
             rate_label = '$\dot{v}$'
         else:
             xi_norm = float(sy.N(xi_norm))
-            rate_label = r'$\dot{v}/\xi^{\!\downarrow_{\!\!0}}$  [T$^{-1}$]'
+            rate_label = r'$\dot{v}/\xi^{\!\rightarrow_{\!\!0}}$  [T$^{-1}$]'
 
         # Specify sampling in x and t
         rx_array = gmes.rx_array
