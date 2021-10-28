@@ -35,7 +35,7 @@ Imports symbols from the :mod:`.symbols` module
 
 import numpy as np
 import sympy as sy
-from gmplib.utils import e2d
+from gmplib.utils import e2d, omitdict
 from gme.symbols import *
 from sympy import Eq, S, Rational, Reals, N, \
                     pi, sqrt, numer, denom, \
@@ -44,7 +44,7 @@ from sympy import Eq, S, Rational, Reals, N, \
                     exp, tan, atan, sin, cos, asin, deg, \
                     Abs, sign, log, re, im, \
                     integrate, derive_by_array, poly, Piecewise, \
-                    nroots, poly
+                    nroots, poly, separatevars
 from scipy.optimize import root_scalar
 from functools import reduce
 
@@ -54,24 +54,31 @@ __all__ = ['Equations', 'EquationSubset',
 
 
 
-def pxpz0_from_xiv0(parameters, pz_xiv_eqn, poly_px_xiv_eqn, px_guess):
+def pxpz0_from_xiv0(parameters, pz0_xiv0_eqn, poly_px_xiv0_eqn, px_guess):
     """
     TODO.
 
     Args:
         TODO
     """
-    pz0_xiv0_eqn = pz_xiv_eqn.subs({xiv:xiv_0}).subs(parameters)
-    px0_poly_rx0_eqn = poly_px_xiv_eqn.subs({rx:0}).subs({xiv:xiv_0}).subs(parameters)
-    px0_poly_lambda = lambdify( [px], px0_poly_rx0_eqn.lhs.as_expr() )
-    dpx0_poly_lambda = lambdify( [px], diff(px0_poly_rx0_eqn.lhs.as_expr(),px) )
-    px0_root_search = None
-    for px_guess_ in [1, px_guess]:
-        px0_root_search = root_scalar( px0_poly_lambda, fprime=dpx0_poly_lambda, method='newton', x0=px_guess_ )
-        if px0_root_search.converged:
-            break
-    px0_ = px0_root_search.root
-    pz0_ = pz0_xiv0_eqn.rhs
+    # pz0_xiv0_eqn = pz_xiv_eqn.subs({xiv:xiv_0}).subs(parameters)
+    px0_poly_rx0_eqn = simplify(poly_px_xiv0_eqn.subs({rx:0}).subs(parameters))
+    eta_ = eta.subs(parameters)
+    if True: #eta==Rational(1,2) or eta==Rational(3,2):
+        px0sqrd_solns = solve(px0_poly_rx0_eqn,px**2)
+        px0_ = sqrt([px0sqrd_ for px0sqrd_ in px0sqrd_solns if re(px0sqrd_)>0 and im(px0sqrd_)==0][0])
+    else:
+        px0_poly_rx0_eqn = px0_poly_rx0_eqn#.subs({xih_0:1})
+        px0_poly_lambda = lambdify( [px], px0_poly_rx0_eqn.lhs.as_expr() )
+        dpx0_poly_lambda = lambdify( [px], diff(px0_poly_rx0_eqn.lhs.as_expr(),px) )
+        px0_root_search = None
+        for px_guess_ in [px_guess]:
+            px0_root_search = root_scalar( px0_poly_lambda, fprime=dpx0_poly_lambda, method='newton', x0=px_guess_ )
+            if px0_root_search.converged:
+                break
+        px0_ = px0_root_search.root
+
+    pz0_ = pz0_xiv0_eqn.rhs.subs({xiv:xiv_0}).subs(parameters)
     return (px0_,pz0_)
 
 def gradient_value(x_, pz_, px_poly_eqn, do_use_newton=False, parameters={}):
@@ -109,10 +116,10 @@ def px_value(x_, pz_, px_poly_eqn):
     Args:
         TODO
     """
-    px_poly_eqn_ = px_poly_eqn.subs({rx:x_,x:x_,pz:pz_})
+    px_poly_eqn_ = poly(px_poly_eqn.subs({rx:x_,x:x_,pz:pz_}))
     px_poly_roots = nroots(px_poly_eqn_)
     pxgen = [root_ for root_ in px_poly_roots if Abs(im(root_))<1e-10 and re(root_)>0][0]
-    return solve(Eq(px_poly_eqn.gens[0],pxgen),px)[0]
+    return solve(Eq(px_poly_eqn_.gens[0],pxgen),px)[0]
 
 
 class EquationSubset:
@@ -126,14 +133,19 @@ class EquationSubset:
         else:
             undimsub = {}
         sub.update({mu:gmeq.mu, eta:gmeq.eta})
-        # xisub = {xiv:xivhat*xih_0}
-        xisub = {}
-        self.varphi_rx_eqn   = (gmeq.varphi_rxhat_eqn
-                                if do_ndim else gmeq.varphi_rx_eqn).subs(sub).n().subs(undimsub)
-        self.pz_xiv_eqn      = (gmeq.pzhat_xiv_eqn.subs(xisub)
-                                if do_ndim else gmeq.pz_xiv_eqn).subs(sub).n().subs(undimsub) #.subs({xiv:xiv/xih_0})
-        self.poly_px_xiv_eqn = (gmeq.poly_pxhat_xiv_eqn #Eq(simplify((gmeq.poly_pxhat_xiv_eqn.lhs.subs(xisub))/xih_0**2),0)
-                                if do_ndim else gmeq.poly_px_xiv_eqn).subs(sub).n().subs(undimsub)
+        # xisub = {}
+        # varphi0_xiv0_Lc_eqn = (gmeq.varphi0_Lc_xiv0_Ci_eqn
+        #                .subs(omitdict(sub,[varphi_0,xiv_0,Lc]))
+        #                .n() )
+        # self.varphi_rx_eqn   = (gmeq.varphi_rxhat_eqn.subs(e2d(varphi0_xiv0_Lc_eqn))
+        #                      .subs(omitdict(sub,[varphi_0,xiv_0,Lc])).n().subs(undimsub)
+        #                      #gmeq.varphi_rxhat_eqn
+        #                         if do_ndim else gmeq.varphi_rx_eqn.subs(sub).n().subs(undimsub) )
+        self.pz_xiv_eqn      = ((gmeq.pzhat_xiv_eqn #.subs(xisub)
+                                if do_ndim else gmeq.pz_xiv_eqn).n()).subs(undimsub) #.subs({pz:pz_0, xiv:xiv_0}) #.subs({xiv:xiv/xih_0})
+        self.poly_px_xiv0_eqn = (gmeq.poly_pxhat_xiv0_eqn #Eq(simplify((gmeq.poly_pxhat_xiv_eqn.lhs.subs(xisub))/xih_0**2),0)
+                                if do_ndim else gmeq.poly_px_xiv_eqn).subs(sub).n().subs(undimsub).subs({xih_0:1})
+        self.xiv0_xih0_Ci_eqn = gmeq.xiv0_xih0_Ci_eqn.subs(omitdict(sub,[xiv_0,xih_0])).n()
         self.hamiltons_eqns  = (gmeq.hamiltons_ndim_eqns
                                 if do_ndim else gmeq.hamiltons_eqns).subs(sub).n().subs(undimsub)
 
@@ -616,26 +628,26 @@ class Equations:
                                         .subs({varphi_r:varphi_rxhat})
                                         .subs(e2d(self.varphi_rxhat_eqn)) )
 
-        self.xih0_eqn = simplify( Eq(xih_0,
+        self.xih0_beta0_eqn = simplify( Eq(xih_0,
                                        (self.xi_rxhat_eqn.rhs / sin(beta_0))
                                            .subs(e2d(self.varphi_rx_eqn))
                                            .subs({Abs(sin(beta)):sin(beta_0)})
                                            .subs({rxhat:0}).subs(varsub) ) )
-        self.xiv0_eqn = simplify( Eq(xiv_0,
+        self.xiv0_beta0_eqn = simplify( Eq(xiv_0,
                                        (self.xi_rxhat_eqn.rhs / cos(beta_0))
                                            .subs(e2d(self.varphi_rx_eqn))
                                            .subs({Abs(sin(beta)):sin(beta_0)})
                                            .subs({rxhat:0}).subs(varsub) ) )
-        self.xih0_xiv0_eqn = Eq((xih_0),
-                xiv_0*simplify( (xih_0/xiv_0).subs(e2d(self.xiv0_eqn)).subs(e2d(self.xih0_eqn)) ))
-        self.xih_xiv_eqn = Eq(xih, xiv/tan(beta))
-        self.xiv_xih_eqn = Eq(xiv, solve(self.xih_xiv_eqn, xiv)[0]) #Eq(xiv, xih*tan(beta))
+        self.xih0_xiv0_beta0_eqn = Eq((xih_0),
+                xiv_0*simplify( (xih_0/xiv_0).subs(e2d(self.xiv0_beta0_eqn)).subs(e2d(self.xih0_beta0_eqn)) ))
+        self.xih_xiv_tanbeta_eqn = Eq(xih, xiv/tan(beta))
+        self.xiv_xih_tanbeta_eqn = Eq(xiv, solve(self.xih_xiv_tanbeta_eqn, xiv)[0]) #Eq(xiv, xih*tan(beta))
 
         self.th0_xih0_eqn = Eq(th_0, (Lc/xih_0))
         self.tv0_xiv0_eqn = Eq(tv_0, (Lc/xiv_0))
 
-        self.th0_beta0_eqn = factor(simplify( self.th0_xih0_eqn.subs(e2d(self.xih0_eqn)) ))
-        self.tv0_beta0_eqn = simplify( self.tv0_xiv0_eqn.subs(e2d(self.xiv0_eqn)) )
+        self.th0_beta0_eqn = factor(simplify( self.th0_xih0_eqn.subs(e2d(self.xih0_beta0_eqn)) ))
+        self.tv0_beta0_eqn = simplify( self.tv0_xiv0_eqn.subs(e2d(self.xiv0_beta0_eqn)) )
 
         self.t_that_eqn = Eq(t, th_0*that)
         self.px_pxhat_eqn = Eq(px, pxhat/xih_0)
@@ -657,7 +669,7 @@ class Equations:
         self.sinCi_xih0_eqn = Eq(sin(Ci), (((sqrt(simplify((H*self.H_split)
                                     .subs(e2d(self.H_varphi_rxhat_eqn)))))**(1/(1-eta)))) )
         self.Ci_xih0_eqn = Eq(Ci, asin(self.sinCi_xih0_eqn.rhs) )
-        self.sinCi_beta0_eqn = Eq(sin(Ci),  factor( simplify( self.sinCi_xih0_eqn.rhs.subs(e2d(self.xih0_eqn)) ) )
+        self.sinCi_beta0_eqn = Eq(sin(Ci),  factor( simplify( self.sinCi_xih0_eqn.rhs.subs(e2d(self.xih0_beta0_eqn)) ) )
                                     .subs({sin(beta_0)*sin(beta_0)**(-eta):(sin(beta_0)**(1-eta))})
                                     .subs({(sin(beta_0)**(1-eta))**(-1/(eta-1)):sin(beta_0)}) )
         self.Ci_beta0_eqn = Eq(Ci, asin(self.sinCi_beta0_eqn.rhs) )
@@ -669,6 +681,17 @@ class Equations:
         self.pdotxhat_eqn = Eq(pdotxhat_thatfn, simplify(-sy.diff(self.H_Ci_eqn.rhs,rxhat)))
         self.pdotzhat_eqn = Eq(pdotzhat_thatfn, simplify(-sy.diff(self.H_Ci_eqn.rhs,rzhat)))
 
+        self.xih0_Ci_eqn = factor( self.xih0_beta0_eqn.subs(e2d(self.beta0_Ci_eqn)) )
+
+        self.xih0_Lc_varphi0_Ci_eqn = self.xih0_Ci_eqn#.subs({varepsilonhat:0})
+        self.xiv0_xih0_Ci_eqn = self.xiv_xih_tanbeta_eqn.subs({xiv:xiv_0, xih:xih_0, beta:beta_0}) \
+                                   .subs(e2d(self.beta0_Ci_eqn)) #.subs({varepsilonhat:0})
+        self.xiv0_Lc_varphi0_Ci_eqn = simplify( self.xiv0_xih0_Ci_eqn
+                                               .subs(e2d(self.xih0_Lc_varphi0_Ci_eqn)) )
+        self.varphi0_Lc_xiv0_Ci_eqn = Eq(varphi_0,
+                        solve(self.xiv0_Lc_varphi0_Ci_eqn,varphi_0)[0]).subs({Abs(cos(Ci)):cos(Ci)})
+
+        self.ratio_xiv0_xih0_eqn = Eq(xiv_0/xih_0, (xiv_0/xih_0).subs(e2d(self.xiv0_xih0_Ci_eqn)))
 
     def define_nodimensionalized_Hamiltons_eqns(self):
         self.hamiltons_ndim_eqns = Matrix((
@@ -1208,20 +1231,25 @@ class Equations:
         """
         if do_ndim:
             # Non-dimensionalized version
-            varphi0_eqn = Eq(varphi_0, solve( self.sinCi_xih0_eqn.subs({eta:eta_choice}), varphi_0)[0])
+            varphi0_solns = solve( self.sinCi_xih0_eqn.subs({eta:eta_choice}), varphi_0)
+            varphi0_eqn = Eq(varphi_0, varphi0_solns[0])
             if eta_choice<=1:
-                self.poly_pxhat_xiv_eqn = simplify(self.px_xiv_varphi_eqn
-                                                   .subs({eta:eta_choice})
-                                                   .subs({varphi_r:self.varphi_rxhat_eqn.rhs})
-                                                   .subs(e2d(self.px_pxhat_eqn))
-                                                   .subs(e2d(varphi0_eqn)))
-            else:
-                tmp_eqn = sy.separatevars(simplify(self.px_xiv_varphi_eqn
+                tmp_eqn = separatevars(simplify(self.px_xiv_varphi_eqn
                                                    .subs({eta:eta_choice})
                                                    .subs({varphi_r:self.varphi_rxhat_eqn.rhs})
                                                    .subs(e2d(self.px_pxhat_eqn))
                                                    .subs(e2d(varphi0_eqn))))
-                self.poly_pxhat_xiv_eqn = Eq( (numer(tmp_eqn.lhs)-denom(tmp_eqn.lhs)*(tmp_eqn.rhs))/xiv**2, 0)
+                self.poly_pxhat_xiv_eqn = simplify(Eq( (numer(tmp_eqn.lhs)-denom(tmp_eqn.lhs)*(tmp_eqn.rhs))/xiv**2, 0))
+                self.poly_pxhat_xiv0_eqn = (self.poly_pxhat_xiv_eqn).subs({xiv:xiv_0}).subs(e2d(self.xiv0_xih0_Ci_eqn))
+            else:
+                tmp_eqn = separatevars(simplify(self.px_xiv_varphi_eqn
+                                                   .subs({eta:eta_choice})
+                                                   .subs({varphi_r:self.varphi_rxhat_eqn.rhs})
+                                                   .subs(e2d(self.px_pxhat_eqn))
+                                                   .subs(e2d(varphi0_eqn))))
+                self.poly_pxhat_xiv_eqn = simplify(Eq( (numer(tmp_eqn.lhs)-denom(tmp_eqn.lhs)*(tmp_eqn.rhs))/xiv**2, 0))
+                self.poly_pxhat_xiv0_eqn = simplify(Eq((self.poly_pxhat_xiv_eqn.lhs).subs({xiv:xiv_0}).subs(e2d(self.xiv0_xih0_Ci_eqn))/xih_0**2,0))
+            return varphi0_solns[0]
         else:
             # Dimensioned version
             tmp_eqn = simplify(self.px_xiv_varphi_eqn.subs({eta:eta_choice}))
@@ -1230,7 +1258,6 @@ class Equations:
             else:
                 self.poly_px_xiv_varphi_eqn = poly(numer(tmp_eqn.lhs)-denom(tmp_eqn.lhs)*(tmp_eqn.rhs), px)
             self.poly_px_xiv_eqn = Eq(self.poly_px_xiv_varphi_eqn.subs(e2d(self.varphi_rx_eqn)), 0)
-
 
     def prep_ibc_eqns(self):
         r"""

@@ -479,7 +479,6 @@ class OneRayPlots(Graphing):
         if y_limits is not None:
             plt.ylim(*y_limits)
 
-
     def alpha_beta( self, gmes, gmeq, sub, name, fig_size=None, dpi=None, aspect=1,
                     n_points=201, x_limits=None, y_limits=None, do_legend=True,
                     do_etaxi_label=True, eta_label_xy=[0.5,0.85],
@@ -1019,6 +1018,65 @@ class OneRayPlots(Graphing):
 
 
 class TimeInvariantPlots(OneRayPlots):
+
+    def profiles( self, gmes, gmeq, pr_choices, name, fig_size=None, dpi=None,
+                        y_limits=None, n_points=101,
+                        do_direct=True, n_rays=4, profile_subsetting=5,
+                        do_schematic=False, do_legend=True, do_profile_points=True,
+                        do_simple=False, do_one_ray=False, do_t_sampling=True, do_etaxi_label=True,
+                        do_pub_label=False, pub_label='', pub_label_xy=[0.93,0.33], eta_label_xy=[0.5,0.8] ):
+        r"""
+        """
+        fig = self.create_figure(name, fig_size=fig_size, dpi=dpi)
+        axes = plt.gca()
+
+        def plot_h_profile(eta_,Ci_,idx_,n_, lw=2,dashing='-'):
+            sub_ = pr_choices[(eta_,Ci_)]
+            mu_ = sub_[mu]
+            gmeq_ = gmeq[eta_]
+            gmes_ = gmes[(eta_,Ci_)]
+            t_array  = gmes_.t_array
+            rx_array = gmes_.rx_array
+            rz_array = gmes_.rz_array
+            Ci_label = rf'{sy.deg(Ci_)}' if sy.deg(Ci_)>=1 else rf'{sy.deg(Ci_).n():0.1}'
+            color_ = self.mycolors(idx_, 1, n_, do_smooth=False, cmap_choice='brg')
+            plt.plot(gmes_.h_x_array,(gmes_.h_z_array-gmes_.h_z_array[0]), dashing, lw=lw, color=color_,
+                     label=rf'$\eta=${eta_}, '+rf'$\mu=${mu_}, '+r'$\mathsf{Ci}=$'+Ci_label+r'$\degree$')
+
+        def make_eta_Ci_list(Ci_choice):
+            eta_Ci_list = [(eta_,Ci_) for (eta_,Ci_) in gmes if eta_==Ci_choice]
+            return sorted(eta_Ci_list, key=lambda Ci_: Ci_[1], reverse=True)
+
+        eta_Ci_list_1p5 = make_eta_Ci_list(Rational(3,2))
+        eta_Ci_list_0p5 = make_eta_Ci_list(Rational(1,2))
+        [plot_h_profile(eta_,Ci_,i_,len(eta_Ci_list_1p5), lw=2) for i_,(eta_,Ci_) in enumerate(eta_Ci_list_1p5)]
+        [plot_h_profile(eta_,Ci_,i_,len(eta_Ci_list_0p5), lw=3, dashing=':') for i_,(eta_,Ci_) in enumerate(eta_Ci_list_0p5)]
+
+        axes.set_aspect(1)
+        plt.grid(True, ls=':')
+        plt.xlabel(r'Distance, $x/L_{\mathrm{c}}$  [-]', fontsize=13 if do_schematic else 16)
+        plt.ylabel(r'Elevation, $z/L_{\mathrm{c}}$  [-]', fontsize=13 if do_schematic else 16)
+
+        plt.legend(loc='upper left', fontsize=11, framealpha=0.95)
+
+
+        # if not do_schematic and not do_simple:
+        #     if do_etaxi_label:
+        #         plt.text(*eta_label_xy, r'$\eta='+rf'{gmeq.eta}'+r'\quad\mathsf{Ci}='+rf'{round(float(sy.deg(Ci.subs(sub))))}'+'{\degree}$',
+        #                  transform=axes.transAxes,
+        #                  horizontalalignment='center', verticalalignment='center',
+        #                  fontsize=16, color='k')
+        #     if do_pub_label:
+        #         plt.text(*pub_label_xy, pub_label,
+        #                  transform=axes.transAxes, horizontalalignment='center', verticalalignment='center', fontsize=16, color='k')
+        # if do_schematic:
+        #     plt.xlim(-0.15,2.15)
+        #     plt.ylim(-0.07,0.62)
+        # elif do_simple:
+        #     plt.ylim(-0.025,0.38)
+        # elif y_limits is not None:
+        #     plt.ylim(*y_limits)
+
 
     def profile_flow_model( self, gmes, gmeq, sub, name, fig_size=None, dpi=None,
                             n_points=26, subtitle='', do_subtitling=False, do_extra_annotations=False):

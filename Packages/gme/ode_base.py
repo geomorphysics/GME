@@ -85,22 +85,7 @@ class BaseSolution():
         self.interp1d_kind = 'linear'
 
         # ODEs & related
-        # HACK: clumsy way to sub in value of mu
-        # px_poly_tmp = expand(simplify(self.gmeq.pzpx_unity_eqn
-        #                       .subs({varphi:self.gmeq.varphi_rx_eqn.rhs})
-        #                       # .subs({mu:self.gmeq.mu, eta:self.gmeq.eta})
-        #                       .subs(self.parameters) ))
-        # self.px_poly_lambda = lambdify( [rx,pz], (poly(px_poly_tmp)).as_expr() )
-        self.pz_velocity_boundary_eqn = gmeq.pz_xiv_eqn.subs({pz:pz_0, xiv:xiv_0}).subs(self.parameters)
-
-        # self.px_varphi_xiv_eqn = simplify( Eq( self.gmeq.xiv_varphi_pxpz_eqn.lhs**2/xiv**2,
-        #                                          self.gmeq.xiv_varphi_pxpz_eqn.rhs**2/xiv**2) )
-        # self.px_varphi_xiv_eqn = self.gmeq.px_varphi_xiv_eqn
-
-        # Initial condition equations
-        # HACK!!
-        # self.px_initial_surface_eqn = self.gmeq.px_initial_eqn #.subs({rx:x})
-        # self.pz_initial_surface_eqn = self.gmeq.pz_initial_eqn #.subs({rx:x})
+        self.pz_velocity_boundary_eqn = gmeq.pz_xiv_eqn.subs(self.parameters)
 
         # Misc
         self.model_dXdt_lambda = None

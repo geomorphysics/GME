@@ -1,0 +1,64 @@
+{
+	"job": {
+		"title": "Ensemble of time-invariant profiles",
+		"group_name": "TimeInvariantSolutions",
+		"short_name": "tis"
+	},
+
+	"model": {
+		"eta_list" : "[sy.Rational(3,2), sy.Rational(1,2)]",
+		"mu_list" :  "[sy.Rational(3,4), sy.Rational(1,4)]",
+		"Ci_list" :  "[sy.rad(sy.Rational(1,10)), sy.rad(1), sy.rad(4)]",
+		"varepsilonhat_list" : "[sy.Rational(1,100), sy.Rational(1,100), sy.Rational(1,100)]",
+		"Lc_list" :  [1e4, 1e4, 1e4]
+	},
+
+	"solve": {
+		"t_end" : 10,
+		"method" : {"Hamilton": "DOP853", "geodesic": "LSODA"}
+	},
+
+	"plot": {
+		"do_pub_labeling": true,
+        "do_etaxi_labeling": false,
+		"pub_labels": {
+			"profile_vdot": "",
+			"profile_v": "",
+			"profile_vxz": "(b)",
+			"profile_xi": "(c)",
+			"profile_xihorizontal": "(d)",
+			"profile_xivertical": "(e)",
+			"profile_aniso": "(a)",
+			"profile_beta": "(a)",
+			"profile_h_rays": "(a)",
+			"profile_h_ray": "(a)",
+			"alpha_beta": "(a)",
+			"angular_disparity": "(a)",
+			"profile_angular_disparity": "(a)"
+		},
+		"pub_label_posns": {
+			"profile_vdot": "None",
+			"profile_v": "None",
+			"profile_vxz": [0.5,0.5],
+			"profile_xi": "None",
+			"profile_xihorizontal": "None",
+			"profile_xivertical": "None",
+			"profile_aniso": "None",
+			"profile_beta": [0.93,0.2],
+			"profile_h_rays": [0.93,0.35],
+			"profile_h_ray": [0.85,0.7],
+			"alpha_beta": [0.88,0.3],
+			"angular_disparity": [0.15,0.15],
+			"profile_angular_disparity": [0.5,0.35]
+		},
+		"do_profile_extra": false,
+		"ray_y_limits" : [-0.015,0.42],
+		"ang_x_limits" : [0,90],
+		"ang_y_limits" : [-5,25],
+		"angdisp_x_limits" : [0,90],
+		"angdisp_y_limits" : [0,90],
+		"ray_acceln_legend_loc" : "upper left",
+		"profile_evec_legend_loc" : "lower left",
+		"profile_evec_eta_label_xy" : [0.5,0.25]
+	}
+}

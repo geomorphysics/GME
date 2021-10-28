@@ -51,10 +51,11 @@ class OneRaySolution(BaseSolution):
         """
         super().__init__(gmeq, parameters, **kwargs)
 
-    def initial_conditions(self, px_guess):
+    def initial_conditions(self, px_guess=1):
         rz0_, rx0_ = 0, 0
-        px0_, pz0_ = pxpz0_from_xiv0(self.parameters, self.gmeq.pz_xiv_eqn, self.gmeq.poly_px_xiv_eqn, px_guess=px_guess )
-        return [rz0_, rx0_ , px0_, pz0_]
+        px0_, pz0_ = pxpz0_from_xiv0(self.parameters, self.gmeq.pz_xiv_eqn, self.gmeq.poly_px_xiv0_eqn, px_guess=px_guess )
+        # Hack
+        return [rz0_, rx0_ , px0_, pz0_.subs(e2d(self.gmeq.xiv0_xih0_Ci_eqn))]
 
     def solve(self, px_guess=1):
         self.prep_arrays()
@@ -174,7 +175,7 @@ class TimeInvariantSolution(OneRaySolution):
         super().__init__(gmeq, parameters, **kwargs)
 
     def more_postprocessing(self, spline_order=2, extrapolation_mode=0):
-        xiv0_ = float( (xiv_0/xih_0).subs(self.parameters) )
+        xiv0_ = float( (xiv_0/xih_0).subs(e2d(self.gmeq.xiv0_xih0_Ci_eqn)) )
         self.beta_vt_array = np.arctan( (self.rdotz_array+xiv0_)/self.rdotx_array )
         self.beta_vt_interp = InterpolatedUnivariateSpline( self.rx_array, self.beta_vt_array,
                                                             k=spline_order, ext=extrapolation_mode )
@@ -201,7 +202,7 @@ class TimeInvariantSolution(OneRaySolution):
     def integrate_h_profile(self, n_pts=301, x_max=None, do_truncate=True, do_use_newton=False):
         x_max = float(x_1.subs(self.parameters)) if x_max is None else x_max
         self.h_x_array = np.linspace(0,x_max,n_pts)
-        px0_poly_eqn = poly(self.gmeq.poly_px_xiv_eqn.subs({xiv:xiv_0}).subs(self.parameters),px) #.subs({mu:self.gmeq.mu})
+        px0_poly_eqn = poly(self.gmeq.poly_px_xiv0_eqn.subs(self.parameters),px)#.subs({xih_0:1}) # HACK!!!
         if do_truncate:
             h_x_array = self.h_x_array[:-2]
             gradient_array = np.array([gradient_value(x_, pz_=self.pz0, px_poly_eqn=px0_poly_eqn,
