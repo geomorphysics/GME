@@ -112,6 +112,10 @@ hx = symbols(r'h^x',  real=True, negative=False)
 hz = symbols(r'h^z',  real=True)
 h_fn = Function(r'h', real=True, positive=True)(x)
 h_0 = symbols(r'h_0',  real=True, positive=True)
+h_0p9 = symbols(r'h_{0.9}',  real=True)
+SI.set_quantity_dimension(h_0p9, length)
+
+
 theta = symbols(r'\theta',  real=True, positive=True)
 kappa_h = symbols(r'\kappa_\mathrm{h}',  real=True, positive=True)
 
