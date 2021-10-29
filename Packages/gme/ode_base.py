@@ -460,6 +460,7 @@ class BaseSolution():
                 record_cusp(trxz_cusp, pxz1_intercept, pxz2_intercept)
         organize_cusps()
 
+
     def measure_cusp_propagation(self):
         kwargs_ = dict(kind='linear', fill_value='extrapolate', assume_sorted=True)
 

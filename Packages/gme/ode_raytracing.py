@@ -239,9 +239,12 @@ class VelocityBoundarySolution(BaseSolution):
         """
         super().__init__(gmeq, parameters, **kwargs)
 
-    def initial_conditions(self, t_lag, xiv_0_):
+    def initial_conditions(self, t_lag, xiv_0_, px_guess=1):
         self.parameters[xiv_0] = xiv_0_
-        px0_, pz0_ = self.pxpz0_from_xiv0()
+        # px0_, pz0_ = self.pxpz0_from_xiv0()
+        px0_, pz0_tmp = pxpz0_from_xiv0(self.parameters, self.gmeq.pz_xiv_eqn, self.gmeq.poly_px_xiv0_eqn, px_guess=px_guess )
+        # HACK!!
+        pz0_ = pz0_tmp.subs(e2d(self.gmeq.xiv0_xih0_Ci_eqn))
         cosbeta_ = np.sqrt(1/(1+(np.float(px0_/-pz0_))**2))
         rz0_ = t_lag/(pz0_*cosbeta_)
         rx0_ = 0

@@ -1,0 +1,46 @@
+{
+	"job": {
+		"title" : "Velocity boundary solution: vertical, ramp, Ci=4deg",
+		"group_name" : "VelocityBoundarySolutions",
+		"short_name" : "vbs"
+	},
+
+	"model": {
+		"vb_type" : "vertical",
+		"eta" : "sy.Rational(1,2)",
+		"mu" :  "sy.Rational(1,4)",
+		"Ci" :  "sy.rad(4)",
+		"varepsilonhat" : "sy.Rational(1,100)"
+	},
+
+	"solve": {
+		"method": {"Hamilton": "DOP853", "geodesic": "LSODA"},
+		"t_end" : 10,
+		"t_slip_end" : 10,
+		"ray_n_t" : 101,
+		"vb_res" : 501
+	},
+
+	"resolve": {
+		"t_isochrone_max" : 12,
+		"tolerance" : 1e-3,
+		"n_isochrones" : 30
+	},
+
+	"plot": {
+		"do_pub_labeling": true,
+		"pub_labels": {
+			"profile_h_isochrones_rays": "(c)",
+			"profile_h_isochrones": "(d)",
+			"profile_h_rays": ""
+		},
+		"pub_label_posns": {
+			"profile_h_isochrones_rays": [0.8,0.85],
+			"profile_h_isochrones": [0.8,0.85],
+			"profile_h_rays": [0.8,0.85]
+		},
+		"fig_size" : [6,6],
+		"ray_subsetting" : 25,
+		"dimz_limits" : [-0.5,0.2]
+	}
+}
