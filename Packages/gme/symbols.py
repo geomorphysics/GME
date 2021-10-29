@@ -59,14 +59,19 @@ psqrd_substn = px**2+pz**2
 eta = symbols(r'\eta',  real=True, positive=True)
 mu = symbols(r'\mu',  real=True, positive=True)
 epsilon = symbols(r'\epsilon',  real=True, positive=True)
+
 t = symbols(r't',  real=True, negative=False)  # New: negative=False
-t_0p95 = symbols(r't^{\rightarrow_{0.95}}',  real=True, negative=False)
+# t_Lc = symbols(r't^{\rightarrow\mathrm{L_c}}',  real=True, positive=True)
+th_0p95 = symbols(r't^{\rightarrow{0.95}}',  real=True, negative=False)
 h_0p95 = symbols(r'h_{0.95}',  real=True, negative=False)
-t_0p9 = symbols(r't^{\rightarrow_{0.9}}',  real=True, negative=False)
+th_0p9 = symbols(r't^{\rightarrow{0.9}}',  real=True, negative=False)
 h_0p9 = symbols(r'h_{0.9}',  real=True, negative=False)
+t_oneyear = symbols(r't_{\mathrm{1y}}',  real=True, positive=True)
+t_My      = symbols(r't_{\mathrm{My}}',  real=True, positive=True)
 that = symbols(r'\hat{t}',  real=True, negative=False)  # New: negative=False
-tv_0 = symbols(r't^{\downarrow{0}}',  real=True, positive=True)
-th_0 = symbols(r't^{\rightarrow{0}}',  real=True, positive=True)
+tv_0 = symbols(r't^{\downarrow_{0}}',  real=True, positive=True)
+th_0 = symbols(r't^{\rightarrow_{0}}',  real=True, positive=True)
+
 beta = symbols(r'\beta',  real=True)
 beta_ = symbols(r'\beta_x',  real=True)
 beta_crit = symbols(r'\beta_c',  real=True)
@@ -117,12 +122,9 @@ hz = symbols(r'h^z',  real=True)
 h_fn = Function(r'h', real=True, positive=True)(x)
 h_0 = symbols(r'h_0',  real=True, positive=True)
 h_0p9 = symbols(r'h_{0.9}',  real=True)
-SI.set_quantity_dimension(h_0p9, length)
-
 
 theta = symbols(r'\theta',  real=True, positive=True)
 kappa_h = symbols(r'\kappa_\mathrm{h}',  real=True, positive=True)
-
 
 u_0 = symbols(r'u_0',  real=True, positive=True)
 x_1 = symbols(r'L_\mathrm{c}',  real=True, positive=True)
@@ -186,3 +188,17 @@ astar_riem = symbols(r'\alpha^*_{\mathrm{Kr}}', real=True)
 bstar_1form = symbols(r'\beta^*_{\mathrm{Kr}}', real=True)
 
 Ci   = symbols(r'\mathsf{Ci}', real=True, negative=False)                # Channel incision number
+
+SI.set_quantity_dimension(h_0p9, length)
+SI.set_quantity_dimension(xiv_0, length/time)
+SI.set_quantity_dimension(xih_0, length/time)
+SI.set_quantity_dimension(Ci, 1)
+SI.set_quantity_dimension(Lc, length)
+SI.set_quantity_dimension(varphi_0, length/time)
+SI.set_quantity_dimension(th_0, time)
+SI.set_quantity_dimension(th_0p9, time)
+SI.set_quantity_dimension(th_0p95, time)
+SI.set_quantity_dimension(tv_0, time)
+# SI.set_quantity_dimension(t_Lc, time)
+SI.set_quantity_dimension(t_oneyear, time)
+SI.set_quantity_dimension(t_My, time)
