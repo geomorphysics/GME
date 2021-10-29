@@ -60,6 +60,10 @@ eta = symbols(r'\eta',  real=True, positive=True)
 mu = symbols(r'\mu',  real=True, positive=True)
 epsilon = symbols(r'\epsilon',  real=True, positive=True)
 t = symbols(r't',  real=True, negative=False)  # New: negative=False
+t_0p95 = symbols(r't^{\rightarrow_{0.95}}',  real=True, negative=False)
+h_0p95 = symbols(r'h_{0.95}',  real=True, negative=False)
+t_0p9 = symbols(r't^{\rightarrow_{0.9}}',  real=True, negative=False)
+h_0p9 = symbols(r'h_{0.9}',  real=True, negative=False)
 that = symbols(r'\hat{t}',  real=True, negative=False)  # New: negative=False
 tv_0 = symbols(r't^{\downarrow{0}}',  real=True, positive=True)
 th_0 = symbols(r't^{\rightarrow{0}}',  real=True, positive=True)
