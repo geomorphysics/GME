@@ -35,9 +35,10 @@
 			"profile_h_rays": ""
 		},
 		"pub_label_posns": {
-			"profile_h_isochrones_rays": [0.8,0.85],
-			"profile_h_isochrones": [0.8,0.85],
-			"profile_h_rays": [0.8,0.85]
+			"profile_h_isochrones_rays": [0.9,0.85],
+			"profile_h_isochrones": [0.9,0.85],
+			"profile_h_rays": [0.9,0.85],
+			"etaxi_label": [0.65,0.85]
 		},
 		"fig_size" : [6,6],
 		"ray_subsetting" : 25,

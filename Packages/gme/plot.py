@@ -115,12 +115,15 @@ class Graphing(GraphingBase):
         if v_array is not None:
             v_max, v_min = max(v_array), min(v_array)
             color_map = plt.get_cmap('plasma')
+        t_ref = t_array[i_max-1]
         for i in range(i_max-1,0,-1):
             color = color if do_one_ray else self.colors[(i//i_step)%self.n_colors]
             if (i+i_off)//i_step==(i+i_off)/i_step:
                 t_offset = 0 if do_one_ray else float(t_array[i]*(-(xiv_0/xih_0).subs(sub)))
+                # print(t_ref, round(t_ref-t_array[i],1), t_offset)
+                t_label = f'$\hat{t}={round(t_ref-t_array[i],1)}$'  #$t_0={}$'.format(i_max-i-1)
                 plt.plot( rx_array[:i+1], rz_array[:i+1]-t_offset, ls,
-                          label='$t_0={}$'.format(i_max-i-1) if do_labels else None,
+                          label=t_label if do_labels else None,
                           color=color)
             # if (i+i_off)//i_step==(i+i_off)/i_step:
                 for q in range(1,i-1,3):
@@ -340,7 +343,7 @@ class OneRayPlots(Graphing):
         # Solid line = topo profile from direct integration of gradient array
         if (do_direct or do_schematic) and not do_one_ray:
             plt.plot(gmes.h_x_array,(gmes.h_z_array-gmes.h_z_array[0]), 'k',
-                     label='$T(\mathbf{r})$' if do_schematic else ('$T(\mathbf{r})$ by integration'
+                     label='$T(\mathbf{r})$' if do_schematic else ('$T(\mathbf{r})$'
                                              if not do_simple else None) )
             if do_schematic:
                 plt.plot(  gmes.h_x_array,(gmes.h_z_array-gmes.h_z_array[0])+0.26, '0.75', lw=1, ls='--')
@@ -355,7 +358,7 @@ class OneRayPlots(Graphing):
         plt.ylabel(r'Elevation, $z/L_{\mathrm{c}}$  [-]', fontsize=13 if do_schematic else 16)
         if not do_schematic and not do_one_ray and do_legend:
             plt.legend(loc='upper right' if do_schematic
-                       else ('upper left' if not do_simple
+                       else ((0.08,0.5) if not do_simple
                        else (0.38,0.75)),
                        fontsize=9 if do_schematic else 11,
                        framealpha=0.95)
@@ -1794,14 +1797,15 @@ class TimeDependentPlots(Graphing):
                             do_zero_isochrone=True, do_overlay=False, fig=None,
                             do_rays=True, ray_subsetting=5, ray_lw=0.5, ray_ls='-', ray_label='ray',
                             do_isochrones=True, isochrone_subsetting=1, do_isochrone_p=False,
-                            isochrone_lw=0.5, isochrone_ls='-', isochrone_label='isochrone',
+                            isochrone_lw=0.5, isochrone_ls='-',
                             do_annotate_rays=False, n_arrows=10, arrow_sf=0.7, arrow_offset=4,
                             do_annotate_cusps=False, cusp_lw=1.5, do_smooth_colors=False,
                             x_limits=(-0.001,1.001), y_limits=(-0.025,0.525),
                             aspect=None,
                             do_legend=True, do_alt_legend=False, do_grid=True,
-                            do_infer_initiation=True, do_pub_label=False,
-                            pub_label=None, pub_label_xy=[0.5,0.92] ):
+                            do_infer_initiation=True,
+                            do_etaxi_label=True, eta_label_xy=[0.65,0.85],
+                            do_pub_label=False, pub_label=None, pub_label_xy=[0.5,0.92] ):
         """
         Plot xxxx.
 
@@ -1836,8 +1840,6 @@ class TimeDependentPlots(Graphing):
                 optional isochrone line width
             isochrone_ls (float):
                 optional isochrone line style
-            isochrone_label (float):
-                optional isochrone line label
             do_annotate_rays (bool):
                 optional plot arrowheads along rays?
             n_arrows (int):
@@ -1907,6 +1909,7 @@ class TimeDependentPlots(Graphing):
         # Time slices or isochrones of erosion front
         if hasattr(gmes,'rpt_isochrones') and do_isochrones:
             n_isochrones = len(rx_isochrones)
+            delta_t = t_isochrones[1]
             for i_isochrone,(rx_isochrone,rz_isochrone,t_) in enumerate(zip(rx_isochrones,rz_isochrones,
                                                                                             t_isochrones)):
                 i_subsetted = (i_isochrone//isochrone_subsetting-i_isochrone/isochrone_subsetting)
@@ -1917,9 +1920,9 @@ class TimeDependentPlots(Graphing):
             # Hack legend items
             if (rx_isochrone is not None):
                 plt.plot(rx_isochrone, rz_isochrone, self.gray_color(i_isochrone, n_isochrones),
-                         linestyle=isochrone_ls, lw=1.3*isochrone_lw, label='major '+isochrone_label)
+                         linestyle=isochrone_ls, lw=1.3*isochrone_lw, label=r'isochrone $\Delta{\hat{t}}='+f'{int(10*delta_t)}'+'$')
                 plt.plot(rx_isochrone, rz_isochrone, self.gray_color(i_isochrone, n_isochrones),
-                         linestyle=isochrone_ls, lw=0.5*isochrone_lw, label='minor '+isochrone_label)
+                         linestyle=isochrone_ls, lw=0.5*isochrone_lw, label=r'isochrone $\Delta{\hat{t}}='+f'{round(delta_t,1)}'+'$')
                 if do_isochrone_p:
                     for (rx_lowres,rz_lowres,px_lowres,pz_lowres) \
                             in zip(rx_isochrones_lowres,rz_isochrones_lowres,
@@ -1972,6 +1975,11 @@ class TimeDependentPlots(Graphing):
         if do_grid: plt.grid(True, ls=':')
         axes.set_aspect(1 if aspect is None else aspect)
 
+        if do_etaxi_label:
+            plt.text(*eta_label_xy, r'$\eta='+rf'{gmeq.eta}'+r'\quad\mathsf{Ci}='+rf'{round(float(sy.deg(Ci.subs(sub))))}'+'{\degree}$',
+                     transform=axes.transAxes,
+                     horizontalalignment='center', verticalalignment='center',
+                     fontsize=14, color='k')
         if do_pub_label:
             plt.text(*pub_label_xy, pub_label, transform=axes.transAxes,
                      horizontalalignment='center', verticalalignment='center', fontsize=14, color='k')

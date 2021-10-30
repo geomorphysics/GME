@@ -129,7 +129,8 @@
 			"profile_h_ray": [0.85,0.7],
 			"alpha_beta": [0.88,0.3],
 			"angular_disparity": [0.15,0.15],
-			"profile_angular_disparity": [0.6,0.35]
+			"profile_angular_disparity": [0.6,0.35],
+			"etaxi_label": [0.65,0.85]
 		}
 	},
 
