@@ -121,7 +121,7 @@ class Graphing(GraphingBase):
             if (i+i_off)//i_step==(i+i_off)/i_step:
                 t_offset = 0 if do_one_ray else float(t_array[i]*(-(xiv_0/xih_0).subs(sub)))
                 # print(t_ref, round(t_ref-t_array[i],1), t_offset)
-                t_label = f'$\hat{t}={round(t_ref-t_array[i],1)}$'  #$t_0={}$'.format(i_max-i-1)
+                t_label = f'$\hat{t}_0={round(t_ref-t_array[i],1)}$'  #$t_0={}$'.format(i_max-i-1)
                 plt.plot( rx_array[:i+1], rz_array[:i+1]-t_offset, ls,
                           label=t_label if do_labels else None,
                           color=color)
@@ -358,7 +358,7 @@ class OneRayPlots(Graphing):
         plt.ylabel(r'Elevation, $z/L_{\mathrm{c}}$  [-]', fontsize=13 if do_schematic else 16)
         if not do_schematic and not do_one_ray and do_legend:
             plt.legend(loc='upper right' if do_schematic
-                       else ((0.08,0.5) if not do_simple
+                       else ((0.065,0.45) if not do_simple
                        else (0.38,0.75)),
                        fontsize=9 if do_schematic else 11,
                        framealpha=0.95)
@@ -1305,10 +1305,10 @@ class TimeInvariantPlots(OneRayPlots):
         h_array = gmes.h_interp(x_array)
 
         profile_lw = 1
-        plt.plot(x_array, h_array, 'k', lw=profile_lw,
-                 label='$h(x)'+'\quad\eta={}$'.format(gmeq.eta))
-        plt.plot(x_array, h_array, 'o',
-                 mec='k', mfc='gray', ms=3, fillstyle='full', markeredgewidth=0.5)
+        # Solid line = topo profile from direct integration of gradient array
+        plt.plot(gmes.h_x_array,(gmes.h_z_array-gmes.h_z_array[0]), 'k', lw=profile_lw, label='$h(x)'+'\quad\eta={}$'.format(gmeq.eta))
+        plt.plot(x_array, h_array, 'o', mec='k', mfc='gray', ms=3, fillstyle='full', markeredgewidth=0.5)
+        # plt.plot(gmes.h_x_array,(gmes.h_z_array-gmes.h_z_array[0]), 'k' )
 
         plt.xlabel(r'Distance, $x/L_{\mathrm{c}}$  [-]', fontsize=16)
         plt.ylabel(r'Elevation, $z/L_{\mathrm{c}}$  [-]', fontsize=16)
@@ -1396,6 +1396,7 @@ class TimeInvariantPlots(OneRayPlots):
                                 ec=aniso_color)
         colorbar_im = axes.imshow(aniso_span[0]+(aniso_span[1]-aniso_span[0])*np.arange(9).reshape(3,3)/8,
                                   cmap=color_map, extent=(0,0,0,0))
+
 
         plt.text(*eta_label_xy, r'$\eta='+rf'{gmeq.eta}'+r'\quad\mathsf{Ci}='+rf'{round(float(sy.deg(Ci.subs(sub))))}'+'{\degree}$',
                  transform=axes.transAxes,
@@ -1556,7 +1557,7 @@ class TimeInvariantPlots(OneRayPlots):
         # plt.plot(gmes.rx_array,np.rad2deg(gmes.beta_vt_array),
         #          'r', ls='-', label=r'$\beta_{vt}$ from $(v^z+\xi^{\!\downarrow\!})/v^x$')
         plt.xlabel(r'Distance, $x/L_{\mathrm{c}}$  [-]', fontsize=13)
-        plt.ylabel(r'Angle $\beta$  [$\circ$]', fontsize=13)
+        plt.ylabel(r'Angle $\beta$  [$\degree$]', fontsize=13)
         plt.grid(True, ls=':')
         plt.ylim(1e-9,)
 
