@@ -308,7 +308,6 @@ class OneRayPlots(Graphing):
         t_array  = gmes.t_array #[::ray_subsetting]
         rx_array = gmes.rx_array #[::ray_subsetting]
         rz_array = gmes.rz_array #[::ray_subsetting]
-        print()
 
         if do_t_sampling:
             t_begin, t_end = t_array[0], t_array[-1]

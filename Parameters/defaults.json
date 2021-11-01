@@ -16,6 +16,7 @@
 		"varphi_type" : "ramp",
 		"ibc_type" : "concave-up",
 		"Lc" : 10000,
+		"Ci" :  "sy.rad(4)",
 		"varphi_0" : 2.641e-5,
 		"varepsilonhat" : "sy.Rational(1,100)",
 		"xiv_0" : "None",
