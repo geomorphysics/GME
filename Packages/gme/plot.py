@@ -37,7 +37,10 @@ import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 from matplotlib.ticker import FormatStrFormatter
 import matplotlib.patches as mpatches
-from matplotlib.patches import Patch, FancyArrow, FancyArrowPatch, Arrow, Rectangle, Circle, RegularPolygon
+from matplotlib.patches import Patch, FancyArrow, FancyArrowPatch, Arrow, Rectangle, Circle, RegularPolygon,\
+                                ArrowStyle, ConnectionPatch, Arc
+from matplotlib.spines import Spine
+
 from matplotlib.legend_handler import HandlerPatch
 from matplotlib import cm
 from mpl_toolkits.axes_grid1 import make_axes_locatable
@@ -2467,10 +2470,242 @@ class TheoryPlots(Graphing):
         plt.ylabel(r'Image ray angle  $\beta-\psi$   [${\degree}\!$ from vertical]')
         plt.xlabel(r'Surface normal angle  $\beta$   [${\degree}\!$ from vertical]')
         axes = plt.gca()
-        # axes.invert_xaxis()
-        # axes.set_aspect(2)
+
 
 class ManuscriptPlots(Graphing):
+
+    def point_pairing(self, name, fig_size=(10,4), dpi=None):
+        """
+        Schematic illustrating ...
+
+        Args:
+            fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`):
+                reference to figure instantiated by :meth:`GMPLib create_figure <plot_utils.GraphingBase.create_figure>`
+        """
+        # Build fig
+        fig = self.create_figure(name, fig_size=fig_size, dpi=dpi)
+
+        def remove_ticks_etc(axes_):
+        #     return
+            axes_.set_xticklabels([])
+            axes_.set_xticks([])
+            axes_.set_yticklabels([])
+            axes_.set_yticks([])
+            axes_.set_xlim(0,1)
+            axes_.set_ylim(0,1)
+
+        def linking_lines(fig_, axes_A, axes_B, axes_C, axes_D, gray1, gray2, brown_):
+            joins = [0]*3
+            kwargs = dict(color=brown_, linestyle=':')
+            joins[0] = ConnectionPatch(xyA=(0.2,0), coordsA=axes_D.transData,
+                                       xyB=(0.4,1),  coordsB=axes_A.transData, **kwargs)
+            joins[1] = ConnectionPatch(xyA=(1,0.00), coordsA=axes_D.transData,
+                                       xyB=(0,0.9),  coordsB=axes_B.transData, **kwargs)
+            joins[2] = ConnectionPatch(xyA=(1,0.60), coordsA=axes_D.transData,
+                                       xyB=(0,0.8),  coordsB=axes_C.transData, **kwargs)
+            [fig_.add_artist(join_) for join_ in joins]
+
+        def make_xy():
+            x = np.linspace(0,1)
+            x_ndim = (x-0.5)/(0.9-0.5)
+            y = np.exp((0.5+x)*4)/120
+            return x_ndim,y
+
+        def isochrones_subfig(fig_, x_, y_):
+            # Top left isochrones 0
+            size_zoom_0 = [0.65, 0.55]
+            posn_0 = [0.0, 0.75]
+            gray_ = self.gray_color(2,5)
+            axes_0 = fig_.add_axes([*posn_0, *size_zoom_0])
+            plt.axis('off')
+            n_isochrones = 6
+            i_gray, n_gray = 5, 6
+            [plt.plot(x_, sf_*y_, '-', color=self.gray_color(i_,n_gray), lw=2.5)
+                 for i_, sf_ in enumerate(np.linspace(0.5,1.2,n_isochrones))]
+            gray1 = self.gray_color(1,n_gray)
+            gray2 = self.gray_color(2,n_gray)
+            plt.xlim(0,1)
+            plt.ylim(0,1)
+            sf1_ = 1.3
+            sf2_ = 1.3
+            arrow_xy_ = np.array([0.2,0.8])
+            arrow_dxy_ = np.array([-0.025,0.15])
+            motion_xy_ = [0.1,0.8]
+            motion_angle_ = 23
+            my_arrow_style = ArrowStyle.Simple(head_length=1*sf1_, head_width=1*sf1_,
+                                               tail_width=0.1*sf1_)
+            axes_0.annotate('', xy=arrow_xy_, xytext=arrow_xy_+arrow_dxy_*sf2_,
+                            transform=axes_0.transAxes,
+                            arrowprops=dict(arrowstyle=my_arrow_style, color=gray_, lw=3))
+            plt.text(*motion_xy_, 'motion', color=gray_, fontsize=16, rotation=motion_angle_,
+                     transform=axes_0.transAxes,
+                     horizontalalignment='center', verticalalignment='center')
+            return axes_0, posn_0, gray1, gray2
+
+        def set_colors(obj_type, axes_list, color_):
+            [[child.set_color(color_) for child in axes_.get_children()
+             if isinstance(child, obj_type)] for axes_ in axes_list]
+
+        def zoom_boxes(fig_, gray1_, gray2_):
+            size_zoom_AB = [0.3,0.7]
+            size_zoom_C = [0.3,0.7]
+            brown_ = '#994400'
+            n_pts = 300
+
+            def zoomed_isochrones(axes_, name_text, i_pt1_, i_pt2_, do_many=False, do_legend=False, do_pts_only=False):
+                x_array = np.linspace(-1,3, n_pts)
+                y_array1 = x_array*0.5
+                y_array2 = y_array1+0.7
+
+                # Ta
+                if not do_pts_only:
+                    plt.plot(x_array, y_array2, '-', color=gray2_, lw=2.5, label=r'$T_a$')
+                xy_pt2 = np.array([x_array[i_pt2_],y_array2[i_pt2_]])
+                marker_style2 = dict(marker='o', fillstyle='none', markersize=8,
+                                     markeredgecolor=gray2_, markerfacecolor=gray2_,
+                                     markeredgewidth=2 )
+                plt.plot(*xy_pt2, **marker_style2)
+                if not do_pts_only:
+                    plt.text(*(xy_pt2+np.array([-0.03,0.08])), r'$\mathbf{a}$',
+                             color=gray2_, fontsize=18, rotation=0, transform=axes_.transAxes,
+                             horizontalalignment='center', verticalalignment='center')
+                # Tb
+                if not do_pts_only:
+                    plt.plot(x_array, y_array1, '-', color=gray1_, lw=2.5, label=r'$T_b$')
+                i_pts1 = [i_pt1_]
+                xy_pts1_tmp = np.array([np.array([x_array[i_pt1__],y_array1[i_pt1__]])
+                                    for i_pt1__ in i_pts1])
+                xy_pts1 = xy_pts1_tmp.T.reshape((xy_pts1_tmp.shape[2],2)) if do_many else xy_pts1_tmp
+                marker_style1 = marker_style2.copy()
+                marker_style1.update({'markeredgecolor':gray1_,'markerfacecolor':'w'})
+                [plt.plot(*xy_pt1_, **marker_style1) for xy_pt1_ in xy_pts1]
+
+                if not do_pts_only:
+                    b_label_i = 4 if do_many else 0
+                    b_label_xy = (xy_pts1[b_label_i]+np.array([0.03,-0.08]))
+                    b_label_text = r'$\{\mathbf{b}\}$' if do_many else r'$\mathbf{b}$'
+                    plt.text(*b_label_xy, b_label_text,
+                             color=gray1_, fontsize=18, rotation=0, transform=axes_.transAxes,
+                             horizontalalignment='center', verticalalignment='center')
+                    if do_legend:
+                        plt.legend(loc=[0.05,-0.35], fontsize=16, framealpha=0)
+                    name_xy = [0.97,0.03]
+                    plt.text(*name_xy, name_text,
+                             color=brown_, fontsize=14, rotation=0, transform=axes_.transAxes,
+                             horizontalalignment='right', verticalalignment='bottom')
+
+                dx = x_array[1]-x_array[0]
+                dy = y_array1[1]-y_array1[0]
+                return (xy_pts1 if do_many else xy_pts1[0]), xy_pt2, np.array([dx,dy])
+
+            def v_arrow(axes_, xy_pt1, xy_pt2, dxy=[0.12,0.05], do_dashing=False, do_label=False):
+                v_color = '#dd0000'
+                af = 0.54
+                v_lw = 1.5
+                axes_.arrow(*((xy_pt1*af+xy_pt2*(1-af))),*((xy_pt1-xy_pt2)*0.01),
+                             lw=1, facecolor=v_color, edgecolor=v_color,
+                             head_width=0.05, overhang=0.3,
+                             transform=axes_.transAxes, length_includes_head=True, )
+                axes_.plot([xy_pt1[0],xy_pt2[0]], [xy_pt1[1],xy_pt2[1]],
+                            ls='--' if do_dashing else '-',
+                            lw=v_lw, color=v_color )
+                f = 0.5
+                v_xy = [xy_pt1[0]*f + xy_pt2[0]*(1-f)+dxy[0], xy_pt1[1]*f + xy_pt2[1]*(1-f)+dxy[1]]
+                if do_label:
+                    axes_.text(*v_xy, r'$\mathbf{v}$',
+                                color=v_color, fontsize=18, rotation=0, transform=axes_.transAxes,
+                                horizontalalignment='right', verticalalignment='bottom')
+
+            def p_bones(axes_, xy_pt1, xy_pt2, dxy, n_bones=5, do_primary=True):
+                p_color = '#0000dd'
+                alpha_ = 0.7
+                p_dashing = [1,0] #[4, 4]
+                p_lw = 3
+                axes_.plot([xy_pt1[0],xy_pt2[0]], [xy_pt1[1],xy_pt2[1]],
+                           dashes=p_dashing, lw=p_lw, color=p_color, alpha=1 if do_primary else alpha_ )
+                for f in np.linspace(1,0,n_bones, endpoint=False):
+                    x = xy_pt1[0]*f + xy_pt2[0]*(1-f)
+                    y = xy_pt1[1]*f + xy_pt2[1]*(1-f)
+                    sf = 4 if do_primary else 3
+                    dx = dxy[0]*sf
+                    dy = dxy[1]*sf
+                    x_pair = [x-dx, x+dx]
+                    y_pair = [y-dy, y+dy]
+                    axes_.plot(x_pair, y_pair, lw=2.5, color=p_color,
+                              alpha=1 if do_primary else alpha_)
+                f = 0.8
+                p_xy = [xy_pt1[0]*f + xy_pt2[0]*(1-f)-0.1, xy_pt1[1]*f + xy_pt2[1]*(1-f)-0.1]
+                if do_primary:
+                    axes_.text(*p_xy, r'$\mathbf{\widetilde{p}}$',
+                                color=p_color, fontsize=18, rotation=0, transform=axes_.transAxes,
+                                horizontalalignment='right', verticalalignment='bottom')
+
+            def psi_label(axes_, xy_pt1_B, xy_pt2_B, xy_pt1_C, xy_pt2_C, dxy=[0.12,0.05]):
+                v_color = '#dd0000'
+                psi_xy = [0.5,0.53]
+                axes_.text(*psi_xy, r'$\psi$',
+                            color=v_color, fontsize=20, rotation=0, transform=axes_.transAxes,
+                            horizontalalignment='center', verticalalignment='center')
+                angle_B = np.rad2deg(np.arctan( (xy_pt2_B[1]-xy_pt1_B[1])/(xy_pt2_B[0]-xy_pt1_B[0]) ))
+                angle_C = np.rad2deg(np.arctan( (xy_pt2_C[1]-xy_pt1_C[1])/(xy_pt2_C[0]-xy_pt1_C[0]) ))
+                radius = 0.95
+                angle = 0
+                axes_.add_patch( Arc(xy_pt2_B, radius,radius, color=v_color,
+                                    linewidth=2, fill=False, zorder=2, #transform=axes_.transAxes,
+                                    angle=angle_B, theta1=0, theta2=angle_C-angle_B) )
+
+            # From zoom box D
+            posn_D = np.array(posn_0) + np.array([0.19,0.25])
+            size_zoom_D = [0.042,0.1]
+            axes_D = fig_.add_axes([*posn_D, *size_zoom_D])
+            remove_ticks_etc(axes_D)
+            axes_D.patch.set_alpha(0.5)
+
+            # Zoom any point pairing A
+            posn_A = [0,0.15]
+            axes_A = fig_.add_axes([*posn_A, *size_zoom_AB])
+            remove_ticks_etc(axes_A)
+            i_pt2_A = 92
+            i_pts1_A = [i_pt2_A+i_ for i_ in np.arange(-43,100,15)]
+            xy_pts1_A, xy_pt2_A, dxy_A = zoomed_isochrones(axes_A, 'generic', i_pts1_A,i_pt2_A,
+                                                           do_many=True)
+            [v_arrow(axes_A, xy_pt1_A, xy_pt2_A, do_dashing=True) for xy_pt1_A in xy_pts1_A]
+            zoomed_isochrones(axes_A, 'generic', i_pts1_A,i_pt2_A, do_many=True)
+
+            # Zoom intrinsic pairing B
+            posn_B = [0.33,0.28]
+            axes_B = fig_.add_axes([*posn_B, *size_zoom_AB])
+            remove_ticks_etc(axes_B)
+            i_pt2_B = i_pt2_A
+            i_pt1_B = i_pt2_A+19
+            xy_pt1_B, xy_pt2_B, dxy_B = zoomed_isochrones(axes_B, 'isotropic', i_pt1_B,i_pt2_B)
+            p_bones(axes_B, xy_pt1_B, xy_pt2_B, dxy_B)
+            v_arrow(axes_B, xy_pt1_B, xy_pt2_B, dxy=[0.13,0.02], do_label=True)
+            zoomed_isochrones(axes_B, 'isotropic', i_pt1_B,i_pt2_B, do_pts_only=True)
+
+            # Zoom erosion-fn pairing C
+            posn_C = [0.66,0.6]
+            axes_C = fig_.add_axes([*posn_C, *size_zoom_C])
+            remove_ticks_etc(axes_C)
+            i_pt1_C = i_pt1_B+30
+            i_pt2_C = i_pt2_B
+            xy_pt1_C, xy_pt2_C, dxy_C = zoomed_isochrones(axes_C, 'anisotropic', i_pt1_C,i_pt2_C,
+                                                          do_legend=True)
+            p_bones(axes_C, xy_pt1_C, xy_pt2_C, dxy_C, do_primary=False)
+            p_bones(axes_C, xy_pt1_B, xy_pt2_B, dxy_B)
+            v_arrow(axes_C, xy_pt1_C, xy_pt2_C, dxy=[0.1,0.05], do_label=True)
+            zoomed_isochrones(axes_C, 'anisotropic', i_pt1_C,i_pt2_C,
+                              do_legend=False, do_pts_only=True)
+            psi_label(axes_C, xy_pt1_B, xy_pt2_B, xy_pt1_C, xy_pt2_C)
+
+            # Brown zoom boxes and tie lines
+            set_colors(Spine, [axes_A, axes_B, axes_C, axes_D], brown_)
+            return axes_A, axes_B, axes_C, axes_D, brown_
+
+        x,y = make_xy()
+        axes_0, posn_0, gray1, gray2 = isochrones_subfig(fig, x, y)
+        axes_A, axes_B, axes_C, axes_D, brown = zoom_boxes(fig, gray1, gray2)
+        linking_lines(fig, axes_A, axes_B, axes_C, axes_D, gray1, gray2, brown)
 
     def covector_isochrones(self, name, fig_size=None, dpi=None):
         """
