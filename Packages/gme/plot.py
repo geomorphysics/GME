@@ -2644,10 +2644,12 @@ class ManuscriptPlots(Graphing):
             new_isochrone_ms, new_isochrone_ls \
                 = 'Gray', 'White', 2 if do_ray_conjugacy else 4, \
                   8 if do_ray_conjugacy else 7, '-'
-        wavelet_color = 'DarkRed'
-        wavelet_width = 2.5 if do_ray_conjugacy else 1.5
+        wavelet_color = '#00AA00'
+        # wavelet_color = 'DarkRed'
+        wavelet_width = 2.5 if do_ray_conjugacy else 1
         p_color, p_width = 'Blue', 2
-        r_color, r_width = '#15e01a', 1.5
+        r_color, r_width = '#DD0000', 1.5
+        # r_color, r_width = '#15e01a', 1.5
 
         dt_ = 0.0015
         dz_ = -gmes.xiv_v_array[0]*dt_*1.15
