@@ -1,0 +1,23 @@
+{
+	"job": {
+		"title": "Time-invariant profile solution: sin(beta), ramp, eta=3/2, mu=3/4, Ci=8deg",
+		"group_name": "Schematics",
+		"short_name": "sch"
+	},
+
+	"model": {
+		"eta" : "sy.Rational(3,2)",
+		"mu" :  "sy.Rational(3,4)",
+		"Ci" :  "sy.rad(8)",
+		"varepsilonhat" : "sy.Rational(1,20)"
+	},
+
+	"solve": {
+		"t_end" : 5,
+		"method" : {"Hamilton": "DOP853", "geodesic": "LSODA"}
+	},
+
+	"plot": {
+		"do_profile_extra": false
+	}
+}

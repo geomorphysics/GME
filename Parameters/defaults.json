@@ -67,6 +67,7 @@
 		"small_fig_size" : [7,3],
 		"n_rays": 4,
 		"profile_subsetting": 8,
+		"ray_x_limits" : [-0.02,1.02],
 		"ray_y_limits" : "None",
 		"aniso_y_limits" : "None",
 		"aniso_n_points" : 45,

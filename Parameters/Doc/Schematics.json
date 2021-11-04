@@ -1,0 +1,7 @@
+{
+	"job": {
+		"title": "Time-invariant profile solution: sin(beta), ramp, eta=3/2, mu=3/4, Ci=5deg",
+		"group_name": "Schematics",
+		"short_name": "sch"
+	}
+}

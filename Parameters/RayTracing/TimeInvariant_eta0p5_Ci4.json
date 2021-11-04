@@ -52,7 +52,7 @@
 		},
 		"do_profile_extra": false,
 		"aniso_y_limits": [-0.07,0.3001],
-		"ray_y_limits" : [-0.015,0.42],
+		"ray_y_limits" : [-0.015,0.43],
 		"ang_x_limits" : [0,90],
 		"ang_y_limits" : [-30,10],
 		"angdisp_x_limits" : [0,90],

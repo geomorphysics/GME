@@ -271,10 +271,10 @@ class OneRayPlots(Graphing):
             plt.ylim(*y_limits)
 
     def profile_h_rays( self, gmes, gmeq, sub, name, fig_size=None, dpi=None,
-                        y_limits=None, n_points=101,
+                        x_limits=None, y_limits=None, n_points=101,
                         do_direct=True, n_rays=4, profile_subsetting=5,
-                        do_schematic=False, do_legend=True, do_profile_points=True,
-                        do_simple=False, do_one_ray=False, do_t_sampling=True, do_etaxi_label=True,
+                        do_schematic=False, do_legend=True, do_profile_points=True, do_fault_bdry=False,
+                        do_one_ray=False, do_t_sampling=True, do_etaxi_label=True,
                         do_pub_label=False, pub_label='', pub_label_xy=[0.93,0.33], eta_label_xy=[0.5,0.8] ):
         r"""
         Plot a set of erosion rays for a time-invariant topographic profile solution of Hamilton's equations.
@@ -345,8 +345,7 @@ class OneRayPlots(Graphing):
         # Solid line = topo profile from direct integration of gradient array
         if (do_direct or do_schematic) and not do_one_ray:
             plt.plot(gmes.h_x_array,(gmes.h_z_array-gmes.h_z_array[0]), 'k',
-                     label='$T(\mathbf{r})$' if do_schematic else ('$T(\mathbf{r})$'
-                                             if not do_simple else None) )
+                     label='$T(\mathbf{r})$' if do_schematic else ('$T(\mathbf{r})$') )
             if do_schematic:
                 plt.plot(  gmes.h_x_array,(gmes.h_z_array-gmes.h_z_array[0])+0.26, '0.75', lw=1, ls='--')
                 plt.plot(  gmes.h_x_array,(gmes.h_z_array-gmes.h_z_array[0])+0.13, '0.5', lw=1, ls='--')
@@ -359,12 +358,10 @@ class OneRayPlots(Graphing):
         plt.xlabel(r'Distance, $x/L_{\mathrm{c}}$  [-]', fontsize=13 if do_schematic else 16)
         plt.ylabel(r'Elevation, $z/L_{\mathrm{c}}$  [-]', fontsize=13 if do_schematic else 16)
         if not do_schematic and not do_one_ray and do_legend:
-            plt.legend(loc='upper right' if do_schematic
-                       else ((0.065,0.45) if not do_simple
-                       else (0.38,0.75)),
+            plt.legend(loc='upper right' if do_schematic else (0.065,0.45),
                        fontsize=9 if do_schematic else 11,
                        framealpha=0.95)
-        if not do_schematic and not do_simple:
+        if not do_schematic:
             if do_etaxi_label:
                 plt.text(*eta_label_xy, r'$\eta='+rf'{gmeq.eta}'+r'\quad\mathsf{Ci}='+rf'{round(float(sy.deg(Ci.subs(sub))))}'+'{\degree}$',
                          transform=axes.transAxes,
@@ -373,12 +370,9 @@ class OneRayPlots(Graphing):
             if do_pub_label:
                 plt.text(*pub_label_xy, pub_label,
                          transform=axes.transAxes, horizontalalignment='center', verticalalignment='center', fontsize=16, color='k')
-        if do_schematic:
-            plt.xlim(-0.15,2.15)
-            plt.ylim(-0.07,0.62)
-        elif do_simple:
-            plt.ylim(-0.025,0.38)
-        elif y_limits is not None:
+        if x_limits is not None:
+            plt.xlim(*x_limits)
+        if y_limits is not None:
             plt.ylim(*y_limits)
 
         if do_schematic:
@@ -391,14 +385,14 @@ class OneRayPlots(Graphing):
                      rotation=0, horizontalalignment='center', verticalalignment='center',
                      fontsize=12, color='0.25')
             for x_,align_ in [(-0.03,'right'), (2.03,'left')]:
-                plt.text(x_,0.15, 'fault slip b.c.', #transform=axes.transAxes,
+                plt.text(x_,0.17, 'fault slip b.c.' if do_fault_bdry else 'const. erosion rate',
                          rotation=90, horizontalalignment=align_, verticalalignment='center',
                          fontsize=12, color='r', alpha=0.7)
             plt.text(0.46,0.38, r'surface isochrone $T(\mathbf{r})=\mathrm{past}$',
                      #transform=axes.transAxes,
                      rotation=12, horizontalalignment='center', verticalalignment='center',
                      fontsize=10, color='0.2')
-            plt.text(0.6,0.05, r'surface isochrone $T(\mathbf{r})=\mathrm{now}$',
+            plt.text(0.52,0.05, r'surface isochrone $T(\mathbf{r})=\mathrm{now}$',
                      #transform=axes.transAxes,
                      rotation=12, horizontalalignment='center', verticalalignment='center',
                      fontsize=10, color='k')
@@ -406,23 +400,6 @@ class OneRayPlots(Graphing):
                                          (0,0.1, 0,-0.15,'left'), (2,0.4, 0,-0.15,'right'),
                                          (2,0.25, 0,-0.15,'right'),(2,0.1, 0,-0.15,'right')]:
                 plt.arrow( x_,y_,dx_,dy_, head_length=0.04, head_width=0.03,
-                           length_includes_head=True, shape=shape_,
-                           facecolor='r', edgecolor='r' )
-        elif do_simple:
-            annotate_color = 'k'
-            plt.text(-0.03,0.33, 'ray initiated', #transform=axes.transAxes,
-                     rotation=0, horizontalalignment='left', verticalalignment='center',
-                     fontsize=12, color='r')
-            plt.text(1.04,0.33, 'ray terminated', #transform=axes.transAxes,
-                     rotation=0, horizontalalignment='right', verticalalignment='center',
-                     fontsize=12, color='0.25')
-            plt.text(0.6,0.06, 'surface isochrone $T(\mathbf{r})$', #transform=axes.transAxes,
-                     rotation=13, horizontalalignment='center', verticalalignment='center',
-                     fontsize=13, color='k')
-            sf = 0.75
-            for x_,y_,dx_,dy_,shape_ in [(0,0.3, 0,-0.1,'left'),(0,0.25, 0,-0.15,'left'),
-                                         (0,0.15, 0,-0.15,'left'),(0,0., 0,-0.15,'left')]:
-                plt.arrow( x_,y_,dx_,dy_, head_length=0.04*sf, head_width=0.03*sf,
                            length_includes_head=True, shape=shape_,
                            facecolor='r', edgecolor='r' )
 
@@ -2571,7 +2548,7 @@ class ManuscriptPlots(Graphing):
                              horizontalalignment='center', verticalalignment='center')
                 # Tb
                 if not do_pts_only:
-                    plt.plot(x_array, y_array1, '-', color=gray1_, lw=2.5, label=r'$T_b$')
+                    plt.plot(x_array, y_array1, '-', color=gray1_, lw=2.5, label=r'$T_b = T_a+\Delta{T}$')
                 i_pts1 = [i_pt1_]
                 xy_pts1_tmp = np.array([np.array([x_array[i_pt1__],y_array1[i_pt1__]])
                                     for i_pt1__ in i_pts1])
@@ -2623,7 +2600,7 @@ class ManuscriptPlots(Graphing):
                 p_lw = 3
                 axes_.plot([xy_pt1[0],xy_pt2[0]], [xy_pt1[1],xy_pt2[1]],
                            dashes=p_dashing, lw=p_lw, color=p_color, alpha=1 if do_primary else alpha_ )
-                for f in np.linspace(1,0,n_bones, endpoint=False):
+                for i_, f in enumerate(np.linspace(1,0,n_bones, endpoint=False)):
                     x = xy_pt1[0]*f + xy_pt2[0]*(1-f)
                     y = xy_pt1[1]*f + xy_pt2[1]*(1-f)
                     sf = 4 if do_primary else 3
@@ -2631,7 +2608,7 @@ class ManuscriptPlots(Graphing):
                     dy = dxy[1]*sf
                     x_pair = [x-dx, x+dx]
                     y_pair = [y-dy, y+dy]
-                    axes_.plot(x_pair, y_pair, lw=2.5, color=p_color,
+                    axes_.plot(x_pair, y_pair, lw=5 if i_==0 else 2.5, color=p_color,
                               alpha=1 if do_primary else alpha_)
                 f = 0.8
                 p_xy = [xy_pt1[0]*f + xy_pt2[0]*(1-f)-0.1, xy_pt1[1]*f + xy_pt2[1]*(1-f)-0.1]

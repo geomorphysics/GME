@@ -1,16 +1,15 @@
 {
 	"job": {
-		"title": "Time-invariant profile solution: ramp, eta=3/2, sin(beta) model",
-		"group_name": "TimeInvariantSolutions",
-		"short_name": "tis"
+		"title": "Huygens explainers",
+		"group_name": "Schematics",
+		"short_name": "sch"
 	},
 
 	"model": {
 		"eta" : "sy.Rational(3,2)",
-		"beta_type" : "sin",
-		"varphi_type" : "ramp",
-		"xiv_0" : 10,
-		"mu" : "sy.Rational(3,4)"
+		"mu" : "sy.Rational(3,4)",
+		"Ci" :  "sy.rad(Rational(1,10))",
+		"varepsilonhat" : "sy.Rational(1,100)"
 	},
 
 	"solve": {
