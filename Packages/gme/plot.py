@@ -2464,7 +2464,7 @@ class ManuscriptPlots(Graphing):
         brown_  = '#994400'
         blue_   = '#0000dd'
         red_    = '#dd0000'
-        purple_ = '#dd00dd'
+        purple_ = '#cc00cc'
         gray_ = self.gray_color(2,5)
         n_gray = 6
         gray1_ = self.gray_color(1,n_gray)
@@ -2668,10 +2668,10 @@ class ManuscriptPlots(Graphing):
             remove_ticks_etc(axes_A)
             i_pt2_A = 92
             i_pts1_A = [i_pt2_A+i_ for i_ in np.arange(-43,100,15)]
-            xy_pts1_A, xy_pt2_A, dxy_A = zoomed_isochrones(axes_A, 'generic', i_pts1_A,i_pt2_A,
+            xy_pts1_A, xy_pt2_A, dxy_A = zoomed_isochrones(axes_A, 'free', i_pts1_A,i_pt2_A,
                                                            do_many=True)
             [v_arrow(axes_A, xy_pt1_A, xy_pt2_A, do_dashing=True) for xy_pt1_A in xy_pts1_A]
-            zoomed_isochrones(axes_A, 'generic', i_pts1_A,i_pt2_A, do_many=True)
+            zoomed_isochrones(axes_A, '', i_pts1_A,i_pt2_A, do_many=True)
 
             # Zoom intrinsic pairing B
             posn_B = [0.33,0.28]
@@ -2682,7 +2682,7 @@ class ManuscriptPlots(Graphing):
             xy_pt1_B, xy_pt2_B, dxy_B = zoomed_isochrones(axes_B, 'isotropic', i_pt1_B,i_pt2_B)
             p_bones(axes_B, xy_pt1_B, xy_pt2_B, dxy_B)
             v_arrow(axes_B, xy_pt1_B, xy_pt2_B, v_f=0.5, dxy=[0.13,0.02], do_label=True)
-            zoomed_isochrones(axes_B, 'isotropic', i_pt1_B,i_pt2_B, do_pts_only=True)
+            zoomed_isochrones(axes_B, '', i_pt1_B,i_pt2_B, do_pts_only=True)
 
             # Zoom erosion-fn pairing C
             posn_C = [0.66,0.6]
@@ -2695,7 +2695,7 @@ class ManuscriptPlots(Graphing):
             p_bones(axes_C, xy_pt1_C, xy_pt2_C, dxy_C, do_primary=False)
             p_bones(axes_C, xy_pt1_B, xy_pt2_B, dxy_B)
             v_arrow(axes_C, xy_pt1_C, xy_pt2_C, a_f=0.8, v_f=0.72, dxy=[0.1,0.05], do_label=True)
-            zoomed_isochrones(axes_C, 'anisotropic', i_pt1_C,i_pt2_C,
+            zoomed_isochrones(axes_C, '', i_pt1_C,i_pt2_C,
                               do_legend=False, do_pts_only=True)
             psi_label(axes_C, xy_pt1_B, xy_pt2_B, xy_pt1_C, xy_pt2_C, color_=purple_)
             beta_label(axes_C, xy_pt1_B, xy_pt2_B)
