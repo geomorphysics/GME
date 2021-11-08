@@ -2578,7 +2578,8 @@ class ManuscriptPlots(Graphing):
                 dy = y_array1[1]-y_array1[0]
                 return (xy_pts1 if do_many else xy_pts1[0]), xy_pt2, np.array([dx,dy])
 
-            def v_arrow(axes_, xy_pt1, xy_pt2, dxy=[0.12,0.05], a_f=0.54, v_f=0.5, color_=red_, do_dashing=False, do_label=False):
+            def v_arrow(axes_, xy_pt1, xy_pt2, dxy=[0.12,0.05], a_f=0.54, v_f=0.5, v_label=r'$\mathbf{v}$',
+                        color_=red_, do_dashing=False, do_label=False):
                 v_lw = 1.5
                 axes_.arrow(*((xy_pt1*a_f+xy_pt2*(1-a_f))),*((xy_pt1-xy_pt2)*0.01),
                              lw=1, facecolor=color_, edgecolor=color_,
@@ -2590,7 +2591,7 @@ class ManuscriptPlots(Graphing):
                 f = v_f
                 v_xy = [xy_pt1[0]*f + xy_pt2[0]*(1-f)+dxy[0], xy_pt1[1]*f + xy_pt2[1]*(1-f)+dxy[1]]
                 if do_label:
-                    axes_.text(*v_xy, r'$\mathbf{v}$',
+                    axes_.text(*v_xy, v_label,
                                 color=color_, fontsize=18, rotation=0, transform=axes_.transAxes,
                                 horizontalalignment='right', verticalalignment='bottom')
 
@@ -2670,7 +2671,9 @@ class ManuscriptPlots(Graphing):
             i_pts1_A = [i_pt2_A+i_ for i_ in np.arange(-43,100,15)]
             xy_pts1_A, xy_pt2_A, dxy_A = zoomed_isochrones(axes_A, 'free', i_pts1_A,i_pt2_A,
                                                            do_many=True)
-            [v_arrow(axes_A, xy_pt1_A, xy_pt2_A, do_dashing=True) for xy_pt1_A in xy_pts1_A]
+            [v_arrow(axes_A, xy_pt1_A, xy_pt2_A, do_dashing=True,
+                     v_f=0.35, v_label=r'$\{\mathbf{v}\}$', do_label=(True if i_==len(xy_pts1_A)-1 else False))
+                for i_,xy_pt1_A in enumerate(xy_pts1_A)]
             zoomed_isochrones(axes_A, '', i_pts1_A,i_pt2_A, do_many=True)
 
             # Zoom intrinsic pairing B

@@ -23,7 +23,7 @@ from gme.symbols import *
 from sympy import N, sign, atan, atan2, sin, cos, tan, re, im, sqrt, \
     Matrix, lambdify, Abs, simplify, expand, solve, Eq, Rational, diff, \
     poly
-from scipy.integrate import solve_ivp, cumtrapz
+from scipy.integrate import solve_ivp
 from scipy.interpolate import InterpolatedUnivariateSpline, interp1d
 from scipy.optimize import fsolve
 from copy import copy

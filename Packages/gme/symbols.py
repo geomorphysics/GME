@@ -91,6 +91,7 @@ rx = symbols(r'{r}^x',  real=True, negative=False)
 rz = symbols(r'{r}^z',  real=True)
 rvechat = symbols(r'\mathbf{\hat{r}}',  real=True)
 rhat = symbols(r'\hat{r}',  real=True, negative=False)
+xhat = symbols(r'\hat{x}',  real=True, negative=False)
 rxhat = symbols(r'\hat{r}^x',  real=True, negative=False)
 rzhat = symbols(r'\hat{r}^z',  real=True)
 rdot_vec =  MatrixSymbol(r'v',2,1)
@@ -132,11 +133,11 @@ Lc = x_1
 xi = symbols(r'\xi^{\perp}',  real=True, positive=True)
 xiv = symbols(r'\xi^{\downarrow}',  real=True)
 xivhat = symbols(r'\hat{\xi}^{\downarrow}',  real=True)
-xiv_0 = symbols(r'\xi^{\downarrow{0}}',  real=True, positive=True)   # NEW: positive=True
+xiv_0 = symbols(r'\xi^{\downarrow_{0}}',  real=True, positive=True)   # NEW: positive=True
 xih = symbols(r'\xi^{\rightarrow}',  real=True)
 xihhat = symbols(r'\hat{\xi}^{\rightarrow}',  real=True)
-xih_0 = symbols(r'\xi^{\rightarrow{0}}',  real=True, positive=True)   # NEW: positive=True
-xiv_0_sqrd = symbols(r'\xi^{\downarrow{0}}^2',  real=True)
+xih_0 = symbols(r'\xi^{\rightarrow_{0}}',  real=True, positive=True)   # NEW: positive=True
+xiv_0_sqrd = symbols(r'\xi^{\downarrow_{0}}^2',  real=True)
 
 varphi_rx = Function(r'\varphi', real=True, positive=True)(rx)
 varphi_rxhat = Function(r'\varphi', real=True, positive=True)(rxhat)
@@ -163,6 +164,8 @@ eta = symbols(r'\eta',  real=True, negative=False)
 lmbda = symbols(r'\lambda',  real=True, positive=True)
 kappa = symbols(r'\kappa',  real=True, positive=True)
 
+xhat = symbols(r'\hat{x}',  real=True, negative=False)
+dzdx = symbols(r'\frac{\mathrm{d}{\hat{z}}}{\mathrm{d}{\hat{x}}}', real=True)
 
 drxdrz = symbols(r'\frac{\mathrm{d}{r^x}}{\mathrm{d}{r^z}}', real=True)
 drzdrx = symbols(r'\frac{\mathrm{d}{r^z}}{\mathrm{d}{r^x}}', real=True)
