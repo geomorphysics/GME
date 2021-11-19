@@ -2474,15 +2474,13 @@ class SlicingPlots(GraphingBase):
         plt.ylabel(ylabel)
         plt.grid(':')
 
-    def define_H_lambda(self, eta_, var_list, nvsub, hsub):
-        return lambdify(var_list, self.H_Ci_eqn.rhs
-                                    .subs(hsub).subs(nvsub).subs({eta:eta_, mu:eta_/2}), 'numpy')
+    def define_H_lambda(self, sub_, var_list):
+        return lambdify(var_list, self.H_Ci_eqn.rhs.subs({mu:eta/2}).subs(sub_), 'numpy')
 
-    def define_Ci_lambda(self, eta_, var_list, nvsub, hsub):
-        return lambdify(var_list, self.Ci_H0p5_eqn.rhs
-                                    .subs(hsub).subs(nvsub).subs({H:Rational(1,2), eta:eta_, mu:eta_/2}), 'numpy')
+    def define_Ci_lambda(self, sub_, var_list):
+        return lambdify(var_list, self.Ci_H0p5_eqn.rhs.subs({H:Rational(1,2), mu:eta/2}).subs(sub_), 'numpy')
 
-    def define_Hessian_eigenvals(self, eta_, var_list, nvsub, hsub):
+    def define_Hessian_eigenvals(self, sub_, var_list):
         H_Ci_ = self.H_Ci_eqn.rhs
         dHdpxhat_ = simplify( diff(H_Ci_,pxhat) )
         dHdpzhat_ = simplify( diff(H_Ci_,pzhat) )
@@ -2492,9 +2490,8 @@ class SlicingPlots(GraphingBase):
         d2Hdpzhat2_ = simplify( diff(dHdpzhat_,pzhat) )
         gstar_hessian = (
             Matrix([[d2Hdpxhat2_, d2Hdpxhatdpzhat_],[d2Hdpzhatdpxhat_, d2Hdpzhat2_]])
-                                        .subs(hsub)
-                                        .subs(nvsub)
-                                        .subs({eta:eta_, mu:eta_*2})
+                                        .subs({mu:eta*2})
+                                        .subs(sub_)
                                         .n()
         )
         gstar_hessian_lambda = lambdify( var_list, gstar_hessian )
@@ -2508,6 +2505,45 @@ class SlicingPlots(GraphingBase):
         #         //2
         #     )
         return gstar_signature_lambda, gstar_hessian
+
+    def H_rxpx_contours(self, sub_, H_lambda=None,
+                        gstar_signature_lambda=None, psf=5,
+                        contour_nlevels=None, contour_range=None,
+                        contour_values=None, contour_label_locs=None,
+                        do_log2H=False, do_siggrid=True, cmap_expt=0.5):
+        title = 'H_contours_{pzhat_}'.replace('.','p')
+        xlabel = r'$\hat{r}^x$'
+        ylabel = r'$\hat{p}_x$'
+        self.prep_contour_fig(title, xlabel, ylabel)
+        grids_ = (self.rxpxhat_grids[0],self.rxpxhat_grids[1]*psf)
+        do_fmt_labels = True if psf>1000 else False
+        self.plot_H_contours(grids_ ,sub_,
+                             H_lambda, gstar_signature_lambda, contour_nlevels,
+                             contour_nlevels=contour_nlevels, contour_range=contour_range,
+                             contour_values=contour_values, contour_label_locs=contour_label_locs,
+                             do_siggrid=do_siggrid, cmap_expt=cmap_expt, do_fmt_labels=do_fmt_labels,
+                             do_log2H=do_log2H, do_Ci=False,
+                             do_aspect=False, do_rxpx=True)
+
+    def H_pxpz_contours(self, sub_, H_lambda=None,  Ci_lambda=None,
+                        gstar_signature_lambda=None, psf=5,
+                        contour_nlevels=None, contour_range=None,
+                        contour_values=None, contour_label_locs=None,
+                        do_log2H=False, do_Ci=False,
+                        do_siggrid=True, cmap_expt=0.5):
+        title = ('H' if H_lambda is not None else 'Ci')+'_contours_{rxhat_}'.replace('.','p')
+        xlabel = r'$\hat{p}_x$'
+        ylabel = r'$\hat{p}_z$'
+        self.prep_contour_fig(title, xlabel, ylabel)
+        grids_ = (self.pxpzhat_grids[0]*psf, self.pxpzhat_grids[1]*psf)
+        do_fmt_labels = True if psf>1000 else False
+        self.plot_H_contours(grids_, sub_,
+                             H_lambda if H_lambda is not None else Ci_lambda,
+                             gstar_signature_lambda,
+                             contour_nlevels=contour_nlevels, contour_range=contour_range,
+                             contour_values=contour_values, contour_label_locs=contour_label_locs,
+                             do_siggrid=do_siggrid, cmap_expt=cmap_expt, do_fmt_labels=do_fmt_labels,
+                             do_log2H=do_log2H, do_Ci=do_Ci, do_aspect=True, do_rxpx=False)
 
     def plot_H_contours(self, grids_, sub_,
                         H_lambda, gstar_signature_lambda,
@@ -2610,7 +2646,7 @@ class SlicingPlots(GraphingBase):
                  horizontalalignment='center', verticalalignment='center',
                  fontsize=16, color='k')
         else:
-            axes.text(*[1.25,1.0], r'$\mathsf{Ci}\left(\hat{p}_x,\hat{p}_z\right)$', transform=axes.transAxes,
+            axes.text(*[1.25,1.], r'$\mathsf{Ci}\left(\hat{p}_x,\hat{p}_z\right)$', transform=axes.transAxes,
                  horizontalalignment='center', verticalalignment='center',
                  fontsize=18, color='k')
         if do_rxpx:
@@ -2625,45 +2661,6 @@ class SlicingPlots(GraphingBase):
 
         axes.legend(loc=[1.05,0.5], fontsize=14, framealpha=0)
         return gstar_signature_grid_
-
-    def H_rxpx_contours(self, sub_, H_lambda=None,
-                        gstar_signature_lambda=None, psf=5,
-                        contour_nlevels=None, contour_range=None,
-                        contour_values=None, contour_label_locs=None,
-                        do_log2H=False, do_siggrid=True, cmap_expt=0.5):
-        title = 'H_contours_{pzhat_}'.replace('.','p')
-        xlabel = r'$\hat{r}^x$'
-        ylabel = r'$\hat{p}_x$'
-        self.prep_contour_fig(title, xlabel, ylabel)
-        grids_ = (self.rxpxhat_grids[0],self.rxpxhat_grids[1]*psf)
-        do_fmt_labels = True if psf>1000 else False
-        self.plot_H_contours(grids_ ,sub_,
-                             H_lambda, gstar_signature_lambda, contour_nlevels,
-                             contour_nlevels=contour_nlevels, contour_range=contour_range,
-                             contour_values=contour_values, contour_label_locs=contour_label_locs,
-                             do_siggrid=do_siggrid, cmap_expt=cmap_expt, do_fmt_labels=do_fmt_labels,
-                             do_log2H=do_log2H, do_Ci=False,
-                             do_aspect=False, do_rxpx=True)
-
-    def H_pxpz_contours(self, sub_, H_lambda=None,  Ci_lambda=None,
-                        gstar_signature_lambda=None, psf=5,
-                        contour_nlevels=None, contour_range=None,
-                        contour_values=None, contour_label_locs=None,
-                        do_log2H=False, do_Ci=False,
-                        do_siggrid=True, cmap_expt=0.5):
-        title = ('H' if H_lambda is not None else 'Ci')+'_contours_{rxhat_}'.replace('.','p')
-        xlabel = r'$\hat{p}_x$'
-        ylabel = r'$\hat{p}_z$'
-        self.prep_contour_fig(title, xlabel, ylabel)
-        grids_ = (self.pxpzhat_grids[0]*psf, self.pxpzhat_grids[1]*psf)
-        do_fmt_labels = True if psf>1000 else False
-        self.plot_H_contours(grids_, sub_,
-                             H_lambda if H_lambda is not None else Ci_lambda,
-                             gstar_signature_lambda,
-                             contour_nlevels=contour_nlevels, contour_range=contour_range,
-                             contour_values=contour_values, contour_label_locs=contour_label_locs,
-                             do_siggrid=do_siggrid, cmap_expt=cmap_expt, do_fmt_labels=do_fmt_labels,
-                             do_log2H=do_log2H, do_Ci=do_Ci, do_aspect=True, do_rxpx=False)
 
 
 class ManuscriptPlots(Graphing):

@@ -667,6 +667,7 @@ class Equations:
             2*pxhat**(-2*eta) * (pxhat**2+pzhat**2)**(eta-1) * (1-rxhat+varepsilonhat)**(-4*mu) )
         self.H_Ci_eqn = Eq(H, simplify(((sin(Ci))**(2*(1-eta))/self.H_split)
                                       .subs(e2d(self.H_varphi_rxhat_eqn))) )
+        self.degCi_H0p5_eqn = Eq(Ci, deg(solve(self.H_Ci_eqn.subs({H:Rational(1,2)}),Ci)[0]))
         self.sinCi_xih0_eqn = Eq(sin(Ci), (((sqrt(simplify((H*self.H_split)
                                     .subs(e2d(self.H_varphi_rxhat_eqn)))))**(1/(1-eta)))) )
         self.Ci_xih0_eqn = Eq(Ci, asin(self.sinCi_xih0_eqn.rhs) )
