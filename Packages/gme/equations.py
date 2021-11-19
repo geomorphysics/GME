@@ -212,6 +212,7 @@ class Equations:
         self.define_nodimensionalized_Hamiltons_eqns()
         self.define_tanalpha_eqns()
         self.define_tanbeta_eqns()
+        self.define_psi_eqns()
         self.define_g_eqns()
         if do_idtx: self.define_idtx_fgtx_eqns()
         if do_geodesic:
@@ -693,6 +694,7 @@ class Equations:
 
         self.ratio_xiv0_xih0_eqn = Eq(xiv_0/xih_0, (xiv_0/xih_0).subs(e2d(self.xiv0_xih0_Ci_eqn)))
 
+
     def define_nodimensionalized_Hamiltons_eqns(self):
         self.hamiltons_ndim_eqns = Matrix((
                                         self.rdotxhat_eqn.rhs,
@@ -781,6 +783,17 @@ class Equations:
 
         self.tanalpha_crit = float(N(self.tanalpha_crit_eqn.rhs.subs({eta: self.eta})))
         self.tanbeta_crit = float(N(self.tanbeta_crit_eqn.rhs.subs({eta: self.eta})))
+
+
+    def define_psi_eqns(self):
+        r"""
+        Define equations for anisotropy angle :math:`\psi)`
+
+        Attributes:
+            psi_alpha_beta_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
+                :math:`\tan{\left(\beta \right)} = \dfrac{\xi^{\downarrow} + v^{z}}{v^{x}}`
+        """
+        self.psi_alpha_beta_eqn = Eq(psi, alpha-beta+pi/2)
 
 
     def define_g_eqns(self):
@@ -1258,6 +1271,7 @@ class Equations:
             else:
                 self.poly_px_xiv_varphi_eqn = poly(numer(tmp_eqn.lhs)-denom(tmp_eqn.lhs)*(tmp_eqn.rhs), px)
             self.poly_px_xiv_eqn = Eq(self.poly_px_xiv_varphi_eqn.subs(e2d(self.varphi_rx_eqn)), 0)
+
 
     def prep_ibc_eqns(self):
         r"""

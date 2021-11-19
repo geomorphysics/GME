@@ -84,6 +84,7 @@ alphaplus = symbols(r'\alpha^+',  real=True, positive=True)
 alpha_extremum = symbols(r'\alpha_\text{extremum}')
 beta_at_alpha_extremum = symbols(r'\beta_{\text{extremum}\{\alpha\}}')
 phi = symbols(r'\phi',  real=True)
+psi = symbols(r'\psi',  real=True)
 
 rvec = symbols(r'\mathbf{r}',  real=True)
 r = symbols(r'r',  real=True, negative=False)

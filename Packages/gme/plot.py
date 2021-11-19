@@ -28,7 +28,7 @@ Imports symbols from :mod:`.symbols` module.
 
 from gmplib.plot_utils import GraphingBase
 
-from sympy import Eq, factor, re, Abs, lambdify, Rational
+from sympy import Eq, factor, re, Abs, lambdify, Rational, Matrix, simplify, diff, sign, sin, deg
 from gme.symbols import *
 import numpy as np
 from scipy.linalg import eig, eigh, det
@@ -40,7 +40,6 @@ import matplotlib.patches as mpatches
 from matplotlib.patches import Patch, FancyArrow, FancyArrowPatch, Arrow, Rectangle, Circle, RegularPolygon,\
                                 ArrowStyle, ConnectionPatch, Arc
 from matplotlib.spines import Spine
-
 from matplotlib.legend_handler import HandlerPatch
 from matplotlib import cm
 from mpl_toolkits.axes_grid1 import make_axes_locatable
@@ -50,7 +49,7 @@ import warnings
 warnings.filterwarnings("ignore")
 
 __all__ = ['Graphing', 'OneRayPlots', 'TimeInvariantPlots',
-           'TimeDependentPlots', 'TheoryPlots', 'ManuscriptPlots']
+           'TimeDependentPlots', 'TheoryPlots', 'SlicingPlots', 'ManuscriptPlots']
 
 class Graphing(GraphingBase):
     """
@@ -2447,6 +2446,224 @@ class TheoryPlots(Graphing):
         plt.ylabel(r'Image ray angle  $\beta-\psi$   [${\degree}\!$ from vertical]')
         plt.xlabel(r'Surface normal angle  $\beta$   [${\degree}\!$ from vertical]')
         axes = plt.gca()
+
+
+class SlicingPlots(GraphingBase):
+
+    def __init__(self, H_Ci_eqn, Ci_H0p5_eqn, grid_res=301, dpi=100, font_size=11):
+        """
+        Constructor method.
+
+        Args:
+            dpi (int): resolution for rasterized images
+            font_size (int): general font size
+        """
+        # Default construction
+        super().__init__(dpi, font_size)
+        self.H_Ci_eqn = H_Ci_eqn
+        self.Ci_H0p5_eqn = Ci_H0p5_eqn
+        # Mesh grids for px-pz and rx-px space slicing plots
+        self.grid_array =  np.linspace(0,1, grid_res)+1e-5
+        self.pxpzhat_grids = np.meshgrid(self.grid_array, -self.grid_array, sparse=False, indexing='ij')
+        self.rxpxhat_grids = np.meshgrid(self.grid_array, self.grid_array, sparse=False, indexing='ij')
+
+    def prep_contour_fig(self, title, xlabel, ylabel):
+        self.fig = self.create_figure(title, fig_size=(6,6))
+        self.axes = plt.gca()
+        plt.xlabel(xlabel)
+        plt.ylabel(ylabel)
+        plt.grid(':')
+
+    def define_H_lambda(self, eta_, var_list, nvsub, hsub):
+        return lambdify(var_list, self.H_Ci_eqn.rhs
+                                    .subs(hsub).subs(nvsub).subs({eta:eta_, mu:eta_/2}), 'numpy')
+
+    def define_Ci_lambda(self, eta_, var_list, nvsub, hsub):
+        return lambdify(var_list, self.Ci_H0p5_eqn.rhs
+                                    .subs(hsub).subs(nvsub).subs({H:Rational(1,2), eta:eta_, mu:eta_/2}), 'numpy')
+
+    def define_Hessian_eigenvals(self, eta_, var_list, nvsub, hsub):
+        H_Ci_ = self.H_Ci_eqn.rhs
+        dHdpxhat_ = simplify( diff(H_Ci_,pxhat) )
+        dHdpzhat_ = simplify( diff(H_Ci_,pzhat) )
+        d2Hdpxhat2_ = simplify( diff(dHdpxhat_,pxhat) )
+        d2Hdpxhatdpzhat_ = simplify( diff(dHdpxhat_,pzhat) )
+        d2Hdpzhatdpxhat_ = simplify( diff(dHdpzhat_,pxhat) )
+        d2Hdpzhat2_ = simplify( diff(dHdpzhat_,pzhat) )
+        gstar_hessian = (
+            Matrix([[d2Hdpxhat2_, d2Hdpxhatdpzhat_],[d2Hdpzhatdpxhat_, d2Hdpzhat2_]])
+                                        .subs(hsub)
+                                        .subs(nvsub)
+                                        .subs({eta:eta_, mu:eta_*2})
+                                        .n()
+        )
+        gstar_hessian_lambda = lambdify( var_list, gstar_hessian )
+        # print('hessian', flush=True)
+        gstar_signature_lambda = lambda x_,y_: np.int(np.sum(np.sign(np.linalg.eigh(
+            np.array(gstar_hessian_lambda(x_,y_),dtype=np.float) )[0])))//2
+            # np.array(gstar_hessian.subs({var_list[0]:x_, var_list[1]:y_}),dtype=np.float) )[0])))//2
+        # gstar_signature_lambda = lambda x_,y_: np.int( (
+        #     Matrix(gstar_hessian.subs({var_list[0]:x_, var_list[1]:y_})
+        #         .eigenvals(multiple=True)).applyfunc(sign)).dot(Matrix([1,1]))
+        #         //2
+        #     )
+        return gstar_signature_lambda, gstar_hessian
+
+    def plot_H_contours(self, grids_, sub_,
+                        H_lambda, gstar_signature_lambda,
+                        contour_nlevels=None, contour_range=None,
+                        contour_values=None, contour_label_locs=None,
+                        do_siggrid=True, cmap_expt=0.25,
+                        do_fmt_labels=False, do_log2H=False, do_Ci=False,
+                        do_aspect=True, do_rxpx=False):
+        fig = self.fig
+        axes = self.axes
+        H_grid_ = H_lambda(*grids_)
+        H_grid_[np.isnan(H_grid_)] = 0
+        if gstar_signature_lambda is not None:
+            gstar_signature_grid_ = np.array(grids_[0].shape) # for i_ in [1,2]]
+            gstar_signature_grid_ = np.array([gstar_signature_lambda(x_,y_)
+                     for x_,y_ in zip(grids_[0].flatten(),grids_[1].flatten())])\
+                     .reshape((grids_[0]).shape)
+            gstar_signature_grid_[np.isnan(gstar_signature_grid_)] = 0
+
+        if do_fmt_labels:
+            [axis_.set_major_formatter(ticker.FormatStrFormatter('%0.0e'))
+         for axis_ in [axes.xaxis, axes.yaxis]]
+        if do_siggrid and gstar_signature_lambda is not None:
+            cmap_name = 'PiYG'  #, 'plasma_r'
+            cmap_ = plt.get_cmap(cmap_name)
+            cf = axes.contourf(*grids_, gstar_signature_grid_, levels=1, cmap=cmap_)
+    #         axes.pcolormesh(*grids_, np.power(H_grid_,cmap_expt), cmap=cmap_)
+            divider = make_axes_locatable(axes)
+            cax = divider.append_axes('top', size='6%', pad=0.4)
+            label_levels = np.array([0.25,0.75])
+            labels = (['mixed: -,+','positive: +,+'])
+            cbar = fig.colorbar(cf, cax=cax, orientation='horizontal', ticks=label_levels,
+                               label='metric signature')
+    #         cbar.ax.set_label('$g_{\star}$ metric signature')
+            cbar.ax.set_xticklabels(labels)
+            cbar.ax.xaxis.set_ticks_position('top')
+            if do_aspect: axes.set_aspect(1)
+            fig.tight_layout()
+
+        y_limit = (axes.get_ylim())
+
+        # beta_crit line
+        axes.set_autoscale_on(False)
+        tan_beta_crit_ = np.sqrt(float(eta.subs(sub_)))
+        beta_crit_ = np.round(np.rad2deg(np.arctan(tan_beta_crit_)),1)
+        if do_rxpx:
+            x_array = grids_[1][0]                                             # rx (+ve)
+            y_array = grids_[1][0]*0 - float(pzhat.subs(sub_))*tan_beta_crit_  # px (+ve)
+        else:
+            x_array = -grids_[1][0]*tan_beta_crit_  # px (+ve)
+            y_array =  grids_[1][0]                 # pz (-ve)
+        axes.plot(x_array, y_array, 'Red', lw=3, ls='-', label=r'$\beta_\mathrm{c} = $'+rf'{beta_crit_}$\degree$')
+
+        cmap_ = plt.get_cmap('Greys_r')
+        if contour_values is None:
+            # Contour levels, label formats
+            if do_log2H:
+                # H_grid_ = np.log10(2*H_grid_)
+                levels_ = np.linspace(*contour_range, int(contour_range[1]-contour_range[0]+1), endpoint=True)
+                levels_H0p5 = [0]
+                fmt_H = lambda H: r'$10^{%s}$' % f'{H:g}'
+                fmt_H0p5 = lambda H: rf'2H=1'
+                manual_location = None #(0.7,250)
+            else:
+                levels_ = np.concatenate([
+                    np.linspace(0.0,0.5, contour_nlevels[0], endpoint=False),
+                    np.flip(np.linspace(contour_range[1],0.5, contour_nlevels[1], endpoint=False))
+                ])
+                levels_H0p5 = [0.5]
+                fmt_H = lambda H_: rf'{H_:g}'
+                fmt_H0p5 = lambda H_: rf'H={H_:g}'
+                manual_location = ((np.array([2/7,-5/7]))*np.abs(y_limit[0]))
+
+            # H contours
+            contours_ = axes.contour(*grids_, np.log10(2*H_grid_) if do_log2H else H_grid_,
+                                     levels_[levels_!=levels_H0p5[0]], cmap=cmap_)
+            axes.clabel(contours_, inline=True, fmt=fmt_H, fontsize=9)
+            contour_ = axes.contour(*grids_, np.log10(2*H_grid_) if do_log2H else H_grid_,
+                                    levels_H0p5, linewidths=[3], cmap=cmap_)
+            axes.clabel(contour_, inline=True, fmt=fmt_H0p5, fontsize=14,
+                        manual=[(manual_location[0],manual_location[1])]) if manual_location is not None else None
+        else:
+            fmt_Ci = lambda Ci_: r'$\mathsf{Ci}=$'+f'{Ci_:g}'+r'$\degree$'
+            contour_values_ = np.log10(2*np.array(contour_values)) if do_log2H else np.array(contour_values)
+            contours_ = axes.contour(*grids_, np.log10(2*H_grid_) if do_log2H else H_grid_,
+                                     contour_values_, cmap=cmap_)
+            axes.clabel(contours_, inline=True, fmt=fmt_Ci, fontsize=14, manual=contour_label_locs)
+
+        axes.set_autoscale_on(False)
+        eta_ = eta.subs(sub_)
+        axes.text(*[1.25,0.8], rf'$\eta={eta_}$', transform=axes.transAxes,
+                 horizontalalignment='center', verticalalignment='center',
+                 fontsize=16, color='k')
+        if not do_Ci:
+            axes.text(*[1.25,1.1], r'$\mathcal{H}\left(\hat{p}_x,\hat{p}_z\right)$', transform=axes.transAxes,
+                 horizontalalignment='center', verticalalignment='center',
+                 fontsize=18, color='k')
+            Ci_ = Ci.subs(sub_)
+            axes.text(*[1.25,0.91], r'$\mathsf{Ci}=$'+rf'${deg(Ci_)}\degree$', transform=axes.transAxes,
+                 horizontalalignment='center', verticalalignment='center',
+                 fontsize=16, color='k')
+        else:
+            axes.text(*[1.25,1.0], r'$\mathsf{Ci}\left(\hat{p}_x,\hat{p}_z\right)$', transform=axes.transAxes,
+                 horizontalalignment='center', verticalalignment='center',
+                 fontsize=18, color='k')
+        if do_rxpx:
+            label_ = r'$\hat{p}_{z_0}=$'
+            val_ = int(pzhat.subs(sub_))
+        else:
+            label_ = r'$\hat{r}^x=$'
+            val_ = round(rxhat.subs(sub_),2)
+        axes.text(*[1.25,0.68], label_+rf'${val_}$', transform=axes.transAxes,
+             horizontalalignment='center', verticalalignment='center',
+             fontsize=16, color='k')
+
+        axes.legend(loc=[1.05,0.5], fontsize=14, framealpha=0)
+        return gstar_signature_grid_
+
+    def H_rxpx_contours(self, sub_, H_lambda=None,
+                        gstar_signature_lambda=None, psf=5,
+                        contour_nlevels=None, contour_range=None,
+                        contour_values=None, contour_label_locs=None,
+                        do_log2H=False, do_siggrid=True, cmap_expt=0.5):
+        title = 'H_contours_{pzhat_}'.replace('.','p')
+        xlabel = r'$\hat{r}^x$'
+        ylabel = r'$\hat{p}_x$'
+        self.prep_contour_fig(title, xlabel, ylabel)
+        grids_ = (self.rxpxhat_grids[0],self.rxpxhat_grids[1]*psf)
+        do_fmt_labels = True if psf>1000 else False
+        self.plot_H_contours(grids_ ,sub_,
+                             H_lambda, gstar_signature_lambda, contour_nlevels,
+                             contour_nlevels=contour_nlevels, contour_range=contour_range,
+                             contour_values=contour_values, contour_label_locs=contour_label_locs,
+                             do_siggrid=do_siggrid, cmap_expt=cmap_expt, do_fmt_labels=do_fmt_labels,
+                             do_log2H=do_log2H, do_Ci=False,
+                             do_aspect=False, do_rxpx=True)
+
+    def H_pxpz_contours(self, sub_, H_lambda=None,  Ci_lambda=None,
+                        gstar_signature_lambda=None, psf=5,
+                        contour_nlevels=None, contour_range=None,
+                        contour_values=None, contour_label_locs=None,
+                        do_log2H=False, do_Ci=False,
+                        do_siggrid=True, cmap_expt=0.5):
+        title = ('H' if H_lambda is not None else 'Ci')+'_contours_{rxhat_}'.replace('.','p')
+        xlabel = r'$\hat{p}_x$'
+        ylabel = r'$\hat{p}_z$'
+        self.prep_contour_fig(title, xlabel, ylabel)
+        grids_ = (self.pxpzhat_grids[0]*psf, self.pxpzhat_grids[1]*psf)
+        do_fmt_labels = True if psf>1000 else False
+        self.plot_H_contours(grids_, sub_,
+                             H_lambda if H_lambda is not None else Ci_lambda,
+                             gstar_signature_lambda,
+                             contour_nlevels=contour_nlevels, contour_range=contour_range,
+                             contour_values=contour_values, contour_label_locs=contour_label_locs,
+                             do_siggrid=do_siggrid, cmap_expt=cmap_expt, do_fmt_labels=do_fmt_labels,
+                             do_log2H=do_log2H, do_Ci=do_Ci, do_aspect=True, do_rxpx=False)
 
 
 class ManuscriptPlots(Graphing):
