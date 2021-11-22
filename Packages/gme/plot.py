@@ -2505,7 +2505,7 @@ class SlicingPlots(GraphingBase):
         #         .eigenvals(multiple=True)).applyfunc(sign)).dot(Matrix([1,1]))
         #         //2
         #     )
-        return gstar_signature_lambda, gstar_hessian
+        return gstar_signature_lambda #, gstar_hessian
 
     def H_rxpx_contours(self, sub_, H_lambda=None,
                         gstar_signature_lambda=None, psf=5,
