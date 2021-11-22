@@ -2513,7 +2513,7 @@ class SlicingPlots(GraphingBase):
                         contour_values=None, contour_label_locs=None,
                         do_black_contours=True,
                         do_log2H=False, do_siggrid=True, cmap_expt=0.5):
-        title = 'H_contours_{pzhat_}'.replace('.','p')
+        title = 'H_slice_{pzhat_}'.replace('.','p')
         xlabel = r'$\hat{r}^x$'
         ylabel = r'$\hat{p}_x$'
         self.prep_contour_fig(title, xlabel, ylabel)
@@ -2537,7 +2537,10 @@ class SlicingPlots(GraphingBase):
                         do_black_contours=True,
                         do_log2H=False, do_Ci=False,
                         do_siggrid=True, cmap_expt=0.5):
-        title = ('H' if H_lambda is not None else 'Ci')+'_contours_{rxhat_}'.replace('.','p')
+        title = ( ('H' if H_lambda is not None else 'Ci') + '_pslice'
+                    + f'_eta{float(eta.subs(sub_).n()):g}'
+                    + f'_rxhat{float(rxhat.subs(sub_).n()):g}'
+                ).replace('.','p')
         xlabel = r'$\hat{p}_x$'
         ylabel = r'$\hat{p}_z$'
         self.prep_contour_fig(title, xlabel, ylabel)
@@ -2614,7 +2617,7 @@ class SlicingPlots(GraphingBase):
                 beta_ = np.round(np.rad2deg(np.arctan(float(-px_/pz_))),1)
                 beta_label = r'$\beta_0$' if rxhat.subs(sub_)==0 else r'$\beta$'
                 axes.plot(np.array([0,px_*10]),np.array([0,pz_*10]), '-.', color='b',
-                          label=beta_label+r'$ = $'+rf'{beta_:g}$\degree$' if i_==0 else None)
+                          label=beta_label+r'$ = $'+rf'{beta_:g}$\degree$' if i_==0 and not do_Ci else None)
 
         # pz=pz_0 constant line
         if pxpz_points is not None:
