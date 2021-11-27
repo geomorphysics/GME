@@ -2494,6 +2494,7 @@ class SlicingPlots(GraphingBase):
         self.define_Hessian_eigenvals(sub_=sub_, var_list=var_list)
         if do_modv:
             self.define_gstarhat_lambda(sub_=sub_, var_list=var_list)
+            self.define_v_pxpzhat_lambda(sub_=sub_)
             self.define_modv_pxpzhat_lambda(sub_=sub_)
         self.pxhat_lambda = lambda sub_, rxhat_, pzhat_: solve(
             simplify(self.H_Ci_eqn.subs({rxhat:rxhat_, H:Rational(1,2), mu:eta/2})
@@ -2535,11 +2536,22 @@ class SlicingPlots(GraphingBase):
     def define_gstarhat_lambda(self, sub_, var_list):
         self.gstarhat_lambda =  lambdify( var_list, self.gstarhat_eqn.rhs.subs({mu:eta/2}).subs(sub_), modules='numpy' )
 
+    def define_v_pxpzhat_lambda(self, sub_):
+        self.v_pxpzhat_lambda = lambdify( (pxhat,pzhat),
+            simplify(((self.gstarhat_eqn.rhs.subs({mu:eta/2}).subs(sub_))*Matrix([pxhat,pzhat]))), modules='numpy' )
+
     def define_modv_pxpzhat_lambda(self, sub_):
         self.modv_pxpzhat_lambda = lambdify( (pxhat,pzhat),
             simplify(((self.gstarhat_eqn.rhs.subs({mu:eta/2}).subs(sub_))*Matrix([pxhat,pzhat])).norm()), modules='numpy' )
 
     def plot_modv_pzhat_slice(self, sub_, psub_):
+        fig_name = ('v_pz_H0p5'
+                    + f'_eta{float(eta.subs(sub_).n()):g}'
+                    + f'_Ci{deg(Ci.subs(sub_))}'
+                    + f'_rxhat{float(rxhat.subs(psub_).n()):g}'
+                   ).replace('.','p')
+        fig = self.create_figure(fig_name, fig_size=(6,5))
+
         pxhat_eqn_ = self.pxhatsqrd_Ci_polylike_eqn(sub_, pzhat) #.subs(sub_)
         pxhat_poly_ = poly(pxhat_eqn_.lhs.subs(psub_).n(),pxhat)
 
@@ -2548,20 +2560,37 @@ class SlicingPlots(GraphingBase):
                                  px_var_=pxhat, pz_var_=pzhat))
         modv0_ = self.modv_pxpzhat_lambda(pxhat0_,pzhat0_)
 
+        # For H=1/2
         pzhat_array = np.flipud(np.linspace(-30,-0,31, endpoint=True))
-        pxhat_array = [float(px_value(rxhat.subs(psub_),pzhat_, pxhat_poly_, px_var_=pxhat, pz_var_=pzhat))
-                       for pzhat_ in pzhat_array]
-        modv_array = [self.modv_pxpzhat_lambda(pxhat_,pzhat_)
-                       for pxhat_,pzhat_ in zip(pxhat_array,pzhat_array)]
+        pxhat_array = np.array([float(px_value(rxhat.subs(psub_),pzhat_, pxhat_poly_, px_var_=pxhat, pz_var_=pzhat))
+                       for pzhat_ in pzhat_array])
 
-        fig_name = ('v_pz_H0p5'
-                    + f'_eta{float(eta.subs(sub_).n()):g}'
-                    + f'_Ci{deg(Ci.subs(sub_))}'
-                    + f'_rxhat{float(rxhat.subs(psub_).n()):g}'
-                   ).replace('.','p')
-        fig = self.create_figure(fig_name, fig_size=(6,4))
-        plt.plot(pzhat_array, modv_array, 'o-', ms=3)
-        plt.plot(pzhat0_, modv0_, 'o')
+        # Force along line of constant beta0
+        # beta0_ = np.arctan(float(-pxhat0_/pzhat0_))
+        # pxhat_array = pzhat_array*(-np.tan(beta0_))
+
+        H_array = np.array([float(self.H_lambda(pxhat_,pzhat_)) for pxhat_, pzhat_ in zip(pxhat_array, pzhat_array)])
+
+        modp_array = np.sqrt(pxhat_array**2+pzhat_array**2)
+        modv_array = np.array([self.modv_pxpzhat_lambda(pxhat_,pzhat_) for pxhat_,pzhat_ in zip(pxhat_array,pzhat_array)])
+        projv_array = modv_array*np.cos(np.arctan(-pxhat_array/pzhat_array))
+        # vhat_array = ((np.array([np.array(self.v_pxpzhat_lambda(pxhat_,pzhat_))
+        #                for pxhat_,pzhat_ in zip(pxhat_array,pzhat_array)])).reshape(len(pxhat_array),2)).T
+        # pv_array = vhat_array[0]*pxhat_array+vhat_array[1]*pzhat_array
+
+        # print(H_array)
+        # plt.plot(pzhat_array, (modv_array*np.cos(np.arctan(-pxhat_array/pzhat_array))+(1/modp_array)), '-', color='k', ms=3)
+        plt.plot(pzhat_array, modv_array, 'o-', color='k', ms=3, label=r'$|\mathbf{v}|$')
+        plt.plot(pzhat_array, projv_array, '-', color='r', ms=3, label=r'$|\mathbf{v}|\cos\beta$')
+        plt.plot(pzhat_array,  (1/modp_array), '-', color='b', ms=3, label=r'$1/|\mathbf{p}|$')
+        plt.plot([pzhat0_,pzhat0_], [min(min(projv_array),min(1/modp_array)),max(max(modv_array),max(1/modp_array))], ':', color='k',
+                                        label=r'${p}_z = {p}_{z_0}$')
+        plt.legend(loc='lower left')
+        # plt.plot(pzhat_array, modv_array*np.cos(beta0_), 'o-', ms=1)
+        # plt.plot(pzhat_array, 1/modp_array, 'o-', color='g', ms=1)
+        # plt.plot(pzhat0_, modv0_, 'o')
+        # plt.plot(pxhat_array, modv_array, 'o-', ms=3)
+        # plt.plot(pzhat0_, modv0_*(float(-pxhat0_/pzhat0_)), 'o')
         plt.grid('on')
         plt.ylabel(r'$|\mathbf{\hat{v}}|$')
         plt.xlabel(r'$\hat{p}_z\left(H=\frac{1}{2}\right)$')
@@ -2569,15 +2598,16 @@ class SlicingPlots(GraphingBase):
         # eta annotation
         eta_ = eta.subs(sub_)
         axes = plt.gca()
-        plt.text(*[0.8,0.85], rf'$\eta={eta_}$',
+        x_ = 1.15
+        plt.text(*[x_,0.85], rf'$\eta={eta_}$',
                  horizontalalignment='center', verticalalignment='center', transform=axes.transAxes,
                  fontsize=16, color='k')
         # Ci annotation
-        axes.text(*[0.8,0.7], r'$\mathsf{Ci}=$'+rf'${deg(Ci.subs(sub_))}\degree$',
+        axes.text(*[x_,0.7], r'$\mathsf{Ci}=$'+rf'${deg(Ci.subs(sub_))}\degree$',
              horizontalalignment='center', verticalalignment='center', transform=axes.transAxes,
              fontsize=16, color='k')
         # rx annotation
-        axes.text(*[0.8,0.55], r'$\hat{r}^x=$'+rf'${round(rxhat.subs(psub_),2)}$', transform=axes.transAxes,
+        axes.text(*[x_,0.55], r'$\hat{r}^x=$'+rf'${round(rxhat.subs(psub_),2)}$', transform=axes.transAxes,
              horizontalalignment='center', verticalalignment='center',
              fontsize=16, color='k')
         return fig_name
@@ -2756,23 +2786,24 @@ class SlicingPlots(GraphingBase):
         axes.set_autoscale_on(False)
 
         # H() or Ci() or v() annotation
+        x_ = 1.25
         if not do_Ci:
-            axes.text(*[1.25,1.1],
+            axes.text(*[x_,1.1],
                  (r'$|\mathbf{\hat{v}}|$' if do_modv else r'$\mathcal{H}$')+vars_label,
                  horizontalalignment='center', verticalalignment='center', transform=axes.transAxes,
                  fontsize=18, color='k')
             Ci_ = Ci.subs(sub_)
-            axes.text(*[1.25,0.91], r'$\mathsf{Ci}=$'+rf'${deg(Ci_)}\degree$',
+            axes.text(*[x_,0.91], r'$\mathsf{Ci}=$'+rf'${deg(Ci_)}\degree$',
                  horizontalalignment='center', verticalalignment='center', transform=axes.transAxes,
                  fontsize=16, color='k')
         else:
-            axes.text(*[1.25,1.], r'$\mathsf{Ci}$'+vars_label,
+            axes.text(*[x_,1.], r'$\mathsf{Ci}$'+vars_label,
                  horizontalalignment='center', verticalalignment='center', transform=axes.transAxes,
                  fontsize=18, color='k')
 
         # eta annotation
         eta_ = eta.subs(sub_)
-        axes.text(*[1.25,0.8], rf'$\eta={eta_}$',
+        axes.text(*[x_,0.8], rf'$\eta={eta_}$',
                  horizontalalignment='center', verticalalignment='center', transform=axes.transAxes,
                  fontsize=16, color='k')
 
@@ -2783,7 +2814,7 @@ class SlicingPlots(GraphingBase):
         else:
             label_ = r'$\hat{r}^x=$'
             val_ = round(rxhat.subs(sub_),2)
-        axes.text(*[1.25,0.68], label_+rf'${val_}$', transform=axes.transAxes,
+        axes.text(*[x_,0.68], label_+rf'${val_}$', transform=axes.transAxes,
              horizontalalignment='center', verticalalignment='center',
              fontsize=16, color='k')
 
