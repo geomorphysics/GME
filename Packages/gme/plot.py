@@ -28,8 +28,11 @@ Imports symbols from :mod:`.symbols` module.
 
 from gmplib.plot_utils import GraphingBase
 
-from sympy import Eq, factor, re, Abs, lambdify, Rational, Matrix, simplify, diff, sign, sin, deg
+from sympy import Eq, factor, Abs, lambdify, Rational, Matrix, poly, \
+                    simplify, diff, sign, sin, deg, solve, sqrt, rad, numer, denom, im, re
 from gme.symbols import *
+from gme.equations import px_value
+from gmplib.utils import e2d, omitdict, round as gmround, convert
 import numpy as np
 from scipy.linalg import eig, eigh, det
 
@@ -2450,7 +2453,7 @@ class TheoryPlots(Graphing):
 
 class SlicingPlots(GraphingBase):
 
-    def __init__(self, H_Ci_eqn, Ci_H0p5_eqn, grid_res=301, dpi=100, font_size=11):
+    def __init__(self, gmeq, grid_res=301, dpi=100, font_size=11):
         """
         Constructor method.
 
@@ -2460,8 +2463,19 @@ class SlicingPlots(GraphingBase):
         """
         # Default construction
         super().__init__(dpi, font_size)
-        self.H_Ci_eqn = H_Ci_eqn
-        self.Ci_H0p5_eqn = Ci_H0p5_eqn
+        self.H_Ci_eqn = gmeq.H_Ci_eqn
+        self.Ci_H0p5_eqn = gmeq.degCi_H0p5_eqn
+        Lc_varphi0_xih0_Ci_eqn = Eq(Lc, solve(gmeq.xih0_Lc_varphi0_Ci_eqn.subs({}), Lc)[0])
+        self.gstarhat_eqn = Eq(gstarhat, (simplify(
+                                gmeq.gstar_varphi_pxpz_eqn.rhs
+                                    .subs(e2d(gmeq.varphi_rx_eqn))
+                                    .subs(e2d(gmeq.px_pxhat_eqn))
+                                    .subs(e2d(gmeq.pz_pzhat_eqn))
+                                    .subs(e2d(gmeq.rx_rxhat_eqn))
+                                    .subs(e2d(gmeq.varepsilon_varepsilonhat_eqn))
+                                    .subs(e2d(Lc_varphi0_xih0_Ci_eqn))
+                            ))/xih_0**2 )
+
         # Mesh grids for px-pz and rx-px space slicing plots
         self.grid_array =  np.linspace(0,1, grid_res)
         self.grid_array[self.grid_array==0.0] = 1e-6
@@ -2474,11 +2488,99 @@ class SlicingPlots(GraphingBase):
         plt.xlabel(xlabel)
         plt.ylabel(ylabel)
 
+    def define_lambdas(self, sub_, var_list, do_modv=True):
+        self.define_H_lambda(sub_=sub_, var_list=var_list)
+        self.define_Ci_lambda(sub_=sub_, var_list=var_list)
+        self.define_Hessian_eigenvals(sub_=sub_, var_list=var_list)
+        if do_modv:
+            self.define_gstarhat_lambda(sub_=sub_, var_list=var_list)
+            self.define_modv_pxpzhat_lambda(sub_=sub_)
+        self.pxhat_lambda = lambda sub_, rxhat_, pzhat_: solve(
+            simplify(self.H_Ci_eqn.subs({rxhat:rxhat_, H:Rational(1,2), mu:eta/2})
+                .subs(sub_).n().subs({pzhat:pzhat_})).subs({Abs(pxhat**1.0):pxhat}), pxhat)[0]
+        self.pzhat_lambda = lambda sub_, rxhat_, pxhat_: (solve(
+            simplify(self.H_Ci_eqn.subs({rxhat:rxhat_, H:Rational(1,2), mu:eta/2})
+                .subs(sub_).subs({pxhat:pxhat_})), pzhat)[0])
+
+    def pxhatsqrd_Ci_polylike_eqn(self, sub_, pzhat_, ):
+        tmp = (self.H_Ci_eqn.rhs.subs({pzhat:pzhat_, H:Rational(1,2), mu:eta/2})
+               .subs(omitdict(sub_,[Ci])))**2
+        return Eq(4*numer(tmp)-denom(tmp),0)
+
+    def pxhat_Ci_soln(self, eqn_, sub_, rxhat_, tolerance=1e-3):
+        solns_ = Matrix(solve(eqn_.subs(sub_),pxhat**2)).subs({rxhat:rxhat_})
+        return float(sqrt(
+            [re(soln_) for soln_ in solns_.n() if Abs(im(soln_))<tolerance and re(soln_)>0][0]
+        ))
+
+    def pxpzhat0_values(self, contour_values_, sub_):
+        pxpzhat_values_ = [None]*len(contour_values_)
+        for i_,Ci_ in enumerate(contour_values_):
+            tmp_sub_ = omitdict(sub_,[rxhat,Ci])
+            tmp_sub_[Ci] = rad(Ci_)
+            # pzhat for pxhat=1 which is true when rxhat=0
+            pzhat_ = self.pzhat_lambda(tmp_sub_,0,1).n()
+            eqn_ = self.pxhatsqrd_Ci_polylike_eqn(tmp_sub_, pzhat_)
+            x_ = float(self.pxhat_Ci_soln(eqn_, tmp_sub_, rxhat.subs(sub_)))
+            y_ = float(self.pzhat_lambda(tmp_sub_,0,1).n())
+            pxpzhat_values_[i_] = (x_,y_)
+        return pxpzhat_values_
+
     def define_H_lambda(self, sub_, var_list):
-        return lambdify(var_list, self.H_Ci_eqn.rhs.subs({mu:eta/2}).subs(sub_), 'numpy')
+        self.H_lambda =  lambdify(var_list, self.H_Ci_eqn.rhs.subs({mu:eta/2}).subs(sub_), 'numpy')
 
     def define_Ci_lambda(self, sub_, var_list):
-        return lambdify(var_list, self.Ci_H0p5_eqn.rhs.subs({H:Rational(1,2), mu:eta/2}).subs(sub_), 'numpy')
+        self.Ci_lambda = lambdify(var_list, self.Ci_H0p5_eqn.rhs.subs({H:Rational(1,2), mu:eta/2}).subs(sub_), 'numpy')
+
+    def define_gstarhat_lambda(self, sub_, var_list):
+        self.gstarhat_lambda =  lambdify( var_list, self.gstarhat_eqn.rhs.subs({mu:eta/2}).subs(sub_), modules='numpy' )
+
+    def define_modv_pxpzhat_lambda(self, sub_):
+        self.modv_pxpzhat_lambda = lambdify( (pxhat,pzhat),
+            simplify(((self.gstarhat_eqn.rhs.subs({mu:eta/2}).subs(sub_))*Matrix([pxhat,pzhat])).norm()), modules='numpy' )
+
+    def plot_modv_pzhat_slice(self, sub_, psub_):
+        pxhat_eqn_ = self.pxhatsqrd_Ci_polylike_eqn(sub_, pzhat) #.subs(sub_)
+        pxhat_poly_ = poly(pxhat_eqn_.lhs.subs(psub_).n(),pxhat)
+
+        pzhat0_ = float(self.pzhat_lambda(sub_,0,1).n())
+        pxhat0_ = float(px_value(rxhat.subs(psub_), pzhat0_, pxhat_poly_,
+                                 px_var_=pxhat, pz_var_=pzhat))
+        modv0_ = self.modv_pxpzhat_lambda(pxhat0_,pzhat0_)
+
+        pzhat_array = np.flipud(np.linspace(-30,-0,31, endpoint=True))
+        pxhat_array = [float(px_value(rxhat.subs(psub_),pzhat_, pxhat_poly_, px_var_=pxhat, pz_var_=pzhat))
+                       for pzhat_ in pzhat_array]
+        modv_array = [self.modv_pxpzhat_lambda(pxhat_,pzhat_)
+                       for pxhat_,pzhat_ in zip(pxhat_array,pzhat_array)]
+
+        fig_name = ('v_pz_H0p5'
+                    + f'_eta{float(eta.subs(sub_).n()):g}'
+                    + f'_Ci{deg(Ci.subs(sub_))}'
+                    + f'_rxhat{float(rxhat.subs(psub_).n()):g}'
+                   ).replace('.','p')
+        fig = self.create_figure(fig_name, fig_size=(6,4))
+        plt.plot(pzhat_array, modv_array, 'o-', ms=3)
+        plt.plot(pzhat0_, modv0_, 'o')
+        plt.grid('on')
+        plt.ylabel(r'$|\mathbf{\hat{v}}|$')
+        plt.xlabel(r'$\hat{p}_z\left(H=\frac{1}{2}\right)$')
+
+        # eta annotation
+        eta_ = eta.subs(sub_)
+        axes = plt.gca()
+        plt.text(*[0.8,0.85], rf'$\eta={eta_}$',
+                 horizontalalignment='center', verticalalignment='center', transform=axes.transAxes,
+                 fontsize=16, color='k')
+        # Ci annotation
+        axes.text(*[0.8,0.7], r'$\mathsf{Ci}=$'+rf'${deg(Ci.subs(sub_))}\degree$',
+             horizontalalignment='center', verticalalignment='center', transform=axes.transAxes,
+             fontsize=16, color='k')
+        # rx annotation
+        axes.text(*[0.8,0.55], r'$\hat{r}^x=$'+rf'${round(rxhat.subs(psub_),2)}$', transform=axes.transAxes,
+             horizontalalignment='center', verticalalignment='center',
+             fontsize=16, color='k')
+        return fig_name
 
     def define_Hessian_eigenvals(self, sub_, var_list):
         H_Ci_ = self.H_Ci_eqn.rhs
@@ -2495,89 +2597,47 @@ class SlicingPlots(GraphingBase):
                                         .n()
         )
         gstar_hessian_lambda = lambdify( var_list, gstar_hessian )
-        # print('hessian', flush=True)
-        gstar_signature_lambda = lambda x_,y_: np.int(np.sum(np.sign(np.linalg.eigh(
+        self.gstar_signature_lambda = lambda x_,y_: np.int(np.sum(np.sign(np.linalg.eigh(
             np.array(gstar_hessian_lambda(x_,y_),dtype=np.float) )[0])))//2
-            # np.array(gstar_hessian.subs({var_list[0]:x_, var_list[1]:y_}),dtype=np.float) )[0])))//2
-        # gstar_signature_lambda = lambda x_,y_: np.int( (
-        #     Matrix(gstar_hessian.subs({var_list[0]:x_, var_list[1]:y_})
-        #         .eigenvals(multiple=True)).applyfunc(sign)).dot(Matrix([1,1]))
-        #         //2
-        #     )
-        return gstar_signature_lambda #, gstar_hessian
 
-    def H_rxpx_contours(self, sub_, H_lambda=None, Ci_lambda=None,
-                        gstar_signature_lambda=None,
-                        rxpx_points=None, psf=5,
-                        contour_nlevels=None, contour_range=None,
-                        contour_values=None, contour_label_locs=None,
-                        do_black_contours=True,
-                        do_log2H=False, do_siggrid=True, cmap_expt=0.5):
-        title = ( ('H' if H_lambda is not None else 'Ci') + '_rslice'
-                    + f'_eta{float(eta.subs(sub_).n()):g}'
-                    + f'_Ci{deg(Ci.subs(sub_))}'
-                ).replace('.','p')
-        xlabel = r'$\hat{r}^x$'
-        ylabel = r'$\hat{p}_x$'
-        self.prep_contour_fig(title, xlabel, ylabel)
-        grids_ = (self.rxpxhat_grids[0],self.rxpxhat_grids[1]*psf)
-        do_fmt_labels = True if psf>1000 else False
-        plt.grid(':')
-        self.plot_H_contours(grids_ ,sub_,
-                             H_lambda, gstar_signature_lambda, contour_nlevels,
-                             rxpx_points=rxpx_points,
-                             contour_nlevels=contour_nlevels, contour_range=contour_range,
-                             contour_values=contour_values, contour_label_locs=contour_label_locs,
-                             do_black_contours=do_black_contours,
-                             do_siggrid=do_siggrid, cmap_expt=cmap_expt, do_fmt_labels=do_fmt_labels,
-                             do_log2H=do_log2H, do_Ci=False, do_aspect=False, do_rxpx=True)
+    def H_rxpx_contours(self, sub_, psf, do_Ci, **kwargs):
+        return self.plot_Hetc_contours((self.rxpxhat_grids[0],self.rxpxhat_grids[1]*psf), sub_, do_Ci=do_Ci,
+                                        do_fmt_labels=True if psf>1000 else False, do_aspect=False, do_rxpx=True, do_grid=True,
+                                        **kwargs)
 
-    def H_pxpz_contours(self, sub_, H_lambda=None, Ci_lambda=None,
-                        gstar_signature_lambda=None,
-                        pxpz_points=None, psf=5,
-                        contour_nlevels=[4,5], contour_range=[0,4.5],
-                        contour_values=None, contour_label_locs=None,
-                        do_black_contours=True,
-                        do_log2H=False, do_Ci=False,
-                        do_siggrid=True, cmap_expt=0.5):
-        title = ( ('H' if H_lambda is not None else 'Ci') + '_pslice'
-                    + f'_eta{float(eta.subs(sub_).n()):g}'
-                    + f'_rxhat{float(rxhat.subs(sub_).n()):g}'
-                ).replace('.','p')
-        xlabel = r'$\hat{p}_x$'
-        ylabel = r'$\hat{p}_z$'
-        self.prep_contour_fig(title, xlabel, ylabel)
-        grids_ = (self.pxpzhat_grids[0]*psf, self.pxpzhat_grids[1]*psf)
-        do_fmt_labels = True if psf>1000 else False
-        self.plot_H_contours(grids_, sub_,
-                             H_lambda if H_lambda is not None else Ci_lambda,
-                             gstar_signature_lambda,
-                             pxpz_points=pxpz_points,
-                             contour_nlevels=contour_nlevels, contour_range=contour_range,
-                             contour_values=contour_values, contour_label_locs=contour_label_locs,
-                             do_black_contours=do_black_contours,
-                             do_siggrid=do_siggrid, cmap_expt=cmap_expt, do_fmt_labels=do_fmt_labels,
-                             do_log2H=do_log2H, do_Ci=do_Ci, do_aspect=True, do_rxpx=False)
+    def H_pxpz_contours(self, sub_, psf, do_Ci, **kwargs):
+        return self.plot_Hetc_contours((self.pxpzhat_grids[0]*psf, self.pxpzhat_grids[1]*psf), sub_, do_Ci=do_Ci,
+                                        do_fmt_labels=True if psf>1000 else False, do_aspect=True, do_rxpx=False, do_grid=False,
+                                        **kwargs )
 
-    def plot_H_contours(self, grids_, sub_,
-                        H_lambda, gstar_signature_lambda,
-                        pxpz_points=None, rxpx_points=None,
-                        contour_nlevels=None, contour_range=None,
-                        contour_values=None, contour_label_locs=None,
-                        do_black_contours=False,
-                        do_siggrid=True, cmap_expt=0.25,
-                        do_fmt_labels=False, do_log2H=False, do_Ci=False,
-                        do_aspect=True, do_rxpx=False):
+    def plot_Hetc_contours(self, grids_, sub_, do_Ci, do_modv=False,
+                            do_fmt_labels=False, do_aspect=True, do_rxpx=False,
+                            pxpz_points=None, rxpx_points=None,
+                            do_log2H=False, do_siggrid=True, do_black_contours=False, do_grid=True,
+                            contour_nlevels=None, contour_range=None, v_contour_range=None,
+                            contour_values=None, contour_label_locs=None,
+                            cmap_expt=0.5):
         # Create figure
-        fig = self.fig
-        axes = self.axes
+        title = ( ('Ci' if do_Ci else ('v' if do_modv else 'H')) + ('_pslice' if do_rxpx else '_pslice')
+                    + f'_eta{float(eta.subs(sub_).n()):g}'
+                    + ( f'_Ci{deg(Ci.subs(sub_))}' if do_rxpx else f'_rxhat{float(rxhat.subs(sub_).n()):g}')
+                ).replace('.','p')
+        fig = self.create_figure(title, fig_size=(6,6))
+        axes = plt.gca()
+        labels = ('\hat{r}^x', '\hat{p}_x') if do_rxpx else ('\hat{p}_x', '\hat{p}_z')
+        xlabel, ylabel = [rf'${label_}$' for label_ in labels]
+        vars_label = r'$\left({},{}\right)$'.format(*labels)
+        plt.xlabel(xlabel)
+        plt.ylabel(ylabel)
+        if do_grid: plt.grid(':')
 
         # Generate a grid of H or Ci for a meshgrid of (px,pz) or (rx,px)
-        H_grid_ = H_lambda(*grids_)
+        H_grid_ = self.Ci_lambda(*grids_) if do_Ci else self.H_lambda(*grids_)
+        modv_grid_ = self.modv_pxpzhat_lambda(*grids_) if (do_modv and not do_rxpx) else None
         # H_grid_[np.isnan(H_grid_)] = 0
-        if gstar_signature_lambda is not None:
+        if do_siggrid:
             gstar_signature_grid_ = np.array(grids_[0].shape) # for i_ in [1,2]]
-            gstar_signature_grid_ = np.array([gstar_signature_lambda(x_,y_)
+            gstar_signature_grid_ = np.array([self.gstar_signature_lambda(x_,y_)
                      for x_,y_ in zip(grids_[0].flatten(),grids_[1].flatten())])\
                      .reshape((grids_[0]).shape)
             gstar_signature_grid_[np.isnan(gstar_signature_grid_)] = 0
@@ -2588,7 +2648,7 @@ class SlicingPlots(GraphingBase):
                 for axis_ in [axes.xaxis, axes.yaxis]]
 
         # Metric signature colour background
-        if do_siggrid and gstar_signature_lambda is not None:
+        if do_siggrid:
             cmap_name = 'PiYG'  #, 'plasma_r'
             cmap_ = plt.get_cmap(cmap_name)
             cf = axes.contourf(*grids_, gstar_signature_grid_, levels=1, cmap=cmap_)
@@ -2638,6 +2698,19 @@ class SlicingPlots(GraphingBase):
         # Contouring
         cmap_ = plt.get_cmap('Greys_r')
         colors_ = ['k']
+
+        # print(H_grid_.shape, modv_grid_.shape)
+        if do_modv:
+            fmt_modv = lambda modv_: f'{modv_:g}'
+            # levels_ = np.linspace(0,0.5, 51, endpoint=True)
+            levels_ = np.linspace(*v_contour_range, contour_nlevels, endpoint=True)
+            modv_contours_ = axes.contour(*grids_, modv_grid_, levels_, cmap=cmap_)
+                                     # levels_[levels_!=levels_H0p5[0]], linestyles=['solid'],
+                                     # cmap=cmap_ if not do_black_contours else None,
+                                     # colors=colors_ if do_black_contours else None)
+            axes.clabel(modv_contours_, fmt=fmt_modv, inline=True, colors='0.3', fontsize=9)
+
+
         if contour_values is None:
             # Contour levels, label formats
             if do_log2H:
@@ -2682,28 +2755,25 @@ class SlicingPlots(GraphingBase):
 
         axes.set_autoscale_on(False)
 
-        # H() or Ci() annotation
-        if do_rxpx:
-            vars_label = r'$\left(\hat{r}^x,\hat{p}_x\right)$'
-        else:
-            vars_label = r'$\left(\hat{p}_x,\hat{p}_z\right)$'
+        # H() or Ci() or v() annotation
         if not do_Ci:
-            axes.text(*[1.25,1.1], r'$\mathcal{H}$'+vars_label, transform=axes.transAxes,
-                 horizontalalignment='center', verticalalignment='center',
+            axes.text(*[1.25,1.1],
+                 (r'$|\mathbf{\hat{v}}|$' if do_modv else r'$\mathcal{H}$')+vars_label,
+                 horizontalalignment='center', verticalalignment='center', transform=axes.transAxes,
                  fontsize=18, color='k')
             Ci_ = Ci.subs(sub_)
-            axes.text(*[1.25,0.91], r'$\mathsf{Ci}=$'+rf'${deg(Ci_)}\degree$', transform=axes.transAxes,
-                 horizontalalignment='center', verticalalignment='center',
+            axes.text(*[1.25,0.91], r'$\mathsf{Ci}=$'+rf'${deg(Ci_)}\degree$',
+                 horizontalalignment='center', verticalalignment='center', transform=axes.transAxes,
                  fontsize=16, color='k')
         else:
-            axes.text(*[1.25,1.], r'$\mathsf{Ci}$'+vars_label, transform=axes.transAxes,
-                 horizontalalignment='center', verticalalignment='center',
+            axes.text(*[1.25,1.], r'$\mathsf{Ci}$'+vars_label,
+                 horizontalalignment='center', verticalalignment='center', transform=axes.transAxes,
                  fontsize=18, color='k')
 
         # eta annotation
         eta_ = eta.subs(sub_)
-        axes.text(*[1.25,0.8], rf'$\eta={eta_}$', transform=axes.transAxes,
-                 horizontalalignment='center', verticalalignment='center',
+        axes.text(*[1.25,0.8], rf'$\eta={eta_}$',
+                 horizontalalignment='center', verticalalignment='center', transform=axes.transAxes,
                  fontsize=16, color='k')
 
         # pz or rx annotation
@@ -2718,7 +2788,7 @@ class SlicingPlots(GraphingBase):
              fontsize=16, color='k')
 
         axes.legend(loc=[1.07,0.29], fontsize=15, framealpha=0)
-        return gstar_signature_grid_
+        return title
 
 
 class ManuscriptPlots(Graphing):

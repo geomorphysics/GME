@@ -91,35 +91,37 @@ def gradient_value(x_, pz_, px_poly_eqn, do_use_newton=False, parameters={}):
     px_ = -px_value_newton(x_,pz_, px_poly_eqn) if do_use_newton else -px_value(x_,pz_, px_poly_eqn)
     return float(px_/pz_)
 
-def px_value_newton(x_, pz_, px_poly_eqn, px_guess=0.01):
+def px_value_search(x_, pz_, px_poly_eqn, method='newton',
+                    px_guess=0.01, px_var_=px, pz_var_=pz, bracket=[0,30]):
     """
     TODO.
 
     Args:
         TODO
     """
-    px_poly_eqn_ = px_poly_eqn.subs({rx:x_,x:x_,pz:pz_})
-    px_poly_lambda = lambdify( [px], px_poly_eqn_.as_expr() )
-    dpx_poly_lambda = lambdify( [px], diff(px_poly_eqn_.as_expr(),px) )
+    px_poly_eqn_ = px_poly_eqn.subs({rx:x_,x:x_,pz_var_:pz_})
+    px_poly_lambda = lambdify( [px_var_], px_poly_eqn_.as_expr() )
+    dpx_poly_lambda = lambdify( [px_var_], diff(px_poly_eqn_.as_expr(),px_var_) ) if method=='newton' else None
+    bracket_ = bracket if method=='brentq' else None
     for px_guess_ in [1, px_guess]:
-        px_root_search = root_scalar( px_poly_lambda, fprime=dpx_poly_lambda, method='newton', x0=px_guess_ )
+        px_root_search = root_scalar( px_poly_lambda, fprime=dpx_poly_lambda, bracket=bracket_, method=method, x0=px_guess_ )
         if px_root_search.converged:
             break
     # px_root_search = root_scalar( px_poly_lambda, fprime=dpx_poly_lambda, method='newton', x0=px_guess )
     px_ = px_root_search.root
     return px_
 
-def px_value(x_, pz_, px_poly_eqn):
+def px_value(x_, pz_, px_poly_eqn, px_var_=px, pz_var_=pz):
     """
     TODO.
 
     Args:
         TODO
     """
-    px_poly_eqn_ = poly(px_poly_eqn.subs({rx:x_,x:x_,pz:pz_}))
+    px_poly_eqn_ = poly(px_poly_eqn.subs({rx:x_,x:x_,pz_var_:pz_}))
     px_poly_roots = nroots(px_poly_eqn_)
     pxgen = [root_ for root_ in px_poly_roots if Abs(im(root_))<1e-10 and re(root_)>0][0]
-    return solve(Eq(px_poly_eqn_.gens[0],pxgen),px)[0]
+    return solve(Eq(px_poly_eqn_.gens[0],pxgen),px_var_)[0]
 
 
 class EquationSubset:
