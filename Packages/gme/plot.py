@@ -2551,6 +2551,7 @@ class SlicingPlots(GraphingBase):
                     + f'_rxhat{float(rxhat.subs(psub_).n()):g}'
                    ).replace('.','p')
         fig = self.create_figure(fig_name, fig_size=(6,5))
+        axes = plt.gca()
 
         pxhat_eqn_ = self.pxhatsqrd_Ci_polylike_eqn(sub_, pzhat) #.subs(sub_)
         pxhat_poly_ = poly(pxhat_eqn_.lhs.subs(psub_).n(),pxhat)
@@ -2561,55 +2562,40 @@ class SlicingPlots(GraphingBase):
         modv0_ = self.modv_pxpzhat_lambda(pxhat0_,pzhat0_)
 
         # For H=1/2
-        pzhat_array = np.flipud(np.linspace(-30,-0,31, endpoint=True))
+        pzhat_array = np.flipud(np.linspace(-30,0,31, endpoint=True if rxhat.subs(psub_)<0.95 and eta.subs(sub)<1 else False))
         pxhat_array = np.array([float(px_value(rxhat.subs(psub_),pzhat_, pxhat_poly_, px_var_=pxhat, pz_var_=pzhat))
                        for pzhat_ in pzhat_array])
-
-        # Force along line of constant beta0
-        # beta0_ = np.arctan(float(-pxhat0_/pzhat0_))
-        # pxhat_array = pzhat_array*(-np.tan(beta0_))
 
         H_array = np.array([float(self.H_lambda(pxhat_,pzhat_)) for pxhat_, pzhat_ in zip(pxhat_array, pzhat_array)])
 
         modp_array = np.sqrt(pxhat_array**2+pzhat_array**2)
         modv_array = np.array([self.modv_pxpzhat_lambda(pxhat_,pzhat_) for pxhat_,pzhat_ in zip(pxhat_array,pzhat_array)])
         projv_array = modv_array*np.cos(np.arctan(-pxhat_array/pzhat_array))
-        # vhat_array = ((np.array([np.array(self.v_pxpzhat_lambda(pxhat_,pzhat_))
-        #                for pxhat_,pzhat_ in zip(pxhat_array,pzhat_array)])).reshape(len(pxhat_array),2)).T
-        # pv_array = vhat_array[0]*pxhat_array+vhat_array[1]*pzhat_array
 
-        # print(H_array)
-        # plt.plot(pzhat_array, (modv_array*np.cos(np.arctan(-pxhat_array/pzhat_array))+(1/modp_array)), '-', color='k', ms=3)
-        plt.plot(pzhat_array, modv_array, 'o-', color='k', ms=3, label=r'$|\mathbf{v}|$')
-        plt.plot(pzhat_array, projv_array, '-', color='r', ms=3, label=r'$|\mathbf{v}|\cos\beta$')
-        plt.plot(pzhat_array,  (1/modp_array), '-', color='b', ms=3, label=r'$1/|\mathbf{p}|$')
-        plt.plot([pzhat0_,pzhat0_], [min(min(projv_array),min(1/modp_array)),max(max(modv_array),max(1/modp_array))], ':', color='k',
-                                        label=r'${p}_z = {p}_{z_0}$')
+        plt.xlim(min(pzhat_array),max(pzhat_array))
+        plt.ylim(0,max(modv_array)*1.05)
+        axes.set_autoscale_on(False)
+
+        plt.plot(pzhat_array, modv_array, 'o-', color='k', ms=3, label=r'$|\mathbf{\hat{v}}|$')
+        plt.plot(pzhat_array, projv_array, '-', color='r', ms=3, label=r'$|\mathbf{\hat{v}}|\cos\beta$')
+        plt.plot(pzhat_array,  (1/modp_array), '-', color='b', ms=3, label=r'$1/|\mathbf{\hat{p}}|$')
+        plt.plot([pzhat0_,pzhat0_], [0,max(modv_array)*1.05], ':', color='k', label=r'$\hat{p}_z = \hat{p}_{z_0}$')
+
         plt.legend(loc='lower left')
-        # plt.plot(pzhat_array, modv_array*np.cos(beta0_), 'o-', ms=1)
-        # plt.plot(pzhat_array, 1/modp_array, 'o-', color='g', ms=1)
-        # plt.plot(pzhat0_, modv0_, 'o')
-        # plt.plot(pxhat_array, modv_array, 'o-', ms=3)
-        # plt.plot(pzhat0_, modv0_*(float(-pxhat0_/pzhat0_)), 'o')
         plt.grid('on')
-        plt.ylabel(r'$|\mathbf{\hat{v}}|$')
+        plt.ylabel(r'$|\mathbf{\hat{v}}|$  or  $|\mathbf{\hat{v}}|\cos\beta$  or  $1/|\mathbf{\hat{p}}|$')
         plt.xlabel(r'$\hat{p}_z\left(H=\frac{1}{2}\right)$')
 
-        # eta annotation
-        eta_ = eta.subs(sub_)
-        axes = plt.gca()
+        # Annotations
         x_ = 1.15
-        plt.text(*[x_,0.85], rf'$\eta={eta_}$',
-                 horizontalalignment='center', verticalalignment='center', transform=axes.transAxes,
-                 fontsize=16, color='k')
-        # Ci annotation
-        axes.text(*[x_,0.7], r'$\mathsf{Ci}=$'+rf'${deg(Ci.subs(sub_))}\degree$',
-             horizontalalignment='center', verticalalignment='center', transform=axes.transAxes,
-             fontsize=16, color='k')
-        # rx annotation
-        axes.text(*[x_,0.55], r'$\hat{r}^x=$'+rf'${round(rxhat.subs(psub_),2)}$', transform=axes.transAxes,
-             horizontalalignment='center', verticalalignment='center',
-             fontsize=16, color='k')
+        for i_,label_ in enumerate([r'$\mathcal{H}=\frac{1}{2}$',
+                                    r'$\mathbf{\hat{p}}(\mathbf{\hat{v}})=1$',
+                                    rf'$\eta={eta.subs(sub_)}$',
+                                    r'$\mathsf{Ci}=$'+rf'${deg(Ci.subs(sub_))}\degree$',
+                                    r'$\hat{r}^x=$'+rf'${round(rxhat.subs(psub_),2)}$' ]):
+            plt.text( *(x_,0.9-i_*0.15), label_, fontsize=16, color='k',
+                     horizontalalignment='center', verticalalignment='center', transform=axes.transAxes )
+
         return fig_name
 
     def define_Hessian_eigenvals(self, sub_, var_list):
