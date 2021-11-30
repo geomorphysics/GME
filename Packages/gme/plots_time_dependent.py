@@ -178,7 +178,7 @@ class TimeDependentPlots(Graphing):
                                     ray_label+' ($t_{\mathrm{newest}}$)' if i_ray==n_rays-1 else
                                     None)
                     if do_annotate_rays:
-                        self.arrow_annotate_ray_custom(rx_array, rz_array, axes, sub, i_ray, ray_subsetting, n_rays,
+                        self.arrow_annotate_ray_custom(rx_array, rz_array, axes, i_ray, ray_subsetting, n_rays,
                                                        n_arrows, arrow_sf, arrow_offset,
                                                        x_limits=x_limits, y_limits=y_limits,
                                                        line_style=ray_ls, line_width=ray_lw,
