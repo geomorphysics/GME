@@ -130,7 +130,7 @@ class EquationSubset:
         sub = parameters.copy()
         if do_revert and do_ndim:
             undimsub = {pxhat:px, pzhat:pz, rxhat:rx, xivhat:xiv,
-                        varphi_rhat:varphi_rx, varphi_rxhat:varphi_rx,
+                        varphi_rhat:varphi_rx, varphi_rxhat_fn:varphi_rx,
                         rdotxhat_thatfn:rdotx_tfn, rdotzhat_thatfn:rdotz_tfn,
                         pdotxhat_thatfn:pdotx_tfn, pdotzhat_thatfn:pdotz_tfn}
         else:
@@ -320,9 +320,9 @@ class Equations:
                 :math:`\xi^{\perp} = \varphi(\mathbf{r}) \, \left| \sin\beta \right|^\eta`
         """
         if self.beta_type=='sin':
-            xi_model = varphi_r*abs(sin(beta))**eta
+            xi_model = varphi_r(rvec)*abs(sin(beta))**eta
         else:
-            xi_model = varphi_r*abs(tan(beta))**eta
+            xi_model = varphi_r(rvec)*abs(tan(beta))**eta
         self.xi_varphi_beta_raw_eqn = Eq(xi, xi_model)
         # self.xi_varphi_beta_eqn = Eq(xi, xi_model)
         if self.do_raw:
@@ -391,20 +391,20 @@ class Equations:
         # The implicit assumption here is that upstream area A ~ x^2, which will not be true
         #   for a "hillslope" component, and for which we should have a transition to A ~ x
         if do_new:
-            self.varphi_model_ramp_eqn = Eq(varphi_r, varphi_0*(x+varepsilon)**(mu*2) ).subs({x:x_1-rx})
+            self.varphi_model_ramp_eqn = Eq(varphi_r(rvec), varphi_0*(x+varepsilon)**(mu*2) ).subs({x:x_1-rx})
         else:
-            self.varphi_model_ramp_eqn = Eq(varphi_r, varphi_0*((x/x_1)**(mu*2) + varepsilon)).subs({x:x_1-rx})
+            self.varphi_model_ramp_eqn = Eq(varphi_r(rvec), varphi_0*((x/x_1)**(mu*2) + varepsilon)).subs({x:x_1-rx})
 
 
         # self.varphi_model_rampmu_chi0_eqn = Eq(varphi_r, varphi_0*((x/x_1)**(mu*2) + varepsilon)).subs({x:x_1-rx})
-        self.varphi_model_rampflat_eqn = Eq(varphi_r, simplify(
+        self.varphi_model_rampflat_eqn = Eq(varphi_r(rvec), simplify(
             varphi_0*(  (chi/(x_1))*integrate(1/(1+sy.exp(-x/x_sigma)),x) + 1 )
                                 .subs({x:-rx+x_1}) ))
         smooth_step_fn = 1/(1+exp(((x_1-x_h)-x)/x_sigma))
         # smooth_break_fn = (1+(chi/(x_1))**mu*integrate(smooth_step_fn,x))
         # TODO: fix deprecated chi usage
         smooth_break_fn = simplify( ((chi/(x_1))*(sy.integrate(smooth_step_fn,x))-chi*(1-x_h/x_1)+1)**(mu*2) )
-        self.varphi_model_rampflatmu_eqn = Eq(varphi_r, simplify(
+        self.varphi_model_rampflatmu_eqn = Eq(varphi_r(rvec), simplify(
                     varphi_0*smooth_break_fn.subs({x:x_1-x})
                                 .subs({x:rx}) ))
         if self.varphi_type=='ramp':
@@ -467,7 +467,9 @@ class Equations:
         #     self.p_varphi_pxpz_eqn = simplify(Eq(self.p_varphi_pxpz_eqn.lhs/sqrt(px**2+pz**2),
         #                                     self.p_varphi_pxpz_eqn.rhs/sqrt(px**2+pz**2)))
 
-        self.p_rx_pxpz_eqn = simplify( self.p_varphi_pxpz_eqn.subs({varphi_r:self.varphi_rx_eqn.rhs}) )
+        self.p_rx_pxpz_eqn = simplify(
+                self.p_varphi_pxpz_eqn.subs({varphi_r(rvec):self.varphi_rx_eqn.rhs})
+        )
         self.p_rx_tanbeta_eqn = self.p_rx_pxpz_eqn.subs({pz:self.pz_px_tanbeta_eqn.rhs})
         self.px_beta_eqn = Eq(px, self.p_rx_tanbeta_eqn.rhs * sin(beta) )
         self.pz_beta_eqn = Eq(pz, -self.p_rx_tanbeta_eqn.rhs * cos(beta) )
@@ -497,7 +499,7 @@ class Equations:
         # Note force px >= 0
         self.Okubo_Fstar_eqn = simplify( Eq(self.p_norm_pxpz_eqn.rhs/Fstar, self.p_varphi_pxpz_eqn.rhs, ) \
                                             .subs({Abs(px):px,sy.sign(px):1}) )
-        self.Fstar_eqn = Eq(Fstar, (solve(self.Okubo_Fstar_eqn,Fstar)[0]).subs({varphi_rx:varphi})) \
+        self.Fstar_eqn = Eq(Fstar, (solve(self.Okubo_Fstar_eqn,Fstar)[0]).subs({varphi_rx(rx):varphi})) \
                                             .subs({Abs(px):px,sy.sign(px):1})
 
 
@@ -515,7 +517,7 @@ class Equations:
         self.H_eqn =  ( Eq( H, simplify(self.Fstar_eqn.rhs**2/2) )
                                 # .subs({Abs(px):px,sy.sign(px):1})
                             )
-        self.H_varphi_rx_eqn = simplify(self.H_eqn.subs(varphi_r,self.varphi_rx_eqn.rhs))
+        self.H_varphi_rx_eqn = simplify(self.H_eqn.subs(varphi_r(rvec),self.varphi_rx_eqn.rhs))
 
 
     def define_rdot_eqns(self):
@@ -577,7 +579,7 @@ class Equations:
         self.pdotx_pxpz_eqn = simplify(Eq(pdotx, (-diff(self.H_varphi_rx_eqn.rhs,rx)) ))\
                                 .subs({Abs(pz):-pz,Abs(px):px,Abs(px*pz):-px*pz,Abs(px/pz):-px/pz})
         self.pdotz_pxpz_eqn = simplify(Eq(pdotz,
-                (0*diff(self.varphi_rx_eqn.rhs,rx)*(-self.tanbeta_pxpz_eqn.rhs)*self.H_eqn.rhs/varphi_r) ))
+                (0*diff(self.varphi_rx_eqn.rhs,rx)*(-self.tanbeta_pxpz_eqn.rhs)*self.H_eqn.rhs/varphi_r(rvec)) ))
         self.pdot_covec_eqn = Eq(pdotcovec, Matrix([[self.pdotx_pxpz_eqn.rhs], [self.pdotz_pxpz_eqn.rhs]]).T)
 
 
@@ -622,14 +624,14 @@ class Equations:
         self.varepsilonhat_varepsilon_eqn = Eq(varepsilonhat,
                                     solve(self.varepsilon_varepsilonhat_eqn,varepsilonhat)[0])
 
-        self.varphi_rxhat_eqn = Eq(varphi_rxhat,
+        self.varphi_rxhat_eqn = Eq(varphi_rxhat_fn(rxhat),
                                     factor(self.varphi_rx_eqn.rhs
                                            .subs(e2d(self.rx_rxhat_eqn))
                                            .subs(e2d(self.varepsilon_varepsilonhat_eqn))
                                            .subs(varsub)) )
 
         self.xi_rxhat_eqn = simplify( self.xi_varphi_beta_eqn
-                                        .subs({varphi_r:varphi_rxhat})
+                                        .subs({varphi_r(rvec):varphi_rxhat_fn(rxhat)})
                                         .subs(e2d(self.varphi_rxhat_eqn)) )
 
         self.xih0_beta0_eqn = simplify( Eq(xih_0,
@@ -680,11 +682,11 @@ class Equations:
         self.Ci_beta0_eqn = Eq(Ci, asin(self.sinCi_beta0_eqn.rhs) )
         self.beta0_Ci_eqn = Eq(beta_0, sy.solve(self.Ci_beta0_eqn, beta_0)[1])
 
-        self.rdotxhat_eqn = Eq(rdotxhat_thatfn, simplify(sy.diff(self.H_Ci_eqn.rhs,pxhat)))
-        self.rdotzhat_eqn = Eq(rdotzhat_thatfn, simplify(sy.diff(self.H_Ci_eqn.rhs,pzhat)))
+        self.rdotxhat_eqn = Eq(rdotxhat_thatfn(that), simplify(sy.diff(self.H_Ci_eqn.rhs,pxhat)))
+        self.rdotzhat_eqn = Eq(rdotzhat_thatfn(that), simplify(sy.diff(self.H_Ci_eqn.rhs,pzhat)))
 
-        self.pdotxhat_eqn = Eq(pdotxhat_thatfn, simplify(-sy.diff(self.H_Ci_eqn.rhs,rxhat)))
-        self.pdotzhat_eqn = Eq(pdotzhat_thatfn, simplify(-sy.diff(self.H_Ci_eqn.rhs,rzhat)))
+        self.pdotxhat_eqn = Eq(pdotxhat_thatfn(that), simplify(-sy.diff(self.H_Ci_eqn.rhs,rxhat)))
+        self.pdotzhat_eqn = Eq(pdotzhat_thatfn(that), simplify(-sy.diff(self.H_Ci_eqn.rhs,rzhat)))
 
         self.xih0_Ci_eqn = factor( self.xih0_beta0_eqn.subs(e2d(self.beta0_Ci_eqn)) )
 
@@ -946,7 +948,7 @@ class Equations:
         eta_sub = {eta: self.eta}
         pz_cosbeta_varphi_tmp_eqn = ( self.pz_p_beta_eqn
          .subs({p:self.p_varphi_beta_eqn.rhs})
-         .subs({varphi_r:varphi})
+         .subs({varphi_r(rvec):varphi})
          .subs(eta_sub)
          .subs({Abs(tan(beta)):Abs(sin(beta))/Abs(cos(beta))})
          .subs({Abs(cos(beta)):cos(beta), Abs(sin(beta)):sin(beta)})
@@ -1253,7 +1255,7 @@ class Equations:
             if eta_choice<=1:
                 tmp_eqn = separatevars(simplify(self.px_xiv_varphi_eqn
                                                    .subs({eta:eta_choice})
-                                                   .subs({varphi_r:self.varphi_rxhat_eqn.rhs})
+                                                   .subs({varphi_r(rvec):self.varphi_rxhat_eqn.rhs})
                                                    .subs(e2d(self.px_pxhat_eqn))
                                                    .subs(e2d(varphi0_eqn))))
                 self.poly_pxhat_xiv_eqn = simplify(Eq( (numer(tmp_eqn.lhs)-denom(tmp_eqn.lhs)*(tmp_eqn.rhs))/xiv**2, 0))
@@ -1261,7 +1263,7 @@ class Equations:
             else:
                 tmp_eqn = separatevars(simplify(self.px_xiv_varphi_eqn
                                                    .subs({eta:eta_choice})
-                                                   .subs({varphi_r:self.varphi_rxhat_eqn.rhs})
+                                                   .subs({varphi_r(rvec):self.varphi_rxhat_eqn.rhs})
                                                    .subs(e2d(self.px_pxhat_eqn))
                                                    .subs(e2d(varphi0_eqn))))
                 self.poly_pxhat_xiv_eqn = simplify(Eq( (numer(tmp_eqn.lhs)-denom(tmp_eqn.lhs)*(tmp_eqn.rhs))/xiv**2, 0))
@@ -1290,7 +1292,7 @@ class Equations:
         self.pz0_xiv0_eqn = pz0_xiv0_eqn = Eq(pz_0, (-1/xiv_0)) # changed sign
         self.pzpx_unity_eqn = expand(simplify(
             self.rdot_p_unity_eqn.subs({rdotx:self.rdotx_pxpz_eqn.rhs,
-                            rdotz:self.rdotz_pxpz_eqn.rhs}).subs({varphi_r:varphi}) )).subs({Abs(pz):-pz})
+                            rdotz:self.rdotz_pxpz_eqn.rhs}).subs({varphi_r(rvec):varphi}) )).subs({Abs(pz):-pz})
 
 
     def define_ibc_eqns(self):

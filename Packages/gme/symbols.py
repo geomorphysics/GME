@@ -17,15 +17,16 @@ Requires Python packages/modules:
 ---------------------------------------------------------------------
 
 """
+# pylint:
 
-import sympy as sy
+
 from sympy import symbols, MatrixSymbol, Function
 # Import units & dimensions
-from sympy.physics.units \
-    import Quantity, Dimension, \
-            length, speed, velocity, time, \
-            km, cm, mm, meter, meters, \
-            convert_to, percent, degrees, radians
+from sympy.physics.units import length, time
+#             Quantity, Dimension, \
+#             length, speed, velocity, time, \
+#             km, cm, mm, meter, meters, \
+#             convert_to, percent, degrees, radians
 from sympy.physics.units.systems import SI
 
 i,j,k, l, m = symbols(r'i j k, l, m',  real=True)
@@ -122,7 +123,7 @@ x_sigma = symbols(r'x_{\sigma}',  real=True, positive=True)
 h = symbols(r'h',  real=True)
 hx = symbols(r'h^x',  real=True, negative=False)
 hz = symbols(r'h^z',  real=True)
-h_fn = Function(r'h', real=True, positive=True)(x)
+h_fn = Function(r'h', real=True, positive=True) #(x)
 h_0 = symbols(r'h_0',  real=True, positive=True)
 h_0p9 = symbols(r'h_{0.9}',  real=True)
 
@@ -142,12 +143,12 @@ xihhat = symbols(r'\hat{\xi}^{\rightarrow}',  real=True)
 xih_0 = symbols(r'\xi^{\rightarrow_{0}}',  real=True, positive=True)   # NEW: positive=True
 xiv_0_sqrd = symbols(r'\xi^{\downarrow_{0}}^2',  real=True)
 
-varphi_rx = Function(r'\varphi', real=True, positive=True)(rx)
-varphi_rxhat = Function(r'\varphi', real=True, positive=True)(rxhat)
-d_varphi_rx = Function(r'\varphi^{\prime}', real=True)(rx)
-d_varphi = symbols(r'\varphi^{\prime}', real=True)
-varphi_r = Function(r'\varphi', real=True, positive=True)(rvec)
-varphi_rhat = Function(r'\varphi', real=True, positive=True)(rvechat)
+varphi_rx        = Function(r'\varphi', real=True, positive=True) #(rx)
+varphi_rxhat_fn  = Function(r'\varphi', real=True, positive=True) #(rxhat)
+d_varphi_rx      = Function(r'\varphi^{\prime}', real=True) #(rx)
+varphi_r         = Function(r'\varphi', real=True, positive=True) #(rvec)
+varphi_rhat      = Function(r'\varphi', real=True, positive=True) #(rvechat)
+d_varphi         = symbols(r'\varphi^{\prime}', real=True)
 varphi_0, varphi = symbols(r'\varphi_0 \varphi',  real=True, positive=True)
 chi_0, chi       = symbols(r'\chi_0 \chi',  real=True, positive=True)
 varepsilon       = symbols(r'\varepsilon',  real=True, positive=True)
@@ -176,20 +177,20 @@ drzdrx = symbols(r'\frac{\mathrm{d}{r^z}}{\mathrm{d}{r^x}}', real=True)
 dpxdpz = symbols(r'\frac{\mathrm{d}{p_x}}{\mathrm{d}{p_z}}', real=True)
 
 
-alpha_tfn = Function(r'\alpha', real=True)(t)
-beta_tfn = Function(r'\beta', real=True)(t)
-rx_tfn = Function(r'{r}^x', real=True, positive=True)(t)
-rz_tfn = Function(r'{r}^z', real=True)(t)
-px_tfn = Function(r'{p}_x', real=True, positive=True)(t)
-pz_tfn = Function(r'{p}_z', real=True, negative=True)(t)
-rdotx_tfn = Function(r'v^x', real=True)(t)
-rdotz_tfn = Function(r'v^z', real=True)(t)
-pdotx_tfn = Function(r'\dot{p}_x', real=True)(t)
-pdotz_tfn = Function(r'\dot{p}_z', real=True)(t)
-rdotxhat_thatfn = Function(r'\hat{v}^x', real=True)(that)
-rdotzhat_thatfn = Function(r'\hat{v}^z', real=True)(that)
-pdotxhat_thatfn = Function(r'\dot{\hat{p}}_x', real=True)(that)
-pdotzhat_thatfn = Function(r'\dot{\hat{p}}_z', real=True)(that)
+alpha_tfn = Function(r'\alpha', real=True) #(t)
+beta_tfn = Function(r'\beta', real=True) #(t)
+rx_tfn = Function(r'{r}^x', real=True, positive=True) #(t)
+rz_tfn = Function(r'{r}^z', real=True) #(t)
+px_tfn = Function(r'{p}_x', real=True, positive=True) #(t)
+pz_tfn = Function(r'{p}_z', real=True, negative=True) #(t)
+rdotx_tfn = Function(r'v^x', real=True) #(t)
+rdotz_tfn = Function(r'v^z', real=True) #(t)
+pdotx_tfn = Function(r'\dot{p}_x', real=True) #(t)
+pdotz_tfn = Function(r'\dot{p}_z', real=True) #(t)
+rdotxhat_thatfn = Function(r'\hat{v}^x', real=True) #(that)
+rdotzhat_thatfn = Function(r'\hat{v}^z', real=True) #(that)
+pdotxhat_thatfn = Function(r'\dot{\hat{p}}_x', real=True) #(that)
+pdotzhat_thatfn = Function(r'\dot{\hat{p}}_z', real=True) #(that)
 
 astar_riem = symbols(r'\alpha^*_{\mathrm{Kr}}', real=True)
 bstar_1form = symbols(r'\beta^*_{\mathrm{Kr}}', real=True)

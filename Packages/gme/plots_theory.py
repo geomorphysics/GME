@@ -44,7 +44,7 @@ from sympy import Eq, factor, N, Abs, lambdify, Rational, Matrix, poly, \
 from gmplib.utils import e2d, omitdict, round as gmround, convert
 
 # GME
-from gme.symbols import varphi_r, xiv, xiv_0, pz_min, varphi, px, pz, px_min, \
+from gme.symbols import varphi_r, xiv, xiv_0, pz_min, varphi, px, pz, px_min, rvec, \
                         H, beta_max, Lc, gstarhat, xih_0, mu, eta, pxhat, pzhat, rxhat, rzhat, Ci
 from gme.equations import px_value
 from gme.plot import Graphing
@@ -487,15 +487,16 @@ class TheoryPlots(Graphing):
         axes = plt.gca()
 
     def indicatrix_prep(self, gmeq, pr, sub_, varphi_=1):
-        self.H_parametric_eqn = Eq((2*gmeq.H_eqn.rhs)**2,1).subs({varphi_r:varphi_, xiv:xiv_0}).subs(sub_)
+        self.H_parametric_eqn = Eq((2*gmeq.H_eqn.rhs)**2,1) \
+                                        .subs({varphi_r(rvec):varphi_, xiv:xiv_0}).subs(sub_)
 
         if pr.model.eta==Rational(3,2):
             pz_min_eqn = Eq(pz_min,
                 (solve(Eq( ((solve(Eq(4*gmeq.H_eqn.rhs**2,1)
-                                   .subs({varphi_r:varphi}),px**2)[2]).args[0].args[0].args[0])**2, 0)
+                                   .subs({varphi_r(rvec):varphi}),px**2)[2]).args[0].args[0].args[0])**2, 0)
                   ,pz**4)[0])**Rational(1,4))
             px_min_eqn = Eq(px_min,
-                    solve(simplify(gmeq.H_eqn.subs({varphi_r:varphi})
+                    solve(simplify(gmeq.H_eqn.subs({varphi_r(rvec):varphi})
                                    .subs({pz:pz_min_eqn.rhs})).subs({H:Rational(1,2)}),px)[0] )
             tanbeta_max_eqn = Eq(tan(beta_max), ((px_min/pz_min).subs(e2d(px_min_eqn))).subs(e2d(pz_min_eqn)))
             self.tanbeta_max = float(N(tanbeta_max_eqn.rhs))
@@ -503,7 +504,7 @@ class TheoryPlots(Graphing):
             pz_min_eqn = Eq(pz_min, 0)
             px_min_eqn = Eq(px_min,
                             sqrt(solve(Eq((
-                            solve(Eq(4*gmeq.H_eqn.rhs**2,1).subs({varphi_r:varphi}),pz**2)[:])[0],0)
+                            solve(Eq(4*gmeq.H_eqn.rhs**2,1).subs({varphi_r(rvec):varphi}),pz**2)[:])[0],0)
                                            ,px**2)[1]))
             tanbeta_max_eqn = Eq(tan(beta_max),oo)
             self.tanbeta_max = None
@@ -548,7 +549,7 @@ class TheoryPlots(Graphing):
         px_ = self.px_H_lambda(pz_)
 
         v_from_gstar_lambda_tmp = lambdify((px,pz),
-                        N(gmeq.gstar_varphi_pxpz_eqn.subs({varphi_r:varphi_}).rhs*Matrix([px,pz])))
+                        N(gmeq.gstar_varphi_pxpz_eqn.subs({varphi_r(rvec):varphi_}).rhs*Matrix([px,pz])))
         self.v_from_gstar_lambda = lambda px_,pz_: (v_from_gstar_lambda_tmp(px_,pz_)).flatten()
 
         v_ = (self.v_from_gstar_lambda(px_,pz_))
