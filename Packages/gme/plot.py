@@ -28,13 +28,16 @@ Imports symbols from :mod:`.symbols` module.
 
 from gmplib.plot_utils import GraphingBase
 
-from sympy import Eq, factor, Abs, lambdify, Rational, Matrix, poly, \
-                    simplify, diff, sign, sin, deg, solve, sqrt, rad, numer, denom, im, re
+from sympy import Eq, factor, N, Abs, lambdify, Rational, Matrix, poly, \
+                    simplify, diff, sign, sin, tan, deg, solve, sqrt, rad, numer, denom, im, re
 from gme.symbols import *
 from gme.equations import px_value
 from gmplib.utils import e2d, omitdict, round as gmround, convert
 import numpy as np
-from scipy.linalg import eig, eigh, det
+
+# Scipy utils
+from scipy.linalg import eig, eigh, det, norm
+from scipy.optimize import root_scalar
 
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
@@ -2450,6 +2453,372 @@ class TheoryPlots(Graphing):
         plt.xlabel(r'Surface normal angle  $\beta$   [${\degree}\!$ from vertical]')
         axes = plt.gca()
 
+    def indicatrix_prep(self, gmeq, pr, sub_, varphi_=1):
+        self.H_parametric_eqn = Eq((2*gmeq.H_eqn.rhs)**2,1).subs({varphi_r:varphi_, xiv:xiv_0}).subs(sub_)
+
+        if pr.model.eta==Rational(3,2):
+            pz_min_eqn = Eq(pz_min,
+                (solve(Eq( ((solve(Eq(4*gmeq.H_eqn.rhs**2,1)
+                                   .subs({varphi_r:varphi}),px**2)[2]).args[0].args[0].args[0])**2, 0)
+                  ,pz**4)[0])**Rational(1,4))
+            px_min_eqn = Eq(px_min,
+                    solve(simplify(gmeq.H_eqn.subs({varphi_r:varphi})
+                                   .subs({pz:pz_min_eqn.rhs})).subs({H:Rational(1,2)}),px)[0] )
+            tanbeta_max_eqn = Eq(tan(beta_max), ((px_min/pz_min).subs(e2d(px_min_eqn))).subs(e2d(pz_min_eqn)))
+            self.tanbeta_max = float(N(tanbeta_max_eqn.rhs))
+        else:
+            pz_min_eqn = Eq(pz_min, 0)
+            px_min_eqn = Eq(px_min,
+                            sqrt(solve(Eq((
+                            solve(Eq(4*gmeq.H_eqn.rhs**2,1).subs({varphi_r:varphi}),pz**2)[:])[0],0)
+                                           ,px**2)[1]))
+            tanbeta_max_eqn = Eq(tan(beta_max),sy.oo)
+            self.tanbeta_max = None
+
+        px_min_ = round(float(N(px_min_eqn.rhs.subs({varphi:varphi_}))),4)
+        pz_min_ = round(float(N(pz_min_eqn.rhs.subs({varphi:varphi_}))),8)
+        px_min_, -pz_min_, np.rad2deg(np.arctan(px_min_/pz_min_)) if pz_min_>0 else None
+
+        # px_H_solns = [simplify(soln) for soln in solve(Eq((4*H_parametric_eqn.lhs)**2, (4*H_parametric_eqn.rhs)**2),px**2)]
+        # x,z = symbols('x, z')
+        px_H_solns = [simplify(sqrt(soln)) for soln in solve( self.H_parametric_eqn ,px**2)]
+        pz_H_solns = [simplify(sqrt(soln)).subs({Abs(px):px})
+                      for soln in solve( self.H_parametric_eqn ,pz**2)]
+        px_H_soln_ = [soln for soln in px_H_solns if Abs(sy.im(N(soln.subs({pz:1}))))<1e-10][0]
+        self.px_H_lambda = lambdify( [pz], simplify(px_H_soln_) )
+
+        if pr.model.eta==Rational(3,2):
+            pz_max_ = 10**4
+        else:
+            pz_max_ = 10**2
+        pz_array = -10**np.linspace(np.log10(pz_min_ if pz_min_>0 else 1e-6), np.log10(pz_max_), 1000)
+        px_array = self.px_H_lambda(pz_array)
+        p_array = np.vstack([px_array,pz_array]).T
+        modp_array = norm(p_array,axis=0)
+        # np.rad2deg(np.arctan(-px_array[0]/pz_array[0])), np.rad2deg(np.arctan(gmeq.tanbeta_crit)), \
+        #     Eq(beta_crit, round(N(sy.deg(atan(gmeq.tanbeta_crit_eqn.rhs))),2))
+        tanbeta_crit = float(N(gmeq.tanbeta_crit_eqn.rhs))
+
+        self.p_infc_array = p_array[np.abs(p_array[:,0]/p_array[:,1])<tanbeta_crit]
+        self.p_supc_array = p_array[np.abs(p_array[:,0]/p_array[:,1])>=tanbeta_crit]
+
+        px_poly_eqn = sy.poly(self.H_parametric_eqn)
+        px_poly_lambda = lambdify( [px,pz], px_poly_eqn.as_expr() )
+        dpx_poly_lambda = lambdify( [px,pz], diff(px_poly_eqn.as_expr(),px) )
+
+        px_solutions = lambda px_guess_: np.array([
+            (root_scalar( px_poly_lambda, args=(pz_),fprime=dpx_poly_lambda,
+                         method='newton', x0=px_guess_ )).root for pz_ in p_array[:,1]])
+        px_newton_array = px_solutions(10)
+
+        pz_ = 2
+        px_ = self.px_H_lambda(pz_)
+
+        v_from_gstar_lambda_tmp = lambdify((px,pz),
+                        N(gmeq.gstar_varphi_pxpz_eqn.subs({varphi_r:varphi_}).rhs*Matrix([px,pz])))
+        self.v_from_gstar_lambda = lambda px_,pz_: (v_from_gstar_lambda_tmp(px_,pz_)).flatten()
+
+        v_ = (self.v_from_gstar_lambda(px_,pz_))
+        dp_supc_array = p_array[(-p_array[:,0]/p_array[:,1])>=gmeq.tanbeta_crit]
+        v_lambda = lambda pa: np.array([(self.v_from_gstar_lambda(px_,pz_)) for px_,pz_ in pa])
+        self.v_infc_array = v_lambda(self.p_infc_array)
+        self.v_supc_array = v_lambda(self.p_supc_array)
+        v_array = v_lambda(p_array)
+
+    def Fstar_F_rectlinear(self, gmeq, job_name, pr, do_zoom=False, fig_size=None):
+        name = job_name+'_Fstar_F_rectlinear'+('_zoom' if do_zoom else '')
+        fig = self.create_figure(name, fig_size)
+
+        eta_ = pr.model.eta
+        if do_zoom:
+            if eta_==Rational(3,2):
+                plt.xlim(0.98,1.07)
+                plt.ylim(0.15,0.23)
+                eta_xy_label = [0.2,0.85]
+            else:
+                plt.xlim(0.7,1.2)
+                plt.ylim(-0.4,0)
+                eta_xy_label = [0.8,0.8]
+        else:
+            if eta_==Rational(3,2):
+                plt.xlim(0,2)
+                plt.ylim(-4,0.6)
+                eta_xy_label = [0.7,0.8]
+            else:
+                plt.xlim(0,2.5)
+                plt.ylim(-2,0)
+                eta_xy_label = [0.8,0.7]
+
+        # Critical, bounding angles
+        if eta_==Rational(3,2):
+            pz_max_ = -1.5
+        else:
+            pz_max_ = -1.5
+        px_abmax_ = -pz_max_*(self.tanbeta_max if self.tanbeta_max is not None else 1)
+        pz_abmax_ = pz_max_
+        vx_abmax_,vz_abmax_ = self.v_from_gstar_lambda(px_abmax_,pz_abmax_)
+        px_abcrit_ = -pz_max_*gmeq.tanbeta_crit
+        pz_abcrit_ = pz_max_
+        vx_abcrit_,vz_abcrit_ = self.v_from_gstar_lambda(px_abcrit_,pz_abcrit_)
+
+        # Lines visualizing critical, bounding angles: ray velocity
+        if eta_>1:
+            plt.plot([0,vx_abmax_],[0,vz_abmax_],
+                     '-', color='r', alpha=0.4, lw=2, label=r'$\alpha_{\mathrm{lim}}$')
+
+        # Indicatrix aka F=1 for rays
+        plt.plot(self.v_supc_array[:,0],self.v_supc_array[:,1],
+                 'r' if eta_>1 else 'DarkRed',
+                 lw=2, ls='-',
+                 label=r'$F=1$,  $\beta\geq\beta_\mathrm{c}$')
+        plt.plot([0,vx_abcrit_],[0,vz_abcrit_], '-.',
+                 color='DarkRed' if eta_>1 else 'r',
+                 lw=1, label=r'$\alpha_{\mathrm{c}}$')
+        plt.plot(self.v_infc_array[:,0],self.v_infc_array[:,1],
+                 'DarkRed' if eta_>1 else 'r',
+                 lw=1 if eta_==Rational(3,2) and not do_zoom else 2, ls='-',
+                 label=r'$F=1$,  $\beta<\beta_\mathrm{c}$')
+
+        # Lines visualizing critical, bounding angles: normal slowness
+        if eta_==Rational(3,2) and not do_zoom:
+            plt.plot(np.array([0,px_abmax_]),[0,pz_abmax_],
+                     '-b', alpha=0.4, lw=1.5, label=r'$\beta_{\mathrm{max}}$')
+
+        # Figuratrix aka F*=1 for surfaces
+        if not do_zoom:
+            plt.plot(self.p_supc_array[:,0],self.p_supc_array[:,1],
+                     'b' if eta_>1 else 'DarkBlue', lw=2, ls='-',
+                     label=r'$F^*\!\!=1$,  $\beta\geq\beta_\mathrm{c}$')
+            plt.plot([0,px_abcrit_],[0,pz_abcrit_],
+                     '--',
+                     color='DarkBlue' if eta_>1 else 'b',
+                     lw=1, label=r'$\beta_{\mathrm{c}}$')
+            plt.plot(self.p_infc_array[:,0],self.p_infc_array[:,1],
+                     'DarkBlue' if eta_>1 else 'b', lw=2, ls='-',
+                     label=r'$F^*\!\!=1$,  $\beta<\beta_\mathrm{c}$')
+
+        pz_ = -float(solve(self.H_parametric_eqn.subs({px:pz*(gmeq.tanbeta_crit)}),pz)[0])
+        px_ = self.px_H_lambda(pz_)
+        vx_,vz_ = self.v_from_gstar_lambda(px_,pz_)
+        if eta_!=Rational(3,2):
+            plt.plot([vx_],[-vz_], 'o', color='r', ms=5)
+        if not do_zoom:
+            plt.plot([px_],[-pz_], 'o', color='DarkBlue' if eta_>1 else 'b', ms=5)
+
+        plt.xlabel(r'$p_x$ (for $F^*$)  or  $v^x$ (for $F$)', fontsize=14)
+        plt.ylabel(r'$p_z$ (for $F^*$)  or  $v^z$ (for $F$)', fontsize=14)
+
+        axes = plt.gca()
+        axes.set_aspect(1)
+        plt.text(*eta_xy_label, rf'$\eta={gmeq.eta}$', transform=axes.transAxes,
+                 horizontalalignment='center', verticalalignment='center',
+                 fontsize=15, color='k')
+
+        if eta_==Rational(3,2):
+            if do_zoom:
+                plt.legend(loc='lower right')
+            else:
+                plt.legend(loc='lower left')
+        else:
+            if do_zoom:
+                plt.legend(loc='upper left')
+            else:
+                plt.legend(loc='lower right')
+
+        if do_zoom:
+            if eta_>1:
+                plt.text(*[1.025,0.184], 'convex', #transform=axes.transAxes,
+                     horizontalalignment='center', verticalalignment='center',
+                     rotation=40, fontsize=15, color='DarkRed')
+                plt.text(*[1.054,0.208], 'concave', #transform=axes.transAxes,
+                     horizontalalignment='center', verticalalignment='center',
+                     rotation=60, fontsize=11, color='r')
+            else:
+                plt.text(*[1.07,-0.264], 'concave', #transform=axes.transAxes,
+                     horizontalalignment='center', verticalalignment='center',
+                     rotation=15, fontsize=15, color='r')
+                plt.text(*[0.955,-0.15], 'convex', #transform=axes.transAxes,
+                     horizontalalignment='center', verticalalignment='center',
+                     rotation=70, fontsize=15, color='DarkRed')
+        else:
+            if eta_>1:
+                plt.text(*[0.7,-0.05], 'convex', #transform=axes.transAxes,
+                     horizontalalignment='center', verticalalignment='center',
+                     rotation=11, fontsize=15, color='DarkRed')
+                plt.text(*[1.15,0.42], 'concave', #transform=axes.transAxes,
+                     horizontalalignment='center', verticalalignment='center',
+                     rotation=60, fontsize=10, color='r')
+                plt.text(*[1.4,-0.72], 'concave', #transform=axes.transAxes,
+                     horizontalalignment='center', verticalalignment='center',
+                     rotation=10, fontsize=15, color='b')
+                plt.text(*[1.5,-2.3], 'convex', #transform=axes.transAxes,
+                     horizontalalignment='center', verticalalignment='center',
+                     rotation=-80, fontsize=15, color='DarkBlue')
+            else:
+                plt.text(*[1.3,-0.26], 'concave', #transform=axes.transAxes,
+                     horizontalalignment='center', verticalalignment='center',
+                     rotation=10, fontsize=13, color='r')
+                plt.text(*[0.9,-0.14], 'convex', #transform=axes.transAxes,
+                     horizontalalignment='center', verticalalignment='center',
+                     rotation=65, fontsize=11, color='DarkRed')
+                plt.text(*[0.98,-0.65], 'convex', #transform=axes.transAxes,
+                     horizontalalignment='center', verticalalignment='center',
+                     rotation=75, fontsize=15, color='DarkBlue')
+                plt.text(*[0.66,-1.65], 'concave', #transform=axes.transAxes,
+                     horizontalalignment='center', verticalalignment='center',
+                     rotation=75, fontsize=15, color='b')
+        plt.grid(True, ls=':')
+
+    def Fstar_F_polar(self, gmeq, job_name, pr, do_zoom=False, fig_size=None):
+        name = job_name+'_Fstar_F_polar'
+        fig = self.create_figure(name, fig_size)
+
+        eta_ = pr.model.eta
+
+        if eta_>1:
+            r_min_ = 0.1
+            r_max_ = 100
+            scale_fn = lambda a: np.log10(a)
+            alpha_fn = lambda a: np.pi-a
+        else:
+            r_min_ = 0.1
+            r_max_ = 10
+            scale_fn = lambda a: np.log10(a)
+            alpha_fn = lambda a: a
+        v_scale_fn = lambda v: scale_fn(v)*1
+
+        # Lines visualizing critical, bounding angles: ray velocity
+        if eta_>1:
+            plt.polar([np.pi/2+(np.arctan(gmeq.tanalpha_crit))]*2,
+                      [scale_fn(r_min_),scale_fn(r_max_)], '-',
+                      color='r' if eta_>1 else 'DarkRed',
+                      alpha=0.4, lw=2, label=r'$\alpha_{\mathrm{lim}}$')
+        plt.polar(alpha_fn(np.arcsin(self.v_supc_array[:,0]/norm(self.v_supc_array, axis=1))),
+                  v_scale_fn(norm(self.v_supc_array, axis=1)),
+                  'r' if eta_>1 else 'DarkRed',
+                  label=r'$F=1$,  $\beta\geq\beta_\mathrm{c}$')
+        plt.polar([np.pi/2+(np.arctan(gmeq.tanalpha_crit))]*2,
+                  [scale_fn(r_min_),scale_fn(r_max_)], '-.',
+                  color='DarkRed' if eta_>1 else 'r',
+                  lw=1, label=r'$\alpha_{\mathrm{c}}$')
+        plt.polar(alpha_fn(np.arcsin(self.v_infc_array[:,0]/norm(self.v_infc_array, axis=1))),
+                  v_scale_fn(norm(self.v_infc_array, axis=1)),
+                  'DarkRed' if eta_>1 else 'r',
+                  lw=None if eta_==Rational(3,2) else None,
+                  label=r'$F=1$,  $\beta<\beta_\mathrm{c}$')
+
+        unit_circle_array = np.array([[theta_,1] for theta_ in np.linspace(0,(np.pi/2)*1.2,100)])
+        plt.polar(unit_circle_array[:,0], scale_fn(unit_circle_array[:,1]), '-',
+                  color='g', lw=1, label='unit circle')
+
+        if eta_>1:
+            plt.polar([np.arctan(self.tanbeta_max)]*2, [scale_fn(r_min_),scale_fn(r_max_)],
+                      '-', color='b', alpha=0.3, lw=1.5, label=r'$\beta_{\mathrm{max}}$')
+        plt.polar(np.arcsin(self.p_supc_array[:,0]/norm(self.p_supc_array, axis=1)),
+                      scale_fn(norm(self.p_supc_array, axis=1)),
+                  'b' if eta_>1 else 'DarkBlue',
+                  label=r'$F^*\!\!=1$,  $\beta\geq\beta_\mathrm{c}$')
+        plt.polar([np.arctan(gmeq.tanbeta_crit)]*2, [scale_fn(r_min_),scale_fn(r_max_)], '--',
+                  color='DarkBlue' if eta_>1 else 'b',
+                  lw=1, label=r'$\beta_{\mathrm{c}}$')
+        plt.polar(np.arcsin(self.p_infc_array[:,0]/norm(self.p_infc_array, axis=1)),
+                  scale_fn(norm(self.p_infc_array, axis=1)),
+                  'DarkBlue' if eta_>1 else 'b',
+                  label=r'$F^*\!\!=1$,  $\beta<\beta_\mathrm{c}$')
+
+        plt.polar(
+            (np.arcsin(self.p_supc_array[-1,0]/norm(self.p_supc_array[-1]))
+             +np.arcsin(self.p_infc_array[0,0]/norm(self.p_infc_array[0])))/2,
+            (scale_fn(norm(self.p_infc_array[0]))+scale_fn(norm(self.p_supc_array[-1])))/2, 'o',
+            color='DarkBlue' if eta_>1 else 'b')
+
+        axes = plt.gca()
+        axes.set_theta_zero_location('S')
+        horiz_label = r'$\log_{10}{p}$  or  $\log_{10}{v}$'
+        vert_label = r'$\log_{10}{v}$  or  $\log_{10}{p}$'
+
+        if eta_>1:
+            theta_max_ = 20
+            axes.set_thetamax(90+theta_max_)
+            axes.text(np.deg2rad(85+theta_max_),0.5, vert_label,
+                        rotation=theta_max_, ha='center', va='bottom', fontsize=15)
+            axes.text(np.deg2rad(-8),1.2, horiz_label,
+                        rotation=90, ha='right', va='bottom', fontsize=15)
+            theta_list = [0, 1/6, 2/6, 3/6, np.deg2rad(110)/np.pi]
+            xtick_labels = [
+                r'$\beta=0^{\!\circ}$',
+                r'$\beta=30^{\!\circ}$',
+                r'$\beta=60^{\!\circ}$',
+                r'$\alpha=0^{\!\circ}$',
+                r'$\alpha=20^{\!\circ}$',
+            ]
+            eta_xy_label = [1.15,0.9]
+            legend_xy = [1,0]
+            plt.text(*[(np.pi/2)*1.07,0.4], 'convex', #transform=axes.transAxes,
+                 horizontalalignment='center', verticalalignment='center',
+                 rotation=8, fontsize=15, color='DarkRed')
+            plt.text(*[(np.pi/2)*1.17,0.28], 'concave', #transform=axes.transAxes,
+                 horizontalalignment='center', verticalalignment='center',
+                 rotation=13, fontsize=11, color='r')
+            plt.text(*[(np.pi/3)*0.925,0.5], 'concave', #transform=axes.transAxes,
+                 horizontalalignment='center', verticalalignment='center',
+                 rotation=-35, fontsize=15, color='b')
+            plt.text(*[(np.pi/6)*0.7,0.85], 'convex', #transform=axes.transAxes,
+                 horizontalalignment='center', verticalalignment='center',
+                 rotation=68, fontsize=15, color='DarkBlue')
+        else:
+            theta_max_ = 0
+            axes.set_thetamax(90+theta_max_)
+            axes.text(np.deg2rad(92+theta_max_),axes.get_rmax()/5, vert_label,
+                        rotation=theta_max_, ha='right', va='bottom', fontsize=15)
+            axes.text(np.deg2rad(-8),axes.get_rmax()/5, horiz_label,
+                        rotation=90, ha='right', va='bottom', fontsize=15)
+            theta_list = [0, 1/6, 2/6, 3/6]
+            xtick_labels = [
+                r'$\beta=0^{\!\circ}$',
+                r'$\beta=30^{\!\circ}$',
+                r'$\beta=60^{\!\circ}\!\!,\, \alpha=-30^{\!\circ}$',
+                r'$\beta=90^{\!\circ}\!\!,\, \alpha=0^{\!\circ}$',
+            ]
+            eta_xy_label = [1.2,0.75]
+            legend_xy = [0.9,0]
+            plt.text(*[(np.pi/2)*0.94,0.4], 'concave', #transform=axes.transAxes,
+                 horizontalalignment='center', verticalalignment='center',
+                 rotation=11, fontsize=15, color='r')
+            plt.text(*[(np.pi/2)*0.9,-0.07], 'convex', #transform=axes.transAxes,
+                 horizontalalignment='center', verticalalignment='center',
+                 rotation=72, fontsize=13, color='DarkRed')
+            plt.text(*[(np.pi/4)*1.2,0.12], 'convex', #transform=axes.transAxes,
+                 horizontalalignment='center', verticalalignment='center',
+                 rotation=60, fontsize=15, color='DarkBlue')
+            plt.text(*[(np.pi/6)*0.5,0.4], 'concave', #transform=axes.transAxes,
+                 horizontalalignment='center', verticalalignment='center',
+                 rotation=50, fontsize=15, color='b')
+            plt.polar(alpha_fn(np.arcsin(self.v_supc_array[:,0]/norm(self.v_supc_array, axis=1))),
+                      v_scale_fn(norm(self.v_supc_array, axis=1)), 'DarkRed')
+
+        plt.polar(
+            alpha_fn((np.arcsin(self.v_supc_array[-1,0]/norm(self.v_supc_array[-1]))
+                      +np.arcsin(self.v_infc_array[0,0]/norm(self.v_infc_array[0])))/2),
+            (v_scale_fn(norm(self.v_infc_array[0]))+v_scale_fn(norm(self.v_supc_array[-1])))/2, 'o',
+            color='DarkRed' if eta_>1 else 'r')
+
+        xtick_posns = [np.pi*theta_ for theta_ in theta_list]
+        plt.xticks(xtick_posns, xtick_labels, ha='left', fontsize=15);
+
+        plt.text(*eta_xy_label, rf'$\eta={gmeq.eta}$', transform=axes.transAxes,
+                 horizontalalignment='center', verticalalignment='center',
+                 fontsize=18, color='k')
+        plt.legend(loc=legend_xy)
+
+        axes.tick_params(axis='x', pad=0, left=True, length=5, width=1, direction='out')
+
+        axes.set_aspect(1)
+        axes.set_rmax(scale_fn(r_max_))
+        axes.set_rmin(scale_fn(r_min_))
+        axes.set_thetamin(0)
+        plt.grid(False, ls=':');
+
 
 class SlicingPlots(GraphingBase):
 
@@ -2562,7 +2931,7 @@ class SlicingPlots(GraphingBase):
         modv0_ = self.modv_pxpzhat_lambda(pxhat0_,pzhat0_)
 
         # For H=1/2
-        pzhat_array = np.flipud(np.linspace(-30,0,31, endpoint=True if rxhat.subs(psub_)<0.95 and eta.subs(sub)<1 else False))
+        pzhat_array = np.flipud(np.linspace(-30,0,31, endpoint=True if rxhat.subs(psub_)<0.95 and eta.subs(sub_)<1 else False))
         pxhat_array = np.array([float(px_value(rxhat.subs(psub_),pzhat_, pxhat_poly_, px_var_=pxhat, pz_var_=pzhat))
                        for pzhat_ in pzhat_array])
 
