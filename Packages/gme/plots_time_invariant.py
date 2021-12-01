@@ -386,8 +386,8 @@ class TimeInvariant(Graphing):
                      transform=axes.transAxes, horizontalalignment='center', verticalalignment='center', fontsize=16, color='k')
 
     def profile_beta( self, gmes, gmeq, sub, name, fig_size=None, dpi=None, n_points=26, xf_stop=1,
-                      legend_loc='upper left', do_etaxi_label=True, eta_label_xy=None,
-                      do_pub_label=False, pub_label='', pub_label_xy=None ) -> None:
+                      legend_loc='upper left', do_etaxi_label=True, eta_label_xy=(0.6,0.8),
+                      do_pub_label=False, pub_label='', pub_label_xy=(0.88,0.7) ) -> None:
         r"""
         For a time-invariant (steady-state) topographic profile,
         plot the surface-normal covector angle :math:`\beta` from vertical,
@@ -414,8 +414,8 @@ class TimeInvariant(Graphing):
             n_points (int): sample rate along each curve
         """
         _ = self.create_figure(name, fig_size=fig_size, dpi=dpi)
-        eta_label_xy = [0.6,0.8] if eta_label_xy is None else eta_label_xy
-        pub_label_xy = [0.88,0.7] if pub_label_xy is None else pub_label_xy
+        # eta_label_xy = [0.6,0.8] if eta_label_xy is None else eta_label_xy
+        # pub_label_xy = [0.88,0.7] if pub_label_xy is None else pub_label_xy
 
         rx_array = gmes.rx_array
         x_min, x_max = rx_array[0], rx_array[-1]
@@ -451,7 +451,7 @@ class TimeInvariant(Graphing):
             transform=axes.transAxes, horizontalalignment='center', verticalalignment='center', fontsize=16, color='k')
 
     def profile_beta_error(self, gmes, gmeq, sub, name, fig_size=None, dpi=None, n_points=101,
-                           pub_label_xy=None, eta_label_xy=None, xf_stop=0.995) -> None:
+                           pub_label_xy=(0.5,0.2), eta_label_xy=(0.5,0.8), xf_stop=0.995) -> None:
         r"""
         For a time-invariant (steady-state) topographic profile,
         plot the error in the estimated surface-normal covector angle :math:`\beta`
@@ -473,8 +473,8 @@ class TimeInvariant(Graphing):
             n_points (int): sample rate along each curve
         """
         _ = self.create_figure(name, fig_size=fig_size, dpi=dpi)
-        eta_label_xy = [0.5,0.8] if eta_label_xy is None else eta_label_xy
-        pub_label_xy = [0.5,0.2] if pub_label_xy is None else pub_label_xy
+        # eta_label_xy = [0.5,0.8] if eta_label_xy is None else eta_label_xy
+        # pub_label_xy = [0.5,0.2] if pub_label_xy is None else pub_label_xy
 
         rx_array = gmes.rx_array
         x_min, x_max = rx_array[0], rx_array[-1]
@@ -497,7 +497,7 @@ class TimeInvariant(Graphing):
                  horizontalalignment='center', verticalalignment='center', fontsize=14, color='k')
 
     def profile_xi( self, gmes, gmeq, sub, name, fig_size=None, dpi=None, xf_stop=1, n_points=201,
-                    pub_label_xy=None, eta_label_xy=None, var_label_xy=None,
+                    pub_label_xy=(0.5,0.2), eta_label_xy=(0.5,0.5), var_label_xy=(0.8,0.5),
                     do_etaxi_label=True, do_pub_label=False, pub_label='(a)', xi_norm=None ) -> None:
         r"""
         Plot surface-normal erosion speed :math:`\xi^{\perp}`  along a time-invariant profile.
@@ -512,9 +512,9 @@ class TimeInvariant(Graphing):
             n_points (int): optional sample rate along each curve
         """
         _ = self.create_figure(name, fig_size=fig_size, dpi=dpi)
-        eta_label_xy = [0.5,0.5] if eta_label_xy is None else eta_label_xy
-        pub_label_xy = [0.5,0.2] if pub_label_xy is None else pub_label_xy
-        var_label_xy = [0.8,0.5] if var_label_xy is None else var_label_xy
+        # eta_label_xy = [0.5,0.5] if eta_label_xy is None else eta_label_xy
+        # pub_label_xy = [0.5,0.2] if pub_label_xy is None else pub_label_xy
+        # var_label_xy = [0.8,0.5] if var_label_xy is None else var_label_xy
 
         if xi_norm is None:
             xi_norm = 1
@@ -555,7 +555,7 @@ class TimeInvariant(Graphing):
                  verticalalignment='center', fontsize=16, color='k')
 
     def profile_xihorizontal( self, gmes, gmeq, sub, name, fig_size=None, dpi=None, xf_stop=1, n_points=201,
-                              pub_label_xy=None, eta_label_xy=None, var_label_xy=None,
+                              pub_label_xy=(0.55,0.81), eta_label_xy=(0.5,0.2), var_label_xy=(0.85,0.81),
                               do_etaxi_label=True, do_pub_label=False, pub_label='(d)', xi_norm=None ) -> None:
         r"""
         Plot horizontal erosion speed :math:`\xi^{\rightarrow}` along a time-invariant profile.
@@ -570,9 +570,9 @@ class TimeInvariant(Graphing):
             n_points (int): sample rate along each curve
         """
         _ = self.create_figure(name, fig_size=fig_size, dpi=dpi)
-        eta_label_xy = [0.5,0.2] if eta_label_xy is None else eta_label_xy
-        pub_label_xy = [0.55,0.81] if pub_label_xy is None else pub_label_xy
-        var_label_xy = [0.85,0.81] if var_label_xy is None else var_label_xy
+        # eta_label_xy = [0.5,0.2] if eta_label_xy is None else eta_label_xy
+        # pub_label_xy = [0.55,0.81] if pub_label_xy is None else pub_label_xy
+        # var_label_xy = [0.85,0.81] if var_label_xy is None else var_label_xy
 
         if xi_norm is None:
             xi_norm = 1
@@ -615,7 +615,7 @@ class TimeInvariant(Graphing):
 
     def profile_xivertical( self, gmes, gmeq, sub, name, fig_size=None, dpi=None, xf_stop=1,
                             n_points=201, y_limits=None,
-                            pub_label_xy=None, eta_label_xy=None, var_label_xy=None,
+                            pub_label_xy=(0.5,0.81), eta_label_xy=(0.5,0.2), var_label_xy=(0.85,0.81),
                             do_etaxi_label=True, do_pub_label=False, pub_label='(e)', xi_norm=None ) -> None:
         r"""
         Plot vertical erosion speed :math:`\xi^{\downarrow}` along a time-invariant profile.
@@ -632,9 +632,9 @@ class TimeInvariant(Graphing):
                 optional [z_min, z_max] vertical plot range
         """
         _ = self.create_figure(name, fig_size=fig_size, dpi=dpi)
-        eta_label_xy = [0.5,0.2] if eta_label_xy is None else eta_label_xy
-        pub_label_xy = [0.5,0.81] if pub_label_xy is None else pub_label_xy
-        var_label_xy = [0.85,0.81] if var_label_xy is None else var_label_xy
+        # eta_label_xy = [0.5,0.2] if eta_label_xy is None else eta_label_xy
+        # pub_label_xy = [0.5,0.81] if pub_label_xy is None else pub_label_xy
+        # var_label_xy = [0.85,0.81] if var_label_xy is None else var_label_xy
 
         if xi_norm is None:
             xi_norm = 1

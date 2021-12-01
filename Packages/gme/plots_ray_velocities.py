@@ -53,7 +53,7 @@ class RayVelocities(Graphing):
     """
 
     def profile_v( self, gmes, gmeq, sub, name, fig_size=None, dpi=None, n_points=201,
-                   pub_label_xy=None, eta_label_xy=None, var_label_xy=None,
+                   pub_label_xy=(0.5,0.5), eta_label_xy=(0.5,0.81), var_label_xy=(0.8,0.5),
                    do_pub_label=False, pub_label='', do_etaxi_label=True,
                    xi_norm=None, legend_loc='lower right', do_mod_v=False ) -> None:
         r"""
@@ -69,9 +69,9 @@ class RayVelocities(Graphing):
             n_points (int): sample rate along each curve
         """
         _ = self.create_figure(name, fig_size=fig_size, dpi=dpi)
-        pub_label_xy = [0.5,0.5] if pub_label_xy is None else pub_label_xy
-        eta_label_xy = [0.5,0.81] if eta_label_xy is None else eta_label_xy
-        var_label_xy = [0.8,0.5] if var_label_xy is None else var_label_xy
+        # pub_label_xy = [0.5,0.5] if pub_label_xy is None else pub_label_xy
+        # eta_label_xy = [0.5,0.81] if eta_label_xy is None else eta_label_xy
+        # var_label_xy = [0.8,0.5] if var_label_xy is None else var_label_xy
 
         if xi_norm is None:
             xi_norm = 1

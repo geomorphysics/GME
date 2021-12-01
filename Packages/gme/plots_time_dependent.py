@@ -27,48 +27,32 @@ Imports symbols from :mod:`.symbols` module.
 """
 
 # pylint: disable=locally-disabled, multiple-statements, fixme, line-too-long, invalid-name
+import warnings
+
+# Typing
+# from typing import Any
 
 # Numpy
 import numpy as np
 
-# Scipy utils
-from scipy.linalg import eig, eigh, det, norm
-from scipy.optimize import root_scalar
-
 # SymPy
-from sympy import Eq, factor, N, Abs, lambdify, Rational, Matrix, poly, \
-                    simplify, diff, sign, sin, tan, deg, solve, sqrt, rad, numer, denom, im, re, \
-                    atan, oo
-
-# GMPLib
-from gmplib.utils import e2d, omitdict, round as gmround, convert
+from sympy import deg
 
 # GME
-from gme.symbols import varphi_r, xiv, xiv_0, pz_min, varphi, px, pz, px_min, \
-                        H, beta_max, Lc, gstarhat, xih_0, mu, eta, pxhat, pzhat, rxhat, rzhat, Ci
-from gme.equations import px_value
-from gme.plot import Graphing
+from gme.symbols import Ci
+from gme.plots import Graphing
 
 # MatPlotLib
+import matplotlib as mpl
 import matplotlib.pyplot as plt
-from matplotlib import ticker
-from matplotlib.ticker import FormatStrFormatter
 import matplotlib.patches as mpatches
-from matplotlib.patches import Patch, FancyArrow, FancyArrowPatch, Arrow, Rectangle, Circle, RegularPolygon,\
-                                ArrowStyle, ConnectionPatch, Arc
-from matplotlib.spines import Spine
-from matplotlib.legend_handler import HandlerPatch
-from matplotlib import cm
-from mpl_toolkits.axes_grid1 import make_axes_locatable
-from mpl_toolkits.axes_grid1.inset_locator import inset_axes
 
-import warnings
 warnings.filterwarnings("ignore")
 
-__all__ = ['TimeDependentPlots']
+__all__ = ['TimeDependent']
 
 
-class TimeDependentPlots(Graphing):
+class TimeDependent(Graphing):
     """
     Subclasses :class:`gme.plot.Graphing <plot.Graphing>`.
     """
@@ -79,7 +63,7 @@ class TimeDependentPlots(Graphing):
     def profile_isochrones( self, gmes, gmeq, sub, name, fig_size=None, dpi=None,
                             do_zero_isochrone=True, do_overlay=False, fig=None,
                             do_rays=True, ray_subsetting=5, ray_lw=0.5, ray_ls='-', ray_label='ray',
-                            do_isochrones=True, isochrone_subsetting=1, do_isochrone_p=False,
+                            do_isochrones=True, isochrone_subsetting=1, #do_isochrone_p=False, BROKEN
                             isochrone_lw=0.5, isochrone_ls='-',
                             do_annotate_rays=False, n_arrows=10, arrow_sf=0.7, arrow_offset=4,
                             do_annotate_cusps=False, cusp_lw=1.5, do_smooth_colors=False,
@@ -87,8 +71,9 @@ class TimeDependentPlots(Graphing):
                             aspect=None,
                             do_legend=True, do_alt_legend=False, do_grid=True,
                             do_infer_initiation=True,
-                            do_etaxi_label=True, eta_label_xy=[0.65,0.85],
-                            do_pub_label=False, pub_label=None, pub_label_xy=[0.5,0.92] ):
+                            do_etaxi_label=True, eta_label_xy=(0.65,0.85),
+                            do_pub_label=False, pub_label=None, pub_label_xy=(0.5,0.92) ) \
+                                -> mpl.figure.Figure:
         """
         Plot xxxx.
 
@@ -150,14 +135,14 @@ class TimeDependentPlots(Graphing):
             do_infer_initiation (bool):
                 optional draw dotted line inferring cusp initiation at the left boundary
         """
-        if do_overlay:
-            fig = fig
-        else:
-            fig = self.create_figure(name, fig_size=fig_size, dpi=dpi)
+        # HACK
+        fig = self.create_figure(name, fig_size=fig_size, dpi=dpi) if not do_overlay else None
+        # pub_label_xy = [0.5,0.92] if pub_label_xy is None else pub_label_xy
+        # eta_label_xy = [0.65,0.85] if eta_label_xy is None else eta_label_xy
 
         # Unpack for brevity
         if hasattr(gmes,'rpt_isochrones'):
-            rx_isochrones, rz_isochrones, px_isochrones, pz_isochrones, t_isochrones \
+            rx_isochrones, rz_isochrones, _, _, t_isochrones \
                 = [gmes.rpt_isochrones[rpt_] for rpt_ in self.rpt_list]
 
         # Initial boundary
@@ -170,12 +155,12 @@ class TimeDependentPlots(Graphing):
         axes = plt.gca()
         if do_rays:
             n_rays = len(gmes.rpt_arrays['rx'])
-            for i_ray,(rx_array,rz_array,t_array) in enumerate(zip(reversed(gmes.rpt_arrays['rx']),
+            for i_ray,(rx_array,rz_array,_) in enumerate(zip(reversed(gmes.rpt_arrays['rx']),
                                                                    reversed(gmes.rpt_arrays['rz']),
                                                                    reversed(gmes.rpt_arrays['t']))):
                 if (i_ray//ray_subsetting-i_ray/ray_subsetting)==0:
-                    this_ray_label=(ray_label+' ($t_{\mathrm{oldest}}$)' if i_ray==0 else
-                                    ray_label+' ($t_{\mathrm{newest}}$)' if i_ray==n_rays-1 else
+                    this_ray_label=(ray_label+r' ($t_{\mathrm{oldest}}$)' if i_ray==0 else
+                                    ray_label+r' ($t_{\mathrm{newest}}$)' if i_ray==n_rays-1 else
                                     None)
                     if do_annotate_rays:
                         self.arrow_annotate_ray_custom(rx_array, rz_array, axes, i_ray, ray_subsetting, n_rays,
@@ -193,8 +178,9 @@ class TimeDependentPlots(Graphing):
         if hasattr(gmes,'rpt_isochrones') and do_isochrones:
             n_isochrones = len(rx_isochrones)
             delta_t = t_isochrones[1]
-            for i_isochrone,(rx_isochrone,rz_isochrone,t_) in enumerate(zip(rx_isochrones,rz_isochrones,
-                                                                                            t_isochrones)):
+            i_isochrone, rx_isochrone, rz_isochrone = None, None, None # suppresses annoying pylint warning
+            for i_isochrone,(rx_isochrone,rz_isochrone,_) in \
+                                        enumerate(zip(rx_isochrones,rz_isochrones,t_isochrones)):
                 i_subsetted = (i_isochrone//isochrone_subsetting-i_isochrone/isochrone_subsetting)
                 i_subsubsetted = (i_isochrone//(isochrone_subsetting*10)-i_isochrone/(isochrone_subsetting*10))
                 if (i_isochrone>0 and i_subsetted==0 and rx_isochrone is not None):
@@ -203,17 +189,20 @@ class TimeDependentPlots(Graphing):
             # Hack legend items
             if rx_isochrone is not None:
                 plt.plot(rx_isochrone, rz_isochrone, self.gray_color(i_isochrone, n_isochrones),
-                         linestyle=isochrone_ls, lw=1.3*isochrone_lw, label=r'isochrone $\Delta{\hat{t}}='+f'{int(10*delta_t)}'+'$')
+                         linestyle=isochrone_ls, lw=1.3*isochrone_lw,
+                         label=r'isochrone $\Delta{\hat{t}}=$'+rf'${int(10*delta_t)}$')
                 plt.plot(rx_isochrone, rz_isochrone, self.gray_color(i_isochrone, n_isochrones),
-                         linestyle=isochrone_ls, lw=0.5*isochrone_lw, label=r'isochrone $\Delta{\hat{t}}='+f'{round(delta_t,1)}'+'$')
-                if do_isochrone_p:
-                    for (rx_lowres,rz_lowres,px_lowres,pz_lowres) \
-                            in zip(rx_isochrones_lowres,rz_isochrones_lowres,
-                                        px_isochrones_lowres,pz_isochrones_lowres):
-                        [plt.arrow(rx_,rz_,0.02*px_/np.sqrt(px_**2+pz_**2),0.02*pz_/np.sqrt(px_**2+pz_**2),
-                               ec=color_, fc=color_, lw=0.5*isochrone_lw,
-                               head_width=0.015, head_length=0, overhang=0)
-                     for (rx_,rz_,px_,pz_) in zip(rx_lowres, rz_lowres, px_lowres, pz_lowres)]
+                         linestyle=isochrone_ls, lw=0.5*isochrone_lw,
+                         label=r'isochrone $\Delta{\hat{t}}=$'+rf'${round(delta_t,1)}$')
+                # HACK - broken for reasons unknown
+                # if do_isochrone_p:
+                #     for (rx_lowres,rz_lowres,px_lowres,pz_lowres) \
+                #             in zip(rx_isochrones_lowres,rz_isochrones_lowres,
+                #                    px_isochrones_lowres,pz_isochrones_lowres):
+                #         _ = [plt.arrow(rx_,rz_,0.02*px_/np.sqrt(px_**2+pz_**2),0.02*pz_/np.sqrt(px_**2+pz_**2),
+                #                     ec=color_, fc=color_, lw=0.5*isochrone_lw,
+                #                     head_width=0.015, head_length=0, overhang=0)
+                #                for (rx_,rz_,px_,pz_) in zip(rx_lowres, rz_lowres, px_lowres, pz_lowres)]
 
         # Knickpoint aka cusp propagation
         if do_annotate_cusps:
@@ -259,7 +248,8 @@ class TimeDependentPlots(Graphing):
         axes.set_aspect(1 if aspect is None else aspect)
 
         if do_etaxi_label:
-            plt.text(*eta_label_xy, r'$\eta='+rf'{gmeq.eta}'+r'\quad\mathsf{Ci}='+rf'{round(float(deg(Ci.subs(sub))))}'+'{\degree}$',
+            plt.text(*eta_label_xy,
+                     rf'$\eta={gmeq.eta}$'+r'$\quad\mathsf{Ci}=$'+rf'${round(float(deg(Ci.subs(sub))))}\degree$',
                      transform=axes.transAxes,
                      horizontalalignment='center', verticalalignment='center',
                      fontsize=14, color='k')
@@ -270,10 +260,11 @@ class TimeDependentPlots(Graphing):
         return fig
 
 
-    def profile_cusp_speed( self, gmes, gmeq, sub, name, fig_size=None, dpi=None,
-                            sample_spacing=10, x_limits=[-0.05,1.05], t_limits=[0,None], y_limits=[-5,None],
-                            legend_loc='lower right', do_x=True, do_infer_initiation=True ):
-        """
+    def profile_cusp_speed( self, gmes, gmeq, name, fig_size=None, dpi=None,
+                            # sample_spacing=10,
+                            x_limits=(-0.05,1.05), t_limits=(0,None), y_limits=(-5,None),
+                            legend_loc='lower right', do_x=True, do_infer_initiation=True ) -> None:
+        r"""
         Plot horizontal speed of cusp propagation
 
         Args:
@@ -297,10 +288,10 @@ class TimeDependentPlots(Graphing):
         Todo:
             implement `do_infer_initiation`
         """
-        fig = self.create_figure(name, fig_size=fig_size, dpi=dpi)
+        _ = self.create_figure(name, fig_size=fig_size, dpi=dpi)
 
         # Drop last cusp because it's sometimes bogus
-        trxz_cusps =  gmes.trxz_cusps
+        _ =  gmes.trxz_cusps
         x_or_t_array = gmes.cusps['rxz'][:-1][:,0] if do_x else gmes.cusps['t'][:-1]
         vc_array = np.array( [(x1_-x0_)/(t1_-t0_) for (x0_,z0),(x1_,z1),t0_,t1_
                             in zip(gmes.cusps['rxz'][:-1], gmes.cusps['rxz'][1:],
@@ -315,22 +306,24 @@ class TimeDependentPlots(Graphing):
         plt.ylabel(r'Cusp horiz propagation speed,  $c^x$')
 
         axes = plt.gca()
-        plt.text(0.15,0.2, r'$\eta={}$'.format(gmeq.eta), transform=axes.transAxes,
+        plt.text(0.15,0.2, rf'$\eta={gmeq.eta}$', transform=axes.transAxes,
                  horizontalalignment='center', verticalalignment='center', fontsize=14, color='k')
 
         x_array = np.linspace(0.001 if do_infer_initiation else x_or_t_array[0],1,num=101)
         # color_cx, color_bounds = 'DarkGreen', 'Green'
         color_cx, color_bounds = 'Red', 'DarkRed'
-        plt.plot(x_array, gmes.cx_pz_lambda(x_array), color=color_cx, alpha=0.8, lw=2, label=r'$c^x$ model ($p_z$)' )
+        plt.plot(x_array, gmes.cx_pz_lambda(x_array), color=color_cx, alpha=0.8, lw=2,
+                        label=r'$c^x$ model ($p_z$)' )
         # plt.plot(x_array, gmes.cx_pz_tanbeta_lambda(x_array), ':', color='g', alpha=0.8, lw=2, label=r'$c^x$ model ($\tan\beta$)' )
-        plt.plot(x_array, gmes.cx_v_lambda(x_array), ':', color='k', alpha=0.8, lw=2, label=r'$c^x$ model ($\mathbf{v}$)' )
+        plt.plot(x_array, gmes.cx_v_lambda(x_array), ':', color='k', alpha=0.8, lw=2,
+                        label=r'$c^x$ model ($\mathbf{v}$)' )
         plt.plot(x_array, gmes.vx_interp_fast(x_array), '--', color=color_bounds, alpha=0.8, lw=1,
-                        label='fast ray $v^x$ bound' )
+                        label=r'fast ray $v^x$ bound' )
         plt.plot(x_array, gmes.vx_interp_slow(x_array), '-.', color=color_bounds, alpha=0.8, lw=1,
-                        label='slow ray $v^x$ bound' )
+                        label=r'slow ray $v^x$ bound' )
 
-        xlim = plt.xlim(*x_limits) if do_x else plt.xlim(*t_limits)
-        ylim = plt.ylim(*y_limits) if y_limits is not None else None
+        _ = plt.xlim(*x_limits) if do_x else plt.xlim(*t_limits)
+        _ = plt.ylim(*y_limits) if y_limits is not None else None
         plt.grid(True, ls=':')
 
         plt.legend(loc=legend_loc, fontsize=12, framealpha=0.95)

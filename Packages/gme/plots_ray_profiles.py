@@ -57,7 +57,7 @@ class RayProfiles(Graphing):
                         # do_direct=True,
                         do_schematic=False, do_ndim=True,
                         do_simple=False, do_t_sampling=True, do_etaxi_label=True,
-                        do_pub_label=False, pub_label='', pub_label_xy=None ) -> None:
+                        do_pub_label=False, pub_label='', pub_label_xy=(0.15,0.50) ) -> None:
         r"""
         Plot a set of erosion rays for a time-invariant topographic profile solution of Hamilton's equations.
 
@@ -88,7 +88,7 @@ class RayProfiles(Graphing):
         """
         _ = self.create_figure(name, fig_size=fig_size, dpi=dpi)
         axes = plt.gca()
-        pub_label_xy = [0.15,0.50] if pub_label_xy is None else pub_label_xy
+        # pub_label_xy = [0.15,0.50] if pub_label_xy is None else pub_label_xy
 
         t_array  = gmes.t_array
         rx_array = gmes.rx_array
@@ -138,7 +138,8 @@ class RayProfiles(Graphing):
                         do_schematic=False, do_legend=True, #do_profile_points=True,
                         do_fault_bdry=False, do_compute_xivh_ratio=False,
                         do_one_ray=False, do_t_sampling=True, do_etaxi_label=True,
-                        do_pub_label=False, pub_label='', pub_label_xy=None, eta_label_xy=None ) -> None:
+                        do_pub_label=False, pub_label='',
+                        pub_label_xy=(0.93,0.33), eta_label_xy=(0.5,0.8) ) -> None:
         r"""
         Plot a set of erosion rays for a time-invariant topographic profile solution of Hamilton's equations.
 
@@ -169,8 +170,8 @@ class RayProfiles(Graphing):
 
         """
         _ = self.create_figure(name, fig_size=fig_size, dpi=dpi)
-        pub_label_xy = [0.93,0.33] if pub_label_xy is None else pub_label_xy
-        eta_label_xy = [0.5,0.8] if eta_label_xy is None else eta_label_xy
+        # pub_label_xy = [0.93,0.33] if pub_label_xy is None else pub_label_xy
+        # eta_label_xy = [0.5,0.8] if eta_label_xy is None else eta_label_xy
         axes = plt.gca()
 
         t_array  = gmes.t_array #[::ray_subsetting]
@@ -276,14 +277,14 @@ class RayProfiles(Graphing):
                     profile_subsetting=5,
                     # do_t_sampling=True,
                     do_etaxi_label=True,
-                    do_pub_label=False, pub_label='', pub_label_xy=None ) -> None:
+                    do_pub_label=False, pub_label='', pub_label_xy=(0.93,0.33) ) -> None:
         r"""
         Plot a time-invariant topographic profile solution of Hamilton's equations.
 
 
         """
         _ = self.create_figure(name, fig_size=fig_size, dpi=dpi)
-        pub_label_xy = [0.93,0.33] if pub_label_xy is None else pub_label_xy
+        # pub_label_xy = [0.93,0.33] if pub_label_xy is None else pub_label_xy
         axes = plt.gca()
 
         # t_array  = gmes.t_array #[::ray_subsetting]

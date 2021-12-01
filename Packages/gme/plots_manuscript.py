@@ -30,7 +30,7 @@ Imports symbols from :mod:`.symbols` module.
 import warnings
 
 # Typing
-from typing import Tuple
+from typing import Tuple, List
 
 # Numpy
 import numpy as np
@@ -43,6 +43,7 @@ from gme.symbols import rx, varphi, pz
 from gme.plots import Graphing
 
 # MatPlotLib
+import matplotlib as mpl
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 from matplotlib.patches import ArrowStyle, ConnectionPatch, Arc
@@ -73,10 +74,11 @@ class Manuscript(Graphing):
                     GME model equations class instance defined in :mod:`~.equations`
             do_ray_conjugacy (bool): optional generate ray conjugacy schematic?
         """
-        _ = self.create_figure(name, fig_size=fig_size, dpi=dpi)
+        fig = self.create_figure(name, fig_size=fig_size, dpi=dpi)
         axes = plt.gca()
 
-        def trace_indicatrix(sub, n_points, xy_offset, sf=1, pz_min_=2.5e-2, pz_max_=1000):
+        def trace_indicatrix(sub, n_points, xy_offset, sf=1, pz_min_=2.5e-2, pz_max_=1000) \
+                                        -> Tuple[np.array, np.array]:
             r"""
             TBD
             """
@@ -247,6 +249,9 @@ class Manuscript(Graphing):
         if do_legend:
             plt.legend(loc='upper left', fontsize=legend_fontsize, framealpha=0.95)
 
+        print(type(fig.add_axes([*[0.65, 0.55], *[0.65, 0.55]])))
+        print('here')
+
     def point_pairing(self, name, fig_size=(10,4), dpi=None) -> None:
         """
         Schematic illustrating ...
@@ -300,7 +305,8 @@ class Manuscript(Graphing):
             y = np.exp((0.5+x)*4)/120
             return x_ndim,y
 
-        def isochrones_subfig(fig_, x_, y_, color_=gray_):
+        def isochrones_subfig(fig_, x_, y_, color_=gray_) \
+                    -> Tuple[mpl.axes._axes.Axes,List[float]]:
             r"""
             TBD
             """
@@ -330,14 +336,16 @@ class Manuscript(Graphing):
                      horizontalalignment='center', verticalalignment='center')
             return axes_0, posn_0
 
-        def set_colors(obj_type, axes_list, color_):
+        def set_colors(obj_type, axes_list, color_) -> None:
             r"""
             TBD
             """
             for axes_ in axes_list:
                 _ = [child.set_color(color_) for child in axes_.get_children() if isinstance(child, obj_type)]
 
-        def zoom_boxes(fig_, ta_color_=gray2_, tb_color_=gray1_):
+        def zoom_boxes(fig_, ta_color_=gray2_, tb_color_=gray1_) \
+                            -> Tuple[mpl.axes._axes.Axes, mpl.axes._axes.Axes,
+                                     mpl.axes._axes.Axes, mpl.axes._axes.Axes, str]:
             r"""
             TBD
             """
@@ -345,7 +353,8 @@ class Manuscript(Graphing):
             size_zoom_C = [0.3,0.7]
             n_pts = 300
 
-            def zoomed_isochrones(axes_, name_text, i_pt1_, i_pt2_, do_many=False, do_legend=False, do_pts_only=False):
+            def zoomed_isochrones(axes_, name_text, i_pt1_, i_pt2_, do_many=False,
+                                  do_legend=False, do_pts_only=False) -> Tuple[np.array,np.array,np.array]:
                 x_array = np.linspace(-1,3, n_pts)
                 y_array1 = x_array*0.5
                 y_array2 = y_array1+0.7
@@ -408,7 +417,7 @@ class Manuscript(Graphing):
                                 color=color_, fontsize=18, rotation=0, transform=axes_.transAxes,
                                 horizontalalignment='right', verticalalignment='bottom')
 
-            def p_bones(axes_, xy_pt1, xy_pt2, dxy, p_f=0.9, color_=blue_, n_bones=5, do_primary=True):
+            def p_bones(axes_, xy_pt1, xy_pt2, dxy, p_f=0.9, color_=blue_, n_bones=5, do_primary=True) -> None:
                 alpha_ = 0.7
                 p_dashing = [1,0] #[4, 4]
                 p_lw = 3
@@ -431,7 +440,7 @@ class Manuscript(Graphing):
                                 color=color_, fontsize=18, rotation=0, transform=axes_.transAxes,
                                 horizontalalignment='right', verticalalignment='bottom')
 
-            def psi_label(axes_, xy_pt1_B, xy_pt2_B, xy_pt1_C, xy_pt2_C, color_=red_):
+            def psi_label(axes_, xy_pt1_B, xy_pt2_B, xy_pt1_C, xy_pt2_C, color_=red_) -> None:
                 label_xy = [0.5,0.53]
                 axes_.text(*label_xy, r'$\psi$',
                             color=color_, fontsize=20, rotation=0, transform=axes_.transAxes,
@@ -443,7 +452,7 @@ class Manuscript(Graphing):
                                     linewidth=2, fill=False, zorder=2, #transform=axes_.transAxes,
                                     angle=angle_B, theta1=0, theta2=angle_C-angle_B) )
 
-            def beta_label(axes_, xy_pt1_B, xy_pt2_B, color_=blue_):
+            def beta_label(axes_, xy_pt1_B, xy_pt2_B, color_=blue_) -> None:
                 label_xy = [0.28,0.47]
                 axes_.text(*label_xy, r'$\beta$',
                             color=color_, fontsize=20, rotation=0, transform=axes_.transAxes,
@@ -456,7 +465,7 @@ class Manuscript(Graphing):
                                     angle=angle_ref, theta1=0, theta2=angle_B-angle_ref) )
                 axes_.plot( [xy_pt2_B[0],xy_pt2_B[0]], [xy_pt2_B[1],xy_pt2_B[1]-0.5], ':', color=color_)
 
-            def alpha_label(axes_, xy_pt1_B, xy_pt2_B, color_=red_):
+            def alpha_label(axes_, xy_pt1_B, xy_pt2_B, color_=red_) -> None:
                 label_xy = [0.55,0.75]
                 axes_.text(*label_xy, r'$-\alpha$',
                             color=color_, fontsize=20, rotation=0, transform=axes_.transAxes,

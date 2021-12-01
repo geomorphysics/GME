@@ -69,7 +69,7 @@ class SlicingMath():
     TBD
     """
 
-    def __init__(self, gr, sub_, var_list, do_modv=True):
+    def __init__(self, gr, sub_, var_list, do_modv=True) -> None:
         r"""
         Generate lambdas for H, Ci, metric signature, gstarhat, v, modv, pxhat and pzhat
         """
