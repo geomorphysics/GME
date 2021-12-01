@@ -26,7 +26,7 @@ Imports symbols from :mod:`.symbols` module.
 
 """
 
-# pylint: disable=locally-disabled, multiple-statements, fixme, line-too-long, invalid-name, too-few-public-methods, no-self-use
+# pylint: disable=locally-disabled, multiple-statements, fixme, line-too-long, invalid-name, too-few-public-methods, no-self-use, unused-argument
 import warnings
 
 # Numpy
@@ -37,7 +37,7 @@ from sympy import N, Rational, deg
 
 # GME
 from gme.symbols import rx, x_h, Lc, Ci
-from gme.plots_one_ray import OneRayPlots
+from gme.plots import Graphing
 
 # MatPlotLib
 import matplotlib.pyplot as plt
@@ -47,56 +47,13 @@ from mpl_toolkits.axes_grid1 import make_axes_locatable
 
 warnings.filterwarnings("ignore")
 
-__all__ = ['TimeInvariantPlots']
+__all__ = ['TimeInvariant']
 
 
-class TimeInvariantPlots(OneRayPlots):
+class TimeInvariant(Graphing):
     """
-    Subclasses :class:`gme.plots_oneray.OneRayPlots <plot.OneRayPlots>`.
+    Subclasses :class:`gme.plot.Graphing <plot.Graphing>`.
     """
-
-    # def profiles( self, gmes, pr_choices, name, fig_size=None, dpi=None,
-    #                     # y_limits=None, n_points=101,
-    #                     # do_direct=True, n_rays=4, profile_subsetting=5,
-    #                     do_schematic=False
-    #                     # do_legend=True, do_profile_points=True,
-    #                     # do_simple=False, do_one_ray=False, do_t_sampling=True, do_etaxi_label=True,
-    #                     # do_pub_label=False, pub_label='', pub_label_xy=None, eta_label_xy=None
-    #                     ):
-    #     r"""
-    #     TBD
-    #     """
-    #     _ = self.create_figure(name, fig_size=fig_size, dpi=dpi)
-    #     axes = plt.gca()
-    #
-    #     # pub_label_xy = [0.93,0.33] if pub_label_xy is None else pub_label_xy
-    #     # eta_label_xy = [0.5,0.8] if eta_label_xy is None else eta_label_xy
-    #
-    #     # def plot_h_profile(eta_,Ci_,idx_,n_, lw=2,dashing='-'):
-    #     #     sub_ = pr_choices[(eta_,Ci_)]
-    #     #     mu_ = sub_[mu]
-    #     #     gmes_ = gmes[(eta_,Ci_)]
-    #     #     # t_array  = gmes_.t_array
-    #     #     # rx_array = gmes_.rx_array
-    #     #     # rz_array = gmes_.rz_array
-    #     #     Ci_label = rf'{deg(Ci_)}' if deg(Ci_)>=1 else rf'{deg(Ci_).n():0.1}'
-    #     #     color_ = self.mycolors(idx_, 1, n_, do_smooth=False, cmap_choice='brg')
-    #     #     plt.plot(gmes_.h_x_array,(gmes_.h_z_array-gmes_.h_z_array[0]), dashing, lw=lw, color=color_,
-    #     #              label=rf'$\eta=${eta_}, '+rf'$\mu=${mu_}, '+r'$\mathsf{Ci}=$'+Ci_label+r'$\degree$')
-    #
-    #     def make_eta_Ci_list(Ci_choice):
-    #         eta_Ci_list = [(eta_,Ci_) for (eta_,Ci_) in gmes if eta_==Ci_choice]
-    #         return sorted(eta_Ci_list, key=lambda Ci_: Ci_[1], reverse=True)
-    #
-    #     # eta_Ci_list_1p5 = make_eta_Ci_list(Rational(3,2))
-    #     # eta_Ci_list_0p5 = make_eta_Ci_list(Rational(1,2))
-    #
-    #     axes.set_aspect(1)
-    #     plt.grid(True, ls=':')
-    #     plt.xlabel(r'Distance, $x/L_{\mathrm{c}}$  [-]', fontsize=13 if do_schematic else 16)
-    #     plt.ylabel(r'Elevation, $z/L_{\mathrm{c}}$  [-]', fontsize=13 if do_schematic else 16)
-    #
-    #     plt.legend(loc='upper left', fontsize=11, framealpha=0.95)
 
     def profile_flow_model( self, gmeq, sub, name, fig_size=None, dpi=None,
                             n_points=26, subtitle='', do_subtitling=False, do_extra_annotations=False) -> None:
@@ -310,10 +267,11 @@ class TimeInvariantPlots(OneRayPlots):
             """
             TBD
             """
-            def legend_artist(self, handlebox) -> mpatches.Arrow:
+            def legend_artist(self, legend, orig_handle, fontsize, handlebox) -> mpatches.Arrow:
                 """
                 TBD
                 """
+
                 # x0, y0 = handlebox.xdescent, handlebox.ydescent
                 # width, height = handlebox.width, handlebox.height
                 patch = mpatches.Arrow(4,4,20,0, width=0, lw=profile_lw, ec='k', fc='k')
@@ -337,7 +295,7 @@ class TimeInvariantPlots(OneRayPlots):
                 super().__init__()
                 self.fc = fc
 
-            def legend_artist(self, handlebox) -> mpatches.Circle:
+            def legend_artist(self, legend, orig_handle, fontsize, handlebox) -> mpatches.Circle:
                 """
                 TBD
                 """
@@ -357,7 +315,7 @@ class TimeInvariantPlots(OneRayPlots):
             """
             TBD
             """
-            def legend_artist(self, handlebox) -> mpatches.FancyArrow:
+            def legend_artist(self, legend, orig_handle, fontsize, handlebox) -> mpatches.FancyArrow:
                 """
                 TBD
                 """
@@ -382,7 +340,7 @@ class TimeInvariantPlots(OneRayPlots):
             """
             TBD
             """
-            def legend_artist(self, handlebox) -> mpatches.FancyArrow:
+            def legend_artist(self, legend, orig_handle, fontsize, handlebox) -> mpatches.FancyArrow:
                 # legend, orig_handle, fontsize,
                 """
                 TBD
@@ -534,7 +492,7 @@ class TimeInvariantPlots(OneRayPlots):
         plt.ylim(ylim[0]*1.0,ylim[1]*1.3)
         plt.legend(loc='upper left', fontsize=9, framealpha=0.95)
         plt.text(*eta_label_xy,
-                 rf'$\eta={gmeq.eta}'+r'$\quad\mathsf{Ci}=$'+rf'${round(float(deg(Ci.subs(sub))))}\degree$',
+                 rf'$\eta={gmeq.eta}$'+r'$\quad\mathsf{Ci}=$'+rf'${round(float(deg(Ci.subs(sub))))}\degree$',
                  transform=axes.transAxes,
                  horizontalalignment='center', verticalalignment='center', fontsize=14, color='k')
 
@@ -722,6 +680,49 @@ class TimeInvariantPlots(OneRayPlots):
                  verticalalignment='center', fontsize=16, color='k')
 
 
+
+    # def profiles( self, gmes, pr_choices, name, fig_size=None, dpi=None,
+    #                     # y_limits=None, n_points=101,
+    #                     # do_direct=True, n_rays=4, profile_subsetting=5,
+    #                     do_schematic=False
+    #                     # do_legend=True, do_profile_points=True,
+    #                     # do_simple=False, do_one_ray=False, do_t_sampling=True, do_etaxi_label=True,
+    #                     # do_pub_label=False, pub_label='', pub_label_xy=None, eta_label_xy=None
+    #                     ):
+    #     r"""
+    #     TBD
+    #     """
+    #     _ = self.create_figure(name, fig_size=fig_size, dpi=dpi)
+    #     axes = plt.gca()
+    #
+    #     # pub_label_xy = [0.93,0.33] if pub_label_xy is None else pub_label_xy
+    #     # eta_label_xy = [0.5,0.8] if eta_label_xy is None else eta_label_xy
+    #
+    #     # def plot_h_profile(eta_,Ci_,idx_,n_, lw=2,dashing='-'):
+    #     #     sub_ = pr_choices[(eta_,Ci_)]
+    #     #     mu_ = sub_[mu]
+    #     #     gmes_ = gmes[(eta_,Ci_)]
+    #     #     # t_array  = gmes_.t_array
+    #     #     # rx_array = gmes_.rx_array
+    #     #     # rz_array = gmes_.rz_array
+    #     #     Ci_label = rf'{deg(Ci_)}' if deg(Ci_)>=1 else rf'{deg(Ci_).n():0.1}'
+    #     #     color_ = self.mycolors(idx_, 1, n_, do_smooth=False, cmap_choice='brg')
+    #     #     plt.plot(gmes_.h_x_array,(gmes_.h_z_array-gmes_.h_z_array[0]), dashing, lw=lw, color=color_,
+    #     #              label=rf'$\eta=${eta_}, '+rf'$\mu=${mu_}, '+r'$\mathsf{Ci}=$'+Ci_label+r'$\degree$')
+    #
+    #     def make_eta_Ci_list(Ci_choice):
+    #         eta_Ci_list = [(eta_,Ci_) for (eta_,Ci_) in gmes if eta_==Ci_choice]
+    #         return sorted(eta_Ci_list, key=lambda Ci_: Ci_[1], reverse=True)
+    #
+    #     # eta_Ci_list_1p5 = make_eta_Ci_list(Rational(3,2))
+    #     # eta_Ci_list_0p5 = make_eta_Ci_list(Rational(1,2))
+    #
+    #     axes.set_aspect(1)
+    #     plt.grid(True, ls=':')
+    #     plt.xlabel(r'Distance, $x/L_{\mathrm{c}}$  [-]', fontsize=13 if do_schematic else 16)
+    #     plt.ylabel(r'Elevation, $z/L_{\mathrm{c}}$  [-]', fontsize=13 if do_schematic else 16)
+    #
+    #     plt.legend(loc='upper left', fontsize=11, framealpha=0.95)
 
     # def profile_slope_area( self, gmes, gmeq, sub, name, fig_size=None, dpi=None,
     #                         n_points=26, subtitle='', x_min=0.01,

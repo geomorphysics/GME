@@ -91,7 +91,7 @@ class Graphing(GraphingBase):
             angle_ = np.pi+angle
         return angle_
 
-    def draw_rays_with_arrows_simple( self, axes, sub, t_array, rx_array, rz_array, v_array=None,
+    def draw_rays_with_arrows_simple( self, axes, sub, xi_vh_ratio, t_array, rx_array, rz_array, v_array=None,
                                       n_t=None, n_rays=4,
                                       ls='-', sf=1, color=None, do_labels=True, do_one_ray=False ):
         """
@@ -117,9 +117,8 @@ class Graphing(GraphingBase):
         for i in range(i_max-1,0,-1):
             color = color if do_one_ray else self.colors[(i//i_step)%self.n_colors]
             if (i+i_off)//i_step==(i+i_off)/i_step:
-                t_offset = 0 if do_one_ray else float(t_array[i]*(-(xiv_0/xih_0).subs(sub)))
-                # print(t_ref, round(t_ref-t_array[i],1), t_offset)
-                t_label = rf'$\hat{t}_0={round(t_ref-t_array[i],1)}$'  #$t_0={}$'.format(i_max-i-1)
+                t_offset = 0 if do_one_ray else t_array[i]*xi_vh_ratio
+                t_label = r'$\hat{t}_0=$'+f'{round(t_ref-t_array[i],1)}'  #$t_0={}$'.format(i_max-i-1)
                 plt.plot( rx_array[:i+1], rz_array[:i+1]-t_offset, ls,
                           label=t_label if do_labels else None,
                           color=color)
