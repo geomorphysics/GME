@@ -99,14 +99,20 @@ class AlphaBeta(Graphing):
         plt.plot(beta_array, beta_array, ':')
 
     def alpha_anisotropy(self, gmeq, name, alpha_array, beta_array,
-                         # tanalpha_crit_, tanbeta_crit_,
-                         fig_size=None, dpi=None ) -> None:
+                         tanalpha_crit_, tanbeta_crit_, fig_size=None, dpi=None ) -> None:
         """
         TBD
         """
         # Create figure
         _ = self.create_figure(name, fig_size=fig_size, dpi=dpi)
         plt.plot(alpha_array-beta_array+90, alpha_array, 'b')
+        x_,y_ = np.rad2deg(np.arctan(float(tanbeta_crit_))), np.rad2deg(np.arctan(float(tanalpha_crit_)))
+        plt.plot( x_,y_, 'ob' )
+        label_ = r'$\psi_c,\alpha_c$'
+        if gmeq.eta<1:
+            plt.text( x_,y_*0.90, label_, color='b', horizontalalignment='center', fontsize=14)
+        else:
+            plt.text( x_,y_*0.75, label_, color='b', horizontalalignment='center', fontsize=14)
         plt.text( 40, 5 if gmeq.eta>1 else -5, fr'$\eta = ${gmeq.eta}', color='k',
                  horizontalalignment='center', verticalalignment='center', fontsize=15)
         plt.text( *((10,7.5) if gmeq.eta==Rational(3,2) else (7,-16.5)),

@@ -136,7 +136,7 @@ class RayProfiles(Graphing):
                         x_limits=None, y_limits=None, n_points=101,
                         do_direct=True, n_rays=4, #profile_subsetting=5,
                         do_schematic=False, do_legend=True, #do_profile_points=True,
-                        do_fault_bdry=False, do_ndim=True,
+                        do_fault_bdry=False, do_compute_xivh_ratio=False,
                         do_one_ray=False, do_t_sampling=True, do_etaxi_label=True,
                         do_pub_label=False, pub_label='', pub_label_xy=None, eta_label_xy=None ) -> None:
         r"""
@@ -187,7 +187,7 @@ class RayProfiles(Graphing):
         rz_rsmpld_array = gmes.rz_interp_t(t_rsmpld_array)
 
         # Plot arrow-annotated rays
-        xi_vh_ratio = float(-tan(Ci).subs(sub)) if do_ndim else float(-(xiv_0/xih_0).subs(sub))
+        xi_vh_ratio = float(-tan(Ci).subs(sub)) if do_compute_xivh_ratio else float(-(xiv_0/xih_0).subs(sub))
         self.draw_rays_with_arrows_simple( axes, sub, xi_vh_ratio,
                                            t_rsmpld_array, rx_rsmpld_array, rz_rsmpld_array,
                                            n_rays=n_rays, n_t=None,

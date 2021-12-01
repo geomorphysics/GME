@@ -45,7 +45,7 @@ from gmplib.utils import e2d, omitdict
 # GME
 from gme.symbols import H, Lc, gstarhat, xih_0, mu, eta, pxhat, pzhat, rxhat, Ci
 from gme.equations import px_value
-from gme.plot import Graphing
+from gme.plots import Graphing
 
 # MatPlotLib
 import matplotlib.pyplot as plt

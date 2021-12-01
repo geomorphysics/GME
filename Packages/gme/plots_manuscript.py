@@ -27,50 +27,227 @@ Imports symbols from :mod:`.symbols` module.
 """
 
 # pylint: disable=locally-disabled, multiple-statements, fixme, line-too-long, invalid-name
+import warnings
+
+# Typing
+from typing import Tuple
 
 # Numpy
 import numpy as np
 
-# Scipy utils
-from scipy.linalg import eig, eigh, det, norm
-from scipy.optimize import root_scalar
-
 # SymPy
-from sympy import Eq, factor, N, Abs, lambdify, Rational, Matrix, poly, \
-                    simplify, diff, sign, sin, tan, deg, solve, sqrt, rad, numer, denom, im, re, \
-                    atan, oo
-
-# GMPLib
-from gmplib.utils import e2d, omitdict, round as gmround, convert
+from sympy import N, lambdify, re
 
 # GME
-from gme.symbols import varphi_r, xiv, xiv_0, pz_min, varphi, px, pz, px_min, \
-                        H, beta_max, Lc, gstarhat, xih_0, mu, eta, pxhat, pzhat, rxhat, rzhat, Ci
-from gme.equations import px_value
-from gme.plot import Graphing
+from gme.symbols import rx, varphi, pz
+from gme.plots import Graphing
 
 # MatPlotLib
 import matplotlib.pyplot as plt
-from matplotlib import ticker
-from matplotlib.ticker import FormatStrFormatter
 import matplotlib.patches as mpatches
-from matplotlib.patches import Patch, FancyArrow, FancyArrowPatch, Arrow, Rectangle, Circle, RegularPolygon,\
-                                ArrowStyle, ConnectionPatch, Arc
+from matplotlib.patches import ArrowStyle, ConnectionPatch, Arc
 from matplotlib.spines import Spine
-from matplotlib.legend_handler import HandlerPatch
-from matplotlib import cm
-from mpl_toolkits.axes_grid1 import make_axes_locatable
 from mpl_toolkits.axes_grid1.inset_locator import inset_axes
 
-import warnings
 warnings.filterwarnings("ignore")
 
-__all__ = ['ManuscriptPlots']
+__all__ = ['Manuscript']
 
 
-class ManuscriptPlots(Graphing):
+class Manuscript(Graphing):
+    r"""
+    TBD
+    """
 
-    def point_pairing(self, name, fig_size=(10,4), dpi=None):
+    def huygens_wavelets( self, gmes, gmeq, sub, name, fig_size=None, dpi=None,
+                          do_ray_conjugacy=False, do_fast=False,
+                          do_legend=True, legend_fontsize=10, annotation_fontsize=11) -> None:
+        r"""
+        Plot the loci of :math:`\mathbf{\widetilde{p}}` and :math:`\mathbf{r}` and
+        their behavior defined by :math:`F` relative to the :math:`\xi` circle.
+
+        Args:
+            fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`):
+                reference to figure instantiated by :meth:`GMPLib create_figure <plot_utils.GraphingBase.create_figure>`
+            gmeq (:class:`~.equations.Equations`):
+                    GME model equations class instance defined in :mod:`~.equations`
+            do_ray_conjugacy (bool): optional generate ray conjugacy schematic?
+        """
+        _ = self.create_figure(name, fig_size=fig_size, dpi=dpi)
+        axes = plt.gca()
+
+        def trace_indicatrix(sub, n_points, xy_offset, sf=1, pz_min_=2.5e-2, pz_max_=1000):
+            r"""
+            TBD
+            """
+            rdotx_pz_eqn = gmeq.idtx_rdotx_pz_varphi_eqn.subs(sub)
+            rdotz_pz_eqn = gmeq.idtx_rdotz_pz_varphi_eqn.subs(sub)
+            rdotx_pz_lambda = lambdify( pz, (re(N(rdotx_pz_eqn.rhs))), 'numpy')
+            rdotz_pz_lambda = lambdify( pz, (re(N(rdotz_pz_eqn.rhs))), 'numpy')
+            fgtx_pz_array = -pz_min_*np.power(2,np.linspace(np.log2(pz_max_/pz_min_),
+                                                           np.log2(pz_min_/pz_min_),n_points, endpoint=True))
+            # print(fgtx_pz_array)
+            idtx_rdotx_array = np.array([ float(rdotx_pz_lambda(pz_)) for pz_ in fgtx_pz_array] )
+            idtx_rdotz_array = np.array([ float(rdotz_pz_lambda(pz_)) for pz_ in fgtx_pz_array] )
+            return idtx_rdotx_array*sf+xy_offset[0],idtx_rdotz_array*sf+xy_offset[1]
+
+        isochrone_color, isochrone_width, isochrone_ms, isochrone_ls \
+                = 'Black', 2, 8 if do_ray_conjugacy else 7, '-'
+        new_isochrone_color, newpt_isochrone_color, new_isochrone_width, \
+            new_isochrone_ms, new_isochrone_ls \
+                = 'Gray', 'White', 2 if do_ray_conjugacy else 4, \
+                  8 if do_ray_conjugacy else 7, '-'
+        wavelet_color = 'DarkRed'
+        wavelet_width = 2.5 if do_ray_conjugacy else 1.5
+        p_color, _ = 'Blue', 2
+        r_color, r_width = '#15e01a', 1.5
+
+        dt_ = 0.0015
+        dz_ = -gmes.xiv_v_array[0]*dt_*1.15
+        # Fudge factors are NOT to "correct" curves but rather to account
+        #   for the exaggerated Delta{t} that makes the approximations here just wrong
+        #   enough to make the r, p etc annotations a bit wonky
+        dx_fudge, dp_fudge = 0.005,1.15
+
+        # Old isochrones
+        plt.plot( gmes.h_x_array[0],gmes.h_z_array[0], 'o', mec='k',
+                  mfc=isochrone_color, ms=isochrone_ms, fillstyle='full', markeredgewidth=0.5,
+                  label=r'point $\mathbf{r}$')
+        plt.plot( gmes.h_x_array, gmes.h_z_array, lw=isochrone_width, c=isochrone_color, ls=isochrone_ls,
+                  label=r'isochrone  $T(\mathbf{r})=t$' )
+
+        # Adjust plot scale, limits
+        if do_ray_conjugacy:
+            x_limits = [0.35,0.62]; y_limits = [0.018,0.12]
+        else:
+            x_limits = [0.45,0.75]; y_limits = [0.03,0.19]
+        # HACK!!!
+        # plt.xlim(*x_limits); plt.ylim(*y_limits)
+        axes.set_aspect(1)
+
+        # New isochrones
+        plt.plot( gmes.h_x_array+dx_fudge, gmes.h_z_array + dz_,
+                  c=new_isochrone_color, lw=new_isochrone_width, ls=new_isochrone_ls )
+
+        # Erosion arrow
+        i_ = 161 if do_ray_conjugacy else 180
+        rx_, rz_ = (gmes.h_x_array[i_]+gmes.h_x_array[i_-1])/2, (gmes.h_z_array[i_]+gmes.h_z_array[i_-1])/2
+        if do_ray_conjugacy:
+            rx_, rz_ = ( (gmes.h_x_array[i_]+gmes.h_x_array[i_-1])/2,
+                         (gmes.h_z_array[i_]+gmes.h_z_array[i_-1])/2 )
+        else:
+            rx_, rz_ = gmes.h_x_array[i_+1], gmes.h_z_array[i_+1]
+            rx_ += dx_fudge
+            rz_ += dz_
+        beta_ = float(gmes.beta_p_interp(rx_))
+        beta_deg = np.rad2deg(beta_)
+        sf = 0.03 if do_ray_conjugacy else 0.06
+        lw = 3.0 if do_ray_conjugacy else 5.0
+        l_erosion_arrow = 0.4
+        gray_ = self.gray_color(2,5)
+        plt.arrow( rx_,rz_, l_erosion_arrow*np.tan(beta_)*sf,-l_erosion_arrow*sf,
+                   head_width=0.15*sf, head_length=0.15*sf, lw=lw,
+                   length_includes_head=True, ec=gray_, fc=gray_, capstyle='butt', overhang=0.1*sf )
+
+        # Erosion label
+        off_x, off_z = (-0.002, +0.015) if do_ray_conjugacy else (0.02, -0.005)
+        rotation = beta_deg if do_ray_conjugacy else beta_deg-90
+        plt.text( rx_+off_x,rz_+off_z,'erosion', rotation=rotation,
+                  horizontalalignment='center', verticalalignment='top',
+                  fontsize=annotation_fontsize,  color=gray_ )
+
+        # Specify where to sample indicatrices
+        i_start = 0; i_end = 220; n_i = 3 if do_fast else 15
+        i_list = [111] if do_ray_conjugacy else \
+                [int(i) for i in i_start+(i_end-i_start)*np.linspace(0,1,n_i)**0.7]
+
+        # Construct indicatrix wavelets
+        for idx,i_ in enumerate(i_list):
+            print(f'{idx}: {i_}')
+            i_from = i_list[0]
+            rx_, rz_ = gmes.h_x_array[i_], gmes.h_z_array[i_]
+            print(rx_,rz_)
+            drx_, drz = gmes.rdotx_interp(rx_)*dt_, gmes.rdotz_interp(rx_)*dt_
+            rxn_, rzn_ = rx_+drx_, rz_+drz
+            recip_p_ = (1/gmes.p_interp(rx_))*dt_
+            # pxn_, pzn_ = rx_ + (1/gmes.px_interp(rx_))*dt_, rz_ + (1/gmes.pz_interp(rx_))*dt_
+             #(1/gmes.pz_array[0])*dt_
+            beta_ = float(gmes.beta_p_interp(rx_))
+            dpx_, dpz_ = recip_p_*np.sin(beta_)*dp_fudge, -recip_p_*np.cos(beta_)*dp_fudge
+            varphi_ = float(gmeq.varphi_rx_eqn.rhs.subs(sub).subs({rx:rx_}))
+            n_points = 80 if do_ray_conjugacy else 5 if do_fast else 50
+            pz_max_ = 1000 if do_ray_conjugacy else 1000
+            idtx_rdotx_array,idtx_rdotz_array \
+                = trace_indicatrix( {varphi:varphi_},  n_points=n_points,
+                                    xy_offset=[rx_, rz_], sf=dt_, pz_min_=1e-3, pz_max_=pz_max_ )
+
+            # Plot wavelets
+            lw = 1.5
+            plt.plot( idtx_rdotx_array,idtx_rdotz_array, lw=wavelet_width, ls='-',
+                      c=wavelet_color,
+                      label=r'erosional wavelet $\{\Delta\mathbf{r}\}$' if i_==i_from else None )
+            if not do_ray_conjugacy:
+                k_ = 0
+                plt.plot( [rx_*k_+idtx_rdotx_array[0]*(1-k_),idtx_rdotx_array[0]],
+                          [rz_*k_+idtx_rdotz_array[0]*(1-k_),idtx_rdotz_array[0]],
+                          lw=lw, c=wavelet_color, alpha=0.7, ls='-' )
+                plt.plot( [rx_,idtx_rdotx_array[0]],[rz_,idtx_rdotz_array[0]],
+                          lw=lw, c=wavelet_color, alpha=0.4, ls='-' )
+            else:
+                plt.plot( [rx_,idtx_rdotx_array[0]],[rz_,idtx_rdotz_array[0]],
+                          lw=lw, c=wavelet_color, alpha=1, ls='--' )
+
+            # Ray arrows & new points
+            sf = 1.7 if do_ray_conjugacy else 0.1
+            plt.arrow(rx_, rz_, (rxn_-rx_), (rzn_-rz_),
+                      head_width=0.007*sf,
+                      head_length=0.009*sf,
+                      overhang=0.18, width=0.0003,
+                      length_includes_head=True,
+                      alpha=1, ec='w', fc=r_color, linestyle='-') #, shape='full')
+            plt.plot( [rx_, rxn_], [rz_, rzn_],
+                      lw=2 if do_ray_conjugacy else r_width, alpha=1, c=r_color, linestyle='-', # shape='full',
+                      label=r'ray increment  $\Delta{\mathbf{r}}$' if i_==i_from else None)
+            plt.plot( rxn_, rzn_, 'o', mec=new_isochrone_color, mfc=newpt_isochrone_color,
+                      ms=new_isochrone_ms, fillstyle=None, markeredgewidth=1.5)
+
+            # Normal slownesses
+            plt.plot([rx_,rx_+dpx_],[rz_,rz_+dpz_],'-', c=p_color, lw=3 if do_ray_conjugacy else r_width,
+                     label=r'front increment  $\mathbf{\widetilde{p}}\Delta{t}\,/\,{p}^2$'
+                     if i_==i_from else None)
+
+            # axes.annotate('', xy=(rx_,rz_), xytext=(rx_-dpx_*1e-6,rz_-dpz_*1e-6),
+            #               arrowprops={'headlength':0.4*sf, 'headwidth':0.2*sf, 'lw':1.5, 'ec':'b', 'fc':'w'},
+            #               va='center')
+            # my_arrow_style = mpatches.ArrowStyle.Fancy(head_length=1*sf, head_width=.8*sf, tail_width=0.1*sf)
+            # axes.annotate('', xy=(rx_,rz_), xytext=(rx_-dpx_*1e-6,rz_-dpz_*1e-6),
+            #               arrowprops=dict(arrowstyle=my_arrow_style, color='b', lw=1.5))
+            # if True or do_ray_conjugacy:
+            sf = 1.5
+            plt.arrow(rx_-dpx_*0.15, rz_-dpz_*0.15, -dpx_*0.1, -dpz_*0.1,
+                        head_width=0.007*sf, head_length=-0.006*sf, lw=1*sf,
+                        shape='full', overhang=1,
+                        length_includes_head=True,
+                        head_starts_at_zero=True,
+                        ec='b', fc='b')
+            # Old points
+            plt.plot( rx_, rz_, 'o', mec='k', mfc=isochrone_color, ms=isochrone_ms,
+                      fillstyle='full', markeredgewidth=0.5 )
+
+        # New isochrones
+        plt.plot( 0,0, c=new_isochrone_color, lw=new_isochrone_width, ls=new_isochrone_ls,
+                  label=r'isochrone  $T(\mathbf{r}\!+\!\Delta{\mathbf{r}})=t+\Delta{t}$')
+        plt.plot( rxn_, rzn_, 'o', mec=new_isochrone_color, mfc=newpt_isochrone_color,
+                  ms=new_isochrone_ms, fillstyle=None, markeredgewidth=1.5,
+                  label=r'point $\mathbf{r}+\Delta{\mathbf{r}}$')
+
+        plt.grid(True, ls=':')
+        plt.xlabel(r'Distance, $x/L_{\mathrm{c}}$  [-]', fontsize=14)
+        plt.ylabel(r'Elevation, $z/L_{\mathrm{c}}$  [-]', fontsize=14)
+        if do_legend:
+            plt.legend(loc='upper left', fontsize=legend_fontsize, framealpha=0.95)
+
+    def point_pairing(self, name, fig_size=(10,4), dpi=None) -> None:
         """
         Schematic illustrating ...
 
@@ -89,8 +266,10 @@ class ManuscriptPlots(Graphing):
         gray1_ = self.gray_color(1,n_gray)
         gray2_ = self.gray_color(2,n_gray)
 
-        def remove_ticks_etc(axes_):
-        #     return
+        def remove_ticks_etc(axes_) -> None:
+            r"""
+            TBD
+            """
             axes_.set_xticklabels([])
             axes_.set_xticks([])
             axes_.set_yticklabels([])
@@ -98,7 +277,10 @@ class ManuscriptPlots(Graphing):
             axes_.set_xlim(0,1)
             axes_.set_ylim(0,1)
 
-        def linking_lines(fig_, axes_A, axes_B, axes_C, axes_D, color_=brown_):
+        def linking_lines(fig_, axes_A, axes_B, axes_C, axes_D, color_=brown_) -> None:
+            r"""
+            TBD
+            """
             joins = [0]*3
             kwargs = dict(color=color_, linestyle=':')
             joins[0] = ConnectionPatch(xyA=(0.2,0), coordsA=axes_D.transData,
@@ -107,23 +289,29 @@ class ManuscriptPlots(Graphing):
                                        xyB=(0,0.9),  coordsB=axes_B.transData, **kwargs)
             joins[2] = ConnectionPatch(xyA=(1,0.60), coordsA=axes_D.transData,
                                        xyB=(0,0.8),  coordsB=axes_C.transData, **kwargs)
-            [fig_.add_artist(join_) for join_ in joins]
+            for join_ in joins: fig_.add_artist(join_)
 
-        def make_xy():
+        def make_xy() -> Tuple[float,float]:
+            r"""
+            TBD
+            """
             x = np.linspace(0,1)
             x_ndim = (x-0.5)/(0.9-0.5)
             y = np.exp((0.5+x)*4)/120
             return x_ndim,y
 
         def isochrones_subfig(fig_, x_, y_, color_=gray_):
+            r"""
+            TBD
+            """
             # Top left isochrones 0
             size_zoom_0 = [0.65, 0.55]
             posn_0 = [0.0, 0.75]
             axes_0 = fig_.add_axes([*posn_0, *size_zoom_0])
             plt.axis('off')
             n_isochrones = 6
-            [plt.plot(x_, sf_*y_, '-', color=self.gray_color(i_,n_gray), lw=2.5)
-                 for i_, sf_ in enumerate(np.linspace(0.5,1.2,n_isochrones))]
+            for i_, sf_ in enumerate(np.linspace(0.5,1.2,n_isochrones)):
+                plt.plot(x_, sf_*y_, '-', color=self.gray_color(i_,n_gray), lw=2.5)
             plt.xlim(0,1)
             plt.ylim(0,1)
             sf1_ = 1.3
@@ -143,10 +331,16 @@ class ManuscriptPlots(Graphing):
             return axes_0, posn_0
 
         def set_colors(obj_type, axes_list, color_):
-            [[child.set_color(color_) for child in axes_.get_children()
-             if isinstance(child, obj_type)] for axes_ in axes_list]
+            r"""
+            TBD
+            """
+            for axes_ in axes_list:
+                _ = [child.set_color(color_) for child in axes_.get_children() if isinstance(child, obj_type)]
 
         def zoom_boxes(fig_, ta_color_=gray2_, tb_color_=gray1_):
+            r"""
+            TBD
+            """
             size_zoom_AB = [0.3,0.7]
             size_zoom_C = [0.3,0.7]
             n_pts = 300
@@ -177,7 +371,7 @@ class ManuscriptPlots(Graphing):
                 xy_pts1 = xy_pts1_tmp.T.reshape((xy_pts1_tmp.shape[2],2)) if do_many else xy_pts1_tmp
                 marker_style1 = marker_style2.copy()
                 marker_style1.update({'markeredgecolor':tb_color_,'markerfacecolor':'w'})
-                [plt.plot(*xy_pt1_, **marker_style1) for xy_pt1_ in xy_pts1]
+                for xy_pt1_ in xy_pts1: plt.plot(*xy_pt1_, **marker_style1)
 
                 if not do_pts_only:
                     b_label_i = 4 if do_many else 0
@@ -197,8 +391,8 @@ class ManuscriptPlots(Graphing):
                 dy = y_array1[1]-y_array1[0]
                 return (xy_pts1 if do_many else xy_pts1[0]), xy_pt2, np.array([dx,dy])
 
-            def v_arrow(axes_, xy_pt1, xy_pt2, dxy=[0.12,0.05], a_f=0.54, v_f=0.5, v_label=r'$\mathbf{v}$',
-                        color_=red_, do_dashing=False, do_label=False):
+            def v_arrow(axes_, xy_pt1, xy_pt2, dxy=None, a_f=0.54, v_f=0.5, v_label=r'$\mathbf{v}$',
+                        color_=red_, do_dashing=False, do_label=False) -> None:
                 v_lw = 1.5
                 axes_.arrow(*((xy_pt1*a_f+xy_pt2*(1-a_f))),*((xy_pt1-xy_pt2)*0.01),
                              lw=1, facecolor=color_, edgecolor=color_,
@@ -267,7 +461,7 @@ class ManuscriptPlots(Graphing):
                 axes_.text(*label_xy, r'$-\alpha$',
                             color=color_, fontsize=20, rotation=0, transform=axes_.transAxes,
                             horizontalalignment='center', verticalalignment='center')
-                angle_ref = 0
+                # angle_ref = 0
                 angle_B = np.rad2deg(np.arctan( (xy_pt2_B[1]-xy_pt1_B[1])/(xy_pt2_B[0]-xy_pt1_B[0]) ))
                 radius = 0.88
                 axes_.add_patch( Arc(xy_pt2_B, radius,radius, color=color_, linestyle='--',
@@ -288,11 +482,11 @@ class ManuscriptPlots(Graphing):
             remove_ticks_etc(axes_A)
             i_pt2_A = 92
             i_pts1_A = [i_pt2_A+i_ for i_ in np.arange(-43,100,15)]
-            xy_pts1_A, xy_pt2_A, dxy_A = zoomed_isochrones(axes_A, 'free', i_pts1_A,i_pt2_A,
+            xy_pts1_A, xy_pt2_A, _ = zoomed_isochrones(axes_A, 'free', i_pts1_A,i_pt2_A,
                                                            do_many=True)
-            [v_arrow(axes_A, xy_pt1_A, xy_pt2_A, do_dashing=True,
-                     v_f=0.35, v_label=r'$\{\mathbf{v}\}$', do_label=(True if i_==len(xy_pts1_A)-1 else False))
-                for i_,xy_pt1_A in enumerate(xy_pts1_A)]
+            for i_,xy_pt1_A in enumerate(xy_pts1_A):
+                v_arrow(axes_A, xy_pt1_A, xy_pt2_A, dxy=[0.12,0.05], do_dashing=True,
+                     v_f=0.35, v_label=r'$\{\mathbf{v}\}$', do_label=bool(i_==len(xy_pts1_A)-1))
             zoomed_isochrones(axes_A, '', i_pts1_A,i_pt2_A, do_many=True)
 
             # Zoom intrinsic pairing B
@@ -312,13 +506,11 @@ class ManuscriptPlots(Graphing):
             remove_ticks_etc(axes_C)
             i_pt1_C = i_pt1_B+30
             i_pt2_C = i_pt2_B
-            xy_pt1_C, xy_pt2_C, dxy_C = zoomed_isochrones(axes_C, 'anisotropic', i_pt1_C,i_pt2_C,
-                                                          do_legend=True)
+            xy_pt1_C, xy_pt2_C, dxy_C = zoomed_isochrones(axes_C, 'anisotropic', i_pt1_C,i_pt2_C, do_legend=True)
             p_bones(axes_C, xy_pt1_C, xy_pt2_C, dxy_C, do_primary=False)
             p_bones(axes_C, xy_pt1_B, xy_pt2_B, dxy_B)
             v_arrow(axes_C, xy_pt1_C, xy_pt2_C, a_f=0.8, v_f=0.72, dxy=[0.1,0.05], do_label=True)
-            zoomed_isochrones(axes_C, '', i_pt1_C,i_pt2_C,
-                              do_legend=False, do_pts_only=True)
+            zoomed_isochrones(axes_C, '', i_pt1_C,i_pt2_C, do_legend=False, do_pts_only=True)
             psi_label(axes_C, xy_pt1_B, xy_pt2_B, xy_pt1_C, xy_pt2_C, color_=purple_)
             beta_label(axes_C, xy_pt1_B, xy_pt2_B)
             alpha_label(axes_C, xy_pt1_C, xy_pt2_C)
@@ -328,11 +520,11 @@ class ManuscriptPlots(Graphing):
             return axes_A, axes_B, axes_C, axes_D, brown_
 
         x,y = make_xy()
-        axes_0, posn_0 = isochrones_subfig(fig, x, y)
-        axes_A, axes_B, axes_C, axes_D, brown = zoom_boxes(fig)
+        _, posn_0 = isochrones_subfig(fig, x, y)
+        axes_A, axes_B, axes_C, axes_D, _ = zoom_boxes(fig)
         linking_lines(fig, axes_A, axes_B, axes_C, axes_D)
 
-    def covector_isochrones(self, name, fig_size=None, dpi=None):
+    def covector_isochrones(self, name, fig_size=None, dpi=None) -> None:
         """
         Schematic illustrating relationship between normal erosion rate vector, normal slowness covector,
         isochrones, covector components, and vertical/normal erosion rates.
@@ -341,7 +533,7 @@ class ManuscriptPlots(Graphing):
             fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`):
                 reference to figure instantiated by :meth:`GMPLib create_figure <plot_utils.GraphingBase.create_figure>`
         """
-        fig = self.create_figure(name, fig_size=fig_size, dpi=dpi)
+        _ = self.create_figure(name, fig_size=fig_size, dpi=dpi)
 
         axes = plt.gca()
         axes.set_aspect(1)
@@ -361,7 +553,7 @@ class ManuscriptPlots(Graphing):
         px_,pz_ = (p_*np.sin(beta_),-p_*np.cos(beta_))
         nDt_ = 1
         L_u_perp_ = u_perp_*nDt_
-        L_p_,L_px_,L_pz_ = p_*nDt_,px_*nDt_,pz_*nDt_
+        _,L_px_,L_pz_ = p_*nDt_,px_*nDt_,pz_*nDt_
         L_ux_,L_uz_ = (L_u_perp_*np.sin(beta_),-L_u_perp_*np.cos(beta_))
         # L_px_,L_pz_ = (L_p_*np.sin(beta_),-L_p_*np.cos(beta_))
         # L_u_right_,L_u_up_ = (1/px_)*nDt_,(1/pz_)*nDt_
@@ -377,7 +569,7 @@ class ManuscriptPlots(Graphing):
             color_ = self.gray_color(i_isochrone=i_isochrone, n_isochrones=n_minor_isochrones)
             plt.plot(x_array+sf_*i_isochrone/np.sin(beta_), x_array*np.tan(beta_), color=color_,
                      lw=2.5 if i_isochrone % ts_major_isochrones==0 else 0.75,
-                     label=r'$T(\mathbf{r})$'+'$={}$y'.format(i_isochrone)
+                     label=r'$T(\mathbf{r})$'+rf'$={i_isochrone}$y'
                             if i_isochrone % ts_major_isochrones==0 else None)
 
         # r vector
@@ -388,7 +580,6 @@ class ManuscriptPlots(Graphing):
         plt.text(origin_[0]-r_length*np.cos(0.5)*naf+0.04,origin_[1]-r_length*np.sin(0.5)*naf-0.04,
                  r'$\mathbf{r}$', horizontalalignment='center', verticalalignment='bottom',
                  fontsize=18, color=r_color)
-
 
         # Slowness covector p thick transparent lines
         lw_pxz_ = 10
@@ -455,19 +646,9 @@ class ManuscriptPlots(Graphing):
         axes.add_patch( mpatches.Arc((0, 0), arc_radius,arc_radius, color='Gray',
                                      linewidth=1.5, fill=False, zorder=2,
                                      theta1=0, theta2=60) )
-        plt.text(0.18,0.18, r'$\beta = $'+'{}'.format(beta_deg)+r'${\degree}$',
+        plt.text(0.18,0.18, rf'$\beta = {beta_deg}\degree$',
                  horizontalalignment='left', verticalalignment='center',
                  fontsize=20,  color='Gray')
-
-        # from matplotlib import rcParams
-        # rcParams['text.usetex'] = True
-        # rcParams['text.latex.preamble'] = r'\usepackage{amsmath}'
-        # rcParams['text.latex.preamble'] = r'\usepackage[scaled]{helvet}'
-        # rcParams['text.latex.preamble'] = r'\usepackage[T1]{fontenc}'
-        # rcParams['text.latex.preamble'] = r'\usepackage{eucal}'
-        # rcParams['text.latex.preamble'] = r'\usepackage[mathcal]{eucal}'
-        # rcParams['text.latex.preamble'] = r'\usepackage[mathscr]{eucal}'
-
 
         # Erosion arrow
         l_erosion_arrow = 0.2
@@ -476,20 +657,19 @@ class ManuscriptPlots(Graphing):
         plt.arrow(origin_[0]+off_+0.02, origin_[1]+off_*np.tan(beta_),
                   l_erosion_arrow*np.tan(beta_),-l_erosion_arrow, head_width=0.08, head_length=0.1, lw=7,
                   length_includes_head=True, ec=gray_, fc=gray_, capstyle='butt', overhang=0.1)
-        off_x, off_z = 0.27, 0
+        off_x, off_z = 0.27, 0.0
         plt.text(origin_[0]+off_+0.02+off_x,origin_[1]+off_*np.tan(beta_)+off_z,'erosion',
                  rotation=beta_deg-90, horizontalalignment='center', verticalalignment='center',
                  fontsize=15,  color=gray_)
 
         # Unit normal n vector
-        off_x, off_z = 1.1,0.55
-        plt.text(origin_[0]+off_x,origin_[1]+off_z,
+        off_x, off_z = 1.1, 0.55
+        plt.text(origin_[0]+off_x, origin_[1]+off_z,
                  r'$\mathbf{n} = $',
                  horizontalalignment='right', verticalalignment='center', fontsize=15,  color='k')
-        plt.text(origin_[0]+off_x,origin_[1]+off_z,
+        plt.text(origin_[0]+off_x, origin_[1]+off_z,
                  r'$\left[ \,\stackrel{\sqrt{3}/{2}}{-1/2}\, \right]$', #  \binom{\sqrt{3}/{2}}{-1/2}
                  horizontalalignment='left', verticalalignment='center', fontsize=20,  color='k')
-
 
         # p text annotations
         plt.text(origin_[0]+1.7,origin_[1]+0.1, r'${{p}}_x(\mathbf{{n}}) = 3$',
@@ -546,206 +726,19 @@ class ManuscriptPlots(Graphing):
                  horizontalalignment='left', verticalalignment='center',
                  fontsize=18, color=u_color)
 
-
         # Grid, limits, etc
         plt.axis('off')
         plt.xlim(0,x_limit)
         plt.ylim(0,y_limit)
         plt.grid('on')
         plt.legend(loc='lower center', fontsize=13, framealpha=0.95)
-        # plt.legend(loc='center left', fontsize=13, framealpha=0.95)
-
 
         # Length scale
-        inset_axes_ = inset_axes(axes, width='{}%'.format(31.5), height=0.15, loc=2)
+        inset_axes_ = inset_axes(axes, width=f'{31.5}%', height=0.15, loc=2)
         plt.xticks(np.linspace(0,2,3),labels=[0,0.25,0.5])
         plt.yticks([])
-        plt.xlabel(r'distance  [mm]')
+        plt.xlabel('distance  [mm]')
         inset_axes_.spines['top'].set_visible(False)
         inset_axes_.spines['left'].set_visible(False)
         inset_axes_.spines['right'].set_visible(False)
         inset_axes_.spines['bottom'].set_visible(True)
-
-    def huygens_wavelets( self, gmes, gmeq, sub, name, fig_size=None, dpi=None,
-                          do_ray_conjugacy=False, do_fast=False,
-                          do_legend=True, legend_fontsize=10, annotation_fontsize=11):
-        r"""
-        Plot the loci of :math:`\mathbf{\widetilde{p}}` and :math:`\mathbf{r}` and
-        their behavior defined by :math:`F` relative to the :math:`\xi` circle.
-
-        Args:
-            fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`):
-                reference to figure instantiated by :meth:`GMPLib create_figure <plot_utils.GraphingBase.create_figure>`
-            gmeq (:class:`~.equations.Equations`):
-                    GME model equations class instance defined in :mod:`~.equations`
-            do_ray_conjugacy (bool): optional generate ray conjugacy schematic?
-        """
-        fig = self.create_figure(name, fig_size=fig_size, dpi=dpi)
-        axes = plt.gca()
-
-        def trace_indicatrix(sub, n_points, xy_offset=[0,0], sf=1, pz_min=2.5e-2, pz_max=1000):
-            rdotx_pz_eqn = gmeq.idtx_rdotx_pz_varphi_eqn.subs(sub)
-            rdotz_pz_eqn = gmeq.idtx_rdotz_pz_varphi_eqn.subs(sub)
-            rdotx_pz_lambda = lambdify( pz, (re(N(rdotx_pz_eqn.rhs))), 'numpy')
-            rdotz_pz_lambda = lambdify( pz, (re(N(rdotz_pz_eqn.rhs))), 'numpy')
-            fgtx_pz_array = -pz_min*np.power(2,np.linspace(np.log2(pz_max/pz_min),
-                                                           np.log2(pz_min/pz_min),n_points, endpoint=True))
-            # print(fgtx_pz_array)
-            idtx_rdotx_array = np.array([ float(rdotx_pz_lambda(pz_)) for pz_ in fgtx_pz_array] )
-            idtx_rdotz_array = np.array([ float(rdotz_pz_lambda(pz_)) for pz_ in fgtx_pz_array] )
-            return idtx_rdotx_array*sf+xy_offset[0],idtx_rdotz_array*sf+xy_offset[1]
-
-        isochrone_color, isochrone_width, isochrone_ms, isochrone_ls \
-                = 'Black', 2, 8 if do_ray_conjugacy else 7, '-'
-        new_isochrone_color, newpt_isochrone_color, new_isochrone_width, \
-            new_isochrone_ms, new_isochrone_ls \
-                = 'Gray', 'White', 2 if do_ray_conjugacy else 4, \
-                  8 if do_ray_conjugacy else 7, '-'
-        wavelet_color = 'DarkRed'
-        wavelet_width = 2.5 if do_ray_conjugacy else 1.5
-        p_color, p_width = 'Blue', 2
-        r_color, r_width = '#15e01a', 1.5
-
-        dt_ = 0.0015
-        dz_ = -gmes.xiv_v_array[0]*dt_*1.15
-        # Fudge factors are NOT to "correct" curves but rather to account
-        #   for the exaggerated Delta{t} that makes the approximations here just wrong
-        #   enough to make the r, p etc annotations a bit wonky
-        dx_fudge, dp_fudge = 0.005,1.15
-
-        # Old isochrones
-        plt.plot( gmes.h_x_array[0],gmes.h_z_array[0], 'o', mec='k',
-                  mfc=isochrone_color, ms=isochrone_ms, fillstyle='full', markeredgewidth=0.5,
-                  label='point $\mathbf{r}$')
-        plt.plot( gmes.h_x_array, gmes.h_z_array, lw=isochrone_width, c=isochrone_color, ls=isochrone_ls,
-                  label=r'isochrone  $T(\mathbf{r})=t$' )
-
-        # Adjust plot scale, limits
-        if do_ray_conjugacy:
-            x_limits = [0.35,0.62]; y_limits = [0.018,0.12]
-        else:
-            # plt.xlim([0.5,0.8]); plt.ylim(0.045,0.2)
-            x_limits = [0.45,0.75]; y_limits = [0.03,0.19]
-        plt.xlim(*x_limits); plt.ylim(*y_limits)
-        axes.set_aspect(1)
-
-        # New isochrones
-        plt.plot( gmes.h_x_array+dx_fudge, gmes.h_z_array + dz_,
-                  c=new_isochrone_color, lw=new_isochrone_width, ls=new_isochrone_ls )
-
-        # Erosion arrow
-        i_ = 161 if do_ray_conjugacy else 180
-        rx_, rz_ = (gmes.h_x_array[i_]+gmes.h_x_array[i_-1])/2, (gmes.h_z_array[i_]+gmes.h_z_array[i_-1])/2
-        if do_ray_conjugacy:
-            rx_, rz_ = ( (gmes.h_x_array[i_]+gmes.h_x_array[i_-1])/2,
-                         (gmes.h_z_array[i_]+gmes.h_z_array[i_-1])/2 )
-        else:
-            rx_, rz_ = gmes.h_x_array[i_+1], gmes.h_z_array[i_+1]
-            rx_ += dx_fudge
-            rz_ += dz_
-        beta_ = float(gmes.beta_p_interp(rx_))
-        beta_deg = np.rad2deg(beta_)
-        sf = 0.03 if do_ray_conjugacy else 0.06
-        lw = 3 if do_ray_conjugacy else 5
-        l_erosion_arrow = 0.4
-        gray_ = self.gray_color(2,5)
-        plt.arrow( rx_,rz_, l_erosion_arrow*np.tan(beta_)*sf,-l_erosion_arrow*sf,
-                   head_width=0.15*sf, head_length=0.15*sf, lw=lw,
-                   length_includes_head=True, ec=gray_, fc=gray_, capstyle='butt', overhang=0.1*sf )
-
-        # Erosion label
-        off_x, off_z = (-0.002, +0.015) if do_ray_conjugacy else (0.02, -0.005)
-        rotation = beta_deg if do_ray_conjugacy else beta_deg-90
-        plt.text( rx_+off_x,rz_+off_z,'erosion', rotation=rotation,
-                  horizontalalignment='center', verticalalignment='top',
-                  fontsize=annotation_fontsize,  color=gray_ )
-
-        # Specify where to sample indicatrices
-        i_start = 0; i_end = 220; n_i = 3 if do_fast else 15
-        i_list = [111] if do_ray_conjugacy else \
-                [int(i) for i in i_start+(i_end-i_start)*np.linspace(0,1,n_i)**0.7]
-
-        # Construct indicatrix wavelets
-        for idx,i_ in enumerate(i_list):
-            print(f'{idx}: {i_}')
-            i_from = i_list[0]
-            rx_, rz_ = gmes.h_x_array[i_], gmes.h_z_array[i_]
-            drx_, drz = gmes.rdotx_interp(rx_)*dt_, gmes.rdotz_interp(rx_)*dt_
-            rxn_, rzn_ = rx_+drx_, rz_+drz
-            recip_p_ = (1/gmes.p_interp(rx_))*dt_
-            pxn_, pzn_ = rx_ + (1/gmes.px_interp(rx_))*dt_, rz_ + (1/gmes.pz_interp(rx_))*dt_
-             #(1/gmes.pz_array[0])*dt_
-            beta_ = float(gmes.beta_p_interp(rx_))
-            dpx_, dpz_ = recip_p_*np.sin(beta_)*dp_fudge, -recip_p_*np.cos(beta_)*dp_fudge
-            varphi_ = float(gmeq.varphi_rx_eqn.rhs.subs(sub).subs({rx:rx_}))
-            n_points = 80 if do_ray_conjugacy else 5 if do_fast else 50
-            pz_max = 1000 if do_ray_conjugacy else 1000
-            idtx_rdotx_array,idtx_rdotz_array \
-                = trace_indicatrix( {varphi:varphi_},  n_points=n_points,
-                                    xy_offset=[rx_, rz_], sf=dt_, pz_min=1e-3, pz_max=pz_max )
-
-            # Plot wavelets
-            lw = 1.5
-            plt.plot( idtx_rdotx_array,idtx_rdotz_array, lw=wavelet_width, ls='-',
-                      c=wavelet_color,
-                      label='erosional wavelet $\{\Delta\mathbf{r}\}$' if i_==i_from else None )
-            if not do_ray_conjugacy:
-                k_ = 0
-                plt.plot( [rx_*k_+idtx_rdotx_array[0]*(1-k_),idtx_rdotx_array[0]],
-                          [rz_*k_+idtx_rdotz_array[0]*(1-k_),idtx_rdotz_array[0]],
-                          lw=lw, c=wavelet_color, alpha=0.7, ls='-' )
-                plt.plot( [rx_,idtx_rdotx_array[0]],[rz_,idtx_rdotz_array[0]],
-                          lw=lw, c=wavelet_color, alpha=0.4, ls='-' )
-            else:
-                plt.plot( [rx_,idtx_rdotx_array[0]],[rz_,idtx_rdotz_array[0]],
-                          lw=lw, c=wavelet_color, alpha=1, ls='--' )
-
-            # Ray arrows & new points
-            sf = 1.7 if do_ray_conjugacy else 0.1
-            plt.arrow(rx_, rz_, (rxn_-rx_), (rzn_-rz_),
-                      head_width=0.007*sf,
-                      head_length=0.009*sf,
-                      overhang=0.18, width=0.0003,
-                      length_includes_head=True,
-                      alpha=1, ec='w', fc=r_color, linestyle='-') #, shape='full')
-            plt.plot( [rx_, rxn_], [rz_, rzn_],
-                      lw=2 if do_ray_conjugacy else r_width, alpha=1, c=r_color, linestyle='-', # shape='full',
-                      label=r'ray increment  $\Delta{\mathbf{r}}$' if i_==i_from else None)
-            plt.plot( rxn_, rzn_, 'o', mec=new_isochrone_color, mfc=newpt_isochrone_color,
-                      ms=new_isochrone_ms, fillstyle=None, markeredgewidth=1.5)
-
-            # Normal slownesses
-            plt.plot([rx_,rx_+dpx_],[rz_,rz_+dpz_],'-', c=p_color, lw=3 if do_ray_conjugacy else r_width,
-                     label=r'front increment  $\mathbf{\widetilde{p}}\Delta{t}\,/\,{p}^2$'
-                     if i_==i_from else None)
-
-            # axes.annotate('', xy=(rx_,rz_), xytext=(rx_-dpx_*1e-6,rz_-dpz_*1e-6),
-            #               arrowprops={'headlength':0.4*sf, 'headwidth':0.2*sf, 'lw':1.5, 'ec':'b', 'fc':'w'},
-            #               va='center')
-            # my_arrow_style = mpatches.ArrowStyle.Fancy(head_length=1*sf, head_width=.8*sf, tail_width=0.1*sf)
-            # axes.annotate('', xy=(rx_,rz_), xytext=(rx_-dpx_*1e-6,rz_-dpz_*1e-6),
-            #               arrowprops=dict(arrowstyle=my_arrow_style, color='b', lw=1.5))
-            if True or do_ray_conjugacy:
-                sf = 1.5
-                plt.arrow(rx_-dpx_*0.15, rz_-dpz_*0.15, -dpx_*0.1, -dpz_*0.1,
-                            head_width=0.007*sf, head_length=-0.006*sf, lw=1*sf,
-                            shape='full', overhang=1,
-                            length_includes_head=True,
-                            head_starts_at_zero=True,
-                            ec='b', fc='b')
-            # Old points
-            plt.plot( rx_, rz_, 'o', mec='k', mfc=isochrone_color, ms=isochrone_ms,
-                      fillstyle='full', markeredgewidth=0.5 )
-
-        # New isochrones
-        plt.plot( 0,0, c=new_isochrone_color, lw=new_isochrone_width, ls=new_isochrone_ls,
-                  label=r'isochrone  $T(\mathbf{r}\!+\!\Delta{\mathbf{r}})=t+\Delta{t}$')
-        plt.plot( rxn_, rzn_, 'o', mec=new_isochrone_color, mfc=newpt_isochrone_color,
-                  ms=new_isochrone_ms, fillstyle=None, markeredgewidth=1.5,
-                  label=r'point $\mathbf{r}+\Delta{\mathbf{r}}$')
-
-        plt.grid(True, ls=':')
-        plt.xlabel(r'Distance, $x/L_{\mathrm{c}}$  [-]', fontsize=14)
-        plt.ylabel(r'Elevation, $z/L_{\mathrm{c}}$  [-]', fontsize=14)
-        if do_legend:
-            plt.legend(loc='upper left', fontsize=legend_fontsize, framealpha=0.95)

@@ -416,7 +416,7 @@ class Equations:
                 varphi_model_eqn = self.varphi_model_rampflatmu_eqn
         else:
             raise ValueError('Unknown flow model')
-        # self.varphi_rx_eqn = varphi_model_eqn.subs({varphi_r:varphi_rx})
+        # self.varphi_rx_eqn = varphi_model_eqn.subs({varphi_r(rvec):varphi_rx})
         self.varphi_rx_eqn = varphi_model_eqn
 
 
@@ -868,12 +868,12 @@ class Equations:
         self.gstar_eigenvalues = simplify(
             Matrix([self.gstar_eigen_varphi_pxpz[0][0],
                     self.gstar_eigen_varphi_pxpz[1][0]])
-                    .subs({varphi_r:self.varphi_rx_eqn.rhs}) )
+                    .subs({varphi_r(rvec):self.varphi_rx_eqn.rhs}) )
         self.gstar_eigenvectors = (
             [simplify(Matrix(self.gstar_eigen_varphi_pxpz[0][2][0])
-                            .subs({varphi_r:self.varphi_rx_eqn.rhs})),
+                            .subs({varphi_r(rvec):self.varphi_rx_eqn.rhs})),
              simplify(Matrix(self.gstar_eigen_varphi_pxpz[1][2][0])
-                            .subs({varphi_r:self.varphi_rx_eqn.rhs}))] )
+                            .subs({varphi_r(rvec):self.varphi_rx_eqn.rhs}))] )
 
 
     def define_idtx_fgtx_eqns(self):
@@ -935,7 +935,7 @@ class Equations:
         # if self.eta == 2:
         #     pz_tanbeta_varphi_eqn = ( self.pz_p_beta_eqn
         #      .subs({p:self.p_varphi_beta_eqn.rhs})
-        #      .subs({varphi_r:varphi})
+        #      .subs({varphi_r(rvec):varphi})
         #      .subs({cos(beta):sqrt(1/(1+tan(beta)**2))})
         #      .subs({Abs(tan(beta)):tan(beta)})
         #     )
@@ -959,7 +959,7 @@ class Equations:
 
         # New
         # pz_cosbeta_varphi_eqn = (self.pz_varphi_beta_eqn.subs({Abs(sin(beta)**self.eta):sin(beta)**self.eta})
-        #                                  .subs({varphi_r:varphi})
+        #                                  .subs({varphi_r(rvec):varphi})
         #                                  .subs({sin(beta):sqrt(1-cos(beta)**2)}))
         # cosbetasqrd_pz_varphi_soln = (sy.solve( pz_cosbeta_varphi_eqn, cos(beta)**2 ))[0]
 
@@ -994,9 +994,9 @@ class Equations:
         g_xz = self.gstar_varphi_pxpz_eqn.rhs[0,1]
         g_zz = self.gstar_varphi_pxpz_eqn.rhs[1,1]
         self.idtx_rdotx_pz_varphi_eqn = factor(
-            Eq(rx, (g_xx*px+g_xz*pz).subs({px:self.fgtx_px_pz_varphi_eqn.rhs,varphi_r:varphi})) )
+            Eq(rx, (g_xx*px+g_xz*pz).subs({px:self.fgtx_px_pz_varphi_eqn.rhs,varphi_r(rvec):varphi})) )
         self.idtx_rdotz_pz_varphi_eqn = factor(factor(
-            Eq(rz, (g_zx*px+g_zz*pz).subs({px:self.fgtx_px_pz_varphi_eqn.rhs,varphi_r:varphi})) ))
+            Eq(rz, (g_zx*px+g_zz*pz).subs({px:self.fgtx_px_pz_varphi_eqn.rhs,varphi_r(rvec):varphi})) ))
 
 
     def prep_geodesic_eqns(self, parameters=None):
@@ -1076,8 +1076,8 @@ class Equations:
         gstar_ij_lambda = lambda i,j: simplify( Rational(2,2)*diff(diff(H_,p_i_lambda(i)),p_i_lambda(j)) )
         gstar_ij_mat = Matrix([[gstar_ij_lambda(1,1),gstar_ij_lambda(2,1)],
                                [gstar_ij_lambda(1,2),gstar_ij_lambda(2,2)]])
-        gstar_ij_pxpz_mat = gstar_ij_mat.subs({varphi_r:varphi_rx})
-        g_ij_pxpz_mat = gstar_ij_mat.inv().subs({varphi_r:varphi_rx})
+        gstar_ij_pxpz_mat = gstar_ij_mat.subs({varphi_r(rvec):varphi_rx})
+        g_ij_pxpz_mat = gstar_ij_mat.inv().subs({varphi_r(rvec):varphi_rx})
 
         cosbeta_eqn = Eq(cos(beta), 1/sqrt(1+tan(beta)**2))
         sinbeta_eqn = Eq(sin(beta), sqrt(1-1/(1+tan(beta)**2)))
@@ -1105,7 +1105,7 @@ class Equations:
         self.gstar_ij_mat = ( self.gstar_ij_tanalpha_mat
                                         .subs({ta:tan(alpha)})
                                         .subs(e2d(self.tanalpha_rdot_eqn))
-                                        .subs(e2d(self.varphi_rx_eqn.subs({varphi_r:varphi_rx})))
+                                        .subs(e2d(self.varphi_rx_eqn.subs({varphi_r(rvec):varphi_rx})))
                                         .subs(parameters) ).subs(mu_eta_sub)
         self.g_ij_tanalpha_mat = ( sy.expand_trig(self.g_ij_tanbeta_mat)
                                         .subs(e2d(sintwobeta_eqn))
@@ -1115,7 +1115,7 @@ class Equations:
                                         ).subs(mu_eta_sub)
         self.g_ij_mat = ( self.g_ij_tanalpha_mat
                                         .subs({ta:rdotz/rdotx})
-                                        .subs(e2d(self.varphi_rx_eqn.subs({varphi_r:varphi_rx})))
+                                        .subs(e2d(self.varphi_rx_eqn.subs({varphi_r(rvec):varphi_rx})))
                                         .subs(parameters) ).subs(mu_eta_sub)
         self.g_ij_mat_lambdified = lambdify( (rx,rdotx,rdotz, varepsilon), self.g_ij_mat, 'numpy')
         self.gstar_ij_mat_lambdified = lambdify( (rx,rdotx,rdotz, varepsilon), self.gstar_ij_mat, 'numpy')
@@ -1355,7 +1355,7 @@ class Equations:
         self.tanbeta_initial_eqn = Eq(tan(beta), self.boundary_eqns[ibc_type]['gradh'].rhs)
         self.p_initial_eqn = simplify( self.p_varphi_beta_eqn
                                   .subs(e2d(self.varphi_rx_eqn))
-                                  # .subs({varphi_r:self.varphi_rx_eqn.rhs})
+                                  # .subs({varphi_r(rvec):self.varphi_rx_eqn.rhs})
                                   .subs({self.tanbeta_initial_eqn.lhs: self.tanbeta_initial_eqn.rhs})
                                   .subs({rx:x}) )
         self.px_initial_eqn = Eq(px, simplify(
