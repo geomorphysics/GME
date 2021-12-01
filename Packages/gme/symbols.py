@@ -19,14 +19,8 @@ Requires Python packages/modules:
 """
 # pylint:
 
-
 from sympy import symbols, MatrixSymbol, Function
-# Import units & dimensions
 from sympy.physics.units import length, time
-#             Quantity, Dimension, \
-#             length, speed, velocity, time, \
-#             km, cm, mm, meter, meters, \
-#             convert_to, percent, degrees, radians
 from sympy.physics.units.systems import SI
 
 i,j,k, l, m = symbols(r'i j k, l, m',  real=True)
