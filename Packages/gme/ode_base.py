@@ -18,6 +18,7 @@ Imports symbols from :mod:`.symbols` module
 """
 # pylint: disable=line-too-long, invalid-name, too-many-locals, multiple-statements, too-many-arguments, too-many-branches
 import warnings
+import logging
 
 # Typing
 from typing import List, Dict, Any, Tuple, Callable, Optional
@@ -27,9 +28,6 @@ import numpy as np
 
 # SymPy
 from sympy import Matrix, lambdify, simplify
-
-# GMPLib
-from gmplib.utils import vprint
 
 # GME
 from gme.symbols import px, pz, rx, rdotx, rdotz, Lc
@@ -46,6 +44,18 @@ rpt_list = rp_list+['t']
 
 __all__ = ['BaseSolution','ExtendedSolution']
 
+def eventAttr():
+    """
+    TBD
+    """
+    def decorator(func):
+        """
+        TBD
+        """
+        # func.direction = 0
+        func.terminal = True
+        return func
+    return decorator
 
 class BaseSolution():
     """
@@ -55,8 +65,7 @@ class BaseSolution():
                   choice='Hamilton',  method='Radau', do_dense=True, x_stop=0.999,
                   t_end=0.04, t_slip_end=0.08, t_distribn=2,
                   n_rays=20, n_t=101,
-                  tp_xiv0_list=None, customize_t_fn=None,
-                  verbose=True ) -> None:
+                  tp_xiv0_list=None, customize_t_fn=None ) -> None:
         """
         Initialize class instance.
 
@@ -70,7 +79,6 @@ class BaseSolution():
 
         # Model/equation parameters
         self.parameters = parameters
-        self.verbose = verbose
 
         # ODE solution method
         self.choice = choice
@@ -80,7 +88,7 @@ class BaseSolution():
         else:
             report = 'Solve geodesic ODEs'
         report += f' using {method} method of integration'
-        vprint(self.verbose, report)
+        logging.info(report)
         self.do_dense = do_dense
         self.x_stop = x_stop
 
@@ -124,7 +132,7 @@ class BaseSolution():
         self.vx_interp_fast: Optional[Callable[[float],float]] = None
         self.vx_interp_slow: Optional[Callable[[float],float]] = None
 
-    def make_model(self, do_verbose=False) -> Callable[[float,Tuple[Any,Any,Any,Any]],float]:
+    def make_model(self) -> Callable[[float,Tuple[Any,Any,Any,Any]],float]:
         """
         TBD
         """
@@ -132,17 +140,18 @@ class BaseSolution():
         #   - generates a "matrix" of the 4 Hamilton equations with rx,rz,px,pz as variables
         #     and the rest as numbers
         if self.choice=='Hamilton':
-            vprint(self.verbose and do_verbose, 'Constructing model Hamilton\'s equations')
+            logging.info('Constructing model Hamilton\'s equations')
             drpdt_eqn_matrix = simplify( self.gmeq.hamiltons_eqns.subs(self.parameters) )
                                                     # .subs({pz:-Abs(pz)})  # HACK - may need this
             drpdt_raw_lambda = lambdify( [rx, px, pz], drpdt_eqn_matrix )
             return lambda t_, rp_: np.ndarray.flatten( drpdt_raw_lambda(rp_[0],rp_[2],rp_[3]) )
-        vprint(self.verbose and do_verbose, 'Constructing model geodesic equations')
+        logging.info('Constructing model geodesic equations')
         drvdt_eqn_matrix = Matrix(([(eq_.rhs) for eq_ in self.gmeq.geodesic_eqns ])) #factor
         drvdt_raw_lambda = lambdify( [rx, rdotx, rdotz], drvdt_eqn_matrix )
         return lambda t_, rv_: np.ndarray.flatten( drvdt_raw_lambda(rv_[0],rv_[2],rv_[3]) )
 
-    def solve_Hamiltons_equations(self, ic, t_array, t_lag=0) -> Tuple[Any, Dict[str,List[np.array]]]:
+    def solve_Hamiltons_equations(self, ic, t_array, t_lag=0) \
+                            -> Tuple[Any, Dict[str,List[np.array]]]:
         """
         TBD
         """
@@ -165,20 +174,22 @@ class BaseSolution():
         # print('solve Hamiltons equations #2:', rpt_arrays['rx'])
         return (ivp_soln, rpt_arrays)
 
-    def solve_ODE_system(self, ic, t_array, t_lag=0, x_stop=0.999): # -> Tuple[Any,Dict,int]:
+    def solve_ODE_system(self, ic, t_array, t_lag=0, x_stop=0.999) \
+                            -> Tuple[Any,Dict[str,List[np.array]],int]:
         """
         TBD
         """
         # Define stop condition
         #  --- mypy problem here:
         #  ---  error: "Callable[[Any, Any], Any]" has no attribute "terminal"
+        @eventAttr()
         def almost_reached_divide(_,y):
             # function yielding >0 if rx<x1*x_stop ~ along profile
             #              and  <0 if rx>x1*x_stop ≈ @divide
             #  - thus triggers an event when rx surpasses x1*x_stop
             #    because = zero-crossing in -ve sense
             return y[0]-x_stop
-        almost_reached_divide.terminal = True   # BUG
+        # almost_reached_divide.terminal = True   # BUG
 
         # Perform ODE integration
         ivp_soln = solve_ivp( self.model_dXdt_lambda,
@@ -219,15 +230,14 @@ class BaseSolution():
                 rpt_lag_arrays[rpt_] = np.array([])
 
         # Report
-        if self.verbose=='very':
-            if i_end is not None:
-                print(f'From {rx_array[0]},{rz_array[0]}: out of bounds @ i='
-                     +f'{n_lag+i_end if i_end is not None else len(t_array)} '
-                     +f'x={rx_array[i_end]} t={t_array[i_end]}')
-            else:
-                print(f'From {rx_array[0]},{rz_array[0]}: '
-                     +f'terminating @ i={len(t_array)} '
-                     +f'x={rx_array[-1]} t={t_array[-1]}')
+        if i_end is not None:
+            logging.debug( f'From {rx_array[0]},{rz_array[0]}: out of bounds @ i='
+                          +f'{n_lag+i_end if i_end is not None else len(t_array)} '
+                          +f'x={rx_array[i_end]} t={t_array[i_end]}')
+        else:
+            logging.debug( f'From {rx_array[0]},{rz_array[0]}: '
+                          +f'terminating @ i={len(t_array)} '
+                          +f'x={rx_array[-1]} t={t_array[-1]}')
 
         rpt_arrays: Dict[str,np.array] = {}
         rpt_arrays['t'] = np.concatenate((rpt_lag_arrays['t'],t_array[0:i_end]+t_lag))
@@ -643,9 +653,8 @@ class BaseSolution():
         TBD
         """
         progress_now = 100*np.round((100/pc_step)*i/(n-1 if n>1 else 1))/np.round(100/pc_step)
-        if self.verbose:
-            if progress_now>progress_was or is_initial_step:
-                print(f'{progress_now:0.0f}% ', end='' if progress_now<100 else '\n', flush=True)
+        if progress_now>progress_was or is_initial_step:
+            print(f'{progress_now:0.0f}% ', end='' if progress_now<100 else '\n', flush=True)
         return progress_now
 
 
@@ -653,7 +662,7 @@ class ExtendedSolution(BaseSolution):
     """
     Integration of Hamilton's equations (ODEs) to solve for propagation of a single ray.
     """
-    def __init__(self, gmeq, parameters, **kwargs):
+    def __init__(self, gmeq, parameters, **kwargs) -> None:
         """
         Initialize class instance.
 
