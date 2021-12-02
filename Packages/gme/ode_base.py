@@ -49,7 +49,7 @@ __all__ = ['BaseSolution']
 
 class BaseSolution():
     """
-    Base class for  classes performing integration of Hamilton's equations (ODEs).
+    Base class for classes performing integration of Hamilton's equations (ODEs).
     """
     def __init__( self, gmeq, parameters,
                   choice='Hamilton',  method='Radau', do_dense=True, x_stop=0.999,
@@ -124,7 +124,7 @@ class BaseSolution():
         self.vx_interp_fast: Optional[Callable[[float],float]] = None
         self.vx_interp_slow: Optional[Callable[[float],float]] = None
 
-    def make_model(self, do_verbose=False): # -> function:
+    def make_model(self, do_verbose=False) -> Callable[[float,Tuple[Any,Any,Any,Any]],float]:
         """
         TBD
         """
@@ -152,7 +152,7 @@ class BaseSolution():
         # for rp_ in rpt_list:
         #     self.rpt_arrays.update({rp_: [None]*self.n_rays})
 
-    def solve_Hamiltons_equations(self, t_array, t_lag=0) -> Dict:
+    def solve_Hamiltons_equations(self, t_array, t_lag=0) -> Dict[str,List[np.array]]:
         """
         TBD
         """
@@ -185,7 +185,7 @@ class BaseSolution():
             #  - thus triggers an event when rx surpasses x1*x_stop
             #    because = zero-crossing in -ve sense
             return y[0]-x_stop
-        almost_reached_divide.terminal = True
+        almost_reached_divide.terminal = True   # BUG
 
         # Perform ODE integration
         soln_ivp = solve_ivp( self.model_dXdt_lambda,

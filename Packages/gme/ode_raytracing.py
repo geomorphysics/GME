@@ -16,18 +16,32 @@ Imports symbols from :mod:`.symbols` module
 ---------------------------------------------------------------------
 
 """
+# pylint: disable=line-too-long, invalid-name, too-many-locals, multiple-statements, too-many-arguments, too-many-branches
+import warnings
 
+# Typing
+# from typing import List, Dict, Any, Tuple, Callable, Optional
+
+# Numpy
 import numpy as np
+
+# GMPLib
 from gmplib.utils import vprint, e2d
+
+# GME
 from gme.equations import gradient_value, pxpz0_from_xiv0
 from gme.ode_base import BaseSolution
 from gme.symbols import *
 from sympy import N, sign, atan, atan2, sin, cos, tan, re, im, sqrt, \
     Matrix, lambdify, Abs, simplify, expand, solve, Eq, Rational, diff, \
     nroots, poly
+
+# SciPy
 from scipy.integrate import solve_ivp, cumtrapz
 from scipy.interpolate import InterpolatedUnivariateSpline, interp1d
 from scipy.optimize import root_scalar, fsolve
+
+warnings.filterwarnings("ignore")
 
 rp_list = ['rx','rz','px','pz']
 rpt_list = rp_list+['t']
