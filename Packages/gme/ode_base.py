@@ -19,6 +19,7 @@ Imports symbols from :mod:`.symbols` module
 # pylint: disable=line-too-long, invalid-name, too-many-locals, multiple-statements, too-many-arguments, too-many-branches
 import warnings
 import logging
+# from functools import lru_cache
 
 # Typing
 from typing import List, Dict, Any, Tuple, Callable, Optional
@@ -44,6 +45,7 @@ rpt_list = rp_list+['t']
 
 __all__ = ['BaseSolution','ExtendedSolution']
 
+
 def eventAttr():
     """
     TBD
@@ -56,6 +58,36 @@ def eventAttr():
         func.terminal = True
         return func
     return decorator
+
+# @lru_cache  -  only works if t_array is replaced with something hashable
+def solve_ODE_system(model, method, do_dense, ic, t_array, x_stop=0.999) -> Any:
+    """
+    TBD
+    """
+    # Define stop condition
+    @eventAttr()
+    def almost_reached_divide(_,y):
+        # function yielding >0 if rx<x1*x_stop ~ along profile
+        #              and  <0 if rx>x1*x_stop ≈ @divide
+        #  - thus triggers an event when rx surpasses x1*x_stop
+        #    because = zero-crossing in -ve sense
+        return y[0]-x_stop
+    #   almost_reached_divide.terminal = True
+
+    # Perform ODE integration
+    # t_array = np.linspace(t0,t1,nt)
+    # print(model, method, do_dense, ic, t0,t1,nt, x_stop)
+    return solve_ivp(model,
+                      [t_array[0],t_array[-1]],
+                      ic,
+                      method=method,
+                      t_eval=t_array,
+                      dense_output=do_dense,
+                      #min_step=0, #max_step=np.inf,
+                      # rtol=1e-3, atol=1e-6,
+                      events=almost_reached_divide,
+                      vectorized=False )
+
 
 class BaseSolution():
     """
@@ -116,7 +148,7 @@ class BaseSolution():
         self.ref_t_array = np.linspace(0,1,self.n_t)**self.t_distribn * self.t_end
         self.rpt_arrays: Dict[str,np.array] = {}
         for rp_ in rpt_list:
-            self.rpt_arrays.update({rp_: [None]*self.n_rays})
+            self.rpt_arrays.update({rp_: [np.array([0])]*self.n_rays})
         self.ivp_solns_list: List[Any] = []
         self.rp_t_interp_fns: Dict[str,List[np.array]] = {}
         self.t_isochrone_max: float = 0.0
@@ -150,68 +182,24 @@ class BaseSolution():
         drvdt_raw_lambda = lambdify( [rx, rdotx, rdotz], drvdt_eqn_matrix )
         return lambda t_, rv_: np.ndarray.flatten( drvdt_raw_lambda(rv_[0],rv_[2],rv_[3]) )
 
-    def solve_Hamiltons_equations(self, ic, t_array, t_lag=0) \
+    def solve_Hamiltons_equations(self, model, method, do_dense,
+                                  ic, parameters, t_array, x_stop=1.0, t_lag=0) \
                             -> Tuple[Any, Dict[str,List[np.array]]]:
         """
         TBD
         """
-        ivp_soln, rpt_arrays, _ = self.solve_ODE_system(ic=ic,
-                                                        t_array=t_array,
-                                                        t_lag=t_lag,
-                                                        x_stop=self.x_stop)
-        # print('solve Hamiltons equations #1:', i_end, len(rpt_arrays['rx']), rpt_arrays['rx'])
-        # Record the ivp solutions for posterity (but don't use!)
-        # self.solns = [soln_ivp]
-        # print(f"i_end={i_end}, {len(rpt_arrays['t'])}, {len(rpt_arrays['rx'])}")
-        # if i_end is not None:
-        #     # Bug fix here - shouldn't be needed?
-        #     if len(rpt_arrays['rx']) < i_end: i_end = len(rpt_arrays['rx'])
-        #     if self.verbose:
-        #         pass
-        #     for rpt_ in rpt_list:
-        #         a = copy(rpt_arrays[rpt_])
-        #         rpt_arrays[rpt_] = a[:i_end]
-        # print('solve Hamiltons equations #2:', rpt_arrays['rx'])
-        return (ivp_soln, rpt_arrays)
-
-    def solve_ODE_system(self, ic, t_array, t_lag=0, x_stop=0.999) \
-                            -> Tuple[Any,Dict[str,List[np.array]],int]:
-        """
-        TBD
-        """
-        # Define stop condition
-        #  --- mypy problem here:
-        #  ---  error: "Callable[[Any, Any], Any]" has no attribute "terminal"
-        @eventAttr()
-        def almost_reached_divide(_,y):
-            # function yielding >0 if rx<x1*x_stop ~ along profile
-            #              and  <0 if rx>x1*x_stop ≈ @divide
-            #  - thus triggers an event when rx surpasses x1*x_stop
-            #    because = zero-crossing in -ve sense
-            return y[0]-x_stop
-        # almost_reached_divide.terminal = True   # BUG
-
-        # Perform ODE integration
-        ivp_soln = solve_ivp( self.model_dXdt_lambda,
-                              [t_array[0],t_array[-1]],
-                              ic,
-                              method=self.method,
-                              t_eval=t_array,
-                              dense_output=self.do_dense,
-                              #min_step=0, #max_step=np.inf,
-                              # rtol=1e-3, atol=1e-6,
-                              events=almost_reached_divide,
-                              vectorized=False )
+        # Do ODE integration
+        ivp_soln = solve_ODE_system(model, method, do_dense, ic, t_array, x_stop=x_stop)
 
         # Process solution
         rp_t_soln = ivp_soln.y
         rx_array, rz_array = rp_t_soln[0],rp_t_soln[1]
         # Did we exceed the domain bounds?
         # If so, find the index of the first point out of bounds, otherwise set as None
-        i_end = np.argwhere(rx_array>=self.parameters[Lc])[0][0] \
-            if len(np.argwhere(rx_array>=self.parameters[Lc]))>0 else None
+        i_end = np.argwhere(rx_array>=parameters[Lc])[0][0] \
+            if len(np.argwhere(rx_array>=parameters[Lc]))>0 else None
         if i_end is not None:
-            if rx_array[0]!=self.parameters[Lc]:
+            if rx_array[0]!=parameters[Lc]:
                 i_end = min(len(t_array),i_end)
             else:
                 i_end = min(len(t_array),2)
@@ -245,7 +233,22 @@ class BaseSolution():
             rpt_arrays[rp_] = np.concatenate((rpt_lag_arrays[rp_],rp_t_soln[rp_idx][0:i_end]))
         # print('solve_ODE_system:', rpt_arrays['rx'])
 
-        return (ivp_soln, rpt_arrays, (n_lag+i_end if i_end is not None else len(t_array)))
+        # return (ivp_soln, rpt_arrays, (n_lag+i_end if i_end is not None else len(t_array)))
+
+        # print('solve Hamiltons equations #1:', i_end, len(rpt_arrays['rx']), rpt_arrays['rx'])
+        # Record the ivp solutions for posterity (but don't use!)
+        # self.solns = [soln_ivp]
+        # print(f"i_end={i_end}, {len(rpt_arrays['t'])}, {len(rpt_arrays['rx'])}")
+        # if i_end is not None:
+        #     # Bug fix here - shouldn't be needed?
+        #     if len(rpt_arrays['rx']) < i_end: i_end = len(rpt_arrays['rx'])
+        #     if self.verbose:
+        #         pass
+        #     for rpt_ in rpt_list:
+        #         a = copy(rpt_arrays[rpt_])
+        #         rpt_arrays[rpt_] = a[:i_end]
+        # print('solve Hamiltons equations #2:', rpt_arrays['rx'])
+        return (ivp_soln, rpt_arrays)
 
     def postprocessing(self, spline_order=2, extrapolation_mode=0) -> None:
         """
@@ -647,8 +650,7 @@ class BaseSolution():
         rx_length = len(self.rpt_arrays['rx'][idx])
         self.rpt_arrays['t'][idx] = self.rpt_arrays['t'][idx][:rx_length]
 
-    def report_progress(self, i, n, progress_was=0, pc_step=1, is_initial_step=False) \
-                                 -> float:
+    def report_progress(self, i, n, progress_was=0, pc_step=1, is_initial_step=False) -> float:
         """
         TBD
         """
@@ -710,36 +712,36 @@ class ExtendedSolution(BaseSolution):
         self.beta_vt_array: np.array
         self.beta_ts_array: np.array
 
-        self.t_interp_x: Callable[np.array,np.array]
-        self.rz_interp: Callable[np.array,np.array]
-        self.rx_interp_t: Callable[np.array,np.array]
-        self.rz_interp_t: Callable[np.array,np.array]
-        self.x_interp_t: Callable[np.array,np.array]
-        self.p_interp: Callable[np.array,np.array]
-        self.px_interp: Callable[np.array,np.array]
-        self.pz_interp: Callable[np.array,np.array]
-        self.rdot_interp: Callable[np.array,np.array]
-        self.rdotx_interp: Callable[np.array,np.array]
-        self.rdotz_interp: Callable[np.array,np.array]
-        self.pdot_interp: Callable[np.array,np.array]
-        self.pdot_interp_t: Callable[np.array,np.array]
-        self.rdotx_interp_t: Callable[np.array,np.array]
-        self.rdotz_interp_t: Callable[np.array,np.array]
-        self.rddotx_interp_t: Callable[np.array,np.array]
-        self.rddotz_interp_t: Callable[np.array,np.array]
-        self.beta_p_interp: Callable[np.array,np.array]
-        self.beta_ts_interp: Callable[np.array,np.array]
-        self.beta_ts_error_interp: Callable[np.array,np.array]
-        self.beta_vt_interp: Callable[np.array,np.array]
-        self.beta_vt_error_interp: Callable[np.array,np.array]
-        self.u_interp: Callable[np.array,np.array]
-        self.uhorizontal_p_interp: Callable[np.array,np.array]
-        self.uhorizontal_v_interp: Callable[np.array,np.array]
-        self.u_from_rdot_interp: Callable[np.array,np.array]
-        self.xiv_v_interp: Callable[np.array,np.array]
-        self.xiv_p_interp: Callable[np.array,np.array]
-        self.alpha_interp: Callable[np.array,np.array]
-        self.h_interp: Callable[np.array,np.array]
+        self.t_interp_x: Callable
+        self.rz_interp: Callable
+        self.rx_interp_t: Callable
+        self.rz_interp_t: Callable
+        self.x_interp_t: Callable
+        self.p_interp: Callable
+        self.px_interp: Callable
+        self.pz_interp: Callable
+        self.rdot_interp: Callable
+        self.rdotx_interp: Callable
+        self.rdotz_interp: Callable
+        self.pdot_interp: Callable
+        self.pdot_interp_t: Callable
+        self.rdotx_interp_t: Any
+        self.rdotz_interp_t: Any
+        self.rddotx_interp_t: Callable
+        self.rddotz_interp_t: Callable
+        self.beta_p_interp: Callable
+        self.beta_ts_interp: Callable
+        self.beta_ts_error_interp: Callable
+        self.beta_vt_interp: Callable
+        self.beta_vt_error_interp: Callable
+        self.u_interp: Callable
+        self.uhorizontal_p_interp: Callable
+        self.uhorizontal_v_interp: Callable
+        self.u_from_rdot_interp: Callable
+        self.xiv_v_interp: Callable
+        self.xiv_p_interp: Callable
+        self.alpha_interp: Callable
+        self.h_interp: Callable
 
 
 

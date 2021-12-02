@@ -29,6 +29,7 @@ import numpy as np
 from gmplib.utils import e2d
 
 # GME
+from gme.symbols import Lc
 from gme.equations import pxpz0_from_xiv0
 from gme.ode_base import ExtendedSolution
 
@@ -65,13 +66,19 @@ class SingleRaySolution(ExtendedSolution):
         # Record the ic as a list of one - to be used by solve_ODE_system
         self.ic_list = [self.initial_conditions(px_guess=px_guess)]
         self.model_dXdt_lambda = self.make_model()
-        ivp_soln, self.rpt_arrays = self.solve_Hamiltons_equations(ic=self.ic_list[0],
-                                                                    t_array=self.ref_t_array.copy(),
-                                                                    t_lag=0.0)
-                                                                    # x_stop=self.x_stop)
-        rx_length = len(self.rpt_arrays['rx'])
-        self.rpt_arrays['t'] = self.rpt_arrays['t'][:rx_length]
+        parameters_ = {Lc: self.parameters[Lc]}
+        ivp_soln, rpt_arrays = self.solve_Hamiltons_equations( model=self.model_dXdt_lambda,
+                                                               method=self.method,
+                                                               do_dense=self.do_dense,
+                                                               ic=self.ic_list[0],
+                                                               parameters=parameters_,
+                                                               t_array=self.ref_t_array.copy(),
+                                                               x_stop=self.x_stop,
+                                                               t_lag=0.0 )
+        # rx_length = len(self.rpt_arrays['rx'])
+        # self.rpt_arrays['t'] = self.rpt_arrays['t'][:rx_length]
         self.ivp_solns_list = [ivp_soln]
+        self.save(rpt_arrays, 0)
 
     def postprocessing(self, spline_order=2, extrapolation_mode=0) -> None:
         """
@@ -79,7 +86,7 @@ class SingleRaySolution(ExtendedSolution):
         """
         # Basics
         (self.rx_array, self.rz_array, self.px_array, self.pz_array, self.t_array) \
-            = [self.rpt_arrays[rpt_] for rpt_ in rpt_list]
+            = [self.rpt_arrays[rpt_][0] for rpt_ in rpt_list]
         self.pz0 = self.pz_array[0]
         self.p_array = np.sqrt(self.px_array**2+self.pz_array**2)
         rpdot_array = np.array([self.model_dXdt_lambda(0, rp_)

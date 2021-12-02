@@ -25,13 +25,10 @@ from typing import Tuple, List #, Any, List #, Callable, List #, Dict, Any, Opti
 # Numpy
 import numpy as np
 
-# GMPLib
-from gmplib.utils import e2d
-
 # GME
 from gme.equations import pxpz0_from_xiv0
 from gme.ode_base import ExtendedSolution
-from gme.symbols import xiv_0
+from gme.symbols import xiv_0, Lc
 
 warnings.filterwarnings("ignore")
 
@@ -88,8 +85,9 @@ class VelocityBoundarySolution(ExtendedSolution):
 
         # Step through each "block" of rays tied to a different boundary velocity
         #   and generate an initial condition for each ray
-        t_lag_xiv0_list: List[Tuple[float,float]] = [(0,0)]*n_rays
-        ic_list: List[Tuple[float,float,float,float]] = [(0,0,0,0)]*n_rays
+        t_lag_list: List[float] = [0.0]*n_rays
+        xiv0_list: List[float] = [0.0]*n_rays
+        ic_list: List[Tuple[float,float,float,float]] = [(0.0, 0.0, 0.0, 0.0)]*n_rays
         prev_t_lag = 0.0
         for (n_block_rays, (tp_,xiv0_), prev_rz0, prev_n_block_rays) \
                 in zip(n_block_rays_array,
@@ -100,7 +98,8 @@ class VelocityBoundarySolution(ExtendedSolution):
             for i_ray in list(range(0,n_block_rays)):
                 t_lag = (i_ray/(n_block_rays-1))*self.t_slip_end*tp_
                 rx0_,rz0_,px0_,pz0_ = self.initial_conditions(t_lag, xiv0_)
-                t_lag_xiv0_list[i_ray+prev_n_block_rays] = (prev_t_lag+t_lag, xiv0_)
+                t_lag_list[i_ray+prev_n_block_rays] = prev_t_lag+t_lag
+                xiv0_list[i_ray+prev_n_block_rays] = xiv0_
                 ic_list[i_ray+prev_n_block_rays] = (rx0_, rz0_+prev_rz0, px0_, pz0_)
             prev_t_lag += t_lag
 
@@ -108,16 +107,23 @@ class VelocityBoundarySolution(ExtendedSolution):
         pc_progress = self.report_progress(i=0, n=n_rays, is_initial_step=True)
         self.ic_list = ic_list # to be replaced by reordered sequence
         self.ivp_solns_list = [None]*n_rays
+        self.model_dXdt_lambda = self.make_model()  # only do this here if all xiv_0 are equal
         for i_ray in list(range(0,n_rays)):
-            t_lag, xiv0_ = t_lag_xiv0_list[n_rays-1-i_ray]
+            t_lag = t_lag_list[n_rays-1-i_ray]
+            xiv0_ = xiv0_list[n_rays-1-i_ray]
             self.ic_list[i_ray] = ic_list[n_rays-1-i_ray]
             self.parameters[xiv_0] = xiv0_
-            self.model_dXdt_lambda = self.make_model()
             # Start rays from the bottom of the velocity boundary and work upwards
             #   so that their x,z,t disposition is consistent with initial profile, initial corner
             # if self.choice=='Hamilton':
-            ivp_soln, rpt_arrays = self.solve_Hamiltons_equations( ic=self.ic_list[i_ray],
+            parameters_ = {Lc: self.parameters[Lc]}
+            ivp_soln, rpt_arrays = self.solve_Hamiltons_equations( model=self.model_dXdt_lambda,
+                                                                   method=self.method,
+                                                                   do_dense=self.do_dense,
+                                                                   ic=self.ic_list[i_ray],
+                                                                   parameters=parameters_,
                                                                    t_array=self.ref_t_array.copy(),
+                                                                   x_stop=self.x_stop,
                                                                    t_lag=t_lag )
             # else:
             #     ivp_soln, rpt_arrays = self.solve_Hamiltons_equations( ic=self.ic_list[i_ray],
@@ -128,7 +134,7 @@ class VelocityBoundarySolution(ExtendedSolution):
             self.save(rpt_arrays, i_ray)
             pc_progress = self.report_progress(i=i_ray, n=self.n_rays,
                                                pc_step=report_pc_step, progress_was=pc_progress)
-        self.report_progress(i=n_rays, n=n_rays, pc_step=report_pc_step, progress_was=pc_progress)
+        # self.report_progress(i=n_rays, n=n_rays, pc_step=report_pc_step, progress_was=pc_progress)
 
 
 
