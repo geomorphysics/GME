@@ -107,17 +107,20 @@ class VelocityBoundarySolution(ExtendedSolution):
         pc_progress = self.report_progress(i=0, n=n_rays, is_initial_step=True)
         self.ic_list = ic_list # to be replaced by reordered sequence
         self.ivp_solns_list = [None]*n_rays
-        self.model_dXdt_lambda = self.make_model()  # only do this here if all xiv_0 are equal
+        xiv0_prev = 0.0
+        model_dXdt_lambda_prev = None
         for i_ray in list(range(0,n_rays)):
             t_lag = t_lag_list[n_rays-1-i_ray]
             xiv0_ = xiv0_list[n_rays-1-i_ray]
             self.ic_list[i_ray] = ic_list[n_rays-1-i_ray]
             self.parameters[xiv_0] = xiv0_
+            model_dXdt_lambda = self.make_model() if model_dXdt_lambda_prev is None or xiv0_prev!=xiv0_ \
+                                else model_dXdt_lambda_prev
             # Start rays from the bottom of the velocity boundary and work upwards
             #   so that their x,z,t disposition is consistent with initial profile, initial corner
             # if self.choice=='Hamilton':
             parameters_ = {Lc: self.parameters[Lc]}
-            ivp_soln, rpt_arrays = self.solve_Hamiltons_equations( model=self.model_dXdt_lambda,
+            ivp_soln, rpt_arrays = self.solve_Hamiltons_equations( model=model_dXdt_lambda,
                                                                    method=self.method,
                                                                    do_dense=self.do_dense,
                                                                    ic=self.ic_list[i_ray],
@@ -125,10 +128,6 @@ class VelocityBoundarySolution(ExtendedSolution):
                                                                    t_array=self.ref_t_array.copy(),
                                                                    x_stop=self.x_stop,
                                                                    t_lag=t_lag )
-            # else:
-            #     ivp_soln, rpt_arrays = self.solve_Hamiltons_equations( ic=self.ic_list[i_ray],
-            #                                                            t_array=self.ref_t_array.copy(),
-            #                                                            t_lag=t_lag )
             self.ivp_solns_list[i_ray] = ivp_soln
             self.t_ensemble_max = max(self.t_ensemble_max, rpt_arrays['t'][-1])
             self.save(rpt_arrays, i_ray)
