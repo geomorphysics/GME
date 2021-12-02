@@ -44,7 +44,7 @@ warnings.filterwarnings("ignore")
 rp_list = ['rx','rz','px','pz']
 rpt_list = rp_list+['t']
 
-__all__ = ['BaseSolution']
+__all__ = ['BaseSolution','ExtendedSolution']
 
 
 class BaseSolution():
@@ -83,7 +83,6 @@ class BaseSolution():
         vprint(self.verbose, report)
         self.do_dense = do_dense
         self.x_stop = x_stop
-        self.ic = None
 
         # Rays
         self.tp_xiv0_list = tp_xiv0_list
@@ -93,7 +92,7 @@ class BaseSolution():
         self.t_slip_end = t_slip_end
         self.n_t = n_t
         # To record the longest ray time
-        self.t_ensemble_max = None
+        self.t_ensemble_max: float
         # Ray interpolation
         self.interp1d_kind = 'linear'
 
@@ -105,11 +104,12 @@ class BaseSolution():
         self.customize_t_fn = customize_t_fn
 
         # Preliminary definitions and type annotations
+        self.ic_list: List[Tuple[float,float,float,float]]
         self.ref_t_array = np.linspace(0,1,self.n_t)**self.t_distribn * self.t_end
         self.rpt_arrays: Dict[str,np.array] = {}
         for rp_ in rpt_list:
             self.rpt_arrays.update({rp_: [None]*self.n_rays})
-        self.solns: List[Any] = []
+        self.ivp_solns_list: List[Any] = []
         self.rp_t_interp_fns: Dict[str,List[np.array]] = {}
         self.t_isochrone_max: float = 0.0
         self.n_isochrones: int = 0
@@ -142,24 +142,17 @@ class BaseSolution():
         drvdt_raw_lambda = lambdify( [rx, rdotx, rdotz], drvdt_eqn_matrix )
         return lambda t_, rv_: np.ndarray.flatten( drvdt_raw_lambda(rv_[0],rv_[2],rv_[3]) )
 
-    def prep_arrays(self) -> None:
+    def solve_Hamiltons_equations(self, ic, t_array, t_lag=0) -> Tuple[Any, Dict[str,List[np.array]]]:
         """
         TBD
         """
-        # pass
-        # self.ref_t_array = np.linspace(0,1,self.n_t)**self.t_distribn * self.t_end
-        # self.rpt_arrays: Dict[str,np.array] = {}
-        # for rp_ in rpt_list:
-        #     self.rpt_arrays.update({rp_: [None]*self.n_rays})
-
-    def solve_Hamiltons_equations(self, t_array, t_lag=0) -> Dict[str,List[np.array]]:
-        """
-        TBD
-        """
-        soln_ivp, rpt_arrays, _ = self.solve_ODE_system(t_array=t_array, t_lag=t_lag,
-                                                            x_stop=self.x_stop)
-        # print('solve_Hamiltons_equations #1:', i_end, len(rpt_arrays['rx']), rpt_arrays['rx'])
-        self.solns = [soln_ivp]
+        ivp_soln, rpt_arrays, _ = self.solve_ODE_system(ic=ic,
+                                                        t_array=t_array,
+                                                        t_lag=t_lag,
+                                                        x_stop=self.x_stop)
+        # print('solve Hamiltons equations #1:', i_end, len(rpt_arrays['rx']), rpt_arrays['rx'])
+        # Record the ivp solutions for posterity (but don't use!)
+        # self.solns = [soln_ivp]
         # print(f"i_end={i_end}, {len(rpt_arrays['t'])}, {len(rpt_arrays['rx'])}")
         # if i_end is not None:
         #     # Bug fix here - shouldn't be needed?
@@ -169,10 +162,10 @@ class BaseSolution():
         #     for rpt_ in rpt_list:
         #         a = copy(rpt_arrays[rpt_])
         #         rpt_arrays[rpt_] = a[:i_end]
-        # print('solve_Hamiltons_equations #2:', rpt_arrays['rx'])
-        return rpt_arrays
+        # print('solve Hamiltons equations #2:', rpt_arrays['rx'])
+        return (ivp_soln, rpt_arrays)
 
-    def solve_ODE_system(self, t_array, t_lag=0, x_stop=0.999): # -> Tuple[Any,Dict,int]:
+    def solve_ODE_system(self, ic, t_array, t_lag=0, x_stop=0.999): # -> Tuple[Any,Dict,int]:
         """
         TBD
         """
@@ -188,9 +181,9 @@ class BaseSolution():
         almost_reached_divide.terminal = True   # BUG
 
         # Perform ODE integration
-        soln_ivp = solve_ivp( self.model_dXdt_lambda,
+        ivp_soln = solve_ivp( self.model_dXdt_lambda,
                               [t_array[0],t_array[-1]],
-                              self.ic,
+                              ic,
                               method=self.method,
                               t_eval=t_array,
                               dense_output=self.do_dense,
@@ -200,7 +193,7 @@ class BaseSolution():
                               vectorized=False )
 
         # Process solution
-        rp_t_soln = soln_ivp.y
+        rp_t_soln = ivp_soln.y
         rx_array, rz_array = rp_t_soln[0],rp_t_soln[1]
         # Did we exceed the domain bounds?
         # If so, find the index of the first point out of bounds, otherwise set as None
@@ -242,13 +235,14 @@ class BaseSolution():
             rpt_arrays[rp_] = np.concatenate((rpt_lag_arrays[rp_],rp_t_soln[rp_idx][0:i_end]))
         # print('solve_ODE_system:', rpt_arrays['rx'])
 
-        return soln_ivp, rpt_arrays, (n_lag+i_end if i_end is not None else len(t_array))
+        return (ivp_soln, rpt_arrays, (n_lag+i_end if i_end is not None else len(t_array)))
 
-    def postprocessing(self) -> None:
+    def postprocessing(self, spline_order=2, extrapolation_mode=0) -> None:
         """
         TBD
         """
-        # self.rp_t_interp_fns: Dict[str,List[np.array]] = {}
+        # dummy, to avoid "overriding parameters" warnings in subclasses that override this method
+        unused_ = (spline_order, extrapolation_mode)
         for rp_ in rp_list:
             self.rp_t_interp_fns.update({rp_: [np.array([0])]*self.n_rays})
         fill_value_ = 'extrapolate'
@@ -651,8 +645,92 @@ class BaseSolution():
         progress_now = 100*np.round((100/pc_step)*i/(n-1 if n>1 else 1))/np.round(100/pc_step)
         if self.verbose:
             if progress_now>progress_was or is_initial_step:
-                print(f'{progress_now:0.0f}% ', end='' if progress_now<100 else '\n')
+                print(f'{progress_now:0.0f}% ', end='' if progress_now<100 else '\n', flush=True)
         return progress_now
+
+
+class ExtendedSolution(BaseSolution):
+    """
+    Integration of Hamilton's equations (ODEs) to solve for propagation of a single ray.
+    """
+    def __init__(self, gmeq, parameters, **kwargs):
+        """
+        Initialize class instance.
+
+        Args:
+            gmeq (:class:`~.equations.Equations`):
+                    GME model equations class instance defined in :mod:`~.equations`
+            parameters (dict): dictionary of model parameter values to be used for equation substitutions
+            kwargs (dict): remaining keyword arguments (see base class for details)
+        """
+        super().__init__(gmeq, parameters, **kwargs)
+
+        # Type declarations
+
+        self.pz0: float
+        self.rays: List
+
+        self.t_array: np.array
+        self.rx_array: np.array
+        self.rz_array: np.array
+        self.p_array: np.array
+        self.px_array: np.array
+        self.pz_array: np.array
+        self.rdot_array: np.array
+        self.rdotx_array: np.array
+        self.rdotz_array: np.array
+        self.pdot_array: np.array
+        self.pdotx_array: np.array
+        self.pdotz_array: np.array
+        self.tanalpha_array: np.array
+        self.tanbeta_array: np.array
+        self.alpha_array: np.array
+        self.beta_array: np.array
+        self.xiv_p_array: np.array
+        self.xiv_v_array: np.array
+        self.uhorizontal_p_array: np.array
+        self.uhorizontal_v_array: np.array
+        self.cosbeta_array: np.array
+        self.sinbeta_array: np.array
+        self.u_array: np.array
+        self.x_array: np.array
+        self.h_array: np.array
+        self.h_x_array: np.array
+        self.h_z_array: np.array
+        self.dhdx_array: np.array
+        self.beta_vt_array: np.array
+        self.beta_ts_array: np.array
+
+        self.t_interp_x: Callable[np.array,np.array]
+        self.rz_interp: Callable[np.array,np.array]
+        self.rx_interp_t: Callable[np.array,np.array]
+        self.rz_interp_t: Callable[np.array,np.array]
+        self.x_interp_t: Callable[np.array,np.array]
+        self.p_interp: Callable[np.array,np.array]
+        self.px_interp: Callable[np.array,np.array]
+        self.pz_interp: Callable[np.array,np.array]
+        self.rdot_interp: Callable[np.array,np.array]
+        self.rdotx_interp: Callable[np.array,np.array]
+        self.rdotz_interp: Callable[np.array,np.array]
+        self.pdot_interp: Callable[np.array,np.array]
+        self.pdot_interp_t: Callable[np.array,np.array]
+        self.rdotx_interp_t: Callable[np.array,np.array]
+        self.rdotz_interp_t: Callable[np.array,np.array]
+        self.rddotx_interp_t: Callable[np.array,np.array]
+        self.rddotz_interp_t: Callable[np.array,np.array]
+        self.beta_p_interp: Callable[np.array,np.array]
+        self.beta_ts_interp: Callable[np.array,np.array]
+        self.beta_ts_error_interp: Callable[np.array,np.array]
+        self.beta_vt_interp: Callable[np.array,np.array]
+        self.beta_vt_error_interp: Callable[np.array,np.array]
+        self.u_interp: Callable[np.array,np.array]
+        self.uhorizontal_p_interp: Callable[np.array,np.array]
+        self.uhorizontal_v_interp: Callable[np.array,np.array]
+        self.u_from_rdot_interp: Callable[np.array,np.array]
+        self.xiv_v_interp: Callable[np.array,np.array]
+        self.xiv_p_interp: Callable[np.array,np.array]
+        self.alpha_interp: Callable[np.array,np.array]
+        self.h_interp: Callable[np.array,np.array]
 
 
 
