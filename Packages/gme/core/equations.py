@@ -1076,8 +1076,8 @@ class Equations:
         gstar_ij_lambda = lambda i,j: simplify( Rational(2,2)*diff(diff(H_,p_i_lambda(i)),p_i_lambda(j)) )
         gstar_ij_mat = Matrix([[gstar_ij_lambda(1,1),gstar_ij_lambda(2,1)],
                                [gstar_ij_lambda(1,2),gstar_ij_lambda(2,2)]])
-        gstar_ij_pxpz_mat = gstar_ij_mat.subs({varphi_r(rvec):varphi_rx})
-        g_ij_pxpz_mat = gstar_ij_mat.inv().subs({varphi_r(rvec):varphi_rx})
+        gstar_ij_pxpz_mat = gstar_ij_mat.subs({varphi_r(rvec):varphi})
+        g_ij_pxpz_mat = gstar_ij_mat.inv().subs({varphi_r(rvec):varphi})
 
         cosbeta_eqn = Eq(cos(beta), 1/sqrt(1+tan(beta)**2))
         sinbeta_eqn = Eq(sin(beta), sqrt(1-1/(1+tan(beta)**2)))
@@ -1105,7 +1105,7 @@ class Equations:
         self.gstar_ij_mat = ( self.gstar_ij_tanalpha_mat
                                         .subs({ta:tan(alpha)})
                                         .subs(e2d(self.tanalpha_rdot_eqn))
-                                        .subs(e2d(self.varphi_rx_eqn.subs({varphi_r(rvec):varphi_rx})))
+                                        .subs(e2d(self.varphi_rx_eqn.subs({varphi_r(rvec):varphi})))
                                         .subs(parameters) ).subs(mu_eta_sub)
         self.g_ij_tanalpha_mat = ( sy.expand_trig(self.g_ij_tanbeta_mat)
                                         .subs(e2d(sintwobeta_eqn))
@@ -1115,7 +1115,7 @@ class Equations:
                                         ).subs(mu_eta_sub)
         self.g_ij_mat = ( self.g_ij_tanalpha_mat
                                         .subs({ta:rdotz/rdotx})
-                                        .subs(e2d(self.varphi_rx_eqn.subs({varphi_r(rvec):varphi_rx})))
+                                        .subs(e2d(self.varphi_rx_eqn.subs({varphi_r(rvec):varphi})))
                                         .subs(parameters) ).subs(mu_eta_sub)
         self.g_ij_mat_lambdified = lambdify( (rx,rdotx,rdotz, varepsilon), self.g_ij_mat, 'numpy')
         self.gstar_ij_mat_lambdified = lambdify( (rx,rdotx,rdotz, varepsilon), self.gstar_ij_mat, 'numpy')

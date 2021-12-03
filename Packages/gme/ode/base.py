@@ -24,6 +24,9 @@ import logging
 # Typing
 from typing import List, Dict, Any, Tuple, Callable, Optional
 
+# Abstract classes & methods
+from abc import ABC, abstractmethod
+
 # Numpy
 import numpy as np
 
@@ -89,7 +92,7 @@ def solve_ODE_system(model, method, do_dense, ic, t_array, x_stop=0.999) -> Any:
                       vectorized=False )
 
 
-class BaseSolution():
+class BaseSolution(ABC):
     """
     Base class for classes performing integration of Hamilton's equations (ODEs).
     """
@@ -163,6 +166,20 @@ class BaseSolution():
         self.cx_v_lambda: Optional[Callable[[float],float]] = None
         self.vx_interp_fast: Optional[Callable[[float],float]] = None
         self.vx_interp_slow: Optional[Callable[[float],float]] = None
+
+    @abstractmethod
+    def initial_conditions(self, px_guess=1) -> Tuple[float,float,float,float]:
+        """
+        TBD
+        """
+        pass
+
+    @abstractmethod
+    def solve(self, px_guess=1) -> None:
+        """
+        TBD
+        """
+        pass
 
     def make_model(self) -> Callable[[float,Tuple[Any,Any,Any,Any]],float]:
         """
@@ -725,8 +742,8 @@ class ExtendedSolution(BaseSolution):
         self.rdotz_interp: Callable
         self.pdot_interp: Callable
         self.pdot_interp_t: Callable
-        self.rdotx_interp_t: Any
-        self.rdotz_interp_t: Any
+        self.rdotx_interp_t: Any # HACK
+        self.rdotz_interp_t: Any # HACK
         self.rddotx_interp_t: Callable
         self.rddotz_interp_t: Callable
         self.beta_p_interp: Callable
