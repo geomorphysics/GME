@@ -43,9 +43,9 @@ from sympy import Eq, N, Abs, lambdify, Rational, Matrix, \
 from gmplib.utils import e2d
 
 # GME
-from gme.symbols import px, pz, varphi, varphi_r, rvec, xiv, xiv_0, \
-                        px_min, pz_min, H, beta_max
-from gme.plots import Graphing
+from gme.core.symbols import px, pz, varphi, varphi_r, rvec, xiv, xiv_0, \
+                             px_min, pz_min, H, beta_max
+from gme.plot.base import Graphing
 
 # MatPlotLib
 import matplotlib.pyplot as plt

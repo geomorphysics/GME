@@ -36,7 +36,7 @@ import numpy as np
 from sympy import Rational
 
 # GME
-from gme.plots import Graphing
+from gme.plot.base import Graphing
 
 # MatPlotLib
 import matplotlib.pyplot as plt

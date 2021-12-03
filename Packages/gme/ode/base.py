@@ -31,7 +31,7 @@ import numpy as np
 from sympy import Matrix, lambdify, simplify
 
 # GME
-from gme.symbols import px, pz, rx, rdotx, rdotz, Lc
+from gme.core.symbols import px, pz, rx, rdotx, rdotz, Lc
 
 # SciPy
 from scipy.integrate import solve_ivp

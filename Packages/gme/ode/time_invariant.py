@@ -26,9 +26,11 @@ import numpy as np
 from gmplib.utils import e2d
 
 # GME
-from gme.equations import gradient_value
-from gme.ode_single_ray import SingleRaySolution
-from gme.symbols import xiv_0, xih_0, px, Lc
+from gme.core.symbols import xiv_0, xih_0, px, Lc
+from gme.core.equations import gradient_value
+from gme.ode.single_ray import SingleRaySolution
+
+# Sympy
 from sympy import poly
 
 # SciPy

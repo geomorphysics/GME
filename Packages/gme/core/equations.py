@@ -36,7 +36,7 @@ Imports symbols from the :mod:`.symbols` module
 import numpy as np
 import sympy as sy
 from gmplib.utils import e2d, omitdict
-from gme.symbols import *
+from gme.core.symbols import *
 # Cut 'S' because mypy complains: need to fix
 from sympy import Eq, Rational, Reals, N, \
                     pi, sqrt, numer, denom, \

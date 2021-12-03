@@ -39,8 +39,8 @@ import numpy as np
 from sympy import N, lambdify, re
 
 # GME
-from gme.symbols import rx, varphi, pz
-from gme.plots import Graphing
+from gme.core.symbols import rx, varphi, pz
+from gme.plot.base import Graphing
 
 # MatPlotLib
 import matplotlib as mpl

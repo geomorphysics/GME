@@ -36,7 +36,7 @@ import numpy as np
 from gmplib.plot_utils import GraphingBase
 
 # GME
-from gme.symbols import xih_0, xiv_0, t
+from gme.core.symbols import xih_0, xiv_0, t
 
 # MatPlotLib
 import matplotlib.pyplot as plt

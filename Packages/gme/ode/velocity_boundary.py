@@ -26,9 +26,9 @@ from typing import Tuple, List #, Any, List #, Callable, List #, Dict, Any, Opti
 import numpy as np
 
 # GME
-from gme.equations import pxpz0_from_xiv0
-from gme.ode_base import ExtendedSolution
-from gme.symbols import xiv_0, Lc
+from gme.core.symbols import xiv_0, Lc
+from gme.core.equations import pxpz0_from_xiv0
+from gme.ode.base import ExtendedSolution
 
 warnings.filterwarnings("ignore")
 

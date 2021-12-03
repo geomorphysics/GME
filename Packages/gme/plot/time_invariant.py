@@ -36,8 +36,8 @@ import numpy as np
 from sympy import N, Rational, deg
 
 # GME
-from gme.symbols import rx, x_h, Lc, Ci, mu
-from gme.plots import Graphing
+from gme.core.symbols import rx, x_h, Lc, Ci, mu
+from gme.plot.base import Graphing
 
 # MatPlotLib
 import matplotlib.pyplot as plt

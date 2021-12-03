@@ -36,9 +36,9 @@ import numpy as np
 from sympy import deg, atan
 
 # GME
-from gme.symbols import px, pz, Ci
-from gme.equations import px_value
-from gme.plots import Graphing
+from gme.core.symbols import px, pz, Ci
+from gme.core.equations import px_value
+from gme.plot.base import Graphing
 
 # MatPlotLib
 import matplotlib.pyplot as plt

@@ -36,8 +36,8 @@ import numpy as np
 from sympy import N, deg
 
 # GME
-from gme.symbols import Ci, varepsilon
-from gme.plots import Graphing
+from gme.core.symbols import Ci, varepsilon
+from gme.plot.base import Graphing
 
 # MatPlotLib
 import matplotlib.pyplot as plt

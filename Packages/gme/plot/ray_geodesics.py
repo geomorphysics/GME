@@ -42,8 +42,8 @@ from scipy.linalg import eigh, det
 from sympy import deg, re, Matrix
 
 # GME
-from gme.symbols import Ci, rx, rdotx, rdotz
-from gme.plots import Graphing
+from gme.core.symbols import Ci, rx, rdotx, rdotz
+from gme.plot.base import Graphing
 
 # MatPlotLib
 import matplotlib.pyplot as plt

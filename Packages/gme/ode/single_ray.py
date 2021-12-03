@@ -29,9 +29,9 @@ import numpy as np
 from gmplib.utils import e2d
 
 # GME
-from gme.symbols import Lc
-from gme.equations import pxpz0_from_xiv0
-from gme.ode_base import ExtendedSolution
+from gme.core.symbols import Lc
+from gme.core.equations import pxpz0_from_xiv0
+from gme.ode.base import ExtendedSolution
 
 # SciPy
 from scipy.interpolate import InterpolatedUnivariateSpline
