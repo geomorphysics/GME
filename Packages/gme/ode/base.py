@@ -91,6 +91,83 @@ def solve_ODE_system(model, method, do_dense, ic, t_array, x_stop=0.999) -> Any:
                       events=almost_reached_divide,
                       vectorized=False )
 
+def solve_Hamiltons_equations(model, method, do_dense,
+                              ic, parameters, t_array, x_stop=1.0, t_lag=0) \
+                        -> Tuple[Any, Dict[str,List[np.array]]]:
+    """
+    TBD
+    """
+    # Do ODE integration
+    ivp_soln = solve_ODE_system(model, method, do_dense, ic, t_array, x_stop=x_stop)
+
+    # Process solution
+    rp_t_soln = ivp_soln.y
+    rx_array, rz_array = rp_t_soln[0],rp_t_soln[1]
+    # Did we exceed the domain bounds?
+    # If so, find the index of the first point out of bounds, otherwise set as None
+    i_end = np.argwhere(rx_array>=parameters[Lc])[0][0] \
+        if len(np.argwhere(rx_array>=parameters[Lc]))>0 else None
+    if i_end is not None:
+        if rx_array[0]!=parameters[Lc]:
+            i_end = min(len(t_array),i_end)
+        else:
+            i_end = min(len(t_array),2)
+
+    # Record solution
+    rpt_lag_arrays = {}
+    if t_lag>0:
+        dt = t_array[1]-t_array[0]
+        n_lag = int(t_lag/dt)
+        rpt_lag_arrays['t'] = np.linspace(0, t_lag, num=n_lag, endpoint=False)
+        for rp_idx,rp_ in enumerate(rp_list):
+            rpt_lag_arrays[rp_] = np.full(n_lag, rp_t_soln[rp_idx][0])
+    else:
+        n_lag = 0
+        for rpt_ in rpt_list:
+            rpt_lag_arrays[rpt_] = np.array([])
+
+    # Report
+    if i_end is not None:
+        logging.debug( f'From {rx_array[0]},{rz_array[0]}: out of bounds @ i='
+                      +f'{n_lag+i_end if i_end is not None else len(t_array)} '
+                      +f'x={rx_array[i_end]} t={t_array[i_end]}')
+    else:
+        logging.debug( f'From {rx_array[0]},{rz_array[0]}: '
+                      +f'terminating @ i={len(t_array)} '
+                      +f'x={rx_array[-1]} t={t_array[-1]}')
+
+    rpt_arrays: Dict[str,np.array] = {}
+    rpt_arrays['t'] = np.concatenate((rpt_lag_arrays['t'],t_array[0:i_end]+t_lag))
+    for rp_idx,rp_ in enumerate(rp_list):
+        rpt_arrays[rp_] = np.concatenate((rpt_lag_arrays[rp_],rp_t_soln[rp_idx][0:i_end]))
+    # print('solve_ODE_system:', rpt_arrays['rx'])
+
+    # return (ivp_soln, rpt_arrays, (n_lag+i_end if i_end is not None else len(t_array)))
+
+    # print('solve Hamiltons equations #1:', i_end, len(rpt_arrays['rx']), rpt_arrays['rx'])
+    # Record the ivp solutions for posterity (but don't use!)
+    # self.solns = [soln_ivp]
+    # print(f"i_end={i_end}, {len(rpt_arrays['t'])}, {len(rpt_arrays['rx'])}")
+    # if i_end is not None:
+    #     # Bug fix here - shouldn't be needed?
+    #     if len(rpt_arrays['rx']) < i_end: i_end = len(rpt_arrays['rx'])
+    #     if self.verbose:
+    #         pass
+    #     for rpt_ in rpt_list:
+    #         a = copy(rpt_arrays[rpt_])
+    #         rpt_arrays[rpt_] = a[:i_end]
+    # print('solve Hamiltons equations #2:', rpt_arrays['rx'])
+    return (ivp_soln, rpt_arrays)
+
+def report_progress(i, n, progress_was=0, pc_step=1, is_initial_step=False) -> float:
+    """
+    TBD
+    """
+    progress_now = 100*np.round((100/pc_step)*i/(n-1 if n>1 else 1))/np.round(100/pc_step)
+    if progress_now>progress_was or is_initial_step:
+        print(f'{progress_now:0.0f}% ', end='' if progress_now<100 else '\n', flush=True)
+    return progress_now
+
 
 class BaseSolution(ABC):
     """
@@ -168,18 +245,16 @@ class BaseSolution(ABC):
         self.vx_interp_slow: Optional[Callable[[float],float]] = None
 
     @abstractmethod
-    def initial_conditions(self, px_guess=1) -> Tuple[float,float,float,float]:
+    def initial_conditions(self) -> Tuple[float,float,float,float]:
         """
         TBD
         """
-        pass
 
     @abstractmethod
-    def solve(self, px_guess=1) -> None:
+    def solve(self) -> None:
         """
         TBD
         """
-        pass
 
     def make_model(self) -> Callable[[float,Tuple[Any,Any,Any,Any]],float]:
         """
@@ -198,74 +273,6 @@ class BaseSolution(ABC):
         drvdt_eqn_matrix = Matrix(([(eq_.rhs) for eq_ in self.gmeq.geodesic_eqns ])) #factor
         drvdt_raw_lambda = lambdify( [rx, rdotx, rdotz], drvdt_eqn_matrix )
         return lambda t_, rv_: np.ndarray.flatten( drvdt_raw_lambda(rv_[0],rv_[2],rv_[3]) )
-
-    def solve_Hamiltons_equations(self, model, method, do_dense,
-                                  ic, parameters, t_array, x_stop=1.0, t_lag=0) \
-                            -> Tuple[Any, Dict[str,List[np.array]]]:
-        """
-        TBD
-        """
-        # Do ODE integration
-        ivp_soln = solve_ODE_system(model, method, do_dense, ic, t_array, x_stop=x_stop)
-
-        # Process solution
-        rp_t_soln = ivp_soln.y
-        rx_array, rz_array = rp_t_soln[0],rp_t_soln[1]
-        # Did we exceed the domain bounds?
-        # If so, find the index of the first point out of bounds, otherwise set as None
-        i_end = np.argwhere(rx_array>=parameters[Lc])[0][0] \
-            if len(np.argwhere(rx_array>=parameters[Lc]))>0 else None
-        if i_end is not None:
-            if rx_array[0]!=parameters[Lc]:
-                i_end = min(len(t_array),i_end)
-            else:
-                i_end = min(len(t_array),2)
-
-        # Record solution
-        rpt_lag_arrays = {}
-        if t_lag>0:
-            dt = t_array[1]-t_array[0]
-            n_lag = int(t_lag/dt)
-            rpt_lag_arrays['t'] = np.linspace(0, t_lag, num=n_lag, endpoint=False)
-            for rp_idx,rp_ in enumerate(rp_list):
-                rpt_lag_arrays[rp_] = np.full(n_lag, rp_t_soln[rp_idx][0])
-        else:
-            n_lag = 0
-            for rpt_ in rpt_list:
-                rpt_lag_arrays[rpt_] = np.array([])
-
-        # Report
-        if i_end is not None:
-            logging.debug( f'From {rx_array[0]},{rz_array[0]}: out of bounds @ i='
-                          +f'{n_lag+i_end if i_end is not None else len(t_array)} '
-                          +f'x={rx_array[i_end]} t={t_array[i_end]}')
-        else:
-            logging.debug( f'From {rx_array[0]},{rz_array[0]}: '
-                          +f'terminating @ i={len(t_array)} '
-                          +f'x={rx_array[-1]} t={t_array[-1]}')
-
-        rpt_arrays: Dict[str,np.array] = {}
-        rpt_arrays['t'] = np.concatenate((rpt_lag_arrays['t'],t_array[0:i_end]+t_lag))
-        for rp_idx,rp_ in enumerate(rp_list):
-            rpt_arrays[rp_] = np.concatenate((rpt_lag_arrays[rp_],rp_t_soln[rp_idx][0:i_end]))
-        # print('solve_ODE_system:', rpt_arrays['rx'])
-
-        # return (ivp_soln, rpt_arrays, (n_lag+i_end if i_end is not None else len(t_array)))
-
-        # print('solve Hamiltons equations #1:', i_end, len(rpt_arrays['rx']), rpt_arrays['rx'])
-        # Record the ivp solutions for posterity (but don't use!)
-        # self.solns = [soln_ivp]
-        # print(f"i_end={i_end}, {len(rpt_arrays['t'])}, {len(rpt_arrays['rx'])}")
-        # if i_end is not None:
-        #     # Bug fix here - shouldn't be needed?
-        #     if len(rpt_arrays['rx']) < i_end: i_end = len(rpt_arrays['rx'])
-        #     if self.verbose:
-        #         pass
-        #     for rpt_ in rpt_list:
-        #         a = copy(rpt_arrays[rpt_])
-        #         rpt_arrays[rpt_] = a[:i_end]
-        # print('solve Hamiltons equations #2:', rpt_arrays['rx'])
-        return (ivp_soln, rpt_arrays)
 
     def postprocessing(self, spline_order=2, extrapolation_mode=0) -> None:
         """
@@ -666,15 +673,6 @@ class BaseSolution(ABC):
             self.rpt_arrays[rpt_][idx] = rpt_arrays[rpt_]
         rx_length = len(self.rpt_arrays['rx'][idx])
         self.rpt_arrays['t'][idx] = self.rpt_arrays['t'][idx][:rx_length]
-
-    def report_progress(self, i, n, progress_was=0, pc_step=1, is_initial_step=False) -> float:
-        """
-        TBD
-        """
-        progress_now = 100*np.round((100/pc_step)*i/(n-1 if n>1 else 1))/np.round(100/pc_step)
-        if progress_now>progress_was or is_initial_step:
-            print(f'{progress_now:0.0f}% ', end='' if progress_now<100 else '\n', flush=True)
-        return progress_now
 
 
 class ExtendedSolution(BaseSolution):

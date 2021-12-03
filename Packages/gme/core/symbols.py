@@ -125,8 +125,7 @@ theta = symbols(r'\theta',  real=True, positive=True)
 kappa_h = symbols(r'\kappa_\mathrm{h}',  real=True, positive=True)
 
 u_0 = symbols(r'u_0',  real=True, positive=True)
-x_1 = symbols(r'L_\mathrm{c}',  real=True, positive=True)
-Lc = x_1
+Lc = symbols(r'L_\mathrm{c}',  real=True, positive=True)
 xi = symbols(r'\xi^{\perp}',  real=True, positive=True)
 xiv = symbols(r'\xi^{\downarrow}',  real=True)
 xivhat = symbols(r'\hat{\xi}^{\downarrow}',  real=True)

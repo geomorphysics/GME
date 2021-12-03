@@ -86,7 +86,7 @@ class TimeInvariantSolution(SingleRaySolution):
         if do_truncate:
             h_x_array = self.h_x_array[:-2]
             gradient_array = np.array([gradient_value(x_, pz_=self.pz0, px_poly_eqn=px0_poly_eqn,
-                                        do_use_newton=do_use_newton, parameters=self.parameters)
+                                        do_use_newton=do_use_newton)
                                        for x_ in h_x_array])
             h_z_array = cumtrapz(gradient_array, h_x_array, initial=0)
             h_z_interp  = InterpolatedUnivariateSpline( h_x_array, h_z_array, k=2, ext=0 )
@@ -96,7 +96,7 @@ class TimeInvariantSolution(SingleRaySolution):
             # for x_ in h_x_array:
             #     print(x_,self.gradient_value(x_,parameters=self.parameters))
             gradient_array = np.array([gradient_value(x_, pz_=self.pz0, px_poly_eqn=px0_poly_eqn,
-                                        do_use_newton=do_use_newton, parameters=self.parameters)
+                                        do_use_newton=do_use_newton)
                                        for x_ in h_x_array])
             self.h_z_array = cumtrapz(gradient_array, h_x_array, initial=0)
 

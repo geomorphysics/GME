@@ -31,7 +31,7 @@ from gmplib.utils import e2d
 # GME
 from gme.core.symbols import Lc
 from gme.core.equations import pxpz0_from_xiv0
-from gme.ode.base import ExtendedSolution
+from gme.ode.base import ExtendedSolution, solve_Hamiltons_equations
 
 # SciPy
 from scipy.interpolate import InterpolatedUnivariateSpline
@@ -48,33 +48,32 @@ class SingleRaySolution(ExtendedSolution):
     """
     Integration of Hamilton's equations (ODEs) to solve for propagation of a single ray.
     """
-    def initial_conditions(self, px_guess=1) -> Tuple[float,float,float,float]:
+    def initial_conditions(self) -> Tuple[float,float,float,float]:
         """
         TBD
         """
         rz0_, rx0_ = 0, 0
-        px0_, pz0_ = pxpz0_from_xiv0(self.parameters,
-                                     self.gmeq.pz_xiv_eqn,
-                                     self.gmeq.poly_px_xiv0_eqn,
-                                     px_guess=px_guess )
+        px0_, pz0_ = pxpz0_from_xiv0( self.parameters,
+                                      self.gmeq.pz_xiv_eqn,
+                                      self.gmeq.poly_px_xiv0_eqn )
         return (rz0_, rx0_ , px0_, pz0_.subs(e2d(self.gmeq.xiv0_xih0_Ci_eqn)))
 
-    def solve(self, px_guess=1) -> None:
+    def solve(self) -> None:
         """
         TBD
         """
         # Record the ic as a list of one - to be used by solve_ODE_system
-        self.ic_list = [self.initial_conditions(px_guess=px_guess)]
+        self.ic_list = [self.initial_conditions()]
         self.model_dXdt_lambda = self.make_model()
         parameters_ = {Lc: self.parameters[Lc]}
-        ivp_soln, rpt_arrays = self.solve_Hamiltons_equations( model=self.model_dXdt_lambda,
-                                                               method=self.method,
-                                                               do_dense=self.do_dense,
-                                                               ic=self.ic_list[0],
-                                                               parameters=parameters_,
-                                                               t_array=self.ref_t_array.copy(),
-                                                               x_stop=self.x_stop,
-                                                               t_lag=0.0 )
+        ivp_soln, rpt_arrays = solve_Hamiltons_equations( model=self.model_dXdt_lambda,
+                                                           method=self.method,
+                                                           do_dense=self.do_dense,
+                                                           ic=self.ic_list[0],
+                                                           parameters=parameters_,
+                                                           t_array=self.ref_t_array.copy(),
+                                                           x_stop=self.x_stop,
+                                                           t_lag=0.0 )
         # rx_length = len(self.rpt_arrays['rx'])
         # self.rpt_arrays['t'] = self.rpt_arrays['t'][:rx_length]
         self.ivp_solns_list = [ivp_soln]

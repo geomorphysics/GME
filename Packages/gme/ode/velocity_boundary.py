@@ -28,7 +28,7 @@ import numpy as np
 # GME
 from gme.core.symbols import xiv_0, Lc
 from gme.core.equations import pxpz0_from_xiv0
-from gme.ode.base import ExtendedSolution
+from gme.ode.base import ExtendedSolution, solve_Hamiltons_equations, report_progress
 
 warnings.filterwarnings("ignore")
 
@@ -44,14 +44,15 @@ class VelocityBoundarySolution(ExtendedSolution):
 
     Currently the velocity boundary is required to lie along the left domain edge and to be vertical.
     """
-    def initial_conditions(self, t_lag, xiv_0_, px_guess=1) -> Tuple[float,float,float,float]:
+    def initial_conditions(self, t_lag, xiv_0_) -> Tuple[float,float,float,float]:
         """
         TBD
         """
         self.parameters[xiv_0] = xiv_0_
         # px0_, pz0_ = self.pxpz0_from_xiv0()
-        px0_, pz0_ = pxpz0_from_xiv0(self.parameters, self.gmeq.pz_xiv_eqn,
-                                     self.gmeq.poly_px_xiv0_eqn, px_guess=px_guess )
+        px0_, pz0_ = pxpz0_from_xiv0( self.parameters,
+                                      self.gmeq.pz_xiv_eqn,
+                                      self.gmeq.poly_px_xiv0_eqn )
         cosbeta_ = np.sqrt(1/(1+(np.float(px0_/-pz0_))**2))
         rz0_ = t_lag/(pz0_*cosbeta_)
         rx0_ = 0.0
@@ -104,7 +105,7 @@ class VelocityBoundarySolution(ExtendedSolution):
             prev_t_lag += t_lag
 
         # Generate rays in reverse order so that the first ray is topographically the lowest
-        pc_progress = self.report_progress(i=0, n=n_rays, is_initial_step=True)
+        pc_progress = report_progress(i=0, n=n_rays, is_initial_step=True)
         self.ic_list = ic_list # to be replaced by reordered sequence
         self.ivp_solns_list = [None]*n_rays
         xiv0_prev = 0.0
@@ -120,18 +121,18 @@ class VelocityBoundarySolution(ExtendedSolution):
             #   so that their x,z,t disposition is consistent with initial profile, initial corner
             # if self.choice=='Hamilton':
             parameters_ = {Lc: self.parameters[Lc]}
-            ivp_soln, rpt_arrays = self.solve_Hamiltons_equations( model=model_dXdt_lambda,
-                                                                   method=self.method,
-                                                                   do_dense=self.do_dense,
-                                                                   ic=self.ic_list[i_ray],
-                                                                   parameters=parameters_,
-                                                                   t_array=self.ref_t_array.copy(),
-                                                                   x_stop=self.x_stop,
-                                                                   t_lag=t_lag )
+            ivp_soln, rpt_arrays = solve_Hamiltons_equations( model=model_dXdt_lambda,
+                                                               method=self.method,
+                                                               do_dense=self.do_dense,
+                                                               ic=self.ic_list[i_ray],
+                                                               parameters=parameters_,
+                                                               t_array=self.ref_t_array.copy(),
+                                                               x_stop=self.x_stop,
+                                                               t_lag=t_lag )
             self.ivp_solns_list[i_ray] = ivp_soln
             self.t_ensemble_max = max(self.t_ensemble_max, rpt_arrays['t'][-1])
             self.save(rpt_arrays, i_ray)
-            pc_progress = self.report_progress(i=i_ray, n=self.n_rays,
+            pc_progress = report_progress(i=i_ray, n=self.n_rays,
                                                pc_step=report_pc_step, progress_was=pc_progress)
         # self.report_progress(i=n_rays, n=n_rays, pc_step=report_pc_step, progress_was=pc_progress)
 

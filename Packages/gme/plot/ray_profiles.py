@@ -122,7 +122,7 @@ class RayProfiles(Graphing):
         if not do_schematic and not do_simple:
             if do_etaxi_label:
                 plt.text(*eta_label_xy,
-                         rf'$\eta={gmeq.eta}$'+r'$\quad\mathsf{Ci}=$'+rf'${round(float(deg(Ci.subs(sub))))}\degree$',
+                         rf'$\eta={gmeq.eta_}$'+r'$\quad\mathsf{Ci}=$'+rf'${round(float(deg(Ci.subs(sub))))}\degree$',
                          transform=axes.transAxes,
                          horizontalalignment='center', verticalalignment='center',
                          fontsize=13, color='k')
@@ -231,7 +231,7 @@ class RayProfiles(Graphing):
         if not do_schematic:
             if do_etaxi_label:
                 plt.text(*eta_label_xy,
-                         rf'$\eta={gmeq.eta}$'+r'$\quad\mathsf{Ci}=$'+rf'${round(float(deg(Ci.subs(sub))))}\degree$',
+                         rf'$\eta={gmeq.eta_}$'+r'$\quad\mathsf{Ci}=$'+rf'${round(float(deg(Ci.subs(sub))))}\degree$',
                          transform=axes.transAxes,
                          horizontalalignment='center', verticalalignment='center',
                          fontsize=16, color='k')
@@ -319,7 +319,7 @@ class RayProfiles(Graphing):
             eta_label_xy = (0.92,0.15)
         if do_etaxi_label:
             plt.text(*eta_label_xy,
-                     rf'$\eta={gmeq.eta}$'+r'$\quad\mathsf{Ci}=$'+rf'${round(float(deg(Ci.subs(sub))))}\degree$',
+                     rf'$\eta={gmeq.eta_}$'+r'$\quad\mathsf{Ci}=$'+rf'${round(float(deg(Ci.subs(sub))))}\degree$',
                      transform=axes.transAxes,
                      horizontalalignment='center', verticalalignment='center',
                      fontsize=16, color='k')

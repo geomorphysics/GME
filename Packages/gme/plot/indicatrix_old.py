@@ -153,7 +153,7 @@ class IndicatrixOld(Graphing):
 
         axes = plt.gca()
         plt.text(np.pi/1.1,(1+y_limits[1]-y_limits[0])*2/3+y_limits[0],
-                    rf'$\eta={gmeq.eta}$',fontsize=16)
+                    rf'$\eta={gmeq.eta_}$',fontsize=16)
 
         axes.set_theta_zero_location("S")
 
@@ -170,7 +170,7 @@ class IndicatrixOld(Graphing):
         TBD
         """
         xy_ = (2.5,-2) if zoom_factor>=1 else (1.25,0.9)
-        plt.text(*xy_, rf'$\varphi={varphi_}\quad\eta={gmeq.eta}$',
+        plt.text(*xy_, rf'$\varphi={varphi_}\quad\eta={gmeq.eta_}$',
                  horizontalalignment='center', verticalalignment='center', fontsize=14, color='k')
         if do_text_labels:
             plt.text(rdotx_*0.97, rdotz_+0.2, r'$\mathbf{v}$',
@@ -266,7 +266,7 @@ class IndicatrixOld(Graphing):
         """
         if not do_legend: return
         handles, labels = axes.get_legend_handles_labels()
-        if gmeq.eta>=1:
+        if gmeq.eta_>=1:
             loc_='center right' if do_half else 'upper left' if do_ray_slowness  else 'lower left'
         else:
             loc_='upper right' if do_half else 'upper left' if do_ray_slowness else 'lower left'
@@ -378,7 +378,7 @@ class IndicatrixOld(Graphing):
         axes.set_aspect(1)
         plt.grid(True, ls=':')
         x_min = -0.1 if do_half else -x_max
-        y_minmax = 2.4 if gmeq.eta >= 1 else 2.4
+        y_minmax = 2.4 if gmeq.eta_ >= 1 else 2.4
         zoomx = np.array([x_min, x_max]) * zoom_factor
         zoomz = np.array([-y_minmax, y_minmax]) * zoom_factor
         plt.xlim(zoomx)

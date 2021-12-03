@@ -101,9 +101,9 @@ class RayAngles(Graphing):
         if do_legend:
             plt.legend()
         if do_etaxi_label:
-            # plt.text(0.5,0.85, r'$\eta={}$'.format(gmeq.eta),
+            # plt.text(0.5,0.85, r'$\eta={}$'.format(gmeq.eta_),
             plt.text(*eta_label_xy,
-                     rf'$\eta={gmeq.eta}$'+r'$\quad\mathsf{Ci}=$'+rf'${round(float(deg(Ci.subs(sub))))}\degree$',
+                     rf'$\eta={gmeq.eta_}$'+r'$\quad\mathsf{Ci}=$'+rf'${round(float(deg(Ci.subs(sub))))}\degree$',
                      transform=axes.transAxes,
                      horizontalalignment='center', verticalalignment='center', fontsize=14, color='k')
         if do_pub_label:
@@ -159,7 +159,7 @@ class RayAngles(Graphing):
             axes.set_ylim(*y_limits)
         if do_legend:
             plt.legend()
-        plt.text(*eta_label_xy, rf'$\eta={gmeq.eta}$', transform=axes.transAxes,
+        plt.text(*eta_label_xy, rf'$\eta={gmeq.eta_}$', transform=axes.transAxes,
                  horizontalalignment='center', verticalalignment='center', fontsize=14, color='k')
         if do_pub_label:
             plt.text(*pub_label_xy, pub_label,
@@ -199,12 +199,12 @@ class RayAngles(Graphing):
         plt.ylabel(r'Anisotropy,  $\psi = \alpha-\beta+90$  [${\degree}$]', fontsize=12)
         if not do_pub_label:
             plt.legend(loc='lower left', fontsize=11, framealpha=0.95)
-        plt.text(*pub_label_xy, pub_label if do_pub_label else rf'$\eta={gmeq.eta}$',
+        plt.text(*pub_label_xy, pub_label if do_pub_label else rf'$\eta={gmeq.eta_}$',
                  transform=axes.transAxes, horizontalalignment='center', verticalalignment='center', fontsize=16, color='k')
         plt.text(*var_label_xy, r'$\psi(x)$' if do_pub_label else '',
                  transform=axes.transAxes, horizontalalignment='center', verticalalignment='center', fontsize=18, color='k')
         plt.text(*eta_label_xy,
-                 rf'$\eta={gmeq.eta}$'+r'$\quad\mathsf{Ci}=$'+rf'${round(float(deg(Ci.subs(sub))))}\degree$',
+                 rf'$\eta={gmeq.eta_}$'+r'$\quad\mathsf{Ci}=$'+rf'${round(float(deg(Ci.subs(sub))))}\degree$',
                  transform=axes.transAxes,
                  horizontalalignment='center', verticalalignment='center', fontsize=14, color='k')
 
@@ -240,5 +240,5 @@ class RayAngles(Graphing):
         if do_legend:
             plt.legend()
         axes = plt.gca()
-        plt.text(0.5,0.7, rf'$\eta={gmeq.eta}$', transform=axes.transAxes,
+        plt.text(0.5,0.7, rf'$\eta={gmeq.eta_}$', transform=axes.transAxes,
                  horizontalalignment='center', verticalalignment='center', fontsize=14, color='k')

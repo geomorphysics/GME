@@ -249,7 +249,7 @@ class TimeDependent(Graphing):
 
         if do_etaxi_label:
             plt.text(*eta_label_xy,
-                     rf'$\eta={gmeq.eta}$'+r'$\quad\mathsf{Ci}=$'+rf'${round(float(deg(Ci.subs(sub))))}\degree$',
+                     rf'$\eta={gmeq.eta_}$'+r'$\quad\mathsf{Ci}=$'+rf'${round(float(deg(Ci.subs(sub))))}\degree$',
                      transform=axes.transAxes,
                      horizontalalignment='center', verticalalignment='center',
                      fontsize=14, color='k')
@@ -306,7 +306,7 @@ class TimeDependent(Graphing):
         plt.ylabel(r'Cusp horiz propagation speed,  $c^x$')
 
         axes = plt.gca()
-        plt.text(0.15,0.2, rf'$\eta={gmeq.eta}$', transform=axes.transAxes,
+        plt.text(0.15,0.2, rf'$\eta={gmeq.eta_}$', transform=axes.transAxes,
                  horizontalalignment='center', verticalalignment='center', fontsize=14, color='k')
 
         x_array = np.linspace(0.001 if do_infer_initiation else x_or_t_array[0],1,num=101)

@@ -248,7 +248,7 @@ class IndicatrixNew(Graphing):
         plt.ylabel(r'$p_z$ (for $F^*$)  or  $v^z$ (for $F$)', fontsize=14)
 
         axes.set_aspect(1)
-        plt.text(*eta_xy_label, rf'$\eta={gmeq.eta}$', transform=axes.transAxes,
+        plt.text(*eta_xy_label, rf'$\eta={gmeq.eta_}$', transform=axes.transAxes,
                  horizontalalignment='center', verticalalignment='center',
                  fontsize=15, color='k')
 
@@ -396,7 +396,7 @@ class IndicatrixNew(Graphing):
         xtick_posns = [np.pi*theta_ for theta_ in theta_list]
         plt.xticks(xtick_posns, xtick_labels, ha='left', fontsize=15)
 
-        plt.text(*eta_xy_label, rf'$\eta={gmeq.eta}$', transform=axes.transAxes,
+        plt.text(*eta_xy_label, rf'$\eta={gmeq.eta_}$', transform=axes.transAxes,
                  horizontalalignment='center', verticalalignment='center',
                  fontsize=18, color='k')
         plt.legend(loc=legend_xy)

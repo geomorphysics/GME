@@ -113,7 +113,7 @@ class RayVelocities(Graphing):
         plt.legend(loc=legend_loc, fontsize=14, framealpha=0.95)
         if do_etaxi_label:
             plt.text(*eta_label_xy,
-                     rf'$\eta={gmeq.eta}$'+r'$\quad\mathsf{Ci}=$'+rf'${round(float(deg(Ci.subs(sub))))}\degree$',
+                     rf'$\eta={gmeq.eta_}$'+r'$\quad\mathsf{Ci}=$'+rf'${round(float(deg(Ci.subs(sub))))}\degree$',
                      transform=axes.transAxes,
                      horizontalalignment='center', verticalalignment='center',
                      fontsize=16, color='k')
@@ -211,6 +211,6 @@ class RayVelocities(Graphing):
         plt.xlabel(r'Distance, $x/L_{\mathrm{c}}$  [-]', fontsize=14)
         if do_legend: plt.legend(loc=legend_loc, fontsize=13, framealpha=0.95)
         if do_etaxi_label:
-            plt.text(0.6,0.8, pub_label if do_pub_label else rf'$\eta={gmeq.eta}$',
+            plt.text(0.6,0.8, pub_label if do_pub_label else rf'$\eta={gmeq.eta_}$',
                      transform=axes.transAxes,
                      horizontalalignment='center', verticalalignment='center', fontsize=14, color='k')

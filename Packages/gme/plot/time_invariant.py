@@ -87,7 +87,7 @@ class TimeInvariant(Graphing):
         plt.xlabel(r'Dimensionless horizontal distance, $x/L_{\mathrm{c}}$  [-]')
         plt.ylabel(r'$\varphi(x)$  [-]')
         if do_subtitling:
-            plt.text(0.1,0.15, rf'$\eta={gmeq.eta}$', transform=axes.transAxes,
+            plt.text(0.1,0.15, rf'$\eta={gmeq.eta_}$', transform=axes.transAxes,
                      horizontalalignment='left', verticalalignment='center', fontsize=12, color='k')
             plt.text(0.05,0.22, subtitle, transform=axes.transAxes,
                      horizontalalignment='left', verticalalignment='center', fontsize=12, color='k')
@@ -141,7 +141,7 @@ class TimeInvariant(Graphing):
         profile_lw = 1
         # Solid line = topo profile from direct integration of gradient array
         plt.plot(gmes.h_x_array,(gmes.h_z_array-gmes.h_z_array[0]), 'k', lw=profile_lw,
-                 label=rf'$h(x)\quad\eta={gmeq.eta}$')
+                 label=rf'$h(x)\quad\eta={gmeq.eta_}$')
         plt.plot(x_array, h_array, 'o', mec='k', mfc='gray', ms=3, fillstyle='full', markeredgewidth=0.5)
 
         plt.xlabel(r'Distance, $x/L_{\mathrm{c}}$  [-]', fontsize=16)
@@ -233,22 +233,22 @@ class TimeInvariant(Graphing):
 
 
         plt.text(*eta_label_xy,
-                 rf'$\eta={gmeq.eta}$'+r'$\quad\mathsf{Ci}=$'+rf'${round(float(deg(Ci.subs(sub))))}\degree$',
+                 rf'$\eta={gmeq.eta_}$'+r'$\quad\mathsf{Ci}=$'+rf'${round(float(deg(Ci.subs(sub))))}\degree$',
                  transform=axes.transAxes,
                  horizontalalignment='center', verticalalignment='center', fontsize=14, color='k')
 
         axes.set_aspect(1)
         plt.xlim(-0.05,1.08)
         if sf is None:
-            if gmeq.eta <= Rational(1,2):
+            if gmeq.eta_ <= Rational(1,2):
                 sf = (3,6.)
-            elif gmeq.eta < Rational(3,4):
+            elif gmeq.eta_ < Rational(3,4):
                 sf = (1.5,4.3)
-            elif gmeq.eta >= Rational(3,2):
-                sfy = float(N((9-4.3)*(gmeq.eta-0.5)+4.3))*0.3
+            elif gmeq.eta_ >= Rational(3,2):
+                sfy = float(N((9-4.3)*(gmeq.eta_-0.5)+4.3))*0.3
                 sf = (sfy,sfy)
             else:
-                sfy = float(N((9-1.0)*(gmeq.eta-0.5)+1.0))*0.5
+                sfy = float(N((9-1.0)*(gmeq.eta_-0.5)+1.0))*0.5
                 sf = (sfy,sfy)
                 plt.xlim(-0.03,1.05)
         if y_limits is None:
@@ -443,7 +443,7 @@ class TimeInvariant(Graphing):
         plt.legend(loc=legend_loc, fontsize=11, framealpha=0.95)
         if do_etaxi_label:
             plt.text(*eta_label_xy,
-                    rf'$\eta={gmeq.eta}$'+r'$\quad\mathsf{Ci}=$'+rf'${round(float(deg(Ci.subs(sub))))}\degree$',
+                    rf'$\eta={gmeq.eta_}$'+r'$\quad\mathsf{Ci}=$'+rf'${round(float(deg(Ci.subs(sub))))}\degree$',
                     transform=axes.transAxes,
                     horizontalalignment='center', verticalalignment='center', fontsize=14, color='k')
         if do_pub_label:
@@ -492,7 +492,7 @@ class TimeInvariant(Graphing):
         plt.ylim(ylim[0]*1.0,ylim[1]*1.3)
         plt.legend(loc='upper left', fontsize=9, framealpha=0.95)
         plt.text(*eta_label_xy,
-                 rf'$\eta={gmeq.eta}$'+r'$\quad\mathsf{Ci}=$'+rf'${round(float(deg(Ci.subs(sub))))}\degree$',
+                 rf'$\eta={gmeq.eta_}$'+r'$\quad\mathsf{Ci}=$'+rf'${round(float(deg(Ci.subs(sub))))}\degree$',
                  transform=axes.transAxes,
                  horizontalalignment='center', verticalalignment='center', fontsize=14, color='k')
 
@@ -543,7 +543,7 @@ class TimeInvariant(Graphing):
         axes.set_ylim( -(ylim[1]-ylim[0])/20,ylim[1]*1.05 )
         plt.legend(loc='lower left', fontsize=11, framealpha=0.95)
         plt.text(*eta_label_xy,
-                 rf'$\eta={gmeq.eta}$'+r'$\quad\mathsf{Ci}=$'+rf'${round(float(deg(Ci.subs(sub))))}\degree$'
+                 rf'$\eta={gmeq.eta_}$'+r'$\quad\mathsf{Ci}=$'+rf'${round(float(deg(Ci.subs(sub))))}\degree$'
                     if do_etaxi_label else '',
                  transform=axes.transAxes, horizontalalignment='center',
                  verticalalignment='center', fontsize=16, color='k')
@@ -602,7 +602,7 @@ class TimeInvariant(Graphing):
         # axes.set_ylim(ylim[0]*1.1,-0)
         plt.legend(loc='lower left', fontsize=11, framealpha=0.95)
         plt.text(*eta_label_xy,
-                 rf'$\eta={gmeq.eta}$'+r'$\quad\mathsf{Ci}=$'+rf'${round(float(deg(Ci.subs(sub))))}\degree$'
+                 rf'$\eta={gmeq.eta_}$'+r'$\quad\mathsf{Ci}=$'+rf'${round(float(deg(Ci.subs(sub))))}\degree$'
                     if do_etaxi_label else '',
                  transform=axes.transAxes, horizontalalignment='center',
                  verticalalignment='center', fontsize=16, color='k')
@@ -668,7 +668,7 @@ class TimeInvariant(Graphing):
             axes.set_ylim([xiv_mean-xiv_deviation, xiv_mean+xiv_deviation])
         plt.legend(loc='upper left', fontsize=11, framealpha=0.95)
         plt.text(*eta_label_xy,
-                 rf'$\eta={gmeq.eta}$'+r'$\quad\mathsf{Ci}=$'+rf'${round(float(deg(Ci.subs(sub))))}\degree$'
+                 rf'$\eta={gmeq.eta_}$'+r'$\quad\mathsf{Ci}=$'+rf'${round(float(deg(Ci.subs(sub))))}\degree$'
                     if do_etaxi_label else '',
                  transform=axes.transAxes, horizontalalignment='center',
                  verticalalignment='center', fontsize=16, color='k')
@@ -740,7 +740,7 @@ class TimeInvariant(Graphing):
     #     _ = self.create_figure(name, fig_size=fig_size, dpi=dpi)
     #     axes = plt.gca()
     #
-    #     eta_ = float(gmeq.eta)
+    #     eta_ = float(gmeq.eta_)
     #     x_array = np.linspace(0,float(Lc.subs(sub)-x_min),n_points)
     #     x_dbl_array = np.linspace(0,float(Lc.subs(sub)-x_min),n_points*2-1)
     #     area_array = ((Lc.subs(sub)-x_dbl_array)/Lc.subs(sub))**2
@@ -826,7 +826,7 @@ class TimeInvariant(Graphing):
     #     # plt.legend(loc='upper left', fontsize=11, framealpha=0.95)
     #
     #     if do_subtitling:
-    #         plt.text(0.1,0.15, r'$\eta={}$'.format(gmeq.eta), transform=axes.transAxes,
+    #         plt.text(0.1,0.15, r'$\eta={}$'.format(gmeq.eta_), transform=axes.transAxes,
     #                  horizontalalignment='left', verticalalignment='center', fontsize=12, color='k')
     #         plt.text(0.05,0.25, subtitle, transform=axes.transAxes,
     #                  horizontalalignment='left', verticalalignment='center', fontsize=12, color='k')
