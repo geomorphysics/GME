@@ -16,7 +16,6 @@ Imports symbols from :mod:`.symbols` module
 ---------------------------------------------------------------------
 
 """
-# pylint: disable=line-too-long, invalid-name, too-many-locals, multiple-statements, too-many-arguments, too-many-branches
 import warnings
 
 # Numpy

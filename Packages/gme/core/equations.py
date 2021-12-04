@@ -31,7 +31,6 @@ Imports symbols from the :mod:`.symbols` module
 ---------------------------------------------------------------------
 
 """
-# pylint: disable=line-too-long, invalid-name, too-many-locals, multiple-statements, too-many-arguments, too-many-branches, not-callable, invalid-unary-operand-type
 import warnings
 from functools import reduce
 
@@ -67,12 +66,14 @@ __all__ = ['Equations', 'EquationSubset',
             'pxpz0_from_xiv0', 'gradient_value', 'px_value_search', 'px_value']
 
 
-def pxpz0_from_xiv0(parameters: Dict[str, Any], pz0_xiv0_eqn, poly_px_xiv0_eqn) -> Tuple[float,float]:
+def pxpz0_from_xiv0(parameters: Dict[str, Any],
+                    #xiv_0_, xih_0_,
+                    pz0_xiv0_eqn, poly_px_xiv0_eqn) -> Tuple[float,float]:
     """
     TBD
     """
     # pz0_xiv0_eqn = pz_xiv_eqn.subs({xiv:xiv_0}).subs(parameters)
-    px0_poly_rx0_eqn = simplify(poly_px_xiv0_eqn.subs({rx:0}).subs(parameters))
+    px0_poly_rx0_eqn = simplify(poly_px_xiv0_eqn.subs({rx:0})) #.subs(parameters))
     # eta_ = eta.subs(parameters)
     # if True: #eta==Rational(1,2) or eta==Rational(3,2):
     px0sqrd_solns = solve(px0_poly_rx0_eqn,px**2)

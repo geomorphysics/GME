@@ -16,10 +16,9 @@ Imports symbols from :mod:`.symbols` module
 ---------------------------------------------------------------------
 
 """
-# pylint: disable=line-too-long, invalid-name, too-many-locals, multiple-statements, too-many-arguments, too-many-branches
 import warnings
 import logging
-# from functools import lru_cache
+from functools import lru_cache
 
 # Typing
 from typing import List, Dict, Any, Tuple, Callable, Optional
@@ -62,8 +61,12 @@ def eventAttr():
         return func
     return decorator
 
-# @lru_cache  -  only works if t_array is replaced with something hashable
-def solve_ODE_system(model, method, do_dense, ic, t_array, x_stop=0.999) -> Any:
+# Caching only works if t_array is replaced with something hashable
+@lru_cache
+def solve_ODE_system(model, method, do_dense, ic,
+                     t0,t1,nt,
+                     # t_array,
+                     x_stop=0.999) -> Any:
     """
     TBD
     """
@@ -78,7 +81,7 @@ def solve_ODE_system(model, method, do_dense, ic, t_array, x_stop=0.999) -> Any:
     #   almost_reached_divide.terminal = True
 
     # Perform ODE integration
-    # t_array = np.linspace(t0,t1,nt)
+    t_array = np.linspace(t0,t1,nt)
     # print(model, method, do_dense, ic, t0,t1,nt, x_stop)
     return solve_ivp(model,
                       [t_array[0],t_array[-1]],
@@ -98,11 +101,18 @@ def solve_Hamiltons_equations(model, method, do_dense,
     TBD
     """
     # Do ODE integration
-    ivp_soln = solve_ODE_system(model, method, do_dense, ic, t_array, x_stop=x_stop)
+    t0, t1, nt = t_array[0], t_array[-1], len(t_array)
+    ivp_soln = solve_ODE_system(model, method, do_dense, ic,
+                                t0,t1,nt,
+                                # t_array,
+                                x_stop=x_stop)
 
     # Process solution
     rp_t_soln = ivp_soln.y
     rx_array, rz_array = rp_t_soln[0],rp_t_soln[1]
+    logging.debug( f'ode.base.solve_Hamiltons_equations:'
+                  +f' ic={ic}'
+                  +f' rx[0]={rx_array[0]} rz[0]={np.round(rz_array[0],5)}')
     # Did we exceed the domain bounds?
     # If so, find the index of the first point out of bounds, otherwise set as None
     i_end = np.argwhere(rx_array>=parameters[Lc])[0][0] \
@@ -128,13 +138,16 @@ def solve_Hamiltons_equations(model, method, do_dense,
 
     # Report
     if i_end is not None:
-        logging.debug( f'From {rx_array[0]},{rz_array[0]}: out of bounds @ i='
+        logging.debug( f'ode.base.solve_Hamiltons_equations:\n\t'
+                      +f' from {np.round(rx_array[0],5)},{np.round(rz_array[0],5)}:'
+                      +' out of bounds @ i='
                       +f'{n_lag+i_end if i_end is not None else len(t_array)} '
-                      +f'x={rx_array[i_end]} t={t_array[i_end]}')
+                      +f'x={np.round(rx_array[-1],5)} t={np.round(t_array[-1],3)}')
     else:
-        logging.debug( f'From {rx_array[0]},{rz_array[0]}: '
+        logging.debug( f'ode.base.solve_Hamiltons_equations:\n\t'
+                      +f' from {np.round(rx_array[0],5)},{np.round(rz_array[0],5)}: '
                       +f'terminating @ i={len(t_array)} '
-                      +f'x={rx_array[-1]} t={t_array[-1]}')
+                      +f'x={np.round(rx_array[-1],5)} t={np.round(t_array[-1],3)}')
 
     rpt_arrays: Dict[str,np.array] = {}
     rpt_arrays['t'] = np.concatenate((rpt_lag_arrays['t'],t_array[0:i_end]+t_lag))
@@ -195,17 +208,18 @@ class BaseSolution(ABC):
         # ODE solution method
         self.choice = choice
         self.method = method
+        report = 'ode.base.BaseSolution.init: '
         if self.choice=='Hamilton':
-            report = 'Solve Hamilton\'s ODEs'
+            report += 'Solve Hamilton\'s ODEs'
         else:
-            report = 'Solve geodesic ODEs'
+            report += 'Solve geodesic ODEs'
         report += f' using {method} method of integration'
         logging.info(report)
         self.do_dense = do_dense
         self.x_stop = x_stop
 
         # Rays
-        self.tp_xiv0_list = tp_xiv0_list
+        self.tp_xiv0_list: Optional[List[Tuple[float,float]]] = tp_xiv0_list
         self.n_rays = n_rays
         self.t_end = t_end
         self.t_distribn = t_distribn
@@ -264,19 +278,19 @@ class BaseSolution(ABC):
         #   - generates a "matrix" of the 4 Hamilton equations with rx,rz,px,pz as variables
         #     and the rest as numbers
         if self.choice=='Hamilton':
-            logging.info('Constructing model Hamilton\'s equations')
+            logging.info('ode.base.BaseSolution.make_model: Constructing model Hamilton\'s equations')
             drpdt_eqn_matrix = simplify( self.gmeq.hamiltons_eqns.subs(self.parameters) )
                                                     # .subs({pz:-Abs(pz)})  # HACK - may need this
             drpdt_raw_lambda = lambdify( [rx, px, pz], drpdt_eqn_matrix )
             return lambda t_, rp_: np.ndarray.flatten( drpdt_raw_lambda(rp_[0],rp_[2],rp_[3]) )
-        logging.info('Constructing model geodesic equations')
+        logging.info('ode.base.BaseSolution.make_model: Constructing model geodesic equations')
         drvdt_eqn_matrix = Matrix(([(eq_.rhs) for eq_ in self.gmeq.geodesic_eqns ])) #factor
         drvdt_raw_lambda = lambdify( [rx, rdotx, rdotz], drvdt_eqn_matrix )
         return lambda t_, rv_: np.ndarray.flatten( drvdt_raw_lambda(rv_[0],rv_[2],rv_[3]) )
 
     def postprocessing(self, spline_order=2, extrapolation_mode=0) -> None:
         """
-        TBD
+        Generate interpolating functions for (r,p)[t] using ray samples
         """
         # dummy, to avoid "overriding parameters" warnings in subclasses that override this method
         unused_ = (spline_order, extrapolation_mode)
@@ -294,7 +308,7 @@ class BaseSolution(ABC):
                                                                 assume_sorted=True)
 
     def resolve_isochrones( self, x_subset=1, t_isochrone_max=0.04, n_isochrones=25,
-                            # bounds_hack=100,
+                            n_resample_pts=301,
                             tolerance=1e-3, do_eliminate_caustics=True,
                             dont_crop_cusps=False ) -> None:
         """
@@ -479,11 +493,11 @@ class BaseSolution(ABC):
             rpt_isochrone.update({'t':t_})
             return rpt_isochrone
 
-        def resample_isochrone(rpt_isochrone_in) -> Dict[str,np.array]:
+        def resample_isochrone(rpt_isochrone_in, n_resample_pts) -> Dict[str,np.array]:
             """
             TBD
             """
-            n_s_pts = 301
+            n_s_pts = n_resample_pts
             rpt_isochrone_out = rpt_isochrone_in.copy()
             s_array = np.cumsum( np.concatenate([np.array([0]),np.sqrt((rpt_isochrone_in['rx'][1:]-rpt_isochrone_in['rx'][:-1])**2
                                          + (rpt_isochrone_in['rz'][1:]-rpt_isochrone_in['rz'][:-1])**2)]) )
@@ -587,7 +601,7 @@ class BaseSolution(ABC):
         t_array = np.linspace(0,t_isochrone_max,n_isochrones)
         for i_isochrone,t_ in enumerate(t_array):
             rpt_isochrone = compose_isochrone(t_) #i_isochrone,
-            rpt_isochrone = resample_isochrone(rpt_isochrone)
+            rpt_isochrone = resample_isochrone(rpt_isochrone, n_resample_pts)
             rpt_isochrone, (trxz_cusp, pxz1_intercept, pxz2_intercept) = clean_isochrone(rpt_isochrone)
             if rpt_isochrone is not None:
                 rpt_isochrone = prune_isochrone(rpt_isochrone)

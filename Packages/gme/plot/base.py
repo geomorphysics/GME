@@ -26,8 +26,11 @@ Imports symbols from :mod:`.symbols` module.
 
 """
 
-# pylint: disable=line-too-long, invalid-name, too-many-locals
 import warnings
+import logging
+
+# Typing
+from typing import List
 
 # Numpy
 import numpy as np
@@ -52,8 +55,7 @@ class Graphing(GraphingBase):
     """
     Subclasses :class:`gmplib.plot_utils.GraphingBase <plot_utils.GraphingBase>`.
     """
-
-    def mycolors(self, i, r, n, do_smooth=False, cmap_choice='brg'):
+    def mycolors(self, i, r, n, do_smooth=False, cmap_choice='brg') -> List[str]:
         r"""
         Generate a color palette
         """
@@ -65,14 +67,14 @@ class Graphing(GraphingBase):
         return colors_
 
     @staticmethod
-    def gray_color(i_isochrone=0, n_isochrones=1):
+    def gray_color(i_isochrone=0, n_isochrones=1) -> str:
         r"""
         Make a grey shade for to communicate isochrone time
         """
         return f'{(n_isochrones-1-i_isochrone)/(n_isochrones-1)*0.75}'
 
     @staticmethod
-    def correct_quadrant(angle):
+    def correct_quadrant(angle) -> float:
         r"""
         If angle :math:`|\theta|\approx 0`, set :math:`\theta=0`;
         otherwise, if angle :math:`\theta<0`, map :math:`\theta \rightarrow \pi-\theta`.
@@ -84,16 +86,18 @@ class Graphing(GraphingBase):
             Modified value of angle.
         """
         if abs(angle)<=1e-10:
-            angle_ = 0
-        elif angle>0:
+            angle_ = 0.0
+        elif angle>0.0:
             angle_ =  angle
         else:
             angle_ = np.pi+angle
         return angle_
 
-    def draw_rays_with_arrows_simple( self, axes, sub, xi_vh_ratio, t_array, rx_array, rz_array, v_array=None,
+    def draw_rays_with_arrows_simple( self, axes, sub, xi_vh_ratio,
+                                      t_array, rx_array, rz_array, v_array=None,
                                       n_t=None, n_rays=4,
-                                      ls='-', sf=1, color=None, do_labels=True, do_one_ray=False ):
+                                      ls='-', sf=1, color=None,
+                                      do_labels=True, do_one_ray=False ) -> None:
         """
         Plot ray and arrowheads along the ray to visualize the direction of motion.
 
@@ -143,7 +147,8 @@ class Graphing(GraphingBase):
 
     def arrow_annotate_ray_custom( self, rx_array, rz_array, axes, i_ray, i_ray_step, n_rays, n_arrows,
                                    arrow_sf=0.7, arrow_offset=1, x_limits=None, y_limits=None,
-                                   line_style='dashed', line_width=1, ray_label=None, do_smooth_colors=False ):
+                                   line_style='dashed', line_width=1, ray_label=None,
+                                   do_smooth_colors=False )  -> None:
         """
         Add arrowheads to a ray trajectory to visualize the direction of motion.
 
@@ -165,13 +170,16 @@ class Graphing(GraphingBase):
         """
         # Drop repeated points on vb
         rxz_array = np.unique( np.vstack([rx_array,rz_array]), axis=1 )
-        n_pts = rxz_array.shape[1]
+        n_pts: int = rxz_array.shape[1]
         my_arrow_style = mpatches.ArrowStyle.Fancy(head_length=0.99*arrow_sf, head_width=0.6*arrow_sf,
                                                    tail_width=0.01*arrow_sf)
         # color = self.colors[(i_ray//i_ray_step)%self.n_colors]
-        color = self.mycolors(i_ray, i_ray_step, n_rays, do_smooth=do_smooth_colors)
-        if n_pts>2:
-            for q in range(n_pts//(n_arrows)//arrow_offset+n_pts//(n_arrows), n_pts-1, n_pts//(n_arrows)):
+        color: List[str] = self.mycolors(i_ray, i_ray_step, n_rays, do_smooth=do_smooth_colors)
+        q_n: int = n_pts//n_arrows
+        if q_n>0:
+            q_from: int = n_pts//(n_arrows)//arrow_offset+n_pts//(n_arrows)
+            q_to: int = n_pts-1
+            for q in range(q_from, q_to, q_n):
                 y_condition: bool = (y_limits is None or
                         ( (rxz_array[1][q+1]>y_limits[0] and rxz_array[1][q+1]<y_limits[1]) and
                           (rxz_array[1][q]>y_limits[0] and rxz_array[1][q]<y_limits[1]) ))

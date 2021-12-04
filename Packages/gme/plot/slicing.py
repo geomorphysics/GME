@@ -25,8 +25,6 @@ Imports symbols from :mod:`.symbols` module.
 ---------------------------------------------------------------------
 
 """
-
-# pylint: disable=line-too-long, invalid-name, too-many-locals, no-self-use, multiple-statements
 import warnings
 
 # Minimal typing

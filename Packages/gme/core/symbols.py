@@ -17,7 +17,6 @@ Requires Python packages/modules:
 ---------------------------------------------------------------------
 
 """
-# pylint:
 
 from sympy import symbols, MatrixSymbol, Function
 from sympy.physics.units import length, time

@@ -25,8 +25,6 @@ Imports symbols from :mod:`.symbols` module.
 ---------------------------------------------------------------------
 
 """
-
-# pylint: disable=locally-disabled, multiple-statements, fixme, line-too-long, invalid-name
 import warnings
 
 # Typing
@@ -56,7 +54,6 @@ class TimeDependent(Graphing):
     """
     Subclasses :class:`gme.plot.Graphing <plot.Graphing>`.
     """
-
     rp_list = ['rx','rz','px','pz']
     rpt_list = rp_list+['t']
 
@@ -73,7 +70,7 @@ class TimeDependent(Graphing):
                             do_infer_initiation=True,
                             do_etaxi_label=True, eta_label_xy=(0.65,0.85),
                             do_pub_label=False, pub_label=None, pub_label_xy=(0.5,0.92) ) \
-                                -> mpl.figure.Figure:
+                                                                                    -> mpl.figure.Figure:
         """
         Plot xxxx.
 
@@ -171,8 +168,8 @@ class TimeDependent(Graphing):
                                                        do_smooth_colors=do_smooth_colors)
                     else:
                         plt.plot(rx_array,rz_array, lw=ray_lw,
-                                 color=self.mycolors(i_ray, ray_subsetting, n_rays, do_smooth=do_smooth_colors), linestyle=ray_ls,
-                                 label=this_ray_label)
+                                 color=self.mycolors(i_ray, ray_subsetting, n_rays, do_smooth=do_smooth_colors),
+                                                     linestyle=ray_ls, label=this_ray_label)
 
         # Time slices or isochrones of erosion front
         if hasattr(gmes,'rpt_isochrones') and do_isochrones:
