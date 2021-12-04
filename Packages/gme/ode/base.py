@@ -47,7 +47,7 @@ rp_list = ['rx','rz','px','pz']
 rpt_list = rp_list+['t']
 
 __all__ = ['solve_ODE_system', 'solve_Hamiltons_equations', 'report_progress',
-           'BaseSolution','ExtendedSolution']
+           'BaseSolution', 'ExtendedSolution']
 
 
 def eventAttr():
@@ -604,6 +604,7 @@ class BaseSolution(ABC):
                                             if rxz_[0]>=0 and rxz_[0]<=1] )
             self.cusps['pxz2'] = np.array( [pxz2_ for (t_,rxz_),pxz1_,pxz2_ in self.trxz_cusps
                                             if rxz_[0]>=0 and rxz_[0]<=1] )
+
 
 
         # Create isochrones of the evolving surface:
