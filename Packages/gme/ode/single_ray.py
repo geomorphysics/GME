@@ -17,6 +17,7 @@ Imports symbols from :mod:`.symbols` module
 
 """
 import warnings
+import logging
 
 # Typing
 from typing import Tuple #, Any, List #, Callable, List #, Dict, Any, Optional
@@ -65,6 +66,7 @@ class SingleRaySolution(ExtendedSolution):
         self.ic_list = [self.initial_conditions()]
         self.model_dXdt_lambda = self.make_model()
         parameters_ = {Lc: self.parameters[Lc]}
+        logging.debug('ode.single_ray.solve: calling solver')
         ivp_soln, rpt_arrays = solve_Hamiltons_equations( model=self.model_dXdt_lambda,
                                                            method=self.method,
                                                            do_dense=self.do_dense,
@@ -73,8 +75,6 @@ class SingleRaySolution(ExtendedSolution):
                                                            t_array=self.ref_t_array.copy(),
                                                            x_stop=self.x_stop,
                                                            t_lag=0.0 )
-        # rx_length = len(self.rpt_arrays['rx'])
-        # self.rpt_arrays['t'] = self.rpt_arrays['t'][:rx_length]
         self.ivp_solns_list = [ivp_soln]
         self.save(rpt_arrays, 0)
 

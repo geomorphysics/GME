@@ -27,7 +27,7 @@ import numpy as np
 
 # GME
 from gme.core.symbols import xiv_0, xih_0, Lc
-from gme.core.equations import pxpz0_from_xiv0
+# from gme.core.equations import pxpz0_from_xiv0
 from gme.ode.base import ExtendedSolution, solve_Hamiltons_equations, report_progress
 
 warnings.filterwarnings("ignore")

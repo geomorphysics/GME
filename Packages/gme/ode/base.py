@@ -18,7 +18,8 @@ Imports symbols from :mod:`.symbols` module
 """
 import warnings
 import logging
-from functools import lru_cache
+# from functools import lru_cache
+# from enum import Enum, auto
 
 # Typing
 from typing import List, Dict, Any, Tuple, Callable, Optional
@@ -37,7 +38,7 @@ from gme.core.symbols import px, pz, rx, rdotx, rdotz, Lc
 
 # SciPy
 from scipy.integrate import solve_ivp
-from scipy.interpolate import interp1d #InterpolatedUnivariateSpline
+from scipy.interpolate import interp1d
 from scipy.optimize import fsolve
 
 warnings.filterwarnings("ignore")
@@ -45,7 +46,8 @@ warnings.filterwarnings("ignore")
 rp_list = ['rx','rz','px','pz']
 rpt_list = rp_list+['t']
 
-__all__ = ['BaseSolution','ExtendedSolution']
+__all__ = ['solve_ODE_system', 'solve_Hamiltons_equations', 'report_progress',
+           'BaseSolution','ExtendedSolution']
 
 
 def eventAttr():
@@ -61,14 +63,15 @@ def eventAttr():
         return func
     return decorator
 
-# Caching only works if t_array is replaced with something hashable
-@lru_cache
+# Caching would only work if t_array were replaced with something hashable
+#   - worse, to prevent recomputation for variable rz but constant rx,
+#     initial conditions ic would have to be frozen in the calling function and corrected after
 def solve_ODE_system(model, method, do_dense, ic,
-                     t0,t1,nt,
-                     # t_array,
+                     # t0,t1,nt,
+                     t_array,
                      x_stop=0.999) -> Any:
     """
-    TBD
+    Integrate a coupled system of ODEs - presumed to be Hamilton's equations.
     """
     # Define stop condition
     @eventAttr()
@@ -81,8 +84,7 @@ def solve_ODE_system(model, method, do_dense, ic,
     #   almost_reached_divide.terminal = True
 
     # Perform ODE integration
-    t_array = np.linspace(t0,t1,nt)
-    # print(model, method, do_dense, ic, t0,t1,nt, x_stop)
+    # t_array = np.linspace(t0,t1,nt)
     return solve_ivp(model,
                       [t_array[0],t_array[-1]],
                       ic,
@@ -98,19 +100,19 @@ def solve_Hamiltons_equations(model, method, do_dense,
                               ic, parameters, t_array, x_stop=1.0, t_lag=0) \
                         -> Tuple[Any, Dict[str,List[np.array]]]:
     """
-    TBD
+    Perform ray tracing by integrating Hamilton's ODEs for r and p.
     """
     # Do ODE integration
-    t0, t1, nt = t_array[0], t_array[-1], len(t_array)
+    # t0, t1, nt = t_array[0], t_array[-1], len(t_array)
     ivp_soln = solve_ODE_system(model, method, do_dense, ic,
-                                t0,t1,nt,
-                                # t_array,
+                                # t0,t1,nt,
+                                t_array,
                                 x_stop=x_stop)
 
     # Process solution
     rp_t_soln = ivp_soln.y
     rx_array, rz_array = rp_t_soln[0],rp_t_soln[1]
-    logging.debug( f'ode.base.solve_Hamiltons_equations:'
+    logging.debug( 'ode.base.solve_Hamiltons_equations:'
                   +f' ic={ic}'
                   +f' rx[0]={rx_array[0]} rz[0]={np.round(rz_array[0],5)}')
     # Did we exceed the domain bounds?
@@ -138,13 +140,13 @@ def solve_Hamiltons_equations(model, method, do_dense,
 
     # Report
     if i_end is not None:
-        logging.debug( f'ode.base.solve_Hamiltons_equations:\n\t'
+        logging.debug( 'ode.base.solve_Hamiltons_equations:\n\t'
                       +f' from {np.round(rx_array[0],5)},{np.round(rz_array[0],5)}:'
                       +' out of bounds @ i='
                       +f'{n_lag+i_end if i_end is not None else len(t_array)} '
                       +f'x={np.round(rx_array[-1],5)} t={np.round(t_array[-1],3)}')
     else:
-        logging.debug( f'ode.base.solve_Hamiltons_equations:\n\t'
+        logging.debug( 'ode.base.solve_Hamiltons_equations:\n\t'
                       +f' from {np.round(rx_array[0],5)},{np.round(rz_array[0],5)}: '
                       +f'terminating @ i={len(t_array)} '
                       +f'x={np.round(rx_array[-1],5)} t={np.round(t_array[-1],3)}')
@@ -172,15 +174,22 @@ def solve_Hamiltons_equations(model, method, do_dense,
     # print('solve Hamiltons equations #2:', rpt_arrays['rx'])
     return (ivp_soln, rpt_arrays)
 
-def report_progress(i, n, progress_was=0, pc_step=1, is_initial_step=False) -> float:
+def report_progress(i: int, n: int, progress_was: float=0.0, pc_step:float=1,
+                    is_initial_step: bool=False) -> float:
     """
-    TBD
+    Print percentage estimated progress of some ongoing jobzzzsd
     """
-    progress_now = 100*np.round((100/pc_step)*i/(n-1 if n>1 else 1))/np.round(100/pc_step)
+    progress_now: float = 100*np.round((100/pc_step)*i/(n-1 if n>1 else 1))/np.round(100/pc_step)
     if progress_now>progress_was or is_initial_step:
         print(f'{progress_now:0.0f}% ', end='' if progress_now<100 else '\n', flush=True)
     return progress_now
 
+# class Choice(Enum):
+#     HAMILTON = auto()
+#     GEODESIC = auto()
+
+# class SolveMethod(Enum):
+#     DOP853 = auto()
 
 class BaseSolution(ABC):
     """
@@ -197,7 +206,8 @@ class BaseSolution(ABC):
         Args:
             gmeq (:class:`~.equations.Equations`):
                     GME model equations class instance defined in :mod:`~.equations`
-            parameters (dict): dictionary of model parameter values to be used for equation substitutions
+            parameters (dict): dictionary of model parameter values to be used for
+                               equation substitutions
         """
         # Container for GME equations
         self.gmeq = gmeq
@@ -261,18 +271,20 @@ class BaseSolution(ABC):
     @abstractmethod
     def initial_conditions(self) -> Tuple[float,float,float,float]:
         """
-        TBD
+        Dummy method of generating initial conditions that must be defined by any subclass
         """
 
     @abstractmethod
     def solve(self) -> None:
         """
-        TBD
+        Dummy method of solution that must be defined by any subclass
         """
 
     def make_model(self) -> Callable[[float,Tuple[Any,Any,Any,Any]],float]:
         """
-        TBD
+        Generate a lambda for Hamilton's equations (or the geodesic equations)
+           that returns a matrix of dr/dt and dp/dt (resp. dr/dt and dv/dt)
+           for a given state [rx,px,pz] (resp. [rx,vx,vx])
         """
         # Requires self.parameters to have all the important Hamilton eqns' constants set
         #   - generates a "matrix" of the 4 Hamilton equations with rx,rz,px,pz as variables
@@ -315,25 +327,33 @@ class BaseSolution(ABC):
         Resample the ensemble of rays at selected time slices to generate
         synchronous values of (r,p) aka isochrones.
 
-        Each ray trajectory is numerically integrated independently, and so the integration points along one ray are
-        not synchronous with those of any other ray. If we want to compare the (r,p) "positions" of the ray ensemble
-        at a chosen time, we need to resample along all the rays at mutually consistent time slices.
-        This is achieved by first interpolating along each rx[t], rz[t], pz[t], and pz[t] sequence, and then
+        Each ray trajectory is numerically integrated independently, and
+        so the integration points along one ray are
+        not synchronous with those of any other ray. If we want to compare
+        the (r,p) "positions" of the ray ensemble
+        at a chosen time, we need to resample along all the rays
+        at mutually consistent time slices.
+        This is achieved by first interpolating along each
+        rx[t], rz[t], pz[t], and pz[t] sequence, and then
         resampling along a reference time sequence.
 
         Two additional actions are taken:
-           (1) termination of each resampled ray at the domain boundary at rx=Lc (or a bit beyond, for better viz quality);
+           (1) termination of each resampled ray at the domain boundary at rx=Lc
+               (or a bit beyond, for better viz quality);
            (2) termination of any resampled ray that is overtaken by another ray at a cusp.
         """
-
-        # Create isochrones of the evolving surface:
-        #   (1) step through each time t_i in the global time sequence
-        #   (2) for each ray, generate an (rx,rz,px,pz)[t_i] vector through
-        #         interpolation of its numerically integrated sequence
-        #   (3) combine these vectors into arrays for the {rx[t_i]}, {rz[t_i]}, {px[t_i]} and {pz[t_i]}
-        #   (4) truncate a ray from the point where (if at all) its rx sequence reverses and goes left not right
-        #   (5) also truncate if a ray leaves the domain, i.e., rx>Lc
-
+        # def coarsen_isochrone(rpt_isochrone) -> None:
+        #     """
+        #     TBD
+        #     """
+        #     # Reduce the time resolution of the isochrone points to make plotting less cluttered
+        #     self.rpt_isochrones_lowres: Dict[str,List] = {}
+        #     for rp_ in rp_list:
+        #         self.rpt_isochrones_lowres[rp_][i_isochrone] \
+        #             = [ [element_ for idx,element_ in enumerate(array_)
+        #                  if (idx//x_subset-idx/x_subset)==0]
+        #                 for array_ in [rpt_isochrone[rp_]] ][0]
+        #     self.rpt_isochrones_lowres['t'][i_isochrone] = rpt_isochrone['t']
         def prepare_isochrones() -> None:
             """
             TBD
@@ -482,10 +502,12 @@ class BaseSolution(ABC):
             """
             TBD
             """
-            # Prepare a tmp dictionary for the rx,rz,px,pz component arrays delineating this isochrone
+            # Prepare a tmp dictionary for the rx,rz,px,pz component arrays
+            #   delineating this isochrone
             rpt_isochrone: Dict[str,Any] = {}
             for rp_ in rp_list:
-                # Sample each ray at time t_ from each of the components of r,p vectors using their interpolating fns
+                # Sample each ray at time t_ from each of the components of r,p vectors
+                #    using their interpolating fns
                 rp_interpolated_isochrone = [float(interp_fn(t_)) for interp_fn
                                                 in self.rp_t_interp_fns[rp_]
                                                 if interp_fn is not None]
@@ -583,26 +605,25 @@ class BaseSolution(ABC):
             self.cusps['pxz2'] = np.array( [pxz2_ for (t_,rxz_),pxz1_,pxz2_ in self.trxz_cusps
                                             if rxz_[0]>=0 and rxz_[0]<=1] )
 
-        # def coarsen_isochrone(rpt_isochrone) -> None:
-        #     """
-        #     TBD
-        #     """
-        #     # Reduce the time resolution of the isochrone points to make plotting less cluttered
-        #     self.rpt_isochrones_lowres: Dict[str,List] = {}
-        #     for rp_ in rp_list:
-        #         self.rpt_isochrones_lowres[rp_][i_isochrone] \
-        #             = [ [element_ for idx,element_ in enumerate(array_) if (idx//x_subset-idx/x_subset)==0]
-        #                 for array_ in [rpt_isochrone[rp_]] ][0]
-        #     self.rpt_isochrones_lowres['t'][i_isochrone] = rpt_isochrone['t']
+
+        # Create isochrones of the evolving surface:
+        #   (1) step through each time t_i in the global time sequence
+        #   (2) for each ray, generate an (rx,rz,px,pz)[t_i] vector through
+        #         interpolation of its numerically integrated sequence
+        #   (3) combine these vectors into arrays for the {rx[t_i]}, {rz[t_i]}, {px[t_i]}
+        #       and {pz[t_i]}
+        #   (4) truncate a ray from the point where (if at all) its rx sequence reverses
+        #        and goes left not right
+        #   (5) also truncate if a ray leaves the domain, i.e., rx>Lc
 
         # Time sequence - with resolution n_isochrones and limit t_isochrone_max
-
         prepare_isochrones()
         t_array = np.linspace(0,t_isochrone_max,n_isochrones)
         for i_isochrone,t_ in enumerate(t_array):
             rpt_isochrone = compose_isochrone(t_) #i_isochrone,
             rpt_isochrone = resample_isochrone(rpt_isochrone, n_resample_pts)
-            rpt_isochrone, (trxz_cusp, pxz1_intercept, pxz2_intercept) = clean_isochrone(rpt_isochrone)
+            rpt_isochrone, (trxz_cusp, pxz1_intercept, pxz2_intercept) \
+                = clean_isochrone(rpt_isochrone)
             if rpt_isochrone is not None:
                 rpt_isochrone = prune_isochrone(rpt_isochrone)
                 record_isochrone(rpt_isochrone, i_isochrone)
@@ -651,7 +672,8 @@ class BaseSolution(ABC):
         # cosbeta_slow_interp = interp1d( rxz_array[:,0], cosbeta_slow_array, **kwargs_ )
 
         # Provide a lambda fn that returns the horizontal cusp velocity component cx
-        #   using interpolation functions for all the variables for which we have sampled solutions as arrays
+        #   using interpolation functions for all the variables
+        #   for which we have sampled solutions as arrays
         # sinbeta_diff_lambda = lambda x_: sinbeta_fast_interp(x_)*cosbeta_slow_interp(x_) \
         #                                 - cosbeta_fast_interp(x_)*sinbeta_slow_interp(x_)
         # tanbeta_diff_lambda = lambda x_: tanbeta_fast_interp(x_) - tanbeta_slow_interp(x_)
@@ -700,7 +722,8 @@ class ExtendedSolution(BaseSolution):
         Args:
             gmeq (:class:`~.equations.Equations`):
                     GME model equations class instance defined in :mod:`~.equations`
-            parameters (dict): dictionary of model parameter values to be used for equation substitutions
+            parameters (dict): dictionary of model parameter values to be used for
+                               equation substitutions
             kwargs (dict): remaining keyword arguments (see base class for details)
         """
         super().__init__(gmeq, parameters, **kwargs)
