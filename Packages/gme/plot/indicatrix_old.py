@@ -60,7 +60,8 @@ class IndicatrixOld(Graphing):
 
         Args:
             fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`):
-                reference to figure instantiated by :meth:`GMPLib create_figure <plot_utils.GraphingBase.create_figure>`
+                reference to figure instantiated by
+                :meth:`GMPLib create_figure <plot_utils.GraphingBase.create_figure>`
             gmeq (:class:`~.equations.Equations`):
                     GME model equations class instance defined in :mod:`~.equations`
         """
@@ -69,9 +70,9 @@ class IndicatrixOld(Graphing):
         plt.title('Erosion indicatrix & figuratrix', va='bottom', pad=15)
         plt.grid(False, ls=':')
 
-        # px_pz_lambda = lambdify( [pz], gmeq.fgtx_px_pz_varphi_eqn.rhs.subs({varphi:varphi_}) )
-        # fgtx_pz_array = -np.power(10,np.linspace(np.log10(1000),np.log10(1e-6),n_points))
-        # fgtx_px_array = np.array([float(re(N(px_pz_lambda(pz_)))) for pz_ in fgtx_pz_array])
+# px_pz_lambda = lambdify( [pz], gmeq.fgtx_px_pz_varphi_eqn.rhs.subs({varphi:varphi_}) )
+# fgtx_pz_array = -np.power(10,np.linspace(np.log10(1000),np.log10(1e-6),n_points))
+# fgtx_px_array = np.array([float(re(N(px_pz_lambda(pz_)))) for pz_ in fgtx_pz_array])
 
         # Compute figuratrix
         fgtx_px_array, fgtx_pz_array, _ \
@@ -79,7 +80,8 @@ class IndicatrixOld(Graphing):
         fgtx_p_array = np.log10(np.sqrt(fgtx_px_array**2+fgtx_pz_array**2))
         fgtx_tanbeta_array = -fgtx_px_array/fgtx_pz_array
         fgtx_beta_array = np.arctan(fgtx_tanbeta_array)
-        fgtx_theta_array = np.concatenate([fgtx_beta_array, (2*np.pi-fgtx_beta_array)[::-1]])
+        fgtx_theta_array \
+            = np.concatenate([fgtx_beta_array, (2*np.pi-fgtx_beta_array)[::-1]])
         fgtx_p_array = np.concatenate([fgtx_p_array,fgtx_p_array[::-1]])
 
         # Compute indicatrix
@@ -91,8 +93,10 @@ class IndicatrixOld(Graphing):
         idtx_rdot_negrdot_array = idtx_rdot_array[idtx_rdotz_array<0]
         idtx_theta_posrdot_array = np.pi+idtx_alpha_array[idtx_rdotz_array>0]
         idtx_rdot_posrdot_array = idtx_rdot_array[idtx_rdotz_array>0]
-        idtx_theta_array = np.concatenate([idtx_theta_negrdot_array, idtx_theta_posrdot_array])
-        idtx_rdot_array = np.concatenate([idtx_rdot_negrdot_array,idtx_rdot_posrdot_array])
+        idtx_theta_array \
+            = np.concatenate([idtx_theta_negrdot_array, idtx_theta_posrdot_array])
+        idtx_rdot_array \
+            = np.concatenate([idtx_rdot_negrdot_array,idtx_rdot_posrdot_array])
 
         # Compute reference unit circle
         unit_circle_beta_array = np.linspace(0, 2*np.pi)
@@ -102,18 +106,25 @@ class IndicatrixOld(Graphing):
         # fgtx_label = r'figuratrix $F^*(\mathbf{\widetilde{p}},\beta)$'
         idtx_label = r'ray velocity'
         fgtx_label = r'normal slowness'
-        plt.polar( fgtx_theta_array, fgtx_p_array, 'DarkBlue', '-', lw=1.5, label=fgtx_label )
-        plt.polar( idtx_theta_array, idtx_rdot_array, 'DarkRed', ls='-', lw=1.5, label=idtx_label)
+        plt.polar( fgtx_theta_array, fgtx_p_array, 'DarkBlue', '-', lw=1.5,
+                   label=fgtx_label )
+        plt.polar( idtx_theta_array, idtx_rdot_array, 'DarkRed', ls='-', lw=1.5,
+                   label=idtx_label)
         plt.polar( 2*np.pi-idtx_theta_array, idtx_rdot_array, 'DarkRed', ls='-', lw=1.5)
-        # plt.polar( idtx_theta_posrdot_array, idtx_rdot_posrdot_array, 'magenta', ls='-', lw=3)
-        # plt.polar( idtx_theta_negrdot_array, idtx_rdot_negrdot_array, 'k', ls='-', lw=3)
-        plt.polar(unit_circle_beta_array, unit_circle_beta_array*0, 'g', ':', lw=1, label='unit circle')
+        # plt.polar( idtx_theta_posrdot_array, idtx_rdot_posrdot_array,
+        # 'magenta', ls='-', lw=3)
+        # plt.polar( idtx_theta_negrdot_array, idtx_rdot_negrdot_array,
+        # 'k', ls='-', lw=3)
+        plt.polar( unit_circle_beta_array, unit_circle_beta_array*0, 'g', ':', lw=1,
+                   label='unit circle' )
 
         # Critical angles
         beta_crit = np.arctan(float(gmeq.tanbeta_crit))
         alpha_crit = np.pi/2+np.arctan(float(gmeq.tanalpha_crit))
-        plt.polar([beta_crit,beta_crit], [-2,3], ':', color='DarkBlue', label=r'$\beta=\beta_c$')
-        plt.polar([alpha_crit,alpha_crit], [-2,3], ':', color='DarkRed', label=r'$\alpha=\alpha_c$')
+        plt.polar([beta_crit,beta_crit], [-2,3], ':', color='DarkBlue',
+                    label=r'$\beta=\beta_c$')
+        plt.polar([alpha_crit,alpha_crit], [-2,3], ':', color='DarkRed',
+                    label=r'$\alpha=\alpha_c$')
 
         # Labelling etc
         posn_list = [0, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75]
@@ -158,19 +169,23 @@ class IndicatrixOld(Graphing):
         axes.legend(handles, labels, loc='upper left', framealpha=1)
 
     @staticmethod
-    def text_labels(gmeq, varphi_, px_, pz_, rdotx_, rdotz_, zoom_factor, do_text_labels) -> None:
+    def text_labels(gmeq, varphi_, px_, pz_, rdotx_, rdotz_,
+                    zoom_factor, do_text_labels) -> None:
         """
         TBD
         """
         xy_ = (2.5,-2) if zoom_factor>=1 else (1.25,0.9)
         plt.text(*xy_, rf'$\varphi={varphi_}\quad\eta={gmeq.eta_}$',
-                 horizontalalignment='center', verticalalignment='center', fontsize=14, color='k')
+                 horizontalalignment='center', verticalalignment='center',
+                 fontsize=14, color='k')
         if do_text_labels:
             plt.text(rdotx_*0.97, rdotz_+0.2, r'$\mathbf{v}$',
-                     horizontalalignment='center', verticalalignment='center', fontsize=15, color='r')
+                     horizontalalignment='center', verticalalignment='center',
+                     fontsize=15, color='r')
             sf = 1.2 if varphi_>=0.5 else 0.85
             plt.text(px_+0.25,pz_*sf, r'$\mathbf{\widetilde{p}}$',
-                     horizontalalignment='center', verticalalignment='center', fontsize=15, color='b')
+                     horizontalalignment='center', verticalalignment='center',
+                     fontsize=15, color='b')
 
     @staticmethod
     def arrows(px_, pz_, rdotx_, rdotz_) -> None:
@@ -247,10 +262,12 @@ class IndicatrixOld(Graphing):
                             theta1=270, theta2=270+np.rad2deg(beta_)) )
         # "faster" direction
         plt.text(3.05,1.6, 'faster', color='r', #transform=axes.transAxes,
-                 fontsize=12, rotation=55, horizontalalignment='center', verticalalignment='center')
+                 fontsize=12, rotation=55,
+                 horizontalalignment='center', verticalalignment='center')
         # "faster" direction
         plt.text(1.03,-2, 'slower', color='b', #transform=axes.transAxes,
-                 fontsize=12, rotation=-85, horizontalalignment='center', verticalalignment='center')
+                 fontsize=12, rotation=-85,
+                 horizontalalignment='center', verticalalignment='center')
 
     @staticmethod
     def legend(gmeq, axes, do_legend, do_half, do_ray_slowness=False) -> None:
@@ -260,9 +277,13 @@ class IndicatrixOld(Graphing):
         if not do_legend: return
         handles, labels = axes.get_legend_handles_labels()
         if gmeq.eta_>=1:
-            loc_='center right' if do_half else 'upper left' if do_ray_slowness  else 'lower left'
+            loc_='center right' if do_half else \
+                 'upper left' if do_ray_slowness  else \
+                 'lower left'
         else:
-            loc_='upper right' if do_half else 'upper left' if do_ray_slowness else 'lower left'
+            loc_='upper right' if do_half else \
+                 'upper left' if do_ray_slowness else \
+                 'lower left'
         axes.legend(handles[::-1], labels[::-1], loc=loc_)
 
     @staticmethod
@@ -271,10 +292,13 @@ class IndicatrixOld(Graphing):
         """
         TBD
         """
-        px_pz_eqn = Eq( px, factor(gmeq.fgtx_px_pz_varphi_eqn.rhs.subs({varphi:varphi_})) )
+        px_pz_eqn \
+            = Eq( px, factor(gmeq.fgtx_px_pz_varphi_eqn.rhs.subs({varphi:varphi_})) )
         px_pz_lambda = lambdify( [pz], re(N(px_pz_eqn.rhs)) )
-        fgtx_pz_array = -np.power(10,np.linspace(np.log10(pz_max_),np.log10(pz_min_), n_points))
-        # fgtx_px_array = np.array([float(re(N(px_pz_eqn.rhs.subs({pz:pz_})))) for pz_ in fgtx_pz_array])
+        fgtx_pz_array \
+            = -np.power(10,np.linspace(np.log10(pz_max_),np.log10(pz_min_), n_points))
+        # fgtx_px_array = np.array([float(re(N(px_pz_eqn.rhs.subs({pz:pz_}))))
+        #          for pz_ in fgtx_pz_array])
         fgtx_px_array = np.array([float(px_pz_lambda(pz_)) for pz_ in fgtx_pz_array])
         return fgtx_px_array, fgtx_pz_array, px_pz_eqn
 
@@ -288,13 +312,16 @@ class IndicatrixOld(Graphing):
         rdotz_pz_eqn = gmeq.idtx_rdotz_pz_varphi_eqn.subs({varphi:varphi_})
         rdotx_pz_lambda = lambdify( [pz], re(N(rdotx_pz_eqn.rhs)) )
         rdotz_pz_lambda = lambdify( [pz], re(N(rdotz_pz_eqn.rhs)) )
-        fgtx_pz_array = -np.power(10,np.linspace(np.log10(pz_max_),np.log10(pz_min_), n_points))
+        fgtx_pz_array \
+            = -np.power(10,np.linspace(np.log10(pz_max_),np.log10(pz_min_), n_points))
         # idtx_rdotx_array = np.array([float(re(N(rdotx_pz_eqn.rhs.subs({pz:pz_}))))
         #                                 for pz_ in fgtx_pz_array])
         # idtx_rdotz_array = np.array([float(re(N(rdotz_pz_eqn.rhs.subs({pz:pz_}))))
         #                                 for pz_ in fgtx_pz_array])
-        idtx_rdotx_array = np.array([float(rdotx_pz_lambda(pz_)) for pz_ in fgtx_pz_array])
-        idtx_rdotz_array = np.array([float(rdotz_pz_lambda(pz_)) for pz_ in fgtx_pz_array])
+        idtx_rdotx_array \
+            = np.array([float(rdotx_pz_lambda(pz_)) for pz_ in fgtx_pz_array])
+        idtx_rdotz_array \
+            = np.array([float(rdotz_pz_lambda(pz_)) for pz_ in fgtx_pz_array])
         return idtx_rdotx_array, idtx_rdotz_array, rdotx_pz_eqn, rdotz_pz_eqn
 
     @staticmethod
@@ -305,9 +332,10 @@ class IndicatrixOld(Graphing):
         """
         # label = r'normal speed' if do_ray_slowness else r'figuratrix $F^*$'
         label = r'normal velocity' if do_ray_slowness else r'normal slowness'
-        plt.plot( *maybe_recip_fn(-fgtx_px_array, fgtx_pz_array), lw=2, c='DarkBlue', ls='-',
-                                        label=label)
-        plt.plot( *maybe_recip_fn( fgtx_px_array, fgtx_pz_array), lw=2, c='DarkBlue', ls='-')
+        plt.plot( *maybe_recip_fn(-fgtx_px_array, fgtx_pz_array),
+                  lw=2, c='DarkBlue', ls='-', label=label)
+        plt.plot( *maybe_recip_fn( fgtx_px_array, fgtx_pz_array),
+                  lw=2, c='DarkBlue', ls='-')
 
     @staticmethod
     def plot_indicatrix(idtx_rdotx_array,idtx_rdotz_array,
@@ -317,9 +345,10 @@ class IndicatrixOld(Graphing):
         """
         # label = r'ray slowness' if do_ray_slowness else r'indicatrix $F$'
         label = r'ray slowness' if do_ray_slowness else r'ray velocity'
-        plt.plot( *maybe_recip_fn( idtx_rdotx_array, idtx_rdotz_array), lw=2, c='DarkRed', ls='-',
-                                        label=label)
-        plt.plot( *maybe_recip_fn(-idtx_rdotx_array, idtx_rdotz_array), lw=2, c='DarkRed', ls='-')
+        plt.plot( *maybe_recip_fn( idtx_rdotx_array, idtx_rdotz_array),
+                  lw=2, c='DarkRed', ls='-', label=label)
+        plt.plot( *maybe_recip_fn(-idtx_rdotx_array, idtx_rdotz_array),
+                  lw=2, c='DarkRed', ls='-')
 
     @staticmethod
     def plot_unit_circle(varphi_, do_varphi_circle) -> None:
@@ -330,7 +359,8 @@ class IndicatrixOld(Graphing):
         plt.plot(np.cos(unit_circle_beta_array*2), np.sin(unit_circle_beta_array*2),
                  lw=1, c='g', ls='-', label='unit circle')
         if do_varphi_circle:
-            plt.plot(varphi_*np.cos(unit_circle_beta_array*2), varphi_*np.sin(unit_circle_beta_array*2),
+            plt.plot(varphi_*np.cos(unit_circle_beta_array*2),
+                     varphi_*np.sin(unit_circle_beta_array*2),
                      lw=1, c='g', ls=':', label=rf'$\varphi={varphi_}$')
 
     def relative_geometry( self, gmeq, name, fig_size=None, dpi=None,
@@ -346,21 +376,25 @@ class IndicatrixOld(Graphing):
 
         Args:
             fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`):
-                reference to figure instantiated by :meth:`GMPLib create_figure <plot_utils.GraphingBase.create_figure>`
+                reference to figure instantiated by
+                :meth:`GMPLib create_figure <plot_utils.GraphingBase.create_figure>`
             gmeq (:class:`~.equations.Equations`):
                     GME model equations class instance defined in :mod:`~.equations`
             varphi_choice (int): the value of :math:`\varphi` to use
-            zoom_factor (float): fractional zoom factor relative to preassigned graph limits
+            zoom_factor (float): fractional zoom factor relative to
+                                 preassigned graph limits
             do_half (bool): plot only for :math:`x\geq0`?
             do_annotations (bool): plot annotated arcs, faster/slower arrows?
             do_legend (bool): display the legend?
             do_text_labels (bool): display text annotations?
             do_arrows (bool): display vector/covector arrows?
             do_lines_points (bool): display dashed/dotted tangent lines etc?
-            do_shapes (bool): plot key points using polygon symbols rather than simple circles
+            do_shapes (bool): plot key points using polygon symbols
+                              rather than simple circles
             do_varphi_circle (bool): plot the :math:`\xi` (typically unit) circle?
             do_pz (bool): plot horizontal dotted line indicating magnitude of :math:`p_z`
-            do_ray_slowness (bool): invert ray speed (but keep ray direction) in indicatrix?
+            do_ray_slowness (bool): invert ray speed (but keep ray direction)
+                                    in indicatrix?
         """
 
         # Create figure
@@ -398,20 +432,25 @@ class IndicatrixOld(Graphing):
         fgtx_px_array, fgtx_pz_array, px_pz_eqn \
             = self.figuratrix(gmeq, varphi_, n_points)
         idtx_rdotx_array,idtx_rdotz_array, rdotx_pz_eqn, rdotz_pz_eqn \
-            = self.indicatrix(gmeq, varphi_, n_points, pz_min_=pdict['pz_min'], pz_max_=pdict['pz_max'])
+            = self.indicatrix(gmeq, varphi_, n_points,
+                              pz_min_=pdict['pz_min'], pz_max_=pdict['pz_max'])
         pz_ = -np.cos(np.pi/4)
         px_ = float(N(re(px_pz_eqn.rhs.subs({pz:pz_}))))
         rdotx_ = float(re(rdotx_pz_eqn.rhs.subs({pz:pz_})))
         rdotz_ = float(re(rdotz_pz_eqn.rhs.subs({pz:pz_})))
         # tanalpha_ = (-rdotx_/rdotz_)
-        pdict.update({'varphi': varphi_, 'px' : px_, 'pz' : pz_, 'rdotx' : rdotx_, 'rdotz' : rdotz_})
+        pdict.update({'varphi':varphi_, 'px':px_, 'pz':pz_,
+                      'rdotx':rdotx_, 'rdotz':rdotz_})
 
         # Do the plotting
-        self.plot_indicatrix(idtx_rdotx_array, idtx_rdotz_array, maybe_recip_fn, do_ray_slowness)
-        self.plot_figuratrix(fgtx_px_array, fgtx_pz_array, maybe_recip_fn, do_ray_slowness)
+        self.plot_indicatrix(idtx_rdotx_array, idtx_rdotz_array,
+                             maybe_recip_fn, do_ray_slowness)
+        self.plot_figuratrix(fgtx_px_array, fgtx_pz_array,
+                             maybe_recip_fn, do_ray_slowness)
         self.plot_unit_circle(varphi_, do_varphi_circle)
         if do_lines_points: self.lines_and_points(pdict, axes, zoomx, do_pz, do_shapes)
-        self.text_labels(gmeq, varphi_, px_, pz_, rdotx_, rdotz_, zoom_factor, do_text_labels)
+        self.text_labels(gmeq, varphi_, px_, pz_, rdotx_, rdotz_,
+                         zoom_factor, do_text_labels)
         if do_arrows: self.arrows(px_, pz_, rdotx_, rdotz_)
         # if do_annotations: self.annotations(axes, beta_, tanalpha_)
         self.legend(gmeq, axes, do_legend, do_half, do_ray_slowness)

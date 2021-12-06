@@ -11,7 +11,7 @@ Requires Python packages/modules:
   -  :mod:`gmplib.utils`
   -  :mod:`gme.core.symbols`, :mod:`gme.core.equations`,
      :mod:`gme.ode.single_ray`
-     
+
 ---------------------------------------------------------------------
 
 """
@@ -52,7 +52,8 @@ class TimeInvariantSolution(SingleRaySolution):
         """
         TBD
         """
-        super().postprocessing(spline_order=spline_order, extrapolation_mode=extrapolation_mode)
+        super().postprocessing(spline_order=spline_order,
+                                extrapolation_mode=extrapolation_mode)
         xiv0_ = float( (xiv_0/xih_0).subs(e2d(self.gmeq.xiv0_xih0_Ci_eqn)) )
         self.beta_vt_array = np.arctan( (self.rdotz_array+xiv0_)/self.rdotx_array )
         self.beta_vt_interp = InterpolatedUnivariateSpline( self.rx_array,
@@ -67,11 +68,13 @@ class TimeInvariantSolution(SingleRaySolution):
         for i in range(0,len(self.t_array),1):
             if i<len(self.t_array):
                 self.rays \
-                    += [np.array([self.rx_array[:i+1],self.rz_array[:i+1]+self.t_array[i]*xiv0_])]
+                    += [np.array([self.rx_array[:i+1],
+                                  self.rz_array[:i+1]+self.t_array[i]*xiv0_])]
             self.x_array[i] = self.rx_array[i]
             self.h_array[i] = self.rz_array[i]+self.t_array[i]*xiv0_
         self.h_interp  = InterpolatedUnivariateSpline( self.x_array, self.h_array,
-                                                       k=spline_order, ext=extrapolation_mode )
+                                                       k=spline_order,
+                                                       ext=extrapolation_mode )
         dhdx_interp = InterpolatedUnivariateSpline( self.x_array,
                                                     self.h_array,
                                                     k=spline_order,
@@ -83,8 +86,8 @@ class TimeInvariantSolution(SingleRaySolution):
             = lambda x_: 100*( self.beta_ts_interp(x_)-self.beta_p_interp(x_) ) \
                                         / self.beta_p_interp(x_)
 
-    def integrate_h_profile(self, n_pts=301, x_max=None, do_truncate=True, do_use_newton=False) \
-                        -> None:
+    def integrate_h_profile(self, n_pts=301, x_max=None,
+                            do_truncate=True, do_use_newton=False) -> None:
         """
         TBD
         """
@@ -93,8 +96,9 @@ class TimeInvariantSolution(SingleRaySolution):
         px0_poly_eqn = poly(self.gmeq.poly_px_xiv0_eqn.subs(self.parameters),px)
         if do_truncate:
             h_x_array = self.h_x_array[:-2]
-            gradient_array = np.array([gradient_value(x_, pz_=self.pz0, px_poly_eqn=px0_poly_eqn,
-                                        do_use_newton=do_use_newton)
+            gradient_array = np.array([gradient_value(x_, pz_=self.pz0,
+                                                      px_poly_eqn=px0_poly_eqn,
+                                                      do_use_newton=do_use_newton)
                                        for x_ in h_x_array])
             h_z_array = cumtrapz(gradient_array, h_x_array, initial=0)
             h_z_interp  = InterpolatedUnivariateSpline( h_x_array, h_z_array, k=2, ext=0 )
@@ -103,8 +107,9 @@ class TimeInvariantSolution(SingleRaySolution):
             h_x_array = self.h_x_array
             # for x_ in h_x_array:
             #     print(x_,self.gradient_value(x_,parameters=self.parameters))
-            gradient_array = np.array([gradient_value(x_, pz_=self.pz0, px_poly_eqn=px0_poly_eqn,
-                                        do_use_newton=do_use_newton)
+            gradient_array = np.array([gradient_value(x_, pz_=self.pz0,
+                                                      px_poly_eqn=px0_poly_eqn,
+                                                      do_use_newton=do_use_newton)
                                        for x_ in h_x_array])
             self.h_z_array = cumtrapz(gradient_array, h_x_array, initial=0)
 

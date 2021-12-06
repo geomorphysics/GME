@@ -72,7 +72,8 @@ class SlicingMath():
             self.define_modv_pxpzhat_lambda(sub_=sub_)
         self.pxhat_lambda = lambda sub_, rxhat_, pzhat_: solve(
             simplify(self.H_Ci_eqn.subs({rxhat:rxhat_, H:Rational(1,2), mu:eta/2})
-                .subs(sub_).n().subs({pzhat:pzhat_})).subs({Abs(pxhat**1.0):pxhat}), pxhat)[0]
+                        .subs(sub_).n().subs({pzhat:pzhat_})) \
+                .subs({Abs(pxhat**1.0):pxhat}), pxhat)[0]
         self.pzhat_lambda = lambda sub_, rxhat_, pxhat_: (solve(
             simplify(self.H_Ci_eqn.subs({rxhat:rxhat_, H:Rational(1,2), mu:eta/2})
                 .subs(sub_).subs({pxhat:pxhat_})), pzhat)[0])
@@ -81,13 +82,15 @@ class SlicingMath():
         r"""
         TBD
         """
-        self.H_lambda =  lambdify(var_list, self.H_Ci_eqn.rhs.subs({mu:eta/2}).subs(sub_), 'numpy')
+        self.H_lambda =  lambdify(var_list,
+                self.H_Ci_eqn.rhs.subs({mu:eta/2}).subs(sub_), 'numpy')
 
     def define_Ci_lambda(self, sub_, var_list) -> None:
         r"""
         TBD
         """
-        self.Ci_lambda = lambdify(var_list, self.Ci_H0p5_eqn.rhs.subs({H:Rational(1,2), mu:eta/2}).subs(sub_), 'numpy')
+        self.Ci_lambda = lambdify(var_list,
+                self.Ci_H0p5_eqn.rhs.subs({H:Rational(1,2), mu:eta/2}).subs(sub_), 'numpy')
 
     def define_Hessian_eigenvals(self, sub_, var_list) -> None:
         r"""
@@ -114,21 +117,24 @@ class SlicingMath():
         r"""
         TBD
         """
-        self.gstarhat_lambda =  lambdify( var_list, self.gstarhat_eqn.rhs.subs({mu:eta/2}).subs(sub_), modules='numpy' )
+        self.gstarhat_lambda =  lambdify( var_list,
+                self.gstarhat_eqn.rhs.subs({mu:eta/2}).subs(sub_), modules='numpy' )
 
     def define_v_pxpzhat_lambda(self, sub_) -> None:
         r"""
         TBD
         """
         self.v_pxpzhat_lambda = lambdify( (pxhat,pzhat),
-            simplify(((self.gstarhat_eqn.rhs.subs({mu:eta/2}).subs(sub_))*Matrix([pxhat,pzhat]))), modules='numpy' )
+            simplify(((self.gstarhat_eqn.rhs.subs({mu:eta/2}).subs(sub_))
+                        *Matrix([pxhat,pzhat]))), modules='numpy' )
 
     def define_modv_pxpzhat_lambda(self, sub_) -> None:
         r"""
         TBD
         """
         self.modv_pxpzhat_lambda = lambdify( (pxhat,pzhat),
-            simplify(((self.gstarhat_eqn.rhs.subs({mu:eta/2}).subs(sub_))*Matrix([pxhat,pzhat])).norm()), modules='numpy' )
+            simplify(((self.gstarhat_eqn.rhs.subs({mu:eta/2}).subs(sub_))
+                        *Matrix([pxhat,pzhat])).norm()), modules='numpy' )
 
     def pxhatsqrd_Ci_polylike_eqn(self, sub_, pzhat_ ) -> Eq:
         r"""
@@ -144,7 +150,8 @@ class SlicingMath():
         """
         solns_ = Matrix(solve(eqn_.subs(sub_),pxhat**2)).subs({rxhat:rxhat_})
         return float(sqrt(
-            [re(soln_) for soln_ in solns_.n() if Abs(im(soln_))<tolerance and re(soln_)>0][0]
+            [re(soln_) for soln_ in solns_.n()
+                if Abs(im(soln_))<tolerance and re(soln_)>0][0]
         ))
 
     def pxpzhat0_values(self, contour_values_, sub_) -> list:
@@ -197,8 +204,10 @@ class SlicingPlots(Graphing):
         # Mesh grids for px-pz and rx-px space slicing plots
         self.grid_array =  np.linspace(0,1, grid_res)
         self.grid_array[self.grid_array==0.0] = 1e-6
-        self.pxpzhat_grids = np.meshgrid(self.grid_array, -self.grid_array, sparse=False, indexing='ij')
-        self.rxpxhat_grids = np.meshgrid(self.grid_array,  self.grid_array, sparse=False, indexing='ij')
+        self.pxpzhat_grids = np.meshgrid(self.grid_array, -self.grid_array,
+                                         sparse=False, indexing='ij')
+        self.rxpxhat_grids = np.meshgrid(self.grid_array,  self.grid_array,
+                                         sparse=False, indexing='ij')
 
     def plot_modv_pzhat_slice(self, sm, sub_, psub_) -> str:
         r"""
@@ -221,28 +230,35 @@ class SlicingPlots(Graphing):
         # modv0_ = sm.modv_pxpzhat_lambda(pxhat0_,pzhat0_)
 
         # For H=1/2
-        pzhat_array = np.flipud(np.linspace(-30,0,31, endpoint=bool(rxhat.subs(psub_)<0.95 and eta.subs(sub_)<1)))
-        pxhat_array = np.array([float(px_value(rxhat.subs(psub_),pzhat_, pxhat_poly_, px_var_=pxhat, pz_var_=pzhat))
-                       for pzhat_ in pzhat_array])
-
-        # H_array = np.array([float(sm.H_lambda(pxhat_,pzhat_)) for pxhat_, pzhat_ in zip(pxhat_array, pzhat_array)])
+        pzhat_array = np.flipud(np.linspace(-30,0,31,
+                            endpoint=bool(rxhat.subs(psub_)<0.95 and eta.subs(sub_)<1)))
+        pxhat_array = np.array([float(px_value(rxhat.subs(psub_),pzhat_, pxhat_poly_,
+                                                px_var_=pxhat, pz_var_=pzhat))
+                                for pzhat_ in pzhat_array])
 
         modp_array = np.sqrt(pxhat_array**2+pzhat_array**2)
-        modv_array = np.array([sm.modv_pxpzhat_lambda(pxhat_,pzhat_) for pxhat_,pzhat_ in zip(pxhat_array,pzhat_array)])
+        modv_array = np.array([sm.modv_pxpzhat_lambda(pxhat_,pzhat_)
+                                for pxhat_,pzhat_ in zip(pxhat_array,pzhat_array)])
         projv_array = modv_array*np.cos(np.arctan(-pxhat_array/pzhat_array))
 
         plt.xlim(min(pzhat_array),max(pzhat_array))
         plt.ylim(0,max(modv_array)*1.05)
         axes.set_autoscale_on(False)
 
-        plt.plot(pzhat_array, modv_array, 'o-', color='k', ms=3, label=r'$|\mathbf{\hat{v}}|$')
-        plt.plot(pzhat_array, projv_array, '-', color='r', ms=3, label=r'$|\mathbf{\hat{v}}|\cos\beta$')
-        plt.plot(pzhat_array,  (1/modp_array), '-', color='b', ms=3, label=r'$1/|\mathbf{\hat{p}}|$')
-        plt.plot([pzhat0_,pzhat0_], [0,max(modv_array)*1.05], ':', color='k', label=r'$\hat{p}_z = \hat{p}_{z_0}$')
+        plt.plot(pzhat_array, modv_array, 'o-', color='k', ms=3,
+                 label=r'$|\mathbf{\hat{v}}|$')
+        plt.plot(pzhat_array, projv_array, '-', color='r', ms=3,
+                 label=r'$|\mathbf{\hat{v}}|\cos\beta$')
+        plt.plot(pzhat_array,  (1/modp_array), '-', color='b', ms=3,
+                 label=r'$1/|\mathbf{\hat{p}}|$')
+        plt.plot([pzhat0_,pzhat0_], [0,max(modv_array)*1.05], ':', color='k',
+                 label=r'$\hat{p}_z = \hat{p}_{z_0}$')
 
         plt.legend(loc='lower left')
         plt.grid('on')
-        plt.ylabel(r'$|\mathbf{\hat{v}}|$  or  $|\mathbf{\hat{v}}|\cos\beta$  or  $1/|\mathbf{\hat{p}}|$')
+        plt.ylabel(r'$|\mathbf{\hat{v}}|$  '
+                  +r'or  $|\mathbf{\hat{v}}|\cos\beta$  '
+                  +r'or  $1/|\mathbf{\hat{p}}|$')
         plt.xlabel(r'$\hat{p}_z\left(H=\frac{1}{2}\right)$')
 
         # Annotations
@@ -253,7 +269,8 @@ class SlicingPlots(Graphing):
                                     r'$\mathsf{Ci}=$'+rf'${deg(Ci.subs(sub_))}\degree$',
                                     r'$\hat{r}^x=$'+rf'${round(rxhat.subs(psub_),2)}$' ]):
             plt.text( *(x_,0.9-i_*0.15), label_, fontsize=16, color='k',
-                     horizontalalignment='center', verticalalignment='center', transform=axes.transAxes )
+                     horizontalalignment='center', verticalalignment='center',
+                     transform=axes.transAxes )
 
         return fig_name
 
@@ -261,32 +278,44 @@ class SlicingPlots(Graphing):
         r"""
         TBD
         """
-        return self.plot_Hetc_contours(sm, (self.rxpxhat_grids[0],self.rxpxhat_grids[1]*psf), sub_, do_Ci=do_Ci,
-                                        do_fmt_labels=bool(psf>1000), do_aspect=False, do_rxpx=True,
+        return self.plot_Hetc_contours( sm,
+                                        (self.rxpxhat_grids[0],
+                                         self.rxpxhat_grids[1]*psf),
+                                        sub_, do_Ci=do_Ci,
+                                        do_fmt_labels=bool(psf>1000),
+                                        do_aspect=False, do_rxpx=True,
                                         do_grid=True,
-                                        **kwargs)
+                                        **kwargs )
 
     def H_pxpz_contours(self, sm, sub_, psf, do_Ci, **kwargs) -> str:
         r"""
         TBD
         """
-        return self.plot_Hetc_contours(sm, (self.pxpzhat_grids[0]*psf, self.pxpzhat_grids[1]*psf), sub_, do_Ci=do_Ci,
-                                        do_fmt_labels=bool(psf>1000), do_aspect=True, do_rxpx=False,
-                                        do_grid=False,
-                                        **kwargs )
+        return self.plot_Hetc_contours( sm,
+                                         (self.pxpzhat_grids[0]*psf,
+                                          self.pxpzhat_grids[1]*psf),
+                                         sub_, do_Ci=do_Ci,
+                                         do_fmt_labels=bool(psf>1000),
+                                         do_aspect=True, do_rxpx=False,
+                                         do_grid=False,
+                                         **kwargs )
 
     def plot_Hetc_contours(self, sm, grids_, sub_, do_Ci, do_modv=False,
-                            do_fmt_labels=False, do_aspect=True, do_rxpx=False, pxpz_points=None,
-                            do_log2H=False, do_siggrid=True, do_black_contours=False, do_grid=True,
+                            do_fmt_labels=False, do_aspect=True, do_rxpx=False,
+                            pxpz_points=None,
+                            do_log2H=False, do_siggrid=True,
+                            do_black_contours=False, do_grid=True,
                             contour_nlevels=None, contour_range=None, v_contour_range=None,
                             contour_values=None, contour_label_locs=None) -> str:
         r"""
         TBD
         """
         # Create figure
-        title = ( ('Ci' if do_Ci else ('v' if do_modv else 'H')) + ('_pslice' if do_rxpx else '_pslice')
+        title = ( ('Ci' if do_Ci else ('v' if do_modv else 'H'))
+                    + ('_pslice' if do_rxpx else '_pslice')
                     + f'_eta{float(eta.subs(sub_).n()):g}'
-                    + ( f'_Ci{deg(Ci.subs(sub_))}' if do_rxpx else f'_rxhat{float(rxhat.subs(sub_).n()):g}')
+                    + ( f'_Ci{deg(Ci.subs(sub_))}'
+                        if do_rxpx else f'_rxhat{float(rxhat.subs(sub_).n()):g}')
                 ).replace('.','p')
         fig = self.create_figure(title, fig_size=(6,6))
         axes = plt.gca()
@@ -299,7 +328,8 @@ class SlicingPlots(Graphing):
 
         # Generate a grid of H or Ci for a meshgrid of (px,pz) or (rx,px)
         H_grid_ = sm.Ci_lambda(*grids_) if do_Ci else sm.H_lambda(*grids_)
-        modv_grid_ = sm.modv_pxpzhat_lambda(*grids_) if (do_modv and not do_rxpx) else None
+        modv_grid_ \
+            = sm.modv_pxpzhat_lambda(*grids_) if (do_modv and not do_rxpx) else None
         if do_siggrid:
             gstar_signature_grid_ = np.array(grids_[0].shape) # for i_ in [1,2]]
             gstar_signature_grid_ = np.array([sm.gstar_signature_lambda(x_,y_)
@@ -320,7 +350,8 @@ class SlicingPlots(Graphing):
             divider = make_axes_locatable(axes)
             cax = divider.append_axes('top', size='6%', pad=0.4)
             label_levels = np.array([0.25,0.75])
-            # mypy: Incompatible types in assignment (expression has type "List[str]", variable has type "Tuple[str, str]")
+            # mypy: Incompatible types in assignment (expression has type "List[str]",
+            #       variable has type "Tuple[str, str]")
             tick_labels: Tuple[str,str] = ('mixed: -,+','positive: +,+')
             cbar = fig.colorbar(cf, cax=cax, orientation='horizontal', ticks=label_levels,
                                label='metric signature')
@@ -341,7 +372,8 @@ class SlicingPlots(Graphing):
         else:
             x_array = -grids_[1][0]*tan_beta_crit_  # px (+ve)
             y_array =  grids_[1][0]                 # pz (-ve)
-        axes.plot(x_array, y_array, 'Red', lw=3, ls='-', label=r'$\beta_\mathrm{c} = $'+rf'{beta_crit_}$\degree$')
+        axes.plot(x_array, y_array, 'Red', lw=3, ls='-',
+                  label=r'$\beta_\mathrm{c} = $'+rf'{beta_crit_}$\degree$')
 
         # px,pz on-shell point
         if pxpz_points is not None and not do_rxpx:
@@ -350,12 +382,14 @@ class SlicingPlots(Graphing):
                 beta_ = np.round(np.rad2deg(np.arctan(float(-px_/pz_))),1)
                 beta_label = r'$\beta_0$' if rxhat.subs(sub_)==0 else r'$\beta$'
                 axes.plot(np.array([0,px_*10]),np.array([0,pz_*10]), '-.', color='b',
-                          label=beta_label+r'$ = $'+rf'{beta_:g}$\degree$' if i_==0 and not do_Ci else None)
+                          label=beta_label+r'$ = $'+rf'{beta_:g}$\degree$'
+                                if i_==0 and not do_Ci else None)
 
         # pz=pz_0 constant line
         if pxpz_points is not None:
             for i_,(px_,pz_) in enumerate(pxpz_points):
-                axes.plot(np.array([0,px_*100]),np.array([pz_,pz_]), ':', lw=2, color='grey',
+                axes.plot(np.array([0,px_*100]),np.array([pz_,pz_]), ':',
+                          lw=2, color='grey',
                           label=r'$\hat{p}_{z} = \hat{p}_{z_0}$' if i_==0 else None)
                 beta_ = np.round(np.rad2deg(np.arctan(float(-px_/pz_))),0)
 
@@ -369,10 +403,11 @@ class SlicingPlots(Graphing):
             # levels_ = np.linspace(0,0.5, 51, endpoint=True)
             levels_ = np.linspace(*v_contour_range, contour_nlevels, endpoint=True)
             modv_contours_ = axes.contour(*grids_, modv_grid_, levels_, cmap=cmap_)
-                                     # levels_[levels_!=levels_H0p5[0]], linestyles=['solid'],
-                                     # cmap=cmap_ if not do_black_contours else None,
-                                     # colors=colors_ if do_black_contours else None)
-            axes.clabel(modv_contours_, fmt=fmt_modv, inline=True, colors='0.3', fontsize=9)
+                                 # levels_[levels_!=levels_H0p5[0]], linestyles=['solid'],
+                                 # cmap=cmap_ if not do_black_contours else None,
+                                 # colors=colors_ if do_black_contours else None)
+            axes.clabel(modv_contours_, fmt=fmt_modv, inline=True,
+                        colors='0.3', fontsize=9)
 
 
         if contour_values is None:
@@ -384,7 +419,7 @@ class SlicingPlots(Graphing):
                 levels_H0p5 = np.array([0])
                 if do_rxpx:
                     fmt_H = lambda H: \
-                        rf'$H={np.round(10**H/2,2 if 10**H<0.5 else (1 if 10**H<5 else 0)):g}$' #% f'{}'
+                  rf'$H={np.round(10**H/2, 2 if 10**H<0.5 else (1 if 10**H<5 else 0)):g}$'
                 else:
                     fmt_H = lambda H: rf'$2H=10^{H:g}$' # % f'{H:g}'
                 fmt_H0p5 = lambda H: r'$H=0.5$'
@@ -392,7 +427,8 @@ class SlicingPlots(Graphing):
             else:
                 levels_ = np.concatenate([
                     np.linspace(0.0,0.5, contour_nlevels[0], endpoint=False),
-                    np.flip(np.linspace(contour_range[1],0.5, contour_nlevels[1], endpoint=False))
+                    np.flip(np.linspace(contour_range[1],0.5, contour_nlevels[1],
+                                        endpoint=False))
                 ])
                 levels_H0p5 = np.array([0.5])
                 fmt_H = lambda H_: rf'{H_:g}'
@@ -401,7 +437,8 @@ class SlicingPlots(Graphing):
 
             # H contours
             contours_ = axes.contour(*grids_, np.log10(2*H_grid_) if do_log2H else H_grid_,
-                                     levels_[levels_!=levels_H0p5[0]], linestyles=['solid'],
+                                     levels_[levels_!=levels_H0p5[0]],
+                                     linestyles=['solid'],
                                      cmap=cmap_ if not do_black_contours else None,
                                      colors=colors_ if do_black_contours else None)
             axes.clabel(contours_, inline=True, fmt=fmt_H, fontsize=9)
@@ -410,16 +447,20 @@ class SlicingPlots(Graphing):
                                     cmap=cmap_ if not do_black_contours else None,
                                     colors=colors_ if do_black_contours else None)
             axes.clabel(contour_, inline=True, fmt=fmt_H0p5, fontsize=14,
-                        manual=[(manual_location[0],manual_location[1])] if manual_location is not None else None)
+                        manual=[(manual_location[0],manual_location[1])]
+                                if manual_location is not None else None)
         else:
             fmt_Ci = lambda Ci_: r'$\mathsf{Ci}=$'+f'{Ci_:g}'+r'$\degree$'
-            contour_values_ = np.log10(2*np.array(contour_values)) if do_log2H else np.array(contour_values)
-            contours_ = axes.contour(*grids_, np.log10(2*H_grid_) if do_log2H else H_grid_,
+            contour_values_ = np.log10(2*np.array(contour_values)) \
+                                if do_log2H else np.array(contour_values)
+            contours_ = axes.contour(*grids_,
+                                     np.log10(2*H_grid_) if do_log2H else H_grid_,
                                      contour_values_,
                                      cmap=cmap_ if not do_black_contours else None,
                                      colors=colors_ if do_black_contours else None
                                      )
-            axes.clabel(contours_, inline=True, fmt=fmt_Ci, fontsize=12, manual=contour_label_locs)
+            axes.clabel(contours_, inline=True, fmt=fmt_Ci, fontsize=12,
+                        manual=contour_label_locs)
 
         axes.set_autoscale_on(False)
 
@@ -428,21 +469,25 @@ class SlicingPlots(Graphing):
         if not do_Ci:
             axes.text(*[x_,1.1],
                  (r'$|\mathbf{\hat{v}}|$' if do_modv else r'$\mathcal{H}$')+vars_label,
-                 horizontalalignment='center', verticalalignment='center', transform=axes.transAxes,
+                 horizontalalignment='center', verticalalignment='center',
+                 transform=axes.transAxes,
                  fontsize=18, color='k')
             Ci_ = Ci.subs(sub_)
             axes.text(*[x_,0.91], r'$\mathsf{Ci}=$'+rf'${deg(Ci_)}\degree$',
-                 horizontalalignment='center', verticalalignment='center', transform=axes.transAxes,
+                 horizontalalignment='center', verticalalignment='center',
+                 transform=axes.transAxes,
                  fontsize=16, color='k')
         else:
             axes.text(*[x_,1.], r'$\mathsf{Ci}$'+vars_label,
-                 horizontalalignment='center', verticalalignment='center', transform=axes.transAxes,
+                 horizontalalignment='center', verticalalignment='center',
+                 transform=axes.transAxes,
                  fontsize=18, color='k')
 
         # eta annotation
         eta_ = eta.subs(sub_)
         axes.text(*[x_,0.8], rf'$\eta={eta_}$',
-                 horizontalalignment='center', verticalalignment='center', transform=axes.transAxes,
+                 horizontalalignment='center', verticalalignment='center',
+                 transform=axes.transAxes,
                  fontsize=16, color='k')
 
         # pz or rx annotation

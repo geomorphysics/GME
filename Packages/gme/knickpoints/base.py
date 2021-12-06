@@ -15,6 +15,8 @@ Imports symbols from :mod:`.symbols` module
 
 ---------------------------------------------------------------------
 
+TODO: broken version - needs major overhaul
+
 """
 
 import numpy as np
@@ -46,7 +48,8 @@ class InitialProfileSolution(BaseSolution):
         Args:
             gmeq (:class:`~.equations.Equations`):
                     GME model equations class instance defined in :mod:`~.equations`
-            parameters (dict): dictionary of model parameter values to be used for equation substitutions
+            parameters (dict): dictionary of model parameter values to be used for
+                                equation substitutions
             kwargs (dict): remaining keyword arguments (see base class for details)
         """
         super().__init__(gmeq, parameters, **kwargs)
@@ -75,8 +78,10 @@ class InitialProfileSolution(BaseSolution):
             rpt_arrays = self.solve_Hamiltons_equations(t_array=self.ref_t_array.copy())
             self.save(rpt_arrays, idx)
             pc_progress = self.report_progress(i=idx, n=self.n_rays,
-                                               pc_step=report_pc_step, progress_was=pc_progress)
-        self.report_progress(i=idx, n=self.n_rays, pc_step=report_pc_step, progress_was=pc_progress)
+                                               pc_step=report_pc_step,
+                                               progress_was=pc_progress)
+        self.report_progress(i=idx, n=self.n_rays, pc_step=report_pc_step,
+                             progress_was=pc_progress)
 
 
 class InitialCornerSolution(BaseSolution):
@@ -93,7 +98,8 @@ class InitialCornerSolution(BaseSolution):
         Args:
             gmeq (:class:`~.equations.Equations`):
                     GME model equations class instance defined in :mod:`~.equations`
-            parameters (dict): dictionary of model parameter values to be used for equation substitutions
+            parameters (dict): dictionary of model parameter values to be used
+                               for equation substitutions
             kwargs (dict): remaining keyword arguments (see base class for details)
         """
         super().__init__(gmeq, parameters, **kwargs)
@@ -105,7 +111,8 @@ class InitialCornerSolution(BaseSolution):
         pz_velocity_corner = self.pz_velocity_boundary_eqn
         # HACK!!!  doing this to set up px0_poly_eqn
         _ = self.pxpz0_from_xiv0()
-        px_velocity_corner = self.px_value(x_=0, pz_=pz_velocity_corner, parameters=self.parameters)
+        px_velocity_corner \
+            = self.px_value(x_=0, pz_=pz_velocity_corner, parameters=self.parameters)
         self.beta_velocity_corner = float(atan2(px_velocity_corner,-pz_velocity_corner))
         if self.choice=='geodesic':
             self.rdot = Matrix([ self.gmeq.hamiltons_eqns[0].rhs.subs(parameters),
@@ -116,8 +123,12 @@ class InitialCornerSolution(BaseSolution):
     def initial_conditions(self, beta0_):
         rx0_ = 0
         rz0_ = 0
-        px0_ = float( self.px_initial_corner_eqn.rhs.subs({beta:beta0_}).subs(self.parameters) )
-        pz0_ = float( self.pz_initial_corner_eqn.rhs.subs({beta:beta0_}).subs(self.parameters) )
+        px0_ = float( self.px_initial_corner_eqn.rhs
+                            .subs({beta:beta0_})
+                            .subs(self.parameters) )
+        pz0_ = float( self.pz_initial_corner_eqn.rhs
+                            .subs({beta:beta0_})
+                            .subs(self.parameters) )
         if self.choice=='Hamilton':
             return [rx0_,rz0_,px0_,pz0_]
         else:
@@ -132,7 +143,8 @@ class InitialCornerSolution(BaseSolution):
         for idx, beta0_ in enumerate(np.linspace(self.beta_velocity_corner,
                                                  self.beta_surface_corner,
                                                  self.n_rays, endpoint=True)):
-            if self.verbose=='very': print('{}: {}'.format(idx,np.round(beta0_,4)),end='\t')
+            if self.verbose=='very':
+                print('{}: {}'.format(idx,np.round(beta0_,4)),end='\t')
             self.ic = self.initial_conditions(beta0_)
             self.model_dXdt_lambda = self.make_model( do_verbose=False )
             if self.customize_t_fn is not None:
@@ -145,13 +157,16 @@ class InitialCornerSolution(BaseSolution):
             rpt_arrays = self.solve_Hamiltons_equations(t_array=t_array)
             # print(list(zip(rpt_arrays['rx'])))
             self.save(rpt_arrays, idx)
-            pc_progress = self.report_progress(i=idx, n=self.n_rays, pc_step=report_pc_step, progress_was=pc_progress)
-        self.report_progress(i=idx, n=self.n_rays, pc_step=report_pc_step, progress_was=pc_progress)
+            pc_progress = self.report_progress(i=idx, n=self.n_rays,
+                                        pc_step=report_pc_step, progress_was=pc_progress)
+        self.report_progress(i=idx, n=self.n_rays,
+                             pc_step=report_pc_step, progress_was=pc_progress)
 
 
 class CompositeSolution(BaseSolution):
     """
-    Combine rays integrations from (1) initial profile, (2) initial corner, and (3) velocity boundary
+    Combine rays integrations from (1) initial profile,
+    (2) initial corner, and (3) velocity boundary
     to generate a 'complete' ray integration solution from a complex topographic boundary.
     """
     def __init__(self, gmeq, parameters, **kwargs):
@@ -161,7 +176,8 @@ class CompositeSolution(BaseSolution):
         Args:
             gmeq (:class:`~.equations.Equations`):
                     GME model equations class instance defined in :mod:`~.equations`
-            parameters (dict): dictionary of model parameter values to be used for equation substitutions
+            parameters (dict): dictionary of model parameter values
+                               to be used for equation substitutions
             kwargs (dict): remaining keyword arguments (see base class for details)
         """
         super().__init__(gmeq, parameters, **kwargs)
@@ -219,6 +235,7 @@ class CompositeSolution(BaseSolution):
         # Eliminate empty rays
         rx_arrays = self.rpt_arrays['rx'].copy()
         for rpt_ in rpt_list:
-            self.rpt_arrays[rpt_] = [rpt_array for rx_array, rpt_array in zip(rx_arrays, self.rpt_arrays[rpt_] )
-                                                                              if len(rx_array)>=0 ]
+            self.rpt_arrays[rpt_] \
+                = [rpt_array for rx_array, rpt_array
+                    in zip(rx_arrays, self.rpt_arrays[rpt_]) if len(rx_array)>=0 ]
         self.n_rays = len(self.rpt_arrays['t'])

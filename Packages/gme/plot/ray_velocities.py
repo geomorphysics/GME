@@ -15,7 +15,7 @@ Requires Python packages/modules:
   -  :mod:`numpy`, :mod:`sympy`
   -  :mod:`matplotlib.pyplot`
   -  :mod:`gme.core.symbols`, :mod:`gme.plot.base`
-  
+
 ---------------------------------------------------------------------
 
 """
@@ -53,9 +53,11 @@ class RayVelocities(Graphing):
 
         Args:
             fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`):
-                reference to figure instantiated by :meth:`GMPLib create_figure <plot_utils.GraphingBase.create_figure>`
+                reference to figure instantiated by
+                :meth:`GMPLib create_figure <plot_utils.GraphingBase.create_figure>`
             gmes (:class:`~.ode_raytracing.OneRaySolution`):
-                    instance of single ray solution class defined in :mod:`~.ode_raytracing`
+                    instance of single ray solution class defined in
+                    :mod:`~.ode_raytracing`
             gmeq (:class:`~.equations.Equations`):
                     GME model equations class instance defined in :mod:`~.equations`
             n_points (int): sample rate along each curve
@@ -105,35 +107,44 @@ class RayVelocities(Graphing):
         plt.legend(loc=legend_loc, fontsize=14, framealpha=0.95)
         if do_etaxi_label:
             plt.text(*eta_label_xy,
-                     rf'$\eta={gmeq.eta_}$'+r'$\quad\mathsf{Ci}=$'+rf'${round(float(deg(Ci.subs(sub))))}\degree$',
+                     rf'$\eta={gmeq.eta_}$'+r'$\quad\mathsf{Ci}=$'
+                     +rf'${round(float(deg(Ci.subs(sub))))}\degree$',
                      transform=axes.transAxes,
                      horizontalalignment='center', verticalalignment='center',
                      fontsize=16, color='k')
         if do_pub_label:
             plt.text(*pub_label_xy, pub_label,
-                     transform=axes.transAxes, horizontalalignment='center', verticalalignment='center',
+                     transform=axes.transAxes,
+                     horizontalalignment='center', verticalalignment='center',
                      fontsize=16, color='k')
         plt.text(*var_label_xy, r'${v}(x)$' if do_mod_v else r'$\mathbf{v}(x)$',
-                 transform=axes.transAxes, horizontalalignment='center', verticalalignment='center', fontsize=18, color='k')
+                 transform=axes.transAxes,
+                 horizontalalignment='center', verticalalignment='center',
+                 fontsize=18, color='k')
 
     def profile_vdot( self, gmes, gmeq, sub, name, fig_size=None, dpi=None,
-                      n_points=201, do_pub_label=False, pub_label='', xi_norm=None, do_etaxi_label=True,
-                      legend_loc='lower right', do_legend=True, do_mod_vdot=False, do_geodesic=False ) -> None:
+                      n_points=201, do_pub_label=False, pub_label='',
+                      xi_norm=None, do_etaxi_label=True,
+                      legend_loc='lower right', do_legend=True,
+                      do_mod_vdot=False, do_geodesic=False ) -> None:
         r"""
         Plot acceleration :math:`\ddot{r}` along a ray.
 
         Args:
             fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`):
-                reference to figure instantiated by :meth:`GMPLib create_figure <plot_utils.GraphingBase.create_figure>`
+                reference to figure instantiated by
+                :meth:`GMPLib create_figure <plot_utils.GraphingBase.create_figure>`
             gmes (:class:`~.ode_raytracing.OneRaySolution`):
-                    instance of single ray solution class defined in :mod:`~.ode_raytracing`
+                    instance of single ray solution class defined in
+                    :mod:`~.ode_raytracing`
             gmeq (:class:`~.equations.Equations`):
                     GME model equations class instance defined in :mod:`~.equations`
             n_points (int): sample rate along each curve
         """
         _ = self.create_figure(name, fig_size=fig_size, dpi=dpi)
 
-        # Use an erosion rate (likely vertical xi) to renormalize velocities and accelns (up to T)
+        # Use an erosion rate (likely vertical xi) to
+        #     renormalize velocities and accelns (up to T)
         if xi_norm is None:
             xi_norm = 1
             rate_label = r'$\dot{v}$'
@@ -158,7 +169,8 @@ class RayVelocities(Graphing):
         vdot_max = np.max((vdot_array))
 
         # Start doing some plotting
-        sfx = 1 if np.abs(vdotz_max)<1e-20 else np.power(10,np.round(np.log10(vdotz_max/vdot_max),0))
+        sfx = 1 if np.abs(vdotz_max)<1e-20 \
+              else np.power(10,np.round(np.log10(vdotz_max/vdot_max),0))
         label_suffix = '' if sfx==1 else rf'$\,\times\,${sfx}'
         vdotx_label = r'$\dot{v}^x_\mathrm{hmltn}(x)$'+label_suffix
         vdotz_label = r'$\dot{v}^z_\mathrm{hmltn}(x)$'
@@ -175,14 +187,21 @@ class RayVelocities(Graphing):
         ylim = plt.ylim()
 
         # Geodesic computation of acceln using Christoffel symbols
-        if do_geodesic and hasattr(gmeq,'vdotx_lambdified') and hasattr(gmeq,'vdotz_lambdified')\
-                        and gmeq.vdotx_lambdified is not None and gmeq.vdotz_lambdified is not None:
+        if do_geodesic \
+                and hasattr(gmeq,'vdotx_lambdified') \
+                and hasattr(gmeq,'vdotz_lambdified') \
+                and gmeq.vdotx_lambdified is not None \
+                and gmeq.vdotz_lambdified is not None:
             vx_array = gmes.rdotx_interp(x_array)
             vz_array = gmes.rdotz_interp(x_array)
-            vdotx_gdsc_array = np.array([gmeq.vdotx_lambdified(float(x), float(vx), float(vz), varepsilon.subs(sub))/xi_norm
-                                        for x,vx,vz in zip(x_array, vx_array, vz_array)])
-            vdotz_gdsc_array = np.array([gmeq.vdotz_lambdified(float(x), float(vx), float(vz), varepsilon.subs(sub))/xi_norm
-                                        for x,vx,vz in zip(x_array, vx_array, vz_array)])
+            vdotx_gdsc_array \
+                = np.array([gmeq.vdotx_lambdified(float(x), float(vx), float(vz),
+                                                  varepsilon.subs(sub))/xi_norm
+                            for x,vx,vz in zip(x_array, vx_array, vz_array)])
+            vdotz_gdsc_array \
+                = np.array([gmeq.vdotz_lambdified(float(x), float(vx), float(vz),
+                                                  varepsilon.subs(sub))/xi_norm
+                            for x,vx,vz in zip(x_array, vx_array, vz_array)])
             vdot_gdsc_array = np.sqrt(vdotx_gdsc_array**2+vdotz_gdsc_array**2)
             vdotx_label = r'$\dot{v}^x_\mathrm{gdsc}(x)$'+label_suffix
             vdotz_label = r'$\dot{v}^z_\mathrm{gdsc}(x)$'
@@ -192,8 +211,10 @@ class RayVelocities(Graphing):
                 plt.ylabel(r'Ray acceleration  '+rate_label, fontsize=13)
                 legend_loc = 'lower left'
             else:
-                plt.plot( x_array, vdotx_gdsc_array*sfx, 'DarkRed', ls=':', lw=3, label=vdotx_label)
-                plt.plot( x_array, vdotz_gdsc_array, 'DarkBlue', ls=':', lw=3, label=vdotz_label)
+                plt.plot( x_array, vdotx_gdsc_array*sfx, 'DarkRed', ls=':', lw=3,
+                          label=vdotx_label)
+                plt.plot( x_array, vdotz_gdsc_array, 'DarkBlue', ls=':', lw=3,
+                          label=vdotz_label)
 
         # Misc pretty stuff
         axes = plt.gca()
@@ -205,4 +226,5 @@ class RayVelocities(Graphing):
         if do_etaxi_label:
             plt.text(0.6,0.8, pub_label if do_pub_label else rf'$\eta={gmeq.eta_}$',
                      transform=axes.transAxes,
-                     horizontalalignment='center', verticalalignment='center', fontsize=14, color='k')
+                     horizontalalignment='center', verticalalignment='center',
+                     fontsize=14, color='k')
