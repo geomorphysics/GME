@@ -16,7 +16,7 @@
     - [Python package docs](https://geomorphysics.github.io/GME/modules/Python.html)  (documentation pre-built for release 1.0)
     - [Jupyter notebook docs](https://geomorphysics.github.io/GME/modules/Notebooks.html)
   * Publications
-    - *The Direction of Erosion* (to be submitted)
+    - *The Direction of Erosion* (in review)
     - *Knickpoints, Cusps, and the Geomorphic Hamiltonian* (manuscript in preparation)
     - *Erosion and the Geodesic Equation*  (manuscript in preparation)
     - *Channel Self-Formation by Salt Dissolution*  (manuscript in preparation)
