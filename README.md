@@ -7,14 +7,14 @@
 
   * [Introduction](Summary.md) to GME theory
   * GME software
-    - [documentation pre-built for release 1.0](https://cstarkjp.github.io/GME)
+    - [documentation pre-built for release 1.0](https://geomorphysics.github.io/GME)
     - [design](Design.md)
     - [dependencies](Dependencies.md)
     - [installation and set-up](Installation.md)
     - [running the notebooks](Running.md)
-    <!-- - [running the notebooks](https://cstarkjp.github.io/GME/modules/Running.html) -->
-    - [Python package docs](https://cstarkjp.github.io/GME/modules/Python.html)  (documentation pre-built for release 1.0)
-    - [Jupyter notebook docs](https://cstarkjp.github.io/GME/modules/Notebooks.html)
+    <!-- - [running the notebooks](https://geomorphysics.github.io/GME/modules/Running.html) -->
+    - [Python package docs](https://geomorphysics.github.io/GME/modules/Python.html)  (documentation pre-built for release 1.0)
+    - [Jupyter notebook docs](https://geomorphysics.github.io/GME/modules/Notebooks.html)
   * Publications
     - *The Direction of Erosion* (to be submitted)
     - *Knickpoints, Cusps, and the Geomorphic Hamiltonian* (manuscript in preparation)

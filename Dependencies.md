@@ -16,7 +16,7 @@ Release 1.0 of ``GME`` has been developed with and tested against the following:
 | Python package | Version | Needed by
 | -------------- | ------- | ---------
 | NumPy | 1.19.4 | gme, Jupyter notebooks
-| SymPy | 1.6.1 | gme, Jupyter notebooks
+| SymPy | 1.9 | gme, Jupyter notebooks
 | SciPy | 1.5.0 | gme
 | Matplotlib | 3.2.2 | gme
 | [gmplib](https://github.com/cstarkjp/GMPLib/tree/main/Packages/gmplib) | 1.0 | gme, Jupyter notebooks

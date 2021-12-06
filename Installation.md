@@ -13,8 +13,8 @@ Steps:
 
 4) Clone both of the repositories into this directory:
     ```
-    git clone https://github.com/cstarkjp/GMPLib.git
-    git clone https://github.com/cstarkjp/GME.git
+    git clone https://github.com/geomorphysics/GMPLib.git
+    git clone https://github.com/geomorphysics/GME.git
     ```
 
 5) Add the following environment variables to your ``.bash_profile`` or equivalent, modifying to match your choice of parent directory location:

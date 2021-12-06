@@ -68,7 +68,8 @@ aka ODE integration of Hamilton’s equations, for a velocity-boundary condition
 <dt class="sig sig-object py" id="gme.ode.velocity_boundary.VelocityBoundarySolution">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gme.ode.velocity_boundary.</span></span><span class="sig-name descname"><span class="pre">VelocityBoundarySolution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmeq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gme.ode.velocity_boundary.VelocityBoundarySolution" title="Permalink to this definition">¶</a></dt>
 <dd><p>Integration of Hamilton’s equations (ODEs) from a ‘fault slip’ velocity boundary.</p>
-<p>Currently the velocity boundary is required to lie along the left domain edge and to be vertical.</p>
+<p>Currently the velocity boundary is required to lie along the left domain edge
+and to be vertical.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.ode.velocity_boundary.VelocityBoundarySolution.initial_conditions">
 <span class="sig-name descname"><span class="pre">initial_conditions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t_lag</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xiv_0_</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#gme.ode.velocity_boundary.VelocityBoundarySolution.initial_conditions" title="Permalink to this definition">¶</a></dt>
@@ -105,7 +106,8 @@ aka ODE integration of Hamilton’s equations, for a velocity-boundary condition
 <span class="kn">import</span> <span class="nn">logging</span>
 
 <span class="c1"># Typing</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span> <span class="c1">#, Any, List #, Callable, List #, Dict, Any, Optional</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
+<span class="c1">#, Any, List #, Callable, List #, Dict, Any, Optional</span>
 
 <span class="c1"># Numpy</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -127,7 +129,8 @@ aka ODE integration of Hamilton’s equations, for a velocity-boundary condition
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Integration of Hamilton&#39;s equations (ODEs) from a &#39;fault slip&#39; velocity boundary.</span>
 
-<span class="sd">    Currently the velocity boundary is required to lie along the left domain edge and to be vertical.</span>
+<span class="sd">    Currently the velocity boundary is required to lie along the left domain edge</span>
+<span class="sd">    and to be vertical.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">initial_conditions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t_lag</span><span class="p">,</span> <span class="n">xiv_0_</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span><span class="nb">float</span><span class="p">,</span><span class="nb">float</span><span class="p">,</span><span class="nb">float</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -156,7 +159,8 @@ aka ODE integration of Hamilton’s equations, for a velocity-boundary condition
 
         <span class="c1"># Construct a list of % durations and vertical velocities if only xiv_0 given</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tp_xiv0_list</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span><span class="nb">float</span><span class="p">]]]</span> \
-            <span class="o">=</span> <span class="p">[(</span><span class="mi">1</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">xiv_0</span><span class="p">])]</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">tp_xiv0_list</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">tp_xiv0_list</span>
+            <span class="o">=</span> <span class="p">[(</span><span class="mi">1</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">xiv_0</span><span class="p">])]</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">tp_xiv0_list</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> \
+               <span class="bp">self</span><span class="o">.</span><span class="n">tp_xiv0_list</span>
 
         <span class="c1"># Calculate vertical distances spanned by each tp, uv0</span>
         <span class="n">rz0_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">initial_conditions</span><span class="p">(</span><span class="n">tp_</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">t_slip_end</span><span class="p">,</span> <span class="n">xiv0_</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
@@ -180,9 +184,9 @@ aka ODE integration of Hamilton’s equations, for a velocity-boundary condition
         <span class="n">xiv0_list</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">]</span><span class="o">*</span><span class="n">n_rays</span>
         <span class="n">ic_list</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span><span class="nb">float</span><span class="p">,</span><span class="nb">float</span><span class="p">,</span><span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)]</span><span class="o">*</span><span class="n">n_rays</span>
         <span class="n">prev_t_lag</span> <span class="o">=</span> <span class="mf">0.0</span>
-        <span class="k">for</span> <span class="p">(</span><span class="n">n_block_rays</span><span class="p">,</span> <span class="p">(</span><span class="n">tp_</span><span class="p">,</span><span class="n">xiv0_</span><span class="p">),</span>
-             <span class="n">prev_rz0</span><span class="p">,</span> <span class="n">prev_n_block_rays</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">n_block_rays_array</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tp_xiv0_list</span><span class="p">,</span>
-                                                <span class="n">offset_rz0_cumsum_array</span><span class="p">,</span> <span class="n">offset_n_block_rays_array</span><span class="p">):</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">n_block_rays</span><span class="p">,</span> <span class="p">(</span><span class="n">tp_</span><span class="p">,</span><span class="n">xiv0_</span><span class="p">),</span> <span class="n">prev_rz0</span><span class="p">,</span> <span class="n">prev_n_block_rays</span><span class="p">)</span> \
+                <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">n_block_rays_array</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tp_xiv0_list</span><span class="p">,</span>
+                       <span class="n">offset_rz0_cumsum_array</span><span class="p">,</span> <span class="n">offset_n_block_rays_array</span><span class="p">):</span>
             <span class="c1"># Generate initial conditions for all the rays in this block</span>
             <span class="k">for</span> <span class="n">i_ray</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">n_block_rays</span><span class="p">)):</span>
                 <span class="n">t_lag</span> <span class="o">=</span> <span class="p">(</span><span class="n">i_ray</span><span class="o">/</span><span class="p">(</span><span class="n">n_block_rays</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">t_slip_end</span><span class="o">*</span><span class="n">tp_</span>
@@ -194,7 +198,8 @@ aka ODE integration of Hamilton’s equations, for a velocity-boundary condition
         <span class="k">for</span> <span class="n">ic_</span> <span class="ow">in</span> <span class="n">ic_list</span><span class="p">:</span>
             <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;ode.vb.solve: </span><span class="si">{</span><span class="n">ic_</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 
-        <span class="c1"># Generate rays in reverse order so that the first ray is topographically the lowest</span>
+        <span class="c1"># Generate rays in reverse order so that the first ray is</span>
+        <span class="c1">#     topographically the lowest</span>
         <span class="n">pc_progress</span> <span class="o">=</span> <span class="n">report_progress</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">n_rays</span><span class="p">,</span> <span class="n">is_initial_step</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ic_list</span> <span class="o">=</span> <span class="p">[(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)]</span><span class="o">*</span><span class="n">n_rays</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ivp_solns_list</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span><span class="o">*</span><span class="n">n_rays</span>
@@ -205,25 +210,28 @@ aka ODE integration of Hamilton’s equations, for a velocity-boundary condition
             <span class="n">xiv0_</span> <span class="o">=</span> <span class="n">xiv0_list</span><span class="p">[</span><span class="n">n_rays</span><span class="o">-</span><span class="mi">1</span><span class="o">-</span><span class="n">i_ray</span><span class="p">]</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">ic_list</span><span class="p">[</span><span class="n">i_ray</span><span class="p">]</span> <span class="o">=</span> <span class="n">ic_list</span><span class="p">[</span><span class="n">n_rays</span><span class="o">-</span><span class="mi">1</span><span class="o">-</span><span class="n">i_ray</span><span class="p">]</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">xiv_0</span><span class="p">]</span> <span class="o">=</span> <span class="n">xiv0_</span>
-            <span class="n">model_dXdt_lambda</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_model</span><span class="p">()</span> \
-                                    <span class="k">if</span> <span class="n">model_dXdt_lambda_prev</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">xiv0_prev</span><span class="o">!=</span><span class="n">xiv0_</span> \
-                                <span class="k">else</span> <span class="n">model_dXdt_lambda_prev</span>
+            <span class="n">model_dXdt_lambda</span> \
+                <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_model</span><span class="p">()</span> <span class="k">if</span> <span class="n">model_dXdt_lambda_prev</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">xiv0_prev</span><span class="o">!=</span><span class="n">xiv0_</span>\
+                  <span class="k">else</span> <span class="n">model_dXdt_lambda_prev</span>
             <span class="c1"># print(f&#39;i_ray={i_ray}  t_lag={t_lag}  xiv0_={xiv0_}  \</span>
-            <span class="c1">#      {bool(xiv0_==xiv0_prev)}  {bool(model_dXdt_lambda==model_dXdt_lambda_prev)}&#39;,</span>
+            <span class="c1">#      {bool(xiv0_==xiv0_prev)}</span>
+            <span class="c1">#          {bool(model_dXdt_lambda==model_dXdt_lambda_prev)}&#39;,</span>
             <span class="c1">#            flush=True)</span>
             <span class="c1"># Start rays from the bottom of the velocity boundary and work upwards</span>
-            <span class="c1">#   so that their x,z,t disposition is consistent with initial profile, initial corner</span>
+            <span class="c1">#   so that their x,z,t disposition is consistent with</span>
+            <span class="c1">#         initial profile, initial corner</span>
             <span class="c1"># if self.choice==&#39;Hamilton&#39;:</span>
             <span class="n">parameters_</span> <span class="o">=</span> <span class="p">{</span><span class="n">Lc</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">Lc</span><span class="p">]}</span>
             <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;ode.vb.solve: calling solver: t_lag=</span><span class="si">{</span><span class="n">t_lag</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-            <span class="n">ivp_soln</span><span class="p">,</span> <span class="n">rpt_arrays</span> <span class="o">=</span> <span class="n">solve_Hamiltons_equations</span><span class="p">(</span> <span class="n">model</span><span class="o">=</span><span class="n">model_dXdt_lambda</span><span class="p">,</span>
-                                                               <span class="n">method</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="p">,</span>
-                                                               <span class="n">do_dense</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">do_dense</span><span class="p">,</span>
-                                                               <span class="n">ic</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ic_list</span><span class="p">[</span><span class="n">i_ray</span><span class="p">],</span>
-                                                               <span class="n">parameters</span><span class="o">=</span><span class="n">parameters_</span><span class="p">,</span>
-                                                               <span class="n">t_array</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ref_t_array</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span>
-                                                               <span class="n">x_stop</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">x_stop</span><span class="p">,</span>
-                                                               <span class="n">t_lag</span><span class="o">=</span><span class="n">t_lag</span> <span class="p">)</span>
+            <span class="n">ivp_soln</span><span class="p">,</span> <span class="n">rpt_arrays</span> \
+                <span class="o">=</span> <span class="n">solve_Hamiltons_equations</span><span class="p">(</span> <span class="n">model</span><span class="o">=</span><span class="n">model_dXdt_lambda</span><span class="p">,</span>
+                                             <span class="n">method</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="p">,</span>
+                                             <span class="n">do_dense</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">do_dense</span><span class="p">,</span>
+                                             <span class="n">ic</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ic_list</span><span class="p">[</span><span class="n">i_ray</span><span class="p">],</span>
+                                             <span class="n">parameters</span><span class="o">=</span><span class="n">parameters_</span><span class="p">,</span>
+                                             <span class="n">t_array</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ref_t_array</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span>
+                                             <span class="n">x_stop</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">x_stop</span><span class="p">,</span>
+                                             <span class="n">t_lag</span><span class="o">=</span><span class="n">t_lag</span> <span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">ivp_solns_list</span><span class="p">[</span><span class="n">i_ray</span><span class="p">]</span> <span class="o">=</span> <span class="n">ivp_soln</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">t_ensemble_max</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">t_ensemble_max</span><span class="p">,</span> <span class="n">rpt_arrays</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">rpt_arrays</span><span class="p">,</span> <span class="n">i_ray</span><span class="p">)</span>
@@ -231,7 +239,8 @@ aka ODE integration of Hamilton’s equations, for a velocity-boundary condition
             <span class="n">pc_progress</span> <span class="o">=</span> <span class="n">report_progress</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="n">i_ray</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">n_rays</span><span class="p">,</span>
                                           <span class="n">pc_step</span><span class="o">=</span><span class="n">report_pc_step</span><span class="p">,</span> <span class="n">progress_was</span><span class="o">=</span><span class="n">pc_progress</span><span class="p">)</span>
             <span class="n">xiv0_prev</span><span class="p">,</span> <span class="n">model_dXdt_lambda_prev</span> <span class="o">=</span> <span class="n">xiv0_</span><span class="p">,</span> <span class="n">model_dXdt_lambda</span>
-        <span class="c1"># self.report_progress(i=n_rays, n=n_rays, pc_step=report_pc_step,progress_was=pc_progress)</span>
+            <span class="c1"># self.report_progress(i=n_rays, n=n_rays,</span>
+            <span class="c1"># pc_step=report_pc_step,progress_was=pc_progress)</span>
 
 
 
