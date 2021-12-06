@@ -4,9 +4,9 @@ For the Jupyter/IPython notebooks to run successfully, the environment variable 
 
 This approach is fine for single-shot runs of `GME` with a particular choice of parameters. However, if we want to run a group of analyses with several choices of parameter sets, inline execution is inconvenient: bulk, offline execution is much more efficient. Shell scripts (written in `bash`) are provided to make this possible.
 
-For example, the [`TimeInvariant.ipynb`](https://github.com/cstarkjp/GME/blob/main/Notebooks/RayTracing/TimeInvariant.ipynb) notebook can be loaded into a Jupyter notebook server, modified to work with a particular choice of JSON parameter file [selected from here](https://github.com/cstarkjp/GME/blob/main/Parameters/RayTracing), and run inline in a browser. On the other hand, if we wish to run this notebook several times with against a set of parameter files, we can do the following:
-  - specify the list of JSON parameter files in [`TimeInvariant_jobs.py`](https://github.com/cstarkjp/GME/blob/main/Notebooks/RayTracing/TimeInvariant_jobs.py)
-  - run the batch shell script [`run_jobs.sh`](https://github.com/cstarkjp/GME/blob/main/Notebooks/run_jobs.sh) from the [notebook directory](https://github.com/cstarkjp/GME/blob/main/Notebooks/RayTracing) using the shell command `../run_jobs.sh TimeInvariant_jobs` (with the path to the script modified as appropriate)
+For example, the [`TimeInvariant.ipynb`](https://github.com/geomorphysics/GME/blob/main/Notebooks/RayTracing/TimeInvariant.ipynb) notebook can be loaded into a Jupyter notebook server, modified to work with a particular choice of JSON parameter file [selected from here](https://github.com/geomorphysics/GME/blob/main/Parameters/RayTracing), and run inline in a browser. On the other hand, if we wish to run this notebook several times with against a set of parameter files, we can do the following:
+  - specify the list of JSON parameter files in [`TimeInvariant_jobs.py`](https://github.com/geomorphysics/GME/blob/main/Notebooks/RayTracing/TimeInvariant_jobs.py)
+  - run the batch shell script [`run_jobs.sh`](https://github.com/geomorphysics/GME/blob/main/Notebooks/run_jobs.sh) from the [notebook directory](https://github.com/geomorphysics/GME/blob/main/Notebooks/RayTracing) using the shell command `../run_jobs.sh TimeInvariant_jobs` (with the path to the script modified as appropriate)
 
 The script steps through the list of parameter files and sets the following environment variables
   - `GME_NB_PR`, short for "`GME` notebook parameter files" = Python list of parameter filename strings
@@ -19,7 +19,7 @@ before invoking the Jupyter interpreter with `nbconvert` as follows:
 
 See [here](https://nbconvert.readthedocs.io/en/latest/execute_api.html) and [here](https://ipython.org/ipython-doc/3/notebook/nbconvert.html)  for more information on this technique.  
 
-The [`run_jobs.sh`](https://github.com/cstarkjp/GME/blob/main/Notebooks/run_jobs.sh) script as written runs the notebooks in-place, overwriting them each time execution completes. If you wish to record each executed notebook elsewhere, modify the invocation above to something like
+The [`run_jobs.sh`](https://github.com/geomorphysics/GME/blob/main/Notebooks/run_jobs.sh) script as written runs the notebooks in-place, overwriting them each time execution completes. If you wish to record each executed notebook elsewhere, modify the invocation above to something like
 
     jupyter nbconvert --to notebook --execute $nb_filename --output $job_nb_filename \
             --log-level=40 --ExecutePreprocessor.timeout=-1 --clear-output

@@ -8,7 +8,7 @@ The basic requirement is to have ``Python 3.8`` (or later) installed. Most of ``
 
 The ``gme`` package relies heavily on ``NumPy``, ``SymPy``, ``SciPy``, and ``Matplotlib``, and several other Python packages. We list below the vintages of these packages guaranteed to work with ``GME``; newer versions may deprecate functionality that ``GME`` depends on.
 
-The 'geomorphysics library' package [``gmplib``](https://github.com/cstarkjp/GMPLib/tree/main/Packages/gmplib) is also needed by ``gme``: it provides a set of utility functions for JSON parameter file parsing, general file I/O, and graphics.
+The 'geomorphysics library' package [``gmplib``](https://github.com/geomorphysics/GMPLib/tree/main/Packages/gmplib) is also needed by ``gme``: it provides a set of utility functions for JSON parameter file parsing, general file I/O, and graphics.
 Dependency on the ``gmplib`` package leads to a consequent dependency on the Python packages ``PIL`` (Pillow), ``json``, and ``IPython``.
 
 Release 1.0 of ``GME`` has been developed with and tested against the following:

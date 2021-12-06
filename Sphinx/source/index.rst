@@ -34,7 +34,7 @@ Contents
 
     Presentations <../modules/Presentations>
     Publications <../modules/Publications>
-    
+
     Software design <../modules/Design>
     Dependencies <../modules/Dependencies>
     Installation and set-up<../modules/Installation>
@@ -44,12 +44,12 @@ Contents
 
 
 
-.. _GitHub repository of the GME project: https://github.com/cstarkjp/GME
-.. _gme: https://github.com/cstarkjp/GME/tree/master/Packages/gme
-.. _related Jupyter notebooks: https://github.com/cstarkjp/GME/tree/main/Notebooks
-.. _companion repository: https://github.com/cstarkjp/GMPLib
-.. _geomorphysics: https://cstarkjp.github.io/GMPLib/
-.. _gmplib: https://github.com/cstarkjp/GMPLib/tree/main/Packages/gmplib
+.. _GitHub repository of the GME project: https://github.com/geomorphysics/GME
+.. _gme: https://github.com/geomorphysics/GME/tree/master/Packages/gme
+.. _related Jupyter notebooks: https://github.com/geomorphysics/GME/tree/main/Notebooks
+.. _companion repository: https://github.com/geomorphysics/GMPLib
+.. _geomorphysics: https://geomorphysics.github.io/GMPLib/
+.. _gmplib: https://github.com/geomorphysics/GMPLib/tree/main/Packages/gmplib
 
 
 

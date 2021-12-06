@@ -4,11 +4,13 @@ Python package `gme`
 
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
 
-    Symbol definitions <../modules/symbols>
-    Equation derivations <../modules/equations>
-    ODE integration (base) <../modules/ode_base>
-    ODE integration (ray tracing) <../modules/ode_raytracing>
-    ODE integration (knickpoints) <../modules/ode_knickpoints>
-    Plotting <../modules/plot>
+    Core:
+        Symbol definitions <../modules/core/symbols>
+
+    Equation derivations <../modules/core/eequations>
+    ODE integration (base) <../modules/ode/base>
+    ODE integration (ray tracing) <../modules/ode/single_ray>
+    ODE integration (knickpoints) <../modules/ode/knickpoints>
+    Plotting <../modules/plot/base>

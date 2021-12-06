@@ -10,4 +10,4 @@
 
 Code
 -------
-.. literalinclude:: ../../../Packages/gme/equations.py
+.. literalinclude:: ../../../Packages/gme/core/equations.py
