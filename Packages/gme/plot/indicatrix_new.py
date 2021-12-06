@@ -12,20 +12,15 @@ such as single ray tracing or for tracking knickpoints.
 ---------------------------------------------------------------------
 
 Requires Python packages/modules:
-  -  :mod:`gmplib.plot_utils <plot_utils>`
-  -  :mod:`numpy`
-  -  :mod:`sympy`
+  -  :mod:`numpy`, :mod:`scipy`, :mod:`sympy`
   -  :mod:`matplotlib.pyplot`
-  -  :mod:`matplotlib.ticker`
-  -  :mod:`matplotlib.patches`
-  -  :mod:`mpl_toolkits.axes_grid1`
-
-Imports symbols from :mod:`.symbols` module.
+  -  :mod:`gmplib.utils`
+  -  :mod:`gme.core.symbols`, :mod:`gme.plot.base`
 
 ---------------------------------------------------------------------
 
 """
-
+#pylint: disable = not-callable
 import warnings
 
 # Numpy
@@ -38,6 +33,9 @@ from scipy.linalg import norm
 from sympy import Eq, N, Abs, lambdify, Rational, Matrix, \
                   simplify, tan, solve, sqrt, im, oo
 
+# MatPlotLib
+import matplotlib.pyplot as plt
+
 # GMPLib
 from gmplib.utils import e2d
 
@@ -45,9 +43,6 @@ from gmplib.utils import e2d
 from gme.core.symbols import px, pz, varphi, varphi_r, rvec, xiv, xiv_0, \
                              px_min, pz_min, H, beta_max
 from gme.plot.base import Graphing
-
-# MatPlotLib
-import matplotlib.pyplot as plt
 
 warnings.filterwarnings("ignore")
 
@@ -69,36 +64,43 @@ class IndicatrixNew(Graphing):
         """
         super().__init__(dpi, font_size)
         self.H_parametric_eqn = Eq((2*gmeq.H_eqn.rhs)**2,1) \
-                                        .subs({varphi_r(rvec):varphi_, xiv:xiv_0}).subs(sub_)
+                                    .subs({varphi_r(rvec):varphi_, xiv:xiv_0}).subs(sub_)
 
         if pr.model.eta==Rational(3,2):
             pz_min_eqn = Eq(pz_min,
                 (solve(Eq( ((solve(Eq(4*gmeq.H_eqn.rhs**2,1)
-                                   .subs({varphi_r(rvec):varphi}),px**2)[2]).args[0].args[0].args[0])**2, 0)
+                                   .subs({varphi_r(rvec):varphi}),px**2)[2])
+                                            .args[0].args[0].args[0])**2, 0)
                   ,pz**4)[0])**Rational(1,4))
             px_min_eqn = Eq(px_min,
-                    solve(simplify(gmeq.H_eqn.subs({varphi_r(rvec):varphi})
-                                   .subs({pz:pz_min_eqn.rhs})).subs({H:Rational(1,2)}),px)[0] )
+                            solve(simplify(gmeq.H_eqn.subs({varphi_r(rvec):varphi})
+                                                .subs({pz:pz_min_eqn.rhs}))
+                                   .subs({H:Rational(1,2)}),px)[0] )
             tanbeta_max_eqn = Eq(tan(beta_max),
-                                ((px_min/pz_min).subs(e2d(px_min_eqn))).subs(e2d(pz_min_eqn)))
+                                    ((px_min/pz_min).subs(e2d(px_min_eqn)))
+                                .subs(e2d(pz_min_eqn)))
             self.tanbeta_max = float(N(tanbeta_max_eqn.rhs))
         else:
             pz_min_eqn = Eq(pz_min, 0)
             px_min_eqn = Eq(px_min,
                             sqrt(solve(Eq((
-                            solve(Eq(4*gmeq.H_eqn.rhs**2,1).subs({varphi_r(rvec):varphi}),pz**2)[:])[0],0)
+                            solve(Eq(4*gmeq.H_eqn.rhs**2,1)
+                                .subs({varphi_r(rvec):varphi}),pz**2)[:])[0],0)
                                            ,px**2)[1]))
             tanbeta_max_eqn = Eq(tan(beta_max),oo)
             self.tanbeta_max = 0.0
 
         pz_min_ = round(float(N(pz_min_eqn.rhs.subs({varphi:varphi_}))),8)
 
-        px_H_solns = [simplify(sqrt(soln)) for soln in solve( self.H_parametric_eqn ,px**2)]
-        px_H_soln_ = [soln for soln in px_H_solns if Abs(im(N(soln.subs({pz:1}))))<1e-10][0]
+        px_H_solns = [simplify(sqrt(soln))
+                      for soln in solve( self.H_parametric_eqn ,px**2)]
+        px_H_soln_ = [soln for soln in px_H_solns
+                        if Abs(im(N(soln.subs({pz:1}))))<1e-10][0]
         self.px_H_lambda = lambdify( [pz], simplify(px_H_soln_) )
 
         pz_max_ = 10**4 if pr.model.eta==Rational(3,2) else 10**2
-        pz_array = -10**np.linspace(np.log10(pz_min_ if pz_min_>0 else 1e-6), np.log10(pz_max_), 1000)
+        pz_array = -10**np.linspace(np.log10(pz_min_ if pz_min_>0 else 1e-6),
+                                    np.log10(pz_max_), 1000)
         px_array = self.px_H_lambda(pz_array)
         p_array = np.vstack([px_array,pz_array]).T
         tanbeta_crit = float(N(gmeq.tanbeta_crit_eqn.rhs))
@@ -107,10 +109,13 @@ class IndicatrixNew(Graphing):
         self.p_supc_array = p_array[np.abs(p_array[:,0]/p_array[:,1])>=tanbeta_crit]
 
         v_from_gstar_lambda_tmp = lambdify((px,pz),
-                        N(gmeq.gstar_varphi_pxpz_eqn.subs({varphi_r(rvec):varphi_}).rhs*Matrix([px,pz])))
-        self.v_from_gstar_lambda = lambda px_,pz_: (v_from_gstar_lambda_tmp(px_,pz_)).flatten()
+                                        N(gmeq.gstar_varphi_pxpz_eqn
+                                    .subs({varphi_r(rvec):varphi_}).rhs*Matrix([px,pz])))
+        self.v_from_gstar_lambda = lambda px_,pz_: \
+                                        (v_from_gstar_lambda_tmp(px_,pz_)).flatten()
 
-        v_lambda = lambda pa: np.array([(self.v_from_gstar_lambda(px_,pz_)) for px_,pz_ in pa])
+        v_lambda = lambda pa: np.array([(self.v_from_gstar_lambda(px_,pz_))
+                                        for px_,pz_ in pa])
         self.v_infc_array = v_lambda(self.p_infc_array)
         self.v_supc_array = v_lambda(self.p_supc_array)
 
@@ -285,7 +290,8 @@ class IndicatrixNew(Graphing):
                       [scale_fn(r_min_),scale_fn(r_max_)], '-',
                       color='r' if eta_>1 else 'DarkRed',
                       alpha=0.4, lw=2, label=r'$\alpha_{\mathrm{lim}}$')
-        plt.polar(alpha_fn(np.arcsin(self.v_supc_array[:,0]/norm(self.v_supc_array, axis=1))),
+        plt.polar(alpha_fn(np.arcsin(self.v_supc_array[:,0]/norm(self.v_supc_array,
+                                                                 axis=1))),
                   v_scale_fn(norm(self.v_supc_array, axis=1)),
                   'r' if eta_>1 else 'DarkRed',
                   label=r'$F=1$,  $\beta\geq\beta_\mathrm{c}$')
@@ -293,13 +299,15 @@ class IndicatrixNew(Graphing):
                   [scale_fn(r_min_),scale_fn(r_max_)], '-.',
                   color='DarkRed' if eta_>1 else 'r',
                   lw=1, label=r'$\alpha_{\mathrm{c}}$')
-        plt.polar(alpha_fn(np.arcsin(self.v_infc_array[:,0]/norm(self.v_infc_array, axis=1))),
+        plt.polar(alpha_fn(np.arcsin(self.v_infc_array[:,0]/norm(self.v_infc_array,
+                                                                axis=1))),
                   v_scale_fn(norm(self.v_infc_array, axis=1)),
                   'DarkRed' if eta_>1 else 'r',
                   lw=None if eta_==Rational(3,2) else None,
                   label=r'$F=1$,  $\beta<\beta_\mathrm{c}$')
 
-        unit_circle_array = np.array([[theta_,1] for theta_ in np.linspace(0,(np.pi/2)*1.2,100)])
+        unit_circle_array = np.array([[theta_,1]
+                                        for theta_ in np.linspace(0,(np.pi/2)*1.2,100)])
         plt.polar(unit_circle_array[:,0], scale_fn(unit_circle_array[:,1]), '-',
                   color='g', lw=1, label='unit circle')
 
@@ -310,8 +318,8 @@ class IndicatrixNew(Graphing):
                       scale_fn(norm(self.p_supc_array, axis=1)),
                   'b' if eta_>1 else 'DarkBlue',
                   label=r'$F^*\!\!=1$,  $\beta\geq\beta_\mathrm{c}$')
-        plt.polar([np.arctan(gmeq.tanbeta_crit)]*2, [scale_fn(r_min_),scale_fn(r_max_)], '--',
-                  color='DarkBlue' if eta_>1 else 'b',
+        plt.polar([np.arctan(gmeq.tanbeta_crit)]*2, [scale_fn(r_min_),scale_fn(r_max_)],
+                  '--', color='DarkBlue' if eta_>1 else 'b',
                   lw=1, label=r'$\beta_{\mathrm{c}}$')
         plt.polar(np.arcsin(self.p_infc_array[:,0]/norm(self.p_infc_array, axis=1)),
                   scale_fn(norm(self.p_infc_array, axis=1)),
@@ -321,8 +329,8 @@ class IndicatrixNew(Graphing):
         plt.polar(
             (np.arcsin(self.p_supc_array[-1,0]/norm(self.p_supc_array[-1]))
              +np.arcsin(self.p_infc_array[0,0]/norm(self.p_infc_array[0])))/2,
-            (scale_fn(norm(self.p_infc_array[0]))+scale_fn(norm(self.p_supc_array[-1])))/2, 'o',
-            color='DarkBlue' if eta_>1 else 'b')
+            (scale_fn(norm(self.p_infc_array[0]))+scale_fn(norm(self.p_supc_array[-1])))/2,
+            'o', color='DarkBlue' if eta_>1 else 'b')
 
         axes = plt.gca()
         axes.set_theta_zero_location('S')
@@ -383,14 +391,16 @@ class IndicatrixNew(Graphing):
             plt.text(*[(np.pi/6)*0.5,0.4], 'concave',
                  horizontalalignment='center', verticalalignment='center',
                  rotation=50, fontsize=15, color='b')
-            plt.polar(alpha_fn(np.arcsin(self.v_supc_array[:,0]/norm(self.v_supc_array, axis=1))),
+            plt.polar(alpha_fn(np.arcsin(self.v_supc_array[:,0]/norm(self.v_supc_array,
+                                                                     axis=1))),
                       v_scale_fn(norm(self.v_supc_array, axis=1)), 'DarkRed')
 
         plt.polar(
             alpha_fn((np.arcsin(self.v_supc_array[-1,0]/norm(self.v_supc_array[-1]))
                       +np.arcsin(self.v_infc_array[0,0]/norm(self.v_infc_array[0])))/2),
-            (v_scale_fn(norm(self.v_infc_array[0]))+v_scale_fn(norm(self.v_supc_array[-1])))/2, 'o',
-            color='DarkRed' if eta_>1 else 'r')
+                    (v_scale_fn(norm(self.v_infc_array[0]))
+                        +v_scale_fn(norm(self.v_supc_array[-1])))/2, 'o',
+                    color='DarkRed' if eta_>1 else 'r')
 
         xtick_posns = [np.pi*theta_ for theta_ in theta_list]
         plt.xticks(xtick_posns, xtick_labels, ha='left', fontsize=15)

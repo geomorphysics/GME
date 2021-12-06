@@ -15,11 +15,11 @@ Each of these elements is described in more detail below.
 
 The main ``GME`` project package ``gme`` facilitates the following:
 
-  - [CAS](https://en.wikipedia.org/wiki/Computer_algebra_system) (aka automated symbolic) solution of the geomorphic Hamiltonian and related equations using SymPy.
+  - [CAS](https://en.wikipedia.org/wiki/Computer_algebra_system) (SymPy) solution of the geomorphic Hamiltonian and related equations 
 
   - integration of systems of 1st order ODEs (Hamilton's equations) for ray tracing
 
-  - post-processing of rays to resolve topographic surface isochrones, knickpoints, eta_choice
+  - post-processing of rays to resolve topographic surface isochrones, knickpoints
 
   - visualization of rays, isochrones, and a variety of analyses of the results
 
@@ -38,4 +38,4 @@ Wrapper shell scripts make it possible to do bulk processing of multiple noteboo
 Each GME processing job is controlled by a small set of JSON parameter files.
 A JSON file is a convenient means of communicating the information required to formulate the full GME equation set (e.g., by specifying eta and mu) and to set up a numerical solution (e.g., by specifying erosion rate parameters, domain size, processing resolution, visualization parameters, etc).  A ``gmplib`` utility converts the combined JSON files into a Python dictionary containing the desired parameters, and this dictionary is mapped into the data properties of a parameters object (class instance)
 
-At minimum, a notebook will parse a defaults JSON file and one job JSON file; some notebooks combine several job JSON files.
+At minimum, a notebook will parse a defaults JSON file and then a single "job" JSON file; some notebooks combine several job files.

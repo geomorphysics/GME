@@ -4,24 +4,24 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ode_knickpoints.py &#8212; GME 1.0 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/pydoctheme.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
+    <title>base.py &#8212; GME 1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pydoctheme.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
     
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/doctools.js"></script>
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
     
-    <script src="../_static/sidebar.js"></script>
+    <script src="../../_static/sidebar.js"></script>
     
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="plot.py" href="plot.html" />
-    <link rel="prev" title="ode_raytracing.py" href="ode_raytracing.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Jupyter notebooks" href="../Notebooks.html" />
+    <link rel="prev" title="gme sub-package knickpoints" href="index.html" />
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <link rel="shortcut icon" type="image/png" href="../_static/favicon.png" />
+    <link rel="shortcut icon" type="image/png" href="../../_static/favicon.png" />
     <meta name="viewport" content="width=device-width,initial-scale=0.8">
     
     
@@ -31,14 +31,15 @@
       <h3>Navigation</h3>
       <ul>
         <li class="responsive-menu"><a href="#sidebar-anchor" title="Navigation">&#9776;</a></li>
-        <li><a href="../index.html">GME 1.0 documentation</a> &#187;</li>
-          <li><a href="Python.html" accesskey="U">Python package <cite>gme</cite></a> &#187;</li> 
+        <li><a href="../../index.html">GME 1.0 documentation</a> &#187;</li>
+          <li><a href="../Python.html" >Python package <cite>gme</cite></a> &#187;</li>
+          <li><a href="index.html" accesskey="U"><cite>gme</cite> sub-package <cite>knickpoints</cite></a> &#187;</li> 
       </ul>
     </div> -->
     <!-- 
         <div class="badge">
-            <a href="https://github.com/cstarkjp/GME/">Fork me on GitHub</a>
-            <img src="../_static/right-red@2x.png">
+            <a href="https://github.com/geomorphysics/GME/">Fork me on GitHub</a>
+            <img src="../../_static/right-red@2x.png">
         </div>
      -->
   
@@ -48,8 +49,8 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="module-gme.ode_knickpoints">
-<span id="ode-knickpoints-py"></span><h1><code class="docutils literal notranslate"><span class="pre">ode_knickpoints.py</span></code><a class="headerlink" href="#module-gme.ode_knickpoints" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="module-gme.knickpoints.base">
+<span id="base-py"></span><h1><code class="docutils literal notranslate"><span class="pre">base.py</span></code><a class="headerlink" href="#module-gme.knickpoints.base" title="Permalink to this headline">¶</a></h1>
 <hr class="docutils" />
 <p>ODE integration of Hamilton’s equations.</p>
 <hr class="docutils" />
@@ -57,75 +58,105 @@
 <dt>Requires Python packages/modules:</dt><dd><ul class="simple">
 <li><p><code class="xref py py-mod docutils literal notranslate"><span class="pre">gmplib.utils</span></code></p></li>
 <li><p><a class="reference external" href="https://numpy.org/doc/stable/reference/index.html#module-numpy" title="(in NumPy v1.21)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy</span></code></a></p></li>
-<li><p><a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/index.html#module-scipy" title="(in SciPy v1.7.0)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">scipy</span></code></a></p></li>
-<li><p><a class="reference external" href="https://docs.sympy.org/latest/modules/index.html#module-sympy" title="(in SymPy v1.8)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sympy</span></code></a></p></li>
+<li><p><a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/index.html#module-scipy" title="(in SciPy v1.7.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">scipy</span></code></a></p></li>
+<li><p><a class="reference external" href="https://docs.sympy.org/latest/modules/index.html#module-sympy" title="(in SymPy v1.9)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sympy</span></code></a></p></li>
 </ul>
 </dd>
 </dl>
-<p>Imports symbols from <a class="reference internal" href="symbols.html#module-gme.symbols" title="gme.symbols"><code class="xref py py-mod docutils literal notranslate"><span class="pre">symbols</span></code></a> module</p>
+<p>Imports symbols from <a class="reference internal" href="../core/symbols.html#module-gme.core.symbols" title="gme.core.symbols"><code class="xref py py-mod docutils literal notranslate"><span class="pre">symbols</span></code></a> module</p>
 <hr class="docutils" />
 <dl class="py class">
-<dt class="sig sig-object py" id="gme.ode_knickpoints.CompositeSolution">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gme.ode_knickpoints.</span></span><span class="sig-name descname"><span class="pre">CompositeSolution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmeq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gme.ode_knickpoints.CompositeSolution" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="gme.knickpoints.base.CompositeSolution">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gme.knickpoints.base.</span></span><span class="sig-name descname"><span class="pre">CompositeSolution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmeq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gme.knickpoints.base.CompositeSolution" title="Permalink to this definition">¶</a></dt>
 <dd><p>Combine rays integrations from (1) initial profile, (2) initial corner, and (3) velocity boundary
 to generate a ‘complete’ ray integration solution from a complex topographic boundary.</p>
 <dl class="py method">
-<dt class="sig sig-object py" id="gme.ode_knickpoints.CompositeSolution.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmeq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gme.ode_knickpoints.CompositeSolution.__init__" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="gme.knickpoints.base.CompositeSolution.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmeq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gme.knickpoints.base.CompositeSolution.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize class instance.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>gmeq</strong> (<a class="reference internal" href="equations.html#gme.equations.Equations" title="gme.equations.Equations"><code class="xref py py-class docutils literal notranslate"><span class="pre">Equations</span></code></a>) – GME model equations class instance defined in <a class="reference internal" href="equations.html#module-gme.equations" title="gme.equations"><code class="xref py py-mod docutils literal notranslate"><span class="pre">equations</span></code></a></p></li>
-<li><p><strong>parameters</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – dictionary of model parameter values to be used for equation substitutions</p></li>
-<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – remaining keyword arguments (see base class for details)</p></li>
+<li><p><strong>gmeq</strong> (<a class="reference internal" href="../core/equations.html#gme.core.equations.Equations" title="gme.core.equations.Equations"><code class="xref py py-class docutils literal notranslate"><span class="pre">Equations</span></code></a>) – GME model equations class instance defined in <a class="reference internal" href="../core/equations.html#module-gme.core.equations" title="gme.core.equations"><code class="xref py py-mod docutils literal notranslate"><span class="pre">equations</span></code></a></p></li>
+<li><p><strong>parameters</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – dictionary of model parameter values to be used for equation substitutions</p></li>
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – remaining keyword arguments (see base class for details)</p></li>
 </ul>
 </dd>
 </dl>
 </dd></dl>
 
+<dl class="py method">
+<dt class="sig sig-object py" id="gme.knickpoints.base.CompositeSolution.solve">
+<span class="sig-name descname"><span class="pre">solve</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gme.knickpoints.base.CompositeSolution.solve" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dummy method of solution that must be defined by any subclass</p>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="py class">
-<dt class="sig sig-object py" id="gme.ode_knickpoints.InitialCornerSolution">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gme.ode_knickpoints.</span></span><span class="sig-name descname"><span class="pre">InitialCornerSolution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmeq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gme.ode_knickpoints.InitialCornerSolution" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="gme.knickpoints.base.InitialCornerSolution">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gme.knickpoints.base.</span></span><span class="sig-name descname"><span class="pre">InitialCornerSolution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmeq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gme.knickpoints.base.InitialCornerSolution" title="Permalink to this definition">¶</a></dt>
 <dd><p>Integration of Hamilton’s equations (ODEs) from a ‘corner’ point.</p>
 <p>Provides a set of ray integrations to span solutions along an initial profile
 and solutions from a slip velocity boundary.</p>
 <dl class="py method">
-<dt class="sig sig-object py" id="gme.ode_knickpoints.InitialCornerSolution.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmeq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gme.ode_knickpoints.InitialCornerSolution.__init__" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="gme.knickpoints.base.InitialCornerSolution.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmeq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gme.knickpoints.base.InitialCornerSolution.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize class instance.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>gmeq</strong> (<a class="reference internal" href="equations.html#gme.equations.Equations" title="gme.equations.Equations"><code class="xref py py-class docutils literal notranslate"><span class="pre">Equations</span></code></a>) – GME model equations class instance defined in <a class="reference internal" href="equations.html#module-gme.equations" title="gme.equations"><code class="xref py py-mod docutils literal notranslate"><span class="pre">equations</span></code></a></p></li>
-<li><p><strong>parameters</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – dictionary of model parameter values to be used for equation substitutions</p></li>
-<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – remaining keyword arguments (see base class for details)</p></li>
+<li><p><strong>gmeq</strong> (<a class="reference internal" href="../core/equations.html#gme.core.equations.Equations" title="gme.core.equations.Equations"><code class="xref py py-class docutils literal notranslate"><span class="pre">Equations</span></code></a>) – GME model equations class instance defined in <a class="reference internal" href="../core/equations.html#module-gme.core.equations" title="gme.core.equations"><code class="xref py py-mod docutils literal notranslate"><span class="pre">equations</span></code></a></p></li>
+<li><p><strong>parameters</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – dictionary of model parameter values to be used for equation substitutions</p></li>
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – remaining keyword arguments (see base class for details)</p></li>
 </ul>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gme.knickpoints.base.InitialCornerSolution.initial_conditions">
+<span class="sig-name descname"><span class="pre">initial_conditions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">beta0_</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gme.knickpoints.base.InitialCornerSolution.initial_conditions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dummy method of generating initial conditions that must be defined by any subclass</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gme.knickpoints.base.InitialCornerSolution.solve">
+<span class="sig-name descname"><span class="pre">solve</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">report_pc_step</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gme.knickpoints.base.InitialCornerSolution.solve" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dummy method of solution that must be defined by any subclass</p>
 </dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
-<dt class="sig sig-object py" id="gme.ode_knickpoints.InitialProfileSolution">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gme.ode_knickpoints.</span></span><span class="sig-name descname"><span class="pre">InitialProfileSolution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmeq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gme.ode_knickpoints.InitialProfileSolution" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="gme.knickpoints.base.InitialProfileSolution">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gme.knickpoints.base.</span></span><span class="sig-name descname"><span class="pre">InitialProfileSolution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmeq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gme.knickpoints.base.InitialProfileSolution" title="Permalink to this definition">¶</a></dt>
 <dd><p>Integration of Hamilton’s equations (ODEs) from an initial topographic profile.</p>
 <dl class="py method">
-<dt class="sig sig-object py" id="gme.ode_knickpoints.InitialProfileSolution.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmeq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gme.ode_knickpoints.InitialProfileSolution.__init__" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="gme.knickpoints.base.InitialProfileSolution.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmeq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gme.knickpoints.base.InitialProfileSolution.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize class instance.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>gmeq</strong> (<a class="reference internal" href="equations.html#gme.equations.Equations" title="gme.equations.Equations"><code class="xref py py-class docutils literal notranslate"><span class="pre">Equations</span></code></a>) – GME model equations class instance defined in <a class="reference internal" href="equations.html#module-gme.equations" title="gme.equations"><code class="xref py py-mod docutils literal notranslate"><span class="pre">equations</span></code></a></p></li>
-<li><p><strong>parameters</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – dictionary of model parameter values to be used for equation substitutions</p></li>
-<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – remaining keyword arguments (see base class for details)</p></li>
+<li><p><strong>gmeq</strong> (<a class="reference internal" href="../core/equations.html#gme.core.equations.Equations" title="gme.core.equations.Equations"><code class="xref py py-class docutils literal notranslate"><span class="pre">Equations</span></code></a>) – GME model equations class instance defined in <a class="reference internal" href="../core/equations.html#module-gme.core.equations" title="gme.core.equations"><code class="xref py py-mod docutils literal notranslate"><span class="pre">equations</span></code></a></p></li>
+<li><p><strong>parameters</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – dictionary of model parameter values to be used for equation substitutions</p></li>
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – remaining keyword arguments (see base class for details)</p></li>
 </ul>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gme.knickpoints.base.InitialProfileSolution.initial_conditions">
+<span class="sig-name descname"><span class="pre">initial_conditions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gme.knickpoints.base.InitialProfileSolution.initial_conditions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dummy method of generating initial conditions that must be defined by any subclass</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gme.knickpoints.base.InitialProfileSolution.solve">
+<span class="sig-name descname"><span class="pre">solve</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">report_pc_step</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gme.knickpoints.base.InitialProfileSolution.solve" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dummy method of solution that must be defined by any subclass</p>
 </dd></dl>
 
 </dd></dl>
@@ -153,9 +184,9 @@ and solutions from a slip velocity boundary.</p>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">gmplib.utils</span> <span class="kn">import</span> <span class="n">vprint</span><span class="p">,</span> <span class="n">e2d</span>
-<span class="kn">from</span> <span class="nn">gme.ode_base</span> <span class="kn">import</span> <span class="n">BaseSolution</span>
-<span class="kn">from</span> <span class="nn">gme.ode_raytracing</span> <span class="kn">import</span> <span class="n">VelocityBoundarySolution</span>
-<span class="kn">from</span> <span class="nn">gme.symbols</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">gme.ode.base</span> <span class="kn">import</span> <span class="n">BaseSolution</span>
+<span class="kn">from</span> <span class="nn">gme.ode.velocity_boundary</span> <span class="kn">import</span> <span class="n">VelocityBoundarySolution</span>
+<span class="kn">from</span> <span class="nn">gme.core.symbols</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">N</span><span class="p">,</span> <span class="n">sign</span><span class="p">,</span> <span class="n">atan</span><span class="p">,</span> <span class="n">atan2</span><span class="p">,</span> <span class="n">sin</span><span class="p">,</span> <span class="n">cos</span><span class="p">,</span> <span class="n">tan</span><span class="p">,</span> <span class="n">re</span><span class="p">,</span> <span class="n">im</span><span class="p">,</span> <span class="n">sqrt</span><span class="p">,</span> \
     <span class="n">Matrix</span><span class="p">,</span> <span class="n">lambdify</span><span class="p">,</span> <span class="n">Abs</span><span class="p">,</span> <span class="n">simplify</span><span class="p">,</span> <span class="n">expand</span><span class="p">,</span> <span class="n">solve</span><span class="p">,</span> <span class="n">Eq</span><span class="p">,</span> <span class="n">Rational</span><span class="p">,</span> <span class="n">diff</span><span class="p">,</span> \
     <span class="n">nroots</span><span class="p">,</span> <span class="n">poly</span>
@@ -236,7 +267,7 @@ and solutions from a slip velocity boundary.</p>
         <span class="bp">self</span><span class="o">.</span><span class="n">beta_surface_corner</span> \
              <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">atan2</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">gmeq</span><span class="o">.</span><span class="n">px_initial_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">x</span><span class="p">:</span><span class="mi">0</span><span class="p">})</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">),</span>
                           <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">gmeq</span><span class="o">.</span><span class="n">pz_initial_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">x</span><span class="p">:</span><span class="mi">0</span><span class="p">})</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">)))</span>
-        <span class="n">pz_velocity_corner</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pz_velocity_boundary_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">)</span>
+        <span class="n">pz_velocity_corner</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pz_velocity_boundary_eqn</span>
         <span class="c1"># HACK!!!  doing this to set up px0_poly_eqn</span>
         <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pxpz0_from_xiv0</span><span class="p">()</span>
         <span class="n">px_velocity_corner</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">px_value</span><span class="p">(</span><span class="n">x_</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">pz_</span><span class="o">=</span><span class="n">pz_velocity_corner</span><span class="p">,</span> <span class="n">parameters</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">)</span>
@@ -372,11 +403,11 @@ and solutions from a slip velocity boundary.</p>
     
 
 <div id="searchbox" style="display: none" role="search">
-    <a class="biglink" href="../index.html">
-        <img src="../_static/gme_icon.png" />
+    <a class="biglink" href="../../index.html">
+        <img src="../../_static/gme_icon.png" />
     </a>
   <h3></h3>
-    <form class="search" action="../search.html" method="get">
+    <form class="search" action="../../search.html" method="get">
       <div class="ui action left icon input">
         <i class="search icon"></i>
         <input type="text" name="q" placeholder="Search...">
@@ -387,37 +418,37 @@ and solutions from a slip velocity boundary.</p>
     </form>
 </div>
 <!-- <br> -->
-<script type="text/javascript">$('#searchbox').show(0);</script><h3><a href="../index.html">Contents</a></h3>
+<script type="text/javascript">$('#searchbox').show(0);</script><h3><a href="../../index.html">Contents</a></h3>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="Design.html">  Software design</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Dependencies.html">  Dependencies</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Installation.html">  Installation and set-up</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Running.html">  Running the notebooks</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="Python.html">  Python package docs</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="symbols.html"> Symbol definitions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="equations.html"> Equation derivations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ode_base.html"> ODE integration (base)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ode_raytracing.html"> ODE integration (ray tracing)</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#"> ODE integration (knickpoints)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot.html"> Plotting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Presentations.html">  Presentations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Publications.html">  Publications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Design.html">  Software design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Dependencies.html">  Dependencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Installation.html">  Installation and set-up</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Running.html">  Running the notebooks</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../Python.html">  Python package docs</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../core/index.html">Core</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ode/index.html">ODE integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plot/index.html">Plotting</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Knickpoint detection and tracking [in development]</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="Notebooks.html">  Notebook docs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Notebooks.html">  Notebook docs</a></li>
 </ul>
 
-    <!-- <h3><a href="../index.html">This page</a></h3> -->
+    <!-- <h3><a href="../../index.html">This page</a></h3> -->
     <!-- <ul>
-<li><a class="reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">ode_knickpoints.py</span></code></a><ul>
+<li><a class="reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">base.py</span></code></a><ul>
 <li><a class="reference internal" href="#code">Code</a></li>
 </ul>
 </li>
 </ul>
  -->
     <p class="biglink">
-        <h3><a href="../genindex.html"> Index</a></h3>
+        <h3><a href="../../genindex.html"> Index</a></h3>
     </p>
   <br>
-  <!-- <p class="biglink"><a class="biglink" href="../py-modindex.html">
+  <!-- <p class="biglink"><a class="biglink" href="../../py-modindex.html">
          Module index</a>
   <br><br> -->
         </div>
@@ -428,16 +459,16 @@ and solutions from a slip velocity boundary.</p>
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
+          <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="../py-modindex.html" title="Python Module Index"
+          <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="plot.html" title="plot.py"
+          <a href="../Notebooks.html" title="Jupyter notebooks"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="ode_raytracing.html" title="ode_raytracing.py"
+          <a href="index.html" title="gme sub-package knickpoints"
              accesskey="P">previous</a> |</li>
       </ul>
     </div>

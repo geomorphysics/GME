@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>indicatrix_new.py &#8212; GME 1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pydoctheme.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+    
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    
+    <script src="../../_static/sidebar.js"></script>
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="manuscript.py" href="manuscript.html" />
+    <link rel="prev" title="indicatrix_old.py" href="indicatrix_old.html" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <link rel="shortcut icon" type="image/png" href="../../_static/favicon.png" />
+    <meta name="viewport" content="width=device-width,initial-scale=0.8">
+    
+    
+
+  </head><body>
+    <!-- <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="responsive-menu"><a href="#sidebar-anchor" title="Navigation">&#9776;</a></li>
+        <li><a href="../../index.html">GME 1.0 documentation</a> &#187;</li>
+          <li><a href="../Python.html" >Python package <cite>gme</cite></a> &#187;</li>
+          <li><a href="index.html" accesskey="U"><cite>gme</cite> sub-package <cite>plot</cite></a> &#187;</li> 
+      </ul>
+    </div> -->
+    <!-- 
+        <div class="badge">
+            <a href="https://github.com/geomorphysics/GME/">Fork me on GitHub</a>
+            <img src="../../_static/right-red@2x.png">
+        </div>
+     -->
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-gme.plot.indicatrix_new">
+<span id="indicatrix-new-py"></span><h1><code class="docutils literal notranslate"><span class="pre">indicatrix_new.py</span></code><a class="headerlink" href="#module-gme.plot.indicatrix_new" title="Permalink to this headline">¶</a></h1>
+<hr class="docutils" />
+<p>Visualization.</p>
+<p>Provides classes to generate a range of graphics for GME visualization.
+A base class extends <a class="reference external" href="/Users/colinstark/Projects/GMPLib/modules/plot_utils.html#gmplib.plot_utils.GraphingBase" title="(in GMPLib v1.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">gmplib.plot_utils.GraphingBase</span></code></a>
+provided by <code class="xref py py-mod docutils literal notranslate"><span class="pre">GMPLib</span></code>; the other classes build on this.
+Each is tailored to a particular category of GME problem,
+such as single ray tracing or for tracking knickpoints.</p>
+<hr class="docutils" />
+<dl class="simple">
+<dt>Requires Python packages/modules:</dt><dd><ul class="simple">
+<li><p><a class="reference external" href="https://numpy.org/doc/stable/reference/index.html#module-numpy" title="(in NumPy v1.21)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy</span></code></a>, <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/index.html#module-scipy" title="(in SciPy v1.7.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">scipy</span></code></a>, <a class="reference external" href="https://docs.sympy.org/latest/modules/index.html#module-sympy" title="(in SymPy v1.9)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sympy</span></code></a></p></li>
+<li><p><a class="reference external" href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.html#module-matplotlib.pyplot" title="(in Matplotlib v3.5.0)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">matplotlib.pyplot</span></code></a></p></li>
+<li><p><code class="xref py py-mod docutils literal notranslate"><span class="pre">gmplib.utils</span></code></p></li>
+<li><p><a class="reference internal" href="../core/symbols.html#module-gme.core.symbols" title="gme.core.symbols"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gme.core.symbols</span></code></a>, <a class="reference internal" href="base.html#module-gme.plot.base" title="gme.plot.base"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gme.plot.base</span></code></a></p></li>
+</ul>
+</dd>
+</dl>
+<hr class="docutils" />
+<dl class="py class">
+<dt class="sig sig-object py" id="gme.plot.indicatrix_new.IndicatrixNew">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gme.plot.indicatrix_new.</span></span><span class="sig-name descname"><span class="pre">IndicatrixNew</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmeq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sub_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">varphi_</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dpi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">font_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">11</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gme.plot.indicatrix_new.IndicatrixNew" title="Permalink to this definition">¶</a></dt>
+<dd><p>Subclasses <code class="xref py py-class docutils literal notranslate"><span class="pre">gme.plot.Graphing</span></code>.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="gme.plot.indicatrix_new.IndicatrixNew.Fstar_F_polar">
+<span class="sig-name descname"><span class="pre">Fstar_F_polar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmeq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">job_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fig_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.plot.indicatrix_new.IndicatrixNew.Fstar_F_polar" title="Permalink to this definition">¶</a></dt>
+<dd><p>TBD</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gme.plot.indicatrix_new.IndicatrixNew.Fstar_F_rectlinear">
+<span class="sig-name descname"><span class="pre">Fstar_F_rectlinear</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmeq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">job_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_zoom</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fig_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.plot.indicatrix_new.IndicatrixNew.Fstar_F_rectlinear" title="Permalink to this definition">¶</a></dt>
+<dd><p>TBD</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gme.plot.indicatrix_new.IndicatrixNew.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmeq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sub_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">varphi_</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dpi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">font_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">11</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.plot.indicatrix_new.IndicatrixNew.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructor method.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dpi</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – resolution for rasterized images</p></li>
+<li><p><strong>font_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – general font size</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gme.plot.indicatrix_new.IndicatrixNew.convex_concave_annotations">
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">convex_concave_annotations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">do_zoom</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eta_</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.plot.indicatrix_new.IndicatrixNew.convex_concave_annotations" title="Permalink to this definition">¶</a></dt>
+<dd><p>TBD</p>
+</dd></dl>
+
+</dd></dl>
+
+<div class="section" id="code">
+<h2>Code<a class="headerlink" href="#code" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">---------------------------------------------------------------------</span>
+
+<span class="sd">Visualization.</span>
+
+<span class="sd">Provides classes to generate a range of graphics for GME visualization.</span>
+<span class="sd">A base class extends :class:`gmplib.plot_utils.GraphingBase &lt;plot_utils.GraphingBase&gt;`</span>
+<span class="sd">provided by :mod:`GMPLib`; the other classes build on this.</span>
+<span class="sd">Each is tailored to a particular category of GME problem,</span>
+<span class="sd">such as single ray tracing or for tracking knickpoints.</span>
+
+<span class="sd">---------------------------------------------------------------------</span>
+
+<span class="sd">Requires Python packages/modules:</span>
+<span class="sd">  -  :mod:`numpy`, :mod:`scipy`, :mod:`sympy`</span>
+<span class="sd">  -  :mod:`matplotlib.pyplot`</span>
+<span class="sd">  -  :mod:`gmplib.utils`</span>
+<span class="sd">  -  :mod:`gme.core.symbols`, :mod:`gme.plot.base`</span>
+
+<span class="sd">---------------------------------------------------------------------</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="c1">#pylint: disable = not-callable</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+
+<span class="c1"># Numpy</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1"># Scipy utils</span>
+<span class="kn">from</span> <span class="nn">scipy.linalg</span> <span class="kn">import</span> <span class="n">norm</span>
+
+<span class="c1"># SymPy</span>
+<span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">Eq</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">Abs</span><span class="p">,</span> <span class="n">lambdify</span><span class="p">,</span> <span class="n">Rational</span><span class="p">,</span> <span class="n">Matrix</span><span class="p">,</span> \
+                  <span class="n">simplify</span><span class="p">,</span> <span class="n">tan</span><span class="p">,</span> <span class="n">solve</span><span class="p">,</span> <span class="n">sqrt</span><span class="p">,</span> <span class="n">im</span><span class="p">,</span> <span class="n">oo</span>
+
+<span class="c1"># MatPlotLib</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1"># GMPLib</span>
+<span class="kn">from</span> <span class="nn">gmplib.utils</span> <span class="kn">import</span> <span class="n">e2d</span>
+
+<span class="c1"># GME</span>
+<span class="kn">from</span> <span class="nn">gme.core.symbols</span> <span class="kn">import</span> <span class="n">px</span><span class="p">,</span> <span class="n">pz</span><span class="p">,</span> <span class="n">varphi</span><span class="p">,</span> <span class="n">varphi_r</span><span class="p">,</span> <span class="n">rvec</span><span class="p">,</span> <span class="n">xiv</span><span class="p">,</span> <span class="n">xiv_0</span><span class="p">,</span> \
+                             <span class="n">px_min</span><span class="p">,</span> <span class="n">pz_min</span><span class="p">,</span> <span class="n">H</span><span class="p">,</span> <span class="n">beta_max</span>
+<span class="kn">from</span> <span class="nn">gme.plot.base</span> <span class="kn">import</span> <span class="n">Graphing</span>
+
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;IndicatrixNew&#39;</span><span class="p">]</span>
+
+
+<span class="k">class</span> <span class="nc">IndicatrixNew</span><span class="p">(</span><span class="n">Graphing</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Subclasses :class:`gme.plot.Graphing &lt;plot.Graphing&gt;`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gmeq</span><span class="p">,</span> <span class="n">pr</span><span class="p">,</span> <span class="n">sub_</span><span class="p">,</span> <span class="n">varphi_</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">font_size</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Constructor method.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            dpi (int): resolution for rasterized images</span>
+<span class="sd">            font_size (int): general font size</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">dpi</span><span class="p">,</span> <span class="n">font_size</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">H_parametric_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">((</span><span class="mi">2</span><span class="o">*</span><span class="n">gmeq</span><span class="o">.</span><span class="n">H_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span> \
+                                    <span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">varphi_r</span><span class="p">(</span><span class="n">rvec</span><span class="p">):</span><span class="n">varphi_</span><span class="p">,</span> <span class="n">xiv</span><span class="p">:</span><span class="n">xiv_0</span><span class="p">})</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">sub_</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">pr</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">eta</span><span class="o">==</span><span class="n">Rational</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">):</span>
+            <span class="n">pz_min_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">pz_min</span><span class="p">,</span>
+                <span class="p">(</span><span class="n">solve</span><span class="p">(</span><span class="n">Eq</span><span class="p">(</span> <span class="p">((</span><span class="n">solve</span><span class="p">(</span><span class="n">Eq</span><span class="p">(</span><span class="mi">4</span><span class="o">*</span><span class="n">gmeq</span><span class="o">.</span><span class="n">H_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+                                   <span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">varphi_r</span><span class="p">(</span><span class="n">rvec</span><span class="p">):</span><span class="n">varphi</span><span class="p">}),</span><span class="n">px</span><span class="o">**</span><span class="mi">2</span><span class="p">)[</span><span class="mi">2</span><span class="p">])</span>
+                                            <span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+                  <span class="p">,</span><span class="n">pz</span><span class="o">**</span><span class="mi">4</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span><span class="o">**</span><span class="n">Rational</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+            <span class="n">px_min_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">px_min</span><span class="p">,</span>
+                            <span class="n">solve</span><span class="p">(</span><span class="n">simplify</span><span class="p">(</span><span class="n">gmeq</span><span class="o">.</span><span class="n">H_eqn</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">varphi_r</span><span class="p">(</span><span class="n">rvec</span><span class="p">):</span><span class="n">varphi</span><span class="p">})</span>
+                                                <span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">pz</span><span class="p">:</span><span class="n">pz_min_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">}))</span>
+                                   <span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">H</span><span class="p">:</span><span class="n">Rational</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)}),</span><span class="n">px</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="p">)</span>
+            <span class="n">tanbeta_max_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">tan</span><span class="p">(</span><span class="n">beta_max</span><span class="p">),</span>
+                                    <span class="p">((</span><span class="n">px_min</span><span class="o">/</span><span class="n">pz_min</span><span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="n">px_min_eqn</span><span class="p">)))</span>
+                                <span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="n">pz_min_eqn</span><span class="p">)))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tanbeta_max</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">N</span><span class="p">(</span><span class="n">tanbeta_max_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">pz_min_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">pz_min</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="n">px_min_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">px_min</span><span class="p">,</span>
+                            <span class="n">sqrt</span><span class="p">(</span><span class="n">solve</span><span class="p">(</span><span class="n">Eq</span><span class="p">((</span>
+                            <span class="n">solve</span><span class="p">(</span><span class="n">Eq</span><span class="p">(</span><span class="mi">4</span><span class="o">*</span><span class="n">gmeq</span><span class="o">.</span><span class="n">H_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+                                <span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">varphi_r</span><span class="p">(</span><span class="n">rvec</span><span class="p">):</span><span class="n">varphi</span><span class="p">}),</span><span class="n">pz</span><span class="o">**</span><span class="mi">2</span><span class="p">)[:])[</span><span class="mi">0</span><span class="p">],</span><span class="mi">0</span><span class="p">)</span>
+                                           <span class="p">,</span><span class="n">px</span><span class="o">**</span><span class="mi">2</span><span class="p">)[</span><span class="mi">1</span><span class="p">]))</span>
+            <span class="n">tanbeta_max_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">tan</span><span class="p">(</span><span class="n">beta_max</span><span class="p">),</span><span class="n">oo</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tanbeta_max</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+        <span class="n">pz_min_</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">N</span><span class="p">(</span><span class="n">pz_min_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">varphi</span><span class="p">:</span><span class="n">varphi_</span><span class="p">}))),</span><span class="mi">8</span><span class="p">)</span>
+
+        <span class="n">px_H_solns</span> <span class="o">=</span> <span class="p">[</span><span class="n">simplify</span><span class="p">(</span><span class="n">sqrt</span><span class="p">(</span><span class="n">soln</span><span class="p">))</span>
+                      <span class="k">for</span> <span class="n">soln</span> <span class="ow">in</span> <span class="n">solve</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">H_parametric_eqn</span> <span class="p">,</span><span class="n">px</span><span class="o">**</span><span class="mi">2</span><span class="p">)]</span>
+        <span class="n">px_H_soln_</span> <span class="o">=</span> <span class="p">[</span><span class="n">soln</span> <span class="k">for</span> <span class="n">soln</span> <span class="ow">in</span> <span class="n">px_H_solns</span>
+                        <span class="k">if</span> <span class="n">Abs</span><span class="p">(</span><span class="n">im</span><span class="p">(</span><span class="n">N</span><span class="p">(</span><span class="n">soln</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">pz</span><span class="p">:</span><span class="mi">1</span><span class="p">}))))</span><span class="o">&lt;</span><span class="mf">1e-10</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">px_H_lambda</span> <span class="o">=</span> <span class="n">lambdify</span><span class="p">(</span> <span class="p">[</span><span class="n">pz</span><span class="p">],</span> <span class="n">simplify</span><span class="p">(</span><span class="n">px_H_soln_</span><span class="p">)</span> <span class="p">)</span>
+
+        <span class="n">pz_max_</span> <span class="o">=</span> <span class="mi">10</span><span class="o">**</span><span class="mi">4</span> <span class="k">if</span> <span class="n">pr</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">eta</span><span class="o">==</span><span class="n">Rational</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span> <span class="k">else</span> <span class="mi">10</span><span class="o">**</span><span class="mi">2</span>
+        <span class="n">pz_array</span> <span class="o">=</span> <span class="o">-</span><span class="mi">10</span><span class="o">**</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">pz_min_</span> <span class="k">if</span> <span class="n">pz_min_</span><span class="o">&gt;</span><span class="mi">0</span> <span class="k">else</span> <span class="mf">1e-6</span><span class="p">),</span>
+                                    <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">pz_max_</span><span class="p">),</span> <span class="mi">1000</span><span class="p">)</span>
+        <span class="n">px_array</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">px_H_lambda</span><span class="p">(</span><span class="n">pz_array</span><span class="p">)</span>
+        <span class="n">p_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">px_array</span><span class="p">,</span><span class="n">pz_array</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+        <span class="n">tanbeta_crit</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">N</span><span class="p">(</span><span class="n">gmeq</span><span class="o">.</span><span class="n">tanbeta_crit_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">p_infc_array</span> <span class="o">=</span> <span class="n">p_array</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">p_array</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="n">p_array</span><span class="p">[:,</span><span class="mi">1</span><span class="p">])</span><span class="o">&lt;</span><span class="n">tanbeta_crit</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">p_supc_array</span> <span class="o">=</span> <span class="n">p_array</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">p_array</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="n">p_array</span><span class="p">[:,</span><span class="mi">1</span><span class="p">])</span><span class="o">&gt;=</span><span class="n">tanbeta_crit</span><span class="p">]</span>
+
+        <span class="n">v_from_gstar_lambda_tmp</span> <span class="o">=</span> <span class="n">lambdify</span><span class="p">((</span><span class="n">px</span><span class="p">,</span><span class="n">pz</span><span class="p">),</span>
+                                        <span class="n">N</span><span class="p">(</span><span class="n">gmeq</span><span class="o">.</span><span class="n">gstar_varphi_pxpz_eqn</span>
+                                    <span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">varphi_r</span><span class="p">(</span><span class="n">rvec</span><span class="p">):</span><span class="n">varphi_</span><span class="p">})</span><span class="o">.</span><span class="n">rhs</span><span class="o">*</span><span class="n">Matrix</span><span class="p">([</span><span class="n">px</span><span class="p">,</span><span class="n">pz</span><span class="p">])))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">v_from_gstar_lambda</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">px_</span><span class="p">,</span><span class="n">pz_</span><span class="p">:</span> \
+                                        <span class="p">(</span><span class="n">v_from_gstar_lambda_tmp</span><span class="p">(</span><span class="n">px_</span><span class="p">,</span><span class="n">pz_</span><span class="p">))</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+
+        <span class="n">v_lambda</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">pa</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([(</span><span class="bp">self</span><span class="o">.</span><span class="n">v_from_gstar_lambda</span><span class="p">(</span><span class="n">px_</span><span class="p">,</span><span class="n">pz_</span><span class="p">))</span>
+                                        <span class="k">for</span> <span class="n">px_</span><span class="p">,</span><span class="n">pz_</span> <span class="ow">in</span> <span class="n">pa</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">v_infc_array</span> <span class="o">=</span> <span class="n">v_lambda</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p_infc_array</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">v_supc_array</span> <span class="o">=</span> <span class="n">v_lambda</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p_supc_array</span><span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">convex_concave_annotations</span><span class="p">(</span><span class="n">do_zoom</span><span class="p">,</span> <span class="n">eta_</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        TBD</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">do_zoom</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">eta_</span><span class="o">&gt;</span><span class="mi">1</span><span class="p">:</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">*</span><span class="p">[</span><span class="mf">1.025</span><span class="p">,</span><span class="mf">0.184</span><span class="p">],</span> <span class="s1">&#39;convex&#39;</span><span class="p">,</span>
+                     <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+                     <span class="n">rotation</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;DarkRed&#39;</span><span class="p">)</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">*</span><span class="p">[</span><span class="mf">1.054</span><span class="p">,</span><span class="mf">0.208</span><span class="p">],</span> <span class="s1">&#39;concave&#39;</span><span class="p">,</span>
+                     <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+                     <span class="n">rotation</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">*</span><span class="p">[</span><span class="mf">1.07</span><span class="p">,</span><span class="o">-</span><span class="mf">0.264</span><span class="p">],</span> <span class="s1">&#39;concave&#39;</span><span class="p">,</span>
+                     <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+                     <span class="n">rotation</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">*</span><span class="p">[</span><span class="mf">0.955</span><span class="p">,</span><span class="o">-</span><span class="mf">0.15</span><span class="p">],</span> <span class="s1">&#39;convex&#39;</span><span class="p">,</span>
+                     <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+                     <span class="n">rotation</span><span class="o">=</span><span class="mi">70</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;DarkRed&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">eta_</span><span class="o">&gt;</span><span class="mi">1</span><span class="p">:</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">*</span><span class="p">[</span><span class="mf">0.7</span><span class="p">,</span><span class="o">-</span><span class="mf">0.05</span><span class="p">],</span> <span class="s1">&#39;convex&#39;</span><span class="p">,</span>
+                     <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+                     <span class="n">rotation</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;DarkRed&#39;</span><span class="p">)</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">*</span><span class="p">[</span><span class="mf">1.15</span><span class="p">,</span><span class="mf">0.42</span><span class="p">],</span> <span class="s1">&#39;concave&#39;</span><span class="p">,</span>
+                     <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+                     <span class="n">rotation</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">*</span><span class="p">[</span><span class="mf">1.4</span><span class="p">,</span><span class="o">-</span><span class="mf">0.72</span><span class="p">],</span> <span class="s1">&#39;concave&#39;</span><span class="p">,</span>
+                     <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+                     <span class="n">rotation</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">*</span><span class="p">[</span><span class="mf">1.5</span><span class="p">,</span><span class="o">-</span><span class="mf">2.3</span><span class="p">],</span> <span class="s1">&#39;convex&#39;</span><span class="p">,</span>
+                     <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+                     <span class="n">rotation</span><span class="o">=-</span><span class="mi">80</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;DarkBlue&#39;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">*</span><span class="p">[</span><span class="mf">1.3</span><span class="p">,</span><span class="o">-</span><span class="mf">0.26</span><span class="p">],</span> <span class="s1">&#39;concave&#39;</span><span class="p">,</span>
+                     <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+                     <span class="n">rotation</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">*</span><span class="p">[</span><span class="mf">0.9</span><span class="p">,</span><span class="o">-</span><span class="mf">0.14</span><span class="p">],</span> <span class="s1">&#39;convex&#39;</span><span class="p">,</span>
+                     <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+                     <span class="n">rotation</span><span class="o">=</span><span class="mi">65</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;DarkRed&#39;</span><span class="p">)</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">*</span><span class="p">[</span><span class="mf">0.98</span><span class="p">,</span><span class="o">-</span><span class="mf">0.65</span><span class="p">],</span> <span class="s1">&#39;convex&#39;</span><span class="p">,</span>
+                     <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+                     <span class="n">rotation</span><span class="o">=</span><span class="mi">75</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;DarkBlue&#39;</span><span class="p">)</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">*</span><span class="p">[</span><span class="mf">0.66</span><span class="p">,</span><span class="o">-</span><span class="mf">1.65</span><span class="p">],</span> <span class="s1">&#39;concave&#39;</span><span class="p">,</span>
+                     <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+                     <span class="n">rotation</span><span class="o">=</span><span class="mi">75</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">Fstar_F_rectlinear</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gmeq</span><span class="p">,</span> <span class="n">job_name</span><span class="p">,</span> <span class="n">pr</span><span class="p">,</span> <span class="n">do_zoom</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">fig_size</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        TBD</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">job_name</span><span class="o">+</span><span class="s1">&#39;_Fstar_F_rectlinear&#39;</span><span class="o">+</span><span class="p">(</span><span class="s1">&#39;_zoom&#39;</span> <span class="k">if</span> <span class="n">do_zoom</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_figure</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">fig_size</span><span class="p">)</span>
+        <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
+
+        <span class="n">eta_</span> <span class="o">=</span> <span class="n">pr</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">eta</span>
+        <span class="k">if</span> <span class="n">do_zoom</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">eta_</span><span class="o">==</span><span class="n">Rational</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">):</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mf">0.98</span><span class="p">,</span><span class="mf">1.07</span><span class="p">)</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mf">0.15</span><span class="p">,</span><span class="mf">0.23</span><span class="p">)</span>
+                <span class="n">eta_xy_label</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.2</span><span class="p">,</span><span class="mf">0.85</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mf">0.7</span><span class="p">,</span><span class="mf">1.2</span><span class="p">)</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">0.4</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+                <span class="n">eta_xy_label</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.8</span><span class="p">,</span><span class="mf">0.8</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">eta_</span><span class="o">==</span><span class="n">Rational</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">):</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span><span class="mf">0.6</span><span class="p">)</span>
+                <span class="n">eta_xy_label</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.7</span><span class="p">,</span><span class="mf">0.8</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mf">2.5</span><span class="p">)</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+                <span class="n">eta_xy_label</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.8</span><span class="p">,</span><span class="mf">0.7</span><span class="p">]</span>
+
+        <span class="c1"># Critical, bounding angles</span>
+        <span class="n">pz_max_</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.5</span>
+        <span class="n">px_abmax_</span> <span class="o">=</span> <span class="o">-</span><span class="n">pz_max_</span><span class="o">*</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tanbeta_max</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">tanbeta_max</span><span class="o">&gt;</span><span class="mi">0</span> <span class="k">else</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">pz_abmax_</span> <span class="o">=</span> <span class="n">pz_max_</span>
+        <span class="n">vx_abmax_</span><span class="p">,</span><span class="n">vz_abmax_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">v_from_gstar_lambda</span><span class="p">(</span><span class="n">px_abmax_</span><span class="p">,</span><span class="n">pz_abmax_</span><span class="p">)</span>
+        <span class="n">px_abcrit_</span> <span class="o">=</span> <span class="o">-</span><span class="n">pz_max_</span><span class="o">*</span><span class="n">gmeq</span><span class="o">.</span><span class="n">tanbeta_crit</span>
+        <span class="n">pz_abcrit_</span> <span class="o">=</span> <span class="n">pz_max_</span>
+        <span class="n">vx_abcrit_</span><span class="p">,</span><span class="n">vz_abcrit_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">v_from_gstar_lambda</span><span class="p">(</span><span class="n">px_abcrit_</span><span class="p">,</span><span class="n">pz_abcrit_</span><span class="p">)</span>
+
+        <span class="c1"># Lines visualizing critical, bounding angles: ray velocity</span>
+        <span class="k">if</span> <span class="n">eta_</span><span class="o">==</span><span class="n">Rational</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">):</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="n">vx_abmax_</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="n">vz_abmax_</span><span class="p">],</span>
+                     <span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$\alpha_{\mathrm</span><span class="si">{lim}</span><span class="s1">}$&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Indicatrix aka F=1 for rays</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">v_supc_array</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span><span class="bp">self</span><span class="o">.</span><span class="n">v_supc_array</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span>
+                 <span class="s1">&#39;r&#39;</span> <span class="k">if</span> <span class="n">eta_</span><span class="o">&gt;</span><span class="mi">1</span> <span class="k">else</span> <span class="s1">&#39;DarkRed&#39;</span><span class="p">,</span>
+                 <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span>
+                 <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$F=1$,  $\beta\geq\beta_\mathrm</span><span class="si">{c}</span><span class="s1">$&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="n">vx_abcrit_</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="n">vz_abcrit_</span><span class="p">],</span> <span class="s1">&#39;-.&#39;</span><span class="p">,</span>
+                 <span class="n">color</span><span class="o">=</span><span class="s1">&#39;DarkRed&#39;</span> <span class="k">if</span> <span class="n">eta_</span><span class="o">&gt;</span><span class="mi">1</span> <span class="k">else</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span>
+                 <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$\alpha_{\mathrm</span><span class="si">{c}</span><span class="s1">}$&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">v_infc_array</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span><span class="bp">self</span><span class="o">.</span><span class="n">v_infc_array</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span>
+                 <span class="s1">&#39;DarkRed&#39;</span> <span class="k">if</span> <span class="n">eta_</span><span class="o">&gt;</span><span class="mi">1</span> <span class="k">else</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span>
+                 <span class="n">lw</span><span class="o">=</span><span class="mi">1</span> <span class="k">if</span> <span class="n">eta_</span><span class="o">==</span><span class="n">Rational</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">do_zoom</span> <span class="k">else</span> <span class="mi">2</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span>
+                 <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$F=1$,  $\beta&lt;\beta_\mathrm</span><span class="si">{c}</span><span class="s1">$&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Lines visualizing critical, bounding angles: normal slowness</span>
+        <span class="k">if</span> <span class="n">eta_</span><span class="o">==</span><span class="n">Rational</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">do_zoom</span><span class="p">:</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="n">px_abmax_</span><span class="p">]),[</span><span class="mi">0</span><span class="p">,</span><span class="n">pz_abmax_</span><span class="p">],</span>
+                     <span class="s1">&#39;-b&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$\beta_{\mathrm</span><span class="si">{max}</span><span class="s1">}$&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Figuratrix aka F*=1 for surfaces</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">do_zoom</span><span class="p">:</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p_supc_array</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span><span class="bp">self</span><span class="o">.</span><span class="n">p_supc_array</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span>
+                     <span class="s1">&#39;b&#39;</span> <span class="k">if</span> <span class="n">eta_</span><span class="o">&gt;</span><span class="mi">1</span> <span class="k">else</span> <span class="s1">&#39;DarkBlue&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span>
+                     <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$F^*\!\!=1$,  $\beta\geq\beta_\mathrm</span><span class="si">{c}</span><span class="s1">$&#39;</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="n">px_abcrit_</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="n">pz_abcrit_</span><span class="p">],</span>
+                     <span class="s1">&#39;--&#39;</span><span class="p">,</span>
+                     <span class="n">color</span><span class="o">=</span><span class="s1">&#39;DarkBlue&#39;</span> <span class="k">if</span> <span class="n">eta_</span><span class="o">&gt;</span><span class="mi">1</span> <span class="k">else</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span>
+                     <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$\beta_{\mathrm</span><span class="si">{c}</span><span class="s1">}$&#39;</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p_infc_array</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span><span class="bp">self</span><span class="o">.</span><span class="n">p_infc_array</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span>
+                     <span class="s1">&#39;DarkBlue&#39;</span> <span class="k">if</span> <span class="n">eta_</span><span class="o">&gt;</span><span class="mi">1</span> <span class="k">else</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span>
+                     <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$F^*\!\!=1$,  $\beta&lt;\beta_\mathrm</span><span class="si">{c}</span><span class="s1">$&#39;</span><span class="p">)</span>
+
+        <span class="n">pz_</span> <span class="o">=</span> <span class="o">-</span><span class="nb">float</span><span class="p">(</span><span class="n">solve</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">H_parametric_eqn</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">px</span><span class="p">:</span><span class="n">pz</span><span class="o">*</span><span class="p">(</span><span class="n">gmeq</span><span class="o">.</span><span class="n">tanbeta_crit</span><span class="p">)}),</span><span class="n">pz</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">px_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">px_H_lambda</span><span class="p">(</span><span class="n">pz_</span><span class="p">)</span>
+        <span class="n">vx_</span><span class="p">,</span><span class="n">vz_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">v_from_gstar_lambda</span><span class="p">(</span><span class="n">px_</span><span class="p">,</span><span class="n">pz_</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">eta_</span><span class="o">!=</span><span class="n">Rational</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">):</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">vx_</span><span class="p">],[</span><span class="o">-</span><span class="n">vz_</span><span class="p">],</span> <span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">do_zoom</span><span class="p">:</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">px_</span><span class="p">],[</span><span class="o">-</span><span class="n">pz_</span><span class="p">],</span> <span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;DarkBlue&#39;</span> <span class="k">if</span> <span class="n">eta_</span><span class="o">&gt;</span><span class="mi">1</span> <span class="k">else</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$p_x$ (for $F^*$)  or  $v^x$ (for $F$)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$p_z$ (for $F^*$)  or  $v^z$ (for $F$)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+
+        <span class="n">axes</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">*</span><span class="n">eta_xy_label</span><span class="p">,</span> <span class="sa">rf</span><span class="s1">&#39;$\eta=</span><span class="si">{</span><span class="n">gmeq</span><span class="o">.</span><span class="n">eta_</span><span class="si">}</span><span class="s1">$&#39;</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">axes</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span>
+                 <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+                 <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">eta_</span><span class="o">==</span><span class="n">Rational</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">):</span>
+            <span class="n">loc_</span> <span class="o">=</span> <span class="s1">&#39;lower right&#39;</span> <span class="k">if</span> <span class="n">do_zoom</span> <span class="k">else</span> <span class="s1">&#39;lower left&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">loc_</span> <span class="o">=</span> <span class="s1">&#39;upper left&#39;</span> <span class="k">if</span> <span class="n">do_zoom</span> <span class="k">else</span> <span class="s1">&#39;lower right&#39;</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="n">loc_</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">convex_concave_annotations</span><span class="p">(</span><span class="n">do_zoom</span><span class="p">,</span> <span class="n">eta_</span><span class="p">)</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">Fstar_F_polar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gmeq</span><span class="p">,</span> <span class="n">job_name</span><span class="p">,</span> <span class="n">pr</span><span class="p">,</span> <span class="n">fig_size</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        TBD</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">job_name</span><span class="o">+</span><span class="s1">&#39;_Fstar_F_polar&#39;</span>
+        <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_figure</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">fig_size</span><span class="p">)</span>
+
+        <span class="n">eta_</span> <span class="o">=</span> <span class="n">pr</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">eta</span>
+
+        <span class="n">scale_fn</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span>
+        <span class="k">if</span> <span class="n">eta_</span><span class="o">&gt;</span><span class="mi">1</span><span class="p">:</span>
+            <span class="n">r_min_</span><span class="p">,</span> <span class="n">r_max_</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mi">100</span>
+            <span class="n">alpha_fn</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">a</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">-</span><span class="n">a</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">r_min_</span><span class="p">,</span> <span class="n">r_max_</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mi">10</span>
+            <span class="n">alpha_fn</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">a</span><span class="p">:</span> <span class="n">a</span>
+        <span class="n">v_scale_fn</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">v</span><span class="p">:</span> <span class="n">scale_fn</span><span class="p">(</span><span class="n">v</span><span class="p">)</span><span class="o">*</span><span class="mi">1</span>
+
+        <span class="c1"># Lines visualizing critical, bounding angles: ray velocity</span>
+        <span class="k">if</span> <span class="n">eta_</span><span class="o">&gt;</span><span class="mi">1</span><span class="p">:</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">polar</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="o">+</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arctan</span><span class="p">(</span><span class="n">gmeq</span><span class="o">.</span><span class="n">tanalpha_crit</span><span class="p">))]</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span>
+                      <span class="p">[</span><span class="n">scale_fn</span><span class="p">(</span><span class="n">r_min_</span><span class="p">),</span><span class="n">scale_fn</span><span class="p">(</span><span class="n">r_max_</span><span class="p">)],</span> <span class="s1">&#39;-&#39;</span><span class="p">,</span>
+                      <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span> <span class="k">if</span> <span class="n">eta_</span><span class="o">&gt;</span><span class="mi">1</span> <span class="k">else</span> <span class="s1">&#39;DarkRed&#39;</span><span class="p">,</span>
+                      <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$\alpha_{\mathrm</span><span class="si">{lim}</span><span class="s1">}$&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">polar</span><span class="p">(</span><span class="n">alpha_fn</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arcsin</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">v_supc_array</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="n">norm</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">v_supc_array</span><span class="p">,</span>
+                                                                 <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))),</span>
+                  <span class="n">v_scale_fn</span><span class="p">(</span><span class="n">norm</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">v_supc_array</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)),</span>
+                  <span class="s1">&#39;r&#39;</span> <span class="k">if</span> <span class="n">eta_</span><span class="o">&gt;</span><span class="mi">1</span> <span class="k">else</span> <span class="s1">&#39;DarkRed&#39;</span><span class="p">,</span>
+                  <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$F=1$,  $\beta\geq\beta_\mathrm</span><span class="si">{c}</span><span class="s1">$&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">polar</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="o">+</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arctan</span><span class="p">(</span><span class="n">gmeq</span><span class="o">.</span><span class="n">tanalpha_crit</span><span class="p">))]</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span>
+                  <span class="p">[</span><span class="n">scale_fn</span><span class="p">(</span><span class="n">r_min_</span><span class="p">),</span><span class="n">scale_fn</span><span class="p">(</span><span class="n">r_max_</span><span class="p">)],</span> <span class="s1">&#39;-.&#39;</span><span class="p">,</span>
+                  <span class="n">color</span><span class="o">=</span><span class="s1">&#39;DarkRed&#39;</span> <span class="k">if</span> <span class="n">eta_</span><span class="o">&gt;</span><span class="mi">1</span> <span class="k">else</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span>
+                  <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$\alpha_{\mathrm</span><span class="si">{c}</span><span class="s1">}$&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">polar</span><span class="p">(</span><span class="n">alpha_fn</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arcsin</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">v_infc_array</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="n">norm</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">v_infc_array</span><span class="p">,</span>
+                                                                <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))),</span>
+                  <span class="n">v_scale_fn</span><span class="p">(</span><span class="n">norm</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">v_infc_array</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)),</span>
+                  <span class="s1">&#39;DarkRed&#39;</span> <span class="k">if</span> <span class="n">eta_</span><span class="o">&gt;</span><span class="mi">1</span> <span class="k">else</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span>
+                  <span class="n">lw</span><span class="o">=</span><span class="kc">None</span> <span class="k">if</span> <span class="n">eta_</span><span class="o">==</span><span class="n">Rational</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+                  <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$F=1$,  $\beta&lt;\beta_\mathrm</span><span class="si">{c}</span><span class="s1">$&#39;</span><span class="p">)</span>
+
+        <span class="n">unit_circle_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">theta_</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+                                        <span class="k">for</span> <span class="n">theta_</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="mf">1.2</span><span class="p">,</span><span class="mi">100</span><span class="p">)])</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">polar</span><span class="p">(</span><span class="n">unit_circle_array</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">scale_fn</span><span class="p">(</span><span class="n">unit_circle_array</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]),</span> <span class="s1">&#39;-&#39;</span><span class="p">,</span>
+                  <span class="n">color</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;unit circle&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">eta_</span><span class="o">&gt;</span><span class="mi">1</span><span class="p">:</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">polar</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">arctan</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tanbeta_max</span><span class="p">)]</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="n">scale_fn</span><span class="p">(</span><span class="n">r_min_</span><span class="p">),</span><span class="n">scale_fn</span><span class="p">(</span><span class="n">r_max_</span><span class="p">)],</span>
+                      <span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$\beta_{\mathrm</span><span class="si">{max}</span><span class="s1">}$&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">polar</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arcsin</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p_supc_array</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="n">norm</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p_supc_array</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)),</span>
+                      <span class="n">scale_fn</span><span class="p">(</span><span class="n">norm</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p_supc_array</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)),</span>
+                  <span class="s1">&#39;b&#39;</span> <span class="k">if</span> <span class="n">eta_</span><span class="o">&gt;</span><span class="mi">1</span> <span class="k">else</span> <span class="s1">&#39;DarkBlue&#39;</span><span class="p">,</span>
+                  <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$F^*\!\!=1$,  $\beta\geq\beta_\mathrm</span><span class="si">{c}</span><span class="s1">$&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">polar</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">arctan</span><span class="p">(</span><span class="n">gmeq</span><span class="o">.</span><span class="n">tanbeta_crit</span><span class="p">)]</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="n">scale_fn</span><span class="p">(</span><span class="n">r_min_</span><span class="p">),</span><span class="n">scale_fn</span><span class="p">(</span><span class="n">r_max_</span><span class="p">)],</span>
+                  <span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;DarkBlue&#39;</span> <span class="k">if</span> <span class="n">eta_</span><span class="o">&gt;</span><span class="mi">1</span> <span class="k">else</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span>
+                  <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$\beta_{\mathrm</span><span class="si">{c}</span><span class="s1">}$&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">polar</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arcsin</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p_infc_array</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="n">norm</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p_infc_array</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)),</span>
+                  <span class="n">scale_fn</span><span class="p">(</span><span class="n">norm</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p_infc_array</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)),</span>
+                  <span class="s1">&#39;DarkBlue&#39;</span> <span class="k">if</span> <span class="n">eta_</span><span class="o">&gt;</span><span class="mi">1</span> <span class="k">else</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span>
+                  <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$F^*\!\!=1$,  $\beta&lt;\beta_\mathrm</span><span class="si">{c}</span><span class="s1">$&#39;</span><span class="p">)</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">polar</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arcsin</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p_supc_array</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="n">norm</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p_supc_array</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
+             <span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">arcsin</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p_infc_array</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="n">norm</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p_infc_array</span><span class="p">[</span><span class="mi">0</span><span class="p">])))</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span>
+            <span class="p">(</span><span class="n">scale_fn</span><span class="p">(</span><span class="n">norm</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p_infc_array</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span><span class="o">+</span><span class="n">scale_fn</span><span class="p">(</span><span class="n">norm</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p_supc_array</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])))</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span>
+            <span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;DarkBlue&#39;</span> <span class="k">if</span> <span class="n">eta_</span><span class="o">&gt;</span><span class="mi">1</span> <span class="k">else</span> <span class="s1">&#39;b&#39;</span><span class="p">)</span>
+
+        <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
+        <span class="n">axes</span><span class="o">.</span><span class="n">set_theta_zero_location</span><span class="p">(</span><span class="s1">&#39;S&#39;</span><span class="p">)</span>
+        <span class="n">horiz_label</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;$\log_</span><span class="si">{10}{p}</span><span class="s1">$  or  $\log_</span><span class="si">{10}{v}</span><span class="s1">$&#39;</span>
+        <span class="n">vert_label</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;$\log_</span><span class="si">{10}{v}</span><span class="s1">$  or  $\log_</span><span class="si">{10}{p}</span><span class="s1">$&#39;</span>
+
+        <span class="n">xtick_labels_base</span> <span class="o">=</span> <span class="p">[</span><span class="sa">r</span><span class="s1">&#39;$\beta=0^{\!\circ}$&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$\beta=30^{\!\circ}$&#39;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">eta_</span><span class="o">&gt;</span><span class="mi">1</span><span class="p">:</span>
+            <span class="n">theta_max_</span> <span class="o">=</span> <span class="mi">20</span>
+            <span class="n">axes</span><span class="o">.</span><span class="n">set_thetamax</span><span class="p">(</span><span class="mi">90</span><span class="o">+</span><span class="n">theta_max_</span><span class="p">)</span>
+            <span class="n">axes</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">deg2rad</span><span class="p">(</span><span class="mi">85</span><span class="o">+</span><span class="n">theta_max_</span><span class="p">),</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">vert_label</span><span class="p">,</span>
+                        <span class="n">rotation</span><span class="o">=</span><span class="n">theta_max_</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;bottom&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+            <span class="n">axes</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">deg2rad</span><span class="p">(</span><span class="o">-</span><span class="mi">8</span><span class="p">),</span><span class="mf">1.2</span><span class="p">,</span> <span class="n">horiz_label</span><span class="p">,</span>
+                        <span class="n">rotation</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;bottom&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+            <span class="n">theta_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">6</span><span class="p">,</span> <span class="mi">2</span><span class="o">/</span><span class="mi">6</span><span class="p">,</span> <span class="mi">3</span><span class="o">/</span><span class="mi">6</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">deg2rad</span><span class="p">(</span><span class="mi">110</span><span class="p">)</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">]</span>
+            <span class="n">xtick_labels</span> <span class="o">=</span> <span class="n">xtick_labels_base</span><span class="o">+</span><span class="p">[</span>
+                <span class="sa">r</span><span class="s1">&#39;$\beta=60^{\!\circ}$&#39;</span><span class="p">,</span>
+                <span class="sa">r</span><span class="s1">&#39;$\alpha=0^{\!\circ}$&#39;</span><span class="p">,</span>
+                <span class="sa">r</span><span class="s1">&#39;$\alpha=20^{\!\circ}$&#39;</span><span class="p">,</span>
+            <span class="p">]</span>
+            <span class="n">eta_xy_label</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.15</span><span class="p">,</span><span class="mf">0.9</span><span class="p">]</span>
+            <span class="n">legend_xy</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">]</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">*</span><span class="p">[(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="mf">1.07</span><span class="p">,</span><span class="mf">0.4</span><span class="p">],</span> <span class="s1">&#39;convex&#39;</span><span class="p">,</span>
+                 <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+                 <span class="n">rotation</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;DarkRed&#39;</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">*</span><span class="p">[(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="mf">1.17</span><span class="p">,</span><span class="mf">0.28</span><span class="p">],</span> <span class="s1">&#39;concave&#39;</span><span class="p">,</span>
+                 <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+                 <span class="n">rotation</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">*</span><span class="p">[(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span><span class="o">*</span><span class="mf">0.925</span><span class="p">,</span><span class="mf">0.5</span><span class="p">],</span> <span class="s1">&#39;concave&#39;</span><span class="p">,</span>
+                 <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+                 <span class="n">rotation</span><span class="o">=-</span><span class="mi">35</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">*</span><span class="p">[(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">6</span><span class="p">)</span><span class="o">*</span><span class="mf">0.7</span><span class="p">,</span><span class="mf">0.85</span><span class="p">],</span> <span class="s1">&#39;convex&#39;</span><span class="p">,</span>
+                 <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+                 <span class="n">rotation</span><span class="o">=</span><span class="mi">68</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;DarkBlue&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">theta_max_</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">axes</span><span class="o">.</span><span class="n">set_thetamax</span><span class="p">(</span><span class="mi">90</span><span class="o">+</span><span class="n">theta_max_</span><span class="p">)</span>
+            <span class="n">axes</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">deg2rad</span><span class="p">(</span><span class="mi">92</span><span class="o">+</span><span class="n">theta_max_</span><span class="p">),</span><span class="n">axes</span><span class="o">.</span><span class="n">get_rmax</span><span class="p">()</span><span class="o">/</span><span class="mi">5</span><span class="p">,</span> <span class="n">vert_label</span><span class="p">,</span>
+                        <span class="n">rotation</span><span class="o">=</span><span class="n">theta_max_</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;bottom&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+            <span class="n">axes</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">deg2rad</span><span class="p">(</span><span class="o">-</span><span class="mi">8</span><span class="p">),</span><span class="n">axes</span><span class="o">.</span><span class="n">get_rmax</span><span class="p">()</span><span class="o">/</span><span class="mi">5</span><span class="p">,</span> <span class="n">horiz_label</span><span class="p">,</span>
+                        <span class="n">rotation</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;bottom&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+            <span class="n">theta_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">6</span><span class="p">,</span> <span class="mi">2</span><span class="o">/</span><span class="mi">6</span><span class="p">,</span> <span class="mi">3</span><span class="o">/</span><span class="mi">6</span><span class="p">]</span>
+            <span class="n">xtick_labels</span> <span class="o">=</span> <span class="n">xtick_labels_base</span><span class="o">+</span><span class="p">[</span>
+                <span class="sa">r</span><span class="s1">&#39;$\beta=60^{\!\circ}\!\!,\, \alpha=-30^{\!\circ}$&#39;</span><span class="p">,</span>
+                <span class="sa">r</span><span class="s1">&#39;$\beta=90^{\!\circ}\!\!,\, \alpha=0^{\!\circ}$&#39;</span><span class="p">,</span>
+            <span class="p">]</span>
+            <span class="n">eta_xy_label</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.2</span><span class="p">,</span><span class="mf">0.75</span><span class="p">]</span>
+            <span class="n">legend_xy</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.9</span><span class="p">,</span><span class="mf">0.0</span><span class="p">]</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">*</span><span class="p">[(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="mf">0.94</span><span class="p">,</span><span class="mf">0.4</span><span class="p">],</span> <span class="s1">&#39;concave&#39;</span><span class="p">,</span>
+                 <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+                 <span class="n">rotation</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">*</span><span class="p">[(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="mf">0.9</span><span class="p">,</span><span class="o">-</span><span class="mf">0.07</span><span class="p">],</span> <span class="s1">&#39;convex&#39;</span><span class="p">,</span>
+                 <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+                 <span class="n">rotation</span><span class="o">=</span><span class="mi">72</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;DarkRed&#39;</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">*</span><span class="p">[(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span><span class="o">*</span><span class="mf">1.2</span><span class="p">,</span><span class="mf">0.12</span><span class="p">],</span> <span class="s1">&#39;convex&#39;</span><span class="p">,</span>
+                 <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+                 <span class="n">rotation</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;DarkBlue&#39;</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">*</span><span class="p">[(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">6</span><span class="p">)</span><span class="o">*</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">0.4</span><span class="p">],</span> <span class="s1">&#39;concave&#39;</span><span class="p">,</span>
+                 <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+                 <span class="n">rotation</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">polar</span><span class="p">(</span><span class="n">alpha_fn</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arcsin</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">v_supc_array</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="n">norm</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">v_supc_array</span><span class="p">,</span>
+                                                                     <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))),</span>
+                      <span class="n">v_scale_fn</span><span class="p">(</span><span class="n">norm</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">v_supc_array</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)),</span> <span class="s1">&#39;DarkRed&#39;</span><span class="p">)</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">polar</span><span class="p">(</span>
+            <span class="n">alpha_fn</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">arcsin</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">v_supc_array</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="n">norm</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">v_supc_array</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
+                      <span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">arcsin</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">v_infc_array</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="n">norm</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">v_infc_array</span><span class="p">[</span><span class="mi">0</span><span class="p">])))</span><span class="o">/</span><span class="mi">2</span><span class="p">),</span>
+                    <span class="p">(</span><span class="n">v_scale_fn</span><span class="p">(</span><span class="n">norm</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">v_infc_array</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+                        <span class="o">+</span><span class="n">v_scale_fn</span><span class="p">(</span><span class="n">norm</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">v_supc_array</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])))</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;o&#39;</span><span class="p">,</span>
+                    <span class="n">color</span><span class="o">=</span><span class="s1">&#39;DarkRed&#39;</span> <span class="k">if</span> <span class="n">eta_</span><span class="o">&gt;</span><span class="mi">1</span> <span class="k">else</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+
+        <span class="n">xtick_posns</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">theta_</span> <span class="k">for</span> <span class="n">theta_</span> <span class="ow">in</span> <span class="n">theta_list</span><span class="p">]</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">xtick_posns</span><span class="p">,</span> <span class="n">xtick_labels</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">*</span><span class="n">eta_xy_label</span><span class="p">,</span> <span class="sa">rf</span><span class="s1">&#39;$\eta=</span><span class="si">{</span><span class="n">gmeq</span><span class="o">.</span><span class="n">eta_</span><span class="si">}</span><span class="s1">$&#39;</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">axes</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span>
+                 <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+                 <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="n">legend_xy</span><span class="p">)</span>
+
+        <span class="n">axes</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s1">&#39;out&#39;</span><span class="p">)</span>
+
+        <span class="n">axes</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">axes</span><span class="o">.</span><span class="n">set_rmax</span><span class="p">(</span><span class="n">scale_fn</span><span class="p">(</span><span class="n">r_max_</span><span class="p">))</span>
+        <span class="n">axes</span><span class="o">.</span><span class="n">set_rmin</span><span class="p">(</span><span class="n">scale_fn</span><span class="p">(</span><span class="n">r_min_</span><span class="p">))</span>
+        <span class="n">axes</span><span class="o">.</span><span class="n">set_thetamin</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+    <a id="sidebar-anchor"></a>
+    
+
+<div id="searchbox" style="display: none" role="search">
+    <a class="biglink" href="../../index.html">
+        <img src="../../_static/gme_icon.png" />
+    </a>
+  <h3></h3>
+    <form class="search" action="../../search.html" method="get">
+      <div class="ui action left icon input">
+        <i class="search icon"></i>
+        <input type="text" name="q" placeholder="Search...">
+        <div class="ui teal button"></div>
+      </div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<!-- <br> -->
+<script type="text/javascript">$('#searchbox').show(0);</script><h3><a href="../../index.html">Contents</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../Presentations.html">  Presentations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Publications.html">  Publications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Design.html">  Software design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Dependencies.html">  Dependencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Installation.html">  Installation and set-up</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Running.html">  Running the notebooks</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../Python.html">  Python package docs</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../core/index.html">Core</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ode/index.html">ODE integration</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Plotting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../knickpoints/index.html">Knickpoint detection and tracking [in development]</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Notebooks.html">  Notebook docs</a></li>
+</ul>
+
+    <!-- <h3><a href="../../index.html">This page</a></h3> -->
+    <!-- <ul>
+<li><a class="reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">indicatrix_new.py</span></code></a><ul>
+<li><a class="reference internal" href="#code">Code</a></li>
+</ul>
+</li>
+</ul>
+ -->
+    <p class="biglink">
+        <h3><a href="../../genindex.html"> Index</a></h3>
+    </p>
+  <br>
+  <!-- <p class="biglink"><a class="biglink" href="../../py-modindex.html">
+         Module index</a>
+  <br><br> -->
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="manuscript.html" title="manuscript.py"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="indicatrix_old.html" title="indicatrix_old.py"
+             accesskey="P">previous</a> |</li>
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, CPS.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.3.
+    </div>
+  </body>
+</html>

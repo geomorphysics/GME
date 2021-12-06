@@ -12,15 +12,11 @@ such as single ray tracing or for tracking knickpoints.
 ---------------------------------------------------------------------
 
 Requires Python packages/modules:
-  -  :mod:`gmplib.plot_utils <plot_utils>`
-  -  :mod:`numpy`
-  -  :mod:`sympy`
-  -  :mod:`matplotlib.pyplot`
-  -  :mod:`matplotlib.ticker`
-  -  :mod:`matplotlib.patches`
-  -  :mod:`mpl_toolkits.axes_grid1`
-
-Imports symbols from :mod:`.symbols` module.
+  -  :mod:`numpy`, :mod:`sympy`
+  -  :mod:`matplotlib`, :mod:`matplotlib.pyplot`, :mod:`matplotlib.patches`,
+     :mod:`matplotlib.spines`, :mod:`mpl_toolkits`
+  -  :mod:`gmplib.utils`
+  -  :mod:`gme.core.symbols`, :mod:`gme.plot.base`
 
 ---------------------------------------------------------------------
 
@@ -36,10 +32,6 @@ import numpy as np
 # SymPy
 from sympy import N, lambdify, re
 
-# GME
-from gme.core.symbols import rx, varphi, pz
-from gme.plot.base import Graphing
-
 # MatPlotLib
 import matplotlib as mpl
 import matplotlib.pyplot as plt
@@ -47,6 +39,10 @@ import matplotlib.patches as mpatches
 from matplotlib.patches import ArrowStyle, ConnectionPatch, Arc
 from matplotlib.spines import Spine
 from mpl_toolkits.axes_grid1.inset_locator import inset_axes
+
+# GME
+from gme.core.symbols import rx, varphi, pz
+from gme.plot.base import Graphing
 
 warnings.filterwarnings("ignore")
 

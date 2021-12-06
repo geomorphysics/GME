@@ -25,7 +25,7 @@ Release 1.0 of ``GME`` has been developed with and tested against the following:
      - 1.19.4
      - gme, Jupyter notebooks
    * - SymPy
-     - 1.6.1
+     - 1.9
      - gme, Jupyter notebooks
    * - SciPy
      - 1.5.0

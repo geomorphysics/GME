@@ -4,10 +4,6 @@
 Mathematical symbols used in GME equations,
 and their latex representation for pretty printing in notebooks.
 
-This module is imported wholesale by most of the other GME modules (using `import *`)
-which is generally a _terrible_ idea (because it blindly pollutes a module's entire namespace
-and risks a naming clash with other variables in the module), but is necessary for brevity when
-manipulating SymPy equations.
 
 ---------------------------------------------------------------------
 
@@ -27,7 +23,8 @@ F = symbols(r'\mathcal{F}',  real=True, positive=True)
 Fstar = symbols(r'\mathcal{F}_*',  real=True, positive=True)
 Fstar_px_pz = symbols(r'\mathcal{F}_{*}(p_x\,p_z)',  real=True, positive=True)
 H = symbols(r'\mathcal{H}',  real=True, negative=False)
-L = symbols(r'\mathcal{L}',  real=True, negative=False) # ideally, both should be positive=True
+# ideally, both should be positive=True
+L = symbols(r'\mathcal{L}',  real=True, negative=False)
 G1 = symbols(r'G1')
 G2 = symbols(r'G2')
 p = symbols(r'p',  real=True, positive=True)
@@ -132,7 +129,7 @@ xivhat_0 = symbols(r'\hat{\xi}^{\downarrow_0}',  real=True)
 xiv_0 = symbols(r'\xi^{\downarrow_{0}}',  real=True, positive=True)   # NEW: positive=True
 xih = symbols(r'\xi^{\rightarrow}',  real=True)
 xihhat = symbols(r'\hat{\xi}^{\rightarrow}',  real=True)
-xih_0 = symbols(r'\xi^{\rightarrow_{0}}',  real=True, positive=True)   # NEW: positive=True
+xih_0 = symbols(r'\xi^{\rightarrow_{0}}',  real=True, positive=True)  # NEW: positive=True
 xiv_0_sqrd = symbols(r'\xi^{\downarrow_{0}}^2',  real=True)
 
 varphi_rx        = Function(r'\varphi', real=True, positive=True) #(rx)
@@ -187,7 +184,8 @@ pdotzhat_thatfn = Function(r'\dot{\hat{p}}_z', real=True) #(that)
 astar_riem = symbols(r'\alpha^*_{\mathrm{Kr}}', real=True)
 bstar_1form = symbols(r'\beta^*_{\mathrm{Kr}}', real=True)
 
-Ci   = symbols(r'\mathsf{Ci}', real=True, negative=False)                # Channel incision number
+# Channel incision number
+Ci   = symbols(r'\mathsf{Ci}', real=True, negative=False)
 
 SI.set_quantity_dimension(h_0p9, length)
 SI.set_quantity_dimension(xiv_0, length/time)

@@ -12,15 +12,10 @@ such as single ray tracing or for tracking knickpoints.
 ---------------------------------------------------------------------
 
 Requires Python packages/modules:
-  -  :mod:`gmplib.plot_utils <plot_utils>`
   -  :mod:`numpy`
-  -  :mod:`sympy`
-  -  :mod:`matplotlib.pyplot`
-  -  :mod:`matplotlib.ticker`
-  -  :mod:`matplotlib.patches`
-  -  :mod:`mpl_toolkits.axes_grid1`
-
-Imports symbols from :mod:`.symbols` module.
+  -  :mod:`matplotlib.pyplot`, :mod:`matplotlib.patches`, :mod:`matplotlib.cm`
+  -  :mod:`gmplib.plot_utils`
+  -  :mod:`gme.core.symbols`
 
 ---------------------------------------------------------------------
 
@@ -35,16 +30,16 @@ from typing import List
 # Numpy
 import numpy as np
 
+# MatPlotLib
+import matplotlib.pyplot as plt
+import matplotlib.patches as mpatches
+from matplotlib import cm
+
 # GMPLib
 from gmplib.plot_utils import GraphingBase
 
 # GME
 from gme.core.symbols import xih_0, xiv_0, t
-
-# MatPlotLib
-import matplotlib.pyplot as plt
-import matplotlib.patches as mpatches
-from matplotlib import cm
 
 warnings.filterwarnings("ignore")
 
@@ -53,7 +48,7 @@ __all__ = ['Graphing']
 
 class Graphing(GraphingBase):
     """
-    Subclasses :class:`gmplib.plot_utils.GraphingBase <plot_utils.GraphingBase>`.
+    Subclasses :class:`gmplib.plot_utils.GraphingBase <plot_utils.GraphingBase>`
     """
     def mycolors(self, i, r, n, do_smooth=False, cmap_choice='brg') -> List[str]:
         r"""
@@ -102,8 +97,10 @@ class Graphing(GraphingBase):
         Plot ray and arrowheads along the ray to visualize the direction of motion.
 
         Args:
-            axes (:class:`Matplotlib axes <matplotlib.axes.Axes>`): 'axes' instance for current figure
-            sub (dict): dictionary of model parameter values to be used for equation substitutions
+            axes (:class:`Matplotlib axes <matplotlib.axes.Axes>`): 'axes' instance
+                                        for current figure
+            sub (dict): dictionary of model parameter values to be used for
+                        equation substitutions
             t_array (numpy.ndarray): sample times along the ray
             rx_array (numpy.ndarray): x coordinates along the sampled ray
             rz_array (numpy.ndarray): z coordinates along the sampled ray
@@ -122,7 +119,8 @@ class Graphing(GraphingBase):
             color = color if do_one_ray else self.colors[(i//i_step)%self.n_colors]
             if (i+i_off)//i_step==(i+i_off)/i_step:
                 t_offset = 0 if do_one_ray else t_array[i]*xi_vh_ratio
-                t_label = r'$\hat{t}_0=$'+f'{round(t_ref-t_array[i],1)}'  #$t_0={}$'.format(i_max-i-1)
+                t_label = r'$\hat{t}_0=$'+f'{round(t_ref-t_array[i],1)}'
+                #$t_0={}$'.format(i_max-i-1)
                 plt.plot( rx_array[:i+1], rz_array[:i+1]-t_offset, ls,
                           label=t_label if do_labels else None,
                           color=color)
@@ -145,8 +143,10 @@ class Graphing(GraphingBase):
             # cbar.ax.get_yaxis().labelpad = -100
             # cbar.ax.set_ylabel(r'ray speed  $v$', rotation=90)
 
-    def arrow_annotate_ray_custom( self, rx_array, rz_array, axes, i_ray, i_ray_step, n_rays, n_arrows,
-                                   arrow_sf=0.7, arrow_offset=1, x_limits=None, y_limits=None,
+    def arrow_annotate_ray_custom( self, rx_array, rz_array, axes, i_ray, i_ray_step,
+                                   n_rays, n_arrows,
+                                   arrow_sf=0.7, arrow_offset=1,
+                                   x_limits=None, y_limits=None,
                                    line_style='dashed', line_width=1, ray_label=None,
                                    do_smooth_colors=False )  -> None:
         """
@@ -155,13 +155,17 @@ class Graphing(GraphingBase):
         Args:
             rx_array (numpy.ndarray): x coordinates along the sampled ray
             rz_array (numpy.ndarray): z coordinates along the sampled ray
-            axes (:class:`Matplotlib axes <matplotlib.axes.Axes>`): 'axes' instance for current figure
-            sub (dict): dictionary of model parameter values to be used for equation substitutions
+            axes (:class:`Matplotlib axes <matplotlib.axes.Axes>`): 'axes' instance
+                for current figure
+            sub (dict): dictionary of model parameter values to be used
+                for equation substitutions
             i_ray (int): index of this ray among the set currently being plotted
-            i_ray_step (int): ray index step, used as divisor when assigning a color to match the parent ray color
+            i_ray_step (int): ray index step, used as divisor when assigning
+                a color to match the parent ray color
             n_arrows (int): number of arrows to plot along the ray
             arrow_sf (float): optional scale factor for arrowhead size
-            arrow_offset (int): optional offset from ray initial point to start adding arrowheads
+            arrow_offset (int): optional offset from ray initial point
+                to start adding arrowheads
             x_limits (list): optional horizontal axis range
             y_limits (list): optional vertical axis range
             line_style (str): optional line style
@@ -171,23 +175,30 @@ class Graphing(GraphingBase):
         # Drop repeated points on vb
         rxz_array = np.unique( np.vstack([rx_array,rz_array]), axis=1 )
         n_pts: int = rxz_array.shape[1]
-        my_arrow_style = mpatches.ArrowStyle.Fancy(head_length=0.99*arrow_sf, head_width=0.6*arrow_sf,
+        my_arrow_style = mpatches.ArrowStyle.Fancy(head_length=0.99*arrow_sf,
+                                                   head_width=0.6*arrow_sf,
                                                    tail_width=0.01*arrow_sf)
         # color = self.colors[(i_ray//i_ray_step)%self.n_colors]
-        color: List[str] = self.mycolors(i_ray, i_ray_step, n_rays, do_smooth=do_smooth_colors)
+        color: List[str] = self.mycolors(i_ray, i_ray_step, n_rays,
+                                         do_smooth=do_smooth_colors)
         q_n: int = n_pts//n_arrows
         if q_n>0:
             q_from: int = n_pts//(n_arrows)//arrow_offset+n_pts//(n_arrows)
             q_to: int = n_pts-1
             for q in range(q_from, q_to, q_n):
-                y_condition: bool = (y_limits is None or
-                        ( (rxz_array[1][q+1]>y_limits[0] and rxz_array[1][q+1]<y_limits[1]) and
-                          (rxz_array[1][q]>y_limits[0] and rxz_array[1][q]<y_limits[1]) ))
-                x_condition: bool = (x_limits is None or
-                        ( (rxz_array[0][q+1]>x_limits[0] and rxz_array[0][q+1]<x_limits[1]) and
-                          (rxz_array[0][q]>x_limits[0] and rxz_array[0][q]<x_limits[1]) ) )
+                y_condition: bool = (y_limits is None or (
+                        (rxz_array[1][q+1]>y_limits[0] and rxz_array[1][q+1]<y_limits[1])
+                        and (rxz_array[1][q]>y_limits[0] and rxz_array[1][q]<y_limits[1])
+                    )
+                )
+                x_condition: bool = (x_limits is None or (
+                        (rxz_array[0][q+1]>x_limits[0] and rxz_array[0][q+1]<x_limits[1])
+                        and (rxz_array[0][q]>x_limits[0] and rxz_array[0][q]<x_limits[1])
+                    )
+                )
                 if y_condition and x_condition:
                     axes.annotate('', xy=((rxz_array[0][q+1]),(rxz_array[1][q+1])),
                                   xytext=(rxz_array[0][q], rxz_array[1][q]-0),
                                   arrowprops=dict(arrowstyle=my_arrow_style, color=color) )
-        plt.plot(rxz_array[0],rxz_array[1], color=color, linestyle=line_style, lw=line_width, label=ray_label)
+        plt.plot(rxz_array[0],rxz_array[1], color=color,
+                  linestyle=line_style, lw=line_width, label=ray_label)

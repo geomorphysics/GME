@@ -12,12 +12,18 @@
 #
 import os
 import sys
-sys.path.insert(0, os.path.abspath('..'))
-sys.path.insert(0, os.path.abspath('../..'))
-sys.path.insert(0, os.path.abspath('../../Packages'))
-sys.path.insert(0, os.path.abspath('../../Packages/gme/core'))
-sys.path.insert(0, os.path.abspath('../../Packages/gme/ode'))
-sys.path.insert(0, os.path.abspath('../../Packages/gme/plot'))
+for dir_ in (   ('..'),
+                ('../../Packages'),
+                ('../../../GMPLib/Packages/gmplib'),
+                ('../../Packages/gme/core'),
+                ('../../Packages/gme/ode'),
+                ('../../Packages/gme/plot'),
+                ('../../Packages/gme/knickpoints') ):
+    sys.path.append(os.path.abspath(dir_))
+from pprint import PrettyPrinter
+pp = PrettyPrinter(indent=4).pprint
+pp(sys.path)
+
 import recommonmark
 from recommonmark.transform import AutoStructify
 
@@ -92,7 +98,7 @@ import sphinx_py3doc_enhanced_theme
 html_theme_path = [sphinx_py3doc_enhanced_theme.get_html_theme_path()]
 
 html_theme_options = {
-    'githuburl': 'https://github.com/cstarkjp/GME/',
+    'githuburl': 'https://github.com/geomorphysics/GME/',
     'bodyfont': '"Lucida Grande",Arial,sans-serif',
     'headfont': '"Lucida Grande",Arial,sans-serif',
     'codefont': 'monospace,sans-serif',
@@ -106,7 +112,8 @@ pygments_style = 'friendly'
 # html_theme_options = {
 #     'logo' : '../_images/H_icon1.png',
 #     'logo_name' : 'false',
-#     'description' : 'Classical mechanics & differential geometry applied to understanding landscape erosion',
+#     'description' : 'Classical mechanics & differential geometry applied
+#                      to understanding landscape erosion',
 #     'description_font_style' : 'italic',
 #     'show_related' : 'true',
 #     'code_font_size' : '0.7em',
@@ -134,9 +141,11 @@ html_sidebars = {
 }
 
 # -- Intersphinx mappings -------------------------------------------------
-
+# python -m sphinx.ext.intersphinx 'http://python-eve.org/objects.inv'
 intersphinx_mapping = {
-    'gmplib': ('https://cstarkjp.github.io/GMPLib', '/Users/colinstark/Projects/GMPLib/objects.inv'),
+    # https://geomorphysics.github.io/GMPLib
+    'gmplib': ('/Users/colinstark/Projects/GMPLib',
+               '/Users/colinstark/Projects/GMPLib/objects.inv'),
     'sphinx': ('http://www.sphinx-doc.org/en/master', None),
     'python': ('https://docs.python.org/3', None),
     'matplotlib': ('https://matplotlib.org', None),

@@ -21,13 +21,10 @@ The rest of the equations are derived from these core results.
 
 
 Requires Python packages/modules:
-  - :mod:`gmplib.utils`
-  - :mod:`numpy`
-  - :mod:`sympy`
-  - :mod:`functools`
-
-Imports symbols from the :mod:`.symbols` module
-
+  -  :mod:`scipy`, :mod:`sympy`
+  -  :mod:`gmplib.utils`
+  -  :mod:`gme.core.symbols`
+  
 ---------------------------------------------------------------------
 
 """
@@ -37,8 +34,12 @@ from functools import reduce
 # Typing
 from typing import Tuple, Dict, Any, List #, List #, Callable, List #, Dict, Any, Optional
 
+# SciPy
+from scipy.optimize import root_scalar
+
 # SymPy
 import sympy as sy
+
 # Cut 'S' because mypy complains
 from sympy import Eq, Rational, N, \
                     pi, sqrt, numer, denom, \
@@ -53,12 +54,9 @@ from sympy import Eq, Rational, N, \
 from gmplib.utils import e2d, omitdict
 
 # GME
+# yes, I know...
 from gme.core.symbols import *
 from gme.core.symbols import x,rx,px,pz,xiv,xiv_0  # to keep mypy happy
-# yes, I know...
-
-# SciPy
-from scipy.optimize import root_scalar
 
 warnings.filterwarnings("ignore")
 

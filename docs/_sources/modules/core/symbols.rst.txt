@@ -2,7 +2,7 @@
 =======================================
 
 
-.. automodule:: gme.symbols
+.. automodule:: gme.core.symbols
    :members:
    :private-members:
 
@@ -10,4 +10,4 @@
 
 Code
 -------
-.. literalinclude:: ../../../Packages/gme/symbols.py
+.. literalinclude:: ../../../../Packages/gme/core/symbols.py

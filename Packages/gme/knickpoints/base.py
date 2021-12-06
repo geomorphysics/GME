@@ -19,9 +19,9 @@ Imports symbols from :mod:`.symbols` module
 
 import numpy as np
 from gmplib.utils import vprint, e2d
-from gme.ode_base import BaseSolution
-from gme.ode_raytracing import VelocityBoundarySolution
-from gme.symbols import *
+from gme.ode.base import BaseSolution
+from gme.ode.velocity_boundary import VelocityBoundarySolution
+from gme.core.symbols import *
 from sympy import N, sign, atan, atan2, sin, cos, tan, re, im, sqrt, \
     Matrix, lambdify, Abs, simplify, expand, solve, Eq, Rational, diff, \
     nroots, poly

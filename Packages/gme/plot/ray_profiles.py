@@ -12,15 +12,9 @@ such as single ray tracing or for tracking knickpoints.
 ---------------------------------------------------------------------
 
 Requires Python packages/modules:
-  -  :mod:`gmplib.plot_utils <plot_utils>`
-  -  :mod:`numpy`
-  -  :mod:`sympy`
+  -  :mod:`numpy`, :mod:`sympy`
   -  :mod:`matplotlib.pyplot`
-  -  :mod:`matplotlib.ticker`
-  -  :mod:`matplotlib.patches`
-  -  :mod:`mpl_toolkits.axes_grid1`
-
-Imports symbols from :mod:`.symbols` module.
+  -  :mod:`gme.core.symbols`, :mod:`gme.plot.base`
 
 ---------------------------------------------------------------------
 
@@ -33,12 +27,12 @@ import numpy as np
 # SymPy
 from sympy import deg, tan
 
+# MatPlotLib
+import matplotlib.pyplot as plt
+
 # GME
 from gme.core.symbols import Ci, xiv_0, xih_0
 from gme.plot.base import Graphing
-
-# MatPlotLib
-import matplotlib.pyplot as plt
 
 warnings.filterwarnings("ignore")
 

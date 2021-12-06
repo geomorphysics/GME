@@ -2,15 +2,13 @@
 Python package `gme`
 -----------------------------------------------------------
 
+The "Geometric Mechanics of Erosion" Python package is organized into several sub-packages:
+
 
 .. toctree::
-   :maxdepth: 2
+    :maxdepth: 1
 
-    Core:
-        Symbol definitions <../modules/core/symbols>
-
-    Equation derivations <../modules/core/eequations>
-    ODE integration (base) <../modules/ode/base>
-    ODE integration (ray tracing) <../modules/ode/single_ray>
-    ODE integration (knickpoints) <../modules/ode/knickpoints>
-    Plotting <../modules/plot/base>
+    Core <../modules/core/index.rst>
+    ODE integration <../modules/ode/index.rst>
+    Plotting <../modules/plot/index.rst>
+    Knickpoint detection and tracking [in development] <../modules/knickpoints/index.rst>

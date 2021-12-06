@@ -1,17 +1,15 @@
 """
 ---------------------------------------------------------------------
 
-ODE integration of Hamilton's equations.
+Generate a sequence of topographic profiles, using ray tracing
+aka ODE integration of Hamilton's equations, for a velocity-boundary condition.
 
 ---------------------------------------------------------------------
 
 Requires Python packages/modules:
-  -  :mod:`gmplib.utils`
   -  :mod:`numpy`
-  -  :mod:`scipy`
-  -  :mod:`sympy`
-
-Imports symbols from :mod:`.symbols` module
+  -  :mod:`gmplib.utils`
+  -  :mod:`gme.core.symbols`, :mod:`gme.ode.base`
 
 ---------------------------------------------------------------------
 

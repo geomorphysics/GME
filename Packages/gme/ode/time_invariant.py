@@ -1,18 +1,17 @@
 """
 ---------------------------------------------------------------------
 
-ODE integration of Hamilton's equations.
+Time-invariant topographic profile construction by ray tracing
+aka ODE integration of Hamilton's equations.
 
 ---------------------------------------------------------------------
 
 Requires Python packages/modules:
+  -  :mod:`numpy`, :mod:`scipy`, :mod:`sympy`
   -  :mod:`gmplib.utils`
-  -  :mod:`numpy`
-  -  :mod:`scipy`
-  -  :mod:`sympy`
-
-Imports symbols from :mod:`.symbols` module
-
+  -  :mod:`gme.core.symbols`, :mod:`gme.core.equations`,
+     :mod:`gme.ode.single_ray`
+     
 ---------------------------------------------------------------------
 
 """
@@ -21,6 +20,13 @@ import warnings
 # Numpy
 import numpy as np
 
+# SciPy
+from scipy.integrate import cumtrapz
+from scipy.interpolate import InterpolatedUnivariateSpline
+
+# Sympy
+from sympy import poly
+
 # GMPLib
 from gmplib.utils import e2d
 
@@ -28,13 +34,6 @@ from gmplib.utils import e2d
 from gme.core.symbols import xiv_0, xih_0, px, Lc
 from gme.core.equations import gradient_value
 from gme.ode.single_ray import SingleRaySolution
-
-# Sympy
-from sympy import poly
-
-# SciPy
-from scipy.integrate import cumtrapz
-from scipy.interpolate import InterpolatedUnivariateSpline
 
 warnings.filterwarnings("ignore")
 

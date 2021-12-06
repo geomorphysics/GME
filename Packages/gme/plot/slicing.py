@@ -12,15 +12,11 @@ such as single ray tracing or for tracking knickpoints.
 ---------------------------------------------------------------------
 
 Requires Python packages/modules:
-  -  :mod:`gmplib.plot_utils <plot_utils>`
-  -  :mod:`numpy`
-  -  :mod:`sympy`
-  -  :mod:`matplotlib.pyplot`
-  -  :mod:`matplotlib.ticker`
-  -  :mod:`matplotlib.patches`
-  -  :mod:`mpl_toolkits.axes_grid1`
+  -  :mod:`numpy`, :mod:`sympy`
+  -  :mod:`matplotlib.pyplot`, :mod:`matplotlib.ticker`, :mod:`mpl_toolkits`
+  -  :mod:`gmplib.utils`
+  -  :mod:`gme.core.symbols`, :mod:`gme.core.equations`, :mod:`gme.plot.base`
 
-Imports symbols from :mod:`.symbols` module.
 
 ---------------------------------------------------------------------
 
@@ -37,6 +33,11 @@ import numpy as np
 from sympy import Eq, Abs, lambdify, Rational, Matrix, poly, \
                     simplify, diff, deg, solve, sqrt, rad, numer, denom, im, re
 
+# MatPlotLib
+import matplotlib.pyplot as plt
+from matplotlib import ticker
+from mpl_toolkits.axes_grid1 import make_axes_locatable
+
 # GMPLib
 from gmplib.utils import e2d, omitdict
 
@@ -45,19 +46,6 @@ from gme.core.symbols import H, Lc, gstarhat, xih_0, mu, eta, \
                              pxhat, pzhat, rxhat, Ci
 from gme.core.equations import px_value
 from gme.plot.base import Graphing
-
-# MatPlotLib
-import matplotlib.pyplot as plt
-from matplotlib import ticker
-# from matplotlib.ticker import FormatStrFormatter
-# import matplotlib.patches as mpatches
-# from matplotlib.patches import Patch, FancyArrow, FancyArrowPatch, Arrow, Rectangle, Circle, RegularPolygon,\
-#                                 ArrowStyle, ConnectionPatch, Arc
-# from matplotlib.spines import Spine
-# from matplotlib.legend_handler import HandlerPatch
-# from matplotlib import cm
-from mpl_toolkits.axes_grid1 import make_axes_locatable
-# from mpl_toolkits.axes_grid1.inset_locator import inset_axes
 
 warnings.filterwarnings("ignore")
 

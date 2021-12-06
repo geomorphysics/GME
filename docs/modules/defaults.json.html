@@ -36,7 +36,7 @@
     </div> -->
     <!-- 
         <div class="badge">
-            <a href="https://github.com/cstarkjp/GME/">Fork me on GitHub</a>
+            <a href="https://github.com/geomorphysics/GME/">Fork me on GitHub</a>
             <img src="../_static/right-red@2x.png">
         </div>
      -->
@@ -63,12 +63,14 @@
 	<span class="nt">&quot;model&quot;</span><span class="p">:</span> <span class="p">{</span>
 		<span class="nt">&quot;eta&quot;</span> <span class="p">:</span> <span class="s2">&quot;sy.Rational(1,1)&quot;</span><span class="p">,</span>
 		<span class="nt">&quot;mu&quot;</span> <span class="p">:</span>  <span class="s2">&quot;sy.Rational(1,2)&quot;</span><span class="p">,</span>
+		<span class="nt">&quot;beta_type&quot;</span> <span class="p">:</span> <span class="s2">&quot;sin&quot;</span><span class="p">,</span>
 		<span class="nt">&quot;varphi_type&quot;</span> <span class="p">:</span> <span class="s2">&quot;ramp&quot;</span><span class="p">,</span>
 		<span class="nt">&quot;ibc_type&quot;</span> <span class="p">:</span> <span class="s2">&quot;concave-up&quot;</span><span class="p">,</span>
-		<span class="nt">&quot;x_1&quot;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-		<span class="nt">&quot;varepsilon&quot;</span> <span class="p">:</span> <span class="s2">&quot;sy.Rational(1,100)&quot;</span><span class="p">,</span>
+		<span class="nt">&quot;Lc&quot;</span> <span class="p">:</span> <span class="mi">10000</span><span class="p">,</span>
+		<span class="nt">&quot;Ci&quot;</span> <span class="p">:</span>  <span class="s2">&quot;sy.rad(4)&quot;</span><span class="p">,</span>
+		<span class="nt">&quot;varphi_0&quot;</span> <span class="p">:</span> <span class="mf">2.641e-5</span><span class="p">,</span>
+		<span class="nt">&quot;varepsilonhat&quot;</span> <span class="p">:</span> <span class="s2">&quot;sy.Rational(1,100)&quot;</span><span class="p">,</span>
 		<span class="nt">&quot;xiv_0&quot;</span> <span class="p">:</span> <span class="s2">&quot;None&quot;</span><span class="p">,</span>
-		<span class="nt">&quot;varphi_0&quot;</span> <span class="p">:</span> <span class="mi">300</span><span class="p">,</span>
 		<span class="nt">&quot;t_xiv0_list&quot;</span> <span class="p">:</span> <span class="s2">&quot;None&quot;</span><span class="p">,</span>
 		<span class="nt">&quot;kappa_h&quot;</span> <span class="p">:</span> <span class="s2">&quot;sy.Rational(3,2)&quot;</span><span class="p">,</span>
 		<span class="nt">&quot;h_0&quot;</span> <span class="p">:</span> <span class="s2">&quot;sy.Rational(1,2)&quot;</span><span class="p">,</span>
@@ -104,6 +106,7 @@
 
 	<span class="nt">&quot;plot&quot;</span><span class="p">:</span> <span class="p">{</span>
 		<span class="nt">&quot;do_pub_labeling&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+		<span class="nt">&quot;do_etaxi_labeling&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
 		<span class="nt">&quot;pub_labels&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;(a)&quot;</span><span class="p">,</span><span class="s2">&quot;(a)&quot;</span><span class="p">,</span><span class="s2">&quot;(b)&quot;</span><span class="p">],</span>
 		<span class="nt">&quot;do_profile_schematic&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
 		<span class="nt">&quot;do_profile_extra&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
@@ -115,12 +118,13 @@
 		<span class="nt">&quot;small_fig_size&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span>
 		<span class="nt">&quot;n_rays&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
 		<span class="nt">&quot;profile_subsetting&quot;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
+		<span class="nt">&quot;ray_x_limits&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="mf">-0.02</span><span class="p">,</span><span class="mf">1.02</span><span class="p">],</span>
 		<span class="nt">&quot;ray_y_limits&quot;</span> <span class="p">:</span> <span class="s2">&quot;None&quot;</span><span class="p">,</span>
 		<span class="nt">&quot;aniso_y_limits&quot;</span> <span class="p">:</span> <span class="s2">&quot;None&quot;</span><span class="p">,</span>
 		<span class="nt">&quot;aniso_n_points&quot;</span> <span class="p">:</span> <span class="mi">45</span><span class="p">,</span>
 		<span class="nt">&quot;aniso_arrow_exponent&quot;</span> <span class="p">:</span> <span class="mf">0.9</span><span class="p">,</span>
 		<span class="nt">&quot;aniso_arrow_size&quot;</span> <span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span>
-		<span class="nt">&quot;ray_eta_xy&quot;</span><span class="p">:</span> <span class="s2">&quot;None&quot;</span><span class="p">,</span>
+		<span class="nt">&quot;ray_eta_xy&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.85</span><span class="p">,</span><span class="mf">0.15</span><span class="p">],</span>
 		<span class="nt">&quot;dimx_limits&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="mf">-0.03</span><span class="p">,</span><span class="mf">1.03</span><span class="p">],</span>
 		<span class="nt">&quot;dimz_limits&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="mf">-0.01</span><span class="p">,</span><span class="mf">0.6</span><span class="p">],</span>
 		<span class="nt">&quot;dimx_limits_zoom&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="mf">0.2</span><span class="p">,</span><span class="mf">0.3</span><span class="p">],</span>
@@ -149,7 +153,38 @@
 		<span class="nt">&quot;profile_evec_eta_label_xy&quot;</span> <span class="p">:</span> <span class="s2">&quot;None&quot;</span><span class="p">,</span>
 		<span class="nt">&quot;profile_eval_eta_label_xy&quot;</span> <span class="p">:</span> <span class="s2">&quot;None&quot;</span><span class="p">,</span>
 		<span class="nt">&quot;profile_cusp_speed_legend_loc&quot;</span> <span class="p">:</span> <span class="s2">&quot;None&quot;</span><span class="p">,</span>
-		<span class="nt">&quot;profile_cusp_speed_y_limits&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="mi">-10</span><span class="p">,</span><span class="mi">30</span><span class="p">]</span>
+		<span class="nt">&quot;profile_cusp_speed_y_limits&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="mi">-10</span><span class="p">,</span><span class="mi">30</span><span class="p">],</span>
+		<span class="nt">&quot;pub_labels&quot;</span><span class="p">:</span> <span class="p">{</span>
+			<span class="nt">&quot;profile_vdot&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+			<span class="nt">&quot;profile_v&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+			<span class="nt">&quot;profile_vxz&quot;</span><span class="p">:</span> <span class="s2">&quot;(c)&quot;</span><span class="p">,</span>
+			<span class="nt">&quot;profile_xi&quot;</span><span class="p">:</span> <span class="s2">&quot;(a)&quot;</span><span class="p">,</span>
+			<span class="nt">&quot;profile_xihorizontal&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+			<span class="nt">&quot;profile_xivertical&quot;</span><span class="p">:</span> <span class="s2">&quot;(d)&quot;</span><span class="p">,</span>
+			<span class="nt">&quot;profile_aniso&quot;</span><span class="p">:</span> <span class="s2">&quot;(b)&quot;</span><span class="p">,</span>
+			<span class="nt">&quot;profile_beta&quot;</span><span class="p">:</span> <span class="s2">&quot;(b)&quot;</span><span class="p">,</span>
+			<span class="nt">&quot;profile_h_rays&quot;</span><span class="p">:</span> <span class="s2">&quot;(b)&quot;</span><span class="p">,</span>
+			<span class="nt">&quot;profile_h_ray&quot;</span><span class="p">:</span> <span class="s2">&quot;(c)&quot;</span><span class="p">,</span>
+			<span class="nt">&quot;alpha_beta&quot;</span><span class="p">:</span> <span class="s2">&quot;(b)&quot;</span><span class="p">,</span>
+			<span class="nt">&quot;angular_disparity&quot;</span><span class="p">:</span> <span class="s2">&quot;(b)&quot;</span><span class="p">,</span>
+			<span class="nt">&quot;profile_angular_disparity&quot;</span><span class="p">:</span> <span class="s2">&quot;(b)&quot;</span>
+		<span class="p">},</span>
+		<span class="nt">&quot;pub_label_posns&quot;</span><span class="p">:</span> <span class="p">{</span>
+			<span class="nt">&quot;profile_vdot&quot;</span><span class="p">:</span> <span class="s2">&quot;None&quot;</span><span class="p">,</span>
+			<span class="nt">&quot;profile_v&quot;</span><span class="p">:</span> <span class="s2">&quot;None&quot;</span><span class="p">,</span>
+			<span class="nt">&quot;profile_vxz&quot;</span><span class="p">:</span> <span class="s2">&quot;None&quot;</span><span class="p">,</span>
+			<span class="nt">&quot;profile_xi&quot;</span><span class="p">:</span> <span class="s2">&quot;None&quot;</span><span class="p">,</span>
+			<span class="nt">&quot;profile_xihorizontal&quot;</span><span class="p">:</span> <span class="s2">&quot;None&quot;</span><span class="p">,</span>
+			<span class="nt">&quot;profile_xivertical&quot;</span><span class="p">:</span> <span class="s2">&quot;None&quot;</span><span class="p">,</span>
+			<span class="nt">&quot;profile_aniso&quot;</span><span class="p">:</span> <span class="s2">&quot;None&quot;</span><span class="p">,</span>
+			<span class="nt">&quot;profile_beta&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.93</span><span class="p">,</span><span class="mf">0.2</span><span class="p">],</span>
+			<span class="nt">&quot;profile_h_rays&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.93</span><span class="p">,</span><span class="mf">0.35</span><span class="p">],</span>
+			<span class="nt">&quot;profile_h_ray&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.85</span><span class="p">,</span><span class="mf">0.7</span><span class="p">],</span>
+			<span class="nt">&quot;alpha_beta&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.88</span><span class="p">,</span><span class="mf">0.3</span><span class="p">],</span>
+			<span class="nt">&quot;angular_disparity&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.15</span><span class="p">,</span><span class="mf">0.15</span><span class="p">],</span>
+			<span class="nt">&quot;profile_angular_disparity&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.6</span><span class="p">,</span><span class="mf">0.35</span><span class="p">],</span>
+			<span class="nt">&quot;etaxi_label&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.65</span><span class="p">,</span><span class="mf">0.85</span><span class="p">]</span>
+		<span class="p">}</span>
 	<span class="p">},</span>
 
 	<span class="nt">&quot;save&quot;</span><span class="p">:</span> <span class="p">{</span>
@@ -193,15 +228,17 @@
 <!-- <br> -->
 <script type="text/javascript">$('#searchbox').show(0);</script><h3><a href="../index.html">Contents</a></h3>
 <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Presentations.html">  Presentations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Publications.html">  Publications</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Design.html">  Software design</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Dependencies.html">  Dependencies</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Installation.html">  Installation and set-up</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Running.html">  Running the notebooks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Python.html">  Python package docs</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="Notebooks.html">  Notebook docs</a><ul class="current">
-<li class="toctree-l2"><a class="reference external" href="https://github.com/cstarkjp/GME/tree/main/Notebooks/Theory"> Theory</a></li>
-<li class="toctree-l2"><a class="reference external" href="https://github.com/cstarkjp/GME/tree/main/Notebooks/RayTracing"> Ray tracing</a></li>
-<li class="toctree-l2"><a class="reference external" href="https://github.com/cstarkjp/GME/tree/main/Notebooks/Knickpoints"> Knickpoint notebooks</a></li>
+<li class="toctree-l2"><a class="reference external" href="https://github.com/geomorphysics/GME/tree/main/Notebooks/Theory"> Theory</a></li>
+<li class="toctree-l2"><a class="reference external" href="https://github.com/geomorphysics/GME/tree/main/Notebooks/RayTracing"> Ray tracing</a></li>
+<li class="toctree-l2"><a class="reference external" href="https://github.com/geomorphysics/GME/tree/main/Notebooks/Knickpoints"> Knickpoint notebooks</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#"> Default parameters</a></li>
 </ul>
 </li>

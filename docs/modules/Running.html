@@ -36,7 +36,7 @@
     </div> -->
     <!-- 
         <div class="badge">
-            <a href="https://github.com/cstarkjp/GME/">Fork me on GitHub</a>
+            <a href="https://github.com/geomorphysics/GME/">Fork me on GitHub</a>
             <img src="../_static/right-red@2x.png">
         </div>
      -->
@@ -51,10 +51,10 @@
 <h1>Running GME notebooks<a class="headerlink" href="#running-gme-notebooks" title="Permalink to this headline">¶</a></h1>
 <p>For the Jupyter/IPython notebooks to run successfully, the environment variable <code class="docutils literal notranslate"><span class="pre">PYTHONPATH</span></code> must include paths to the parent directories of both the <code class="docutils literal notranslate"><span class="pre">GME</span></code> and <code class="docutils literal notranslate"><span class="pre">GMPLib</span></code> Python packages. On MacOS and Linux platforms this is achieved by modifying the start-up script of your preferred shell (see <a class="reference internal" href="Installation.html"><span class="doc">notes on installation and set-up</span></a>) and by launching the Jupyter notebook server from this shell and accessing the server in a browser. The chosen <code class="docutils literal notranslate"><span class="pre">GME</span></code> notebook can then be opened and executed inline.</p>
 <p>This approach is fine for single-shot runs of <code class="docutils literal notranslate"><span class="pre">GME</span></code> with a particular choice of parameters. However, if we want to run a group of analyses with several choices of parameter sets, inline execution is inconvenient: bulk, offline execution is much more efficient. Shell scripts (written in <code class="docutils literal notranslate"><span class="pre">bash</span></code>) are provided to make this possible.</p>
-<p>For example, the <a class="reference external" href="https://github.com/cstarkjp/GME/blob/main/Notebooks/RayTracing/TimeInvariant.ipynb"><code class="docutils literal notranslate"><span class="pre">TimeInvariant.ipynb</span></code></a> notebook can be loaded into a Jupyter notebook server, modified to work with a particular choice of JSON parameter file <a class="reference external" href="https://github.com/cstarkjp/GME/blob/main/Parameters/RayTracing">selected from here</a>, and run inline in a browser. On the other hand, if we wish to run this notebook several times with against a set of parameter files, we can do the following:</p>
+<p>For example, the <a class="reference external" href="https://github.com/geomorphysics/GME/blob/main/Notebooks/RayTracing/TimeInvariant.ipynb"><code class="docutils literal notranslate"><span class="pre">TimeInvariant.ipynb</span></code></a> notebook can be loaded into a Jupyter notebook server, modified to work with a particular choice of JSON parameter file <a class="reference external" href="https://github.com/geomorphysics/GME/blob/main/Parameters/RayTracing">selected from here</a>, and run inline in a browser. On the other hand, if we wish to run this notebook several times with against a set of parameter files, we can do the following:</p>
 <ul class="simple">
-<li><p>specify the list of JSON parameter files in <a class="reference external" href="https://github.com/cstarkjp/GME/blob/main/Notebooks/RayTracing/TimeInvariant_jobs.py"><code class="docutils literal notranslate"><span class="pre">TimeInvariant_jobs.py</span></code></a></p></li>
-<li><p>run the batch shell script <a class="reference external" href="https://github.com/cstarkjp/GME/blob/main/Notebooks/run_jobs.sh"><code class="docutils literal notranslate"><span class="pre">run_jobs.sh</span></code></a> from the <a class="reference external" href="https://github.com/cstarkjp/GME/blob/main/Notebooks/RayTracing">notebook directory</a> using the shell command <code class="docutils literal notranslate"><span class="pre">../run_jobs.sh</span> <span class="pre">TimeInvariant_jobs</span></code> (with the path to the script modified as appropriate)</p></li>
+<li><p>specify the list of JSON parameter files in <a class="reference external" href="https://github.com/geomorphysics/GME/blob/main/Notebooks/RayTracing/TimeInvariant_jobs.py"><code class="docutils literal notranslate"><span class="pre">TimeInvariant_jobs.py</span></code></a></p></li>
+<li><p>run the batch shell script <a class="reference external" href="https://github.com/geomorphysics/GME/blob/main/Notebooks/run_jobs.sh"><code class="docutils literal notranslate"><span class="pre">run_jobs.sh</span></code></a> from the <a class="reference external" href="https://github.com/geomorphysics/GME/blob/main/Notebooks/RayTracing">notebook directory</a> using the shell command <code class="docutils literal notranslate"><span class="pre">../run_jobs.sh</span> <span class="pre">TimeInvariant_jobs</span></code> (with the path to the script modified as appropriate)</p></li>
 </ul>
 <p>The script steps through the list of parameter files and sets the following environment variables</p>
 <ul class="simple">
@@ -67,7 +67,7 @@
 </pre></div>
 </div>
 <p>See <a class="reference external" href="https://nbconvert.readthedocs.io/en/latest/execute_api.html">here</a> and <a class="reference external" href="https://ipython.org/ipython-doc/3/notebook/nbconvert.html">here</a>  for more information on this technique.</p>
-<p>The <a class="reference external" href="https://github.com/cstarkjp/GME/blob/main/Notebooks/run_jobs.sh"><code class="docutils literal notranslate"><span class="pre">run_jobs.sh</span></code></a> script as written runs the notebooks in-place, overwriting them each time execution completes. If you wish to record each executed notebook elsewhere, modify the invocation above to something like</p>
+<p>The <a class="reference external" href="https://github.com/geomorphysics/GME/blob/main/Notebooks/run_jobs.sh"><code class="docutils literal notranslate"><span class="pre">run_jobs.sh</span></code></a> script as written runs the notebooks in-place, overwriting them each time execution completes. If you wish to record each executed notebook elsewhere, modify the invocation above to something like</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>jupyter nbconvert --to notebook --execute $nb_filename --output $job_nb_filename \
         --log-level=40 --ExecutePreprocessor.timeout=-1 --clear-output
 </pre></div>
@@ -103,6 +103,8 @@
 <!-- <br> -->
 <script type="text/javascript">$('#searchbox').show(0);</script><h3><a href="../index.html">Contents</a></h3>
 <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Presentations.html">  Presentations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Publications.html">  Publications</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Design.html">  Software design</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Dependencies.html">  Dependencies</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Installation.html">  Installation and set-up</a></li>

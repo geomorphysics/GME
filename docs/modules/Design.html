@@ -19,7 +19,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Dependencies" href="Dependencies.html" />
-    <link rel="prev" title="The Geometric Mechanics of Erosion (GME)" href="../index.html" />
+    <link rel="prev" title="Publications" href="Publications.html" />
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <link rel="shortcut icon" type="image/png" href="../_static/favicon.png" />
     <meta name="viewport" content="width=device-width,initial-scale=0.8">
@@ -36,7 +36,7 @@
     </div> -->
     <!-- 
         <div class="badge">
-            <a href="https://github.com/cstarkjp/GME/">Fork me on GitHub</a>
+            <a href="https://github.com/geomorphysics/GME/">Fork me on GitHub</a>
             <img src="../_static/right-red@2x.png">
         </div>
      -->
@@ -60,9 +60,9 @@
 <h2>1) Python packages<a class="headerlink" href="#python-packages" title="Permalink to this headline">¶</a></h2>
 <p>The main <code class="docutils literal notranslate"><span class="pre">GME</span></code> project package <code class="docutils literal notranslate"><span class="pre">gme</span></code> facilitates the following:</p>
 <ul class="simple">
-<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Computer_algebra_system">CAS</a> (aka automated symbolic) solution of the geomorphic Hamiltonian and related equations using SymPy.</p></li>
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Computer_algebra_system">CAS</a> (SymPy) solution of the geomorphic Hamiltonian and related equations</p></li>
 <li><p>integration of systems of 1st order ODEs (Hamilton’s equations) for ray tracing</p></li>
-<li><p>post-processing of rays to resolve topographic surface isochrones, knickpoints, eta_choice</p></li>
+<li><p>post-processing of rays to resolve topographic surface isochrones, knickpoints</p></li>
 <li><p>visualization of rays, isochrones, and a variety of analyses of the results</p></li>
 </ul>
 <p>The counterpart geomorphysics library package <code class="docutils literal notranslate"><span class="pre">gmplib</span></code> provides basic utility functions for graph plotting, JSON parameter file parsing, and file output. It is split from the <code class="docutils literal notranslate"><span class="pre">gme</span></code> package so that it can be used comfortably by other Python-based projects.</p>
@@ -76,7 +76,7 @@
 <h2>3) JSON parameter files<a class="headerlink" href="#json-parameter-files" title="Permalink to this headline">¶</a></h2>
 <p>Each GME processing job is controlled by a small set of JSON parameter files.
 A JSON file is a convenient means of communicating the information required to formulate the full GME equation set (e.g., by specifying eta and mu) and to set up a numerical solution (e.g., by specifying erosion rate parameters, domain size, processing resolution, visualization parameters, etc).  A <code class="docutils literal notranslate"><span class="pre">gmplib</span></code> utility converts the combined JSON files into a Python dictionary containing the desired parameters, and this dictionary is mapped into the data properties of a parameters object (class instance)</p>
-<p>At minimum, a notebook will parse a defaults JSON file and one job JSON file; some notebooks combine several job JSON files.</p>
+<p>At minimum, a notebook will parse a defaults JSON file and then a single “job” JSON file; some notebooks combine several job files.</p>
 </div>
 </div>
 
@@ -108,6 +108,8 @@ A JSON file is a convenient means of communicating the information required to f
 <!-- <br> -->
 <script type="text/javascript">$('#searchbox').show(0);</script><h3><a href="../index.html">Contents</a></h3>
 <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Presentations.html">  Presentations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Publications.html">  Publications</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">  Software design</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#python-packages">1) Python packages</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#jupyter-ipython-notebooks">2) Jupyter/IPython notebooks</a></li>
@@ -155,7 +157,7 @@ A JSON file is a convenient means of communicating the information required to f
           <a href="Dependencies.html" title="Dependencies"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="../index.html" title="The Geometric Mechanics of Erosion (GME)"
+          <a href="Publications.html" title="Publications"
              accesskey="P">previous</a> |</li>
       </ul>
     </div>

@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>base.py &#8212; GME 1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pydoctheme.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+    
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <script src="../../_static/sidebar.js"></script>
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="alphabeta.py" href="alphabeta.html" />
+    <link rel="prev" title="gme sub-package plot" href="index.html" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <link rel="shortcut icon" type="image/png" href="../../_static/favicon.png" />
+    <meta name="viewport" content="width=device-width,initial-scale=0.8">
+    
+    
+
+  </head><body>
+    <!-- <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="responsive-menu"><a href="#sidebar-anchor" title="Navigation">&#9776;</a></li>
+        <li><a href="../../index.html">GME 1.0 documentation</a> &#187;</li>
+          <li><a href="../Python.html" >Python package <cite>gme</cite></a> &#187;</li>
+          <li><a href="index.html" accesskey="U"><cite>gme</cite> sub-package <cite>plot</cite></a> &#187;</li> 
+      </ul>
+    </div> -->
+    <!-- 
+        <div class="badge">
+            <a href="https://github.com/geomorphysics/GME/">Fork me on GitHub</a>
+            <img src="../../_static/right-red@2x.png">
+        </div>
+     -->
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-gme.plot.base">
+<span id="base-py"></span><h1><code class="docutils literal notranslate"><span class="pre">base.py</span></code><a class="headerlink" href="#module-gme.plot.base" title="Permalink to this headline">¶</a></h1>
+<hr class="docutils" />
+<p>Visualization.</p>
+<p>Provides classes to generate a range of graphics for GME visualization.
+A base class extends <a class="reference external" href="/Users/colinstark/Projects/GMPLib/modules/plot_utils.html#gmplib.plot_utils.GraphingBase" title="(in GMPLib v1.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">gmplib.plot_utils.GraphingBase</span></code></a>
+provided by <code class="xref py py-mod docutils literal notranslate"><span class="pre">GMPLib</span></code>; the other classes build on this.
+Each is tailored to a particular category of GME problem,
+such as single ray tracing or for tracking knickpoints.</p>
+<hr class="docutils" />
+<dl class="simple">
+<dt>Requires Python packages/modules:</dt><dd><ul class="simple">
+<li><p><a class="reference external" href="https://numpy.org/doc/stable/reference/index.html#module-numpy" title="(in NumPy v1.21)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy</span></code></a></p></li>
+<li><p><a class="reference external" href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.html#module-matplotlib.pyplot" title="(in Matplotlib v3.5.0)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">matplotlib.pyplot</span></code></a>, <a class="reference external" href="https://matplotlib.org/api/patches_api.html#module-matplotlib.patches" title="(in Matplotlib v3.5.0)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">matplotlib.patches</span></code></a>, <a class="reference external" href="https://matplotlib.org/api/cm_api.html#module-matplotlib.cm" title="(in Matplotlib v3.5.0)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">matplotlib.cm</span></code></a></p></li>
+<li><p><code class="xref py py-mod docutils literal notranslate"><span class="pre">gmplib.plot_utils</span></code></p></li>
+<li><p><a class="reference internal" href="../core/symbols.html#module-gme.core.symbols" title="gme.core.symbols"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gme.core.symbols</span></code></a></p></li>
+</ul>
+</dd>
+</dl>
+<hr class="docutils" />
+<dl class="py class">
+<dt class="sig sig-object py" id="gme.plot.base.Graphing">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gme.plot.base.</span></span><span class="sig-name descname"><span class="pre">Graphing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dpi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">font_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">11</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gme.plot.base.Graphing" title="Permalink to this definition">¶</a></dt>
+<dd><p>Subclasses <a class="reference external" href="/Users/colinstark/Projects/GMPLib/modules/plot_utils.html#gmplib.plot_utils.GraphingBase" title="(in GMPLib v1.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">gmplib.plot_utils.GraphingBase</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="gme.plot.base.Graphing.arrow_annotate_ray_custom">
+<span class="sig-name descname"><span class="pre">arrow_annotate_ray_custom</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rx_array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rz_array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_ray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_ray_step</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_rays</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_arrows</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arrow_sf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.7</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arrow_offset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_limits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_limits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">line_style</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'dashed'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">line_width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ray_label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_smooth_colors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.plot.base.Graphing.arrow_annotate_ray_custom" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add arrowheads to a ray trajectory to visualize the direction of motion.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rx_array</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.21)"><em>numpy.ndarray</em></a>) – x coordinates along the sampled ray</p></li>
+<li><p><strong>rz_array</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.21)"><em>numpy.ndarray</em></a>) – z coordinates along the sampled ray</p></li>
+<li><p><strong>axes</strong> (<a class="reference external" href="https://matplotlib.org/api/axes_api.html#matplotlib.axes.Axes" title="(in Matplotlib v3.5.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Matplotlib</span> <span class="pre">axes</span></code></a>) – ‘axes’ instance
+for current figure</p></li>
+<li><p><strong>sub</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – dictionary of model parameter values to be used
+for equation substitutions</p></li>
+<li><p><strong>i_ray</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – index of this ray among the set currently being plotted</p></li>
+<li><p><strong>i_ray_step</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – ray index step, used as divisor when assigning
+a color to match the parent ray color</p></li>
+<li><p><strong>n_arrows</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – number of arrows to plot along the ray</p></li>
+<li><p><strong>arrow_sf</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – optional scale factor for arrowhead size</p></li>
+<li><p><strong>arrow_offset</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – optional offset from ray initial point
+to start adding arrowheads</p></li>
+<li><p><strong>x_limits</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a>) – optional horizontal axis range</p></li>
+<li><p><strong>y_limits</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a>) – optional vertical axis range</p></li>
+<li><p><strong>line_style</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – optional line style</p></li>
+<li><p><strong>line_width</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – optional line width</p></li>
+<li><p><strong>ray_label</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – optional ray label for legend</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gme.plot.base.Graphing.correct_quadrant">
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">correct_quadrant</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">angle</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><a class="headerlink" href="#gme.plot.base.Graphing.correct_quadrant" title="Permalink to this definition">¶</a></dt>
+<dd><p>If angle <span class="math notranslate nohighlight">\(|\theta|\approx 0\)</span>, set <span class="math notranslate nohighlight">\(\theta=0\)</span>;
+otherwise, if angle <span class="math notranslate nohighlight">\(\theta&lt;0\)</span>, map <span class="math notranslate nohighlight">\(\theta \rightarrow \pi-\theta\)</span>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>angle</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – angle in radians</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Modified value of angle.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gme.plot.base.Graphing.draw_rays_with_arrows_simple">
+<span class="sig-name descname"><span class="pre">draw_rays_with_arrows_simple</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">axes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sub</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xi_vh_ratio</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rx_array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rz_array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v_array</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_t</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_rays</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ls</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'-'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_labels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_one_ray</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.plot.base.Graphing.draw_rays_with_arrows_simple" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot ray and arrowheads along the ray to visualize the direction of motion.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>axes</strong> (<a class="reference external" href="https://matplotlib.org/api/axes_api.html#matplotlib.axes.Axes" title="(in Matplotlib v3.5.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Matplotlib</span> <span class="pre">axes</span></code></a>) – ‘axes’ instance
+for current figure</p></li>
+<li><p><strong>sub</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – dictionary of model parameter values to be used for
+equation substitutions</p></li>
+<li><p><strong>t_array</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.21)"><em>numpy.ndarray</em></a>) – sample times along the ray</p></li>
+<li><p><strong>rx_array</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.21)"><em>numpy.ndarray</em></a>) – x coordinates along the sampled ray</p></li>
+<li><p><strong>rz_array</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.21)"><em>numpy.ndarray</em></a>) – z coordinates along the sampled ray</p></li>
+<li><p><strong>ls</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – optional line style</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gme.plot.base.Graphing.gray_color">
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">gray_color</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i_isochrone</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_isochrones</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><a class="headerlink" href="#gme.plot.base.Graphing.gray_color" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make a grey shade for to communicate isochrone time</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gme.plot.base.Graphing.mycolors">
+<span class="sig-name descname"><span class="pre">mycolors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_smooth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap_choice</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'brg'</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#gme.plot.base.Graphing.mycolors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate a color palette</p>
+</dd></dl>
+
+</dd></dl>
+
+<div class="section" id="code">
+<h2>Code<a class="headerlink" href="#code" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">---------------------------------------------------------------------</span>
+
+<span class="sd">Visualization.</span>
+
+<span class="sd">Provides classes to generate a range of graphics for GME visualization.</span>
+<span class="sd">A base class extends :class:`gmplib.plot_utils.GraphingBase &lt;plot_utils.GraphingBase&gt;`</span>
+<span class="sd">provided by :mod:`GMPLib`; the other classes build on this.</span>
+<span class="sd">Each is tailored to a particular category of GME problem,</span>
+<span class="sd">such as single ray tracing or for tracking knickpoints.</span>
+
+<span class="sd">---------------------------------------------------------------------</span>
+
+<span class="sd">Requires Python packages/modules:</span>
+<span class="sd">  -  :mod:`numpy`</span>
+<span class="sd">  -  :mod:`matplotlib.pyplot`, :mod:`matplotlib.patches`, :mod:`matplotlib.cm`</span>
+<span class="sd">  -  :mod:`gmplib.plot_utils`</span>
+<span class="sd">  -  :mod:`gme.core.symbols`</span>
+
+<span class="sd">---------------------------------------------------------------------</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="c1"># Typing</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
+
+<span class="c1"># Numpy</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1"># MatPlotLib</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">matplotlib.patches</span> <span class="k">as</span> <span class="nn">mpatches</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">cm</span>
+
+<span class="c1"># GMPLib</span>
+<span class="kn">from</span> <span class="nn">gmplib.plot_utils</span> <span class="kn">import</span> <span class="n">GraphingBase</span>
+
+<span class="c1"># GME</span>
+<span class="kn">from</span> <span class="nn">gme.core.symbols</span> <span class="kn">import</span> <span class="n">xih_0</span><span class="p">,</span> <span class="n">xiv_0</span><span class="p">,</span> <span class="n">t</span>
+
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Graphing&#39;</span><span class="p">]</span>
+
+
+<span class="k">class</span> <span class="nc">Graphing</span><span class="p">(</span><span class="n">GraphingBase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Subclasses :class:`gmplib.plot_utils.GraphingBase &lt;plot_utils.GraphingBase&gt;`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">mycolors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">do_smooth</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">cmap_choice</span><span class="o">=</span><span class="s1">&#39;brg&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generate a color palette</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">do_smooth</span><span class="p">:</span>
+            <span class="n">colors_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">colors</span><span class="p">[(</span><span class="n">i</span><span class="o">//</span><span class="n">r</span><span class="p">)</span><span class="o">%</span><span class="bp">self</span><span class="o">.</span><span class="n">n_colors</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">cmap</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="n">cmap_choice</span><span class="p">)</span>
+            <span class="n">colors_</span> <span class="o">=</span> <span class="n">cmap</span><span class="p">(</span><span class="n">i</span><span class="o">/</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">colors_</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">gray_color</span><span class="p">(</span><span class="n">i_isochrone</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">n_isochrones</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Make a grey shade for to communicate isochrone time</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="p">(</span><span class="n">n_isochrones</span><span class="o">-</span><span class="mi">1</span><span class="o">-</span><span class="n">i_isochrone</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">n_isochrones</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="mf">0.75</span><span class="si">}</span><span class="s1">&#39;</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">correct_quadrant</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        If angle :math:`|\theta|\approx 0`, set :math:`\theta=0`;</span>
+<span class="sd">        otherwise, if angle :math:`\theta&lt;0`, map :math:`\theta \rightarrow \pi-\theta`.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            angle (float): angle in radians</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Modified value of angle.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span><span class="o">&lt;=</span><span class="mf">1e-10</span><span class="p">:</span>
+            <span class="n">angle_</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="k">elif</span> <span class="n">angle</span><span class="o">&gt;</span><span class="mf">0.0</span><span class="p">:</span>
+            <span class="n">angle_</span> <span class="o">=</span>  <span class="n">angle</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">angle_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">+</span><span class="n">angle</span>
+        <span class="k">return</span> <span class="n">angle_</span>
+
+    <span class="k">def</span> <span class="nf">draw_rays_with_arrows_simple</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">axes</span><span class="p">,</span> <span class="n">sub</span><span class="p">,</span> <span class="n">xi_vh_ratio</span><span class="p">,</span>
+                                      <span class="n">t_array</span><span class="p">,</span> <span class="n">rx_array</span><span class="p">,</span> <span class="n">rz_array</span><span class="p">,</span> <span class="n">v_array</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                                      <span class="n">n_t</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">n_rays</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+                                      <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">sf</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                                      <span class="n">do_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">do_one_ray</span><span class="o">=</span><span class="kc">False</span> <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Plot ray and arrowheads along the ray to visualize the direction of motion.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            axes (:class:`Matplotlib axes &lt;matplotlib.axes.Axes&gt;`): &#39;axes&#39; instance</span>
+<span class="sd">                                        for current figure</span>
+<span class="sd">            sub (dict): dictionary of model parameter values to be used for</span>
+<span class="sd">                        equation substitutions</span>
+<span class="sd">            t_array (numpy.ndarray): sample times along the ray</span>
+<span class="sd">            rx_array (numpy.ndarray): x coordinates along the sampled ray</span>
+<span class="sd">            rz_array (numpy.ndarray): z coordinates along the sampled ray</span>
+<span class="sd">            ls (str): optional line style</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">i_max</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">t_array</span><span class="p">)</span> <span class="k">if</span> <span class="n">n_t</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">n_t</span>
+        <span class="n">i_step</span> <span class="o">=</span> <span class="n">i_max</span><span class="o">//</span><span class="n">n_rays</span>
+        <span class="n">i_off</span> <span class="o">=</span> <span class="n">i_step</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">i_max</span><span class="o">//</span><span class="n">i_step</span><span class="p">)</span><span class="o">-</span><span class="n">i_max</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="n">my_arrow_style</span> <span class="o">=</span> <span class="n">mpatches</span><span class="o">.</span><span class="n">ArrowStyle</span><span class="o">.</span><span class="n">Fancy</span><span class="p">(</span><span class="n">head_length</span><span class="o">=.</span><span class="mi">99</span><span class="o">*</span><span class="n">sf</span><span class="p">,</span> <span class="n">head_width</span><span class="o">=.</span><span class="mi">6</span><span class="o">*</span><span class="n">sf</span><span class="p">,</span>
+                                                   <span class="n">tail_width</span><span class="o">=</span><span class="mf">0.01</span><span class="o">*</span><span class="n">sf</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">v_array</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">v_max</span><span class="p">,</span> <span class="n">v_min</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">v_array</span><span class="p">),</span> <span class="nb">min</span><span class="p">(</span><span class="n">v_array</span><span class="p">)</span>
+            <span class="n">color_map</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="s1">&#39;plasma&#39;</span><span class="p">)</span>
+        <span class="n">t_ref</span> <span class="o">=</span> <span class="n">t_array</span><span class="p">[</span><span class="n">i_max</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i_max</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+            <span class="n">color</span> <span class="o">=</span> <span class="n">color</span> <span class="k">if</span> <span class="n">do_one_ray</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">colors</span><span class="p">[(</span><span class="n">i</span><span class="o">//</span><span class="n">i_step</span><span class="p">)</span><span class="o">%</span><span class="bp">self</span><span class="o">.</span><span class="n">n_colors</span><span class="p">]</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="n">i_off</span><span class="p">)</span><span class="o">//</span><span class="n">i_step</span><span class="o">==</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="n">i_off</span><span class="p">)</span><span class="o">/</span><span class="n">i_step</span><span class="p">:</span>
+                <span class="n">t_offset</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">do_one_ray</span> <span class="k">else</span> <span class="n">t_array</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">xi_vh_ratio</span>
+                <span class="n">t_label</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;$\hat</span><span class="si">{t}</span><span class="s1">_0=$&#39;</span><span class="o">+</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="n">t_ref</span><span class="o">-</span><span class="n">t_array</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="mi">1</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span>
+                <span class="c1">#$t_0={}$&#39;.format(i_max-i-1)</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span> <span class="n">rx_array</span><span class="p">[:</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span> <span class="n">rz_array</span><span class="p">[:</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">t_offset</span><span class="p">,</span> <span class="n">ls</span><span class="p">,</span>
+                          <span class="n">label</span><span class="o">=</span><span class="n">t_label</span> <span class="k">if</span> <span class="n">do_labels</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+                          <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">)</span>
+            <span class="c1"># if (i+i_off)//i_step==(i+i_off)/i_step:</span>
+                <span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="n">do_one_ray</span><span class="p">:</span>
+                        <span class="n">v_rel</span> <span class="o">=</span> <span class="p">(</span> <span class="p">(</span><span class="n">v_array</span><span class="p">[</span><span class="n">q</span><span class="p">]</span><span class="o">-</span><span class="n">v_min</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">v_max</span><span class="o">-</span><span class="n">v_min</span><span class="p">)</span> <span class="p">)</span><span class="o">**</span><span class="mf">0.5</span>
+                        <span class="n">rgba</span> <span class="o">=</span> <span class="n">color_map</span><span class="p">(</span><span class="n">v_rel</span><span class="o">*</span><span class="mf">0.8</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">rgba</span> <span class="o">=</span> <span class="n">color</span>
+                    <span class="n">axes</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">((</span><span class="n">rx_array</span><span class="p">[</span><span class="n">q</span><span class="o">+</span><span class="mi">1</span><span class="p">]),(</span><span class="n">rz_array</span><span class="p">[</span><span class="n">q</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">t_offset</span><span class="p">)),</span>
+                                      <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="n">rx_array</span><span class="p">[</span><span class="n">q</span><span class="p">],</span> <span class="n">rz_array</span><span class="p">[</span><span class="n">q</span><span class="p">]</span><span class="o">-</span><span class="n">t_offset</span><span class="p">),</span>
+                                  <span class="n">arrowprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">arrowstyle</span><span class="o">=</span><span class="n">my_arrow_style</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">rgba</span><span class="p">)</span> <span class="p">)</span>
+        <span class="k">if</span> <span class="n">v_array</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">color_map</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="s1">&#39;plasma&#39;</span><span class="p">)</span>
+            <span class="n">sm</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">ScalarMappable</span><span class="p">(</span><span class="n">cmap</span><span class="o">=</span><span class="n">color_map</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">Normalize</span><span class="p">(</span><span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+            <span class="n">cbar</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">sm</span><span class="p">,</span> <span class="n">ticks</span><span class="o">=</span><span class="p">[],</span> <span class="n">shrink</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mf">0.03</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">tick_label</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">([</span><span class="sa">r</span><span class="s1">&#39;$v_\mathrm</span><span class="si">{min}</span><span class="s1">$&#39;</span><span class="p">,</span><span class="sa">r</span><span class="s1">&#39;$v_\mathrm</span><span class="si">{max}</span><span class="s1">$&#39;</span><span class="p">]):</span>
+                <span class="n">cbar</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.45</span><span class="p">,</span> <span class="n">idx</span><span class="o">*</span><span class="mf">1.3</span><span class="o">-</span><span class="mf">0.15</span><span class="p">,</span> <span class="n">tick_label</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">)</span>
+            <span class="c1"># cbar.ax.get_yaxis().labelpad = -100</span>
+            <span class="c1"># cbar.ax.set_ylabel(r&#39;ray speed  $v$&#39;, rotation=90)</span>
+
+    <span class="k">def</span> <span class="nf">arrow_annotate_ray_custom</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">rx_array</span><span class="p">,</span> <span class="n">rz_array</span><span class="p">,</span> <span class="n">axes</span><span class="p">,</span> <span class="n">i_ray</span><span class="p">,</span> <span class="n">i_ray_step</span><span class="p">,</span>
+                                   <span class="n">n_rays</span><span class="p">,</span> <span class="n">n_arrows</span><span class="p">,</span>
+                                   <span class="n">arrow_sf</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">arrow_offset</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                                   <span class="n">x_limits</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">y_limits</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                                   <span class="n">line_style</span><span class="o">=</span><span class="s1">&#39;dashed&#39;</span><span class="p">,</span> <span class="n">line_width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ray_label</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                                   <span class="n">do_smooth_colors</span><span class="o">=</span><span class="kc">False</span> <span class="p">)</span>  <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add arrowheads to a ray trajectory to visualize the direction of motion.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            rx_array (numpy.ndarray): x coordinates along the sampled ray</span>
+<span class="sd">            rz_array (numpy.ndarray): z coordinates along the sampled ray</span>
+<span class="sd">            axes (:class:`Matplotlib axes &lt;matplotlib.axes.Axes&gt;`): &#39;axes&#39; instance</span>
+<span class="sd">                for current figure</span>
+<span class="sd">            sub (dict): dictionary of model parameter values to be used</span>
+<span class="sd">                for equation substitutions</span>
+<span class="sd">            i_ray (int): index of this ray among the set currently being plotted</span>
+<span class="sd">            i_ray_step (int): ray index step, used as divisor when assigning</span>
+<span class="sd">                a color to match the parent ray color</span>
+<span class="sd">            n_arrows (int): number of arrows to plot along the ray</span>
+<span class="sd">            arrow_sf (float): optional scale factor for arrowhead size</span>
+<span class="sd">            arrow_offset (int): optional offset from ray initial point</span>
+<span class="sd">                to start adding arrowheads</span>
+<span class="sd">            x_limits (list): optional horizontal axis range</span>
+<span class="sd">            y_limits (list): optional vertical axis range</span>
+<span class="sd">            line_style (str): optional line style</span>
+<span class="sd">            line_width (str): optional line width</span>
+<span class="sd">            ray_label (str): optional ray label for legend</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Drop repeated points on vb</span>
+        <span class="n">rxz_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">rx_array</span><span class="p">,</span><span class="n">rz_array</span><span class="p">]),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span> <span class="p">)</span>
+        <span class="n">n_pts</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">rxz_array</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">my_arrow_style</span> <span class="o">=</span> <span class="n">mpatches</span><span class="o">.</span><span class="n">ArrowStyle</span><span class="o">.</span><span class="n">Fancy</span><span class="p">(</span><span class="n">head_length</span><span class="o">=</span><span class="mf">0.99</span><span class="o">*</span><span class="n">arrow_sf</span><span class="p">,</span>
+                                                   <span class="n">head_width</span><span class="o">=</span><span class="mf">0.6</span><span class="o">*</span><span class="n">arrow_sf</span><span class="p">,</span>
+                                                   <span class="n">tail_width</span><span class="o">=</span><span class="mf">0.01</span><span class="o">*</span><span class="n">arrow_sf</span><span class="p">)</span>
+        <span class="c1"># color = self.colors[(i_ray//i_ray_step)%self.n_colors]</span>
+        <span class="n">color</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mycolors</span><span class="p">(</span><span class="n">i_ray</span><span class="p">,</span> <span class="n">i_ray_step</span><span class="p">,</span> <span class="n">n_rays</span><span class="p">,</span>
+                                         <span class="n">do_smooth</span><span class="o">=</span><span class="n">do_smooth_colors</span><span class="p">)</span>
+        <span class="n">q_n</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">n_pts</span><span class="o">//</span><span class="n">n_arrows</span>
+        <span class="k">if</span> <span class="n">q_n</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">:</span>
+            <span class="n">q_from</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">n_pts</span><span class="o">//</span><span class="p">(</span><span class="n">n_arrows</span><span class="p">)</span><span class="o">//</span><span class="n">arrow_offset</span><span class="o">+</span><span class="n">n_pts</span><span class="o">//</span><span class="p">(</span><span class="n">n_arrows</span><span class="p">)</span>
+            <span class="n">q_to</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">n_pts</span><span class="o">-</span><span class="mi">1</span>
+            <span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">q_from</span><span class="p">,</span> <span class="n">q_to</span><span class="p">,</span> <span class="n">q_n</span><span class="p">):</span>
+                <span class="n">y_condition</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="p">(</span><span class="n">y_limits</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="p">(</span>
+                        <span class="p">(</span><span class="n">rxz_array</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">q</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">&gt;</span><span class="n">y_limits</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">and</span> <span class="n">rxz_array</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">q</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">&lt;</span><span class="n">y_limits</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+                        <span class="ow">and</span> <span class="p">(</span><span class="n">rxz_array</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">q</span><span class="p">]</span><span class="o">&gt;</span><span class="n">y_limits</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">and</span> <span class="n">rxz_array</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">q</span><span class="p">]</span><span class="o">&lt;</span><span class="n">y_limits</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
+                <span class="n">x_condition</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_limits</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="p">(</span>
+                        <span class="p">(</span><span class="n">rxz_array</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">q</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">&gt;</span><span class="n">x_limits</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">and</span> <span class="n">rxz_array</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">q</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">&lt;</span><span class="n">x_limits</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+                        <span class="ow">and</span> <span class="p">(</span><span class="n">rxz_array</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">q</span><span class="p">]</span><span class="o">&gt;</span><span class="n">x_limits</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">and</span> <span class="n">rxz_array</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">q</span><span class="p">]</span><span class="o">&lt;</span><span class="n">x_limits</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
+                <span class="k">if</span> <span class="n">y_condition</span> <span class="ow">and</span> <span class="n">x_condition</span><span class="p">:</span>
+                    <span class="n">axes</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">((</span><span class="n">rxz_array</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">q</span><span class="o">+</span><span class="mi">1</span><span class="p">]),(</span><span class="n">rxz_array</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">q</span><span class="o">+</span><span class="mi">1</span><span class="p">])),</span>
+                                  <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="n">rxz_array</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">q</span><span class="p">],</span> <span class="n">rxz_array</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">q</span><span class="p">]</span><span class="o">-</span><span class="mi">0</span><span class="p">),</span>
+                                  <span class="n">arrowprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">arrowstyle</span><span class="o">=</span><span class="n">my_arrow_style</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">)</span> <span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">rxz_array</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">rxz_array</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span>
+                  <span class="n">linestyle</span><span class="o">=</span><span class="n">line_style</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="n">line_width</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">ray_label</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+    <a id="sidebar-anchor"></a>
+    
+
+<div id="searchbox" style="display: none" role="search">
+    <a class="biglink" href="../../index.html">
+        <img src="../../_static/gme_icon.png" />
+    </a>
+  <h3></h3>
+    <form class="search" action="../../search.html" method="get">
+      <div class="ui action left icon input">
+        <i class="search icon"></i>
+        <input type="text" name="q" placeholder="Search...">
+        <div class="ui teal button"></div>
+      </div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<!-- <br> -->
+<script type="text/javascript">$('#searchbox').show(0);</script><h3><a href="../../index.html">Contents</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../Presentations.html">  Presentations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Publications.html">  Publications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Design.html">  Software design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Dependencies.html">  Dependencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Installation.html">  Installation and set-up</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Running.html">  Running the notebooks</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../Python.html">  Python package docs</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../core/index.html">Core</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ode/index.html">ODE integration</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Plotting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../knickpoints/index.html">Knickpoint detection and tracking [in development]</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Notebooks.html">  Notebook docs</a></li>
+</ul>
+
+    <!-- <h3><a href="../../index.html">This page</a></h3> -->
+    <!-- <ul>
+<li><a class="reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">base.py</span></code></a><ul>
+<li><a class="reference internal" href="#code">Code</a></li>
+</ul>
+</li>
+</ul>
+ -->
+    <p class="biglink">
+        <h3><a href="../../genindex.html"> Index</a></h3>
+    </p>
+  <br>
+  <!-- <p class="biglink"><a class="biglink" href="../../py-modindex.html">
+         Module index</a>
+  <br><br> -->
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="alphabeta.html" title="alphabeta.py"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="gme sub-package plot"
+             accesskey="P">previous</a> |</li>
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, CPS.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.3.
+    </div>
+  </body>
+</html>
