@@ -13,7 +13,7 @@
     - [installation and set-up](Installation.md)
     - [running the notebooks](Running.md)
     <!-- - [running the notebooks](https://geomorphysics.github.io/GME/modules/Running.html) -->
-    - [Python package docs](https://geomorphysics.github.io/GME/modules/Python.html)  (documentation pre-built for release 1.0)
+    - [Python package docs](https://geomorphysics.github.io/GME/modules/Python.html)  
     - [Jupyter notebook docs](https://geomorphysics.github.io/GME/modules/Notebooks.html)
   * Publications
     - *The Direction of Erosion* (in review)
