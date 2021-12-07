@@ -7,7 +7,7 @@
 
   * [Introduction](Summary.md) to GME theory
   * GME software
-    - [documentation pre-built for release 1.0](https://geomorphysics.github.io/GME)
+    - [documentation for main branch version](https://geomorphysics.github.io/GME)
     - [design](Design.md)
     - [dependencies](Dependencies.md)
     - [installation and set-up](Installation.md)
