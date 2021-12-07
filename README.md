@@ -10,7 +10,7 @@
     - [documentation](https://geomorphysics.github.io/GME)
     - [design](Design.md)
     - [dependencies](Dependencies.md)
-    - [installation and set-up](Installation.md)
+    - [installation](Installation.md)
     - [running the notebooks](Running.md)
     <!-- - [running the notebooks](https://geomorphysics.github.io/GME/modules/Running.html) -->
     - [Python package docs](https://geomorphysics.github.io/GME/modules/Python.html)  
