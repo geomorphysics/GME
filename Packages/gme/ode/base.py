@@ -40,8 +40,8 @@ from gme.core.symbols import px, pz, rx, rdotx, rdotz, Lc
 
 warnings.filterwarnings("ignore")
 
-rp_list = ['rx','rz','px','pz']
-rpt_list = rp_list+['t']
+rp_tuple = ('rx','rz','px','pz')
+rpt_tuple = rp_tuple+('t',)
 
 __all__ = ['solve_ODE_system', 'solve_Hamiltons_equations', 'report_progress',
            'BaseSolution', 'ExtendedSolution']
@@ -129,11 +129,11 @@ def solve_Hamiltons_equations(model, method, do_dense,
         dt = t_array[1]-t_array[0]
         n_lag = int(t_lag/dt)
         rpt_lag_arrays['t'] = np.linspace(0, t_lag, num=n_lag, endpoint=False)
-        for rp_idx,rp_ in enumerate(rp_list):
+        for rp_idx,rp_ in enumerate(rp_tuple):
             rpt_lag_arrays[rp_] = np.full(n_lag, rp_t_soln[rp_idx][0])
     else:
         n_lag = 0
-        for rpt_ in rpt_list:
+        for rpt_ in rpt_tuple:
             rpt_lag_arrays[rpt_] = np.array([])
 
     # Report
@@ -151,7 +151,7 @@ def solve_Hamiltons_equations(model, method, do_dense,
 
     rpt_arrays: Dict[str,np.array] = {}
     rpt_arrays['t'] = np.concatenate((rpt_lag_arrays['t'],t_array[0:i_end]+t_lag))
-    for rp_idx,rp_ in enumerate(rp_list):
+    for rp_idx,rp_ in enumerate(rp_tuple):
         rpt_arrays[rp_] = np.concatenate((rpt_lag_arrays[rp_],rp_t_soln[rp_idx][0:i_end]))
     # print('solve_ODE_system:', rpt_arrays['rx'])
 
@@ -167,7 +167,7 @@ def solve_Hamiltons_equations(model, method, do_dense,
     #     if len(rpt_arrays['rx']) < i_end: i_end = len(rpt_arrays['rx'])
     #     if self.verbose:
     #         pass
-    #     for rpt_ in rpt_list:
+    #     for rpt_ in rpt_tuple:
     #         a = copy(rpt_arrays[rpt_])
     #         rpt_arrays[rpt_] = a[:i_end]
     # print('solve Hamiltons equations #2:', rpt_arrays['rx'])
@@ -252,7 +252,7 @@ class BaseSolution(ABC):
         self.ic_list: List[Tuple[float,float,float,float]]
         self.ref_t_array = np.linspace(0,1,self.n_t)**self.t_distribn * self.t_end
         self.rpt_arrays: Dict[str,np.array] = {}
-        for rp_ in rpt_list:
+        for rp_ in rpt_tuple:
             self.rpt_arrays.update({rp_: [np.array([0])]*self.n_rays})
         self.ivp_solns_list: List[Any] = []
         self.rp_t_interp_fns: Dict[str,List[np.array]] = {}
@@ -310,14 +310,14 @@ class BaseSolution(ABC):
         # dummy, to avoid "overriding parameters" warnings in subclasses
         #  that override this method
         unused_ = (spline_order, extrapolation_mode)
-        for rp_ in rp_list:
+        for rp_ in rp_tuple:
             self.rp_t_interp_fns.update({rp_: [np.array([0])]*self.n_rays})
         fill_value_ = 'extrapolate'
         for (i_ray, t_array) in enumerate(self.rpt_arrays['t']):
             if t_array.size>1:
                 # Generate interpolation functions for each component
                 #   rx[t], rz[t], px[t], pz[t]
-                for rp_ in rp_list:
+                for rp_ in rp_tuple:
                     self.rp_t_interp_fns[rp_][i_ray] \
                         = interp1d(t_array, self.rpt_arrays[rp_][i_ray],
                                    kind=self.interp1d_kind, fill_value=fill_value_,
@@ -353,7 +353,7 @@ class BaseSolution(ABC):
         #     # Reduce the time resolution of the isochrone points
         #       to make plotting less cluttered
         #     self.rpt_isochrones_lowres: Dict[str,List] = {}
-        #     for rp_ in rp_list:
+        #     for rp_ in rp_tuple:
         #         self.rpt_isochrones_lowres[rp_][i_isochrone] \
         #             = [ [element_ for idx,element_ in enumerate(array_)
         #                  if (idx//x_subset-idx/x_subset)==0]
@@ -371,7 +371,7 @@ class BaseSolution(ABC):
 
             # Prepare array dictionaries etc
             # self.rpt_isochrones: Dict[str,List] = {}
-            for rpt_ in rpt_list:
+            for rpt_ in rpt_tuple:
                 self.rpt_isochrones.update({rpt_: [None]*n_isochrones})
             # self.rpt_isochrones_lowres = self.rpt_isochrones.copy()
             # self.trxz_cusps: List[Tuple[np.array,Any,Any]] = []
@@ -381,7 +381,7 @@ class BaseSolution(ABC):
             """
             TBD
             """
-            for rp_ in rp_list:
+            for rp_ in rp_tuple:
                 rpt_isochrone[rp_] = rpt_isochrone[rp_][i_from:i_to]
             return rpt_isochrone
 
@@ -498,7 +498,7 @@ class BaseSolution(ABC):
 
             # Rebuild the isochrone dictionary
             rpt_isochrone_rtn = {}
-            for rp_ in rp_list:
+            for rp_ in rp_tuple:
                 isochrone_left  = rpt_isochrone[rp_][slice1]
                 isochrone_right = rpt_isochrone[rp_][slice2]
                 isochrone_ = np.concatenate([isochrone_left[i1_array],
@@ -520,7 +520,7 @@ class BaseSolution(ABC):
             # Prepare a tmp dictionary for the rx,rz,px,pz component arrays
             #   delineating this isochrone
             rpt_isochrone: Dict[str,Any] = {}
-            for rp_ in rp_list:
+            for rp_ in rp_tuple:
                 # Sample each ray at time t_ from each of the components of r,p vectors
                 #    using their interpolating fns
                 rp_interpolated_isochrone = [float(interp_fn(t_)) for interp_fn
@@ -542,7 +542,7 @@ class BaseSolution(ABC):
             rs_array = np.linspace(s_array[0],s_array[-1],num=n_s_pts)
             # HACK to avoid interpolating a crap isochrone sampled only at one point
             if s_array[-1] < 1e-10: return rpt_isochrone_out
-            for rp_ in rp_list:
+            for rp_ in rp_tuple:
                 rpt_isochrone_interp_fn \
                     = interp1d(s_array, rpt_isochrone_out[rp_], kind='linear',
                                fill_value='extrapolate', assume_sorted=True)
@@ -588,7 +588,7 @@ class BaseSolution(ABC):
             i_bounded_array = (rx_array>=0) & (rx_array<=1.0)
             rpt_isochrone_out['rx'] = rx_array[i_bounded_array]
             did_clip_at_x1 = len(rx_array)>len(rpt_isochrone_out['rx'])
-            for rp_ in rp_list:
+            for rp_ in rp_tuple:
                 rpt_isochrone_out[rp_] = rpt_isochrone_in[rp_][i_bounded_array]
                 # Wildly inefficient interpolation to do extrapolation here
                 if did_clip_at_x1:
@@ -607,7 +607,7 @@ class BaseSolution(ABC):
             TBD
             """
             # Record this isochrone
-            for rpt_ in rpt_list:
+            for rpt_ in rpt_tuple:
                 self.rpt_isochrones[rpt_][i_isochrone] = rpt_isochrone[rpt_]
 
         def record_cusp(trxz_cusp, pxz1_intercept, pxz2_intercept) -> None:
@@ -739,7 +739,7 @@ class BaseSolution(ABC):
         """
         TBD
         """
-        for rpt_ in rpt_list:
+        for rpt_ in rpt_tuple:
             self.rpt_arrays[rpt_][idx] = rpt_arrays[rpt_]
         rx_length = len(self.rpt_arrays['rx'][idx])
         self.rpt_arrays['t'][idx] = self.rpt_arrays['t'][idx][:rx_length]

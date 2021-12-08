@@ -107,20 +107,15 @@ and to be vertical.</p>
 
 <span class="c1"># Typing</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
-<span class="c1">#, Any, List #, Callable, List #, Dict, Any, Optional</span>
 
 <span class="c1"># Numpy</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="c1"># GME</span>
 <span class="kn">from</span> <span class="nn">gme.core.symbols</span> <span class="kn">import</span> <span class="n">xiv_0</span><span class="p">,</span> <span class="n">xih_0</span><span class="p">,</span> <span class="n">Lc</span>
-<span class="c1"># from gme.core.equations import pxpz0_from_xiv0</span>
 <span class="kn">from</span> <span class="nn">gme.ode.base</span> <span class="kn">import</span> <span class="n">ExtendedSolution</span><span class="p">,</span> <span class="n">solve_Hamiltons_equations</span><span class="p">,</span> <span class="n">report_progress</span>
 
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
-
-<span class="n">rp_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;rx&#39;</span><span class="p">,</span><span class="s1">&#39;rz&#39;</span><span class="p">,</span><span class="s1">&#39;px&#39;</span><span class="p">,</span><span class="s1">&#39;pz&#39;</span><span class="p">]</span>
-<span class="n">rpt_list</span> <span class="o">=</span> <span class="n">rp_list</span><span class="o">+</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">]</span>
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;VelocityBoundarySolution&#39;</span><span class="p">]</span>
 
@@ -141,12 +136,12 @@ and to be vertical.</p>
         <span class="c1">#                               #xiv_0_, self.parameters[xih_0],</span>
         <span class="c1">#                               self.gmeq.pz_xiv_eqn,</span>
         <span class="c1">#                               self.gmeq.poly_px_xiv0_eqn )</span>
-        <span class="n">pz0_</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="o">/</span><span class="n">xiv_0_</span>
+        <span class="n">pz0_</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="o">/</span><span class="n">xiv_0_</span><span class="p">)</span>
         <span class="n">px0_</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="p">((</span><span class="n">xiv_0</span><span class="o">/</span><span class="n">xih_0</span><span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">))</span><span class="o">/</span><span class="n">xiv_0_</span>
         <span class="c1"># print(pz0_,px0_)</span>
-        <span class="n">cosbeta_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float</span><span class="p">(</span><span class="n">px0_</span><span class="o">/-</span><span class="n">pz0_</span><span class="p">))</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
-        <span class="n">rz0_</span> <span class="o">=</span> <span class="n">t_lag</span><span class="o">/</span><span class="p">(</span><span class="n">pz0_</span><span class="o">*</span><span class="n">cosbeta_</span><span class="p">)</span>
-        <span class="n">rx0_</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="n">cosbeta_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">px0_</span><span class="o">/-</span><span class="n">pz0_</span><span class="p">))</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+        <span class="n">rz0_</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">t_lag</span><span class="o">/</span><span class="p">(</span><span class="n">pz0_</span><span class="o">*</span><span class="n">cosbeta_</span><span class="p">)</span>
+        <span class="n">rx0_</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
         <span class="k">return</span> <span class="p">(</span><span class="n">rx0_</span><span class="p">,</span><span class="n">rz0_</span><span class="p">,</span><span class="n">px0_</span><span class="p">,</span><span class="n">pz0_</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">solve</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">report_pc_step</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>

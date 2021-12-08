@@ -44,7 +44,7 @@ from gmplib.utils import e2d, omitdict
 # GME
 from gme.core.symbols import H, Lc, gstarhat, xih_0, mu, eta, \
                              pxhat, pzhat, rxhat, Ci
-from gme.core.equations import px_value
+from gme.core.equation_utils import px_value
 from gme.plot.base import Graphing
 
 warnings.filterwarnings("ignore")

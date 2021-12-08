@@ -19,20 +19,15 @@ import logging
 
 # Typing
 from typing import Tuple, List, Optional
-#, Any, List #, Callable, List #, Dict, Any, Optional
 
 # Numpy
 import numpy as np
 
 # GME
 from gme.core.symbols import xiv_0, xih_0, Lc
-# from gme.core.equations import pxpz0_from_xiv0
 from gme.ode.base import ExtendedSolution, solve_Hamiltons_equations, report_progress
 
 warnings.filterwarnings("ignore")
-
-rp_list = ['rx','rz','px','pz']
-rpt_list = rp_list+['t']
 
 __all__ = ['VelocityBoundarySolution']
 
@@ -53,12 +48,12 @@ class VelocityBoundarySolution(ExtendedSolution):
         #                               #xiv_0_, self.parameters[xih_0],
         #                               self.gmeq.pz_xiv_eqn,
         #                               self.gmeq.poly_px_xiv0_eqn )
-        pz0_: float = -1/xiv_0_
+        pz0_: float = (-1/xiv_0_)
         px0_: float = ((xiv_0/xih_0).subs(self.parameters))/xiv_0_
         # print(pz0_,px0_)
-        cosbeta_ = np.sqrt(1/(1+(np.float(px0_/-pz0_))**2))
-        rz0_ = t_lag/(pz0_*cosbeta_)
-        rx0_ = 0.0
+        cosbeta_ = np.sqrt(1/(1+(float(px0_/-pz0_))**2))
+        rz0_: float = t_lag/(pz0_*cosbeta_)
+        rx0_: float = 0.0
         return (rx0_,rz0_,px0_,pz0_)
 
     def solve(self, report_pc_step=1) -> None:

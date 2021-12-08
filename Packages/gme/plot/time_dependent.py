@@ -39,6 +39,7 @@ import matplotlib.patches as mpatches
 # GME
 from gme.core.symbols import Ci
 from gme.plot.base import Graphing
+from gme.ode.base import rpt_tuple
 
 warnings.filterwarnings("ignore")
 
@@ -49,9 +50,6 @@ class TimeDependent(Graphing):
     """
     Subclasses :class:`gme.plot.Graphing <plot.Graphing>`.
     """
-    rp_list = ['rx','rz','px','pz']
-    rpt_list = rp_list+['t']
-
     def profile_isochrones( self, gmes, gmeq, sub, name, fig_size=None, dpi=None,
                             do_zero_isochrone=True, do_overlay=False, fig=None,
                             do_rays=True, ray_subsetting=5, ray_lw=0.5,
@@ -141,7 +139,7 @@ class TimeDependent(Graphing):
         # Unpack for brevity
         if hasattr(gmes,'rpt_isochrones'):
             rx_isochrones, rz_isochrones, _, _, t_isochrones \
-                = [gmes.rpt_isochrones[rpt_] for rpt_ in self.rpt_list]
+                = [gmes.rpt_isochrones[rpt_] for rpt_ in self.rpt_tuple]
 
         # Initial boundary
         if hasattr(gmes,'rpt_isochrones') and do_zero_isochrone:

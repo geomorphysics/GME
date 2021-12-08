@@ -119,16 +119,14 @@
 
 <span class="c1"># GME</span>
 <span class="kn">from</span> <span class="nn">gme.core.symbols</span> <span class="kn">import</span> <span class="n">Lc</span>
-<span class="kn">from</span> <span class="nn">gme.core.equations</span> <span class="kn">import</span> <span class="n">pxpz0_from_xiv0</span>
+<span class="kn">from</span> <span class="nn">gme.core.equation_utils</span> <span class="kn">import</span> <span class="n">pxpz0_from_xiv0</span>
 <span class="kn">from</span> <span class="nn">gme.ode.base</span> <span class="kn">import</span> <span class="n">ExtendedSolution</span><span class="p">,</span> <span class="n">solve_Hamiltons_equations</span>
+<span class="kn">from</span> <span class="nn">gme.ode.base</span> <span class="kn">import</span> <span class="n">rpt_tuple</span>
 
 <span class="c1"># SciPy</span>
 <span class="kn">from</span> <span class="nn">scipy.interpolate</span> <span class="kn">import</span> <span class="n">InterpolatedUnivariateSpline</span>
 
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
-
-<span class="n">rp_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;rx&#39;</span><span class="p">,</span><span class="s1">&#39;rz&#39;</span><span class="p">,</span><span class="s1">&#39;px&#39;</span><span class="p">,</span><span class="s1">&#39;pz&#39;</span><span class="p">]</span>
-<span class="n">rpt_list</span> <span class="o">=</span> <span class="n">rp_list</span><span class="o">+</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">]</span>
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;SingleRaySolution&#39;</span><span class="p">]</span>
 
@@ -173,7 +171,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Basics</span>
         <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rx_array</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">rz_array</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">px_array</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pz_array</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">t_array</span><span class="p">)</span> \
-            <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">rpt_arrays</span><span class="p">[</span><span class="n">rpt_</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">rpt_</span> <span class="ow">in</span> <span class="n">rpt_list</span><span class="p">]</span>
+            <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">rpt_arrays</span><span class="p">[</span><span class="n">rpt_</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">rpt_</span> <span class="ow">in</span> <span class="n">rpt_tuple</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">pz0</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pz_array</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">p_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">px_array</span><span class="o">**</span><span class="mi">2</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">pz_array</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
         <span class="n">rpdot_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">model_dXdt_lambda</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">rp_</span><span class="p">)</span>

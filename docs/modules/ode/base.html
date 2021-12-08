@@ -232,8 +232,8 @@ equation substitutions</p></li>
 
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
 
-<span class="n">rp_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;rx&#39;</span><span class="p">,</span><span class="s1">&#39;rz&#39;</span><span class="p">,</span><span class="s1">&#39;px&#39;</span><span class="p">,</span><span class="s1">&#39;pz&#39;</span><span class="p">]</span>
-<span class="n">rpt_list</span> <span class="o">=</span> <span class="n">rp_list</span><span class="o">+</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">]</span>
+<span class="n">rp_tuple</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;rx&#39;</span><span class="p">,</span><span class="s1">&#39;rz&#39;</span><span class="p">,</span><span class="s1">&#39;px&#39;</span><span class="p">,</span><span class="s1">&#39;pz&#39;</span><span class="p">)</span>
+<span class="n">rpt_tuple</span> <span class="o">=</span> <span class="n">rp_tuple</span><span class="o">+</span><span class="p">(</span><span class="s1">&#39;t&#39;</span><span class="p">,)</span>
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;solve_ODE_system&#39;</span><span class="p">,</span> <span class="s1">&#39;solve_Hamiltons_equations&#39;</span><span class="p">,</span> <span class="s1">&#39;report_progress&#39;</span><span class="p">,</span>
            <span class="s1">&#39;BaseSolution&#39;</span><span class="p">,</span> <span class="s1">&#39;ExtendedSolution&#39;</span><span class="p">]</span>
@@ -321,11 +321,11 @@ equation substitutions</p></li>
         <span class="n">dt</span> <span class="o">=</span> <span class="n">t_array</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">t_array</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="n">n_lag</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">t_lag</span><span class="o">/</span><span class="n">dt</span><span class="p">)</span>
         <span class="n">rpt_lag_arrays</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">t_lag</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="n">n_lag</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">rp_idx</span><span class="p">,</span><span class="n">rp_</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">rp_list</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">rp_idx</span><span class="p">,</span><span class="n">rp_</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">rp_tuple</span><span class="p">):</span>
             <span class="n">rpt_lag_arrays</span><span class="p">[</span><span class="n">rp_</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">n_lag</span><span class="p">,</span> <span class="n">rp_t_soln</span><span class="p">[</span><span class="n">rp_idx</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">n_lag</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="k">for</span> <span class="n">rpt_</span> <span class="ow">in</span> <span class="n">rpt_list</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">rpt_</span> <span class="ow">in</span> <span class="n">rpt_tuple</span><span class="p">:</span>
             <span class="n">rpt_lag_arrays</span><span class="p">[</span><span class="n">rpt_</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
 
     <span class="c1"># Report</span>
@@ -343,7 +343,7 @@ equation substitutions</p></li>
 
     <span class="n">rpt_arrays</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="n">rpt_arrays</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">rpt_lag_arrays</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">],</span><span class="n">t_array</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">i_end</span><span class="p">]</span><span class="o">+</span><span class="n">t_lag</span><span class="p">))</span>
-    <span class="k">for</span> <span class="n">rp_idx</span><span class="p">,</span><span class="n">rp_</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">rp_list</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">rp_idx</span><span class="p">,</span><span class="n">rp_</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">rp_tuple</span><span class="p">):</span>
         <span class="n">rpt_arrays</span><span class="p">[</span><span class="n">rp_</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">rpt_lag_arrays</span><span class="p">[</span><span class="n">rp_</span><span class="p">],</span><span class="n">rp_t_soln</span><span class="p">[</span><span class="n">rp_idx</span><span class="p">][</span><span class="mi">0</span><span class="p">:</span><span class="n">i_end</span><span class="p">]))</span>
     <span class="c1"># print(&#39;solve_ODE_system:&#39;, rpt_arrays[&#39;rx&#39;])</span>
 
@@ -359,7 +359,7 @@ equation substitutions</p></li>
     <span class="c1">#     if len(rpt_arrays[&#39;rx&#39;]) &lt; i_end: i_end = len(rpt_arrays[&#39;rx&#39;])</span>
     <span class="c1">#     if self.verbose:</span>
     <span class="c1">#         pass</span>
-    <span class="c1">#     for rpt_ in rpt_list:</span>
+    <span class="c1">#     for rpt_ in rpt_tuple:</span>
     <span class="c1">#         a = copy(rpt_arrays[rpt_])</span>
     <span class="c1">#         rpt_arrays[rpt_] = a[:i_end]</span>
     <span class="c1"># print(&#39;solve Hamiltons equations #2:&#39;, rpt_arrays[&#39;rx&#39;])</span>
@@ -444,7 +444,7 @@ equation substitutions</p></li>
         <span class="bp">self</span><span class="o">.</span><span class="n">ic_list</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span><span class="nb">float</span><span class="p">,</span><span class="nb">float</span><span class="p">,</span><span class="nb">float</span><span class="p">]]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ref_t_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">n_t</span><span class="p">)</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">t_distribn</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">t_end</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">rpt_arrays</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="k">for</span> <span class="n">rp_</span> <span class="ow">in</span> <span class="n">rpt_list</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">rp_</span> <span class="ow">in</span> <span class="n">rpt_tuple</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">rpt_arrays</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">rp_</span><span class="p">:</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">])]</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">n_rays</span><span class="p">})</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ivp_solns_list</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">rp_t_interp_fns</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span><span class="n">List</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
@@ -502,14 +502,14 @@ equation substitutions</p></li>
         <span class="c1"># dummy, to avoid &quot;overriding parameters&quot; warnings in subclasses</span>
         <span class="c1">#  that override this method</span>
         <span class="n">unused_</span> <span class="o">=</span> <span class="p">(</span><span class="n">spline_order</span><span class="p">,</span> <span class="n">extrapolation_mode</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">rp_</span> <span class="ow">in</span> <span class="n">rp_list</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">rp_</span> <span class="ow">in</span> <span class="n">rp_tuple</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">rp_t_interp_fns</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">rp_</span><span class="p">:</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">])]</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">n_rays</span><span class="p">})</span>
         <span class="n">fill_value_</span> <span class="o">=</span> <span class="s1">&#39;extrapolate&#39;</span>
         <span class="k">for</span> <span class="p">(</span><span class="n">i_ray</span><span class="p">,</span> <span class="n">t_array</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rpt_arrays</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">]):</span>
             <span class="k">if</span> <span class="n">t_array</span><span class="o">.</span><span class="n">size</span><span class="o">&gt;</span><span class="mi">1</span><span class="p">:</span>
                 <span class="c1"># Generate interpolation functions for each component</span>
                 <span class="c1">#   rx[t], rz[t], px[t], pz[t]</span>
-                <span class="k">for</span> <span class="n">rp_</span> <span class="ow">in</span> <span class="n">rp_list</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">rp_</span> <span class="ow">in</span> <span class="n">rp_tuple</span><span class="p">:</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">rp_t_interp_fns</span><span class="p">[</span><span class="n">rp_</span><span class="p">][</span><span class="n">i_ray</span><span class="p">]</span> \
                         <span class="o">=</span> <span class="n">interp1d</span><span class="p">(</span><span class="n">t_array</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">rpt_arrays</span><span class="p">[</span><span class="n">rp_</span><span class="p">][</span><span class="n">i_ray</span><span class="p">],</span>
                                    <span class="n">kind</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">interp1d_kind</span><span class="p">,</span> <span class="n">fill_value</span><span class="o">=</span><span class="n">fill_value_</span><span class="p">,</span>
@@ -545,7 +545,7 @@ equation substitutions</p></li>
         <span class="c1">#     # Reduce the time resolution of the isochrone points</span>
         <span class="c1">#       to make plotting less cluttered</span>
         <span class="c1">#     self.rpt_isochrones_lowres: Dict[str,List] = {}</span>
-        <span class="c1">#     for rp_ in rp_list:</span>
+        <span class="c1">#     for rp_ in rp_tuple:</span>
         <span class="c1">#         self.rpt_isochrones_lowres[rp_][i_isochrone] \</span>
         <span class="c1">#             = [ [element_ for idx,element_ in enumerate(array_)</span>
         <span class="c1">#                  if (idx//x_subset-idx/x_subset)==0]</span>
@@ -563,7 +563,7 @@ equation substitutions</p></li>
 
             <span class="c1"># Prepare array dictionaries etc</span>
             <span class="c1"># self.rpt_isochrones: Dict[str,List] = {}</span>
-            <span class="k">for</span> <span class="n">rpt_</span> <span class="ow">in</span> <span class="n">rpt_list</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">rpt_</span> <span class="ow">in</span> <span class="n">rpt_tuple</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">rpt_isochrones</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">rpt_</span><span class="p">:</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span><span class="o">*</span><span class="n">n_isochrones</span><span class="p">})</span>
             <span class="c1"># self.rpt_isochrones_lowres = self.rpt_isochrones.copy()</span>
             <span class="c1"># self.trxz_cusps: List[Tuple[np.array,Any,Any]] = []</span>
@@ -573,7 +573,7 @@ equation substitutions</p></li>
             <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">            TBD</span>
 <span class="sd">            &quot;&quot;&quot;</span>
-            <span class="k">for</span> <span class="n">rp_</span> <span class="ow">in</span> <span class="n">rp_list</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">rp_</span> <span class="ow">in</span> <span class="n">rp_tuple</span><span class="p">:</span>
                 <span class="n">rpt_isochrone</span><span class="p">[</span><span class="n">rp_</span><span class="p">]</span> <span class="o">=</span> <span class="n">rpt_isochrone</span><span class="p">[</span><span class="n">rp_</span><span class="p">][</span><span class="n">i_from</span><span class="p">:</span><span class="n">i_to</span><span class="p">]</span>
             <span class="k">return</span> <span class="n">rpt_isochrone</span>
 
@@ -690,7 +690,7 @@ equation substitutions</p></li>
 
             <span class="c1"># Rebuild the isochrone dictionary</span>
             <span class="n">rpt_isochrone_rtn</span> <span class="o">=</span> <span class="p">{}</span>
-            <span class="k">for</span> <span class="n">rp_</span> <span class="ow">in</span> <span class="n">rp_list</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">rp_</span> <span class="ow">in</span> <span class="n">rp_tuple</span><span class="p">:</span>
                 <span class="n">isochrone_left</span>  <span class="o">=</span> <span class="n">rpt_isochrone</span><span class="p">[</span><span class="n">rp_</span><span class="p">][</span><span class="n">slice1</span><span class="p">]</span>
                 <span class="n">isochrone_right</span> <span class="o">=</span> <span class="n">rpt_isochrone</span><span class="p">[</span><span class="n">rp_</span><span class="p">][</span><span class="n">slice2</span><span class="p">]</span>
                 <span class="n">isochrone_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">isochrone_left</span><span class="p">[</span><span class="n">i1_array</span><span class="p">],</span>
@@ -712,7 +712,7 @@ equation substitutions</p></li>
             <span class="c1"># Prepare a tmp dictionary for the rx,rz,px,pz component arrays</span>
             <span class="c1">#   delineating this isochrone</span>
             <span class="n">rpt_isochrone</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
-            <span class="k">for</span> <span class="n">rp_</span> <span class="ow">in</span> <span class="n">rp_list</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">rp_</span> <span class="ow">in</span> <span class="n">rp_tuple</span><span class="p">:</span>
                 <span class="c1"># Sample each ray at time t_ from each of the components of r,p vectors</span>
                 <span class="c1">#    using their interpolating fns</span>
                 <span class="n">rp_interpolated_isochrone</span> <span class="o">=</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">interp_fn</span><span class="p">(</span><span class="n">t_</span><span class="p">))</span> <span class="k">for</span> <span class="n">interp_fn</span>
@@ -734,7 +734,7 @@ equation substitutions</p></li>
             <span class="n">rs_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">s_array</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">s_array</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">num</span><span class="o">=</span><span class="n">n_s_pts</span><span class="p">)</span>
             <span class="c1"># HACK to avoid interpolating a crap isochrone sampled only at one point</span>
             <span class="k">if</span> <span class="n">s_array</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mf">1e-10</span><span class="p">:</span> <span class="k">return</span> <span class="n">rpt_isochrone_out</span>
-            <span class="k">for</span> <span class="n">rp_</span> <span class="ow">in</span> <span class="n">rp_list</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">rp_</span> <span class="ow">in</span> <span class="n">rp_tuple</span><span class="p">:</span>
                 <span class="n">rpt_isochrone_interp_fn</span> \
                     <span class="o">=</span> <span class="n">interp1d</span><span class="p">(</span><span class="n">s_array</span><span class="p">,</span> <span class="n">rpt_isochrone_out</span><span class="p">[</span><span class="n">rp_</span><span class="p">],</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">,</span>
                                <span class="n">fill_value</span><span class="o">=</span><span class="s1">&#39;extrapolate&#39;</span><span class="p">,</span> <span class="n">assume_sorted</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -780,7 +780,7 @@ equation substitutions</p></li>
             <span class="n">i_bounded_array</span> <span class="o">=</span> <span class="p">(</span><span class="n">rx_array</span><span class="o">&gt;=</span><span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">rx_array</span><span class="o">&lt;=</span><span class="mf">1.0</span><span class="p">)</span>
             <span class="n">rpt_isochrone_out</span><span class="p">[</span><span class="s1">&#39;rx&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">rx_array</span><span class="p">[</span><span class="n">i_bounded_array</span><span class="p">]</span>
             <span class="n">did_clip_at_x1</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">rx_array</span><span class="p">)</span><span class="o">&gt;</span><span class="nb">len</span><span class="p">(</span><span class="n">rpt_isochrone_out</span><span class="p">[</span><span class="s1">&#39;rx&#39;</span><span class="p">])</span>
-            <span class="k">for</span> <span class="n">rp_</span> <span class="ow">in</span> <span class="n">rp_list</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">rp_</span> <span class="ow">in</span> <span class="n">rp_tuple</span><span class="p">:</span>
                 <span class="n">rpt_isochrone_out</span><span class="p">[</span><span class="n">rp_</span><span class="p">]</span> <span class="o">=</span> <span class="n">rpt_isochrone_in</span><span class="p">[</span><span class="n">rp_</span><span class="p">][</span><span class="n">i_bounded_array</span><span class="p">]</span>
                 <span class="c1"># Wildly inefficient interpolation to do extrapolation here</span>
                 <span class="k">if</span> <span class="n">did_clip_at_x1</span><span class="p">:</span>
@@ -799,7 +799,7 @@ equation substitutions</p></li>
 <span class="sd">            TBD</span>
 <span class="sd">            &quot;&quot;&quot;</span>
             <span class="c1"># Record this isochrone</span>
-            <span class="k">for</span> <span class="n">rpt_</span> <span class="ow">in</span> <span class="n">rpt_list</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">rpt_</span> <span class="ow">in</span> <span class="n">rpt_tuple</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">rpt_isochrones</span><span class="p">[</span><span class="n">rpt_</span><span class="p">][</span><span class="n">i_isochrone</span><span class="p">]</span> <span class="o">=</span> <span class="n">rpt_isochrone</span><span class="p">[</span><span class="n">rpt_</span><span class="p">]</span>
 
         <span class="k">def</span> <span class="nf">record_cusp</span><span class="p">(</span><span class="n">trxz_cusp</span><span class="p">,</span> <span class="n">pxz1_intercept</span><span class="p">,</span> <span class="n">pxz2_intercept</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -931,7 +931,7 @@ equation substitutions</p></li>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        TBD</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">for</span> <span class="n">rpt_</span> <span class="ow">in</span> <span class="n">rpt_list</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">rpt_</span> <span class="ow">in</span> <span class="n">rpt_tuple</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">rpt_arrays</span><span class="p">[</span><span class="n">rpt_</span><span class="p">][</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">rpt_arrays</span><span class="p">[</span><span class="n">rpt_</span><span class="p">]</span>
         <span class="n">rx_length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rpt_arrays</span><span class="p">[</span><span class="s1">&#39;rx&#39;</span><span class="p">][</span><span class="n">idx</span><span class="p">])</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">rpt_arrays</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">][</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rpt_arrays</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">][</span><span class="n">idx</span><span class="p">][:</span><span class="n">rx_length</span><span class="p">]</span>

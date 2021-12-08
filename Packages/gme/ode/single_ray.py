@@ -27,16 +27,14 @@ from gmplib.utils import e2d
 
 # GME
 from gme.core.symbols import Lc
-from gme.core.equations import pxpz0_from_xiv0
+from gme.core.equation_utils import pxpz0_from_xiv0
 from gme.ode.base import ExtendedSolution, solve_Hamiltons_equations
+from gme.ode.base import rpt_tuple
 
 # SciPy
 from scipy.interpolate import InterpolatedUnivariateSpline
 
 warnings.filterwarnings("ignore")
-
-rp_list = ['rx','rz','px','pz']
-rpt_list = rp_list+['t']
 
 __all__ = ['SingleRaySolution']
 
@@ -81,7 +79,7 @@ class SingleRaySolution(ExtendedSolution):
         """
         # Basics
         (self.rx_array, self.rz_array, self.px_array, self.pz_array, self.t_array) \
-            = [self.rpt_arrays[rpt_][0] for rpt_ in rpt_list]
+            = [self.rpt_arrays[rpt_][0] for rpt_ in rpt_tuple]
         self.pz0 = self.pz_array[0]
         self.p_array = np.sqrt(self.px_array**2+self.pz_array**2)
         rpdot_array = np.array([self.model_dXdt_lambda(0, rp_)

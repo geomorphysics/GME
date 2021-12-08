@@ -20,19 +20,22 @@ TODO: broken version - needs major overhaul
 """
 
 import numpy as np
-from gmplib.utils import vprint, e2d
-from gme.ode.base import BaseSolution
-from gme.ode.velocity_boundary import VelocityBoundarySolution
-from gme.core.symbols import *
-from sympy import N, sign, atan, atan2, sin, cos, tan, re, im, sqrt, \
-    Matrix, lambdify, Abs, simplify, expand, solve, Eq, Rational, diff, \
-    nroots, poly
+
 from scipy.integrate import solve_ivp, cumtrapz
 from scipy.interpolate import InterpolatedUnivariateSpline, interp1d
 from scipy.optimize import root_scalar, fsolve
 
-rp_list = ['rx','rz','px','pz']
-rpt_list = rp_list+['t']
+from sympy import N, sign, atan, atan2, sin, cos, tan, re, im, sqrt, \
+    Matrix, lambdify, Abs, simplify, expand, solve, Eq, Rational, diff, \
+    nroots, poly
+
+from gmplib.utils import vprint, e2d
+
+from gme.ode.base import BaseSolution
+from gme.ode.velocity_boundary import VelocityBoundarySolution
+from gme.core.symbols import *
+from gme.ode.base import rpt_tuple
+
 
 __all__ = [ 'InitialProfileSolution', 'InitialCornerSolution', 'CompositeSolution']
 
@@ -227,14 +230,14 @@ class CompositeSolution(BaseSolution):
     def merge_rays(self):
         # Combine all three solutions such that rays are all in rz order
         self.rpt_arrays = dict()
-        for rpt_ in rpt_list:
+        for rpt_ in rpt_tuple:
             vbs_arrays = [] if self.vbs is None else self.vbs.rpt_arrays[rpt_][:-1]
             ics_arrays = [] if self.ics is None else self.ics.rpt_arrays[rpt_]
             ips_arrays = [] if self.ips is None else self.ips.rpt_arrays[rpt_]
             self.rpt_arrays.update({ rpt_: vbs_arrays + ics_arrays + ips_arrays })
         # Eliminate empty rays
         rx_arrays = self.rpt_arrays['rx'].copy()
-        for rpt_ in rpt_list:
+        for rpt_ in rpt_tuple:
             self.rpt_arrays[rpt_] \
                 = [rpt_array for rx_array, rpt_array
                     in zip(rx_arrays, self.rpt_arrays[rpt_]) if len(rx_array)>=0 ]

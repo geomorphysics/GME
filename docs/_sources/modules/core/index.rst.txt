@@ -8,3 +8,4 @@
 
     Symbol definitions <symbols>
     Equation definitions <equations>
+    Equation utility functions <equation_utils>

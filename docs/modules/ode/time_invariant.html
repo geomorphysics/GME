@@ -120,13 +120,10 @@ aka ODE integration of Hamilton’s equations.</p>
 
 <span class="c1"># GME</span>
 <span class="kn">from</span> <span class="nn">gme.core.symbols</span> <span class="kn">import</span> <span class="n">xiv_0</span><span class="p">,</span> <span class="n">xih_0</span><span class="p">,</span> <span class="n">px</span><span class="p">,</span> <span class="n">Lc</span>
-<span class="kn">from</span> <span class="nn">gme.core.equations</span> <span class="kn">import</span> <span class="n">gradient_value</span>
+<span class="kn">from</span> <span class="nn">gme.core.equation_utils</span> <span class="kn">import</span> <span class="n">gradient_value</span>
 <span class="kn">from</span> <span class="nn">gme.ode.single_ray</span> <span class="kn">import</span> <span class="n">SingleRaySolution</span>
 
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
-
-<span class="n">rp_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;rx&#39;</span><span class="p">,</span><span class="s1">&#39;rz&#39;</span><span class="p">,</span><span class="s1">&#39;px&#39;</span><span class="p">,</span><span class="s1">&#39;pz&#39;</span><span class="p">]</span>
-<span class="n">rpt_list</span> <span class="o">=</span> <span class="n">rp_list</span><span class="o">+</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">]</span>
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;TimeInvariantSolution&#39;</span><span class="p">]</span>
 

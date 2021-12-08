@@ -32,13 +32,10 @@ from gmplib.utils import e2d
 
 # GME
 from gme.core.symbols import xiv_0, xih_0, px, Lc
-from gme.core.equations import gradient_value
+from gme.core.equation_utils import gradient_value
 from gme.ode.single_ray import SingleRaySolution
 
 warnings.filterwarnings("ignore")
-
-rp_list = ['rx','rz','px','pz']
-rpt_list = rp_list+['t']
 
 __all__ = ['TimeInvariantSolution']
 
