@@ -33,11 +33,10 @@ import warnings
 from functools import reduce
 
 # Typing
-# from typing import Tuple, Dict, Any, List
+from typing import Dict, Type, Optional #, Tuple, Any, List
 
 # SymPy
 import sympy as sy
-# Cut 'S' because mypy complains
 from sympy import Eq, Rational, N, \
                     pi, sqrt, numer, denom, \
                     simplify, trigsimp, factor, expand, lambdify, expand_trig, \
@@ -51,53 +50,24 @@ from sympy import Eq, Rational, N, \
 from gmplib.utils import e2d, omitdict
 
 # GME
-# yes, I know...
-from gme.core.symbols import *
-# to keep mypy happy
-from gme.core.symbols import x,rx,px,pz,xiv,xiv_0
+from gme.core.symbols import \
+    p, r, x, rx, rz, rvec, px, pz, pcovec, pz_0, \
+    rdotx, rdotz, rdot, rdotvec, pdotx, pdotz, pdotcovec,  \
+    pxhat, pzhat, rxhat, rzhat, \
+    rdotx_tfn, rdotxhat_thatfn, rdotzhat_thatfn, rdotz_tfn, \
+    pdotx_tfn, pdotxhat_thatfn, pdotzhat_thatfn, pdotz_tfn, \
+    varphi, varphi_rxhat_fn, \
+    varphi_r, varphi_0, varphi_rx, varphi_rhat, \
+    xi, xiv, xiv_0, xih_0, xih, xivhat, chi, Lc, mu, eta, \
+    alpha, alpha_crit, ta, beta, beta_0, beta_crit, varepsilon, varepsilonhat, \
+    x_sigma, x_h, Fstar,\
+    t, th_0, tv_0, that, \
+    H, Ci, psi, gstar, det_gstar, \
+    g, h, h_0, kappa_h, h_fn
 
 warnings.filterwarnings("ignore")
 
 __all__ = ['Equations', 'EquationSubset']
-
-
-class EquationSubset:
-    """
-    TBD
-    """
-    def __init__( self, gmeq, parameters, do_ndim=False, do_revert=True ):
-        """
-        TBD
-        """
-        sub = parameters.copy()
-        if do_revert and do_ndim:
-            undimsub = {pxhat:px, pzhat:pz, rxhat:rx, xivhat:xiv,
-                        varphi_rhat:varphi_rx, varphi_rxhat_fn:varphi_rx,
-                        rdotxhat_thatfn:rdotx_tfn, rdotzhat_thatfn:rdotz_tfn,
-                        pdotxhat_thatfn:pdotx_tfn, pdotzhat_thatfn:pdotz_tfn}
-        else:
-            undimsub = {}
-        sub.update({mu:gmeq.mu_, eta:gmeq.eta_})
-        # xisub = {}
-        # varphi0_xiv0_Lc_eqn = (gmeq.varphi0_Lc_xiv0_Ci_eqn
-        #                .subs(omitdict(sub,[varphi_0,xiv_0,Lc]))
-        #                .n() )
-        # self.varphi_rx_eqn   = (gmeq.varphi_rxhat_eqn.subs(e2d(varphi0_xiv0_Lc_eqn))
-        #                      .subs(omitdict(sub,[varphi_0,xiv_0,Lc])).n().subs(undimsub)
-        #                      #gmeq.varphi_rxhat_eqn
-        #                         if do_ndim else gmeq.varphi_rx_eqn.subs(sub).n()
-        #                            .subs(undimsub) )
-        self.pz_xiv_eqn      = ((gmeq.pzhat_xiv_eqn #.subs(xisub)
-                                if do_ndim else gmeq.pz_xiv_eqn).n()).subs(undimsub)
-                                #.subs({pz:pz_0, xiv:xiv_0}) #.subs({xiv:xiv/xih_0})
-        #Eq(simplify((gmeq.poly_pxhat_xiv_eqn.lhs.subs(xisub))/xih_0**2),0)
-        self.poly_px_xiv0_eqn = (gmeq.poly_pxhat_xiv0_eqn
-                                if do_ndim else gmeq.poly_px_xiv_eqn) \
-                                .subs(sub).n().subs(undimsub).subs({xih_0:1})
-        self.xiv0_xih0_Ci_eqn = gmeq.xiv0_xih0_Ci_eqn\
-                                    .subs(omitdict(sub,[xiv_0,xih_0])).n()
-        self.hamiltons_eqns  = (gmeq.hamiltons_ndim_eqns if do_ndim
-                                else gmeq.hamiltons_eqns).subs(sub).n().subs(undimsub)
 
 
 class Equations:
@@ -115,11 +85,19 @@ class Equations:
           :math:`\eta=3/2` where appropriate.
 
     """
-    def __init__( self, parameters=None, eta_=Rational(3,2), mu_=Rational(3,4),
-                  beta_type='sin', varphi_type='ramp', ibc_type='convex-up',
-                  do_raw=True, do_idtx=False, do_geodesic=False,
-                  do_nothing=False, do_new_varphi_model=True ):
-        """
+    def __init__( self,
+                  parameters: Optional[Dict]=None,
+                  eta_: Rational=Rational(3,2),
+                  mu_: Rational=Rational(3,4),
+                  beta_type: str='sin',
+                  varphi_type: str='ramp',
+                  ibc_type: str='convex-up',
+                  do_raw: bool=True,
+                  do_idtx: bool=False,
+                  do_geodesic: bool=False,
+                  do_nothing: bool=False,
+                  do_new_varphi_model: bool=True ) -> None:
+        r"""
         Initialize class instance.
         Define/derive all the GME equations (unless `'do_nothing'` is true)
         using :mod:`SymPy <sympy>`.
@@ -128,10 +106,10 @@ class Equations:
             parameters (dict): dictionary of model parameter values to be
                                used for equation substitutions
                                (used when defining geodesic equations)
-            eta (:class:`sympy.Rational <sympy.core.numbers.Rational>`):
+            eta\_ (:class:`sympy.Rational <sympy.core.numbers.Rational>`):
                 exponent in slope component of erosion model (equivalent of
                 gradient exponent :math:`n` in SPIM)
-            mu (:class:`sympy.Rational <sympy.core.numbers.Rational>`):
+            mu\_ (:class:`sympy.Rational <sympy.core.numbers.Rational>`):
                 exponent in flow component of erosion model
                 (equivalent of area exponent :math:`m` in SPIM)
             beta_type (str): choice of slope component of erosion model
@@ -147,6 +125,7 @@ class Equations:
             do_geodesic (bool): generate geodesic equations?
             do_nothing (bool): just create the class instance and set its data,
                                but don't run any of the equation definition methods
+            do_new_varphi_model (bool): use new form of varphi model?
 
         Attributes:
             GME equations (:class:`sympy.Eq <sympy.core.relational.Equality>` etc):
@@ -159,7 +138,8 @@ class Equations:
         self.ibc_type = ibc_type
         self.beta_type = beta_type
         self.varphi_type = varphi_type
-        if do_nothing: return
+        if do_nothing:
+            return
 
         self.define_p_eqns()
         self.define_r_eqns()
@@ -191,7 +171,7 @@ class Equations:
         self.set_ibc_eqns()
 
 
-    def define_p_eqns(self):
+    def define_p_eqns(self) -> None:
         r"""
         Define normal slowness :math:`p` and derive related equations
 
@@ -235,7 +215,7 @@ class Equations:
         self.p_pz_cosbeta_eqn = Eq(p, solve(self.pz_p_beta_eqn,p)[0])
 
 
-    def define_r_eqns(self):
+    def define_r_eqns(self) -> None:
         r"""
         Define equations for ray position :math:`\vec{r}`
 
@@ -249,7 +229,7 @@ class Equations:
         self.rz_r_alpha_eqn = Eq( rz, r*sin(alpha) )
 
 
-    def define_xi_eqns(self):
+    def define_xi_eqns(self) -> None:
         r"""
         Define equations for surface erosion speed :math:`\xi` and its vertical behavior
 
@@ -269,7 +249,7 @@ class Equations:
         self.pz_xiv_eqn = Eq(pz, solve(self.xiv_pz_eqn,pz)[0])
 
 
-    def define_xi_model_eqn(self):
+    def define_xi_model_eqn(self) -> None:
         r"""
         Define the form of the surface erosion model,
         giving the speed of surface motion in its normal direction :math:`\xi^{\perp}``.
@@ -298,7 +278,7 @@ class Equations:
                     self.xi_varphi_beta_raw_eqn.rhs.subs({eta: self.eta_}))
 
 
-    def define_xi_related_eqns(self):
+    def define_xi_related_eqns(self) -> None:
         r"""
         Define equations related to surface erosion speed :math:`\xi`
         and its vertical behavior.
@@ -340,7 +320,7 @@ class Equations:
         self.eta__dbldenom = eta_dbldenom
 
 
-    def define_varphi_model_eqn(self, do_new=True):
+    def define_varphi_model_eqn(self, do_new:bool =True) -> None:
         r"""
         Define flow component of erosion model function
 
@@ -398,7 +378,7 @@ class Equations:
         self.varphi_rx_eqn = varphi_model_eqn
 
 
-    def define_varphi_related_eqns(self):
+    def define_varphi_related_eqns(self) -> None:
         r"""
         Define further equations related to normal slowness :math:`p`
 
@@ -466,7 +446,7 @@ class Equations:
         self.px_varphi_rx_beta_eqn = self.px_varphi_beta_eqn.subs(e2d(self.varphi_rx_eqn))
 
 
-    def define_Fstar_eqns(self):
+    def define_Fstar_eqns(self) -> None:
         r"""
         Define the fundamental function
 
@@ -486,7 +466,7 @@ class Equations:
                 .subs({Abs(px):px,sign(px):1})
 
 
-    def define_H_eqns(self):
+    def define_H_eqns(self) -> None:
         r"""
         Define the Hamiltonian
 
@@ -504,7 +484,7 @@ class Equations:
             = simplify(self.H_eqn.subs(varphi_r(rvec),self.varphi_rx_eqn.rhs))
 
 
-    def define_rdot_eqns(self):
+    def define_rdot_eqns(self) -> None:
         r"""
         Define equations for :math:`\dot{r}`, the rate of change of position
 
@@ -549,7 +529,7 @@ class Equations:
         self.rdot_p_unity_eqn = Eq( rdotx*px+rdotz*pz, 1)
 
 
-    def define_pdot_eqns(self):
+    def define_pdot_eqns(self) -> None:
         r"""
         Define equations for :math:`\dot{p}`, the rate of change of normal slowness
 
@@ -578,7 +558,7 @@ class Equations:
                                     [self.pdotz_pxpz_eqn.rhs]]).T)
 
 
-    def define_Hamiltons_eqns(self):
+    def define_Hamiltons_eqns(self) -> None:
         r"""
         Define Hamilton's equations
 
@@ -605,14 +585,14 @@ class Equations:
             ))
 
 
-    def nondimensionalize(self):
+    def nondimensionalize(self) -> None:
         r"""
         Non-dimensionalize variables, Hamiltonian, and Hamilton's equations;
         define dimensionless channel incision number :math:`\mathsf{Ci}`.
 
         Attributes:
         """
-        varsub = {}
+        varsub: Dict = {}
 
         self.rx_rxhat_eqn = Eq(rx, Lc*rxhat)
         self.rz_rzhat_eqn = Eq(rz, Lc*rzhat)
@@ -717,7 +697,7 @@ class Equations:
             = Eq(xiv_0/xih_0, (xiv_0/xih_0).subs(e2d(self.xiv0_xih0_Ci_eqn)))
 
 
-    def define_nodimensionalized_Hamiltons_eqns(self):
+    def define_nodimensionalized_Hamiltons_eqns(self) -> None:
         """
         TBD
         """
@@ -729,7 +709,7 @@ class Equations:
                                     ))
 
 
-    def define_tanalpha_eqns(self):
+    def define_tanalpha_eqns(self) -> None:
         r"""
         Define equations for ray angle :math:`\tan(\alpha)`
 
@@ -751,7 +731,7 @@ class Equations:
             .subs({self.rdotz_on_rdotx_eqn.lhs:self.rdotz_on_rdotx_tanbeta_eqn.rhs})
 
 
-    def define_tanbeta_eqns(self):
+    def define_tanbeta_eqns(self) -> None:
         r"""
         Define equations for surface tilt angle :math:`\beta)`
 
@@ -833,7 +813,7 @@ class Equations:
         self.tanbeta_crit = float(N(self.tanbeta_crit_eqn.rhs.subs({eta: self.eta_})))
 
 
-    def define_psi_eqns(self):
+    def define_psi_eqns(self) -> None:
         r"""
         Define equations for anisotropy angle :math:`\psi)`
 
@@ -844,7 +824,7 @@ class Equations:
         self.psi_alpha_beta_eqn = Eq(psi, alpha-beta+pi/2)
 
 
-    def define_g_eqns(self):
+    def define_g_eqns(self) -> None:
         r"""
         Define equations for the metric tensor :math:`g` and its dual  :math:`g^*`
 
@@ -1054,7 +1034,7 @@ class Equations:
         ))
 
 
-    def prep_geodesic_eqns(self, parameters=None):
+    def prep_geodesic_eqns(self, parameters: Dict=None):
         r"""
         Define geodesic equations
 
@@ -1299,7 +1279,7 @@ class Equations:
             = lambdify( (rx, rdotx,rdotz, varepsilon), (self.geodesic_eqns[3]), 'numpy')
 
 
-    def define_px_poly_eqn(self, eta_choice=None, do_ndim=False):
+    def define_px_poly_eqn(self, eta_choice: Rational=None, do_ndim: bool=False):
         r"""
         TODO: remove ref to xiv_0
 
@@ -1327,7 +1307,7 @@ class Equations:
             # Non-dimensionalized version
             varphi0_solns = solve( self.sinCi_xih0_eqn.subs({eta:eta_choice}), varphi_0)
             varphi0_eqn = Eq(varphi_0, varphi0_solns[0])
-            if eta_choice<=1:
+            if eta_choice is not None and eta_choice<=1:
                 tmp_eqn = separatevars(simplify(
                     self.px_xiv_varphi_eqn
                        .subs({eta:eta_choice})
@@ -1360,7 +1340,7 @@ class Equations:
         else:
             # Dimensioned version
             tmp_eqn = simplify(self.px_xiv_varphi_eqn.subs({eta:eta_choice}))
-            if eta_choice<=1:
+            if eta_choice is not None and eta_choice<=1:
                 self.poly_px_xiv_varphi_eqn = poly( tmp_eqn.lhs, px)
             else:
                 self.poly_px_xiv_varphi_eqn \
@@ -1465,3 +1445,50 @@ class Equations:
             .subs(e2d(sinbeta_eqn))
             .subs(e2d(cosbeta_eqn))
             .subs({tan(beta):self.tanbeta_initial_eqn.rhs, rx:x})) )
+
+
+class EquationSubset:
+    """
+    TBD
+    """
+    def __init__( self,
+                  gmeq: Type[Equations],
+                  parameters: Dict,
+                  do_ndim: bool=False,
+                  do_revert: bool=True ) -> None:
+        """
+        TBD
+        """
+        sub = parameters.copy()
+        if do_revert and do_ndim:
+            undimsub = {pxhat:px, pzhat:pz, rxhat:rx, xivhat:xiv,
+                        varphi_rhat:varphi_rx, varphi_rxhat_fn:varphi_rx,
+                        rdotxhat_thatfn:rdotx_tfn, rdotzhat_thatfn:rdotz_tfn,
+                        pdotxhat_thatfn:pdotx_tfn, pdotzhat_thatfn:pdotz_tfn}
+        else:
+            undimsub = {}
+        sub.update({mu:gmeq.mu_, eta:gmeq.eta_})
+        # xisub = {}
+        # varphi0_xiv0_Lc_eqn = (gmeq.varphi0_Lc_xiv0_Ci_eqn
+        #                .subs(omitdict(sub,[varphi_0,xiv_0,Lc]))
+        #                .n() )
+        # self.varphi_rx_eqn   = (gmeq.varphi_rxhat_eqn.subs(e2d(varphi0_xiv0_Lc_eqn))
+        #                      .subs(omitdict(sub,[varphi_0,xiv_0,Lc])).n().subs(undimsub)
+        #                      #gmeq.varphi_rxhat_eqn
+        #                         if do_ndim else gmeq.varphi_rx_eqn.subs(sub).n()
+        #                            .subs(undimsub) )
+        self.pz_xiv_eqn      = ((gmeq.pzhat_xiv_eqn #.subs(xisub)
+                                if do_ndim else gmeq.pz_xiv_eqn).n()).subs(undimsub)
+                                #.subs({pz:pz_0, xiv:xiv_0}) #.subs({xiv:xiv/xih_0})
+        #Eq(simplify((gmeq.poly_pxhat_xiv_eqn.lhs.subs(xisub))/xih_0**2),0)
+        self.poly_px_xiv0_eqn = (gmeq.poly_pxhat_xiv0_eqn
+                                if do_ndim else gmeq.poly_px_xiv_eqn) \
+                                .subs(sub).n().subs(undimsub).subs({xih_0:1})
+        self.xiv0_xih0_Ci_eqn = gmeq.xiv0_xih0_Ci_eqn\
+                                    .subs(omitdict(sub,[xiv_0,xih_0])).n()
+        self.hamiltons_eqns  = (gmeq.hamiltons_ndim_eqns if do_ndim
+                                else gmeq.hamiltons_eqns).subs(sub).n().subs(undimsub)
+
+
+
+#
