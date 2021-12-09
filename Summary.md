@@ -10,10 +10,9 @@ Surface motion driven by geomorphic erosion shares some key features of light pr
 
 In optics and seismology, wave propagation is associated with a moving wavefront tied to a set of rays tracing the motion of points along it; in geomorphology, the whole landscape is a moving erosion front and the "rays" are trajectories of points tagged on the eroding landscape.
 
+<!-- <img src="https://github.com/geomorphysics/GME/blob/main/Plots/OneRaySolutions/oneray_eta0p5_Ci4p0_ray_h_x.png?raw=true" width=130% height=130%> -->
 
-<img src="https://github.com/geomorphysics/GME/blob/main/Plots/OneRaySolutions/oneray_eta0p5_Ci4p0_ray_h_x.png?raw=true" width=130% height=130%>
-
-<!-- ![ray](../../../Plots/OneRaySolutions/oneray_eta0p5_Ci4p0_ray_h_x.png) -->
+![ray](../../../Plots/OneRaySolutions/oneray_eta0p5_Ci4p0_ray_h_x.png)
 
 It is known from classical mechanics that a front *always* moves in its surface-normal direction, but that the corresponding direction of ray motion depends on the anisotropy of the propagation process.
 The process of erosion is inherently anisotropic, even if the substrate itself is homogeneous and isotropic, because it is mediated by the component of gravitational acceleration resolved along the surface.
