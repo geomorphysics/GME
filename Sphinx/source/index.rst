@@ -32,6 +32,8 @@ Contents
 .. toctree::
   :maxdepth: 1
 
+    Summary <../modules/Summary>
+
     Presentations <../modules/Presentations>
     Publications <../modules/Publications>
 

@@ -18,7 +18,6 @@ Imports symbols from :mod:`.symbols` module
 TODO: broken version - needs major overhaul
 
 """
-
 import numpy as np
 
 from scipy.integrate import solve_ivp, cumtrapz
