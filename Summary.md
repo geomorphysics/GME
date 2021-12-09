@@ -32,6 +32,7 @@ In geometric optics and seismology it is well known that rays follow the shortes
 
 In this context, erosion can be thought of as acting in *two different directions at the same time*: first, the true motion of the front, which is orthogonal to the surface and broadly downwards; second, the "information-carrying" motion, which acts laterally into the substrate and broadly upstream, but with either a positive or negative vertical component set by the gradient dependence of the erosion function.
 
-![anisotropy](Plots/TimeInvariantSolutions/tis_sinbeta_ramp_eta1p5_ratio0p5_xiv10_aniso.png)
+![anisotropy](Plots/TimeInvariantSolutions/tis_sinbeta_ramp_eta0p5_ratio0p5_xiv80_aniso.png)
+
 
 The erosion-front Hamiltonian reveals a fundamental problem with the concept of landscape steady-state. The term "steady state" describes the stable outcome of a dynamical system. In the dynamical system defined by the Hamiltonian, a point on the topographic surface is set in motion at the boundary and continues to move until it is destroyed at the first drainage divide it encounters, or when overtaken by a faster ray at, for example, a major knickpoint: at no point does it converge in phase space to a stable point or a limit cycle. A time-invariant landscape may arise, but it is the result of an ensemble of successive erosion rays following trajectories of identical shape from a boundary with a constant velocity condition.
