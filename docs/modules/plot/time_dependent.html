@@ -290,7 +290,7 @@ otherwise plot as time <span class="math notranslate nohighlight">\(t\)</span></
         <span class="c1"># Unpack for brevity</span>
         <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">gmes</span><span class="p">,</span><span class="s1">&#39;rpt_isochrones&#39;</span><span class="p">):</span>
             <span class="n">rx_isochrones</span><span class="p">,</span> <span class="n">rz_isochrones</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">t_isochrones</span> \
-                <span class="o">=</span> <span class="p">[</span><span class="n">gmes</span><span class="o">.</span><span class="n">rpt_isochrones</span><span class="p">[</span><span class="n">rpt_</span><span class="p">]</span> <span class="k">for</span> <span class="n">rpt_</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">rpt_tuple</span><span class="p">]</span>
+                <span class="o">=</span> <span class="p">[</span><span class="n">gmes</span><span class="o">.</span><span class="n">rpt_isochrones</span><span class="p">[</span><span class="n">rpt_</span><span class="p">]</span> <span class="k">for</span> <span class="n">rpt_</span> <span class="ow">in</span> <span class="n">rpt_tuple</span><span class="p">]</span>
 
         <span class="c1"># Initial boundary</span>
         <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">gmes</span><span class="p">,</span><span class="s1">&#39;rpt_isochrones&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">do_zero_isochrone</span><span class="p">:</span>
