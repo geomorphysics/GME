@@ -139,7 +139,7 @@ class TimeDependent(Graphing):
         # Unpack for brevity
         if hasattr(gmes,'rpt_isochrones'):
             rx_isochrones, rz_isochrones, _, _, t_isochrones \
-                = [gmes.rpt_isochrones[rpt_] for rpt_ in self.rpt_tuple]
+                = [gmes.rpt_isochrones[rpt_] for rpt_ in rpt_tuple]
 
         # Initial boundary
         if hasattr(gmes,'rpt_isochrones') and do_zero_isochrone:
