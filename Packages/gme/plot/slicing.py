@@ -248,14 +248,14 @@ class SlicingPlots(Graphing):
     def plot_dHdp_slice(self, sm: SlicingMath,
                         sub_: Dict, psub_: Dict,
                         pxhat_: float,
-                        do_detH: bool=False,
+                        do_detHessian: bool=False,
                         do_at_rxcrit: bool=False) -> str:
         r"""
         TBD
         """
         rxhat_: float = round(float(rxhat.subs(psub_).n()),
-                             4 if do_at_rxcrit else 2)
-        fig_name = (('detH' if do_detH else 'dHdpz')
+                             4 if do_at_rxcrit else 4)
+        fig_name = (('detHessian' if do_detHessian else 'd2Hdpz2')
                     + f'_eta{float(eta.subs(sub_).n()):g}'
                     + f'_Ci{deg(Ci.subs(sub_))}'
                     + f'_rxhat{rxhat_:g}'
@@ -266,7 +266,7 @@ class SlicingPlots(Graphing):
         pzhat0_ = float(sm.pzhat_lambda(sub_,0,1).n())
         x_array = np.flipud(np.linspace(-30,0,301,
                             endpoint=bool(rxhat.subs(psub_)<0.95 and eta.subs(sub_)<1)))
-        if do_detH:
+        if do_detHessian:
             y_array = np.array(
                 [sm.Hdetsqrd_lambda(pxhat_,pzhat_) for pzhat_ in x_array]
             )
@@ -277,9 +277,9 @@ class SlicingPlots(Graphing):
 
         cmap_name = 'PiYG'  #, 'plasma_r'
         cmap_: LinearSegmentedColormap = plt.get_cmap(cmap_name)
-        y_label_ = r'$\det\left(H\right)$' if do_detH \
+        y_label_ = r'$\det\left(\mathrm{Hessian}\right)$' if do_detHessian \
               else r'${\partial^2\mathcal{H}}/{\partial\hat{p}_z^2}$'
-        # l_label_ = r'$\det\left(H\right)$' if do_detH \
+        # l_label_ = r'$\det\left(\text{Hessian}\right)$' if do_detH \
         #       else r'$\frac{\partial^2\mathcal{H}}{\partial\hat{p}_z^2}$'
         # font_size_ = 16 if not do_detH else None
         plt.plot(x_array, y_array, '-', color='k', ms=3) #, label=l_label_)
@@ -300,7 +300,7 @@ class SlicingPlots(Graphing):
         # Annotations
         x_ = 1.19
         r_label_ = r'$\hat{r}^x_{\mathrm{crit}}=$' if do_at_rxcrit else r'$\hat{r}^x=$'
-        r_value_ = round(rxhat.subs(psub_), 4 if do_at_rxcrit else 2)
+        r_value_ = round(rxhat.subs(psub_), 4 if do_at_rxcrit else 4)
         for i_,label_ in enumerate((
                                 rf'$\eta={eta.subs(sub_)}$',
                                 r'$\mathsf{Ci}=$'+rf'${deg(Ci.subs(sub_))}\degree$',
@@ -320,7 +320,7 @@ class SlicingPlots(Graphing):
         TBD
         """
         rxhat_: float = round(float(rxhat.subs(psub_).n()),
-                             4 if do_at_rxcrit else 2)
+                             4 if do_at_rxcrit else 4)
         fig_name = ('v_pz_H0p5'
                     + f'_eta{float(eta.subs(sub_).n()):g}'
                     + f'_Ci{deg(Ci.subs(sub_))}'
@@ -369,7 +369,7 @@ class SlicingPlots(Graphing):
         # Annotations
         x_ = 1.19
         r_label_ = r'$\hat{r}^x_{\mathrm{crit}}=$' if do_at_rxcrit else r'$\hat{r}^x=$'
-        r_value_ = round(rxhat.subs(psub_), 4 if do_at_rxcrit else 2)
+        r_value_ = round(rxhat.subs(psub_), 4 if do_at_rxcrit else 4)
         for i_,label_ in enumerate((
                                 r'$\mathcal{H}=\frac{1}{2}$',
                                 r'$\mathbf{\hat{p}}(\mathbf{\hat{v}})=1$',
@@ -431,7 +431,7 @@ class SlicingPlots(Graphing):
         """
         # Create figure
         rxhat_: float = 0.0 if do_rxpx else round(float(rxhat.subs(sub_).n()),
-                                                  4 if do_at_rxcrit else 2)
+                                                  4 if do_at_rxcrit else 4)
         title = ( ('Ci' if do_Ci else ('v' if do_modv else 'H'))
                     + ('_pslice' if do_rxpx else '_pslice')
                     + f'_eta{float(eta.subs(sub_).n()):g}'
@@ -629,7 +629,7 @@ class SlicingPlots(Graphing):
             val_ = round(pzhat.subs(sub_),1)
         else:
             label_ = r'$\hat{r}^x_{\mathrm{crit}}=$' if do_at_rxcrit else r'$\hat{r}^x=$'
-            val_ = round(rxhat.subs(sub_), 4 if do_at_rxcrit else 2)
+            val_ = round(rxhat.subs(sub_), 4 if do_at_rxcrit else 4)
             x_ += 0.01 if do_at_rxcrit else 0.0
         axes.text(*[x_,0.68], label_+rf'${val_}$', transform=axes.transAxes,
              horizontalalignment='center', verticalalignment='center',

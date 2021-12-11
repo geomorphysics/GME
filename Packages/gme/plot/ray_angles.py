@@ -227,43 +227,50 @@ class RayAngles(Graphing):
                  horizontalalignment='center', verticalalignment='center',
                  fontsize=14, color='k')
 
-    # def profile_alpha( self, gmes, gmeq, name, fig_size=None, dpi=None,
-    #                    n_points=201, do_legend=True) -> None:
-    #     r"""
-    #     Plot ray vector angle :math:`\alpha` along a time-invariant profile.
-    #
-    #     Args:
-    #         fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`):
-    #             reference to figure instantiated by
-    #             :meth:`GMPLib create_figure <plot_utils.GraphingBase.create_figure>`
-    #         gmes (:class:`~.ode_raytracing.OneRaySolution`):
-    #                 instance of single ray solution class defined in
-    #                 :mod:`~.ode_raytracing`
-    #         gmeq (:class:`~.equations.Equations`):
-    #                 GME model equations class instance defined in :mod:`~.equations`
-    #         n_points (int): optional sample rate along each curve
-    #         do_legend (bool): optional plot legend?
-    #     """
-    #     _ = self.create_figure(name, fig_size=fig_size, dpi=dpi)
-    #
-    #     x_array = np.linspace(0,1,n_points)
-    #     alpha_array = np.rad2deg(gmes.alpha_interp(x_array))
-    #     plt.plot(x_array,alpha_array-90, 'DarkBlue', ls='-', label=r'$\alpha(x)$')
-    #     x_array = np.linspace(0,1,11)
-    #     pz0_ = gmes.pz0
-    #     # TBD
-    #     alpha_array \
-    #         = [(np.mod(180+np.rad2deg(float(
-    #             atan(gmeq.tanalpha_pxpz_eqn.rhs
-    #                     .subs({px:px_value(x_,pz0_),pz:pz0_})))),180))
-    #            for x_ in x_array]
-    #     plt.xlabel(r'Distance, $x/L_{\mathrm{c}}$  [-]')
-    #     plt.ylabel(r'Ray dip  $\alpha\!\,$  [${\degree}$ from horiz]')
-    #     plt.grid(True, ls=':')
-    #
-    #     if do_legend:
-    #         plt.legend()
-    #     axes = plt.gca()
-    #     plt.text(0.5,0.7, rf'$\eta={gmeq.eta_}$', transform=axes.transAxes,
-    #              horizontalalignment='center', verticalalignment='center',
-    #              fontsize=14, color='k')
+    def profile_alpha( self, gmes, gmeq, sub, name, fig_size=None, dpi=None,
+                       n_points=201, do_legend=True,
+                       eta_label_xy=(0.25,0.5) ) -> None:
+        r"""
+        Plot ray vector angle :math:`\alpha` along a time-invariant profile.
+
+        Args:
+            fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`):
+                reference to figure instantiated by
+                :meth:`GMPLib create_figure <plot_utils.GraphingBase.create_figure>`
+            gmes (:class:`~.ode_raytracing.OneRaySolution`):
+                    instance of single ray solution class defined in
+                    :mod:`~.ode_raytracing`
+            gmeq (:class:`~.equations.Equations`):
+                    GME model equations class instance defined in :mod:`~.equations`
+            n_points (int): optional sample rate along each curve
+            do_legend (bool): optional plot legend?
+        """
+        _ = self.create_figure(name, fig_size=fig_size, dpi=dpi)
+
+        x_array = np.linspace(0,1,n_points)
+        alpha_array = np.rad2deg(gmes.alpha_interp(x_array))
+        plt.plot(x_array,alpha_array-90, 'DarkBlue', ls='-', label=r'$\alpha(x)$')
+        # x_array = np.linspace(0,1,11)
+        # pz0_ = gmes.pz0
+        # # TBD
+        # alpha_array \
+        #     = [(np.mod(180+np.rad2deg(float(
+        #         atan(gmeq.tanalpha_pxpz_eqn.rhs
+        #                 .subs({px:px_value(x_,pz0_),pz:pz0_})))),180))
+        #        for x_ in x_array]
+        plt.xlabel(r'Distance, $x/L_{\mathrm{c}}$  [-]')
+        plt.ylabel(r'Ray dip  $\alpha\!\,$  [${\degree}$ from horiz]')
+        plt.grid(True, ls=':')
+
+        if do_legend:
+            plt.legend()
+        axes = plt.gca()
+        plt.text(*eta_label_xy,
+                 rf'$\eta={gmeq.eta_}$'+r'$\quad\mathsf{Ci}=$'
+                    +rf'${round(float(deg(Ci.subs(sub))))}\degree$',
+                 transform=axes.transAxes,
+                 horizontalalignment='center', verticalalignment='center',
+                 fontsize=14, color='k')
+        # plt.text(0.8,0.7, rf'$\eta={gmeq.eta_}$', transform=axes.transAxes,
+        #          horizontalalignment='center', verticalalignment='center',
+        #          fontsize=14, color='k')
