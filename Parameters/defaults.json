@@ -138,9 +138,9 @@
 
 	"save": {
 		"figs_path" : ["..","..","Plots"],
-		"figs_format" : ["png"],
+		"figs_format" : ["jpg", "pdf"],
 		"figs_options" : {
-			"dpi": 300,
+			"dpi": 100,
 			"bbox_inches": "tight"
 			}
 	}

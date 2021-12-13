@@ -124,7 +124,7 @@ class IndicatrixOld(Graphing):
         plt.polar([beta_crit,beta_crit], [-2,3], ':', color='DarkBlue',
                     label=r'$\beta=\beta_c$')
         plt.polar([alpha_crit,alpha_crit], [-2,3], ':', color='DarkRed',
-                    label=r'$\alpha=\alpha_c$')
+                    label=r'$\alpha=\alpha_{\mathrm{ext}}$')
 
         # Labelling etc
         posn_list = [0, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75]

@@ -55,7 +55,7 @@ class AlphaBeta(Graphing):
         x_,y_ = ( np.rad2deg(np.arctan(float(tanbeta_crit_))),
                  np.rad2deg(np.arctan(float(tanalpha_crit_))) )
         plt.plot( x_,y_, 'ob' )
-        plt.text( x_,y_-y_/9, r'$\beta_c, \,\alpha_c$',
+        plt.text( x_,y_-y_/9, r'$\beta_c, \,\alpha_{\mathrm{ext}}$',
                  color='b', horizontalalignment='center', fontsize=14)
         plt.text( 40,y_/4, fr'$\eta = ${gmeq.eta_}', color='k',
                   horizontalalignment='center', fontsize=14)
@@ -109,7 +109,7 @@ class AlphaBeta(Graphing):
         x_,y_ = ( np.rad2deg(np.arctan(float(tanbeta_crit_))),
                  np.rad2deg(np.arctan(float(tanalpha_crit_))) )
         plt.plot( x_,y_, 'ob' )
-        label_ = r'$\psi_c,\alpha_c$'
+        label_ = r'$\psi_c,\alpha_{\mathrm{ext}}$'
         if gmeq.eta_<1:
             plt.text( x_,y_*0.90, label_, color='b', horizontalalignment='center',
                       fontsize=14)
