@@ -28,7 +28,7 @@ from sympy import N, sign, atan, atan2, sin, cos, tan, re, im, sqrt, \
     Matrix, lambdify, Abs, simplify, expand, solve, Eq, Rational, diff, \
     nroots, poly
 
-from gmplib.utils import vprint, e2d
+from gmplib.utils import e2d
 
 from gme.ode.base import BaseSolution
 from gme.ode.velocity_boundary import VelocityBoundarySolution

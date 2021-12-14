@@ -732,7 +732,7 @@ class Manuscript(Graphing):
                  horizontalalignment='right', verticalalignment='center',
                  fontsize=15,  color='k')
         plt.text(origin_[0]+off_x, origin_[1]+off_z,
-                 r'$\left[ \,\stackrel{\sqrt{3}/{2}}{-1/2}\, \right]$',
+                 r'$\left[ \,\genfrac{}{}{0}{}{\sqrt{3}/{2}}{-1/2}\, \right]$',
                  #  \binom{\sqrt{3}/{2}}{-1/2}
                  horizontalalignment='left', verticalalignment='center',
                  fontsize=20,  color='k')
