@@ -54,15 +54,16 @@
 <hr class="docutils" />
 <p>Visualization.</p>
 <p>Provides classes to generate a range of graphics for GME visualization.
-A base class extends <a class="reference external" href="/Users/colinstark/Projects/GMPLib/modules/plot_utils.html#gmplib.plot_utils.GraphingBase" title="(in GMPLib v1.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">gmplib.plot_utils.GraphingBase</span></code></a>
+A base class extends <code class="xref py py-class docutils literal notranslate"><span class="pre">gmplib.plot.GraphingBase</span></code>
 provided by <code class="xref py py-mod docutils literal notranslate"><span class="pre">GMPLib</span></code>; the other classes build on this.
 Each is tailored to a particular category of GME problem,
 such as single ray tracing or for tracking knickpoints.</p>
 <hr class="docutils" />
 <dl class="simple">
 <dt>Requires Python packages/modules:</dt><dd><ul class="simple">
-<li><p><a class="reference external" href="https://numpy.org/doc/stable/reference/index.html#module-numpy" title="(in NumPy v1.21)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy</span></code></a>, <a class="reference external" href="https://docs.sympy.org/latest/modules/index.html#module-sympy" title="(in SymPy v1.9)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sympy</span></code></a></p></li>
-<li><p><a class="reference external" href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.html#module-matplotlib.pyplot" title="(in Matplotlib v3.5.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">matplotlib.pyplot</span></code></a></p></li>
+<li><p><a class="reference external" href="https://numpy.org/doc/stable/reference/index.html#module-numpy" title="(in NumPy v1.21)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy</span></code></a></p></li>
+<li><p><a class="reference external" href="https://docs.sympy.org/latest/modules/index.html#module-sympy" title="(in SymPy v1.9)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sympy</span></code></a></p></li>
+<li><p><a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.html#module-matplotlib.pyplot" title="(in Matplotlib v3.5.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">matplotlib.pyplot</span></code></a></p></li>
 <li><p><a class="reference internal" href="base.html#module-gme.plot.base" title="gme.plot.base"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gme.plot.base</span></code></a></p></li>
 </ul>
 </dd>
@@ -70,7 +71,7 @@ such as single ray tracing or for tracking knickpoints.</p>
 <hr class="docutils" />
 <dl class="py class">
 <dt class="sig sig-object py" id="gme.plot.alphabeta.AlphaBeta">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gme.plot.alphabeta.</span></span><span class="sig-name descname"><span class="pre">AlphaBeta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dpi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">font_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">11</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gme.plot.alphabeta.AlphaBeta" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gme.plot.alphabeta.</span></span><span class="sig-name descname"><span class="pre">AlphaBeta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dpi</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">font_size</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">11</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gme.plot.alphabeta.AlphaBeta" title="Permalink to this definition">¶</a></dt>
 <dd><p>Subclasses <code class="xref py py-class docutils literal notranslate"><span class="pre">gme.plot.Graphing</span></code></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.plot.alphabeta.AlphaBeta.alpha_anisotropy">
@@ -106,7 +107,7 @@ such as single ray tracing or for tracking knickpoints.</p>
 <span class="sd">Visualization.</span>
 
 <span class="sd">Provides classes to generate a range of graphics for GME visualization.</span>
-<span class="sd">A base class extends :class:`gmplib.plot_utils.GraphingBase &lt;plot_utils.GraphingBase&gt;`</span>
+<span class="sd">A base class extends :class:`gmplib.plot.GraphingBase &lt;gmplib.plot.GraphingBase&gt;`</span>
 <span class="sd">provided by :mod:`GMPLib`; the other classes build on this.</span>
 <span class="sd">Each is tailored to a particular category of GME problem,</span>
 <span class="sd">such as single ray tracing or for tracking knickpoints.</span>
@@ -114,7 +115,8 @@ such as single ray tracing or for tracking knickpoints.</p>
 <span class="sd">---------------------------------------------------------------------</span>
 
 <span class="sd">Requires Python packages/modules:</span>
-<span class="sd">  -  :mod:`numpy`, :mod:`sympy`</span>
+<span class="sd">  -  :mod:`numpy`</span>
+<span class="sd">  -  :mod:`sympy`</span>
 <span class="sd">  -  :mod:`matplotlib.pyplot`</span>
 <span class="sd">  -  :mod:`gme.plot.base`</span>
 

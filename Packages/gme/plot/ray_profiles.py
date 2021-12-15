@@ -4,7 +4,7 @@
 Visualization.
 
 Provides classes to generate a range of graphics for GME visualization.
-A base class extends :class:`gmplib.plot_utils.GraphingBase <plot_utils.GraphingBase>`
+A base class extends :class:`gmplib.plot.GraphingBase <gmplib.plot.GraphingBase>`
 provided by :mod:`GMPLib`; the other classes build on this.
 Each is tailored to a particular category of GME problem,
 such as single ray tracing or for tracking knickpoints.
@@ -75,7 +75,7 @@ class RayProfiles(Graphing):
         Args:
             fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`):
                 reference to figure instantiated by
-                :meth:`GMPLib create_figure <plot_utils.GraphingBase.create_figure>`
+                :meth:`GMPLib create_figure <plot.GraphingBase.create_figure>`
             gmes (:class:`~.ode_raytracing.OneRaySolution`):
                     instance of single ray solution class defined in
                     :mod:`~.ode_raytracing`
@@ -174,7 +174,7 @@ class RayProfiles(Graphing):
         Args:
             fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`):
                 reference to figure instantiated by
-                :meth:`GMPLib create_figure <plot_utils.GraphingBase.create_figure>`
+                :meth:`GMPLib create_figure <plot.GraphingBase.create_figure>`
             gmes (:class:`~.ode_raytracing.OneRaySolution`):
                     instance of single ray solution class defined in
                     :mod:`~.ode_raytracing`

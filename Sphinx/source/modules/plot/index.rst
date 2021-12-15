@@ -18,3 +18,4 @@
     2D slicing of Hamiltonian <slicing>
     Time-dependent profiles <time_dependent>
     Time-invariant profiles <time_invariant>
+    Flow model <flow_model>

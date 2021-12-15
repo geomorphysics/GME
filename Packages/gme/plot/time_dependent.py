@@ -4,7 +4,7 @@
 Visualization.
 
 Provides classes to generate a range of graphics for GME visualization.
-A base class extends :class:`gmplib.plot_utils.GraphingBase <plot_utils.GraphingBase>`
+A base class extends :class:`gmplib.plot.GraphingBase <gmplib.plot.GraphingBase>`
 provided by :mod:`GMPLib`; the other classes build on this.
 Each is tailored to a particular category of GME problem,
 such as single ray tracing or for tracking knickpoints.
@@ -12,7 +12,8 @@ such as single ray tracing or for tracking knickpoints.
 ---------------------------------------------------------------------
 
 Requires Python packages/modules:
-  -  :mod:`numpy`, :mod:`sympy`
+  -  :mod:`numpy`
+  -  :mod:`sympy`
   -  :mod:`matplotlib`, :mod:`matplotlib.pyplot`, :mod:`matplotlib.patches`
   -  :mod:`gmplib.utils`
   -  :mod:`gme.core.symbols`, :mod:`gme.plot.base`
@@ -23,7 +24,7 @@ Requires Python packages/modules:
 import warnings
 
 # Typing
-# from typing import Any
+from typing import Dict, Tuple, Optional
 
 # Numpy
 import numpy as np
@@ -32,14 +33,15 @@ import numpy as np
 from sympy import deg
 
 # MatPlotLib
-import matplotlib as mpl
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 
 # GME
 from gme.core.symbols import Ci
-from gme.plot.base import Graphing
+from gme.core.equations import Equations
 from gme.ode.base import rpt_tuple
+from gme.ode.time_invariant import TimeInvariantSolution
+from gme.plot.base import Graphing
 
 warnings.filterwarnings("ignore")
 
@@ -50,91 +52,110 @@ class TimeDependent(Graphing):
     """
     Subclasses :class:`gme.plot.Graphing <plot.Graphing>`.
     """
-    def profile_isochrones( self, gmes, gmeq, sub, name, fig_size=None, dpi=None,
-                            do_zero_isochrone=True, do_overlay=False, fig=None,
-                            do_rays=True, ray_subsetting=5, ray_lw=0.5,
-                            ray_ls='-', ray_label='ray',
-                            do_isochrones=True, isochrone_subsetting=1,
-                            #do_isochrone_p=False, BROKEN
-                            isochrone_lw=0.5, isochrone_ls='-',
-                            do_annotate_rays=False,
-                            n_arrows=10, arrow_sf=0.7, arrow_offset=4,
-                            do_annotate_cusps=False, cusp_lw=1.5, do_smooth_colors=False,
-                            x_limits=(-0.001,1.001), y_limits=(-0.025,0.525),
-                            aspect=None,
-                            do_legend=True, do_alt_legend=False, do_grid=True,
-                            do_infer_initiation=True,
-                            do_etaxi_label=True, eta_label_xy=(0.65,0.85),
-                            do_pub_label=False, pub_label=None, pub_label_xy=(0.5,0.92) )\
-                                            -> mpl.figure.Figure:
+    def profile_isochrones( self,
+                            gmes: TimeInvariantSolution,
+                            gmeq: Equations,
+                            sub: Dict,
+                            name: str,
+                            fig_size: Optional[Tuple[float,float]]=None,
+                            dpi: Optional[int]=None,
+                            do_zero_isochrone : bool=True,
+                            do_rays: bool=True,
+                            ray_subsetting: int=5,
+                            ray_lw: float=0.5,
+                            ray_ls: str='-',
+                            ray_label: str='ray',
+                            do_isochrones: bool=True,
+                            isochrone_subsetting: int=1,
+                            isochrone_lw: float=0.5,
+                            isochrone_ls: str='-',
+                            do_annotate_rays: bool=False,
+                            n_arrows: int=10,
+                            arrow_sf: float=0.7,
+                            arrow_offset: int=4,
+                            do_annotate_cusps: bool=False,
+                            cusp_lw: float=1.5,
+                            do_smooth_colors: bool=False,
+                            x_limits: Tuple[float,float]=(-0.001,1.001),
+                            y_limits: Tuple[float,float]=(-0.025,0.525),
+                            aspect: float=None,
+                            do_legend: bool=True,
+                            do_alt_legend: bool=False,
+                            do_grid: bool=True,
+                            do_infer_initiation: bool=True,
+                            do_pub_label: bool=False,
+                            do_etaxi_label: bool=True,
+                            pub_label: Optional[str]=None,
+                            eta_label_xy: Tuple[float,float]=(0.65,0.85),
+                            pub_label_xy: Tuple[float,float]=(0.5,0.92)
+                        ) -> None:
         """
-        Plot xxxx.
+        Plot isochrones and rays for a time-dependent b.c. solution.
 
         Args:
-            fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`):
-                reference to figure instantiated by
-                :meth:`GMPLib create_figure <plot_utils.GraphingBase.create_figure>`
-            gmes (:class:`~.ode_raytracing.VelocityBoundarySolution`):
-                    instance of velocity boundary solution class defined in
-                    :mod:`~.ode_raytracing`
-            gmeq (:class:`~.equations.Equations`):
-                    GME model equations class instance defined in :mod:`~.equations`
-            sub (dict):
+            gmes:
+                instance of velocity boundary solution class defined in
+                :mod:`~.ode_raytracing`
+            gmeq:
+                GME model equations class instance defined in :mod:`~.equations`
+            sub:
                 dictionary of model parameter values to be used for equation substitutions
-            do_zero_isochrone (bool):
-                optional plot initial surface?
-            do_rays (bool):
-                optional plot rays?
-            ray_subsetting (int):
+            name:
+                name of plot in figures dictionary
+            fig_size:
+                optional figure width and height in inches
+            dpi:
+                optional rasterization resolution
+            do_zero_isochrone:
+                optionally plot initial surface?
+            do_rays:
+                optionally plot rays?
+            ray_subsetting:
                 optional rate of ray subsetting
-            ray_lw (float):
+            ray_lw:
                 optional ray line width
-            ray_ls (float):
+            ray_ls:
                 optional ray line style
-            ray_label (float):
+            ray_label:
                 optional ray line label
-            do_isochrones (bool):
-                optional plot isochrones?
-            isochrone_subsetting (int):
+            do_isochrones:
+                optionally plot isochrones?
+            isochrone_subsetting:
                 optional rate of isochrone subsetting
-            do_isochrone_p (bool):
-                optional plot isochrone herringbones?
-            isochrone_lw (float):
+            do_isochrone_p:
+                optionally plot isochrone herringbones?
+            isochrone_lw:
                 optional isochrone line width
-            isochrone_ls (float):
+            isochrone_ls:
                 optional isochrone line style
-            do_annotate_rays (bool):
-                optional plot arrowheads along rays?
-            n_arrows (int):
+            do_annotate_rays:
+                optionally plot arrowheads along rays?
+            n_arrows:
                 optional number of arrowheads to annotate along rays or cusp-line
-            arrow_sf (float):
+            arrow_sf:
                 optional scale factor for arrowhead sizes
-            arrow_offset (int):
+            arrow_offset:
                 optional offset to start annotating arrowheads
-            do_annotate_cusps (bool):
-                optional plot line to visualize cusp initiation and propagation
-            cusp_lw (float):
+            do_annotate_cusps:
+                optionally plot line to visualize cusp initiation and propagation
+            cusp_lw:
                 optional cusp propagation curve line width
-            x_limits (list of float):
+            x_limits:
                 optional [x_min, x_max] horizontal plot range
-            y_limits (list of float):
+            y_limits:
                 optional [z_min, z_max] vertical plot range
-            aspect (float):
+            aspect:
                 optional figure aspect ratio
-            do_legend (bool):
-                optional plot legend
-            do_alt_legend (bool):
-                optional plot slightly different legend
-            do_grid (bool):
-                optional plot dotted grey gridlines
-            do_infer_initiation (bool):
-                optional draw dotted line inferring cusp initiation at the left boundary
+            do_legend:
+                optionally plot legend
+            do_alt_legend:
+                optionally plot slightly different legend
+            do_grid:
+                optionally plot dotted grey gridlines
+            do_infer_initiation:
+                optionally draw dotted line inferring cusp initiation at the left boundary
         """
-        # HACK
-        fig = self.create_figure(name, fig_size=fig_size, dpi=dpi) \
-                if not do_overlay else None
-        # pub_label_xy = [0.5,0.92] if pub_label_xy is None else pub_label_xy
-        # eta_label_xy = [0.65,0.85] if eta_label_xy is None else eta_label_xy
+        _ = self.create_figure(name, fig_size=fig_size, dpi=dpi)
 
         # Unpack for brevity
         if hasattr(gmes,'rpt_isochrones'):
@@ -204,16 +225,6 @@ class TimeDependent(Graphing):
                          self.gray_color(i_isochrone, n_isochrones),
                          linestyle=isochrone_ls, lw=0.5*isochrone_lw,
                          label=r'isochrone $\Delta{\hat{t}}=$'+rf'${round(delta_t,1)}$')
-# HACK - broken for reasons unknown
-# if do_isochrone_p:
-#     for (rx_lowres,rz_lowres,px_lowres,pz_lowres) \
-#             in zip(rx_isochrones_lowres,rz_isochrones_lowres,
-#                    px_isochrones_lowres,pz_isochrones_lowres):
-#         _ = [plt.arrow(rx_,rz_,0.02*px_/np.sqrt(px_**2+pz_**2),
-#                              0.02*pz_/np.sqrt(px_**2+pz_**2),
-#                     ec=color_, fc=color_, lw=0.5*isochrone_lw,
-#                     head_width=0.015, head_length=0, overhang=0)
-#                for (rx_,rz_,px_,pz_) in zip(rx_lowres, rz_lowres, px_lowres, pz_lowres)]
 
         # Knickpoint aka cusp propagation
         if do_annotate_cusps:
@@ -274,37 +285,50 @@ class TimeDependent(Graphing):
                      horizontalalignment='center', verticalalignment='center',
                      fontsize=14, color='k')
 
-        return fig
-
-
-    def profile_cusp_speed( self, gmes, gmeq, name, fig_size=None, dpi=None,
-                            # sample_spacing=10,
-                            x_limits=(-0.05,1.05), t_limits=(0,None), y_limits=(-5,None),
-                            legend_loc='lower right',
-                            do_x=True, do_infer_initiation=True ) -> None:
+    def profile_cusp_speed( self,
+                            gmes: TimeInvariantSolution,
+                            gmeq: Equations,
+                            sub: Dict,
+                            name: str,
+                            fig_size: Optional[Tuple[float,float]]=None,
+                            dpi: Optional[int]=None,
+                            x_limits: Tuple[float,float]=(-0.05,1.05),
+                            y_limits: Tuple[float,Optional[float]]=(-5,None),
+                            t_limits: Tuple[float,Optional[float]]=(0,None),
+                            legend_loc: str='lower right',
+                            do_x: bool=True,
+                            do_infer_initiation: bool=True
+                        ) -> None:
         r"""
         Plot horizontal speed of cusp propagation
 
         Args:
-            fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`):
-                reference to figure instantiated by
-                :meth:`GMPLib create_figure <plot_utils.GraphingBase.create_figure>`
-            gmes (:class:`~.ode_raytracing.VelocityBoundarySolution`):
-                    instance of velocity boundary solution class defined in
-                    :mod:`~.ode_raytracing`
-            gmeq (:class:`~.equations.Equations`):
-                    GME model equations class instance defined in :mod:`~.equations`
-            sample_spacing (int): sample interval between cusps
-                                  over which to compute the speed
-            x_limits (list of float):
+            gmes:
+                instance of velocity boundary solution class defined in
+                :mod:`~.ode_raytracing`
+            gmeq:
+                GME model equations class instance defined in :mod:`~.equations`
+            sub:
+                dictionary of model parameter values to be used for equation substitutions
+            name:
+                name of plot in figures dictionary
+            fig_size:
+                optional figure width and height in inches
+            dpi:
+                optional rasterization resolution
+            x_limits:
                 optional [x_min, x_max] horizontal plot range
-            y_limits (list of float):
+            y_limits:
                 optional [z_min, z_max] vertical plot range
-            do_x (bool):
+            t_limits:
+                optional [t_min, t_max] time range
+            legend_loc:
+                where to plot the legend
+            do_x:
                 optional plot x-axis as dimensionless horizontal distance
                 :math:`x/L_{\mathrm{c}}`;
                 otherwise plot as time :math:`t`
-            do_infer_initiation (bool):
+            do_infer_initiation:
                 optional draw dotted line inferring cusp initiation at the left boundary
 
         Todo:
@@ -351,3 +375,8 @@ class TimeDependent(Graphing):
         plt.grid(True, ls=':')
 
         plt.legend(loc=legend_loc, fontsize=12, framealpha=0.95)
+
+
+
+
+#

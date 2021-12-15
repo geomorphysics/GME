@@ -55,7 +55,7 @@
 <hr class="docutils" />
 <p>Visualization.</p>
 <p>Provides classes to generate a range of graphics for GME visualization.
-A base class extends <a class="reference external" href="/Users/colinstark/Projects/GMPLib/modules/plot_utils.html#gmplib.plot_utils.GraphingBase" title="(in GMPLib v1.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">gmplib.plot_utils.GraphingBase</span></code></a>
+A base class extends <code class="xref py py-class docutils literal notranslate"><span class="pre">gmplib.plot.GraphingBase</span></code>
 provided by <code class="xref py py-mod docutils literal notranslate"><span class="pre">GMPLib</span></code>; the other classes build on this.
 Each is tailored to a particular category of GME problem,
 such as single ray tracing or for tracking knickpoints.</p>
@@ -63,8 +63,8 @@ such as single ray tracing or for tracking knickpoints.</p>
 <dl class="simple">
 <dt>Requires Python packages/modules:</dt><dd><ul class="simple">
 <li><p><a class="reference external" href="https://numpy.org/doc/stable/reference/index.html#module-numpy" title="(in NumPy v1.21)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy</span></code></a></p></li>
-<li><p><a class="reference external" href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.html#module-matplotlib.pyplot" title="(in Matplotlib v3.5.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">matplotlib.pyplot</span></code></a>, <a class="reference external" href="https://matplotlib.org/api/patches_api.html#module-matplotlib.patches" title="(in Matplotlib v3.5.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">matplotlib.patches</span></code></a>, <a class="reference external" href="https://matplotlib.org/api/cm_api.html#module-matplotlib.cm" title="(in Matplotlib v3.5.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">matplotlib.cm</span></code></a></p></li>
-<li><p><code class="xref py py-mod docutils literal notranslate"><span class="pre">gmplib.plot_utils</span></code></p></li>
+<li><p><a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.html#module-matplotlib.pyplot" title="(in Matplotlib v3.5.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">matplotlib.pyplot</span></code></a>, <a class="reference external" href="https://matplotlib.org/stable/api/patches_api.html#module-matplotlib.patches" title="(in Matplotlib v3.5.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">matplotlib.patches</span></code></a>, <a class="reference external" href="https://matplotlib.org/stable/api/cm_api.html#module-matplotlib.cm" title="(in Matplotlib v3.5.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">matplotlib.cm</span></code></a></p></li>
+<li><p><code class="xref py py-mod docutils literal notranslate"><span class="pre">gmplib.plot</span></code></p></li>
 <li><p><a class="reference internal" href="../core/symbols.html#module-gme.core.symbols" title="gme.core.symbols"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gme.core.symbols</span></code></a></p></li>
 </ul>
 </dd>
@@ -72,8 +72,8 @@ such as single ray tracing or for tracking knickpoints.</p>
 <hr class="docutils" />
 <dl class="py class">
 <dt class="sig sig-object py" id="gme.plot.base.Graphing">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gme.plot.base.</span></span><span class="sig-name descname"><span class="pre">Graphing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dpi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">font_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">11</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gme.plot.base.Graphing" title="Permalink to this definition">¶</a></dt>
-<dd><p>Subclasses <a class="reference external" href="/Users/colinstark/Projects/GMPLib/modules/plot_utils.html#gmplib.plot_utils.GraphingBase" title="(in GMPLib v1.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">gmplib.plot_utils.GraphingBase</span></code></a></p>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gme.plot.base.</span></span><span class="sig-name descname"><span class="pre">Graphing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dpi</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">font_size</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">11</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gme.plot.base.Graphing" title="Permalink to this definition">¶</a></dt>
+<dd><p>Subclasses <code class="xref py py-class docutils literal notranslate"><span class="pre">gmplib.plot.GraphingBase</span></code></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.plot.base.Graphing.arrow_annotate_ray_custom">
 <span class="sig-name descname"><span class="pre">arrow_annotate_ray_custom</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rx_array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rz_array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_ray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_ray_step</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_rays</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_arrows</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arrow_sf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.7</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arrow_offset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_limits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_limits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">line_style</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'dashed'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">line_width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ray_label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_smooth_colors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.plot.base.Graphing.arrow_annotate_ray_custom" title="Permalink to this definition">¶</a></dt>
@@ -83,7 +83,7 @@ such as single ray tracing or for tracking knickpoints.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>rx_array</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.21)"><em>numpy.ndarray</em></a>) – x coordinates along the sampled ray</p></li>
 <li><p><strong>rz_array</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.21)"><em>numpy.ndarray</em></a>) – z coordinates along the sampled ray</p></li>
-<li><p><strong>axes</strong> (<a class="reference external" href="https://matplotlib.org/api/axes_api.html#matplotlib.axes.Axes" title="(in Matplotlib v3.5.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Matplotlib</span> <span class="pre">axes</span></code></a>) – ‘axes’ instance
+<li><p><strong>axes</strong> (<a class="reference external" href="https://matplotlib.org/stable/api/axes_api.html#matplotlib.axes.Axes" title="(in Matplotlib v3.5.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Matplotlib</span> <span class="pre">axes</span></code></a>) – ‘axes’ instance
 for current figure</p></li>
 <li><p><strong>sub</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – dictionary of model parameter values to be used
 for equation substitutions</p></li>
@@ -126,7 +126,7 @@ otherwise, if angle <span class="math notranslate nohighlight">\(\theta&lt;0\)</
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>axes</strong> (<a class="reference external" href="https://matplotlib.org/api/axes_api.html#matplotlib.axes.Axes" title="(in Matplotlib v3.5.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Matplotlib</span> <span class="pre">axes</span></code></a>) – ‘axes’ instance
+<li><p><strong>axes</strong> (<a class="reference external" href="https://matplotlib.org/stable/api/axes_api.html#matplotlib.axes.Axes" title="(in Matplotlib v3.5.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Matplotlib</span> <span class="pre">axes</span></code></a>) – ‘axes’ instance
 for current figure</p></li>
 <li><p><strong>sub</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – dictionary of model parameter values to be used for
 equation substitutions</p></li>
@@ -161,7 +161,7 @@ equation substitutions</p></li>
 <span class="sd">Visualization.</span>
 
 <span class="sd">Provides classes to generate a range of graphics for GME visualization.</span>
-<span class="sd">A base class extends :class:`gmplib.plot_utils.GraphingBase &lt;plot_utils.GraphingBase&gt;`</span>
+<span class="sd">A base class extends :class:`gmplib.plot.GraphingBase &lt;gmplib.plot.GraphingBase&gt;`</span>
 <span class="sd">provided by :mod:`GMPLib`; the other classes build on this.</span>
 <span class="sd">Each is tailored to a particular category of GME problem,</span>
 <span class="sd">such as single ray tracing or for tracking knickpoints.</span>
@@ -171,7 +171,7 @@ equation substitutions</p></li>
 <span class="sd">Requires Python packages/modules:</span>
 <span class="sd">  -  :mod:`numpy`</span>
 <span class="sd">  -  :mod:`matplotlib.pyplot`, :mod:`matplotlib.patches`, :mod:`matplotlib.cm`</span>
-<span class="sd">  -  :mod:`gmplib.plot_utils`</span>
+<span class="sd">  -  :mod:`gmplib.plot`</span>
 <span class="sd">  -  :mod:`gme.core.symbols`</span>
 
 <span class="sd">---------------------------------------------------------------------</span>
@@ -192,7 +192,7 @@ equation substitutions</p></li>
 <span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">cm</span>
 
 <span class="c1"># GMPLib</span>
-<span class="kn">from</span> <span class="nn">gmplib.plot_utils</span> <span class="kn">import</span> <span class="n">GraphingBase</span>
+<span class="kn">from</span> <span class="nn">gmplib.plot</span> <span class="kn">import</span> <span class="n">GraphingBase</span>
 
 <span class="c1"># GME</span>
 <span class="kn">from</span> <span class="nn">gme.core.symbols</span> <span class="kn">import</span> <span class="n">xih_0</span><span class="p">,</span> <span class="n">xiv_0</span><span class="p">,</span> <span class="n">t</span>
@@ -204,7 +204,7 @@ equation substitutions</p></li>
 
 <span class="k">class</span> <span class="nc">Graphing</span><span class="p">(</span><span class="n">GraphingBase</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Subclasses :class:`gmplib.plot_utils.GraphingBase &lt;plot_utils.GraphingBase&gt;`</span>
+<span class="sd">    Subclasses :class:`gmplib.plot.GraphingBase &lt;gmplib.plot.GraphingBase&gt;`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">mycolors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">do_smooth</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">cmap_choice</span><span class="o">=</span><span class="s1">&#39;brg&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>

@@ -4,7 +4,7 @@
 Visualization.
 
 Provides classes to generate a range of graphics for GME visualization.
-A base class extends :class:`gmplib.plot_utils.GraphingBase <plot_utils.GraphingBase>`
+A base class extends :class:`gmplib.plot.GraphingBase <gmplib.plot.GraphingBase>`
 provided by :mod:`GMPLib`; the other classes build on this.
 Each is tailored to a particular category of GME problem,
 such as single ray tracing or for tracking knickpoints.
@@ -14,7 +14,7 @@ such as single ray tracing or for tracking knickpoints.
 Requires Python packages/modules:
   -  :mod:`numpy`
   -  :mod:`matplotlib.pyplot`, :mod:`matplotlib.patches`, :mod:`matplotlib.cm`
-  -  :mod:`gmplib.plot_utils`
+  -  :mod:`gmplib.plot`
   -  :mod:`gme.core.symbols`
 
 ---------------------------------------------------------------------
@@ -35,7 +35,7 @@ import matplotlib.patches as mpatches
 from matplotlib import cm
 
 # GMPLib
-from gmplib.plot_utils import GraphingBase
+from gmplib.plot import GraphingBase
 
 # GME
 from gme.core.symbols import xih_0, xiv_0, t
@@ -47,7 +47,7 @@ __all__ = ['Graphing']
 
 class Graphing(GraphingBase):
     """
-    Subclasses :class:`gmplib.plot_utils.GraphingBase <plot_utils.GraphingBase>`
+    Subclasses :class:`gmplib.plot.GraphingBase <gmplib.plot.GraphingBase>`
     """
     def mycolors(self, i, r, n, do_smooth=False, cmap_choice='brg') -> List[str]:
         r"""

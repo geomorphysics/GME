@@ -4,7 +4,7 @@
 Visualization.
 
 Provides classes to generate a range of graphics for GME visualization.
-A base class extends :class:`gmplib.plot_utils.GraphingBase <plot_utils.GraphingBase>`
+A base class extends :class:`gmplib.plot.GraphingBase <gmplib.plot.GraphingBase>`
 provided by :mod:`GMPLib`; the other classes build on this.
 Each is tailored to a particular category of GME problem,
 such as single ray tracing or for tracking knickpoints.
@@ -61,7 +61,7 @@ class IndicatrixOld(Graphing):
         Args:
             fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`):
                 reference to figure instantiated by
-                :meth:`GMPLib create_figure <plot_utils.GraphingBase.create_figure>`
+                :meth:`GMPLib create_figure <plot.GraphingBase.create_figure>`
             gmeq (:class:`~.equations.Equations`):
                     GME model equations class instance defined in :mod:`~.equations`
         """
@@ -377,7 +377,7 @@ class IndicatrixOld(Graphing):
         Args:
             fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`):
                 reference to figure instantiated by
-                :meth:`GMPLib create_figure <plot_utils.GraphingBase.create_figure>`
+                :meth:`GMPLib create_figure <plot.GraphingBase.create_figure>`
             gmeq (:class:`~.equations.Equations`):
                     GME model equations class instance defined in :mod:`~.equations`
             varphi_choice (int): the value of :math:`\varphi` to use

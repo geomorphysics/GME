@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>flow_model.py &#8212; GME 1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pydoctheme.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+    
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    
+    <script src="../../_static/sidebar.js"></script>
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="gme.knickpoints" href="../knickpoints/index.html" />
+    <link rel="prev" title="time_invariant.py" href="time_invariant.html" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <link rel="shortcut icon" type="image/png" href="../../_static/favicon.png" />
+    <meta name="viewport" content="width=device-width,initial-scale=0.8">
+    
+    
+
+  </head><body>
+    <!-- <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="responsive-menu"><a href="#sidebar-anchor" title="Navigation">&#9776;</a></li>
+        <li><a href="../../index.html">GME 1.0 documentation</a> &#187;</li>
+          <li><a href="../Python.html" >Python package <cite>gme</cite></a> &#187;</li>
+          <li><a href="index.html" accesskey="U"><cite>gme.plot</cite></a> &#187;</li> 
+      </ul>
+    </div> -->
+    <!-- 
+        <div class="badge">
+            <a href="https://github.com/geomorphysics/GME/">Fork me on GitHub</a>
+            <img src="../../_static/right-red@2x.png">
+        </div>
+     -->
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-gme.plot.flow_model">
+<span id="flow-model-py"></span><h1><code class="docutils literal notranslate"><span class="pre">flow_model.py</span></code><a class="headerlink" href="#module-gme.plot.flow_model" title="Permalink to this headline">¶</a></h1>
+<hr class="docutils" />
+<p>Visualization of flow model.</p>
+<p>Extends <code class="xref py py-class docutils literal notranslate"><span class="pre">gmplib.plot.GraphingBase</span></code>.</p>
+<hr class="docutils" />
+<dl class="simple">
+<dt>Requires Python packages/modules:</dt><dd><ul class="simple">
+<li><p><a class="reference external" href="https://numpy.org/doc/stable/reference/index.html#module-numpy" title="(in NumPy v1.21)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy</span></code></a></p></li>
+<li><p><a class="reference external" href="https://docs.sympy.org/latest/modules/index.html#module-sympy" title="(in SymPy v1.9)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sympy</span></code></a></p></li>
+<li><p><a class="reference external" href="https://matplotlib.org/stable/index.html#module-matplotlib" title="(in Matplotlib v3.5.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">matplotlib</span></code></a>, <a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.html#module-matplotlib.pyplot" title="(in Matplotlib v3.5.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">matplotlib.pyplot</span></code></a>, <a class="reference external" href="https://matplotlib.org/stable/api/patches_api.html#module-matplotlib.patches" title="(in Matplotlib v3.5.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">matplotlib.patches</span></code></a>,
+<a class="reference external" href="https://matplotlib.org/stable/api/cm_api.html#module-matplotlib.cm" title="(in Matplotlib v3.5.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">matplotlib.cm</span></code></a>, <code class="xref py py-mod docutils literal notranslate"><span class="pre">mpl_toolkits</span></code></p></li>
+<li><p><a class="reference internal" href="../core/symbols.html#module-gme.core.symbols" title="gme.core.symbols"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gme.core.symbols</span></code></a>, <a class="reference internal" href="base.html#module-gme.plot.base" title="gme.plot.base"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gme.plot.base</span></code></a></p></li>
+</ul>
+</dd>
+</dl>
+<hr class="docutils" />
+<dl class="py class">
+<dt class="sig sig-object py" id="gme.plot.flow_model.FlowModel">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gme.plot.flow_model.</span></span><span class="sig-name descname"><span class="pre">FlowModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dpi</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">font_size</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">11</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gme.plot.flow_model.FlowModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Subclasses <code class="xref py py-class docutils literal notranslate"><span class="pre">gme.plot.Graphing</span></code>.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="gme.plot.flow_model.FlowModel.profile_flow_model">
+<span class="sig-name descname"><span class="pre">profile_flow_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmeq</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="../core/equations.html#gme.core.equations.Equations" title="gme.core.equations.Equations"><span class="pre">gme.core.equations.Equations</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">sub</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">fig_size</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dpi</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_points</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">26</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subtitle</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_subtitling</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_extra_annotations</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.plot.flow_model.FlowModel.profile_flow_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot the flow component of the erosion model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>gmes</strong> – instance of time invariant solution class defined in
+<code class="xref py py-mod docutils literal notranslate"><span class="pre">ode_raytracing</span></code></p></li>
+<li><p><strong>gmeq</strong> – GME model equations class instance defined in <a class="reference internal" href="../core/equations.html#module-gme.core.equations" title="gme.core.equations"><code class="xref py py-mod docutils literal notranslate"><span class="pre">equations</span></code></a></p></li>
+<li><p><strong>sub</strong> – dictionary of model parameter values to be
+used for equation substitutions</p></li>
+<li><p><strong>name</strong> – name of figure (key in figure dictionary)</p></li>
+<li><p><strong>fig_size</strong> – optional figure width and height in inches</p></li>
+<li><p><strong>dpi</strong> – optional rasterization resolution</p></li>
+<li><p><strong>n_points</strong> – optional number of points to plot along curve</p></li>
+<li><p><strong>subtitle</strong> – optional sub-title (likely ‘ramp’ or ‘ramp-flat’ or similar)</p></li>
+<li><p><strong>do_subtitling</strong> – optionally annotate with eta value etc</p></li>
+<li><p><strong>do_extra_annotations</strong> – optionally annotate with labels</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<div class="section" id="code">
+<h2>Code<a class="headerlink" href="#code" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">---------------------------------------------------------------------</span>
+
+<span class="sd">Visualization of flow model.</span>
+
+<span class="sd">Extends :class:`gmplib.plot.GraphingBase &lt;gmplib.plot.GraphingBase&gt;`.</span>
+
+
+<span class="sd">---------------------------------------------------------------------</span>
+
+<span class="sd">Requires Python packages/modules:</span>
+<span class="sd">  -  :mod:`numpy`</span>
+<span class="sd">  -  :mod:`sympy`</span>
+<span class="sd">  -  :mod:`matplotlib`, :mod:`matplotlib.pyplot`, :mod:`matplotlib.patches`,</span>
+<span class="sd">     :mod:`matplotlib.cm`, :mod:`mpl_toolkits`</span>
+<span class="sd">  -  :mod:`gme.core.symbols`, :mod:`gme.plot.base`</span>
+
+<span class="sd">---------------------------------------------------------------------</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="c1">#pylint: disable = too-few-public-methods, no-self-use</span>
+
+<span class="c1"># Library</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+
+<span class="c1"># Typing</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Optional</span>
+
+<span class="c1"># Numpy</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1"># MatPlotLib</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1"># GME</span>
+<span class="kn">from</span> <span class="nn">gme.core.symbols</span> <span class="kn">import</span> <span class="n">rx</span><span class="p">,</span> <span class="n">x_h</span><span class="p">,</span> <span class="n">Lc</span>
+<span class="kn">from</span> <span class="nn">gme.core.equations</span> <span class="kn">import</span> <span class="n">Equations</span>
+<span class="kn">from</span> <span class="nn">gme.plot.base</span> <span class="kn">import</span> <span class="n">Graphing</span>
+
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;FlowModel&#39;</span><span class="p">]</span>
+
+
+<span class="k">class</span> <span class="nc">FlowModel</span><span class="p">(</span><span class="n">Graphing</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Subclasses :class:`gme.plot.Graphing &lt;plot.Graphing&gt;`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">profile_flow_model</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span>
+                            <span class="n">gmeq</span><span class="p">:</span> <span class="n">Equations</span><span class="p">,</span>
+                            <span class="n">sub</span><span class="p">:</span> <span class="n">Dict</span><span class="p">,</span>
+                            <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+                            <span class="n">fig_size</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span><span class="nb">float</span><span class="p">]]</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                            <span class="n">dpi</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                            <span class="n">n_points</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="mi">26</span><span class="p">,</span>
+                            <span class="n">subtitle</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
+                            <span class="n">do_subtitling</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                            <span class="n">do_extra_annotations</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">False</span>
+                        <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Plot the flow component of the erosion model.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            gmes:</span>
+<span class="sd">                instance of time invariant solution class defined in</span>
+<span class="sd">                :mod:`~.ode_raytracing`</span>
+<span class="sd">            gmeq:</span>
+<span class="sd">                GME model equations class instance defined in :mod:`~.equations`</span>
+<span class="sd">            sub:</span>
+<span class="sd">                dictionary of model parameter values to be</span>
+<span class="sd">                used for equation substitutions</span>
+<span class="sd">            name:</span>
+<span class="sd">                name of figure (key in figure dictionary)</span>
+<span class="sd">            fig_size:</span>
+<span class="sd">                optional figure width and height in inches</span>
+<span class="sd">            dpi:</span>
+<span class="sd">                optional rasterization resolution</span>
+<span class="sd">            n_points:</span>
+<span class="sd">                optional number of points to plot along curve</span>
+<span class="sd">            subtitle:</span>
+<span class="sd">                optional sub-title (likely &#39;ramp&#39; or &#39;ramp-flat&#39; or similar)</span>
+<span class="sd">            do_subtitling:</span>
+<span class="sd">                optionally annotate with eta value etc</span>
+<span class="sd">            do_extra_annotations:</span>
+<span class="sd">                optionally annotate with labels</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_figure</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">fig_size</span><span class="o">=</span><span class="n">fig_size</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="n">dpi</span><span class="p">)</span>
+        <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
+
+        <span class="n">x_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">float</span><span class="p">(</span><span class="n">Lc</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">sub</span><span class="p">)),</span><span class="n">n_points</span><span class="p">)</span>
+        <span class="n">varphi_array</span> <span class="o">=</span> <span class="p">[</span><span class="n">gmeq</span><span class="o">.</span><span class="n">varphi_rx_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">sub</span><span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">rx</span><span class="p">:</span><span class="n">x_</span><span class="p">})</span> <span class="k">for</span> <span class="n">x_</span> <span class="ow">in</span> <span class="n">x_array</span><span class="p">]</span>
+        <span class="n">varphi_xh1p0_array</span> <span class="o">=</span> <span class="p">[</span><span class="n">gmeq</span><span class="o">.</span><span class="n">varphi_rx_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">x_h</span><span class="p">:</span><span class="mi">1</span><span class="p">})</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">sub</span><span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">rx</span><span class="p">:</span><span class="n">x_</span><span class="p">})</span>
+                                <span class="k">for</span> <span class="n">x_</span> <span class="ow">in</span> <span class="n">x_array</span><span class="p">]</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span> <span class="n">x_array</span><span class="p">,</span> <span class="n">varphi_array</span><span class="p">,</span> <span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">colors</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                  <span class="n">label</span><span class="o">=</span><span class="s1">&#39;hillslope-channel model&#39;</span> <span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span> <span class="n">x_array</span><span class="p">,</span> <span class="n">varphi_xh1p0_array</span><span class="p">,</span> <span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">colors</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                  <span class="n">label</span><span class="o">=</span><span class="s1">&#39;channel-only model&#39;</span> <span class="p">)</span>
+
+        <span class="c1"># axes.set_aspect(1)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Dimensionless horizontal distance, $x/L_{\mathrm</span><span class="si">{c}</span><span class="s1">}$  [-]&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\varphi(x)$  [-]&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">do_subtitling</span><span class="p">:</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span><span class="mf">0.15</span><span class="p">,</span> <span class="sa">rf</span><span class="s1">&#39;$\eta=</span><span class="si">{</span><span class="n">gmeq</span><span class="o">.</span><span class="n">eta_</span><span class="si">}</span><span class="s1">$&#39;</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">axes</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span>
+                     <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+                     <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.05</span><span class="p">,</span><span class="mf">0.22</span><span class="p">,</span> <span class="n">subtitle</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">axes</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span>
+                     <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+                     <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">do_extra_annotations</span><span class="p">:</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.4</span><span class="p">,</span><span class="mf">0.45</span><span class="p">,</span> <span class="s1">&#39;channel&#39;</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">axes</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span>
+                     <span class="n">rotation</span><span class="o">=-</span><span class="mi">43</span><span class="p">,</span>
+                     <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+                     <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;0.2&#39;</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.83</span><span class="p">,</span><span class="mf">0.16</span><span class="p">,</span> <span class="s1">&#39;hillslope&#39;</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">axes</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span>
+                     <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+                     <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;0.2&#39;</span><span class="p">)</span>
+
+        <span class="n">y_limits</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="n">axes</span><span class="o">.</span><span class="n">get_ylim</span><span class="p">()</span>
+        <span class="n">x_h_</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">x_h</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">sub</span><span class="p">))</span>
+        <span class="n">varphi_h_</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">gmeq</span><span class="o">.</span><span class="n">varphi_rx_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">rx</span><span class="p">:</span><span class="n">x_h</span><span class="p">})</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">sub</span><span class="p">))</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">x_h_</span><span class="p">,</span><span class="n">x_h_</span><span class="p">],[</span><span class="n">varphi_h_</span><span class="o">-</span><span class="mi">30</span><span class="p">,</span><span class="n">varphi_h_</span><span class="o">+</span><span class="mi">70</span><span class="p">],</span><span class="s1">&#39;b:&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">x_h_</span><span class="p">,</span><span class="n">varphi_h_</span><span class="o">+</span><span class="mi">77</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$x_h/L_{\mathrm</span><span class="si">{c}</span><span class="s1">}$&#39;</span><span class="p">,</span> <span class="c1">#transform=axes.transAxes,</span>
+                 <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;bottom&#39;</span><span class="p">,</span>
+                 <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span> <span class="n">framealpha</span><span class="o">=</span><span class="mf">0.95</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span><span class="mf">1.05</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">*</span><span class="n">y_limits</span><span class="p">)</span>
+
+
+
+<span class="c1">#</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+    <a id="sidebar-anchor"></a>
+    
+
+<div id="searchbox" style="display: none" role="search">
+    <a class="biglink" href="../../index.html">
+        <img src="../../_static/gme_icon_varphi_rx.png" />
+    </a>
+  <h3></h3>
+    <form class="search" action="../../search.html" method="get">
+      <div class="ui action left icon input">
+        <i class="search icon"></i>
+        <input type="text" name="q" placeholder="Search...">
+        <div class="ui teal button"></div>
+      </div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<!-- <br> -->
+<script type="text/javascript">$('#searchbox').show(0);</script><h3><a href="../../index.html">Contents</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../Summary.html">  Summary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Presentations.html">  Presentations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Publications.html">  Publications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Design.html">  Software design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Dependencies.html">  Dependencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Installation.html">  Installation and set-up</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Running.html">  Running the notebooks</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../Python.html">  Python package docs</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../core/index.html">Core</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ode/index.html">ODE integration</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Plotting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../knickpoints/index.html">Knickpoint detection and tracking [in development]</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Notebooks.html">  Notebook docs</a></li>
+</ul>
+
+    <!-- <h3><a href="../../index.html">This page</a></h3> -->
+    <!-- <ul>
+<li><a class="reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">flow_model.py</span></code></a><ul>
+<li><a class="reference internal" href="#code">Code</a></li>
+</ul>
+</li>
+</ul>
+ -->
+    <p class="biglink">
+        <h3><a href="../../genindex.html"> Index</a></h3>
+    </p>
+  <br>
+  <!-- <p class="biglink"><a class="biglink" href="../../py-modindex.html">
+         Module index</a>
+  <br><br> -->
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../knickpoints/index.html" title="gme.knickpoints"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="time_invariant.html" title="time_invariant.py"
+             accesskey="P">previous</a> |</li>
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, CPS.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.3.
+    </div>
+  </body>
+</html>

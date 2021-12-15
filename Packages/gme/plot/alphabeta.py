@@ -4,7 +4,7 @@
 Visualization.
 
 Provides classes to generate a range of graphics for GME visualization.
-A base class extends :class:`gmplib.plot_utils.GraphingBase <plot_utils.GraphingBase>`
+A base class extends :class:`gmplib.plot.GraphingBase <gmplib.plot.GraphingBase>`
 provided by :mod:`GMPLib`; the other classes build on this.
 Each is tailored to a particular category of GME problem,
 such as single ray tracing or for tracking knickpoints.
@@ -12,7 +12,8 @@ such as single ray tracing or for tracking knickpoints.
 ---------------------------------------------------------------------
 
 Requires Python packages/modules:
-  -  :mod:`numpy`, :mod:`sympy`
+  -  :mod:`numpy`
+  -  :mod:`sympy`
   -  :mod:`matplotlib.pyplot`
   -  :mod:`gme.plot.base`
 

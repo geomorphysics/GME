@@ -55,7 +55,7 @@
 <hr class="docutils" />
 <p>Visualization.</p>
 <p>Provides classes to generate a range of graphics for GME visualization.
-A base class extends <a class="reference external" href="/Users/colinstark/Projects/GMPLib/modules/plot_utils.html#gmplib.plot_utils.GraphingBase" title="(in GMPLib v1.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">gmplib.plot_utils.GraphingBase</span></code></a>
+A base class extends <code class="xref py py-class docutils literal notranslate"><span class="pre">gmplib.plot.GraphingBase</span></code>
 provided by <code class="xref py py-mod docutils literal notranslate"><span class="pre">GMPLib</span></code>; the other classes build on this.
 Each is tailored to a particular category of GME problem,
 such as single ray tracing or for tracking knickpoints.</p>
@@ -63,7 +63,7 @@ such as single ray tracing or for tracking knickpoints.</p>
 <dl class="simple">
 <dt>Requires Python packages/modules:</dt><dd><ul class="simple">
 <li><p><a class="reference external" href="https://numpy.org/doc/stable/reference/index.html#module-numpy" title="(in NumPy v1.21)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy</span></code></a>, <a class="reference external" href="https://docs.sympy.org/latest/modules/index.html#module-sympy" title="(in SymPy v1.9)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sympy</span></code></a></p></li>
-<li><p><a class="reference external" href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.html#module-matplotlib.pyplot" title="(in Matplotlib v3.5.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">matplotlib.pyplot</span></code></a>, <a class="reference external" href="https://matplotlib.org/api/patches_api.html#module-matplotlib.patches" title="(in Matplotlib v3.5.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">matplotlib.patches</span></code></a></p></li>
+<li><p><a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.html#module-matplotlib.pyplot" title="(in Matplotlib v3.5.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">matplotlib.pyplot</span></code></a>, <a class="reference external" href="https://matplotlib.org/stable/api/patches_api.html#module-matplotlib.patches" title="(in Matplotlib v3.5.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">matplotlib.patches</span></code></a></p></li>
 <li><p><code class="xref py py-mod docutils literal notranslate"><span class="pre">gmplib.utils</span></code></p></li>
 <li><p><a class="reference internal" href="../core/symbols.html#module-gme.core.symbols" title="gme.core.symbols"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gme.core.symbols</span></code></a>, <a class="reference internal" href="base.html#module-gme.plot.base" title="gme.plot.base"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gme.plot.base</span></code></a></p></li>
 </ul>
@@ -72,7 +72,7 @@ such as single ray tracing or for tracking knickpoints.</p>
 <hr class="docutils" />
 <dl class="py class">
 <dt class="sig sig-object py" id="gme.plot.indicatrix_old.IndicatrixOld">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gme.plot.indicatrix_old.</span></span><span class="sig-name descname"><span class="pre">IndicatrixOld</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dpi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">font_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">11</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gme.plot.indicatrix_old.IndicatrixOld" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gme.plot.indicatrix_old.</span></span><span class="sig-name descname"><span class="pre">IndicatrixOld</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dpi</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">font_size</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">11</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gme.plot.indicatrix_old.IndicatrixOld" title="Permalink to this definition">¶</a></dt>
 <dd><p>Subclasses <code class="xref py py-class docutils literal notranslate"><span class="pre">gme.plot.Graphing</span></code>.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.plot.indicatrix_old.IndicatrixOld.annotations">
@@ -93,8 +93,8 @@ such as single ray tracing or for tracking knickpoints.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>fig</strong> (<a class="reference external" href="https://matplotlib.org/api/figure_api.html#matplotlib.figure.Figure" title="(in Matplotlib v3.5.1)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Matplotlib</span> <span class="pre">figure</span></code></a>) – reference to figure instantiated by
-<a class="reference external" href="/Users/colinstark/Projects/GMPLib/modules/plot_utils.html#gmplib.plot_utils.GraphingBase.create_figure" title="(in GMPLib v1.0)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">GMPLib</span> <span class="pre">create_figure</span></code></a></p></li>
+<li><p><strong>fig</strong> (<a class="reference external" href="https://matplotlib.org/stable/api/figure_api.html#matplotlib.figure.Figure" title="(in Matplotlib v3.5.1)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Matplotlib</span> <span class="pre">figure</span></code></a>) – reference to figure instantiated by
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">GMPLib</span> <span class="pre">create_figure</span></code></p></li>
 <li><p><strong>gmeq</strong> (<a class="reference internal" href="../core/equations.html#gme.core.equations.Equations" title="gme.core.equations.Equations"><code class="xref py py-class docutils literal notranslate"><span class="pre">Equations</span></code></a>) – GME model equations class instance defined in <a class="reference internal" href="../core/equations.html#module-gme.core.equations" title="gme.core.equations"><code class="xref py py-mod docutils literal notranslate"><span class="pre">equations</span></code></a></p></li>
 </ul>
 </dd>
@@ -151,8 +151,8 @@ their behavior defined by <span class="math notranslate nohighlight">\(F\)</span
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>fig</strong> (<a class="reference external" href="https://matplotlib.org/api/figure_api.html#matplotlib.figure.Figure" title="(in Matplotlib v3.5.1)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Matplotlib</span> <span class="pre">figure</span></code></a>) – reference to figure instantiated by
-<a class="reference external" href="/Users/colinstark/Projects/GMPLib/modules/plot_utils.html#gmplib.plot_utils.GraphingBase.create_figure" title="(in GMPLib v1.0)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">GMPLib</span> <span class="pre">create_figure</span></code></a></p></li>
+<li><p><strong>fig</strong> (<a class="reference external" href="https://matplotlib.org/stable/api/figure_api.html#matplotlib.figure.Figure" title="(in Matplotlib v3.5.1)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Matplotlib</span> <span class="pre">figure</span></code></a>) – reference to figure instantiated by
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">GMPLib</span> <span class="pre">create_figure</span></code></p></li>
 <li><p><strong>gmeq</strong> (<a class="reference internal" href="../core/equations.html#gme.core.equations.Equations" title="gme.core.equations.Equations"><code class="xref py py-class docutils literal notranslate"><span class="pre">Equations</span></code></a>) – GME model equations class instance defined in <a class="reference internal" href="../core/equations.html#module-gme.core.equations" title="gme.core.equations"><code class="xref py py-mod docutils literal notranslate"><span class="pre">equations</span></code></a></p></li>
 <li><p><strong>varphi_choice</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – the value of <span class="math notranslate nohighlight">\(\varphi\)</span> to use</p></li>
 <li><p><strong>zoom_factor</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – fractional zoom factor relative to
@@ -190,7 +190,7 @@ in indicatrix?</p></li>
 <span class="sd">Visualization.</span>
 
 <span class="sd">Provides classes to generate a range of graphics for GME visualization.</span>
-<span class="sd">A base class extends :class:`gmplib.plot_utils.GraphingBase &lt;plot_utils.GraphingBase&gt;`</span>
+<span class="sd">A base class extends :class:`gmplib.plot.GraphingBase &lt;gmplib.plot.GraphingBase&gt;`</span>
 <span class="sd">provided by :mod:`GMPLib`; the other classes build on this.</span>
 <span class="sd">Each is tailored to a particular category of GME problem,</span>
 <span class="sd">such as single ray tracing or for tracking knickpoints.</span>
@@ -247,7 +247,7 @@ in indicatrix?</p></li>
 <span class="sd">        Args:</span>
 <span class="sd">            fig (:obj:`Matplotlib figure &lt;matplotlib.figure.Figure&gt;`):</span>
 <span class="sd">                reference to figure instantiated by</span>
-<span class="sd">                :meth:`GMPLib create_figure &lt;plot_utils.GraphingBase.create_figure&gt;`</span>
+<span class="sd">                :meth:`GMPLib create_figure &lt;plot.GraphingBase.create_figure&gt;`</span>
 <span class="sd">            gmeq (:class:`~.equations.Equations`):</span>
 <span class="sd">                    GME model equations class instance defined in :mod:`~.equations`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -563,7 +563,7 @@ in indicatrix?</p></li>
 <span class="sd">        Args:</span>
 <span class="sd">            fig (:obj:`Matplotlib figure &lt;matplotlib.figure.Figure&gt;`):</span>
 <span class="sd">                reference to figure instantiated by</span>
-<span class="sd">                :meth:`GMPLib create_figure &lt;plot_utils.GraphingBase.create_figure&gt;`</span>
+<span class="sd">                :meth:`GMPLib create_figure &lt;plot.GraphingBase.create_figure&gt;`</span>
 <span class="sd">            gmeq (:class:`~.equations.Equations`):</span>
 <span class="sd">                    GME model equations class instance defined in :mod:`~.equations`</span>
 <span class="sd">            varphi_choice (int): the value of :math:`\varphi` to use</span>

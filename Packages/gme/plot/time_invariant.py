@@ -1,29 +1,30 @@
 """
 ---------------------------------------------------------------------
 
-Visualization.
+Visualization of time-invariant solutions.
 
-Provides classes to generate a range of graphics for GME visualization.
-A base class extends :class:`gmplib.plot_utils.GraphingBase <plot_utils.GraphingBase>`
-provided by :mod:`GMPLib`; the other classes build on this.
-Each is tailored to a particular category of GME problem,
-such as single ray tracing or for tracking knickpoints.
+Extends :class:`gmplib.plot.GraphingBase <gmplib.plot.GraphingBase>`.
+
 
 ---------------------------------------------------------------------
 
 Requires Python packages/modules:
-  -  :mod:`numpy`, :mod:`sympy`
+  -  :mod:`numpy`
+  -  :mod:`sympy`
   -  :mod:`matplotlib`, :mod:`matplotlib.pyplot`, :mod:`matplotlib.patches`,
      :mod:`matplotlib.cm`, :mod:`mpl_toolkits`
   -  :mod:`gme.core.symbols`, :mod:`gme.plot.base`
 
-
-
 ---------------------------------------------------------------------
 
 """
-#pylint: disable = too-few-public-methods, unused-argument
+#pylint: disable = too-few-public-methods, no-self-use
+
+# Library
 import warnings
+
+# Typing
+from typing import Dict, Tuple, Optional
 
 # Numpy
 import numpy as np
@@ -38,7 +39,9 @@ from matplotlib import cm
 from mpl_toolkits.axes_grid1 import make_axes_locatable
 
 # GME
-from gme.core.symbols import rx, x_h, Lc, Ci, mu
+from gme.core.symbols import Ci, mu
+from gme.core.equations import Equations
+from gme.ode.time_invariant import TimeInvariantSolution
 from gme.plot.base import Graphing
 
 warnings.filterwarnings("ignore")
@@ -50,104 +53,69 @@ class TimeInvariant(Graphing):
     """
     Subclasses :class:`gme.plot.Graphing <plot.Graphing>`.
     """
-
-    def profile_flow_model( self, gmeq, sub, name, fig_size=None, dpi=None,
-                            n_points=26, subtitle='', do_subtitling=False,
-                            do_extra_annotations=False) -> None:
-        """
-        Plot the flow component of the erosion model.
-
-        Args:
-            fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`):
-                reference to figure instantiated by
-                :meth:`GMPLib create_figure <plot_utils.GraphingBase.create_figure>`
-            gmes (:class:`~.ode_raytracing.TimeInvariantSolution`):
-                    instance of time invariant solution class defined in
-                    :mod:`~.ode_raytracing`
-            gmeq (:class:`~.equations.Equations`):
-                    GME model equations class instance defined in :mod:`~.equations`
-            sub (dict): dictionary of model parameter values to be
-                        used for equation substitutions
-            n_points (int): optional number of points to plot along curve
-            subtitle (str): optional sub-title (likely 'ramp' or 'ramp-flat' or similar)
-            do_subtitling (bool): annotate with subtitle and eta value
-            do_extra_annotations (bool): annotate with hillslope, channel labels
-        """
-        _ = self.create_figure(name, fig_size=fig_size, dpi=dpi)
-        axes = plt.gca()
-
-        x_array = np.linspace(0,float(Lc.subs(sub)),n_points)
-        varphi_array = [gmeq.varphi_rx_eqn.rhs.subs(sub).subs({rx:x_}) for x_ in x_array]
-        varphi_xh1p0_array = [gmeq.varphi_rx_eqn.rhs.subs({x_h:1}).subs(sub).subs({rx:x_})
-                                for x_ in x_array]
-        plt.plot( x_array, varphi_array, '-', color=self.colors[0],
-                  label='hillslope-channel model' )
-        plt.plot( x_array, varphi_xh1p0_array, '--', color=self.colors[0],
-                  label='channel-only model' )
-
-        # axes.set_aspect(1)
-        plt.grid(True, ls=':')
-        plt.xlabel(r'Dimensionless horizontal distance, $x/L_{\mathrm{c}}$  [-]')
-        plt.ylabel(r'$\varphi(x)$  [-]')
-        if do_subtitling:
-            plt.text(0.1,0.15, rf'$\eta={gmeq.eta_}$', transform=axes.transAxes,
-                     horizontalalignment='left', verticalalignment='center',
-                     fontsize=12, color='k')
-            plt.text(0.05,0.22, subtitle, transform=axes.transAxes,
-                     horizontalalignment='left', verticalalignment='center',
-                     fontsize=12, color='k')
-        if do_extra_annotations:
-            plt.text(0.4,0.45, 'channel', transform=axes.transAxes,
-                     rotation=-43,
-                     horizontalalignment='center', verticalalignment='center',
-                     fontsize=12, color='0.2')
-            plt.text(0.83,0.16, 'hillslope', transform=axes.transAxes,
-                     horizontalalignment='left', verticalalignment='center',
-                     fontsize=11, color='0.2')
-
-        y_limits = axes.get_ylim()
-        x_h_ = float(x_h.subs(sub))
-        varphi_h_ = float(gmeq.varphi_rx_eqn.rhs.subs({rx:x_h}).subs(sub))
-        plt.plot([x_h_,x_h_],[varphi_h_-30,varphi_h_+70],'b:')
-        plt.text(x_h_,varphi_h_+77, r'$x_h/L_{\mathrm{c}}$', #transform=axes.transAxes,
-                 horizontalalignment='center', verticalalignment='bottom',
-                 fontsize=12, color='b')
-
-        plt.legend(loc='upper right', fontsize=11, framealpha=0.95)
-        plt.xlim(None,1.05)
-        plt.ylim(*y_limits)
-
-    def profile_aniso(self, gmes, gmeq, sub, name, fig_size=None, dpi=None,
-                      y_limits=None, eta_label_xy=None, v_scale=0.4, v_exponent=1,
-                      sf=None, n_points=51, n_arrows=26, xf_stop=0.995,
-                      do_pub_label=False, pub_label='' ) -> None:
+    def profile_aniso( self,
+                        gmes: TimeInvariantSolution,
+                        gmeq: Equations,
+                        sub: Dict,
+                        name: str,
+                        fig_size: Optional[Tuple[float,float]]=None,
+                        dpi: Optional[int]=None,
+                        n_points: int=51,
+                        xf_stop: float=0.995,
+                        sf: Optional[Tuple[float,float]]=None,
+                        n_arrows: int=26,
+                        y_limits: Optional[Tuple[float,float]]=None,
+                        v_scale: float=0.4,
+                        v_exponent: float=1.0,
+                        do_pub_label: bool=False,
+                        pub_label: str='',
+                        eta_label_xy: Optional[Tuple[float,float]]=None
+                    ) -> None:
         r"""
         Plot time-invariant profile annotated with ray vectors,
         normal-slowness covector herringbones,
         and colorized for anisotropy (defined as the difference :math:`(\alpha-\beta)`).
 
         Args:
-            fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`):
-                reference to figure instantiated by
-                :meth:`GMPLib create_figure <plot_utils.GraphingBase.create_figure>`
-            gmes (:class:`~.ode_raytracing.TimeInvariantSolution`):
+            gmes:
                 instance of time invariant solution class
-                defined in :mod:`~.ode_raytracing`
-            gmeq (:class:`~.equations.Equations`):
+                defined in :mod:`~.ode.time_invariant`
+            gmeq:
                 GME model equations class instance defined in :mod:`~.equations`
-            sub (dict):
-                dictionary of model parameter values to be used for equation substitutions
-            sf ([float,float]):
+            sub:
+                dictionary of model parameter values to be used for
+                equation substitutions
+            name:
+                name of figure (key in figure dictionary)
+            fig_size:
+                optional figure width and height in inches
+            dpi:
+                optional rasterization resolution
+            n_points:
+                optional sample rate along each curve
+            xf_stop:
+                optional x-fraction at which to stop plotting
+            sf:
                 optional scale factor(s) for vertical axes (bottom and top)
-            n_points (int):
-                sample rate along each curve
-            n_arrows (int):
-                number of :math:`\mathbf{r}` vector arrows and
+            n_arrows:
+                optional number of :math:`\mathbf{v}` vector arrows and
                 :math:`\mathbf{\widetilde{p}}` covector herringbones to plot
+            y_limits:
+                optional [z_min, z_max] vertical plot range
+            v_scale:
+                optional velocity arrow prefactor
+            v_exponent:
+                optional velocity arrow exaggeration power function exponent
+            eta_label_xy:
+                optional where to plot :math:`\eta` annotation text
+            do_pub_label:
+                optionally do 'publication' annotation?
+            pub_label:
+                optional 'publication' annotation text
         """
         _ = self.create_figure(name, fig_size=fig_size, dpi=dpi)
 
-        eta_label_xy = [0.5,0.8] if eta_label_xy is None else eta_label_xy
+        eta_label_xy = (0.5,0.8) if eta_label_xy is None else eta_label_xy
         x_array = np.linspace(0,1*xf_stop,n_points)
         h_array = gmes.h_interp(x_array)
 
@@ -189,7 +157,7 @@ class TimeInvariant(Graphing):
         #                            *(max(aniso_array)-min(aniso_array))+min(aniso_array)
         aniso_colors = [color_map((aniso_-aniso_span[0])/(aniso_span[1]-aniso_span[0]))
                          for aniso_ in aniso_array]
-        for rp_idx in [0,1]:
+        for rp_idx in (0,1):
             # Fix the range of p values to be represented: smaller values will be clipped
             p_range_max = 20
             p_max = max(p_array)
@@ -280,7 +248,7 @@ class TimeInvariant(Graphing):
         # Hand-made legend
         class ArrivalTime:
             """
-            TBD
+            Not used
             """
             # pass
 
@@ -293,7 +261,7 @@ class TimeInvariant(Graphing):
                 """
                 TBD
                 """
-
+                del legend, orig_handle, fontsize
                 # x0, y0 = handlebox.xdescent, handlebox.ydescent
                 # width, height = handlebox.width, handlebox.height
                 patch = mpatches.Arrow(4,4,20,0, width=0, lw=profile_lw, ec='k', fc='k')
@@ -302,7 +270,7 @@ class TimeInvariant(Graphing):
 
         class RayPoint:
             """
-            TBD
+            Not used
             """
             # pass
 
@@ -310,9 +278,9 @@ class TimeInvariant(Graphing):
             """
             TBD
             """
-            def __init__(self,fc='gray'):
+            def __init__(self, fc: str='gray'):
                 """
-                TBD
+                Constructor method
                 """
                 super().__init__()
                 self.fc = fc
@@ -322,6 +290,7 @@ class TimeInvariant(Graphing):
                 """
                 TBD
                 """
+                del legend, orig_handle, fontsize
                 # x0, y0 = handlebox.xdescent, handlebox.ydescent
                 # width, height = handlebox.width, handlebox.height
                 patch = mpatches.Circle((15, 4), radius=2.5, ec='k', fc=self.fc)
@@ -330,7 +299,7 @@ class TimeInvariant(Graphing):
 
         class RayArrow:
             """
-            TBD
+            Not used
             """
             # pass
 
@@ -343,6 +312,7 @@ class TimeInvariant(Graphing):
                 """
                 TBD
                 """
+                del legend, orig_handle, fontsize
                 # x0, y0 = handlebox.xdescent, handlebox.ydescent
                 width, height = handlebox.width, handlebox.height
                 color_ = aniso_colors[3]
@@ -356,7 +326,7 @@ class TimeInvariant(Graphing):
 
         class NormalStick:
             """
-            TBD
+            Not used
             """
             # pass
 
@@ -370,6 +340,7 @@ class TimeInvariant(Graphing):
                 """
                 TBD
                 """
+                del legend, orig_handle, fontsize
                 # x0, y0 = handlebox.xdescent, handlebox.ydescent
                 width, height = handlebox.width, handlebox.height
                 color_ = aniso_colors[5]
@@ -404,7 +375,7 @@ class TimeInvariant(Graphing):
 
         divider = make_axes_locatable(axes)
         colorbar_axes = divider.append_axes('right', size="5%", pad=0.2)
-        colorbar_axes.set_aspect(5)
+        colorbar_axes.set_aspect(0.2)
         colorbar = plt.colorbar(colorbar_im, cax=colorbar_axes)
         colorbar.set_label(r'Anisotropy  $\psi = \alpha-\beta+90$  [${\degree}$]',
                             rotation=270, labelpad=20)
@@ -415,12 +386,22 @@ class TimeInvariant(Graphing):
                      horizontalalignment='center', verticalalignment='center',
                      fontsize=16, color='k')
 
-    def profile_beta( self, gmes, gmeq, sub, name, fig_size=None, dpi=None,
-                      n_points=26, xf_stop=1,
-                      legend_loc='upper left',
-                      do_etaxi_label=True, eta_label_xy=(0.6,0.8),
-                      do_pub_label=False, pub_label='', pub_label_xy=(0.88,0.7) ) \
-                                -> None:
+    def profile_beta( self,
+                        gmes: TimeInvariantSolution,
+                        gmeq: Equations,
+                        sub: Dict,
+                        name: str,
+                        fig_size: Optional[Tuple[float,float]]=None,
+                        dpi: Optional[int]=None,
+                        n_points: int=26,
+                        xf_stop: float=1,
+                        legend_loc: str='upper left',
+                        eta_label_xy: Tuple[float,float]=(0.6,0.8),
+                        pub_label_xy: Tuple[float,float]=(0.88,0.7),
+                        do_etaxi_label: bool=True,
+                        do_pub_label: bool=False,
+                        pub_label: str='',
+                    ) -> None:
         r"""
         For a time-invariant (steady-state) topographic profile,
         plot the surface-normal covector angle :math:`\beta` from vertical,
@@ -439,15 +420,34 @@ class TimeInvariant(Graphing):
         constraint of balancing the ray velocities with surface-normal velocities.
 
         Args:
-            fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`):
-                reference to figure instantiated by
-                :meth:`GMPLib create_figure <plot_utils.GraphingBase.create_figure>`
-            gmes (:class:`~.ode_raytracing.TimeInvariantSolution`):
-                    instance of time invariant solution class defined in
-                    :mod:`~.ode_raytracing`
-            gmeq (:class:`~.equations.Equations`):
-                    GME model equations class instance defined in :mod:`~.equations`
-            n_points (int): sample rate along each curve
+            gmes:
+                instance of time invariant solution class
+                defined in :mod:`~.ode.time_invariant`
+            gmeq:
+                GME model equations class instance defined in :mod:`~.equations`
+            sub:
+                dictionary of model parameter values to be used for
+                equation substitutions
+            name:
+                name of figure (key in figure dictionary)
+            fig_size:
+                optional figure width and height in inches
+            dpi:
+                optional rasterization resolution
+            n_points:
+                optional sample rate along each curve
+            xf_stop:
+                optional x-fraction at which to stop plotting
+            legend_loc:
+                optional position of legend
+            eta_label_xy:
+                optional where to plot :math:`\eta` annotation text
+            var_label_xy:
+                optional where to plot 'var' annotation text
+            do_eta_xi:
+                optionally do :math:`\eta`, :math:`\xi` annotation?
+            pub_label:
+                optional 'publication' annotation text
         """
         _ = self.create_figure(name, fig_size=fig_size, dpi=dpi)
         # eta_label_xy = [0.6,0.8] if eta_label_xy is None else eta_label_xy
@@ -493,12 +493,17 @@ class TimeInvariant(Graphing):
             horizontalalignment='center', verticalalignment='center',
             fontsize=16, color='k')
 
-    def profile_beta_error(self, gmes, gmeq, sub, name, fig_size=None, dpi=None,
-                           n_points=101,
-                           # pub_label_xy=(0.5,0.2),
-                           eta_label_xy=(0.5,0.8),
-                           xf_stop=0.995)\
-                                -> None:
+    def profile_beta_error( self,
+                            gmes: TimeInvariantSolution,
+                            gmeq: Equations,
+                            sub: Dict,
+                            name: str,
+                            fig_size: Optional[Tuple[float,float]]=None,
+                            dpi: Optional[int]=None,
+                            n_points: int=101,
+                            eta_label_xy: Tuple[float,float]=(0.5,0.8),
+                            xf_stop: float=0.995
+                        ) -> None:
         r"""
         For a time-invariant (steady-state) topographic profile,
         plot the error in the estimated surface-normal covector angle :math:`\beta`
@@ -509,19 +514,30 @@ class TimeInvariant(Graphing):
         (1) :math:`100(\beta_{ts}-\beta_{p})/\beta_{p}`, or
         (2) :math:`100(\beta_{vt}-\beta_{p})/\beta_{p}`.
         The error in :math:`\beta_{vt}` can be non-trivial for
-        $x/L_{\mathrm{c}} \rightarrow 0$ and :math:`\eta < 1`
+        :math:`x/L_{\mathrm{c}} \rightarrow 0` and :math:`\eta < 1`
         if the number of rays used to construct the topographic profile is insufficient.
 
         Args:
-            fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`):
-                reference to figure instantiated by :meth:`GMPLib create_figure
-                <plot_utils.GraphingBase.create_figure>`
-            gmes (:class:`~.ode_raytracing.TimeInvariantSolution`):
-                    instance of time invariant solution class defined in
-                    :mod:`~.ode_raytracing`
-            gmeq (:class:`~.equations.Equations`):
-                    GME model equations class instance defined in :mod:`~.equations`
-            n_points (int): sample rate along each curve
+            gmes:
+                instance of time invariant solution class
+                defined in :mod:`~.ode.time_invariant`
+            gmeq:
+                GME model equations class instance defined in :mod:`~.equations`
+            sub:
+                dictionary of model parameter values to be used for
+                  equation substitutions
+            name:
+                name of figure (key in figure dictionary)
+            fig_size:
+                optional figure width and height in inches
+            dpi:
+                optional rasterization resolution
+            n_points:
+                optional sample rate along each curve
+            eta_label_xy:
+                optional where to plot :math:`\eta` annotation text
+            xf_stop:
+                optional x-fraction at which to stop plotting
         """
         _ = self.create_figure(name, fig_size=fig_size, dpi=dpi)
         # eta_label_xy = [0.5,0.8] if eta_label_xy is None else eta_label_xy
@@ -549,27 +565,59 @@ class TimeInvariant(Graphing):
                  horizontalalignment='center', verticalalignment='center',
                  fontsize=14, color='k')
 
-    def profile_xi( self, gmes, gmeq, sub, name, fig_size=None, dpi=None,
-                    xf_stop=1, n_points=201,
-                    pub_label_xy=(0.5,0.2),
-                    eta_label_xy=(0.5,0.5),
-                    var_label_xy=(0.8,0.5),
-                    do_etaxi_label=True, do_pub_label=False, pub_label='(a)',
-                    xi_norm=None ) -> None:
+    def profile_xi( self,
+                    gmes: TimeInvariantSolution,
+                    gmeq: Equations,
+                    sub: Dict,
+                    name: str,
+                    fig_size: Optional[Tuple[float,float]]=None,
+                    dpi: Optional[int]=None,
+                    xf_stop: float=1,
+                    n_points: int=201,
+                    pub_label_xy: Tuple[float,float]=(0.5,0.2),
+                    eta_label_xy: Tuple[float,float]=(0.5,0.5),
+                    var_label_xy: Tuple[float,float]=(0.8,0.5),
+                    do_etaxi_label=True,
+                    do_pub_label=False,
+                    pub_label: str='(a)',
+                    xi_norm: Optional[float]=None
+                ) -> None:
         r"""
         Plot surface-normal erosion speed :math:`\xi^{\perp}`
         along a time-invariant profile.
 
         Args:
-            fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`):
-                reference to figure instantiated by
-                :meth:`GMPLib create_figure <plot_utils.GraphingBase.create_figure>`
-            gmes (:class:`~.ode_raytracing.TimeInvariantSolution`):
-                    instance of time invariant solution class defined in
-                    :mod:`~.ode_raytracing`
-            gmeq (:class:`~.equations.Equations`):
-                    GME model equations class instance defined in :mod:`~.equations`
-            n_points (int): optional sample rate along each curve
+            gmes:
+                instance of time invariant solution class
+                defined in :mod:`~.ode.time_invariant`
+            gmeq:
+                GME model equations class instance defined in :mod:`~.equations`
+            sub:
+                dictionary of model parameter values to be used for
+                equation substitutions
+            name:
+                name of figure (key in figure dictionary)
+            fig_size:
+                optional figure width and height in inches
+            dpi:
+                optional rasterization resolution
+            xf_stop:
+                optional x-fraction at which to stop plotting
+            n_points:
+                optional sample rate along each curve
+            pub_label_xy:
+                optional where to plot 'publication' annotation text
+            eta_label_xy:
+                optional where to plot :math:`\eta` annotation text
+            var_label_xy:
+                optional where to plot 'var' annotation text
+            do_eta_xi:
+                optionally do :math:`\eta`, :math:`\xi` annotation?
+            pub_label:
+                optional 'publication' annotation text
+            xi_norm:
+                optional normalization factor
+                :math:`\xi^{\rightarrow_{0}}` for :math:`\xi`
         """
         _ = self.create_figure(name, fig_size=fig_size, dpi=dpi)
         # eta_label_xy = [0.5,0.5] if eta_label_xy is None else eta_label_xy
@@ -618,27 +666,59 @@ class TimeInvariant(Graphing):
                  transform=axes.transAxes, horizontalalignment='center',
                  verticalalignment='center', fontsize=16, color='k')
 
-    def profile_xihorizontal( self, gmes, gmeq, sub, name, fig_size=None, dpi=None,
-                              xf_stop=1, n_points=201,
-                              pub_label_xy=(0.55,0.81),
-                              eta_label_xy=(0.5,0.2),
-                              var_label_xy=(0.85,0.81),
-                              do_etaxi_label=True, do_pub_label=False, pub_label='(d)',
-                              xi_norm=None ) -> None:
+    def profile_xihorizontal( self,
+                                gmes: TimeInvariantSolution,
+                                gmeq: Equations,
+                                sub: Dict,
+                                name: str,
+                                fig_size: Optional[Tuple[float,float]]=None,
+                                dpi: Optional[int]=None,
+                                xf_stop: float=1,
+                                n_points: int=201,
+                                pub_label_xy: Tuple[float,float]=(0.55,0.81),
+                                eta_label_xy: Tuple[float,float]=(0.5,0.2),
+                                var_label_xy: Tuple[float,float]=(0.85,0.81),
+                                do_etaxi_label: bool=True,
+                                do_pub_label: bool=False,
+                                pub_label: str='(d)',
+                                xi_norm: Optional[float]=None
+                            ) -> None:
         r"""
         Plot horizontal erosion speed :math:`\xi^{\rightarrow}`
         along a time-invariant profile.
 
         Args:
-            fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`):
-                reference to figure instantiated by
-                :meth:`GMPLib create_figure <plot_utils.GraphingBase.create_figure>`
-            gmes (:class:`~.ode_raytracing.TimeInvariantSolution`):
-                    instance of time invariant solution class defined in
-                    :mod:`~.ode_raytracing`
-            gmeq (:class:`~.equations.Equations`):
-                    GME model equations class instance defined in :mod:`~.equations`
-            n_points (int): sample rate along each curve
+            gmes:
+                instance of time invariant solution class
+                defined in :mod:`~.ode.time_invariant`
+            gmeq:
+                GME model equations class instance defined in :mod:`~.equations`
+            sub:
+                dictionary of model parameter values to be used for
+                equation substitutions
+            name:
+                name of figure (key in figure dictionary)
+            fig_size:
+                optional figure width and height in inches
+            dpi:
+                optional rasterization resolution
+            xf_stop:
+                optional x-fraction at which to stop plotting
+            n_points:
+                optional sample rate along each curve
+            pub_label_xy:
+                optional where to plot 'publication' annotation text
+            eta_label_xy:
+                optional where to plot :math:`\eta` annotation text
+            var_label_xy:
+                optional where to plot 'var' annotation text
+            do_eta_xi:
+                optionally do :math:`\eta`, :math:`\xi` annotation?
+            pub_label:
+                optional 'publication' annotation text
+            xi_norm:
+                optional normalization factor
+                :math:`\xi^{\rightarrow_{0}}` for :math:`\xi`
         """
         _ = self.create_figure(name, fig_size=fig_size, dpi=dpi)
         # eta_label_xy = [0.5,0.2] if eta_label_xy is None else eta_label_xy
@@ -689,29 +769,59 @@ class TimeInvariant(Graphing):
                  transform=axes.transAxes, horizontalalignment='center',
                  verticalalignment='center', fontsize=16, color='k')
 
-    def profile_xivertical( self, gmes, gmeq, sub, name, fig_size=None, dpi=None,
-                            xf_stop=1, n_points=201, y_limits=None,
-                            pub_label_xy=(0.5,0.81),
-                            eta_label_xy=(0.5,0.2),
-                            var_label_xy=(0.85,0.81),
-                            do_etaxi_label=True, do_pub_label=False, pub_label='(e)',
-                            xi_norm=None ) -> None:
+    def profile_xivertical( self,
+                            gmes: TimeInvariantSolution,
+                            gmeq: Equations,
+                            sub: Dict,
+                            name: str,
+                            fig_size: Optional[Tuple[float,float]]=None,
+                            dpi: Optional[int]=None,
+                            xf_stop: float=1,
+                            n_points: int=201,
+                            y_limits: Optional[Tuple[float,float]]=None,
+                            pub_label_xy: Tuple[float,float]=(0.5,0.81),
+                            eta_label_xy: Tuple[float,float]=(0.5,0.2),
+                            var_label_xy: Tuple[float,float]=(0.85,0.81),
+                            do_etaxi_label: bool=True,
+                            do_pub_label: bool=False,
+                            pub_label: str='(e)',
+                            xi_norm: Optional[float]=None
+                        ) -> None:
         r"""
         Plot vertical erosion speed
         :math:`\xi^{\downarrow}` along a time-invariant profile.
 
         Args:
-            fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`):
-                reference to figure instantiated by
-                :meth:`GMPLib create_figure <plot_utils.GraphingBase.create_figure>`
-            gmes (:class:`~.ode_raytracing.TimeInvariantSolution`):
-                    instance of time invariant solution class defined in
-                    :mod:`~.ode_raytracing`
-            gmeq (:class:`~.equations.Equations`):
-                    GME model equations class instance defined in :mod:`~.equations`
-            n_points (int): sample rate along each curve
-            y_limits (list of float):
-                optional [z_min, z_max] vertical plot range
+            gmes:
+                instance of time invariant solution class
+                defined in :mod:`~.ode.time_invariant`
+            gmeq:
+                GME model equations class instance defined in :mod:`~.equations`
+            sub:
+                dictionary of model parameter values to be used for
+                equation substitutions
+            name:
+                name of figure (key in figure dictionary)
+            fig_size:
+                optional figure width and height in inches
+            dpi:
+                optional rasterization resolution
+            xf_stop:
+                optional x-fraction at which to stop plotting
+            n_points:
+                optional sample rate along each curve
+            pub_label_xy:
+                optional where to plot 'publication' annotation text
+            eta_label_xy:
+                optional where to plot :math:`\eta` annotation text
+            var_label_xy:
+                optional where to plot 'var' annotation text
+            do_eta_xi:
+                optionally do :math:`\eta`, :math:`\xi` annotation?
+            pub_label:
+                optional 'publication' annotation text
+            xi_norm: optional: normalization factor
+                :math:`\xi^{\rightarrow_{0}}` for :math:`\xi`
         """
         _ = self.create_figure(name, fig_size=fig_size, dpi=dpi)
         # eta_label_xy = [0.5,0.2] if eta_label_xy is None else eta_label_xy
@@ -764,9 +874,30 @@ class TimeInvariant(Graphing):
                  transform=axes.transAxes, horizontalalignment='center',
                  verticalalignment='center', fontsize=16, color='k')
 
-    def profile_ensemble( self, gmes, pr_choices, name, fig_size=None, dpi=None ) -> None:
+    def profile_ensemble( self,
+                            gmes: TimeInvariantSolution,
+                            pr_choices: Dict,
+                            name: str,
+                            fig_size: Optional[Tuple[float,float]]=None,
+                            dpi: Optional[int]=None
+                        ) -> None:
         r"""
-        TBD
+        Plot set of time-invariant profiles for a selection of values of
+        :math:`\mathsf{Ci}` and :math:`\eta`.
+
+        Args:
+            gmes:
+                instance of time invariant solution class
+                defined in :mod:`~.ode.time_invariant`
+            pr_choices:
+                dictionary of model parameter values to be used for
+                equation substitutions
+            name:
+                name of figure (key in figure dictionary)
+            fig_size:
+                optional figure width and height in inches
+            dpi:
+                optional rasterization resolution
         """
         _ = self.create_figure(name, fig_size=fig_size, dpi=dpi)
         axes = plt.gca()
@@ -803,111 +934,5 @@ class TimeInvariant(Graphing):
 
         plt.legend(loc='upper left', fontsize=11, framealpha=0.95)
 
-    # def profile_slope_area( self, gmes, gmeq, sub, name, fig_size=None, dpi=None,
-    #                         n_points=26, subtitle='', x_min=0.01,
-    #                         do_subtitling=False, do_extra_annotations=False,
-    #                         do_simple=False ):
-    #     r"""
-    #     Generate a log-log slope-area plot for a time-invariant
-    #         topographic profile solution
-    #     of Hamilton's equations.
-    #
-    #     Args:
-    #         fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`):
-    #             reference to figure instantiated by
-    #            :meth:`GMPLib create_figure <plot_utils.GraphingBase.create_figure>`
-    #         gmes (:class:`~.ode_raytracing.TimeInvariantSolution`):
-    #                 instance of time invariant solution class defined in
-    #                          :mod:`~.ode_raytracing`
-    #         gmeq (:class:`~.equations.Equations`):
-    #                 GME model equations class instance defined in :mod:`~.equations`
-    #         sub (dict): dictionary of model parameter values
-    #                     to be used for equation substitutions
-    #         n_points (int): optional number of points to plot along curve
-    #         subtitle (str): optional sub-title (likely 'ramp' or 'ramp-flat' or similar)
-    #         x_min (float): optional x offset
-    #         do_subtitling (bool): optionally annotate with subtitle and eta value?
-    #         do_extra_annotations (bool): optionally annotate with
-    #                                    hillslope, channel labels?
-    #         do_simple (bool): optionally avoid hillslope-channel extras?
-    #     """
-    #     _ = self.create_figure(name, fig_size=fig_size, dpi=dpi)
-    #     axes = plt.gca()
-    #
-    #     eta_ = float(gmeq.eta_)
-    #     x_array = np.linspace(0,float(Lc.subs(sub)-x_min),n_points)
-    #     x_dbl_array = np.linspace(0,float(Lc.subs(sub)-x_min),n_points*2-1)
-    #     area_array = ((Lc.subs(sub)-x_dbl_array)/Lc.subs(sub))**2
-    #     slope_array = gmes.beta_vt_interp(x_dbl_array)
-    #     if eta_!=1.0 or do_simple:
-    #         plt.loglog( area_array, slope_array, '-' )
-    #     # plt.loglog( area_array, gmes.beta_vt_interp(x_dbl_array), '-' )
-    #     from matplotlib.ticker import ScalarFormatter
-    #     for axis in [axes.yaxis]:
-    #         axis.set_major_formatter(ScalarFormatter())
-    #
-    #     eta0p5_slope_array = []
-    #
-    #     eta0p5_area_array = []
-    #
-    #     eta1p0_slope_array = []
-    #
-    #     eta1p0_area_array = []
-    #
-    #     eta1p0_xh1p0_slope_array = []
-    #
-    #     eta1p0_xh1p0_area_array = []
-    #
-    #     eta1p5_slope_array = []
-    #
-    #     eta1p5_area_array = []
-    #
-    #     if eta_==1.0 and not do_simple:
-    #         plt.loglog(eta1p5_area_array,eta1p5_slope_array,'-',
-    #          label=r'$\eta=3/2\,,\,\,x_h/L_{\mathrm{c}}=0.9$', color=self.colors[1])
-    #         plt.loglog(eta0p5_area_array,eta0p5_slope_array,'-',
-    #          label=r'$\eta=1/2\,,\,\,x_h/L_{\mathrm{c}}=0.9$', color=self.colors[2])
-    #         plt.loglog(eta1p0_area_array,eta1p0_slope_array,'-',
-    #          label=r'$\eta=1\,,\,\,x_h/L_{\mathrm{c}}=0.9$', color=self.colors[0])
-    #         plt.loglog(eta1p0_xh1p0_area_array,eta1p0_xh1p0_slope_array,'--',
-    #          label=r'channel-only model', color=self.colors[0])
-    #
-    #     # axes.set_aspect(1)
-    #     plt.grid(True, ls=':')
-    #     plt.xlabel(r'Dimensionless area, $(L_{\mathrm{c}}-x)^2/L_{\mathrm{c}}^2$  [-]')
-    #     plt.ylabel(r'Slope, $|\tan\beta|$  [-]')
-    #     # plt.legend(loc='upper left', fontsize=11, framealpha=0.95)
-    #
-    #     if do_subtitling:
-    #         plt.text(0.1,0.15, r'$\eta={}$'.format(gmeq.eta_), transform=axes.transAxes,
-    #                  horizontalalignment='left', verticalalignment='center',
-    #          fontsize=12, color='k')
-    #         plt.text(0.05,0.25, subtitle, transform=axes.transAxes,
-    #                  horizontalalignment='left', verticalalignment='center',
-    #          fontsize=12, color='k')
-    #     if do_extra_annotations:
-    #         plt.text(0.29,0.83, 'hillslope', transform=axes.transAxes,
-    #                  horizontalalignment='center', verticalalignment='center',
-    #          fontsize=12, color='0.2')
-    #         plt.text(0.735,0.49, 'channel', transform=axes.transAxes,
-    #                  rotation=-58.5, horizontalalignment='center',
-    #          verticalalignment='center', fontsize=12, color='0.2')
-    #
-    #     y_limits = axes.get_ylim()
-    #     x_h_ = x_h.subs(sub)
-    #     area_h_ = float(( ((Lc-x_h_)/Lc)**2 ).subs(sub))
-    #     slope_h_ = gmes.beta_vt_interp(float(x_h_))
-    #     plt.plot([area_h_,area_h_],[slope_h_*0.45,slope_h_*1.5],'b:')
-    #     if area_h_>0.0:
-    #         plt.text(area_h_,slope_h_*0.4,
-    #          r'$\dfrac{(L_{\mathrm{c}}-x_h)^2}{L_{\mathrm{c}}^2}$',
-    #               #transform=axes.transAxes,
-    #                      horizontalalignment='center', verticalalignment='top',
-    #          fontsize=12, color='b')
-    #
-    #     if not do_simple:
-    #         plt.legend(loc='lower left', fontsize=11, framealpha=0.95)
-    #     plt.xlim(None,1.15)
-    #     plt.ylim(*y_limits)
-    #
-    #     return area_array, slope_array
+
+#

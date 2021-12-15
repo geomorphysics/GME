@@ -56,10 +56,10 @@
 <hr class="docutils" />
 <dl class="simple">
 <dt>Requires Python packages/modules:</dt><dd><ul class="simple">
-<li><p><code class="xref py py-mod docutils literal notranslate"><span class="pre">gmplib.utils</span></code></p></li>
 <li><p><a class="reference external" href="https://numpy.org/doc/stable/reference/index.html#module-numpy" title="(in NumPy v1.21)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy</span></code></a></p></li>
 <li><p><a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/index.html#module-scipy" title="(in SciPy v1.7.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">scipy</span></code></a></p></li>
 <li><p><a class="reference external" href="https://docs.sympy.org/latest/modules/index.html#module-sympy" title="(in SymPy v1.9)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sympy</span></code></a></p></li>
+<li><p><code class="xref py py-mod docutils literal notranslate"><span class="pre">gmplib.utils</span></code></p></li>
 </ul>
 </dd>
 </dl>
@@ -176,10 +176,10 @@ equation substitutions</p></li>
 <span class="sd">---------------------------------------------------------------------</span>
 
 <span class="sd">Requires Python packages/modules:</span>
-<span class="sd">  -  :mod:`gmplib.utils`</span>
 <span class="sd">  -  :mod:`numpy`</span>
 <span class="sd">  -  :mod:`scipy`</span>
 <span class="sd">  -  :mod:`sympy`</span>
+<span class="sd">  -  :mod:`gmplib.utils`</span>
 
 <span class="sd">Imports symbols from :mod:`.symbols` module</span>
 
@@ -195,8 +195,9 @@ equation substitutions</p></li>
 <span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="kn">import</span> <span class="n">root_scalar</span><span class="p">,</span> <span class="n">fsolve</span>
 
 <span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">N</span><span class="p">,</span> <span class="n">sign</span><span class="p">,</span> <span class="n">atan</span><span class="p">,</span> <span class="n">atan2</span><span class="p">,</span> <span class="n">sin</span><span class="p">,</span> <span class="n">cos</span><span class="p">,</span> <span class="n">tan</span><span class="p">,</span> <span class="n">re</span><span class="p">,</span> <span class="n">im</span><span class="p">,</span> <span class="n">sqrt</span><span class="p">,</span> \
-    <span class="n">Matrix</span><span class="p">,</span> <span class="n">lambdify</span><span class="p">,</span> <span class="n">Abs</span><span class="p">,</span> <span class="n">simplify</span><span class="p">,</span> <span class="n">expand</span><span class="p">,</span> <span class="n">solve</span><span class="p">,</span> <span class="n">Eq</span><span class="p">,</span> <span class="n">Rational</span><span class="p">,</span> <span class="n">diff</span><span class="p">,</span> \
-    <span class="n">nroots</span><span class="p">,</span> <span class="n">poly</span>
+                    <span class="n">Matrix</span><span class="p">,</span> <span class="n">lambdify</span><span class="p">,</span> <span class="n">Abs</span><span class="p">,</span> <span class="n">simplify</span><span class="p">,</span> <span class="n">expand</span><span class="p">,</span> <span class="n">solve</span><span class="p">,</span> \
+                    <span class="n">Eq</span><span class="p">,</span> <span class="n">Rational</span><span class="p">,</span> <span class="n">diff</span><span class="p">,</span> \
+                    <span class="n">nroots</span><span class="p">,</span> <span class="n">poly</span>
 
 <span class="kn">from</span> <span class="nn">gmplib.utils</span> <span class="kn">import</span> <span class="n">e2d</span>
 

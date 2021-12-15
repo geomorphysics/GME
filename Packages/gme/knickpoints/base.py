@@ -6,10 +6,10 @@ ODE integration of Hamilton's equations.
 ---------------------------------------------------------------------
 
 Requires Python packages/modules:
-  -  :mod:`gmplib.utils`
   -  :mod:`numpy`
   -  :mod:`scipy`
   -  :mod:`sympy`
+  -  :mod:`gmplib.utils`
 
 Imports symbols from :mod:`.symbols` module
 
@@ -25,8 +25,9 @@ from scipy.interpolate import InterpolatedUnivariateSpline, interp1d
 from scipy.optimize import root_scalar, fsolve
 
 from sympy import N, sign, atan, atan2, sin, cos, tan, re, im, sqrt, \
-    Matrix, lambdify, Abs, simplify, expand, solve, Eq, Rational, diff, \
-    nroots, poly
+                    Matrix, lambdify, Abs, simplify, expand, solve, \
+                    Eq, Rational, diff, \
+                    nroots, poly
 
 from gmplib.utils import e2d
 
