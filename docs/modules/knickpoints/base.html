@@ -59,7 +59,7 @@
 <li><p><a class="reference external" href="https://numpy.org/doc/stable/reference/index.html#module-numpy" title="(in NumPy v1.21)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy</span></code></a></p></li>
 <li><p><a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/index.html#module-scipy" title="(in SciPy v1.7.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">scipy</span></code></a></p></li>
 <li><p><a class="reference external" href="https://docs.sympy.org/latest/modules/index.html#module-sympy" title="(in SymPy v1.9)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sympy</span></code></a></p></li>
-<li><p><code class="xref py py-mod docutils literal notranslate"><span class="pre">gmplib.utils</span></code></p></li>
+<li><p><code class="xref py py-mod docutils literal notranslate"><span class="pre">gme</span></code></p></li>
 </ul>
 </dd>
 </dl>
@@ -76,7 +76,7 @@ complex topographic boundary.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.knickpoints.base.CompositeSolution.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmeq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gme.knickpoints.base.CompositeSolution.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initialize class instance.</p>
+<dd><p>Constructor method.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -107,7 +107,7 @@ profile and solutions from a slip velocity boundary.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.knickpoints.base.InitialCornerSolution.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmeq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gme.knickpoints.base.InitialCornerSolution.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initialize class instance.</p>
+<dd><p>Constructor method.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -115,7 +115,7 @@ profile and solutions from a slip velocity boundary.</p>
 <a class="reference internal" href="../core/equations.html#module-gme.core.equations" title="gme.core.equations"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gme.core.equations</span></code></a></p></li>
 <li><p><strong>parameters</strong> – dictionary of model parameter values to be used
 for equation substitutions</p></li>
-<li><p><strong>kwargs</strong> – remaining keyword arguments (see base class for details)</p></li>
+<li><p><strong>**kwargs</strong> – remaining keyword arguments (see base class for details)</p></li>
 </ul>
 </dd>
 </dl>
@@ -144,7 +144,7 @@ topographic profile.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.knickpoints.base.InitialProfileSolution.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmeq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gme.knickpoints.base.InitialProfileSolution.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initialize class instance.</p>
+<dd><p>Constructor method.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -152,7 +152,7 @@ topographic profile.</p>
 <a class="reference internal" href="../core/equations.html#module-gme.core.equations" title="gme.core.equations"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gme.core.equations</span></code></a></p></li>
 <li><p><strong>parameters</strong> – dictionary of model parameter values to be used for
 equation substitutions</p></li>
-<li><p><strong>kwargs</strong> – remaining keyword arguments (see base class for details)</p></li>
+<li><p><strong>**kwargs</strong> – remaining keyword arguments (see base class for details)</p></li>
 </ul>
 </dd>
 </dl>
@@ -186,7 +186,7 @@ any subclass</p>
 <span class="sd">  -  :mod:`numpy`</span>
 <span class="sd">  -  :mod:`scipy`</span>
 <span class="sd">  -  :mod:`sympy`</span>
-<span class="sd">  -  :mod:`gmplib.utils`</span>
+<span class="sd">  -  :mod:`gme`</span>
 
 <span class="sd">Imports symbols from :mod:`.symbols` module</span>
 
@@ -206,7 +206,8 @@ any subclass</p>
 
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;InitialProfileSolution&#39;</span><span class="p">,</span>
-           <span class="s1">&#39;InitialCornerSolution&#39;</span><span class="p">,</span> <span class="s1">&#39;CompositeSolution&#39;</span><span class="p">]</span>
+           <span class="s1">&#39;InitialCornerSolution&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;CompositeSolution&#39;</span><span class="p">]</span>
 
 
 <span class="k">class</span> <span class="nc">InitialProfileSolution</span><span class="p">(</span><span class="n">BaseSolution</span><span class="p">):</span>
@@ -217,7 +218,7 @@ any subclass</p>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gmeq</span><span class="p">,</span> <span class="n">parameters</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Initialize class instance.</span>
+<span class="sd">        Constructor method.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            gmeq:</span>
@@ -226,7 +227,7 @@ any subclass</p>
 <span class="sd">            parameters:</span>
 <span class="sd">                dictionary of model parameter values to be used for</span>
 <span class="sd">                equation substitutions</span>
-<span class="sd">            kwargs:</span>
+<span class="sd">            **kwargs:</span>
 <span class="sd">                remaining keyword arguments (see base class for details)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">gmeq</span><span class="p">,</span> <span class="n">parameters</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
@@ -278,7 +279,7 @@ any subclass</p>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gmeq</span><span class="p">,</span> <span class="n">parameters</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Initialize class instance.</span>
+<span class="sd">        Constructor method.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            gmeq:</span>
@@ -287,7 +288,7 @@ any subclass</p>
 <span class="sd">            parameters:</span>
 <span class="sd">                dictionary of model parameter values to be used</span>
 <span class="sd">                for equation substitutions</span>
-<span class="sd">            kwargs:</span>
+<span class="sd">            **kwargs:</span>
 <span class="sd">                remaining keyword arguments (see base class for details)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">gmeq</span><span class="p">,</span> <span class="n">parameters</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
@@ -378,7 +379,7 @@ any subclass</p>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gmeq</span><span class="p">,</span> <span class="n">parameters</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Initialize class instance.</span>
+<span class="sd">        Constructor method.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            gmeq:</span>

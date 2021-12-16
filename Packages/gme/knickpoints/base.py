@@ -9,7 +9,7 @@ Requires Python packages/modules:
   -  :mod:`numpy`
   -  :mod:`scipy`
   -  :mod:`sympy`
-  -  :mod:`gmplib.utils`
+  -  :mod:`gme`
 
 Imports symbols from :mod:`.symbols` module
 
@@ -29,7 +29,8 @@ from gme.ode.base import rpt_tuple
 
 
 __all__ = ['InitialProfileSolution',
-           'InitialCornerSolution', 'CompositeSolution']
+           'InitialCornerSolution',
+           'CompositeSolution']
 
 
 class InitialProfileSolution(BaseSolution):
@@ -40,7 +41,7 @@ class InitialProfileSolution(BaseSolution):
 
     def __init__(self, gmeq, parameters, **kwargs):
         """
-        Initialize class instance.
+        Constructor method.
 
         Args:
             gmeq:
@@ -49,7 +50,7 @@ class InitialProfileSolution(BaseSolution):
             parameters:
                 dictionary of model parameter values to be used for
                 equation substitutions
-            kwargs:
+            **kwargs:
                 remaining keyword arguments (see base class for details)
         """
         super().__init__(gmeq, parameters, **kwargs)
@@ -101,7 +102,7 @@ class InitialCornerSolution(BaseSolution):
 
     def __init__(self, gmeq, parameters, **kwargs):
         """
-        Initialize class instance.
+        Constructor method.
 
         Args:
             gmeq:
@@ -110,7 +111,7 @@ class InitialCornerSolution(BaseSolution):
             parameters:
                 dictionary of model parameter values to be used
                 for equation substitutions
-            kwargs:
+            **kwargs:
                 remaining keyword arguments (see base class for details)
         """
         super().__init__(gmeq, parameters, **kwargs)
@@ -201,7 +202,7 @@ class CompositeSolution(BaseSolution):
 
     def __init__(self, gmeq, parameters, **kwargs):
         """
-        Initialize class instance.
+        Constructor method.
 
         Args:
             gmeq:
