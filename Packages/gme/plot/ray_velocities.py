@@ -70,9 +70,9 @@ class RayVelocities(Graphing):
         Args:
             gmes:
                 instance of single-ray solution class
-                defined in :mod:`~.ode.single_ray`
+                defined in :mod:`gme.ode.single_ray`
             gmeq:
-                GME model equations class instance defined in :mod:`~.equations`
+                GME model equations class instance defined in :mod:`gme.core.equations`
             sub:
                 dictionary of model parameter values to be used for
                 equation substitutions

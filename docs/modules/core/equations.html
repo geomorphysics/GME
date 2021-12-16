@@ -60,7 +60,8 @@ for a 2D slice of a 3D landscape along a channel transect.</p>
 <p>Starting from a model equation for the surface-normal erosion rate in terms of
 the tilt angle of the topographic surface and the distance downstream
 (used to infer the flow component of the model erosion process), we derive
-the fundamental function (of a co-Finsler metric space), the corresponding Hamiltonian,
+the fundamental function (of a co-Finsler metric space), the corresponding
+Hamiltonian,
 and the equivalent metric tensor.
 The rest of the equations are derived from these core results.</p>
 <hr class="docutils" />
@@ -91,10 +92,10 @@ The rest of the equations are derived from these core results.</p>
 <dd><p>Class to solve the set of GME equations (using <a class="reference external" href="https://docs.sympy.org/latest/modules/index.html#module-sympy" title="(in SymPy v1.9)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">SymPy</span></code></a>)
 and to provide them in a form (sometimes lambdified) that can be used for
 numerical evaluation.</p>
-<p>Much of the derivation sequence here keeps <span class="math notranslate nohighlight">\(\eta\)</span> and <span class="math notranslate nohighlight">\(\mu\)</span> unspecified,
-up until the Hamiltonian is defined, but eventually values for these
-parameters need to be substituted in order to make further progress.
-In this documentation, we set <span class="math notranslate nohighlight">\(\eta=3/2\)</span>, for now.</p>
+<p>Much of the derivation sequence here keeps <span class="math notranslate nohighlight">\(\eta\)</span> and <span class="math notranslate nohighlight">\(\mu\)</span>
+unspecified, up until the Hamiltonian is defined, but eventually values
+for these parameters need to be substituted in order to make further
+progress. In this documentation, we set <span class="math notranslate nohighlight">\(\eta=3/2\)</span>, for now.</p>
 <dl class="simple">
 <dt>TODO: provide solutions for both <span class="math notranslate nohighlight">\(\eta=1/2\)</span> and</dt><dd><p><span class="math notranslate nohighlight">\(\eta=3/2\)</span> where appropriate.</p>
 </dd>
@@ -969,8 +970,8 @@ domain=\mathbb{Z}\left[\varphi{\left(\mathbf{r} \right)}, \xi^{\downarrow}\right
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="gme.core.equations.Equations.tanalpha_crit_eqns">
-<span class="sig-name descname"><span class="pre">tanalpha_crit_eqns</span></span><a class="headerlink" href="#gme.core.equations.Equations.tanalpha_crit_eqns" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="gme.core.equations.Equations.tanalpha_ext_eqns">
+<span class="sig-name descname"><span class="pre">tanalpha_ext_eqns</span></span><a class="headerlink" href="#gme.core.equations.Equations.tanalpha_ext_eqns" title="Permalink to this definition">¶</a></dt>
 <dd><p><span class="math notranslate nohighlight">\(\left[ \tan{\left(\alpha_c \right)} = - \frac{\sqrt{\eta - 2 + \frac{1}{\eta}}}{2},
 \tan{\left(\alpha_c \right)} = \frac{\sqrt{\eta - 2 + \frac{1}{\eta}}}{2}\right]\)</span></p>
 <dl class="field-list simple">
@@ -981,8 +982,8 @@ domain=\mathbb{Z}\left[\varphi{\left(\mathbf{r} \right)}, \xi^{\downarrow}\right
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="gme.core.equations.Equations.tanalpha_crit_eqn">
-<span class="sig-name descname"><span class="pre">tanalpha_crit_eqn</span></span><a class="headerlink" href="#gme.core.equations.Equations.tanalpha_crit_eqn" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="gme.core.equations.Equations.tanalpha_ext_eqn">
+<span class="sig-name descname"><span class="pre">tanalpha_ext_eqn</span></span><a class="headerlink" href="#gme.core.equations.Equations.tanalpha_ext_eqn" title="Permalink to this definition">¶</a></dt>
 <dd><p><span class="math notranslate nohighlight">\(\tan{\left(\alpha_c \right)} = \dfrac{\eta - 1}{2 \sqrt{\eta}}\)</span></p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -1586,7 +1587,8 @@ define dimensionless channel incision number <span class="math notranslate nohig
 <span class="sd">Starting from a model equation for the surface-normal erosion rate in terms of</span>
 <span class="sd">the tilt angle of the topographic surface and the distance downstream</span>
 <span class="sd">(used to infer the flow component of the model erosion process), we derive</span>
-<span class="sd">the fundamental function (of a co-Finsler metric space), the corresponding Hamiltonian,</span>
+<span class="sd">the fundamental function (of a co-Finsler metric space), the corresponding</span>
+<span class="sd">Hamiltonian,</span>
 <span class="sd">and the equivalent metric tensor.</span>
 <span class="sd">The rest of the equations are derived from these core results.</span>
 
@@ -1634,7 +1636,7 @@ define dimensionless channel incision number <span class="math notranslate nohig
     <span class="n">varphi</span><span class="p">,</span> <span class="n">varphi_rxhat_fn</span><span class="p">,</span> \
     <span class="n">varphi_r</span><span class="p">,</span> <span class="n">varphi_0</span><span class="p">,</span> <span class="n">varphi_rx</span><span class="p">,</span> <span class="n">varphi_rhat</span><span class="p">,</span> \
     <span class="n">xi</span><span class="p">,</span> <span class="n">xiv</span><span class="p">,</span> <span class="n">xiv_0</span><span class="p">,</span> <span class="n">xih_0</span><span class="p">,</span> <span class="n">xih</span><span class="p">,</span> <span class="n">xivhat</span><span class="p">,</span> <span class="n">chi</span><span class="p">,</span> <span class="n">Lc</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">eta</span><span class="p">,</span> \
-    <span class="n">alpha</span><span class="p">,</span> <span class="n">alpha_crit</span><span class="p">,</span> <span class="n">ta</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">beta_0</span><span class="p">,</span> <span class="n">beta_crit</span><span class="p">,</span> <span class="n">varepsilon</span><span class="p">,</span> <span class="n">varepsilonhat</span><span class="p">,</span> \
+    <span class="n">alpha</span><span class="p">,</span> <span class="n">alpha_ext</span><span class="p">,</span> <span class="n">ta</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">beta_0</span><span class="p">,</span> <span class="n">beta_crit</span><span class="p">,</span> <span class="n">varepsilon</span><span class="p">,</span> <span class="n">varepsilonhat</span><span class="p">,</span> \
     <span class="n">x_sigma</span><span class="p">,</span> <span class="n">x_h</span><span class="p">,</span> <span class="n">Fstar</span><span class="p">,</span>\
     <span class="n">t</span><span class="p">,</span> <span class="n">th_0</span><span class="p">,</span> <span class="n">tv_0</span><span class="p">,</span> <span class="n">that</span><span class="p">,</span> \
     <span class="n">H</span><span class="p">,</span> <span class="n">Ci</span><span class="p">,</span> <span class="n">psi</span><span class="p">,</span> <span class="n">gstar</span><span class="p">,</span> <span class="n">det_gstar</span><span class="p">,</span> \
@@ -1651,10 +1653,10 @@ define dimensionless channel incision number <span class="math notranslate nohig
 <span class="sd">    and to provide them in a form (sometimes lambdified) that can be used for</span>
 <span class="sd">    numerical evaluation.</span>
 
-<span class="sd">    Much of the derivation sequence here keeps :math:`\eta` and :math:`\mu` unspecified,</span>
-<span class="sd">    up until the Hamiltonian is defined, but eventually values for these</span>
-<span class="sd">    parameters need to be substituted in order to make further progress.</span>
-<span class="sd">    In this documentation, we set :math:`\eta=3/2`, for now.</span>
+<span class="sd">    Much of the derivation sequence here keeps :math:`\eta` and :math:`\mu`</span>
+<span class="sd">    unspecified, up until the Hamiltonian is defined, but eventually values</span>
+<span class="sd">    for these parameters need to be substituted in order to make further</span>
+<span class="sd">    progress. In this documentation, we set :math:`\eta=3/2`, for now.</span>
 
 <span class="sd">    TODO: provide solutions for both :math:`\eta=1/2` and</span>
 <span class="sd">          :math:`\eta=3/2` where appropriate.</span>
@@ -2321,10 +2323,10 @@ define dimensionless channel incision number <span class="math notranslate nohig
 <span class="sd">            tanbeta_alpha_eqn   (:class:`sympy.Eq &lt;sympy.core.relational.Equality&gt;`) :</span>
 <span class="sd">                :math:`\tan{\left(\beta \right)}</span>
 <span class="sd">                = \dfrac{\eta - \sqrt{\eta^{2} - 4 \eta \tan^{2}{\left(\alpha \right)} - 2 \eta + 1} - 1}{2 \tan{\left(\alpha \right)}}`</span>
-<span class="sd">            tanalpha_crit_eqns   (list of :class:`sympy.Eq &lt;sympy.core.relational.Equality&gt;`) :</span>
+<span class="sd">            tanalpha_ext_eqns   (list of :class:`sympy.Eq &lt;sympy.core.relational.Equality&gt;`) :</span>
 <span class="sd">                :math:`\left[ \tan{\left(\alpha_c \right)} = - \frac{\sqrt{\eta - 2 + \frac{1}{\eta}}}{2},</span>
 <span class="sd">                \tan{\left(\alpha_c \right)} = \frac{\sqrt{\eta - 2 + \frac{1}{\eta}}}{2}\right]`</span>
-<span class="sd">            tanalpha_crit_eqn   (:class:`sympy.Eq &lt;sympy.core.relational.Equality&gt;`) :</span>
+<span class="sd">            tanalpha_ext_eqn   (:class:`sympy.Eq &lt;sympy.core.relational.Equality&gt;`) :</span>
 <span class="sd">                :math:`\tan{\left(\alpha_c \right)} = \dfrac{\eta - 1}{2 \sqrt{\eta}}`</span>
 <span class="sd">            tanbeta_crit_eqns   (list of :class:`sympy.Eq &lt;sympy.core.relational.Equality&gt;`) :</span>
 <span class="sd">                :math:`\left[ \tan{\left(\beta_c \right)} = - \dfrac{\eta - 1}{\sqrt{\eta - 2 + \frac{1}{\eta}}},</span>
@@ -2354,28 +2356,28 @@ define dimensionless channel incision number <span class="math notranslate nohig
             <span class="k">for</span> <span class="n">arg_</span> <span class="ow">in</span> <span class="n">numer</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tanbeta_alpha_eqns</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">rhs</span><span class="p">)</span><span class="o">.</span><span class="n">args</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">arg_</span><span class="p">,(</span><span class="n">sy</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">mul</span><span class="o">.</span><span class="n">Mul</span><span class="p">,</span><span class="n">sy</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">power</span><span class="o">.</span><span class="n">Pow</span><span class="p">))</span>
         <span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">tanalpha_crit_eqns</span> \
-            <span class="o">=</span> <span class="p">[</span><span class="n">Eq</span><span class="p">(</span><span class="n">tan</span><span class="p">(</span><span class="n">alpha_crit</span><span class="p">),</span><span class="n">soln</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tanalpha_ext_eqns</span> \
+            <span class="o">=</span> <span class="p">[</span><span class="n">Eq</span><span class="p">(</span><span class="n">tan</span><span class="p">(</span><span class="n">alpha_ext</span><span class="p">),</span><span class="n">soln</span><span class="p">)</span>
                 <span class="k">for</span> <span class="n">soln</span> <span class="ow">in</span> <span class="n">solve</span><span class="p">(</span><span class="n">Eq</span><span class="p">(</span><span class="n">root_terms</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span><span class="mi">0</span><span class="p">),</span><span class="n">tan</span><span class="p">(</span><span class="n">alpha</span><span class="p">))</span> <span class="p">]</span>
 
         <span class="n">tac_lt1</span> <span class="o">=</span> <span class="n">simplify</span><span class="p">(</span> <span class="p">(</span><span class="n">factor</span><span class="p">(</span><span class="n">simplify</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">tanalpha_crit_eqns</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">rhs</span><span class="o">*</span><span class="n">sqrt</span><span class="p">(</span><span class="n">eta</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">tanalpha_ext_eqns</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">rhs</span><span class="o">*</span><span class="n">sqrt</span><span class="p">(</span><span class="n">eta</span><span class="p">)</span>
                             <span class="p">))</span><span class="o">/</span><span class="n">sqrt</span><span class="p">(</span><span class="n">eta</span><span class="p">))</span>
                 <span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">Abs</span><span class="p">(</span><span class="n">eta</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span><span class="mi">1</span><span class="o">-</span><span class="n">eta</span><span class="p">})</span>
         <span class="p">)</span>
         <span class="n">tac_gt1</span> <span class="o">=</span> <span class="n">simplify</span><span class="p">(</span>
-            <span class="p">(</span><span class="n">factor</span><span class="p">(</span><span class="n">simplify</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tanalpha_crit_eqns</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">rhs</span><span class="o">*</span><span class="n">sqrt</span><span class="p">(</span><span class="n">eta</span><span class="p">)))</span><span class="o">/</span><span class="n">sqrt</span><span class="p">(</span><span class="n">eta</span><span class="p">))</span>
+            <span class="p">(</span><span class="n">factor</span><span class="p">(</span><span class="n">simplify</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tanalpha_ext_eqns</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">rhs</span><span class="o">*</span><span class="n">sqrt</span><span class="p">(</span><span class="n">eta</span><span class="p">)))</span><span class="o">/</span><span class="n">sqrt</span><span class="p">(</span><span class="n">eta</span><span class="p">))</span>
                 <span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">Abs</span><span class="p">(</span><span class="n">eta</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span><span class="n">eta</span><span class="o">-</span><span class="mi">1</span><span class="p">})</span>
         <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">tanalpha_crit_eqn</span> \
-            <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span> <span class="n">tan</span><span class="p">(</span><span class="n">alpha_crit</span><span class="p">),</span> <span class="n">Piecewise</span><span class="p">(</span> <span class="p">(</span><span class="n">tac_lt1</span><span class="p">,</span> <span class="n">eta</span><span class="o">&lt;</span><span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="n">tac_gt1</span><span class="p">,</span> <span class="kc">True</span><span class="p">))</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tanalpha_ext_eqn</span> \
+            <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span> <span class="n">tan</span><span class="p">(</span><span class="n">alpha_ext</span><span class="p">),</span> <span class="n">Piecewise</span><span class="p">(</span> <span class="p">(</span><span class="n">tac_lt1</span><span class="p">,</span> <span class="n">eta</span><span class="o">&lt;</span><span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="n">tac_gt1</span><span class="p">,</span> <span class="kc">True</span><span class="p">))</span> <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">tanbeta_crit_eqns</span> \
             <span class="o">=</span> <span class="p">[</span><span class="n">factor</span><span class="p">(</span><span class="n">tanbeta_alpha_eqn_</span>
-                        <span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">beta</span><span class="p">:</span><span class="n">beta_crit</span><span class="p">,</span><span class="n">alpha</span><span class="p">:</span><span class="n">alpha_crit</span><span class="p">})</span>
-                        <span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="n">tanalpha_crit_eqn_</span><span class="p">)))</span>
-                <span class="k">for</span> <span class="n">tanalpha_crit_eqn_</span><span class="p">,</span><span class="n">tanbeta_alpha_eqn_</span>
-                <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tanalpha_crit_eqns</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tanbeta_alpha_eqns</span><span class="p">)]</span>
+                        <span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">beta</span><span class="p">:</span><span class="n">beta_crit</span><span class="p">,</span><span class="n">alpha</span><span class="p">:</span><span class="n">alpha_ext</span><span class="p">})</span>
+                        <span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="n">tanalpha_ext_eqn_</span><span class="p">)))</span>
+                <span class="k">for</span> <span class="n">tanalpha_ext_eqn_</span><span class="p">,</span><span class="n">tanbeta_alpha_eqn_</span>
+                <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tanalpha_ext_eqns</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tanbeta_alpha_eqns</span><span class="p">)]</span>
         <span class="c1"># This is a hack, because SymPy simplify can&#39;t handle it</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tanbeta_crit_eqn</span> \
             <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">tan</span><span class="p">(</span><span class="n">beta_crit</span><span class="p">),</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">simplify</span><span class="p">(</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tanbeta_crit_eqns</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">rhs</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="p">)))</span>
@@ -2384,7 +2386,7 @@ define dimensionless channel incision number <span class="math notranslate nohig
         <span class="bp">self</span><span class="o">.</span><span class="n">tanbeta_rdotxz_xiv_eqn</span> \
             <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tanbeta_rdotxz_pz_eqn</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">pz</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">pz_xiv_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">})</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">tanalpha_crit</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">N</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tanalpha_crit_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">eta</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">eta_</span><span class="p">})))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tanalpha_ext</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">N</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tanalpha_ext_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">eta</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">eta_</span><span class="p">})))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tanbeta_crit</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">N</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tanbeta_crit_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">eta</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">eta_</span><span class="p">})))</span>
 
 

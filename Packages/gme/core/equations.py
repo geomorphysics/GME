@@ -11,7 +11,8 @@ for a 2D slice of a 3D landscape along a channel transect.
 Starting from a model equation for the surface-normal erosion rate in terms of
 the tilt angle of the topographic surface and the distance downstream
 (used to infer the flow component of the model erosion process), we derive
-the fundamental function (of a co-Finsler metric space), the corresponding Hamiltonian,
+the fundamental function (of a co-Finsler metric space), the corresponding
+Hamiltonian,
 and the equivalent metric tensor.
 The rest of the equations are derived from these core results.
 
@@ -59,7 +60,7 @@ from gme.core.symbols import \
     varphi, varphi_rxhat_fn, \
     varphi_r, varphi_0, varphi_rx, varphi_rhat, \
     xi, xiv, xiv_0, xih_0, xih, xivhat, chi, Lc, mu, eta, \
-    alpha, alpha_crit, ta, beta, beta_0, beta_crit, varepsilon, varepsilonhat, \
+    alpha, alpha_ext, ta, beta, beta_0, beta_crit, varepsilon, varepsilonhat, \
     x_sigma, x_h, Fstar,\
     t, th_0, tv_0, that, \
     H, Ci, psi, gstar, det_gstar, \
@@ -76,10 +77,10 @@ class Equations:
     and to provide them in a form (sometimes lambdified) that can be used for
     numerical evaluation.
 
-    Much of the derivation sequence here keeps :math:`\eta` and :math:`\mu` unspecified,
-    up until the Hamiltonian is defined, but eventually values for these
-    parameters need to be substituted in order to make further progress.
-    In this documentation, we set :math:`\eta=3/2`, for now.
+    Much of the derivation sequence here keeps :math:`\eta` and :math:`\mu`
+    unspecified, up until the Hamiltonian is defined, but eventually values
+    for these parameters need to be substituted in order to make further
+    progress. In this documentation, we set :math:`\eta=3/2`, for now.
 
     TODO: provide solutions for both :math:`\eta=1/2` and
           :math:`\eta=3/2` where appropriate.
@@ -746,10 +747,10 @@ class Equations:
             tanbeta_alpha_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
                 :math:`\tan{\left(\beta \right)}
                 = \dfrac{\eta - \sqrt{\eta^{2} - 4 \eta \tan^{2}{\left(\alpha \right)} - 2 \eta + 1} - 1}{2 \tan{\left(\alpha \right)}}`
-            tanalpha_crit_eqns   (list of :class:`sympy.Eq <sympy.core.relational.Equality>`) :
+            tanalpha_ext_eqns   (list of :class:`sympy.Eq <sympy.core.relational.Equality>`) :
                 :math:`\left[ \tan{\left(\alpha_c \right)} = - \frac{\sqrt{\eta - 2 + \frac{1}{\eta}}}{2},
                 \tan{\left(\alpha_c \right)} = \frac{\sqrt{\eta - 2 + \frac{1}{\eta}}}{2}\right]`
-            tanalpha_crit_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
+            tanalpha_ext_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
                 :math:`\tan{\left(\alpha_c \right)} = \dfrac{\eta - 1}{2 \sqrt{\eta}}`
             tanbeta_crit_eqns   (list of :class:`sympy.Eq <sympy.core.relational.Equality>`) :
                 :math:`\left[ \tan{\left(\beta_c \right)} = - \dfrac{\eta - 1}{\sqrt{\eta - 2 + \frac{1}{\eta}}},
@@ -779,28 +780,28 @@ class Equations:
             for arg_ in numer(self.tanbeta_alpha_eqns[0].rhs).args
             if isinstance(arg_,(sy.core.mul.Mul,sy.core.power.Pow))
         ]
-        self.tanalpha_crit_eqns \
-            = [Eq(tan(alpha_crit),soln)
+        self.tanalpha_ext_eqns \
+            = [Eq(tan(alpha_ext),soln)
                 for soln in solve(Eq(root_terms[0][0],0),tan(alpha)) ]
 
         tac_lt1 = simplify( (factor(simplify(
-                self.tanalpha_crit_eqns[0].rhs*sqrt(eta)
+                self.tanalpha_ext_eqns[0].rhs*sqrt(eta)
                             ))/sqrt(eta))
                 .subs({Abs(eta-1):1-eta})
         )
         tac_gt1 = simplify(
-            (factor(simplify(self.tanalpha_crit_eqns[1].rhs*sqrt(eta)))/sqrt(eta))
+            (factor(simplify(self.tanalpha_ext_eqns[1].rhs*sqrt(eta)))/sqrt(eta))
                 .subs({Abs(eta-1):eta-1})
         )
-        self.tanalpha_crit_eqn \
-            = Eq( tan(alpha_crit), Piecewise( (tac_lt1, eta<1), (tac_gt1, True)) )
+        self.tanalpha_ext_eqn \
+            = Eq( tan(alpha_ext), Piecewise( (tac_lt1, eta<1), (tac_gt1, True)) )
 
         self.tanbeta_crit_eqns \
             = [factor(tanbeta_alpha_eqn_
-                        .subs({beta:beta_crit,alpha:alpha_crit})
-                        .subs(e2d(tanalpha_crit_eqn_)))
-                for tanalpha_crit_eqn_,tanbeta_alpha_eqn_
-                in zip(self.tanalpha_crit_eqns, self.tanbeta_alpha_eqns)]
+                        .subs({beta:beta_crit,alpha:alpha_ext})
+                        .subs(e2d(tanalpha_ext_eqn_)))
+                for tanalpha_ext_eqn_,tanbeta_alpha_eqn_
+                in zip(self.tanalpha_ext_eqns, self.tanbeta_alpha_eqns)]
         # This is a hack, because SymPy simplify can't handle it
         self.tanbeta_crit_eqn \
             = Eq(tan(beta_crit), sqrt(simplify( (self.tanbeta_crit_eqns[0].rhs)**2 )))
@@ -809,7 +810,7 @@ class Equations:
         self.tanbeta_rdotxz_xiv_eqn \
             = self.tanbeta_rdotxz_pz_eqn.subs({pz:self.pz_xiv_eqn.rhs})
 
-        self.tanalpha_crit = float(N(self.tanalpha_crit_eqn.rhs.subs({eta: self.eta_})))
+        self.tanalpha_ext = float(N(self.tanalpha_ext_eqn.rhs.subs({eta: self.eta_})))
         self.tanbeta_crit = float(N(self.tanbeta_crit_eqn.rhs.subs({eta: self.eta_})))
 
 

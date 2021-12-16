@@ -18,7 +18,7 @@ Requires Python packages/modules:
 import warnings
 
 # Typing
-from typing import Tuple, List
+from typing import Tuple, List, Optional
 
 # Numpy
 import numpy as np
@@ -27,8 +27,8 @@ import numpy as np
 from sympy import N, lambdify, re
 
 # MatPlotLib
-import matplotlib as mpl
 import matplotlib.pyplot as plt
+from matplotlib.pyplot import Figure, Axes
 import matplotlib.patches as mpatches
 from matplotlib.patches import ArrowStyle, ConnectionPatch, Arc
 from matplotlib.spines import Spine
@@ -49,29 +49,37 @@ class Manuscript(Graphing):
 
     Subclasses :class:`gme.plot.base.Graphing`.
     """
-    def point_pairing(self, name, fig_size=(10,4), dpi=None) -> None:
+    def point_pairing(
+        self,
+        name: str,
+        fig_size: Optional[Tuple[float,float]]=(10,4),
+        dpi: Optional[int]=None
+        ) -> None:
         """
-        Schematic illustrating ...
+        Schematic illustrating how points pair between successive erosion surfaces.
 
         Args:
-            fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`):
-                reference to figure instantiated by
-                :meth:`GMPLib create_figure <plot.GraphingBase.create_figure>`
+            name:
+                name of figure (key in figure dictionary)
+            fig_size:
+                optional figure width and height in inches
+            dpi:
+                optional rasterization resolution
         """
         # Build fig
-        fig = self.create_figure(name, fig_size=fig_size, dpi=dpi)
-        brown_  = '#994400'
-        blue_   = '#0000dd'
-        red_    = '#dd0000'
-        purple_ = '#cc00cc'
-        gray_ = self.gray_color(2,5)
-        n_gray = 6
-        gray1_ = self.gray_color(1,n_gray)
-        gray2_ = self.gray_color(2,n_gray)
+        fig: Figure = self.create_figure(name, fig_size=fig_size, dpi=dpi)
+        brown_: str  = '#994400'
+        blue_: str   = '#0000dd'
+        red_: str    = '#dd0000'
+        purple_: str = '#cc00cc'
+        gray_: str   = self.gray_color(2,5)
+        n_gray: int  = 6
+        gray1_: str  = self.gray_color(1,n_gray)
+        gray2_: str  = self.gray_color(2,n_gray)
 
         def remove_ticks_etc(axes_) -> None:
             r"""
-            TBD
+            Clean off ticks etc from graph axes so they become simple boxes.
             """
             axes_.set_xticklabels([])
             axes_.set_xticks([])
@@ -80,18 +88,46 @@ class Manuscript(Graphing):
             axes_.set_xlim(0,1)
             axes_.set_ylim(0,1)
 
-        def linking_lines(fig_, axes_A, axes_B, axes_C, axes_D, color_=brown_) -> None:
+        def linking_lines(
+            fig_: Figure,
+            axes_A: Axes,
+            axes_B: Axes,
+            axes_C: Axes,
+            axes_D: Axes,
+            color_: str=brown_
+            ) -> None:
             r"""
-            TBD
+            Draw lines linking features in the main plot to zoom insets.
+
+            Args:
+                fig_:
+                    Figure to act on
+                axes_A:
+                    Axes of zoom box A
+                axes_B:
+                    Axes of zoom box B
+                axes_C:
+                    Axes of zoom box C
+                axes_D:
+                    Axes of zoom box D
             """
-            joins = [0]*3
+            joins: List[ConnectionPatch] = [None]*3
             kwargs = dict(color=color_, linestyle=':')
-            joins[0] = ConnectionPatch(xyA=(0.2,0), coordsA=axes_D.transData,
-                                       xyB=(0.4,1),  coordsB=axes_A.transData, **kwargs)
-            joins[1] = ConnectionPatch(xyA=(1,0.00), coordsA=axes_D.transData,
-                                       xyB=(0,0.9),  coordsB=axes_B.transData, **kwargs)
-            joins[2] = ConnectionPatch(xyA=(1,0.60), coordsA=axes_D.transData,
-                                       xyB=(0,0.8),  coordsB=axes_C.transData, **kwargs)
+            joins[0] = ConnectionPatch(xyA=(0.2,0),
+                                       coordsA=axes_D.transData,
+                                       xyB=(0.4,1),
+                                       coordsB=axes_A.transData,
+                                       **kwargs)
+            joins[1] = ConnectionPatch(xyA=(1,0.00),
+                                       coordsA=axes_D.transData,
+                                       xyB=(0,0.9),
+                                       coordsB=axes_B.transData,
+                                       **kwargs)
+            joins[2] = ConnectionPatch(xyA=(1,0.60),
+                                       coordsA=axes_D.transData,
+                                       xyB=(0,0.8),
+                                       coordsB=axes_C.transData,
+                                       **kwargs)
             for join_ in joins: fig_.add_artist(join_)
 
         def make_xy() -> Tuple[float,float]:
@@ -104,7 +140,7 @@ class Manuscript(Graphing):
             return x_ndim,y
 
         def isochrones_subfig(fig_, x_, y_, color_=gray_) \
-                    -> Tuple[mpl.axes._axes.Axes,List[float]]:
+                    -> Tuple[Axes,List[float]]:
             r"""
             TBD
             """
@@ -144,9 +180,11 @@ class Manuscript(Graphing):
                 _ = [child.set_color(color_) for child in axes_.get_children()
                      if isinstance(child, obj_type)]
 
-        def zoom_boxes(fig_, ta_color_=gray2_, tb_color_=gray1_) \
-                            -> Tuple[mpl.axes._axes.Axes, mpl.axes._axes.Axes,
-                                     mpl.axes._axes.Axes, mpl.axes._axes.Axes, str]:
+        def zoom_boxes(
+            fig_,
+            ta_color_=gray2_,
+            tb_color_=gray1_
+            ) -> Tuple[Axes, Axes, Axes, Axes, str]: #mpl.axes._axes.
             r"""
             TBD
             """

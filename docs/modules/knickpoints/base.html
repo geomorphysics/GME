@@ -71,7 +71,8 @@
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gme.knickpoints.base.</span></span><span class="sig-name descname"><span class="pre">CompositeSolution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmeq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gme.knickpoints.base.CompositeSolution" title="Permalink to this definition">¶</a></dt>
 <dd><p>Combine rays integrations from (1) initial profile,
 (2) initial corner, and (3) velocity boundary
-to generate a ‘complete’ ray integration solution from a complex topographic boundary.</p>
+to generate a ‘complete’ ray integration solution from a
+complex topographic boundary.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.knickpoints.base.CompositeSolution.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmeq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gme.knickpoints.base.CompositeSolution.__init__" title="Permalink to this definition">¶</a></dt>
@@ -79,10 +80,11 @@ to generate a ‘complete’ ray integration solution from a complex topographic
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>gmeq</strong> (<a class="reference internal" href="../core/equations.html#gme.core.equations.Equations" title="gme.core.equations.Equations"><code class="xref py py-class docutils literal notranslate"><span class="pre">Equations</span></code></a>) – GME model equations class instance defined in <a class="reference internal" href="../core/equations.html#module-gme.core.equations" title="gme.core.equations"><code class="xref py py-mod docutils literal notranslate"><span class="pre">equations</span></code></a></p></li>
-<li><p><strong>parameters</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – dictionary of model parameter values
+<li><p><strong>gmeq</strong> – GME model equations class instance defined in
+<a class="reference internal" href="../core/equations.html#module-gme.core.equations" title="gme.core.equations"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gme.core.equations</span></code></a></p></li>
+<li><p><strong>parameters</strong> – dictionary of model parameter values
 to be used for equation substitutions</p></li>
-<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – remaining keyword arguments (see base class for details)</p></li>
+<li><p><strong>**kwargs</strong> – remaining keyword arguments (see base class for details)</p></li>
 </ul>
 </dd>
 </dl>
@@ -100,8 +102,8 @@ to be used for equation substitutions</p></li>
 <dt class="sig sig-object py" id="gme.knickpoints.base.InitialCornerSolution">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gme.knickpoints.base.</span></span><span class="sig-name descname"><span class="pre">InitialCornerSolution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmeq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gme.knickpoints.base.InitialCornerSolution" title="Permalink to this definition">¶</a></dt>
 <dd><p>Integration of Hamilton’s equations (ODEs) from a ‘corner’ point.</p>
-<p>Provides a set of ray integrations to span solutions along an initial profile
-and solutions from a slip velocity boundary.</p>
+<p>Provides a set of ray integrations to span solutions along an initial
+profile and solutions from a slip velocity boundary.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.knickpoints.base.InitialCornerSolution.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmeq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gme.knickpoints.base.InitialCornerSolution.__init__" title="Permalink to this definition">¶</a></dt>
@@ -109,10 +111,11 @@ and solutions from a slip velocity boundary.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>gmeq</strong> (<a class="reference internal" href="../core/equations.html#gme.core.equations.Equations" title="gme.core.equations.Equations"><code class="xref py py-class docutils literal notranslate"><span class="pre">Equations</span></code></a>) – GME model equations class instance defined in <a class="reference internal" href="../core/equations.html#module-gme.core.equations" title="gme.core.equations"><code class="xref py py-mod docutils literal notranslate"><span class="pre">equations</span></code></a></p></li>
-<li><p><strong>parameters</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – dictionary of model parameter values to be used
+<li><p><strong>gmeq</strong> – GME model equations class instance defined in
+<a class="reference internal" href="../core/equations.html#module-gme.core.equations" title="gme.core.equations"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gme.core.equations</span></code></a></p></li>
+<li><p><strong>parameters</strong> – dictionary of model parameter values to be used
 for equation substitutions</p></li>
-<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – remaining keyword arguments (see base class for details)</p></li>
+<li><p><strong>kwargs</strong> – remaining keyword arguments (see base class for details)</p></li>
 </ul>
 </dd>
 </dl>
@@ -121,7 +124,8 @@ for equation substitutions</p></li>
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.knickpoints.base.InitialCornerSolution.initial_conditions">
 <span class="sig-name descname"><span class="pre">initial_conditions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">beta0_</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gme.knickpoints.base.InitialCornerSolution.initial_conditions" title="Permalink to this definition">¶</a></dt>
-<dd><p>Dummy method of generating initial conditions that must be defined by any subclass</p>
+<dd><p>Dummy method of generating initial conditions that must be defined by
+any subclass</p>
 </dd></dl>
 
 <dl class="py method">
@@ -135,7 +139,8 @@ for equation substitutions</p></li>
 <dl class="py class">
 <dt class="sig sig-object py" id="gme.knickpoints.base.InitialProfileSolution">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gme.knickpoints.base.</span></span><span class="sig-name descname"><span class="pre">InitialProfileSolution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmeq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gme.knickpoints.base.InitialProfileSolution" title="Permalink to this definition">¶</a></dt>
-<dd><p>Integration of Hamilton’s equations (ODEs) from an initial topographic profile.</p>
+<dd><p>Integration of Hamilton’s equations (ODEs) from an initial
+topographic profile.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.knickpoints.base.InitialProfileSolution.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmeq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gme.knickpoints.base.InitialProfileSolution.__init__" title="Permalink to this definition">¶</a></dt>
@@ -143,10 +148,11 @@ for equation substitutions</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>gmeq</strong> (<a class="reference internal" href="../core/equations.html#gme.core.equations.Equations" title="gme.core.equations.Equations"><code class="xref py py-class docutils literal notranslate"><span class="pre">Equations</span></code></a>) – GME model equations class instance defined in <a class="reference internal" href="../core/equations.html#module-gme.core.equations" title="gme.core.equations"><code class="xref py py-mod docutils literal notranslate"><span class="pre">equations</span></code></a></p></li>
-<li><p><strong>parameters</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – dictionary of model parameter values to be used for
+<li><p><strong>gmeq</strong> – GME model equations class instance defined in
+<a class="reference internal" href="../core/equations.html#module-gme.core.equations" title="gme.core.equations"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gme.core.equations</span></code></a></p></li>
+<li><p><strong>parameters</strong> – dictionary of model parameter values to be used for
 equation substitutions</p></li>
-<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – remaining keyword arguments (see base class for details)</p></li>
+<li><p><strong>kwargs</strong> – remaining keyword arguments (see base class for details)</p></li>
 </ul>
 </dd>
 </dl>
@@ -155,7 +161,8 @@ equation substitutions</p></li>
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.knickpoints.base.InitialProfileSolution.initial_conditions">
 <span class="sig-name descname"><span class="pre">initial_conditions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gme.knickpoints.base.InitialProfileSolution.initial_conditions" title="Permalink to this definition">¶</a></dt>
-<dd><p>Dummy method of generating initial conditions that must be defined by any subclass</p>
+<dd><p>Dummy method of generating initial conditions that must be defined by
+any subclass</p>
 </dd></dl>
 
 <dl class="py method">
@@ -190,65 +197,69 @@ equation substitutions</p></li>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
-<span class="kn">from</span> <span class="nn">scipy.integrate</span> <span class="kn">import</span> <span class="n">solve_ivp</span><span class="p">,</span> <span class="n">cumtrapz</span>
-<span class="kn">from</span> <span class="nn">scipy.interpolate</span> <span class="kn">import</span> <span class="n">InterpolatedUnivariateSpline</span><span class="p">,</span> <span class="n">interp1d</span>
-<span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="kn">import</span> <span class="n">root_scalar</span><span class="p">,</span> <span class="n">fsolve</span>
-
-<span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">N</span><span class="p">,</span> <span class="n">sign</span><span class="p">,</span> <span class="n">atan</span><span class="p">,</span> <span class="n">atan2</span><span class="p">,</span> <span class="n">sin</span><span class="p">,</span> <span class="n">cos</span><span class="p">,</span> <span class="n">tan</span><span class="p">,</span> <span class="n">re</span><span class="p">,</span> <span class="n">im</span><span class="p">,</span> <span class="n">sqrt</span><span class="p">,</span> \
-                    <span class="n">Matrix</span><span class="p">,</span> <span class="n">lambdify</span><span class="p">,</span> <span class="n">Abs</span><span class="p">,</span> <span class="n">simplify</span><span class="p">,</span> <span class="n">expand</span><span class="p">,</span> <span class="n">solve</span><span class="p">,</span> \
-                    <span class="n">Eq</span><span class="p">,</span> <span class="n">Rational</span><span class="p">,</span> <span class="n">diff</span><span class="p">,</span> \
-                    <span class="n">nroots</span><span class="p">,</span> <span class="n">poly</span>
-
-<span class="kn">from</span> <span class="nn">gmplib.utils</span> <span class="kn">import</span> <span class="n">e2d</span>
+<span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">atan2</span><span class="p">,</span> <span class="n">Matrix</span>
 
 <span class="kn">from</span> <span class="nn">gme.ode.base</span> <span class="kn">import</span> <span class="n">BaseSolution</span>
 <span class="kn">from</span> <span class="nn">gme.ode.velocity_boundary</span> <span class="kn">import</span> <span class="n">VelocityBoundarySolution</span>
-<span class="kn">from</span> <span class="nn">gme.core.symbols</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">gme.core.symbols</span> <span class="kn">import</span> <span class="n">x</span><span class="p">,</span> <span class="n">rx</span><span class="p">,</span> <span class="n">Lc</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">px</span><span class="p">,</span> <span class="n">pz</span>
 <span class="kn">from</span> <span class="nn">gme.ode.base</span> <span class="kn">import</span> <span class="n">rpt_tuple</span>
 
 
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span> <span class="s1">&#39;InitialProfileSolution&#39;</span><span class="p">,</span> <span class="s1">&#39;InitialCornerSolution&#39;</span><span class="p">,</span> <span class="s1">&#39;CompositeSolution&#39;</span><span class="p">]</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;InitialProfileSolution&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;InitialCornerSolution&#39;</span><span class="p">,</span> <span class="s1">&#39;CompositeSolution&#39;</span><span class="p">]</span>
 
 
 <span class="k">class</span> <span class="nc">InitialProfileSolution</span><span class="p">(</span><span class="n">BaseSolution</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Integration of Hamilton&#39;s equations (ODEs) from an initial topographic profile.</span>
+<span class="sd">    Integration of Hamilton&#39;s equations (ODEs) from an initial</span>
+<span class="sd">    topographic profile.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gmeq</span><span class="p">,</span> <span class="n">parameters</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initialize class instance.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            gmeq (:class:`~.equations.Equations`):</span>
-<span class="sd">                    GME model equations class instance defined in :mod:`~.equations`</span>
-<span class="sd">            parameters (dict): dictionary of model parameter values to be used for</span>
-<span class="sd">                                equation substitutions</span>
-<span class="sd">            kwargs (dict): remaining keyword arguments (see base class for details)</span>
+<span class="sd">            gmeq:</span>
+<span class="sd">                GME model equations class instance defined in</span>
+<span class="sd">                :mod:`gme.core.equations`</span>
+<span class="sd">            parameters:</span>
+<span class="sd">                dictionary of model parameter values to be used for</span>
+<span class="sd">                equation substitutions</span>
+<span class="sd">            kwargs:</span>
+<span class="sd">                remaining keyword arguments (see base class for details)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">gmeq</span><span class="p">,</span> <span class="n">parameters</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
         <span class="c1"># Initial condition equations</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rz_initial_surface_eqn</span> <span class="o">=</span> <span class="n">gmeq</span><span class="o">.</span><span class="n">rz_initial_eqn</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">rx</span><span class="p">:</span><span class="n">x</span><span class="p">})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rz_initial_surface_eqn</span> <span class="o">=</span> <span class="n">gmeq</span><span class="o">.</span><span class="n">rz_initial_eqn</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">rx</span><span class="p">:</span> <span class="n">x</span><span class="p">})</span>
 
     <span class="k">def</span> <span class="nf">initial_conditions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x_</span><span class="p">):</span>
         <span class="n">rx0_</span> <span class="o">=</span> <span class="n">x_</span>
-        <span class="n">rz0_</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rz_initial_surface_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">x</span><span class="p">:</span><span class="n">x_</span><span class="p">})</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">))</span>
-        <span class="n">px0_</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">px_initial_surface_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">x</span><span class="p">:</span><span class="n">x_</span><span class="p">})</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">))</span>
-        <span class="n">pz0_</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pz_initial_surface_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">x</span><span class="p">:</span><span class="n">x_</span><span class="p">})</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">))</span>
-        <span class="k">return</span> <span class="p">[</span><span class="n">rx0_</span><span class="p">,</span><span class="n">rz0_</span><span class="p">,</span><span class="n">px0_</span><span class="p">,</span><span class="n">pz0_</span><span class="p">]</span>
+        <span class="n">rz0_</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rz_initial_surface_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span>
+            <span class="p">{</span><span class="n">x</span><span class="p">:</span> <span class="n">x_</span><span class="p">})</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">))</span>
+        <span class="n">px0_</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">px_initial_surface_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span>
+            <span class="p">{</span><span class="n">x</span><span class="p">:</span> <span class="n">x_</span><span class="p">})</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">))</span>
+        <span class="n">pz0_</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pz_initial_surface_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span>
+            <span class="p">{</span><span class="n">x</span><span class="p">:</span> <span class="n">x_</span><span class="p">})</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">))</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">rx0_</span><span class="p">,</span> <span class="n">rz0_</span><span class="p">,</span> <span class="n">px0_</span><span class="p">,</span> <span class="n">pz0_</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="nf">solve</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">report_pc_step</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">prep_arrays</span><span class="p">()</span>
-        <span class="n">x_1_</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">x_1</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">))</span>
-        <span class="c1">#print(self.t_end)</span>
-        <span class="n">pc_progress</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">report_progress</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">n_rays</span><span class="p">,</span> <span class="n">is_initial_step</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">Lc_</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">Lc</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">))</span>
+        <span class="c1"># print(self.t_end)</span>
+        <span class="n">pc_progress</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">report_progress</span><span class="p">(</span>
+            <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">n_rays</span><span class="p">,</span> <span class="n">is_initial_step</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="c1"># Points along the initial profile boundary</span>
-        <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">x_</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">x_1_</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">n_rays</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">=</span><span class="kc">True</span><span class="p">)):</span>
-            <span class="c1">#if self.verbose: print(&#39;{}: {}&#39;.format(idx,np.round(x_,4)),end=&#39;\t&#39;)</span>
+        <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">x_</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">Lc_</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_rays</span><span class="p">,</span>
+                                             <span class="n">endpoint</span><span class="o">=</span><span class="kc">True</span><span class="p">)):</span>
+            <span class="c1"># if self.verbose:</span>
+            <span class="c1">#   print(&#39;{}: {}&#39;.format(idx,np.round(x_,4)),end=&#39;\t&#39;)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">ic</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">initial_conditions</span><span class="p">(</span><span class="n">x_</span><span class="p">)</span>
             <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Initial conditions </span><span class="si">{</span><span class="n">idx</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">ic</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">model_dXdt_lambda</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_model</span><span class="p">()</span>
-            <span class="n">rpt_arrays</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">solve_Hamiltons_equations</span><span class="p">(</span><span class="n">t_array</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ref_t_array</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span>
+            <span class="n">rpt_arrays</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">solve_Hamiltons_equations</span><span class="p">(</span>
+                <span class="n">t_array</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ref_t_array</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">rpt_arrays</span><span class="p">,</span> <span class="n">idx</span><span class="p">)</span>
             <span class="n">pc_progress</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">report_progress</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="n">idx</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">n_rays</span><span class="p">,</span>
                                                <span class="n">pc_step</span><span class="o">=</span><span class="n">report_pc_step</span><span class="p">,</span>
@@ -261,77 +272,98 @@ equation substitutions</p></li>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Integration of Hamilton&#39;s equations (ODEs) from a &#39;corner&#39; point.</span>
 
-<span class="sd">    Provides a set of ray integrations to span solutions along an initial profile</span>
-<span class="sd">    and solutions from a slip velocity boundary.</span>
+<span class="sd">    Provides a set of ray integrations to span solutions along an initial</span>
+<span class="sd">    profile and solutions from a slip velocity boundary.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gmeq</span><span class="p">,</span> <span class="n">parameters</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initialize class instance.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            gmeq (:class:`~.equations.Equations`):</span>
-<span class="sd">                    GME model equations class instance defined in :mod:`~.equations`</span>
-<span class="sd">            parameters (dict): dictionary of model parameter values to be used</span>
-<span class="sd">                               for equation substitutions</span>
-<span class="sd">            kwargs (dict): remaining keyword arguments (see base class for details)</span>
+<span class="sd">            gmeq:</span>
+<span class="sd">                GME model equations class instance defined in</span>
+<span class="sd">                :mod:`gme.core.equations`</span>
+<span class="sd">            parameters:</span>
+<span class="sd">                dictionary of model parameter values to be used</span>
+<span class="sd">                for equation substitutions</span>
+<span class="sd">            kwargs:</span>
+<span class="sd">                remaining keyword arguments (see base class for details)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">gmeq</span><span class="p">,</span> <span class="n">parameters</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">px_initial_corner_eqn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">gmeq</span><span class="o">.</span><span class="n">px_varphi_rx_beta_eqn</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">rx</span><span class="p">:</span><span class="mi">0</span><span class="p">})</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">pz_initial_corner_eqn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">gmeq</span><span class="o">.</span><span class="n">pz_varphi_rx_beta_eqn</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">rx</span><span class="p">:</span><span class="mi">0</span><span class="p">})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">px_initial_corner_eqn</span> \
+            <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">gmeq</span><span class="o">.</span><span class="n">px_varphi_rx_beta_eqn</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">rx</span><span class="p">:</span> <span class="mi">0</span><span class="p">})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pz_initial_corner_eqn</span> \
+            <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">gmeq</span><span class="o">.</span><span class="n">pz_varphi_rx_beta_eqn</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">rx</span><span class="p">:</span> <span class="mi">0</span><span class="p">})</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">beta_surface_corner</span> \
-             <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">atan2</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">gmeq</span><span class="o">.</span><span class="n">px_initial_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">x</span><span class="p">:</span><span class="mi">0</span><span class="p">})</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">),</span>
-                          <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">gmeq</span><span class="o">.</span><span class="n">pz_initial_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">x</span><span class="p">:</span><span class="mi">0</span><span class="p">})</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">)))</span>
+            <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">atan2</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">gmeq</span><span class="o">.</span><span class="n">px_initial_eqn</span><span class="o">.</span><span class="n">rhs</span>
+                <span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">x</span><span class="p">:</span> <span class="mi">0</span><span class="p">})</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">),</span>
+                <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">gmeq</span><span class="o">.</span><span class="n">pz_initial_eqn</span><span class="o">.</span><span class="n">rhs</span>
+                <span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">x</span><span class="p">:</span> <span class="mi">0</span><span class="p">})</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">)</span>
+            <span class="p">))</span>
         <span class="n">pz_velocity_corner</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pz_velocity_boundary_eqn</span>
         <span class="c1"># HACK!!!  doing this to set up px0_poly_eqn</span>
         <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pxpz0_from_xiv0</span><span class="p">()</span>
         <span class="n">px_velocity_corner</span> \
-            <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">px_value</span><span class="p">(</span><span class="n">x_</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">pz_</span><span class="o">=</span><span class="n">pz_velocity_corner</span><span class="p">,</span> <span class="n">parameters</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">beta_velocity_corner</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">atan2</span><span class="p">(</span><span class="n">px_velocity_corner</span><span class="p">,</span><span class="o">-</span><span class="n">pz_velocity_corner</span><span class="p">))</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">choice</span><span class="o">==</span><span class="s1">&#39;geodesic&#39;</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">rdot</span> <span class="o">=</span> <span class="n">Matrix</span><span class="p">([</span> <span class="bp">self</span><span class="o">.</span><span class="n">gmeq</span><span class="o">.</span><span class="n">hamiltons_eqns</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">rhs</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">parameters</span><span class="p">),</span>
-                                 <span class="bp">self</span><span class="o">.</span><span class="n">gmeq</span><span class="o">.</span><span class="n">hamiltons_eqns</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">rhs</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">parameters</span><span class="p">)</span> <span class="p">])</span>
+            <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">px_value</span><span class="p">(</span><span class="n">x_</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">pz_</span><span class="o">=</span><span class="n">pz_velocity_corner</span><span class="p">,</span>
+                            <span class="n">parameters</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">beta_velocity_corner</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span>
+            <span class="n">atan2</span><span class="p">(</span><span class="n">px_velocity_corner</span><span class="p">,</span> <span class="o">-</span><span class="n">pz_velocity_corner</span><span class="p">))</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">choice</span> <span class="o">==</span> <span class="s1">&#39;geodesic&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rdot</span> <span class="o">=</span> <span class="n">Matrix</span><span class="p">(</span>
+                <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">gmeq</span><span class="o">.</span><span class="n">hamiltons_eqns</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">rhs</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">parameters</span><span class="p">),</span>
+                 <span class="bp">self</span><span class="o">.</span><span class="n">gmeq</span><span class="o">.</span><span class="n">hamiltons_eqns</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">rhs</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">parameters</span><span class="p">)]</span>
+            <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">rdot</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="k">def</span> <span class="nf">initial_conditions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">beta0_</span><span class="p">):</span>
         <span class="n">rx0_</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="n">rz0_</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="n">px0_</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">px_initial_corner_eqn</span><span class="o">.</span><span class="n">rhs</span>
-                            <span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">beta</span><span class="p">:</span><span class="n">beta0_</span><span class="p">})</span>
-                            <span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">)</span> <span class="p">)</span>
-        <span class="n">pz0_</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">pz_initial_corner_eqn</span><span class="o">.</span><span class="n">rhs</span>
-                            <span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">beta</span><span class="p">:</span><span class="n">beta0_</span><span class="p">})</span>
-                            <span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">)</span> <span class="p">)</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">choice</span><span class="o">==</span><span class="s1">&#39;Hamilton&#39;</span><span class="p">:</span>
-            <span class="k">return</span> <span class="p">[</span><span class="n">rx0_</span><span class="p">,</span><span class="n">rz0_</span><span class="p">,</span><span class="n">px0_</span><span class="p">,</span><span class="n">pz0_</span><span class="p">]</span>
+        <span class="n">px0_</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">px_initial_corner_eqn</span><span class="o">.</span><span class="n">rhs</span>
+                     <span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">beta</span><span class="p">:</span> <span class="n">beta0_</span><span class="p">})</span>
+                     <span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">))</span>
+        <span class="n">pz0_</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pz_initial_corner_eqn</span><span class="o">.</span><span class="n">rhs</span>
+                     <span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">beta</span><span class="p">:</span> <span class="n">beta0_</span><span class="p">})</span>
+                     <span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">))</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">choice</span> <span class="o">==</span> <span class="s1">&#39;Hamilton&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[</span><span class="n">rx0_</span><span class="p">,</span> <span class="n">rz0_</span><span class="p">,</span>
+                    <span class="n">px0_</span><span class="p">,</span> <span class="n">pz0_</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="p">[</span><span class="n">rx0_</span><span class="p">,</span><span class="n">rz0_</span><span class="p">,</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">rdot</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">rx</span><span class="p">:</span><span class="n">rx0_</span><span class="p">,</span><span class="n">px</span><span class="p">:</span><span class="n">px0_</span><span class="p">,</span><span class="n">pz</span><span class="p">:</span><span class="n">pz0_</span><span class="p">})]</span>
+            <span class="k">return</span> <span class="p">[</span><span class="n">rx0_</span><span class="p">,</span> <span class="n">rz0_</span><span class="p">,</span>
+                    <span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">rdot</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">rx</span><span class="p">:</span> <span class="n">rx0_</span><span class="p">,</span> <span class="n">px</span><span class="p">:</span> <span class="n">px0_</span><span class="p">,</span> <span class="n">pz</span><span class="p">:</span> <span class="n">pz0_</span><span class="p">})]</span>
 
     <span class="k">def</span> <span class="nf">solve</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">report_pc_step</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-        <span class="n">vprint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">,</span> <span class="s1">&#39;Solving Hamilton</span><span class="se">\&#39;</span><span class="s1">s equations&#39;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">choice</span><span class="o">==</span><span class="s1">&#39;Hamilton&#39;</span>
-                        <span class="k">else</span> <span class="s1">&#39;Solving geodesic equations&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Solving Hamilton</span><span class="se">\&#39;</span><span class="s1">s equations&#39;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">choice</span> <span class="o">==</span> <span class="s1">&#39;Hamilton&#39;</span>
+              <span class="k">else</span> <span class="s1">&#39;Solving geodesic equations&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">prep_arrays</span><span class="p">()</span>
         <span class="c1"># Surface tilt angles spanning velocity b.c. to initial surface b.c.</span>
-        <span class="n">pc_progress</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">report_progress</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">n_rays</span><span class="p">,</span> <span class="n">is_initial_step</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">pc_progress</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">report_progress</span><span class="p">(</span>
+            <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">n_rays</span><span class="p">,</span> <span class="n">is_initial_step</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">beta0_</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">beta_velocity_corner</span><span class="p">,</span>
                                                  <span class="bp">self</span><span class="o">.</span><span class="n">beta_surface_corner</span><span class="p">,</span>
                                                  <span class="bp">self</span><span class="o">.</span><span class="n">n_rays</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">=</span><span class="kc">True</span><span class="p">)):</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="o">==</span><span class="s1">&#39;very&#39;</span><span class="p">:</span>
-                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">idx</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">beta0_</span><span class="p">,</span><span class="mi">4</span><span class="p">)),</span><span class="n">end</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="o">==</span> <span class="s1">&#39;very&#39;</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">beta0_</span><span class="p">,</span> <span class="mi">4</span><span class="p">)),</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">ic</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">initial_conditions</span><span class="p">(</span><span class="n">beta0_</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">model_dXdt_lambda</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_model</span><span class="p">(</span> <span class="n">do_verbose</span><span class="o">=</span><span class="kc">False</span> <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">model_dXdt_lambda</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_model</span><span class="p">(</span><span class="n">do_verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">customize_t_fn</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">t_array</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ref_t_array</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-                <span class="n">t_limit</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">customize_t_fn</span><span class="p">(</span><span class="n">t_array</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">ic</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">ic</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
-                <span class="n">t_array</span> <span class="o">=</span> <span class="n">t_array</span><span class="p">[</span><span class="n">t_array</span><span class="o">&lt;=</span><span class="n">t_limit</span><span class="p">]</span>
+                <span class="n">t_limit</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">customize_t_fn</span><span class="p">(</span>
+                    <span class="n">t_array</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">ic</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">ic</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+                <span class="n">t_array</span> <span class="o">=</span> <span class="n">t_array</span><span class="p">[</span><span class="n">t_array</span> <span class="o">&lt;=</span> <span class="n">t_limit</span><span class="p">]</span>
                 <span class="c1"># print(f&#39;t_end = {t_array[-1]}&#39;)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">t_array</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ref_t_array</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
             <span class="n">rpt_arrays</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">solve_Hamiltons_equations</span><span class="p">(</span><span class="n">t_array</span><span class="o">=</span><span class="n">t_array</span><span class="p">)</span>
             <span class="c1"># print(list(zip(rpt_arrays[&#39;rx&#39;])))</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">rpt_arrays</span><span class="p">,</span> <span class="n">idx</span><span class="p">)</span>
-            <span class="n">pc_progress</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">report_progress</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="n">idx</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">n_rays</span><span class="p">,</span>
-                                        <span class="n">pc_step</span><span class="o">=</span><span class="n">report_pc_step</span><span class="p">,</span> <span class="n">progress_was</span><span class="o">=</span><span class="n">pc_progress</span><span class="p">)</span>
+            <span class="n">pc_progress</span> \
+                <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">report_progress</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="n">idx</span><span class="p">,</span>
+                                       <span class="n">n</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">n_rays</span><span class="p">,</span>
+                                       <span class="n">pc_step</span><span class="o">=</span><span class="n">report_pc_step</span><span class="p">,</span>
+                                       <span class="n">progress_was</span><span class="o">=</span><span class="n">pc_progress</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">report_progress</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="n">idx</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">n_rays</span><span class="p">,</span>
                              <span class="n">pc_step</span><span class="o">=</span><span class="n">report_pc_step</span><span class="p">,</span> <span class="n">progress_was</span><span class="o">=</span><span class="n">pc_progress</span><span class="p">)</span>
 
@@ -340,77 +372,106 @@ equation substitutions</p></li>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Combine rays integrations from (1) initial profile,</span>
 <span class="sd">    (2) initial corner, and (3) velocity boundary</span>
-<span class="sd">    to generate a &#39;complete&#39; ray integration solution from a complex topographic boundary.</span>
+<span class="sd">    to generate a &#39;complete&#39; ray integration solution from a</span>
+<span class="sd">    complex topographic boundary.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gmeq</span><span class="p">,</span> <span class="n">parameters</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initialize class instance.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            gmeq (:class:`~.equations.Equations`):</span>
-<span class="sd">                    GME model equations class instance defined in :mod:`~.equations`</span>
-<span class="sd">            parameters (dict): dictionary of model parameter values</span>
-<span class="sd">                               to be used for equation substitutions</span>
-<span class="sd">            kwargs (dict): remaining keyword arguments (see base class for details)</span>
+<span class="sd">            gmeq:</span>
+<span class="sd">                GME model equations class instance defined in</span>
+<span class="sd">                :mod:`gme.core.equations`</span>
+<span class="sd">            parameters:</span>
+<span class="sd">                dictionary of model parameter values</span>
+<span class="sd">                to be used for equation substitutions</span>
+<span class="sd">            **kwargs:</span>
+<span class="sd">                remaining keyword arguments (see base class for details)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">gmeq</span><span class="p">,</span> <span class="n">parameters</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">create_solutions</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">t_end</span><span class="o">=</span><span class="mf">0.04</span><span class="p">,</span> <span class="n">t_slip_end</span><span class="o">=</span><span class="mf">0.08</span><span class="p">,</span>
-                          <span class="n">do_solns</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">ip</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">ic</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">vb</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
-                          <span class="n">n_rays</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">ip</span><span class="o">=</span><span class="mi">101</span><span class="p">,</span><span class="n">ic</span><span class="o">=</span><span class="mi">31</span><span class="p">,</span><span class="n">vb</span><span class="o">=</span><span class="mi">101</span><span class="p">),</span>
-                          <span class="n">n_t</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">ip</span><span class="o">=</span><span class="mi">1001</span><span class="p">,</span><span class="n">ic</span><span class="o">=</span><span class="mi">1001</span><span class="p">,</span><span class="n">vb</span><span class="o">=</span><span class="mi">1001</span><span class="p">)</span> <span class="p">):</span>
+    <span class="k">def</span> <span class="nf">create_solutions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t_end</span><span class="o">=</span><span class="mf">0.04</span><span class="p">,</span> <span class="n">t_slip_end</span><span class="o">=</span><span class="mf">0.08</span><span class="p">,</span>
+                         <span class="n">do_solns</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">ip</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ic</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">vb</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+                         <span class="n">n_rays</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">ip</span><span class="o">=</span><span class="mi">101</span><span class="p">,</span> <span class="n">ic</span><span class="o">=</span><span class="mi">31</span><span class="p">,</span> <span class="n">vb</span><span class="o">=</span><span class="mi">101</span><span class="p">),</span>
+                         <span class="n">n_t</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">ip</span><span class="o">=</span><span class="mi">1001</span><span class="p">,</span> <span class="n">ic</span><span class="o">=</span><span class="mi">1001</span><span class="p">,</span> <span class="n">vb</span><span class="o">=</span><span class="mi">1001</span><span class="p">)):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">do_solns</span> <span class="o">=</span> <span class="n">do_solns</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">t_end</span> <span class="o">=</span> <span class="n">t_end</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">t_slip_end</span> <span class="o">=</span> <span class="n">t_slip_end</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">ips</span> <span class="o">=</span> <span class="n">InitialProfileSolution</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">gmeq</span><span class="p">,</span> <span class="n">parameters</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">,</span>
-                                           <span class="n">method</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="p">,</span> <span class="n">do_dense</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">do_dense</span><span class="p">,</span>
-                                           <span class="n">t_end</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">t_end</span><span class="p">,</span>
-                                           <span class="n">n_rays</span><span class="o">=</span><span class="n">n_rays</span><span class="p">[</span><span class="s1">&#39;ip&#39;</span><span class="p">],</span> <span class="n">n_t</span><span class="o">=</span><span class="n">n_t</span><span class="p">[</span><span class="s1">&#39;ip&#39;</span><span class="p">]</span> <span class="p">)</span> \
-                                           <span class="k">if</span> <span class="n">do_solns</span><span class="p">[</span><span class="s1">&#39;ip&#39;</span><span class="p">]</span> <span class="k">else</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ips</span> <span class="o">=</span> <span class="n">InitialProfileSolution</span><span class="p">(</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">gmeq</span><span class="p">,</span>
+                        <span class="n">parameters</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">,</span>
+                        <span class="n">method</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="p">,</span>
+                        <span class="n">do_dense</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">do_dense</span><span class="p">,</span>
+                        <span class="n">t_end</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">t_end</span><span class="p">,</span>
+                        <span class="n">n_rays</span><span class="o">=</span><span class="n">n_rays</span><span class="p">[</span><span class="s1">&#39;ip&#39;</span><span class="p">],</span>
+                        <span class="n">n_t</span><span class="o">=</span><span class="n">n_t</span><span class="p">[</span><span class="s1">&#39;ip&#39;</span><span class="p">]</span>
+                    <span class="p">)</span> <span class="k">if</span> <span class="n">do_solns</span><span class="p">[</span><span class="s1">&#39;ip&#39;</span><span class="p">]</span> \
+            <span class="k">else</span> <span class="kc">None</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">ics</span> <span class="o">=</span> <span class="n">InitialCornerSolution</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">gmeq</span><span class="p">,</span> <span class="n">parameters</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">,</span>
-                                          <span class="n">method</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="p">,</span> <span class="n">do_dense</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">do_dense</span><span class="p">,</span>
-                                          <span class="n">t_end</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">t_end</span><span class="p">,</span>
-                                          <span class="n">n_rays</span><span class="o">=</span><span class="n">n_rays</span><span class="p">[</span><span class="s1">&#39;ic&#39;</span><span class="p">],</span> <span class="n">n_t</span><span class="o">=</span><span class="n">n_t</span><span class="p">[</span><span class="s1">&#39;ic&#39;</span><span class="p">]</span> <span class="p">)</span> \
-                                          <span class="k">if</span> <span class="n">do_solns</span><span class="p">[</span><span class="s1">&#39;ic&#39;</span><span class="p">]</span> <span class="k">else</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ics</span> <span class="o">=</span> <span class="n">InitialCornerSolution</span><span class="p">(</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">gmeq</span><span class="p">,</span>
+                        <span class="n">parameters</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">,</span>
+                        <span class="n">method</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="p">,</span>
+                        <span class="n">do_dense</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">do_dense</span><span class="p">,</span>
+                        <span class="n">t_end</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">t_end</span><span class="p">,</span>
+                        <span class="n">n_rays</span><span class="o">=</span><span class="n">n_rays</span><span class="p">[</span><span class="s1">&#39;ic&#39;</span><span class="p">],</span>
+                        <span class="n">n_t</span><span class="o">=</span><span class="n">n_t</span><span class="p">[</span><span class="s1">&#39;ic&#39;</span><span class="p">]</span>
+                    <span class="p">)</span> <span class="k">if</span> <span class="n">do_solns</span><span class="p">[</span><span class="s1">&#39;ic&#39;</span><span class="p">]</span> \
+            <span class="k">else</span> <span class="kc">None</span>
 
-        <span class="c1">#t_slip_end = t_scale*1.5 if t_slip_end is None else t_slip_end</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">vbs</span> <span class="o">=</span> <span class="n">VelocityBoundarySolution</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">gmeq</span><span class="p">,</span> <span class="n">parameters</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">,</span>
-                                             <span class="n">method</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="p">,</span> <span class="n">do_dense</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">do_dense</span><span class="p">,</span>
-                                             <span class="n">t_end</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">t_end</span><span class="p">,</span>
-                                             <span class="n">t_slip_end</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">t_slip_end</span><span class="p">,</span>
-                                             <span class="n">n_rays</span><span class="o">=</span><span class="n">n_rays</span><span class="p">[</span><span class="s1">&#39;vb&#39;</span><span class="p">],</span> <span class="n">n_t</span><span class="o">=</span><span class="n">n_t</span><span class="p">[</span><span class="s1">&#39;vb&#39;</span><span class="p">]</span> <span class="p">)</span> \
-                                             <span class="k">if</span> <span class="n">do_solns</span><span class="p">[</span><span class="s1">&#39;vb&#39;</span><span class="p">]</span> <span class="k">else</span> <span class="kc">None</span>
+        <span class="c1"># t_slip_end = t_scale*1.5 if t_slip_end is None else t_slip_end</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vbs</span> <span class="o">=</span> <span class="n">VelocityBoundarySolution</span><span class="p">(</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">gmeq</span><span class="p">,</span>
+                        <span class="n">parameters</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">,</span>
+                        <span class="n">method</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="p">,</span>
+                        <span class="n">do_dense</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">do_dense</span><span class="p">,</span>
+                        <span class="n">t_end</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">t_end</span><span class="p">,</span>
+                        <span class="n">t_slip_end</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">t_slip_end</span><span class="p">,</span>
+                        <span class="n">n_rays</span><span class="o">=</span><span class="n">n_rays</span><span class="p">[</span><span class="s1">&#39;vb&#39;</span><span class="p">],</span>
+                        <span class="n">n_t</span><span class="o">=</span><span class="n">n_t</span><span class="p">[</span><span class="s1">&#39;vb&#39;</span><span class="p">]</span>
+                    <span class="p">)</span> <span class="k">if</span> <span class="n">do_solns</span><span class="p">[</span><span class="s1">&#39;vb&#39;</span><span class="p">]</span> \
+            <span class="k">else</span> <span class="kc">None</span>
 
     <span class="k">def</span> <span class="nf">solve</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ips</span><span class="o">.</span><span class="n">solve</span><span class="p">()</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">do_solns</span><span class="p">[</span><span class="s1">&#39;ip&#39;</span><span class="p">]</span> <span class="k">else</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ics</span><span class="o">.</span><span class="n">solve</span><span class="p">()</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">do_solns</span><span class="p">[</span><span class="s1">&#39;ic&#39;</span><span class="p">]</span> <span class="k">else</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">vbs</span><span class="o">.</span><span class="n">solve</span><span class="p">()</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">do_solns</span><span class="p">[</span><span class="s1">&#39;vb&#39;</span><span class="p">]</span> <span class="k">else</span> <span class="kc">False</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">t_ensemble_max</span> <span class="o">=</span>      <span class="bp">self</span><span class="o">.</span><span class="n">vbs</span><span class="o">.</span><span class="n">t_ensemble_max</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">do_solns</span><span class="p">[</span><span class="s1">&#39;vb&#39;</span><span class="p">]</span> \
-                              <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">ics</span><span class="o">.</span><span class="n">t_ensemble_max</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">do_solns</span><span class="p">[</span><span class="s1">&#39;ic&#39;</span><span class="p">]</span> \
-                              <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">ips</span><span class="o">.</span><span class="n">t_ensemble_max</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">do_solns</span><span class="p">[</span><span class="s1">&#39;ip&#39;</span><span class="p">]</span> \
-                              <span class="k">else</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">model_dXdt_lambda</span> <span class="o">=</span>   <span class="bp">self</span><span class="o">.</span><span class="n">vbs</span><span class="o">.</span><span class="n">model_dXdt_lambda</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">do_solns</span><span class="p">[</span><span class="s1">&#39;vb&#39;</span><span class="p">]</span> \
-                              <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">ics</span><span class="o">.</span><span class="n">model_dXdt_lambda</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">do_solns</span><span class="p">[</span><span class="s1">&#39;ic&#39;</span><span class="p">]</span> \
-                              <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">ips</span><span class="o">.</span><span class="n">model_dXdt_lambda</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">do_solns</span><span class="p">[</span><span class="s1">&#39;ip&#39;</span><span class="p">]</span> \
-                              <span class="k">else</span> <span class="kc">None</span>
-
+        <span class="bp">self</span><span class="o">.</span><span class="n">t_ensemble_max</span> \
+            <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">vbs</span><span class="o">.</span><span class="n">t_ensemble_max</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">do_solns</span><span class="p">[</span><span class="s1">&#39;vb&#39;</span><span class="p">]</span> \
+            <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">ics</span><span class="o">.</span><span class="n">t_ensemble_max</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">do_solns</span><span class="p">[</span><span class="s1">&#39;ic&#39;</span><span class="p">]</span> \
+            <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">ips</span><span class="o">.</span><span class="n">t_ensemble_max</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">do_solns</span><span class="p">[</span><span class="s1">&#39;ip&#39;</span><span class="p">]</span> \
+            <span class="k">else</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model_dXdt_lambda</span> \
+            <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">vbs</span><span class="o">.</span><span class="n">model_dXdt_lambda</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">do_solns</span><span class="p">[</span><span class="s1">&#39;vb&#39;</span><span class="p">]</span> \
+            <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">ics</span><span class="o">.</span><span class="n">model_dXdt_lambda</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">do_solns</span><span class="p">[</span><span class="s1">&#39;ic&#39;</span><span class="p">]</span> \
+            <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">ips</span><span class="o">.</span><span class="n">model_dXdt_lambda</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">do_solns</span><span class="p">[</span><span class="s1">&#39;ip&#39;</span><span class="p">]</span> \
+            <span class="k">else</span> <span class="kc">None</span>
 
     <span class="k">def</span> <span class="nf">merge_rays</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="c1"># Combine all three solutions such that rays are all in rz order</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">rpt_arrays</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">rpt_</span> <span class="ow">in</span> <span class="n">rpt_tuple</span><span class="p">:</span>
-            <span class="n">vbs_arrays</span> <span class="o">=</span> <span class="p">[]</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">vbs</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">vbs</span><span class="o">.</span><span class="n">rpt_arrays</span><span class="p">[</span><span class="n">rpt_</span><span class="p">][:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-            <span class="n">ics_arrays</span> <span class="o">=</span> <span class="p">[]</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ics</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">ics</span><span class="o">.</span><span class="n">rpt_arrays</span><span class="p">[</span><span class="n">rpt_</span><span class="p">]</span>
-            <span class="n">ips_arrays</span> <span class="o">=</span> <span class="p">[]</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ips</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">ips</span><span class="o">.</span><span class="n">rpt_arrays</span><span class="p">[</span><span class="n">rpt_</span><span class="p">]</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">rpt_arrays</span><span class="o">.</span><span class="n">update</span><span class="p">({</span> <span class="n">rpt_</span><span class="p">:</span> <span class="n">vbs_arrays</span> <span class="o">+</span> <span class="n">ics_arrays</span> <span class="o">+</span> <span class="n">ips_arrays</span> <span class="p">})</span>
+            <span class="n">vbs_arrays</span> \
+                <span class="o">=</span> <span class="p">[]</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">vbs</span> <span class="ow">is</span> <span class="kc">None</span>  \
+                <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">vbs</span><span class="o">.</span><span class="n">rpt_arrays</span><span class="p">[</span><span class="n">rpt_</span><span class="p">][:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">ics_arrays</span> \
+                <span class="o">=</span> <span class="p">[]</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ics</span> <span class="ow">is</span> <span class="kc">None</span> \
+                <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">ics</span><span class="o">.</span><span class="n">rpt_arrays</span><span class="p">[</span><span class="n">rpt_</span><span class="p">]</span>
+            <span class="n">ips_arrays</span> \
+                <span class="o">=</span> <span class="p">[]</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ips</span> <span class="ow">is</span> <span class="kc">None</span> \
+                <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">ips</span><span class="o">.</span><span class="n">rpt_arrays</span><span class="p">[</span><span class="n">rpt_</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rpt_arrays</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+                <span class="p">{</span><span class="n">rpt_</span><span class="p">:</span> <span class="n">vbs_arrays</span> <span class="o">+</span> <span class="n">ics_arrays</span> <span class="o">+</span> <span class="n">ips_arrays</span><span class="p">})</span>
         <span class="c1"># Eliminate empty rays</span>
         <span class="n">rx_arrays</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rpt_arrays</span><span class="p">[</span><span class="s1">&#39;rx&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">rpt_</span> <span class="ow">in</span> <span class="n">rpt_tuple</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">rpt_arrays</span><span class="p">[</span><span class="n">rpt_</span><span class="p">]</span> \
                 <span class="o">=</span> <span class="p">[</span><span class="n">rpt_array</span> <span class="k">for</span> <span class="n">rx_array</span><span class="p">,</span> <span class="n">rpt_array</span>
-                    <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">rx_arrays</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">rpt_arrays</span><span class="p">[</span><span class="n">rpt_</span><span class="p">])</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">rx_array</span><span class="p">)</span><span class="o">&gt;=</span><span class="mi">0</span> <span class="p">]</span>
+                    <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">rx_arrays</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">rpt_arrays</span><span class="p">[</span><span class="n">rpt_</span><span class="p">])</span>
+                   <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">rx_array</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">n_rays</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rpt_arrays</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">])</span>
 </pre></div>
 </div>

@@ -59,8 +59,8 @@ for a 2D slice of a 3D landscape along a channel transect.</p>
 <p>Starting from a model equation for the surface-normal erosion rate in terms of
 the tilt angle of the topographic surface and the distance downstream
 (used to infer the flow component of the model erosion process), we derive
-the fundamental function (of a co-Finsler metric space), the corresponding Hamiltonian,
-and the equivalent metric tensor.
+the fundamental function (of a co-Finsler metric space), the corresponding
+Hamiltonian,and the equivalent metric tensor.
 The rest of the equations are derived from these core results.</p>
 <hr class="docutils" />
 <dl class="simple">
@@ -116,8 +116,8 @@ The rest of the equations are derived from these core results.</p>
 <span class="sd">Starting from a model equation for the surface-normal erosion rate in terms of</span>
 <span class="sd">the tilt angle of the topographic surface and the distance downstream</span>
 <span class="sd">(used to infer the flow component of the model erosion process), we derive</span>
-<span class="sd">the fundamental function (of a co-Finsler metric space), the corresponding Hamiltonian,</span>
-<span class="sd">and the equivalent metric tensor.</span>
+<span class="sd">the fundamental function (of a co-Finsler metric space), the corresponding</span>
+<span class="sd">Hamiltonian,and the equivalent metric tensor.</span>
 <span class="sd">The rest of the equations are derived from these core results.</span>
 
 <span class="sd">---------------------------------------------------------------------</span>
@@ -140,10 +140,11 @@ The rest of the equations are derived from these core results.</p>
 <span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="kn">import</span> <span class="n">root_scalar</span>
 
 <span class="c1"># SymPy</span>
-<span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">Eq</span><span class="p">,</span> <span class="n">solve</span><span class="p">,</span> <span class="n">simplify</span><span class="p">,</span> <span class="n">sqrt</span><span class="p">,</span> <span class="n">re</span><span class="p">,</span> <span class="n">im</span><span class="p">,</span> <span class="n">lambdify</span><span class="p">,</span> <span class="n">diff</span><span class="p">,</span> <span class="n">poly</span><span class="p">,</span> <span class="n">nroots</span><span class="p">,</span> <span class="n">Abs</span>
+<span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">Eq</span><span class="p">,</span> <span class="n">solve</span><span class="p">,</span> <span class="n">simplify</span><span class="p">,</span> <span class="n">sqrt</span><span class="p">,</span> <span class="n">re</span><span class="p">,</span> <span class="n">im</span><span class="p">,</span> <span class="n">lambdify</span><span class="p">,</span> <span class="n">diff</span><span class="p">,</span> \
+                  <span class="n">poly</span><span class="p">,</span> <span class="n">nroots</span><span class="p">,</span> <span class="n">Abs</span>
 
 <span class="c1"># GME</span>
-<span class="kn">from</span> <span class="nn">gme.core.symbols</span> <span class="kn">import</span> <span class="n">x</span><span class="p">,</span><span class="n">rx</span><span class="p">,</span><span class="n">px</span><span class="p">,</span><span class="n">pz</span><span class="p">,</span><span class="n">xiv</span><span class="p">,</span><span class="n">xiv_0</span>
+<span class="kn">from</span> <span class="nn">gme.core.symbols</span> <span class="kn">import</span> <span class="n">x</span><span class="p">,</span> <span class="n">rx</span><span class="p">,</span> <span class="n">px</span><span class="p">,</span> <span class="n">pz</span><span class="p">,</span> <span class="n">xiv</span><span class="p">,</span> <span class="n">xiv_0</span>
 
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
 
@@ -151,59 +152,68 @@ The rest of the equations are derived from these core results.</p>
 
 
 <span class="k">def</span> <span class="nf">pxpz0_from_xiv0</span><span class="p">(</span><span class="n">parameters</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
-                    <span class="c1">#xiv_0_, xih_0_,</span>
-                    <span class="n">pz0_xiv0_eqn</span><span class="p">,</span> <span class="n">poly_px_xiv0_eqn</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span><span class="nb">float</span><span class="p">]:</span>
+                    <span class="c1"># xiv_0_, xih_0_,</span>
+                    <span class="n">pz0_xiv0_eqn</span><span class="p">,</span> <span class="n">poly_px_xiv0_eqn</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    TBD</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># pz0_xiv0_eqn = pz_xiv_eqn.subs({xiv:xiv_0}).subs(parameters)</span>
-    <span class="n">px0_poly_rx0_eqn</span> <span class="o">=</span> <span class="n">simplify</span><span class="p">(</span><span class="n">poly_px_xiv0_eqn</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">rx</span><span class="p">:</span><span class="mi">0</span><span class="p">}))</span> <span class="c1">#.subs(parameters))</span>
+    <span class="n">px0_poly_rx0_eqn</span> <span class="o">=</span> <span class="n">simplify</span><span class="p">(</span><span class="n">poly_px_xiv0_eqn</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">rx</span><span class="p">:</span> <span class="mi">0</span><span class="p">}))</span>
+    <span class="c1"># .subs(parameters))</span>
     <span class="c1"># eta_ = eta.subs(parameters)</span>
     <span class="c1"># if True: #eta==Rational(1,2) or eta==Rational(3,2):</span>
-    <span class="n">px0sqrd_solns</span> <span class="o">=</span> <span class="n">solve</span><span class="p">(</span><span class="n">px0_poly_rx0_eqn</span><span class="p">,</span><span class="n">px</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">px0sqrd_solns</span> <span class="o">=</span> <span class="n">solve</span><span class="p">(</span><span class="n">px0_poly_rx0_eqn</span><span class="p">,</span> <span class="n">px</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
     <span class="n">px0_</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">([</span><span class="n">px0sqrd_</span> <span class="k">for</span> <span class="n">px0sqrd_</span> <span class="ow">in</span> <span class="n">px0sqrd_solns</span>
-                        <span class="k">if</span> <span class="n">re</span><span class="p">(</span><span class="n">px0sqrd_</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">0</span> <span class="ow">and</span> <span class="n">im</span><span class="p">(</span><span class="n">px0sqrd_</span><span class="p">)</span><span class="o">==</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+                        <span class="k">if</span> <span class="n">re</span><span class="p">(</span><span class="n">px0sqrd_</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">im</span><span class="p">(</span><span class="n">px0sqrd_</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
     <span class="c1"># else:</span>
     <span class="c1">#     px0_poly_lambda = lambdify( [px], px0_poly_rx0_eqn.lhs.as_expr() )</span>
-    <span class="c1">#     dpx0_poly_lambda = lambdify( [px], diff(px0_poly_rx0_eqn.lhs.as_expr(),px) )</span>
+    <span class="c1">#     dpx0_poly_lambda \</span>
+    <span class="c1">#  = lambdify( [px], diff(px0_poly_rx0_eqn.lhs.as_expr(),px) )</span>
     <span class="c1">#     px0_root_search = None</span>
     <span class="c1">#     for px_guess_ in [px_guess]:</span>
-    <span class="c1">#         px0_root_search = root_scalar( px0_poly_lambda, fprime=dpx0_poly_lambda,</span>
+    <span class="c1">#         px0_root_search = root_scalar( px0_poly_lambda,</span>
+    <span class="c1"># fprime=dpx0_poly_lambda,</span>
     <span class="c1">#                 method=&#39;newton&#39;, x0=px_guess_ )</span>
     <span class="c1">#         if px0_root_search.converged:</span>
     <span class="c1">#             break</span>
     <span class="c1">#     px0_ = px0_root_search.root</span>
 
-    <span class="n">pz0_</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">pz0_xiv0_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">xiv</span><span class="p">:</span><span class="n">xiv_0</span><span class="p">})</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">parameters</span><span class="p">)</span>
-    <span class="k">return</span> <span class="p">(</span><span class="n">px0_</span><span class="p">,</span><span class="n">pz0_</span><span class="p">)</span>
+    <span class="n">pz0_</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">pz0_xiv0_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">xiv</span><span class="p">:</span> <span class="n">xiv_0</span><span class="p">})</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">parameters</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">px0_</span><span class="p">,</span> <span class="n">pz0_</span><span class="p">)</span>
+
 
 <span class="k">def</span> <span class="nf">gradient_value</span><span class="p">(</span><span class="n">x_</span><span class="p">,</span> <span class="n">pz_</span><span class="p">,</span> <span class="n">px_poly_eqn</span><span class="p">,</span> <span class="n">do_use_newton</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    TBD</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">px_</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="o">-</span><span class="n">px_value_search</span><span class="p">(</span><span class="n">x_</span><span class="p">,</span><span class="n">pz_</span><span class="p">,</span> <span class="n">px_poly_eqn</span><span class="p">)</span> <span class="k">if</span> <span class="n">do_use_newton</span> \
-            <span class="k">else</span> <span class="o">-</span><span class="n">px_value</span><span class="p">(</span><span class="n">x_</span><span class="p">,</span><span class="n">pz_</span><span class="p">,</span> <span class="n">px_poly_eqn</span><span class="p">)</span>
+    <span class="n">px_</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="o">-</span><span class="n">px_value_search</span><span class="p">(</span><span class="n">x_</span><span class="p">,</span> <span class="n">pz_</span><span class="p">,</span> <span class="n">px_poly_eqn</span><span class="p">)</span> <span class="k">if</span> <span class="n">do_use_newton</span> \
+        <span class="k">else</span> <span class="o">-</span><span class="n">px_value</span><span class="p">(</span><span class="n">x_</span><span class="p">,</span> <span class="n">pz_</span><span class="p">,</span> <span class="n">px_poly_eqn</span><span class="p">)</span>
     <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">px_</span><span class="o">/</span><span class="n">pz_</span><span class="p">)</span>
 
+
 <span class="k">def</span> <span class="nf">px_value_search</span><span class="p">(</span><span class="n">x_</span><span class="p">,</span> <span class="n">pz_</span><span class="p">,</span> <span class="n">px_poly_eqn</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;newton&#39;</span><span class="p">,</span>
-                    <span class="n">px_guess</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">px_var_</span><span class="o">=</span><span class="n">px</span><span class="p">,</span> <span class="n">pz_var_</span><span class="o">=</span><span class="n">pz</span><span class="p">,</span> <span class="n">bracket</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">30</span><span class="p">))</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+                    <span class="n">px_guess</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">px_var_</span><span class="o">=</span><span class="n">px</span><span class="p">,</span> <span class="n">pz_var_</span><span class="o">=</span><span class="n">pz</span><span class="p">,</span>
+                    <span class="n">bracket</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">30</span><span class="p">))</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    TBD</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">px_poly_eqn_</span> <span class="o">=</span> <span class="n">px_poly_eqn</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">rx</span><span class="p">:</span><span class="n">x_</span><span class="p">,</span><span class="n">x</span><span class="p">:</span><span class="n">x_</span><span class="p">,</span><span class="n">pz_var_</span><span class="p">:</span><span class="n">pz_</span><span class="p">})</span>
-    <span class="n">px_poly_lambda</span> <span class="o">=</span> <span class="n">lambdify</span><span class="p">(</span> <span class="p">[</span><span class="n">px_var_</span><span class="p">],</span> <span class="n">px_poly_eqn_</span><span class="o">.</span><span class="n">as_expr</span><span class="p">()</span> <span class="p">)</span>
-    <span class="n">dpx_poly_lambda</span> <span class="o">=</span> <span class="n">lambdify</span><span class="p">(</span> <span class="p">[</span><span class="n">px_var_</span><span class="p">],</span> <span class="n">diff</span><span class="p">(</span><span class="n">px_poly_eqn_</span><span class="o">.</span><span class="n">as_expr</span><span class="p">(),</span><span class="n">px_var_</span><span class="p">)</span> <span class="p">)</span> \
-                                    <span class="k">if</span> <span class="n">method</span><span class="o">==</span><span class="s1">&#39;newton&#39;</span> <span class="k">else</span> <span class="kc">None</span>
-    <span class="n">bracket_</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="n">bracket</span> <span class="k">if</span> <span class="n">method</span><span class="o">==</span><span class="s1">&#39;brentq&#39;</span> <span class="k">else</span> <span class="kc">None</span>
+    <span class="n">px_poly_eqn_</span> <span class="o">=</span> <span class="n">px_poly_eqn</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">rx</span><span class="p">:</span> <span class="n">x_</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">x_</span><span class="p">,</span> <span class="n">pz_var_</span><span class="p">:</span> <span class="n">pz_</span><span class="p">})</span>
+    <span class="n">px_poly_lambda</span> <span class="o">=</span> <span class="n">lambdify</span><span class="p">([</span><span class="n">px_var_</span><span class="p">],</span> <span class="n">px_poly_eqn_</span><span class="o">.</span><span class="n">as_expr</span><span class="p">())</span>
+    <span class="n">dpx_poly_lambda</span> <span class="o">=</span> <span class="n">lambdify</span><span class="p">([</span><span class="n">px_var_</span><span class="p">],</span>
+                               <span class="n">diff</span><span class="p">(</span><span class="n">px_poly_eqn_</span><span class="o">.</span><span class="n">as_expr</span><span class="p">(),</span> <span class="n">px_var_</span><span class="p">))</span> \
+        <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;newton&#39;</span> <span class="k">else</span> <span class="kc">None</span>
+    <span class="n">bracket_</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="n">bracket</span> <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;brentq&#39;</span> <span class="k">else</span> <span class="kc">None</span>
     <span class="k">for</span> <span class="n">px_guess_</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">px_guess</span><span class="p">]:</span>
-        <span class="n">px_root_search</span> <span class="o">=</span> <span class="n">root_scalar</span><span class="p">(</span> <span class="n">px_poly_lambda</span><span class="p">,</span> <span class="n">fprime</span><span class="o">=</span><span class="n">dpx_poly_lambda</span><span class="p">,</span>
-                                      <span class="n">bracket</span><span class="o">=</span><span class="n">bracket_</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">,</span> <span class="n">x0</span><span class="o">=</span><span class="n">px_guess_</span> <span class="p">)</span>
+        <span class="n">px_root_search</span> \
+            <span class="o">=</span> <span class="n">root_scalar</span><span class="p">(</span><span class="n">px_poly_lambda</span><span class="p">,</span> <span class="n">fprime</span><span class="o">=</span><span class="n">dpx_poly_lambda</span><span class="p">,</span>
+                          <span class="n">bracket</span><span class="o">=</span><span class="n">bracket_</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">,</span> <span class="n">x0</span><span class="o">=</span><span class="n">px_guess_</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">px_root_search</span><span class="o">.</span><span class="n">converged</span><span class="p">:</span>
             <span class="k">break</span>
     <span class="c1"># px_root_search = root_scalar( px_poly_lambda, fprime=dpx_poly_lambda,</span>
     <span class="c1">#     method=&#39;newton&#39;, x0=px_guess )</span>
     <span class="n">px_</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">px_root_search</span><span class="o">.</span><span class="n">root</span>
     <span class="k">return</span> <span class="n">px_</span>
+
 
 <span class="k">def</span> <span class="nf">px_value</span><span class="p">(</span><span class="n">x_</span><span class="p">,</span> <span class="n">pz_</span><span class="p">,</span> <span class="n">px_poly_eqn</span><span class="p">,</span> <span class="n">px_var_</span><span class="o">=</span><span class="n">px</span><span class="p">,</span> <span class="n">pz_var_</span><span class="o">=</span><span class="n">pz</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -212,11 +222,11 @@ The rest of the equations are derived from these core results.</p>
 <span class="sd">    Args:</span>
 <span class="sd">        TODO</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">px_poly_eqn_</span> <span class="o">=</span> <span class="n">poly</span><span class="p">(</span><span class="n">px_poly_eqn</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">rx</span><span class="p">:</span><span class="n">x_</span><span class="p">,</span><span class="n">x</span><span class="p">:</span><span class="n">x_</span><span class="p">,</span><span class="n">pz_var_</span><span class="p">:</span><span class="n">pz_</span><span class="p">}))</span>
+    <span class="n">px_poly_eqn_</span> <span class="o">=</span> <span class="n">poly</span><span class="p">(</span><span class="n">px_poly_eqn</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">rx</span><span class="p">:</span> <span class="n">x_</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">x_</span><span class="p">,</span> <span class="n">pz_var_</span><span class="p">:</span> <span class="n">pz_</span><span class="p">}))</span>
     <span class="n">px_poly_roots</span> <span class="o">=</span> <span class="n">nroots</span><span class="p">(</span><span class="n">px_poly_eqn_</span><span class="p">)</span>
     <span class="n">pxgen</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">root_</span> <span class="k">for</span> <span class="n">root_</span> <span class="ow">in</span> <span class="n">px_poly_roots</span>
-                            <span class="k">if</span> <span class="n">Abs</span><span class="p">(</span><span class="n">im</span><span class="p">(</span><span class="n">root_</span><span class="p">))</span><span class="o">&lt;</span><span class="mf">1e-10</span> <span class="ow">and</span> <span class="n">re</span><span class="p">(</span><span class="n">root_</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
-    <span class="k">return</span> <span class="n">solve</span><span class="p">(</span><span class="n">Eq</span><span class="p">(</span><span class="n">px_poly_eqn_</span><span class="o">.</span><span class="n">gens</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">pxgen</span><span class="p">),</span><span class="n">px_var_</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+                          <span class="k">if</span> <span class="n">Abs</span><span class="p">(</span><span class="n">im</span><span class="p">(</span><span class="n">root_</span><span class="p">))</span> <span class="o">&lt;</span> <span class="mf">1e-10</span> <span class="ow">and</span> <span class="n">re</span><span class="p">(</span><span class="n">root_</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">solve</span><span class="p">(</span><span class="n">Eq</span><span class="p">(</span><span class="n">px_poly_eqn_</span><span class="o">.</span><span class="n">gens</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">pxgen</span><span class="p">),</span> <span class="n">px_var_</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>

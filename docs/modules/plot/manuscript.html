@@ -104,12 +104,15 @@ their behavior defined by <span class="math notranslate nohighlight">\(F\)</span
 
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.plot.manuscript.Manuscript.point_pairing">
-<span class="sig-name descname"><span class="pre">point_pairing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fig_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(10,</span> <span class="pre">4)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dpi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.plot.manuscript.Manuscript.point_pairing" title="Permalink to this definition">¶</a></dt>
-<dd><p>Schematic illustrating …</p>
+<span class="sig-name descname"><span class="pre">point_pairing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">fig_size</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">(10,</span> <span class="pre">4)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dpi</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.plot.manuscript.Manuscript.point_pairing" title="Permalink to this definition">¶</a></dt>
+<dd><p>Schematic illustrating how points pair between successive erosion surfaces.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>fig</strong> (<a class="reference external" href="https://matplotlib.org/stable/api/figure_api.html#matplotlib.figure.Figure" title="(in Matplotlib v3.5.1)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Matplotlib</span> <span class="pre">figure</span></code></a>) – reference to figure instantiated by
-<code class="xref py py-meth docutils literal notranslate"><span class="pre">GMPLib</span> <span class="pre">create_figure</span></code></p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – name of figure (key in figure dictionary)</p></li>
+<li><p><strong>fig_size</strong> – optional figure width and height in inches</p></li>
+<li><p><strong>dpi</strong> – optional rasterization resolution</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -138,7 +141,7 @@ their behavior defined by <span class="math notranslate nohighlight">\(F\)</span
 <span class="kn">import</span> <span class="nn">warnings</span>
 
 <span class="c1"># Typing</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">List</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
 
 <span class="c1"># Numpy</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -147,8 +150,8 @@ their behavior defined by <span class="math notranslate nohighlight">\(F\)</span
 <span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">N</span><span class="p">,</span> <span class="n">lambdify</span><span class="p">,</span> <span class="n">re</span>
 
 <span class="c1"># MatPlotLib</span>
-<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">import</span> <span class="n">Figure</span><span class="p">,</span> <span class="n">Axes</span>
 <span class="kn">import</span> <span class="nn">matplotlib.patches</span> <span class="k">as</span> <span class="nn">mpatches</span>
 <span class="kn">from</span> <span class="nn">matplotlib.patches</span> <span class="kn">import</span> <span class="n">ArrowStyle</span><span class="p">,</span> <span class="n">ConnectionPatch</span><span class="p">,</span> <span class="n">Arc</span>
 <span class="kn">from</span> <span class="nn">matplotlib.spines</span> <span class="kn">import</span> <span class="n">Spine</span>
@@ -169,29 +172,37 @@ their behavior defined by <span class="math notranslate nohighlight">\(F\)</span
 
 <span class="sd">    Subclasses :class:`gme.plot.base.Graphing`.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="nf">point_pairing</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">fig_size</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">point_pairing</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">fig_size</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span><span class="nb">float</span><span class="p">]]</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span>
+        <span class="n">dpi</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span><span class="o">=</span><span class="kc">None</span>
+        <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Schematic illustrating ...</span>
+<span class="sd">        Schematic illustrating how points pair between successive erosion surfaces.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            fig (:obj:`Matplotlib figure &lt;matplotlib.figure.Figure&gt;`):</span>
-<span class="sd">                reference to figure instantiated by</span>
-<span class="sd">                :meth:`GMPLib create_figure &lt;plot.GraphingBase.create_figure&gt;`</span>
+<span class="sd">            name:</span>
+<span class="sd">                name of figure (key in figure dictionary)</span>
+<span class="sd">            fig_size:</span>
+<span class="sd">                optional figure width and height in inches</span>
+<span class="sd">            dpi:</span>
+<span class="sd">                optional rasterization resolution</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Build fig</span>
-        <span class="n">fig</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_figure</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">fig_size</span><span class="o">=</span><span class="n">fig_size</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="n">dpi</span><span class="p">)</span>
-        <span class="n">brown_</span>  <span class="o">=</span> <span class="s1">&#39;#994400&#39;</span>
-        <span class="n">blue_</span>   <span class="o">=</span> <span class="s1">&#39;#0000dd&#39;</span>
-        <span class="n">red_</span>    <span class="o">=</span> <span class="s1">&#39;#dd0000&#39;</span>
-        <span class="n">purple_</span> <span class="o">=</span> <span class="s1">&#39;#cc00cc&#39;</span>
-        <span class="n">gray_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">gray_color</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
-        <span class="n">n_gray</span> <span class="o">=</span> <span class="mi">6</span>
-        <span class="n">gray1_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">gray_color</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">n_gray</span><span class="p">)</span>
-        <span class="n">gray2_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">gray_color</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="n">n_gray</span><span class="p">)</span>
+        <span class="n">fig</span><span class="p">:</span> <span class="n">Figure</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_figure</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">fig_size</span><span class="o">=</span><span class="n">fig_size</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="n">dpi</span><span class="p">)</span>
+        <span class="n">brown_</span><span class="p">:</span> <span class="nb">str</span>  <span class="o">=</span> <span class="s1">&#39;#994400&#39;</span>
+        <span class="n">blue_</span><span class="p">:</span> <span class="nb">str</span>   <span class="o">=</span> <span class="s1">&#39;#0000dd&#39;</span>
+        <span class="n">red_</span><span class="p">:</span> <span class="nb">str</span>    <span class="o">=</span> <span class="s1">&#39;#dd0000&#39;</span>
+        <span class="n">purple_</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;#cc00cc&#39;</span>
+        <span class="n">gray_</span><span class="p">:</span> <span class="nb">str</span>   <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">gray_color</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
+        <span class="n">n_gray</span><span class="p">:</span> <span class="nb">int</span>  <span class="o">=</span> <span class="mi">6</span>
+        <span class="n">gray1_</span><span class="p">:</span> <span class="nb">str</span>  <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">gray_color</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">n_gray</span><span class="p">)</span>
+        <span class="n">gray2_</span><span class="p">:</span> <span class="nb">str</span>  <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">gray_color</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="n">n_gray</span><span class="p">)</span>
 
         <span class="k">def</span> <span class="nf">remove_ticks_etc</span><span class="p">(</span><span class="n">axes_</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
             <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">            TBD</span>
+<span class="sd">            Clean off ticks etc from graph axes so they become simple boxes.</span>
 <span class="sd">            &quot;&quot;&quot;</span>
             <span class="n">axes_</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">([])</span>
             <span class="n">axes_</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([])</span>
@@ -200,18 +211,46 @@ their behavior defined by <span class="math notranslate nohighlight">\(F\)</span
             <span class="n">axes_</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
             <span class="n">axes_</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
 
-        <span class="k">def</span> <span class="nf">linking_lines</span><span class="p">(</span><span class="n">fig_</span><span class="p">,</span> <span class="n">axes_A</span><span class="p">,</span> <span class="n">axes_B</span><span class="p">,</span> <span class="n">axes_C</span><span class="p">,</span> <span class="n">axes_D</span><span class="p">,</span> <span class="n">color_</span><span class="o">=</span><span class="n">brown_</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">def</span> <span class="nf">linking_lines</span><span class="p">(</span>
+            <span class="n">fig_</span><span class="p">:</span> <span class="n">Figure</span><span class="p">,</span>
+            <span class="n">axes_A</span><span class="p">:</span> <span class="n">Axes</span><span class="p">,</span>
+            <span class="n">axes_B</span><span class="p">:</span> <span class="n">Axes</span><span class="p">,</span>
+            <span class="n">axes_C</span><span class="p">:</span> <span class="n">Axes</span><span class="p">,</span>
+            <span class="n">axes_D</span><span class="p">:</span> <span class="n">Axes</span><span class="p">,</span>
+            <span class="n">color_</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="n">brown_</span>
+            <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
             <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">            TBD</span>
+<span class="sd">            Draw lines linking features in the main plot to zoom insets.</span>
+
+<span class="sd">            Args:</span>
+<span class="sd">                fig_:</span>
+<span class="sd">                    Figure to act on</span>
+<span class="sd">                axes_A:</span>
+<span class="sd">                    Axes of zoom box A</span>
+<span class="sd">                axes_B:</span>
+<span class="sd">                    Axes of zoom box B</span>
+<span class="sd">                axes_C:</span>
+<span class="sd">                    Axes of zoom box C</span>
+<span class="sd">                axes_D:</span>
+<span class="sd">                    Axes of zoom box D</span>
 <span class="sd">            &quot;&quot;&quot;</span>
-            <span class="n">joins</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="mi">3</span>
+            <span class="n">joins</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">ConnectionPatch</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span><span class="o">*</span><span class="mi">3</span>
             <span class="n">kwargs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="n">color_</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
-            <span class="n">joins</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">ConnectionPatch</span><span class="p">(</span><span class="n">xyA</span><span class="o">=</span><span class="p">(</span><span class="mf">0.2</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">coordsA</span><span class="o">=</span><span class="n">axes_D</span><span class="o">.</span><span class="n">transData</span><span class="p">,</span>
-                                       <span class="n">xyB</span><span class="o">=</span><span class="p">(</span><span class="mf">0.4</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span>  <span class="n">coordsB</span><span class="o">=</span><span class="n">axes_A</span><span class="o">.</span><span class="n">transData</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-            <span class="n">joins</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">ConnectionPatch</span><span class="p">(</span><span class="n">xyA</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mf">0.00</span><span class="p">),</span> <span class="n">coordsA</span><span class="o">=</span><span class="n">axes_D</span><span class="o">.</span><span class="n">transData</span><span class="p">,</span>
-                                       <span class="n">xyB</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mf">0.9</span><span class="p">),</span>  <span class="n">coordsB</span><span class="o">=</span><span class="n">axes_B</span><span class="o">.</span><span class="n">transData</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-            <span class="n">joins</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">ConnectionPatch</span><span class="p">(</span><span class="n">xyA</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mf">0.60</span><span class="p">),</span> <span class="n">coordsA</span><span class="o">=</span><span class="n">axes_D</span><span class="o">.</span><span class="n">transData</span><span class="p">,</span>
-                                       <span class="n">xyB</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mf">0.8</span><span class="p">),</span>  <span class="n">coordsB</span><span class="o">=</span><span class="n">axes_C</span><span class="o">.</span><span class="n">transData</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="n">joins</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">ConnectionPatch</span><span class="p">(</span><span class="n">xyA</span><span class="o">=</span><span class="p">(</span><span class="mf">0.2</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span>
+                                       <span class="n">coordsA</span><span class="o">=</span><span class="n">axes_D</span><span class="o">.</span><span class="n">transData</span><span class="p">,</span>
+                                       <span class="n">xyB</span><span class="o">=</span><span class="p">(</span><span class="mf">0.4</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span>
+                                       <span class="n">coordsB</span><span class="o">=</span><span class="n">axes_A</span><span class="o">.</span><span class="n">transData</span><span class="p">,</span>
+                                       <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="n">joins</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">ConnectionPatch</span><span class="p">(</span><span class="n">xyA</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mf">0.00</span><span class="p">),</span>
+                                       <span class="n">coordsA</span><span class="o">=</span><span class="n">axes_D</span><span class="o">.</span><span class="n">transData</span><span class="p">,</span>
+                                       <span class="n">xyB</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mf">0.9</span><span class="p">),</span>
+                                       <span class="n">coordsB</span><span class="o">=</span><span class="n">axes_B</span><span class="o">.</span><span class="n">transData</span><span class="p">,</span>
+                                       <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="n">joins</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">ConnectionPatch</span><span class="p">(</span><span class="n">xyA</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mf">0.60</span><span class="p">),</span>
+                                       <span class="n">coordsA</span><span class="o">=</span><span class="n">axes_D</span><span class="o">.</span><span class="n">transData</span><span class="p">,</span>
+                                       <span class="n">xyB</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mf">0.8</span><span class="p">),</span>
+                                       <span class="n">coordsB</span><span class="o">=</span><span class="n">axes_C</span><span class="o">.</span><span class="n">transData</span><span class="p">,</span>
+                                       <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">join_</span> <span class="ow">in</span> <span class="n">joins</span><span class="p">:</span> <span class="n">fig_</span><span class="o">.</span><span class="n">add_artist</span><span class="p">(</span><span class="n">join_</span><span class="p">)</span>
 
         <span class="k">def</span> <span class="nf">make_xy</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span><span class="nb">float</span><span class="p">]:</span>
@@ -224,7 +263,7 @@ their behavior defined by <span class="math notranslate nohighlight">\(F\)</span
             <span class="k">return</span> <span class="n">x_ndim</span><span class="p">,</span><span class="n">y</span>
 
         <span class="k">def</span> <span class="nf">isochrones_subfig</span><span class="p">(</span><span class="n">fig_</span><span class="p">,</span> <span class="n">x_</span><span class="p">,</span> <span class="n">y_</span><span class="p">,</span> <span class="n">color_</span><span class="o">=</span><span class="n">gray_</span><span class="p">)</span> \
-                    <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">mpl</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">_axes</span><span class="o">.</span><span class="n">Axes</span><span class="p">,</span><span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]]:</span>
+                    <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Axes</span><span class="p">,</span><span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]]:</span>
             <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">            TBD</span>
 <span class="sd">            &quot;&quot;&quot;</span>
@@ -264,9 +303,11 @@ their behavior defined by <span class="math notranslate nohighlight">\(F\)</span
                 <span class="n">_</span> <span class="o">=</span> <span class="p">[</span><span class="n">child</span><span class="o">.</span><span class="n">set_color</span><span class="p">(</span><span class="n">color_</span><span class="p">)</span> <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">axes_</span><span class="o">.</span><span class="n">get_children</span><span class="p">()</span>
                      <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="n">obj_type</span><span class="p">)]</span>
 
-        <span class="k">def</span> <span class="nf">zoom_boxes</span><span class="p">(</span><span class="n">fig_</span><span class="p">,</span> <span class="n">ta_color_</span><span class="o">=</span><span class="n">gray2_</span><span class="p">,</span> <span class="n">tb_color_</span><span class="o">=</span><span class="n">gray1_</span><span class="p">)</span> \
-                            <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">mpl</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">_axes</span><span class="o">.</span><span class="n">Axes</span><span class="p">,</span> <span class="n">mpl</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">_axes</span><span class="o">.</span><span class="n">Axes</span><span class="p">,</span>
-                                     <span class="n">mpl</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">_axes</span><span class="o">.</span><span class="n">Axes</span><span class="p">,</span> <span class="n">mpl</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">_axes</span><span class="o">.</span><span class="n">Axes</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
+        <span class="k">def</span> <span class="nf">zoom_boxes</span><span class="p">(</span>
+            <span class="n">fig_</span><span class="p">,</span>
+            <span class="n">ta_color_</span><span class="o">=</span><span class="n">gray2_</span><span class="p">,</span>
+            <span class="n">tb_color_</span><span class="o">=</span><span class="n">gray1_</span>
+            <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Axes</span><span class="p">,</span> <span class="n">Axes</span><span class="p">,</span> <span class="n">Axes</span><span class="p">,</span> <span class="n">Axes</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span> <span class="c1">#mpl.axes._axes.</span>
             <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">            TBD</span>
 <span class="sd">            &quot;&quot;&quot;</span>
