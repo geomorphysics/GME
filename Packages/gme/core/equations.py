@@ -20,9 +20,10 @@ The rest of the equations are derived from these core results.
 
 
 Requires Python packages/modules:
-  -  :mod:`scipy`, :mod:`sympy`
-  -  :mod:`gmplib.utils`
-  -  :mod:`gme.core.symbols`
+  -  :mod:`scipy`
+  -  :mod:`sympy`
+  -  :mod:`gmplib`
+  -  :mod:`gme`
 
 ---------------------------------------------------------------------
 
@@ -40,7 +41,8 @@ from typing import Dict, Type, Optional  # , Tuple, Any, List
 import sympy as sy
 from sympy import Eq, Rational, N, \
                     pi, sqrt, numer, denom, \
-                    simplify, trigsimp, factor, expand, lambdify, expand_trig, \
+                    simplify, trigsimp, factor, \
+                    expand, lambdify, expand_trig, \
                     solve, diff, Matrix, \
                     exp, tan, sin, cos, asin, deg, tanh,  \
                     Abs, sign, re, im, \
@@ -85,6 +87,35 @@ class Equations:
     TODO: provide solutions for both :math:`\eta=1/2` and
           :math:`\eta=3/2` where appropriate.
 
+    Args:
+        parameters (dict): dictionary of model parameter values to be
+                           used for equation substitutions
+                           (used when defining geodesic equations)
+        eta\_ (:class:`~sympy.core.numbers.Rational`):
+            exponent in slope component of erosion model (equivalent of
+            gradient exponent :math:`n` in SPIM)
+        mu\_ (:class:`~sympy.core.numbers.Rational`):
+            exponent in flow component of erosion model
+            (equivalent of area exponent :math:`m` in SPIM)
+        beta_type (str): choice of slope component of erosion model
+                         (`'sin'` or `'tan'`)
+        varphi_type (str): choice of flow component of erosion model
+                           (`'ramp'` or `'ramp-flat'`)
+        ibc_type (str): choice of initial boundary shape
+                        (`'convex-up'` or `'concave-up'`,
+                        i.e., concave vs convex in mathematical parlance)
+        do_raw (bool): suppress substitution of :math:`eta` value
+                        when defining `xi_varphi_beta_eqn`?
+        do_idtx (bool): generate indicatrix and figuratrix equations?
+        do_geodesic (bool): generate geodesic equations?
+        do_nothing (bool):
+            just create the class instance and set its data,
+             but don't run any of the equation definition methods
+        do_new_varphi_model (bool): use new form of varphi model?
+
+    Attributes:
+        GME equations (:class:`~sympy.core.relational.Equality` etc):
+            See below
     """
 
     def __init__(self,
@@ -100,40 +131,10 @@ class Equations:
                  do_nothing: bool = False,
                  do_new_varphi_model: bool = True) -> None:
         r"""
-        Initialize class instance.
+        Constructor method.
+
         Define/derive all the GME equations (unless `'do_nothing'` is true)
         using :mod:`SymPy <sympy>`.
-
-        Args:
-            parameters (dict): dictionary of model parameter values to be
-                               used for equation substitutions
-                               (used when defining geodesic equations)
-            eta\_ (:class:`sympy.Rational <sympy.core.numbers.Rational>`):
-                exponent in slope component of erosion model (equivalent of
-                gradient exponent :math:`n` in SPIM)
-            mu\_ (:class:`sympy.Rational <sympy.core.numbers.Rational>`):
-                exponent in flow component of erosion model
-                (equivalent of area exponent :math:`m` in SPIM)
-            beta_type (str): choice of slope component of erosion model
-                             (`'sin'` or `'tan'`)
-            varphi_type (str): choice of flow component of erosion model
-                               (`'ramp'` or `'ramp-flat'`)
-            ibc_type (str): choice of initial boundary shape
-                            (`'convex-up'` or `'concave-up'`,
-                            i.e., concave vs convex in mathematical parlance)
-            do_raw (bool): suppress substitution of :math:`eta` value
-                            when defining `xi_varphi_beta_eqn`?
-            do_idtx (bool): generate indicatrix and figuratrix equations?
-            do_geodesic (bool): generate geodesic equations?
-            do_nothing (bool):
-                just create the class instance and set its data,
-                 but don't run any of the equation definition methods
-            do_new_varphi_model (bool): use new form of varphi model?
-
-        Attributes:
-            GME equations
-            (:class:`sympy.Eq <sympy.core.relational.Equality>` etc):
-                See below
         """
 
         self.eta_ = eta_
@@ -179,25 +180,25 @@ class Equations:
         Define normal slowness :math:`p` and derive related equations
 
         Attributes:
-            p_covec_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
+            p_covec_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`\mathbf{\widetilde{p}} := [p_x, p_z]`
-            px_p_beta_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
+            px_p_beta_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`p_x = p \sin\beta`
-            pz_p_beta_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
+            pz_p_beta_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`p_z = p \cos\beta`
-            p_norm_pxpz_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
+            p_norm_pxpz_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`p = \sqrt{p_x^2+p_z^2}`
-            tanbeta_pxpz_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
+            tanbeta_pxpz_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`\tan\beta = -\dfrac{p_x}{p_z}`
-            sinbeta_pxpz_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
+            sinbeta_pxpz_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`\sin\beta = \dfrac{p_x}{\sqrt{p_x^2+p_z^2}}`
-            cosbeta_pxpz_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
+            cosbeta_pxpz_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`\cos\beta = \dfrac{-p_z}{\sqrt{p_x^2+p_z^2}}`
-            pz_px_tanbeta_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
+            pz_px_tanbeta_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`p_z = -\dfrac{p_x}{\tan\beta}`
-            px_pz_tanbeta_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
+            px_pz_tanbeta_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`p_x = -{p_z}{\tan\beta}`
-            p_pz_cosbeta_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
+            p_pz_cosbeta_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`p = -\dfrac{p_z}{\cos\beta}`
         """
         self.p_covec_eqn = Eq(pcovec, Matrix([px, pz]).T)
@@ -222,9 +223,9 @@ class Equations:
         Define equations for ray position :math:`\vec{r}`
 
         Attributes:
-            rx_r_alpha_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
+            rx_r_alpha_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`r^x = r\cos\alpha`
-            rz_r_alpha_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
+            rz_r_alpha_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`r^z = r\sin\alpha`
         """
         self.rx_r_alpha_eqn = Eq(rx, r*cos(alpha))
@@ -232,16 +233,17 @@ class Equations:
 
     def define_xi_eqns(self) -> None:
         r"""
-        Define equations for surface erosion speed :math:`\xi` and its vertical behavior
+        Define equations for surface erosion speed :math:`\xi`
+        and its vertical behavior
 
         Attributes:
-            xi_p_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
+            xi_p_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`\xi^{\perp} := \dfrac{1}{p}`
-            xiv_pz_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
+            xiv_pz_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`\xi^{\downarrow} := -\dfrac{1}{p_z}`
-            p_xi_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
+            p_xi_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`{p} = \dfrac{1}{\xi^{\perp}}`
-            pz_xiv_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
+            pz_xiv_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`{p_z} = -\dfrac{1}{\xi^{\downarrow}}`
         """
         self.xi_p_eqn = Eq(xi, 1/p)
@@ -261,7 +263,7 @@ class Equations:
         it is given a power exponent :math:`\eta` which must take a rational value.
 
         Attributes:
-            xi_varphi_beta_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
+            xi_varphi_beta_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`\xi^{\perp} = \varphi(\mathbf{r}) \, \left| \sin\beta \right|^\eta`
         """
         if self.beta_type == 'sin':
@@ -285,9 +287,9 @@ class Equations:
         :math:`\left|\tan\beta\right|^\eta`, :math:`\eta=3/2`.
 
         Attributes:
-            xiv_varphi_pxpz_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
+            xiv_varphi_pxpz_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`\xi^{\downarrow} = - \dfrac{p_{x}^{\eta} \left(p_{x}^{2} + p_{z}^{2}\right)^{\tfrac{1}{2} - \tfrac{\eta}{2}} \varphi{\left(\mathbf{r} \right)}}{p_{z}}`
-            px_xiv_varphi_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
+            px_xiv_varphi_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`\left(\xi^{\downarrow}\right)^{2}`
                 :math:`\left(p_{x}^{2} p_{x}^{2 \eta} \left(p_{x}^{2} \
                 + \frac{1}{\left(\xi^{\downarrow}\right)^{2}}\right)^{- \eta} \varphi^{2}{\left(\mathbf{r} \right)} - 1 \
@@ -297,7 +299,7 @@ class Equations:
                 + \frac{1}{\left(\xi^{\downarrow}\right)^{2}}\right)^{- \eta} \varphi^{2}{\left(\mathbf{r} \right)} + 1 \
                 + \dfrac{p_{x}^{2 \eta} \left(p_{x}^{2} \
                 + \frac{1}{\left(\xi^{\downarrow}\right)^{2}}\right)^{- \eta} \varphi^{2}{\left(\mathbf{r} \right)}}{\left(\xi^{\downarrow}\right)^{2}}\right) = 0`
-            eta_dbldenom   (:class:`sympy.Int <sympy.core.numbers.Integer>`) :
+            eta_dbldenom  (:class:`~sympy.core.numbers.Integer`) :
                 a convenience variable, recording double the denominator of :math:`\eta`, which must itself be a rational number
         """
         eta_dbldenom = 2*denom(self.eta_)
@@ -324,11 +326,11 @@ class Equations:
 
 
         Attributes:
-            varphi_model_ramp_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
+            varphi_model_ramp_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`\varphi{\left(\mathbf{r} \right)} = \varphi_0 \left(\varepsilon + \left(\dfrac{x_{1} - {r}^x}{x_{1}}\right)^{2 \mu}\right)`
-            varphi_model_rampflat_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
+            varphi_model_rampflat_eqn (:class:`~sympy.core.relational.Equality`):
                     :math:`` TBD
-            varphi_rx_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
+            varphi_rx_eqn (:class:`~sympy.core.relational.Equality`):
                 specific choice of :math:`\varphi` model from the above
 
                 - pure "channel" model `varphi_model_ramp_eqn` if `self.varphi_type=='ramp'`
@@ -379,32 +381,32 @@ class Equations:
         Define further equations related to normal slowness :math:`p`
 
         Attributes:
-            p_varphi_beta_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
+            p_varphi_beta_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`p = \dfrac{1}{\varphi(\mathbf{r})|\sin\beta|^\eta}`
-            p_varphi_pxpz_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
+            p_varphi_pxpz_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`\sqrt{p_{x}^{2} + p_{z}^{2}} = \dfrac{\left(  {\sqrt{p_{x}^{2} + p_{z}^{2}}}  \right)^{\eta}}{\varphi{\left(\mathbf{r} \right)}{p_{x}}^\eta}`
-            p_rx_pxpz_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
+            p_rx_pxpz_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`\sqrt{p_{x}^{2} + p_{z}^{2}}
                 = \dfrac{p_{x}^{- \eta} x_{1}^{2 \mu} \left(p_{x}^{2} + p_{z}^{2}\right)^{\frac{\eta}{2}}}{\varphi_0 \left(\varepsilon x_{1}^{2 \mu} + \left(x_{1} - {r}^x\right)^{2 \mu}\right)}`
-            p_rx_tanbeta_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
+            p_rx_tanbeta_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`\sqrt{p_{x}^{2} + \dfrac{p_{x}^{2}}{\tan^{2}{\left(\beta \right)}}}
                 = \dfrac{p_{x}^{- \eta} x_{1}^{2 \mu} \left(p_{x}^{2}
                 + \dfrac{p_{x}^{2}}{\tan^{2}{\left(\beta \right)}}\right)^{\frac{\eta}{2}}}{\varphi_0 \left(\varepsilon x_{1}^{2 \mu} + \left(x_{1} - {r}^x\right)^{2 \mu}\right)}`
-            px_beta_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
+            px_beta_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`p_{x} = \dfrac{p_{x}^{- \eta} x_{1}^{2 \mu} \left(p_{x}^{2}
                 + \dfrac{p_{x}^{2}}{\tan^{2}{\left(\beta \right)}}\right)^{\frac{\eta}{2}} \sin{\left(\beta \right)}}{\varphi_0 \left(\varepsilon x_{1}^{2 \mu} + \left(x_{1} - {r}^x\right)^{2 \mu}\right)}`
-            pz_beta_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
+            pz_beta_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`p_{z} = - \dfrac{p_{x}^{- \eta} x_{1}^{2 \mu} \left(p_{x}^{2}
                 + \dfrac{p_{x}^{2}}{\tan^{2}{\left(\beta \right)}}\right)^{\frac{\eta}{2}} \cos{\left(\beta \right)}}{\varphi_0 \left(\varepsilon x_{1}^{2 \mu} + \left(x_{1} - {r}^x\right)^{2 \mu}\right)}`
-            xiv_pxpz_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
+            xiv_pxpz_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`\xi^{\downarrow} = \dfrac{p_z}{p_x^{2} + p_z^{2}}`
-            px_varphi_beta_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
+            px_varphi_beta_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`p_{x} = \dfrac{\sin{\left(\beta \right)} \left|{\sin{\left(\beta \right)}}\right|^{- \eta}}{\varphi{\left(\mathbf{r} \right)}}`
-            pz_varphi_beta_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
+            pz_varphi_beta_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`p_{z} = - \dfrac{\cos{\left(\beta \right)} \left|{\sin{\left(\beta \right)}}\right|^{- \eta}}{\varphi{\left(\mathbf{r} \right)}}`
-            px_varphi_rx_beta_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
+            px_varphi_rx_beta_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`p_{x} = \dfrac{\sin{\left(\beta \right)} \left|{\sin{\left(\beta \right)}}\right|^{- \eta}}{\varphi_0 \left(\varepsilon + \left(\dfrac{x_{1} - {r}^x}{x_{1}}\right)^{2 \mu}\right)}`
-            pz_varphi_rx_beta_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
+            pz_varphi_rx_beta_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`p_{z} = - \dfrac{\cos{\left(\beta \right)} \left|{\sin{\left(\beta \right)}}\right|^{- \eta}}{\varphi_0 \left(\varepsilon + \left(\dfrac{x_{1} - {r}^x}{x_{1}}\right)^{2 \mu}\right)}`
         """
         self.p_varphi_beta_eqn = self.p_xi_eqn.subs(
@@ -451,9 +453,9 @@ class Equations:
         Define the fundamental function
 
         Attributes:
-            Okubo_Fstar_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
+            Okubo_Fstar_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`\dfrac{\sqrt{p_{x}^{2} + p_{z}^{2}}}{F^{*}} = \dfrac{p_{x}^{- \eta} \left(p_{x}^{2} + p_{z}^{2}\right)^{\frac{\eta}{2}}}{\varphi{\left(\mathbf{r} \right)}}`
-            Fstar_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
+            Fstar_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`F^{*} = p_{x}^{\eta} \left(p_{x}^{2} + p_{z}^{2}\right)^{\frac{1}{2} - \frac{\eta}{2}} \varphi{\left(\mathbf{r} \right)}`
         """
         # Note force px >= 0
@@ -471,9 +473,9 @@ class Equations:
 
 
         Attributes:
-            H_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
+            H_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`H = \dfrac{p_{x}^{2 \eta} \left(p_{x}^{2} + p_{z}^{2}\right)^{1 - \eta} \varphi^{2}{\left(\mathbf{r} \right)}}{2}`
-            H_varphi_rx_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
+            H_varphi_rx_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`H = \dfrac{\varphi_0^{2} p_{x}^{2 \eta} x_{1}^{- 4 \mu} \left(p_{x}^{2} + p_{z}^{2}\right)^{1 - \eta} \left(\varepsilon x_{1}^{2 \mu} + \left(x_{1} - {r}^x\right)^{2 \mu}\right)^{2}}{2}`
         """
         self.H_eqn = (Eq(H, simplify(self.Fstar_eqn.rhs**2/2))
@@ -489,21 +491,21 @@ class Equations:
 
 
         Attributes:
-            rdotx_rdot_alpha_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
+            rdotx_rdot_alpha_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`v^{x} = v \cos{\left(\alpha \right)}`
-            rdotz_rdot_alpha_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
+            rdotz_rdot_alpha_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`v^{z} = v \sin{\left(\alpha \right)}`
-            rdotx_pxpz_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
+            rdotx_pxpz_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`v^{x} = p_{x}^{2 \eta - 1} \left(p_{x}^{2} + p_{z}^{2}\right)^{- \eta} \left(\eta p_{z}^{2} + p_{x}^{2}\right) \varphi^{2}{\left(\mathbf{r} \right)}`
-            rdotz_pxpz_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
+            rdotz_pxpz_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`v^{z} = - p_{x}^{2 \eta} p_{z} \left(\eta - 1\right) \left(p_{x}^{2} + p_{z}^{2}\right)^{- \eta} \varphi^{2}{\left(\mathbf{r} \right)}`
-            rdotz_on_rdotx_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
+            rdotz_on_rdotx_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`\dfrac{v^{z}}{v^{x}} = - \dfrac{p_{x} p_{z} \left(\eta - 1\right)}{\eta p_{z}^{2} + p_{x}^{2}}`
-            rdotz_on_rdotx_tanbeta_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
+            rdotz_on_rdotx_tanbeta_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`\dfrac{v^{z}}{v^{x}} =   \dfrac{\left(\eta - 1\right) \tan{\left(\beta \right)}}{\eta + \tan^{2}{\left(\beta \right)}}`
-            rdot_vec_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
+            rdot_vec_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`\mathbf{v} = \left[\begin{matrix}p_{x}^{2 \eta - 1} \left(p_{x}^{2} + p_{z}^{2}\right)^{- \eta} \left(\eta p_{z}^{2} + p_{x}^{2}\right) \varphi^{2}{\left(\mathbf{r} \right)}\\- p_{x}^{2 \eta} p_{z} \left(\eta - 1\right) \left(p_{x}^{2} + p_{z}^{2}\right)^{- \eta} \varphi^{2}{\left(\mathbf{r} \right)}\end{matrix}\right]`
-            rdot_p_unity_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
+            rdot_p_unity_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`p_{x} v^{x} + p_{z} v^{z} = 1`
         """
         self.rdotx_rdot_alpha_eqn = Eq(rdotx, rdot*cos(alpha))
@@ -528,16 +530,16 @@ class Equations:
 
     def define_pdot_eqns(self) -> None:
         r"""
-        Define equations for :math:`\dot{p}`, the rate of change of normal slowness
-
+        Define equations for :math:`\dot{p}`, the rate of change of
+        normal slowness
 
         Attributes:
-            pdotx_pxpz_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
+            pdotx_pxpz_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`\dot{p}_x = 2 \mu \varphi_0^{2} p_{x}^{2 \eta} x_{1}^{- 4 \mu} \left(p_{x}^{2} + p_{z}^{2}\right)^{1 - \eta}
                 \left(x_{1} - {r}^x\right)^{2 \mu - 1} \left(\varepsilon x_{1}^{2 \mu} + \left(x_{1} - {r}^x\right)^{2 \mu}\right)`
-            pdotz_pxpz_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
+            pdotz_pxpz_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`\dot{p}_z = 0`
-            pdot_covec_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
+            pdot_covec_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`\mathbf{\dot{\widetilde{p}}} = \left[\begin{matrix}2 \mu \varphi_0^{2} p_{x}^{2 \eta} x_{1}^{- 4 \mu}
                 \left(p_{x}^{2} + p_{z}^{2}\right)^{1 - \eta} \left(x_{1} - {r}^x\right)^{2 \mu - 1}
                 \left(\varepsilon x_{1}^{2 \mu} + \left(x_{1} - {r}^x\right)^{2 \mu}\right) & 0\end{matrix}\right]`
@@ -558,9 +560,8 @@ class Equations:
         r"""
         Define Hamilton's equations
 
-
         Attributes:
-            hamiltons_eqns (:class:`sympy.Matrix <sympy.matrices.immutable.ImmutableDenseMatrix>` of :class:`sympy.Eq <sympy.core.relational.Equality>`) :
+            hamiltons_eqns (:class:`~sympy.matrices.immutable.ImmutableDenseMatrix`):
                 :math:`\left[\begin{matrix}\
                 \dot{r}^x = \varphi_0^{2} p_{x}^{2 \eta - 1} x_{1}^{- 4 \mu} \left(p_{x}^{2} + p_{z}^{2}\right)^{- \eta} \left(\eta p_{z}^{2} + p_{x}^{2}\right)
                 \left(\varepsilon x_{1}^{2 \mu} + \left(x_{1} - {r}^x\right)^{2 \mu}\right)^{2}\\
@@ -713,11 +714,11 @@ class Equations:
 
 
         Attributes:
-            tanalpha_pxpz_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
+            tanalpha_pxpz_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`\tan{\left(\alpha \right)} = \dfrac{v^{z}}{v^{x}}`
-            tanalpha_beta_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
+            tanalpha_beta_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`\tan{\left(\alpha \right)} = - \dfrac{p_{x} p_{z} \left(\eta - 1\right)}{\eta p_{z}^{2} + p_{x}^{2}}`
-            tanalpha_rdot_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
+            tanalpha_rdot_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`\tan{\left(\alpha \right)} = \dfrac{\left(\eta - 1\right) \tan{\left(\beta \right)}}{\eta + \tan^{2}{\left(\beta \right)}}`
         """
         self.tanalpha_rdot_eqn \
@@ -736,26 +737,26 @@ class Equations:
 
 
         Attributes:
-            tanbeta_alpha_eqns   (list of :class:`sympy.Eq <sympy.core.relational.Equality>`) :
+            tanbeta_alpha_eqns   (list of :class:`~sympy.core.relational.Equality`) :
                 :math:`\left[ \tan{\left(\beta \right)} \
                 = \dfrac{\eta - \sqrt{\eta^{2} - 4 \eta \tan^{2}{\left(\alpha \right)} - 2 \eta + 1} - 1}{2 \tan{\left(\alpha \right)}},
                 \tan{\left(\beta \right)} = \dfrac{\eta + \sqrt{\eta^{2} - 4 \eta \tan^{2}{\left(\alpha \right)} - 2 \eta + 1} - 1}{2 \tan{\left(\alpha \right)}}\right]`
-            tanbeta_alpha_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
+            tanbeta_alpha_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`\tan{\left(\beta \right)}
                 = \dfrac{\eta - \sqrt{\eta^{2} - 4 \eta \tan^{2}{\left(\alpha \right)} - 2 \eta + 1} - 1}{2 \tan{\left(\alpha \right)}}`
-            tanalpha_ext_eqns   (list of :class:`sympy.Eq <sympy.core.relational.Equality>`) :
+            tanalpha_ext_eqns   (list of :class:`~sympy.core.relational.Equality`) :
                 :math:`\left[ \tan{\left(\alpha_c \right)} = - \frac{\sqrt{\eta - 2 + \frac{1}{\eta}}}{2},
                 \tan{\left(\alpha_c \right)} = \frac{\sqrt{\eta - 2 + \frac{1}{\eta}}}{2}\right]`
-            tanalpha_ext_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
+            tanalpha_ext_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`\tan{\left(\alpha_c \right)} = \dfrac{\eta - 1}{2 \sqrt{\eta}}`
-            tanbeta_crit_eqns   (list of :class:`sympy.Eq <sympy.core.relational.Equality>`) :
+            tanbeta_crit_eqns   (list of :class:`~sympy.core.relational.Equality`) :
                 :math:`\left[ \tan{\left(\beta_c \right)} = - \dfrac{\eta - 1}{\sqrt{\eta - 2 + \frac{1}{\eta}}},
                 \tan{\left(\beta_c \right)} = \dfrac{\eta - 1}{\sqrt{\eta - 2 + \frac{1}{\eta}}}\right]`
-            tanbeta_crit_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
+            tanbeta_crit_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`\tan{\left(\beta_c \right)} = \sqrt{\eta}`
-            tanbeta_rdotxz_pz_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
+            tanbeta_rdotxz_pz_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`\tan{\left(\beta \right)} = \dfrac{v^{z} - \frac{1}{p_{z}}}{v^{x}}`
-            tanbeta_rdotxz_xiv_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
+            tanbeta_rdotxz_xiv_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`\tan{\left(\beta \right)} = \dfrac{\xi^{\downarrow} + v^{z}}{v^{x}}`
         """
 
@@ -817,7 +818,7 @@ class Equations:
         Define equations for anisotropy angle :math:`\psi)`
 
         Attributes:
-            psi_alpha_beta_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
+            psi_alpha_beta_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`\tan{\left(\beta \right)} = \dfrac{\xi^{\downarrow} + v^{z}}{v^{x}}`
         """
         self.psi_alpha_beta_eqn = Eq(psi, alpha-beta+pi/2)
@@ -827,7 +828,7 @@ class Equations:
         Define equations for the metric tensor :math:`g` and its dual  :math:`g^*`
 
         Attributes:
-            gstar_varphi_pxpz_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
+            gstar_varphi_pxpz_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`g^{*} = \left[\begin{matrix}\
                 \dfrac{2 p_{x}^{3} \varphi^{2}{\left(\mathbf{r} \right)}}{\left(p_{x}^{2} + p_{z}^{2}\right)^{\frac{3}{2}}} \
                 - \dfrac{3 p_{x}^{3} \left(p_{x}^{2} + \dfrac{3 p_{z}^{2}}{2}\right) \varphi^{2}{\left(\mathbf{r} \right)}}{\left(p_{x}^{2} + p_{z}^{2}\right)^{\frac{5}{2}}} \
@@ -839,25 +840,25 @@ class Equations:
                 & \dfrac{3 p_{x}^{3} p_{z}^{2} \varphi^{2}{\left(\mathbf{r} \right)}}{2 \left(p_{x}^{2} + p_{z}^{2}\right)^{\frac{5}{2}}} \
                 - \dfrac{p_{x}^{3} \varphi^{2}{\left(\mathbf{r} \right)}}{2 \left(p_{x}^{2} + p_{z}^{2}\right)^{\frac{3}{2}}}\
                 \end{matrix}\right]`
-            det_gstar_varphi_pxpz_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
+            det_gstar_varphi_pxpz_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`\det\left(g^*\right) \
                 = \dfrac{p_{x}^{4} \left(- \dfrac{p_{x}^{2}}{2} \
                 + \dfrac{3 p_{z}^{2}}{4}\right) \varphi^{4}{\left(\mathbf{r} \right)}}{p_{x}^{6} + 3 p_{x}^{4} p_{z}^{2} + 3 p_{x}^{2} p_{z}^{4} + p_{z}^{6}}`
-            g_varphi_pxpz_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
+            g_varphi_pxpz_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`g = \left[\begin{matrix}\
                 \dfrac{2 \left(p_{x}^{2} - 2 p_{z}^{2}\right) \sqrt{p_{x}^{2} + p_{z}^{2}}}{p_{x} \left(2 p_{x}^{2} - 3 p_{z}^{2}\right) \varphi^{2}{\left(\mathbf{r} \right)}} \
                 & - \dfrac{6 p_{z}^{3} \sqrt{p_{x}^{2} + p_{z}^{2}}}{p_{x}^{2} \left(2 p_{x}^{2} - 3 p_{z}^{2}\right) \varphi^{2}{\left(\mathbf{r} \right)}}\\ \
                 - \dfrac{6 p_{z}^{3} \sqrt{p_{x}^{2} + p_{z}^{2}}}{p_{x}^{2} \left(2 p_{x}^{2} - 3 p_{z}^{2}\right) \varphi^{2}{\left(\mathbf{r} \right)}} \
                 & - \dfrac{4 p_{x}^{6} + 14 p_{x}^{4} p_{z}^{2} + 22 p_{x}^{2} p_{z}^{4} + 12 p_{z}^{6}}{p_{x}^{3} \sqrt{p_{x}^{2} + p_{z}^{2}} \left(2 p_{x}^{2} - 3 p_{z}^{2}\right) \varphi^{2}{\left(\mathbf{r} \right)}}\
                 \end{matrix}\right]`
-            gstar_eigen_varphi_pxpz   (list of :class:`sympy.Expr <sympy.core.expr.Expr>`) :
+            gstar_eigen_varphi_pxpz (list of :class:`~sympy.core.expr.Expr`) :
                 eigenvalues and eigenvectors of :math:`g^{*}` in one object
-            gstar_eigenvalues   (:class:`sympy.Matrix <sympy.matrices.immutable.ImmutableDenseMatrix>`) :
+            gstar_eigenvalues (:class:`~sympy.matrices.immutable.ImmutableDenseMatrix`) :
                 :math:`\left[\begin{matrix}\
                 \dfrac{\varphi_0^{2} p_{x} x_{1}^{- 4 \mu} \left(\varepsilon x_{1}^{2 \mu} + \left(x_{1} - {r}^x\right)^{2 \mu}\right)^{2} \left(- 3 \left(p_{x}^{2} + p_{z}^{2}\right) \sqrt{p_{x}^{12} + 4 p_{x}^{10} p_{z}^{2} + 10 p_{x}^{8} p_{z}^{4} + 20 p_{x}^{6} p_{z}^{6} + 25 p_{x}^{4} p_{z}^{8} + 16 p_{x}^{2} p_{z}^{10} + 4 p_{z}^{12}} + \left(p_{x}^{2} + 6 p_{z}^{2}\right) \left(p_{x}^{6} + 3 p_{x}^{4} p_{z}^{2} + 3 p_{x}^{2} p_{z}^{4} + p_{z}^{6}\right)\right)}{4 \left(p_{x}^{2} + p_{z}^{2}\right)^{\frac{3}{2}} \left(p_{x}^{6} + 3 p_{x}^{4} p_{z}^{2} + 3 p_{x}^{2} p_{z}^{4} + p_{z}^{6}\right)}\\\
                 \dfrac{\varphi_0^{2} p_{x} x_{1}^{- 4 \mu} \left(\varepsilon x_{1}^{2 \mu} + \left(x_{1} - {r}^x\right)^{2 \mu}\right)^{2} \left(3 \left(p_{x}^{2} + p_{z}^{2}\right) \sqrt{p_{x}^{12} + 4 p_{x}^{10} p_{z}^{2} + 10 p_{x}^{8} p_{z}^{4} + 20 p_{x}^{6} p_{z}^{6} + 25 p_{x}^{4} p_{z}^{8} + 16 p_{x}^{2} p_{z}^{10} + 4 p_{z}^{12}} + \left(p_{x}^{2} + 6 p_{z}^{2}\right) \left(p_{x}^{6} + 3 p_{x}^{4} p_{z}^{2} + 3 p_{x}^{2} p_{z}^{4} + p_{z}^{6}\right)\right)}{4 \left(p_{x}^{2} + p_{z}^{2}\right)^{\frac{3}{2}} \left(p_{x}^{6} + 3 p_{x}^{4} p_{z}^{2} + 3 p_{x}^{2} p_{z}^{4} + p_{z}^{6}\right)}\
                 \end{matrix}\right]`
-            gstar_eigenvectors   (list containing pair of :class:`sympy.Matrix <sympy.matrices.immutable.ImmutableDenseMatrix>`) :
+            gstar_eigenvectors (list containing pair of :class:`~sympy.matrices.immutable.ImmutableDenseMatrix`) :
                 :math:`\left[\
                 \begin{matrix}\dfrac{p_{x} p_{z}^{3} \left(p_{x}^{6} + 2 p_{x}^{4} p_{z}^{2} + 3 p_{x}^{2} p_{z}^{4} + 2 p_{z}^{6} + \sqrt{p_{x}^{12} + 4 p_{x}^{10} p_{z}^{2} + 10 p_{x}^{8} p_{z}^{4} + 20 p_{x}^{6} p_{z}^{6} + 25 p_{x}^{4} p_{z}^{8} + 16 p_{x}^{2} p_{z}^{10} + 4 p_{z}^{12}}\right)}{p_{x}^{10} + 3 p_{x}^{8} p_{z}^{2} + 7 p_{x}^{6} p_{z}^{4} + 11 p_{x}^{4} p_{z}^{6} + p_{x}^{4} \sqrt{p_{x}^{12} + 4 p_{x}^{10} p_{z}^{2} + 10 p_{x}^{8} p_{z}^{4} + 20 p_{x}^{6} p_{z}^{6} + 25 p_{x}^{4} p_{z}^{8} + 16 p_{x}^{2} p_{z}^{10} + 4 p_{z}^{12}} + 10 p_{x}^{2} p_{z}^{8} + p_{x}^{2} p_{z}^{2} \sqrt{p_{x}^{12} + 4 p_{x}^{10} p_{z}^{2} + 10 p_{x}^{8} p_{z}^{4} + 20 p_{x}^{6} p_{z}^{6} + 25 p_{x}^{4} p_{z}^{8} + 16 p_{x}^{2} p_{z}^{10} + 4 p_{z}^{12}} + 4 p_{z}^{10} + 2 p_{z}^{4} \sqrt{p_{x}^{12} + 4 p_{x}^{10} p_{z}^{2} + 10 p_{x}^{8} p_{z}^{4} + 20 p_{x}^{6} p_{z}^{6} + 25 p_{x}^{4} p_{z}^{8} + 16 p_{x}^{2} p_{z}^{10} + 4 p_{z}^{12}}}\\ \
                 1 \
@@ -904,12 +905,10 @@ class Equations:
         r"""
         Define indicatrix and figuratrix equations
 
-
-
         Attributes:
-            pz_cosbeta_varphi_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
+            pz_cosbeta_varphi_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`p_{z}^{4} = \dfrac{\cos^{4}{\left(\beta \right)}}{\varphi^{4} \left(1 - \cos^{2}{\left(\beta \right)}\right)^{3}}`
-            cosbetasqrd_pz_varphi_solns  (list of :class:`sympy.Expr <sympy.core.expr.Expr>`) :
+            cosbetasqrd_pz_varphi_solns  (list of :class:`~sympy.core.expr.Expr`) :
                 :math:`\left[
                 -\frac{ \left(  -6 \varphi^{4} p_{z}^{4} \sqrt[3]{27 \varphi^{8} p_{z}^{8} - 18 \varphi^{4} p_{z}^{4}
                 + \sqrt{729 \varphi^{16} p_{z}^{16} - 108 \varphi^{12} p_{z}^{12}} + 2} - 12 \sqrt[3]{2} \varphi^{4} p_{z}^{4}
@@ -920,7 +919,7 @@ class Equations:
                 }{6 \varphi^{4} p_{z}^{4} \sqrt[3]{27 \varphi^{8} p_{z}^{8}
                 - 18 \varphi^{4} p_{z}^{4} + \sqrt{729 \varphi^{16} p_{z}^{16} - 108 \varphi^{12} p_{z}^{12}} + 2}}
                 ,\dots \right]`
-            fgtx_cossqrdbeta_pz_varphi_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
+            fgtx_cossqrdbeta_pz_varphi_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`\cos^{2}{\left(\beta \right)}
                 = - \frac{- 6 \varphi^{4} p_{z}^{4} \sqrt[3]{27 \varphi^{8} p_{z}^{8} - 18 \varphi^{4} p_{z}^{4}
                 + \sqrt{729 \varphi^{16} p_{z}^{16} - 108 \varphi^{12} p_{z}^{12}} + 2} - 12 \sqrt[3]{2} \varphi^{4} p_{z}^{4}
@@ -929,7 +928,7 @@ class Equations:
                 - 18 \varphi^{4} p_{z}^{4} + \sqrt{729 \varphi^{16} p_{z}^{16} - 108 \varphi^{12} p_{z}^{12}} + 2}
                 + 2 \sqrt[3]{2}}{6 \varphi^{4} p_{z}^{4} \sqrt[3]{27 \varphi^{8} p_{z}^{8} - 18 \varphi^{4} p_{z}^{4}
                 + \sqrt{729 \varphi^{16} p_{z}^{16} - 108 \varphi^{12} p_{z}^{12}} + 2}}`
-            fgtx_tanbeta_pz_varphi_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
+            fgtx_tanbeta_pz_varphi_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`\tan{\left(\beta \right)}
                 = \sqrt{\frac{- 12 \sqrt[3]{2} \varphi^{4} p_{z}^{4} + 2^{\frac{2}{3}} \left(27 \varphi^{8} p_{z}^{8}
                 - 18 \varphi^{4} p_{z}^{4} + \sqrt{729 \varphi^{16} p_{z}^{16} - 108 \varphi^{12} p_{z}^{12}} + 2\right)^{\frac{2}{3}}
@@ -940,7 +939,7 @@ class Equations:
                 - 18 \varphi^{4} p_{z}^{4} + \sqrt{729 \varphi^{16} p_{z}^{16} - 108 \varphi^{12} p_{z}^{12}} + 2\right)^{\frac{2}{3}}
                 - 2 \sqrt[3]{27 \varphi^{8} p_{z}^{8} - 18 \varphi^{4} p_{z}^{4} + \sqrt{729 \varphi^{16} p_{z}^{16}
                 - 108 \varphi^{12} p_{z}^{12}} + 2} - 2 \sqrt[3]{2}}}`
-            fgtx_px_pz_varphi_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
+            fgtx_px_pz_varphi_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`p_{x}
                 = - p_{z} \sqrt{\frac{- 12 \sqrt[3]{2} \varphi^{4} p_{z}^{4} + 2^{\frac{2}{3}} \left(27 \varphi^{8} p_{z}^{8}
                 - 18 \varphi^{4} p_{z}^{4} + \sqrt{729 \varphi^{16} p_{z}^{16} - 108 \varphi^{12} p_{z}^{12}} + 2\right)^{\frac{2}{3}}
@@ -951,9 +950,9 @@ class Equations:
                 - 18 \varphi^{4} p_{z}^{4} + \sqrt{729 \varphi^{16} p_{z}^{16} - 108 \varphi^{12} p_{z}^{12}} + 2\right)^{\frac{2}{3}}
                 - 2 \sqrt[3]{27 \varphi^{8} p_{z}^{8} - 18 \varphi^{4} p_{z}^{4} + \sqrt{729 \varphi^{16} p_{z}^{16}
                 - 108 \varphi^{12} p_{z}^{12}} + 2} - 2 \sqrt[3]{2}}}`
-            idtx_rdotx_pz_varphi_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
+            idtx_rdotx_pz_varphi_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`{r}^x = \dfrac{\sqrt{6} \left(- 81 \cdot 2^{\frac{2}{3}} \varphi^{12} p_{z}^{12} \sqrt[3]{27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2} - 378 \varphi^{12} p_{z}^{12} - 9 \cdot 2^{\frac{2}{3}} \sqrt{3} \varphi^{10} p_{z}^{10} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} \sqrt[3]{27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2} - 42 \sqrt{3} \varphi^{10} p_{z}^{10} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} + 45 \sqrt[3]{2} \varphi^{8} p_{z}^{8} \left(27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2\right)^{\frac{2}{3}} + 96 \cdot 2^{\frac{2}{3}} \varphi^{8} p_{z}^{8} \sqrt[3]{27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2} + 306 \varphi^{8} p_{z}^{8} + \sqrt[3]{2} \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} \left(27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2\right)^{\frac{2}{3}} + 2 \cdot 2^{\frac{2}{3}} \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} \sqrt[3]{27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2} + 6 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 20 \sqrt[3]{2} \varphi^{4} p_{z}^{4} \left(27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2\right)^{\frac{2}{3}} - 26 \cdot 2^{\frac{2}{3}} \varphi^{4} p_{z}^{4} \sqrt[3]{27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2} - 64 \varphi^{4} p_{z}^{4} + 2 \sqrt[3]{2} \left(27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2\right)^{\frac{2}{3}} + 2 \cdot 2^{\frac{2}{3}} \sqrt[3]{27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2} + 4\right)}{72 \varphi^{4} p_{z}^{5} \left(\frac{\sqrt[3]{27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2}}{6 \varphi^{4} p_{z}^{4} \sqrt[3]{27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2} + 12 \sqrt[3]{2} \varphi^{4} p_{z}^{4} - 2^{\frac{2}{3}} \left(27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2\right)^{\frac{2}{3}} - 2 \sqrt[3]{27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2} - 2 \sqrt[3]{2}}\right)^{\frac{3}{2}} \sqrt[3]{27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2} \left(- 54 \cdot 2^{\frac{2}{3}} \varphi^{12} p_{z}^{12} - 6 \cdot 2^{\frac{2}{3}} \sqrt{3} \varphi^{10} p_{z}^{10} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} + 6 \varphi^{8} p_{z}^{8} \left(27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2\right)^{\frac{2}{3}} + 33 \sqrt[3]{2} \varphi^{8} p_{z}^{8} \sqrt[3]{27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2} + 78 \cdot 2^{\frac{2}{3}} \varphi^{8} p_{z}^{8} + \sqrt[3]{2} \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} \sqrt[3]{27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2} + 2 \cdot 2^{\frac{2}{3}} \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 12 \varphi^{4} p_{z}^{4} \left(27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2\right)^{\frac{2}{3}} - 18 \sqrt[3]{2} \varphi^{4} p_{z}^{4} \sqrt[3]{27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2} - 24 \cdot 2^{\frac{2}{3}} \varphi^{4} p_{z}^{4} + 2 \left(27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2\right)^{\frac{2}{3}} + 2 \sqrt[3]{2} \sqrt[3]{27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2} + 2 \cdot 2^{\frac{2}{3}}\right)}`
-            idtx_rdotz_pz_varphi_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
+            idtx_rdotz_pz_varphi_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`{r}^z = \dfrac{\sqrt{6} \sqrt{\frac{- 12 \sqrt[3]{2} \varphi^{4} p_{z}^{4} + 2^{\frac{2}{3}} \left(27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2\right)^{\frac{2}{3}} + 2 \sqrt[3]{27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2} + 2 \sqrt[3]{2}}{6 \varphi^{4} p_{z}^{4} \sqrt[3]{27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2} + 12 \sqrt[3]{2} \varphi^{4} p_{z}^{4} - 2^{\frac{2}{3}} \left(27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2\right)^{\frac{2}{3}} - 2 \sqrt[3]{27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2} - 2 \sqrt[3]{2}}} \left(27 \cdot 2^{\frac{2}{3}} \varphi^{8} p_{z}^{8} + 3 \cdot 2^{\frac{2}{3}} \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 12 \sqrt[3]{2} \varphi^{4} p_{z}^{4} \sqrt[3]{27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2} - 18 \cdot 2^{\frac{2}{3}} \varphi^{4} p_{z}^{4} + 2 \left(27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2\right)^{\frac{2}{3}} + 2 \sqrt[3]{2} \sqrt[3]{27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2} + 2 \cdot 2^{\frac{2}{3}}\right)}{72 \varphi^{4} p_{z}^{5} \left(\frac{\sqrt[3]{27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2}}{6 \varphi^{4} p_{z}^{4} \sqrt[3]{27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2} + 12 \sqrt[3]{2} \varphi^{4} p_{z}^{4} - 2^{\frac{2}{3}} \left(27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2\right)^{\frac{2}{3}} - 2 \sqrt[3]{27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2} - 2 \sqrt[3]{2}}\right)^{\frac{3}{2}} \sqrt[3]{27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2} \left(- 6 \varphi^{4} p_{z}^{4} \sqrt[3]{27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2} - 12 \sqrt[3]{2} \varphi^{4} p_{z}^{4} + 2^{\frac{2}{3}} \left(27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2\right)^{\frac{2}{3}} + 2 \sqrt[3]{27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2} + 2 \sqrt[3]{2}\right)}`
         """
         # if self.eta_ == 2:
@@ -1037,18 +1036,20 @@ class Equations:
         Define geodesic equations
 
         Args:
-            parameters (dict): dictionary of model parameter values to be used for equation substitutions
+            parameters:
+                dictionary of model parameter values to be used for
+                equation substitutions
 
         Attributes:
-            gstar_ij_tanbeta_mat   (:class:`sympy.ImmutableDenseMatrix <sympy.matrices.immutable.ImmutableDenseMatrix>`) :
+            gstar_ij_tanbeta_mat (:class:`~sympy.matrices.immutable.ImmutableDenseMatrix`):
                 :math:`\dots`
-            g_ij_tanbeta_mat   (:class:`sympy.ImmutableDenseMatrix <sympy.matrices.immutable.ImmutableDenseMatrix>`) :
+            g_ij_tanbeta_mat (:class:`~sympy.matrices.immutable.ImmutableDenseMatrix`):
                 :math:`\dots`
-            tanbeta_poly_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
+            tanbeta_poly_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`\dots` where :math:`a := \tan\alpha`
-            tanbeta_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
+            tanbeta_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`\tan{\left(\beta \right)} = \dots` where :math:`a := \tan\alpha`
-            gstar_ij_tanalpha_mat   (:class:`sympy.ImmutableDenseMatrix <sympy.matrices.immutable.ImmutableDenseMatrix>`) :
+            gstar_ij_tanalpha_mat (:class:`~sympy.matrices.immutable.ImmutableDenseMatrix`):
                 a symmetric tensor with components (using shorthand :math:`a := \tan\alpha`)
 
                 :math:`g^*[1,1] = \dots`
@@ -1056,7 +1057,7 @@ class Equations:
                 :math:`g^*[1,2] = g^*[2,1] = \dots`
 
                 :math:`g^*[2,2] = \dots`
-            gstar_ij_mat   (:class:`sympy.ImmutableDenseMatrix <sympy.matrices.immutable.ImmutableDenseMatrix>`) :
+            gstar_ij_mat (:class:`~sympy.matrices.immutable.ImmutableDenseMatrix`):
                 a symmetric tensor with components
                 (using shorthand :math:`a := \tan\alpha`, and with a particular choice of model parameters)
 
@@ -1065,7 +1066,7 @@ class Equations:
                 :math:`g^*[1,2] = g^*[2,1] = \dots`
 
                 :math:`g^*[2,2] =  \dots`
-            g_ij_tanalpha_mat   (:class:`sympy.ImmutableDenseMatrix <sympy.matrices.immutable.ImmutableDenseMatrix>`) :
+            g_ij_tanalpha_mat (:class:`~sympy.matrices.immutable.ImmutableDenseMatrix`):
                 a symmetric tensor with components (using shorthand :math:`a := \tan\alpha`)
 
                 :math:`g[1,1] = \dots`
@@ -1073,7 +1074,7 @@ class Equations:
                 :math:`g[1,2] = g[2,1] = \dots`
 
                 :math:`g[2,2] = \dots`
-            g_ij_mat   (:class:`sympy.ImmutableDenseMatrix <sympy.matrices.immutable.ImmutableDenseMatrix>`) :
+            g_ij_mat (:class:`~sympy.matrices.immutable.ImmutableDenseMatrix`):
                 a symmetric tensor with components
                 (using shorthand :math:`a := \tan\alpha`, and with a particular choice of model parameters)
 
@@ -1173,11 +1174,8 @@ class Equations:
         r"""
         Define geodesic equations
 
-        Args:
-            parameters (dict): dictionary of model parameter values to be used for equation substitutions
-
         Attributes:
-            dg_rk_ij_mat   (:class:`sympy.ImmutableDenseMatrix <sympy.matrices.immutable.ImmutableDenseMatrix>`) :
+            dg_rk_ij_mat (:class:`~sympy.matrices.immutable.ImmutableDenseMatrix`):
                 Derivatives of the components of the metric tensor:
                 these values are used to construct the Christoffel tensor.
                 Too unwieldy to display here.
@@ -1186,7 +1184,7 @@ class Equations:
                 for each component :math:`r^x`, :math:`{\dot{r}^x}` and :math:`{\dot{r}^z}`.
             christoffel_ij_k_lambda   (function) :
                 The Christoffel tensor coefficients, as a `lambda` function, in a compact and indexable form.
-            geodesic_eqns (list of :class:`sympy.Eq <sympy.core.relational.Equality>`) :
+            geodesic_eqns (list of :class:`~sympy.core.relational.Equality`) :
                 Ray geodesic equations, but expressed indirectly as a pair of coupled 1st-order vector ODEs
                 rather than a 2nd-order vector ODE for ray acceleration.
                 The 1st-order ODE form is easier to solve numerically.
@@ -1250,12 +1248,12 @@ class Equations:
             # Use symmetry to abbreviate sum of diagonal terms
             (-self.christoffel_ij_k_rx_rdot_lambda(0, 0, 0)*rdotx*rdotx
              - 2*self.christoffel_ij_k_rx_rdot_lambda(0, 1, 0)*rdotx*rdotz
-             #-christoffel_ij_k_rx_rdot_lambda(1,0,0)*rdotz*rdotx
+             # -christoffel_ij_k_rx_rdot_lambda(1,0,0)*rdotz*rdotx
              - self.christoffel_ij_k_rx_rdot_lambda(1, 1, 0)*rdotz*rdotz),
             # Use symmetry to abbreviate sum of diagonal terms
             (-self.christoffel_ij_k_rx_rdot_lambda(0, 0, 1)*rdotx*rdotx
              - 2*self.christoffel_ij_k_rx_rdot_lambda(0, 1, 1)*rdotx*rdotz
-             #-christoffel_ij_k_rx_rdot_lambda(1,0,1)*rdotz*rdotx
+             # -christoffel_ij_k_rx_rdot_lambda(1,0,1)*rdotz*rdotx
              - self.christoffel_ij_k_rx_rdot_lambda(1, 1, 1)*rdotz*rdotz)
         ])
         # self.geodesic_eqns = Matrix([
@@ -1288,15 +1286,15 @@ class Equations:
 
 
         Args:
-            eta_choice (:class:`sympy.Rational <sympy.core.numbers.Rational>`):
+            eta_choice (:class:`~sympy.core.numbers.Rational`):
                 value of :math:`\eta` to use instead value given at instantiation; otherwise the latter value is used
 
         Attributes:
-            poly_px_xiv_varphi_eqn   (:class:`sympy.Poly <sympy.polys.polytools.Poly>`) :
+            poly_px_xiv_varphi_eqn (:class:`~sympy.polys.polytools.Poly`):
                 :math:`\operatorname{Poly}{\left( \left(\xi^{\downarrow}\right)^{4} \varphi^{4}{\left(\mathbf{r} \right)} p_{x}^{6}
                 -  \left(\xi^{\downarrow}\right)^{4} p_{x}^{2} -  \left(\xi^{\downarrow}\right)^{2}, p_{x},
                 domain=\mathbb{Z}\left[\varphi{\left(\mathbf{r} \right)}, \xi^{\downarrow}\right] \right)}`
-            poly_px_xiv_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
+            poly_px_xiv_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`\varphi_0^{4} \left(\xi^{\downarrow{0}}\right)^{4} p_{x}^{6} \left(\varepsilon
                 + \left(\frac{x_{1} - {r}^x}{x_{1}}\right)^{2 \mu}\right)^{4}
                 - \left(\xi^{\downarrow{0}}\right)^{4} p_{x}^{2}
@@ -1353,9 +1351,9 @@ class Equations:
         Define boundary (ray initial) condition equations
 
         Attributes:
-            pz0_xiv0_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
+            pz0_xiv0_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`p_{z_0} = - \dfrac{1}{\xi^{\downarrow{0}}}`
-            pzpx_unity_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
+            pzpx_unity_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`\varphi^{2} p_{x}^{2} p_{x}^{2 \eta} \left(p_{x}^{2} + p_{z}^{2}\right)^{- \eta} + \varphi^{2} p_{x}^{2 \eta} p_{z}^{2} \left(p_{x}^{2} + p_{z}^{2}\right)^{- \eta} = 1`
         """
         self.pz0_xiv0_eqn = Eq(pz_0, (-1/xiv_0))
@@ -1370,7 +1368,7 @@ class Equations:
         Define initial profile equations
 
         Attributes:
-            boundary_eqns   (`dict` of :class:`sympy.Eq <sympy.core.relational.Equality>`) :
+            boundary_eqns (`dict` of :class:`~sympy.core.relational.Equality`):
 
                 'planar':
                     'h': :math:`h = \dfrac{h_{0} x}{x_{1}}`
@@ -1406,15 +1404,15 @@ class Equations:
         Define initial condition equations
 
         Attributes:
-            rz_initial_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
+            rz_initial_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`{r}^z = \dfrac{h_{0} \tanh{\left(\frac{\kappa_\mathrm{h} {r}^x}{x_{1}} \right)}}{\tanh{\left(\frac{\kappa_\mathrm{h}}{x_{1}} \right)}}`
-            tanbeta_initial_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
+            tanbeta_initial_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`\tan{\left(\beta \right)} = \dfrac{\kappa_\mathrm{h} h_{0} \left(1 - \tanh^{2}{\left(\frac{\kappa_\mathrm{h} x}{x_{1}} \right)}\right)}{x_{1} \tanh{\left(\frac{\kappa_\mathrm{h}}{x_{1}} \right)}}`
-            p_initial_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
+            p_initial_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`p = \dfrac{x_{1}^{2 \mu} \left|{\sin{\left(\beta \right)}}\right|^{- \eta}}{\varphi_0 \left(\varepsilon x_{1}^{2 \mu} + \left(- x + x_{1}\right)^{2 \mu}\right)}`
-            px_initial_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
+            px_initial_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`p_{x} = \dfrac{\kappa_\mathrm{h} h_{0} x_{1}^{2 \mu} \left(\dfrac{1}{\kappa_\mathrm{h} h_{0} \left|{\tanh^{2}{\left(\frac{\kappa_\mathrm{h} x}{x_{1}} \right)} - 1}\right|}\right)^{\eta} \left(\kappa_\mathrm{h}^{2} h_{0}^{2} \left(\tanh^{2}{\left(\frac{\kappa_\mathrm{h} x}{x_{1}} \right)} - 1\right)^{2} + x_{1}^{2} \tanh^{2}{\left(\frac{\kappa_\mathrm{h}}{x_{1}} \right)}\right)^{\frac{\eta}{2} - \frac{1}{2}} \left|{\tanh^{2}{\left(\frac{\kappa_\mathrm{h} x}{x_{1}} \right)} - 1}\right|}{\varphi_0 \left(\varepsilon x_{1}^{2 \mu} + \left(- x + x_{1}\right)^{2 \mu}\right)}`
-            pz_initial_eqn   (:class:`sympy.Eq <sympy.core.relational.Equality>`) :
+            pz_initial_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`p_{z} = - \dfrac{x_{1}^{2 \mu + 1} \left(\dfrac{1}{\kappa_\mathrm{h} h_{0} \left|{\tanh^{2}{\left(\frac{\kappa_\mathrm{h} x}{x_{1}} \right)} - 1}\right|}\right)^{\eta} \left(\kappa_\mathrm{h}^{2} h_{0}^{2} \left(\tanh^{2}{\left(\frac{\kappa_\mathrm{h} x}{x_{1}} \right)} - 1\right)^{2} + x_{1}^{2} \tanh^{2}{\left(\frac{\kappa_\mathrm{h}}{x_{1}} \right)}\right)^{\frac{\eta}{2} - \frac{1}{2}} \tanh{\left(\frac{\kappa_\mathrm{h}}{x_{1}} \right)}}{\varphi_0 \left(\varepsilon x_{1}^{2 \mu} + \left(- x + x_{1}\right)^{2 \mu}\right)}`
         """
         cosbeta_eqn = Eq(cos(beta), 1/sqrt(1+tan(beta)**2))
@@ -1450,11 +1448,13 @@ class EquationSubset:
     TBD
     """
 
-    def __init__(self,
-                 gmeq: Type[Equations],
-                 parameters: Dict,
-                 do_ndim: bool = False,
-                 do_revert: bool = True) -> None:
+    def __init__(
+        self,
+        gmeq: Type[Equations],
+        parameters: Dict,
+        do_ndim: bool = False,
+        do_revert: bool = True
+    ) -> None:
         """
         TBD
         """
@@ -1485,8 +1485,9 @@ class EquationSubset:
             .subs(sub).n().subs(undimsub).subs({xih_0: 1})
         self.xiv0_xih0_Ci_eqn = gmeq.xiv0_xih0_Ci_eqn\
                                     .subs(omitdict(sub, [xiv_0, xih_0])).n()
-        self.hamiltons_eqns = (gmeq.hamiltons_ndim_eqns if do_ndim
-                               else gmeq.hamiltons_eqns).subs(sub).n().subs(undimsub)
+        self.hamiltons_eqns \
+            = (gmeq.hamiltons_ndim_eqns if do_ndim
+               else gmeq.hamiltons_eqns).subs(sub).n().subs(undimsub)
 
 
 #
