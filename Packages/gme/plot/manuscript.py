@@ -1,22 +1,16 @@
 """
 ---------------------------------------------------------------------
 
-Visualization.
-
-Provides classes to generate a range of graphics for GME visualization.
-A base class extends :class:`gmplib.plot.GraphingBase <gmplib.plot.GraphingBase>`
-provided by :mod:`GMPLib`; the other classes build on this.
-Each is tailored to a particular category of GME problem,
-such as single ray tracing or for tracking knickpoints.
+Generate plots for publications.
 
 ---------------------------------------------------------------------
 
 Requires Python packages/modules:
-  -  :mod:`numpy`, :mod:`sympy`
-  -  :mod:`matplotlib`, :mod:`matplotlib.pyplot`, :mod:`matplotlib.patches`,
-     :mod:`matplotlib.spines`, :mod:`mpl_toolkits`
-  -  :mod:`gmplib.utils`
-  -  :mod:`gme.core.symbols`, :mod:`gme.plot.base`
+  -  :mod:`numpy`
+  -  :mod:`sympy`
+  -  :mod:`matplotlib`
+  -  :mod:`mpl_toolkits`
+  -  :mod:`gme`
 
 ---------------------------------------------------------------------
 
@@ -51,206 +45,10 @@ __all__ = ['Manuscript']
 
 class Manuscript(Graphing):
     r"""
-    TBD
+    Generate plots for publications.
+
+    Subclasses :class:`gme.plot.base.Graphing`.
     """
-
-    def huygens_wavelets( self, gmes, gmeq, sub, name, fig_size=None, dpi=None,
-                          do_ray_conjugacy=False, do_fast=False,
-                          do_legend=True, legend_fontsize=10,
-                          annotation_fontsize=11) -> None:
-        r"""
-        Plot the loci of :math:`\mathbf{\widetilde{p}}` and :math:`\mathbf{r}` and
-        their behavior defined by :math:`F` relative to the :math:`\xi` circle.
-
-        Args:
-            fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`):
-                reference to figure instantiated by
-                :meth:`GMPLib create_figure <plot.GraphingBase.create_figure>`
-            gmeq (:class:`~.equations.Equations`):
-                    GME model equations class instance defined in :mod:`~.equations`
-            do_ray_conjugacy (bool): optional generate ray conjugacy schematic?
-        """
-        fig = self.create_figure(name, fig_size=fig_size, dpi=dpi)
-        axes = plt.gca()
-
-        def trace_indicatrix(sub, n_points, xy_offset, sf=1,
-                             pz_min_=2.5e-2, pz_max_=1000) -> Tuple[np.array, np.array]:
-            r"""
-            TBD
-            """
-            rdotx_pz_eqn = gmeq.idtx_rdotx_pz_varphi_eqn.subs(sub)
-            rdotz_pz_eqn = gmeq.idtx_rdotz_pz_varphi_eqn.subs(sub)
-            rdotx_pz_lambda = lambdify( pz, (re(N(rdotx_pz_eqn.rhs))), 'numpy')
-            rdotz_pz_lambda = lambdify( pz, (re(N(rdotz_pz_eqn.rhs))), 'numpy')
-            fgtx_pz_array = -pz_min_*np.power(2,np.linspace(np.log2(pz_max_/pz_min_),
-                                                            np.log2(pz_min_/pz_min_),
-                                                            n_points, endpoint=True))
-            # print(fgtx_pz_array)
-            idtx_rdotx_array \
-                = np.array([ float(rdotx_pz_lambda(pz_)) for pz_ in fgtx_pz_array] )
-            idtx_rdotz_array \
-                = np.array([ float(rdotz_pz_lambda(pz_)) for pz_ in fgtx_pz_array] )
-            return idtx_rdotx_array*sf+xy_offset[0],idtx_rdotz_array*sf+xy_offset[1]
-
-        isochrone_color, isochrone_width, isochrone_ms, isochrone_ls \
-                = 'Black', 2, 8 if do_ray_conjugacy else 7, '-'
-        new_isochrone_color, newpt_isochrone_color, new_isochrone_width, \
-            new_isochrone_ms, new_isochrone_ls \
-                = 'Gray', 'White', 2 if do_ray_conjugacy else 4, \
-                  8 if do_ray_conjugacy else 7, '-'
-        wavelet_color = 'DarkRed'
-        wavelet_width = 2.5 if do_ray_conjugacy else 1.5
-        p_color, _ = 'Blue', 2
-        r_color, r_width = '#15e01a', 1.5
-
-        dt_ = 0.0015
-        dz_ = -gmes.xiv_v_array[0]*dt_*1.15
-        # Fudge factors are NOT to "correct" curves but rather to account
-        #   for the exaggerated Delta{t} that makes the approximations here just wrong
-        #   enough to make the r, p etc annotations a bit wonky
-        dx_fudge, dp_fudge = 0.005,1.15
-
-        # Old isochrones
-        plt.plot( gmes.h_x_array[0],gmes.h_z_array[0], 'o', mec='k',
-                  mfc=isochrone_color, ms=isochrone_ms, fillstyle='full',
-                  markeredgewidth=0.5,
-                  label=r'point $\mathbf{r}$')
-        plt.plot( gmes.h_x_array, gmes.h_z_array, lw=isochrone_width,
-                  c=isochrone_color, ls=isochrone_ls,
-                  label=r'isochrone  $T(\mathbf{r})=t$' )
-
-        # Adjust plot scale, limits
-        # if do_ray_conjugacy:
-        #     x_limits = [0.35,0.62]; y_limits = [0.018,0.12]
-        # else:
-        #     x_limits = [0.45,0.75]; y_limits = [0.03,0.19]
-        # HACK!!!
-        # plt.xlim(*x_limits); plt.ylim(*y_limits)
-        axes.set_aspect(1)
-
-        # New isochrones
-        plt.plot( gmes.h_x_array+dx_fudge, gmes.h_z_array + dz_,
-                  c=new_isochrone_color, lw=new_isochrone_width, ls=new_isochrone_ls )
-
-        # Erosion arrow
-        i_ = 161 if do_ray_conjugacy else 180
-        # rx_, rz_ = ( (gmes.h_x_array[i_]+gmes.h_x_array[i_-1])/2,
-        #              (gmes.h_z_array[i_]+gmes.h_z_array[i_-1])/2 )
-        if do_ray_conjugacy:
-            rx_, rz_ = ( (gmes.h_x_array[i_]+gmes.h_x_array[i_-1])/2,
-                         (gmes.h_z_array[i_]+gmes.h_z_array[i_-1])/2 )
-        else:
-            rx_, rz_ = gmes.h_x_array[i_+1], gmes.h_z_array[i_+1]
-            rx_ += dx_fudge
-            rz_ += dz_
-        beta_ = float(gmes.beta_p_interp(rx_))
-        beta_deg = np.rad2deg(beta_)
-        sf = 0.03 if do_ray_conjugacy else 0.06
-        lw = 3.0 if do_ray_conjugacy else 5.0
-        l_erosion_arrow = 0.4
-        gray_ = self.gray_color(2,5)
-        plt.arrow( rx_,rz_, l_erosion_arrow*np.tan(beta_)*sf,-l_erosion_arrow*sf,
-                   head_width=0.15*sf, head_length=0.15*sf, lw=lw,
-                   length_includes_head=True, ec=gray_, fc=gray_,
-                   capstyle='butt', overhang=0.1*sf )
-
-        # Erosion label
-        off_x, off_z = (-0.002, +0.015) if do_ray_conjugacy else (0.02, -0.005)
-        rotation = beta_deg if do_ray_conjugacy else beta_deg-90
-        plt.text( rx_+off_x,rz_+off_z,'erosion', rotation=rotation,
-                  horizontalalignment='center', verticalalignment='top',
-                  fontsize=annotation_fontsize,  color=gray_ )
-
-        # Specify where to sample indicatrices
-        i_start = 0; i_end = 220; n_i = 3 if do_fast else 15
-        i_list = [111] if do_ray_conjugacy else \
-                [int(i) for i in i_start+(i_end-i_start)*np.linspace(0,1,n_i)**0.7]
-
-        # Construct indicatrix wavelets
-        for idx,i_ in enumerate(i_list):
-            print(f'{idx}: {i_}')
-            i_from = i_list[0]
-            rx_, rz_ = gmes.h_x_array[i_], gmes.h_z_array[i_]
-            print(rx_,rz_)
-            drx_, drz = gmes.rdotx_interp(rx_)*dt_, gmes.rdotz_interp(rx_)*dt_
-            rxn_, rzn_ = rx_+drx_, rz_+drz
-            recip_p_ = (1/gmes.p_interp(rx_))*dt_
-            beta_ = float(gmes.beta_p_interp(rx_))
-            dpx_, dpz_ = recip_p_*np.sin(beta_)*dp_fudge, -recip_p_*np.cos(beta_)*dp_fudge
-            varphi_ = float(gmeq.varphi_rx_eqn.rhs.subs(sub).subs({rx:rx_}))
-            n_points = 80 if do_ray_conjugacy else 5 if do_fast else 50
-            pz_max_ = 1000 if do_ray_conjugacy else 1000
-            idtx_rdotx_array,idtx_rdotz_array \
-                = trace_indicatrix( {varphi:varphi_},  n_points=n_points,
-                                    xy_offset=[rx_, rz_], sf=dt_,
-                                    pz_min_=1e-3, pz_max_=pz_max_ )
-
-            # Plot wavelets
-            lw = 1.5
-            plt.plot( idtx_rdotx_array,idtx_rdotz_array, lw=wavelet_width, ls='-',
-                      c=wavelet_color,
-                      label=r'erosional wavelet $\{\Delta\mathbf{r}\}$' if i_==i_from
-                            else None )
-            if not do_ray_conjugacy:
-                k_ = 0
-                plt.plot( [rx_*k_+idtx_rdotx_array[0]*(1-k_),idtx_rdotx_array[0]],
-                          [rz_*k_+idtx_rdotz_array[0]*(1-k_),idtx_rdotz_array[0]],
-                          lw=lw, c=wavelet_color, alpha=0.7, ls='-' )
-                plt.plot( [rx_,idtx_rdotx_array[0]],[rz_,idtx_rdotz_array[0]],
-                          lw=lw, c=wavelet_color, alpha=0.4, ls='-' )
-            else:
-                plt.plot( [rx_,idtx_rdotx_array[0]],[rz_,idtx_rdotz_array[0]],
-                          lw=lw, c=wavelet_color, alpha=1, ls='--' )
-
-            # Ray arrows & new points
-            sf = 1.7 if do_ray_conjugacy else 0.1
-            plt.arrow(rx_, rz_, (rxn_-rx_), (rzn_-rz_),
-                      head_width=0.007*sf,
-                      head_length=0.009*sf,
-                      overhang=0.18, width=0.0003,
-                      length_includes_head=True,
-                      alpha=1, ec='w', fc=r_color, linestyle='-') #, shape='full')
-            plt.plot( [rx_, rxn_], [rz_, rzn_],
-                      lw=2 if do_ray_conjugacy else r_width, alpha=1,
-                      c=r_color, linestyle='-', # shape='full',
-                      label=r'ray increment  $\Delta{\mathbf{r}}$' if i_==i_from
-                            else None)
-            plt.plot( rxn_, rzn_, 'o', mec=new_isochrone_color, mfc=newpt_isochrone_color,
-                      ms=new_isochrone_ms, fillstyle=None, markeredgewidth=1.5)
-
-            # Normal slownesses
-            plt.plot([rx_,rx_+dpx_],[rz_,rz_+dpz_],'-', c=p_color,
-                     lw=3 if do_ray_conjugacy else r_width,
-                     label=r'front increment  $\mathbf{\widetilde{p}}\Delta{t}\,/\,{p}^2$'
-                     if i_==i_from else None)
-
-            sf = 1.5
-            plt.arrow(rx_-dpx_*0.15, rz_-dpz_*0.15, -dpx_*0.1, -dpz_*0.1,
-                        head_width=0.007*sf, head_length=-0.006*sf, lw=1*sf,
-                        shape='full', overhang=1,
-                        length_includes_head=True,
-                        head_starts_at_zero=True,
-                        ec='b', fc='b')
-            # Old points
-            plt.plot( rx_, rz_, 'o', mec='k', mfc=isochrone_color, ms=isochrone_ms,
-                      fillstyle='full', markeredgewidth=0.5 )
-
-        # New isochrones
-        plt.plot( 0,0, c=new_isochrone_color, lw=new_isochrone_width, ls=new_isochrone_ls,
-                  label=r'isochrone  $T(\mathbf{r}\!+\!\Delta{\mathbf{r}})=t+\Delta{t}$')
-        plt.plot( rxn_, rzn_, 'o', mec=new_isochrone_color, mfc=newpt_isochrone_color,
-                  ms=new_isochrone_ms, fillstyle=None, markeredgewidth=1.5,
-                  label=r'point $\mathbf{r}+\Delta{\mathbf{r}}$')
-
-        plt.grid(True, ls=':')
-        plt.xlabel(r'Distance, $x/L_{\mathrm{c}}$  [-]', fontsize=14)
-        plt.ylabel(r'Elevation, $z/L_{\mathrm{c}}$  [-]', fontsize=14)
-        if do_legend:
-            plt.legend(loc='upper left', fontsize=legend_fontsize, framealpha=0.95)
-
-        print(type(fig.add_axes([*[0.65, 0.55], *[0.65, 0.55]])))
-        print('here')
-
     def point_pairing(self, name, fig_size=(10,4), dpi=None) -> None:
         """
         Schematic illustrating ...
@@ -812,3 +610,200 @@ class Manuscript(Graphing):
         inset_axes_.spines['left'].set_visible(False)
         inset_axes_.spines['right'].set_visible(False)
         inset_axes_.spines['bottom'].set_visible(True)
+
+    def huygens_wavelets( self, gmes, gmeq, sub, name, fig_size=None, dpi=None,
+                          do_ray_conjugacy=False, do_fast=False,
+                          do_legend=True, legend_fontsize=10,
+                          annotation_fontsize=11) -> None:
+        r"""
+        Plot the loci of :math:`\mathbf{\widetilde{p}}` and :math:`\mathbf{r}` and
+        their behavior defined by :math:`F` relative to the :math:`\xi` circle.
+
+        Args:
+            fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`):
+                reference to figure instantiated by
+                :meth:`GMPLib create_figure <plot.GraphingBase.create_figure>`
+            gmeq (:class:`~.equations.Equations`):
+                    GME model equations class instance defined in :mod:`~.equations`
+            do_ray_conjugacy (bool): optional generate ray conjugacy schematic?
+        """
+        fig = self.create_figure(name, fig_size=fig_size, dpi=dpi)
+        axes = plt.gca()
+
+        def trace_indicatrix(sub, n_points, xy_offset, sf=1,
+                             pz_min_=2.5e-2, pz_max_=1000) -> Tuple[np.array, np.array]:
+            r"""
+            TBD
+            """
+            rdotx_pz_eqn = gmeq.idtx_rdotx_pz_varphi_eqn.subs(sub)
+            rdotz_pz_eqn = gmeq.idtx_rdotz_pz_varphi_eqn.subs(sub)
+            rdotx_pz_lambda = lambdify( pz, (re(N(rdotx_pz_eqn.rhs))), 'numpy')
+            rdotz_pz_lambda = lambdify( pz, (re(N(rdotz_pz_eqn.rhs))), 'numpy')
+            fgtx_pz_array = -pz_min_*np.power(2,np.linspace(np.log2(pz_max_/pz_min_),
+                                                            np.log2(pz_min_/pz_min_),
+                                                            n_points, endpoint=True))
+            # print(fgtx_pz_array)
+            idtx_rdotx_array \
+                = np.array([ float(rdotx_pz_lambda(pz_)) for pz_ in fgtx_pz_array] )
+            idtx_rdotz_array \
+                = np.array([ float(rdotz_pz_lambda(pz_)) for pz_ in fgtx_pz_array] )
+            return idtx_rdotx_array*sf+xy_offset[0],idtx_rdotz_array*sf+xy_offset[1]
+
+        isochrone_color, isochrone_width, isochrone_ms, isochrone_ls \
+                = 'Black', 2, 8 if do_ray_conjugacy else 7, '-'
+        new_isochrone_color, newpt_isochrone_color, new_isochrone_width, \
+            new_isochrone_ms, new_isochrone_ls \
+                = 'Gray', 'White', 2 if do_ray_conjugacy else 4, \
+                  8 if do_ray_conjugacy else 7, '-'
+        wavelet_color = 'DarkRed'
+        wavelet_width = 2.5 if do_ray_conjugacy else 1.5
+        p_color, _ = 'Blue', 2
+        r_color, r_width = '#15e01a', 1.5
+
+        dt_ = 0.0015
+        dz_ = -gmes.xiv_v_array[0]*dt_*1.15
+        # Fudge factors are NOT to "correct" curves but rather to account
+        #   for the exaggerated Delta{t} that makes the approximations here just wrong
+        #   enough to make the r, p etc annotations a bit wonky
+        dx_fudge, dp_fudge = 0.005,1.15
+
+        # Old isochrones
+        plt.plot( gmes.h_x_array[0],gmes.h_z_array[0], 'o', mec='k',
+                  mfc=isochrone_color, ms=isochrone_ms, fillstyle='full',
+                  markeredgewidth=0.5,
+                  label=r'point $\mathbf{r}$')
+        plt.plot( gmes.h_x_array, gmes.h_z_array, lw=isochrone_width,
+                  c=isochrone_color, ls=isochrone_ls,
+                  label=r'isochrone  $T(\mathbf{r})=t$' )
+
+        # Adjust plot scale, limits
+        # if do_ray_conjugacy:
+        #     x_limits = [0.35,0.62]; y_limits = [0.018,0.12]
+        # else:
+        #     x_limits = [0.45,0.75]; y_limits = [0.03,0.19]
+        # HACK!!!
+        # plt.xlim(*x_limits); plt.ylim(*y_limits)
+        axes.set_aspect(1)
+
+        # New isochrones
+        plt.plot( gmes.h_x_array+dx_fudge, gmes.h_z_array + dz_,
+                  c=new_isochrone_color, lw=new_isochrone_width, ls=new_isochrone_ls )
+
+        # Erosion arrow
+        i_ = 161 if do_ray_conjugacy else 180
+        # rx_, rz_ = ( (gmes.h_x_array[i_]+gmes.h_x_array[i_-1])/2,
+        #              (gmes.h_z_array[i_]+gmes.h_z_array[i_-1])/2 )
+        if do_ray_conjugacy:
+            rx_, rz_ = ( (gmes.h_x_array[i_]+gmes.h_x_array[i_-1])/2,
+                         (gmes.h_z_array[i_]+gmes.h_z_array[i_-1])/2 )
+        else:
+            rx_, rz_ = gmes.h_x_array[i_+1], gmes.h_z_array[i_+1]
+            rx_ += dx_fudge
+            rz_ += dz_
+        beta_ = float(gmes.beta_p_interp(rx_))
+        beta_deg = np.rad2deg(beta_)
+        sf = 0.03 if do_ray_conjugacy else 0.06
+        lw = 3.0 if do_ray_conjugacy else 5.0
+        l_erosion_arrow = 0.4
+        gray_ = self.gray_color(2,5)
+        plt.arrow( rx_,rz_, l_erosion_arrow*np.tan(beta_)*sf,-l_erosion_arrow*sf,
+                   head_width=0.15*sf, head_length=0.15*sf, lw=lw,
+                   length_includes_head=True, ec=gray_, fc=gray_,
+                   capstyle='butt', overhang=0.1*sf )
+
+        # Erosion label
+        off_x, off_z = (-0.002, +0.015) if do_ray_conjugacy else (0.02, -0.005)
+        rotation = beta_deg if do_ray_conjugacy else beta_deg-90
+        plt.text( rx_+off_x,rz_+off_z,'erosion', rotation=rotation,
+                  horizontalalignment='center', verticalalignment='top',
+                  fontsize=annotation_fontsize,  color=gray_ )
+
+        # Specify where to sample indicatrices
+        i_start = 0; i_end = 220; n_i = 3 if do_fast else 15
+        i_list = [111] if do_ray_conjugacy else \
+                [int(i) for i in i_start+(i_end-i_start)*np.linspace(0,1,n_i)**0.7]
+
+        # Construct indicatrix wavelets
+        for idx,i_ in enumerate(i_list):
+            print(f'{idx}: {i_}')
+            i_from = i_list[0]
+            rx_, rz_ = gmes.h_x_array[i_], gmes.h_z_array[i_]
+            print(rx_,rz_)
+            drx_, drz = gmes.rdotx_interp(rx_)*dt_, gmes.rdotz_interp(rx_)*dt_
+            rxn_, rzn_ = rx_+drx_, rz_+drz
+            recip_p_ = (1/gmes.p_interp(rx_))*dt_
+            beta_ = float(gmes.beta_p_interp(rx_))
+            dpx_, dpz_ = recip_p_*np.sin(beta_)*dp_fudge, -recip_p_*np.cos(beta_)*dp_fudge
+            varphi_ = float(gmeq.varphi_rx_eqn.rhs.subs(sub).subs({rx:rx_}))
+            n_points = 80 if do_ray_conjugacy else 5 if do_fast else 50
+            pz_max_ = 1000 if do_ray_conjugacy else 1000
+            idtx_rdotx_array,idtx_rdotz_array \
+                = trace_indicatrix( {varphi:varphi_},  n_points=n_points,
+                                    xy_offset=[rx_, rz_], sf=dt_,
+                                    pz_min_=1e-3, pz_max_=pz_max_ )
+
+            # Plot wavelets
+            lw = 1.5
+            plt.plot( idtx_rdotx_array,idtx_rdotz_array, lw=wavelet_width, ls='-',
+                      c=wavelet_color,
+                      label=r'erosional wavelet $\{\Delta\mathbf{r}\}$' if i_==i_from
+                            else None )
+            if not do_ray_conjugacy:
+                k_ = 0
+                plt.plot( [rx_*k_+idtx_rdotx_array[0]*(1-k_),idtx_rdotx_array[0]],
+                          [rz_*k_+idtx_rdotz_array[0]*(1-k_),idtx_rdotz_array[0]],
+                          lw=lw, c=wavelet_color, alpha=0.7, ls='-' )
+                plt.plot( [rx_,idtx_rdotx_array[0]],[rz_,idtx_rdotz_array[0]],
+                          lw=lw, c=wavelet_color, alpha=0.4, ls='-' )
+            else:
+                plt.plot( [rx_,idtx_rdotx_array[0]],[rz_,idtx_rdotz_array[0]],
+                          lw=lw, c=wavelet_color, alpha=1, ls='--' )
+
+            # Ray arrows & new points
+            sf = 1.7 if do_ray_conjugacy else 0.1
+            plt.arrow(rx_, rz_, (rxn_-rx_), (rzn_-rz_),
+                      head_width=0.007*sf,
+                      head_length=0.009*sf,
+                      overhang=0.18, width=0.0003,
+                      length_includes_head=True,
+                      alpha=1, ec='w', fc=r_color, linestyle='-') #, shape='full')
+            plt.plot( [rx_, rxn_], [rz_, rzn_],
+                      lw=2 if do_ray_conjugacy else r_width, alpha=1,
+                      c=r_color, linestyle='-', # shape='full',
+                      label=r'ray increment  $\Delta{\mathbf{r}}$' if i_==i_from
+                            else None)
+            plt.plot( rxn_, rzn_, 'o', mec=new_isochrone_color, mfc=newpt_isochrone_color,
+                      ms=new_isochrone_ms, fillstyle=None, markeredgewidth=1.5)
+
+            # Normal slownesses
+            plt.plot([rx_,rx_+dpx_],[rz_,rz_+dpz_],'-', c=p_color,
+                     lw=3 if do_ray_conjugacy else r_width,
+                     label=r'front increment  $\mathbf{\widetilde{p}}\Delta{t}\,/\,{p}^2$'
+                     if i_==i_from else None)
+
+            sf = 1.5
+            plt.arrow(rx_-dpx_*0.15, rz_-dpz_*0.15, -dpx_*0.1, -dpz_*0.1,
+                        head_width=0.007*sf, head_length=-0.006*sf, lw=1*sf,
+                        shape='full', overhang=1,
+                        length_includes_head=True,
+                        head_starts_at_zero=True,
+                        ec='b', fc='b')
+            # Old points
+            plt.plot( rx_, rz_, 'o', mec='k', mfc=isochrone_color, ms=isochrone_ms,
+                      fillstyle='full', markeredgewidth=0.5 )
+
+        # New isochrones
+        plt.plot( 0,0, c=new_isochrone_color, lw=new_isochrone_width, ls=new_isochrone_ls,
+                  label=r'isochrone  $T(\mathbf{r}\!+\!\Delta{\mathbf{r}})=t+\Delta{t}$')
+        plt.plot( rxn_, rzn_, 'o', mec=new_isochrone_color, mfc=newpt_isochrone_color,
+                  ms=new_isochrone_ms, fillstyle=None, markeredgewidth=1.5,
+                  label=r'point $\mathbf{r}+\Delta{\mathbf{r}}$')
+
+        plt.grid(True, ls=':')
+        plt.xlabel(r'Distance, $x/L_{\mathrm{c}}$  [-]', fontsize=14)
+        plt.ylabel(r'Elevation, $z/L_{\mathrm{c}}$  [-]', fontsize=14)
+        if do_legend:
+            plt.legend(loc='upper left', fontsize=legend_fontsize, framealpha=0.95)
+
+        print(type(fig.add_axes([*[0.65, 0.55], *[0.65, 0.55]])))
+        print('here')

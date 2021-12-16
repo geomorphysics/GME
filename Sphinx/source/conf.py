@@ -12,14 +12,16 @@
 #
 import os
 import sys
-for dir_ in (   ('..'),
+for dir_ in (   ('..'),('../..'),
                 ('../../Packages'),
                 ('../../../GMPLib/Packages/gmplib'),
                 ('../../Packages/gme/core'),
                 ('../../Packages/gme/ode'),
                 ('../../Packages/gme/plot'),
                 ('../../Packages/gme/knickpoints') ):
-    sys.path.append(os.path.abspath(dir_))
+    path_ = os.path.abspath(dir_)
+    # print(path_)
+    sys.path.append(path_)
 from pprint import PrettyPrinter
 pp = PrettyPrinter(indent=4).pprint
 pp(sys.path)
@@ -146,12 +148,12 @@ intersphinx_mapping = {
     # https://geomorphysics.github.io/GMPLib
     'gmplib': ('/Users/colinstark/Projects/GMPLib',
                '/Users/colinstark/Projects/GMPLib/objects.inv'),
-    'sphinx': ('http://www.sphinx-doc.org/en/master', None),
+    'sphinx': ('https://www.sphinx-doc.org/en/master', None),
     'python': ('https://docs.python.org/3', None),
     'matplotlib': ('https://matplotlib.org/stable', None),
     # 'mpl_toolkits': ('https://matplotlib.org', None),
-    'np': ('https://docs.scipy.org/doc/numpy', None),
-    'numpy': ('https://docs.scipy.org/doc/numpy', None),
+    'np': ('https://numpy.org/doc/stable', None),
+    'numpy': ('https://numpy.org/doc/stable', None),
     'scipy': ('https://docs.scipy.org/doc/scipy/reference', None),
     'sympy': ('https://docs.sympy.org/latest/', None),
     'PIL': ('https://pillow.readthedocs.io/en/latest/', None),

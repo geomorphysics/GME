@@ -1,25 +1,23 @@
 """
 ---------------------------------------------------------------------
 
-Visualization.
-
-Provides classes to generate a range of graphics for GME visualization.
-A base class extends :class:`gmplib.plot.GraphingBase <gmplib.plot.GraphingBase>`
-provided by :mod:`GMPLib`; the other classes build on this.
-Each is tailored to a particular category of GME problem,
-such as single ray tracing or for tracking knickpoints.
+Visualization of ray velocities.
 
 ---------------------------------------------------------------------
 
-Requires Python packages/modules:
-  -  :mod:`numpy`, :mod:`sympy`
-  -  :mod:`matplotlib.pyplot`
-  -  :mod:`gme.core.symbols`, :mod:`gme.plot.base`
+Requires Python packages:
+  -  :mod:`numpy`
+  -  :mod:`sympy`
+  -  :mod:`matplotlib`
+  -  :mod:`gme`
 
 ---------------------------------------------------------------------
 
 """
 import warnings
+
+# Typing
+from typing import Dict, Tuple, Optional
 
 # Numpy
 import numpy as np
@@ -32,6 +30,8 @@ import matplotlib.pyplot as plt
 
 # GME
 from gme.core.symbols import Ci, varepsilon
+from gme.core.equations import Equations
+from gme.ode.single_ray import SingleRaySolution
 from gme.plot.base import Graphing
 
 warnings.filterwarnings("ignore")
@@ -41,26 +41,48 @@ __all__ = ['RayVelocities']
 
 class RayVelocities(Graphing):
     """
-    Subclasses :class:`gme.plot.Graphing <plot.Graphing>`.
-    """
+    Visualization of ray velocities.
 
-    def profile_v( self, gmes, gmeq, sub, name, fig_size=None, dpi=None, n_points=201,
-                   pub_label_xy=(0.5,0.5), eta_label_xy=(0.5,0.81), var_label_xy=(0.8,0.5),
-                   do_pub_label=False, pub_label='', do_etaxi_label=True,
-                   xi_norm=None, legend_loc='lower right', do_mod_v=False ) -> None:
+    Subclasses :class:`gme.plot.base.Graphing`.
+    """
+    def profile_v(
+        self,
+        gmes: SingleRaySolution,
+        gmeq: Equations,
+        sub: Dict,
+        name: str,
+        fig_size: Optional[Tuple[float,float]]=None,
+        dpi: Optional[int]=None,
+        n_points: int=201,
+        do_pub_label: bool=False,
+        pub_label: str='',
+        pub_label_xy: Tuple[float,float]=(0.5,0.5),
+        do_etaxi_label=True,
+        eta_label_xy: Tuple[float,float]=(0.5,0.81),
+        var_label_xy: Tuple[float,float]=(0.8,0.5),
+        xi_norm: Optional[float]=None,
+        legend_loc: str='lower right',
+        do_mod_v: bool=False
+        ) -> None:
         r"""
-        Plot velocity :math:`\dot{r}` along a ray.
+        Plot velocity :math:`\mathbf{v}` along a ray.
 
         Args:
-            fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`):
-                reference to figure instantiated by
-                :meth:`GMPLib create_figure <plot.GraphingBase.create_figure>`
-            gmes (:class:`~.ode_raytracing.OneRaySolution`):
-                    instance of single ray solution class defined in
-                    :mod:`~.ode_raytracing`
-            gmeq (:class:`~.equations.Equations`):
-                    GME model equations class instance defined in :mod:`~.equations`
-            n_points (int): sample rate along each curve
+            gmes:
+                instance of single-ray solution class
+                defined in :mod:`~.ode.single_ray`
+            gmeq:
+                GME model equations class instance defined in :mod:`~.equations`
+            sub:
+                dictionary of model parameter values to be used for
+                equation substitutions
+            name:
+                name of figure (key in figure dictionary)
+            fig_size:
+                optional figure width and height in inches
+            dpi:
+                optional rasterization resolution
+            n_points: sample rate along each curve
         """
         _ = self.create_figure(name, fig_size=fig_size, dpi=dpi)
         # pub_label_xy = [0.5,0.5] if pub_label_xy is None else pub_label_xy
@@ -122,24 +144,43 @@ class RayVelocities(Graphing):
                  horizontalalignment='center', verticalalignment='center',
                  fontsize=18, color='k')
 
-    def profile_vdot( self, gmes, gmeq, sub, name, fig_size=None, dpi=None,
-                      n_points=201, do_pub_label=False, pub_label='',
-                      xi_norm=None, do_etaxi_label=True,
-                      legend_loc='lower right', do_legend=True,
-                      do_mod_vdot=False, do_geodesic=False ) -> None:
+    def profile_vdot(
+        self,
+        gmes: SingleRaySolution,
+        gmeq: Equations,
+        sub: Dict,
+        name: str,
+        fig_size: Optional[Tuple[float,float]]=None,
+        dpi: Optional[int]=None,
+        n_points: int=201,
+        do_pub_label: bool=False,
+        pub_label: str='',
+        do_etaxi_label: bool=True,
+        xi_norm: Optional[float]=None,
+        legend_loc: str='lower right',
+        do_legend: bool=True,
+        do_mod_vdot: bool=False,
+        do_geodesic: bool=False
+        ) -> None:
         r"""
-        Plot acceleration :math:`\ddot{r}` along a ray.
+        Plot acceleration :math:`\mathbf{}\dot{v}}` along a ray.
 
         Args:
-            fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`):
-                reference to figure instantiated by
-                :meth:`GMPLib create_figure <plot.GraphingBase.create_figure>`
-            gmes (:class:`~.ode_raytracing.OneRaySolution`):
-                    instance of single ray solution class defined in
-                    :mod:`~.ode_raytracing`
-            gmeq (:class:`~.equations.Equations`):
-                    GME model equations class instance defined in :mod:`~.equations`
-            n_points (int): sample rate along each curve
+            gmes:
+                instance of single-ray solution class
+                defined in :mod:`~.ode.single_ray`
+            gmeq:
+                GME model equations class instance defined in :mod:`~.equations`
+            sub:
+                dictionary of model parameter values to be used for
+                equation substitutions
+            name:
+                name of figure (key in figure dictionary)
+            fig_size:
+                optional figure width and height in inches
+            dpi:
+                optional rasterization resolution
+            n_points: sample rate along each curve
         """
         _ = self.create_figure(name, fig_size=fig_size, dpi=dpi)
 

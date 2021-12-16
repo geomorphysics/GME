@@ -16,6 +16,7 @@
     Ray properties along profiles <ray_profiles>
     Ray velocity viz <ray_velocities>
     2D slicing of Hamiltonian <slicing>
-    Time-dependent profiles <time_dependent>
     Time-invariant profiles <time_invariant>
     Flow model <flow_model>
+    Time-dependent profiles <time_dependent>
+    Cusp velocity <cusp_velocity>

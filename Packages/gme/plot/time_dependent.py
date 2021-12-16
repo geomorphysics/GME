@@ -1,22 +1,15 @@
 """
 ---------------------------------------------------------------------
 
-Visualization.
-
-Provides classes to generate a range of graphics for GME visualization.
-A base class extends :class:`gmplib.plot.GraphingBase <gmplib.plot.GraphingBase>`
-provided by :mod:`GMPLib`; the other classes build on this.
-Each is tailored to a particular category of GME problem,
-such as single ray tracing or for tracking knickpoints.
+Visualization of solutions with time-varying boundary conditions.
 
 ---------------------------------------------------------------------
 
-Requires Python packages/modules:
+Requires Python packages:
   -  :mod:`numpy`
   -  :mod:`sympy`
-  -  :mod:`matplotlib`, :mod:`matplotlib.pyplot`, :mod:`matplotlib.patches`
-  -  :mod:`gmplib.utils`
-  -  :mod:`gme.core.symbols`, :mod:`gme.plot.base`
+  -  :mod:`matplotlib`
+  -  :mod:`gme`
 
 ---------------------------------------------------------------------
 
@@ -50,45 +43,48 @@ __all__ = ['TimeDependent']
 
 class TimeDependent(Graphing):
     """
-    Subclasses :class:`gme.plot.Graphing <plot.Graphing>`.
+    Visualization of solutions with time-varying boundary conditions.
+
+    Subclasses :class:`gme.plot.base.Graphing`.
     """
-    def profile_isochrones( self,
-                            gmes: TimeInvariantSolution,
-                            gmeq: Equations,
-                            sub: Dict,
-                            name: str,
-                            fig_size: Optional[Tuple[float,float]]=None,
-                            dpi: Optional[int]=None,
-                            do_zero_isochrone : bool=True,
-                            do_rays: bool=True,
-                            ray_subsetting: int=5,
-                            ray_lw: float=0.5,
-                            ray_ls: str='-',
-                            ray_label: str='ray',
-                            do_isochrones: bool=True,
-                            isochrone_subsetting: int=1,
-                            isochrone_lw: float=0.5,
-                            isochrone_ls: str='-',
-                            do_annotate_rays: bool=False,
-                            n_arrows: int=10,
-                            arrow_sf: float=0.7,
-                            arrow_offset: int=4,
-                            do_annotate_cusps: bool=False,
-                            cusp_lw: float=1.5,
-                            do_smooth_colors: bool=False,
-                            x_limits: Tuple[float,float]=(-0.001,1.001),
-                            y_limits: Tuple[float,float]=(-0.025,0.525),
-                            aspect: float=None,
-                            do_legend: bool=True,
-                            do_alt_legend: bool=False,
-                            do_grid: bool=True,
-                            do_infer_initiation: bool=True,
-                            do_pub_label: bool=False,
-                            do_etaxi_label: bool=True,
-                            pub_label: Optional[str]=None,
-                            eta_label_xy: Tuple[float,float]=(0.65,0.85),
-                            pub_label_xy: Tuple[float,float]=(0.5,0.92)
-                        ) -> None:
+    def profile_isochrones(
+        self,
+        gmes: TimeInvariantSolution,
+        gmeq: Equations,
+        sub: Dict,
+        name: str,
+        fig_size: Optional[Tuple[float,float]]=None,
+        dpi: Optional[int]=None,
+        do_zero_isochrone : bool=True,
+        do_rays: bool=True,
+        ray_subsetting: int=5,
+        ray_lw: float=0.5,
+        ray_ls: str='-',
+        ray_label: str='ray',
+        do_isochrones: bool=True,
+        isochrone_subsetting: int=1,
+        isochrone_lw: float=0.5,
+        isochrone_ls: str='-',
+        do_annotate_rays: bool=False,
+        n_arrows: int=10,
+        arrow_sf: float=0.7,
+        arrow_offset: int=4,
+        do_annotate_cusps: bool=False,
+        cusp_lw: float=1.5,
+        do_smooth_colors: bool=False,
+        x_limits: Tuple[float,float]=(-0.001,1.001),
+        y_limits: Tuple[float,float]=(-0.025,0.525),
+        aspect: float=None,
+        do_legend: bool=True,
+        do_alt_legend: bool=False,
+        do_grid: bool=True,
+        do_infer_initiation: bool=True,
+        do_pub_label: bool=False,
+        do_etaxi_label: bool=True,
+        pub_label: Optional[str]=None,
+        eta_label_xy: Tuple[float,float]=(0.65,0.85),
+        pub_label_xy: Tuple[float,float]=(0.5,0.92)
+        ) -> None:
         """
         Plot isochrones and rays for a time-dependent b.c. solution.
 
@@ -183,15 +179,18 @@ class TimeDependent(Graphing):
                         ray_label+r' ($t_{\mathrm{newest}}$)' if i_ray==n_rays-1 else
                         None)
                     if do_annotate_rays:
-                        self.arrow_annotate_ray_custom(rx_array, rz_array, axes, i_ray,
-                                                       ray_subsetting, n_rays,
-                                                       n_arrows, arrow_sf, arrow_offset,
-                                                       x_limits=x_limits,
-                                                       y_limits=y_limits,
-                                                       line_style=ray_ls,
-                                                       line_width=ray_lw,
-                                                       ray_label=this_ray_label,
-                                                       do_smooth_colors=do_smooth_colors)
+                        self.arrow_annotate_ray_custom(
+                            rx_array, rz_array,
+                            axes, i_ray,
+                            ray_subsetting, n_rays,
+                            n_arrows, arrow_sf, arrow_offset,
+                            x_limits=x_limits,
+                            y_limits=y_limits,
+                            line_style=ray_ls,
+                            line_width=ray_lw,
+                            ray_label=this_ray_label,
+                            do_smooth_colors=do_smooth_colors
+                        )
                     else:
                         color_ = self.mycolors(i_ray, ray_subsetting, n_rays,
                                             do_smooth=do_smooth_colors)
@@ -200,18 +199,19 @@ class TimeDependent(Graphing):
 
         # Time slices or isochrones of erosion front
         if hasattr(gmes,'rpt_isochrones') and do_isochrones:
-            n_isochrones = len(rx_isochrones)
-            delta_t = t_isochrones[1]
+            n_isochrones: int = len(rx_isochrones)
+            delta_t: float = t_isochrones[1]
             i_isochrone, rx_isochrone, rz_isochrone = None, None, None
             # suppresses annoying pylint warning
             for i_isochrone,(rx_isochrone,rz_isochrone,_) in \
                         enumerate(zip(rx_isochrones,rz_isochrones,t_isochrones)):
-                i_subsetted = (i_isochrone//isochrone_subsetting
+                i_subsetted: int = (i_isochrone//isochrone_subsetting
                                     -i_isochrone/isochrone_subsetting)
-                i_subsubsetted = (i_isochrone//(isochrone_subsetting*10)
-                                    -i_isochrone/(isochrone_subsetting*10))
-                if (i_isochrone>0 and i_subsetted==0 and rx_isochrone is not None):
-                    lw_ = 1.3*isochrone_lw if i_subsubsetted==0 else 0.5*isochrone_lw
+                i_subsubsetted: int = (i_isochrone//(isochrone_subsetting*10)
+                                       -i_isochrone/(isochrone_subsetting*10))
+                if i_isochrone>0 and i_subsetted==0 and rx_isochrone is not None:
+                    lw_: float = 1.3*isochrone_lw if i_subsubsetted==0 \
+                                else 0.5*isochrone_lw
                     plt.plot(rx_isochrone, rz_isochrone,
                              self.gray_color(i_isochrone, n_isochrones),
                              linestyle=isochrone_ls, lw=lw_)
@@ -247,7 +247,7 @@ class TimeDependent(Graphing):
                 # Plot arrow annotations using subset of cusps
                 cusp_subsetting = max(1,n_cusps//n_arrows)
                 rxz_array =  rxz_array[::cusp_subsetting].T
-                sf = 0.7
+                sf: float = 0.7
                 my_arrow_style \
                     = mpatches.ArrowStyle.Fancy(head_length=.99*sf,
                                                 head_width=.6*sf, tail_width=0.0001)
@@ -284,97 +284,6 @@ class TimeDependent(Graphing):
             plt.text(*pub_label_xy, pub_label, transform=axes.transAxes,
                      horizontalalignment='center', verticalalignment='center',
                      fontsize=14, color='k')
-
-    def profile_cusp_speed( self,
-                            gmes: TimeInvariantSolution,
-                            gmeq: Equations,
-                            sub: Dict,
-                            name: str,
-                            fig_size: Optional[Tuple[float,float]]=None,
-                            dpi: Optional[int]=None,
-                            x_limits: Tuple[float,float]=(-0.05,1.05),
-                            y_limits: Tuple[float,Optional[float]]=(-5,None),
-                            t_limits: Tuple[float,Optional[float]]=(0,None),
-                            legend_loc: str='lower right',
-                            do_x: bool=True,
-                            do_infer_initiation: bool=True
-                        ) -> None:
-        r"""
-        Plot horizontal speed of cusp propagation
-
-        Args:
-            gmes:
-                instance of velocity boundary solution class defined in
-                :mod:`~.ode_raytracing`
-            gmeq:
-                GME model equations class instance defined in :mod:`~.equations`
-            sub:
-                dictionary of model parameter values to be used for equation substitutions
-            name:
-                name of plot in figures dictionary
-            fig_size:
-                optional figure width and height in inches
-            dpi:
-                optional rasterization resolution
-            x_limits:
-                optional [x_min, x_max] horizontal plot range
-            y_limits:
-                optional [z_min, z_max] vertical plot range
-            t_limits:
-                optional [t_min, t_max] time range
-            legend_loc:
-                where to plot the legend
-            do_x:
-                optional plot x-axis as dimensionless horizontal distance
-                :math:`x/L_{\mathrm{c}}`;
-                otherwise plot as time :math:`t`
-            do_infer_initiation:
-                optional draw dotted line inferring cusp initiation at the left boundary
-
-        Todo:
-            implement `do_infer_initiation`
-        """
-        _ = self.create_figure(name, fig_size=fig_size, dpi=dpi)
-
-        # Drop last cusp because it's sometimes bogus
-        _ =  gmes.trxz_cusps
-        x_or_t_array = gmes.cusps['rxz'][:-1][:,0] if do_x else gmes.cusps['t'][:-1]
-        vc_array = np.array( [(x1_-x0_)/(t1_-t0_) for (x0_,z0),(x1_,z1),t0_,t1_
-                            in zip(gmes.cusps['rxz'][:-1], gmes.cusps['rxz'][1:],
-                                   gmes.cusps['t'][:-1], gmes.cusps['t'][1:])] )
-
-        plt.plot(x_or_t_array, vc_array, '.', ms=7, label='measured')
-
-        if do_x:
-            plt.xlabel(r'Distance, $x/L_{\mathrm{c}}$  [-]')
-        else:
-            plt.xlabel(r'Time, $t$')
-        plt.ylabel(r'Cusp horiz propagation speed,  $c^x$')
-
-        axes = plt.gca()
-        plt.text(0.15,0.2, rf'$\eta={gmeq.eta_}$', transform=axes.transAxes,
-                 horizontalalignment='center', verticalalignment='center',
-                 fontsize=14, color='k')
-
-        x_array = np.linspace(0.001 if do_infer_initiation else x_or_t_array[0],1,num=101)
-        # color_cx, color_bounds = 'DarkGreen', 'Green'
-        color_cx, color_bounds = 'Red', 'DarkRed'
-        plt.plot(x_array, gmes.cx_pz_lambda(x_array), color=color_cx, alpha=0.8, lw=2,
-                 label=r'$c^x$ model ($p_z$)' )
-        plt.plot(x_array, gmes.cx_v_lambda(x_array), ':', color='k', alpha=0.8, lw=2,
-                 label=r'$c^x$ model ($\mathbf{v}$)' )
-        plt.plot(x_array, gmes.vx_interp_fast(x_array), '--',
-                 color=color_bounds, alpha=0.8, lw=1,
-                 label=r'fast ray $v^x$ bound' )
-        plt.plot(x_array, gmes.vx_interp_slow(x_array), '-.',
-                 color=color_bounds, alpha=0.8, lw=1,
-                 label=r'slow ray $v^x$ bound' )
-
-        _ = plt.xlim(*x_limits) if do_x else plt.xlim(*t_limits)
-        _ = plt.ylim(*y_limits) if y_limits is not None else None
-        plt.grid(True, ls=':')
-
-        plt.legend(loc=legend_loc, fontsize=12, framealpha=0.95)
 
 
 

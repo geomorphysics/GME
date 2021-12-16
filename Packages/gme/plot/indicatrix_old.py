@@ -1,13 +1,7 @@
 """
 ---------------------------------------------------------------------
 
-Visualization.
-
-Provides classes to generate a range of graphics for GME visualization.
-A base class extends :class:`gmplib.plot.GraphingBase <gmplib.plot.GraphingBase>`
-provided by :mod:`GMPLib`; the other classes build on this.
-Each is tailored to a particular category of GME problem,
-such as single ray tracing or for tracking knickpoints.
+Old way of visualizing indicatrix & figuratrix
 
 ---------------------------------------------------------------------
 
@@ -47,23 +41,26 @@ __all__ = ['IndicatrixOld']
 
 class IndicatrixOld(Graphing):
     """
-    Subclasses :class:`gme.plot.Graphing <plot.Graphing>`.
-    """
+    Old way of visualizing indicatrix & figuratrix.
 
-    def comparison_logpolar(self, gmeq, name, fig_size=None, dpi=None,
-                            varphi_=1, n_points=100,
-                            idtx_pz_min=1e-3, idtx_pz_max=1000,
-                            fgtx_pz_min=1e-3, fgtx_pz_max=1000,
-                            y_limits=None) -> None:
+    Subclasses :class:`gme.plot.base.Graphing`.
+    """
+    def comparison_logpolar(
+        self,
+        gmeq,
+        name,
+        fig_size=None,
+        dpi=None,
+        varphi_=1,
+        n_points=100,
+        idtx_pz_min=1e-3,
+        idtx_pz_max=1000,
+        fgtx_pz_min=1e-3,
+        fgtx_pz_max=1000,
+        y_limits=None
+        ) -> None:
         """
         Plot both indicatrix and figuratrix on one log-polar graph.
-
-        Args:
-            fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`):
-                reference to figure instantiated by
-                :meth:`GMPLib create_figure <plot.GraphingBase.create_figure>`
-            gmeq (:class:`~.equations.Equations`):
-                    GME model equations class instance defined in :mod:`~.equations`
         """
         _ = self.create_figure(name, fig_size=fig_size, dpi=dpi)
 
@@ -168,8 +165,7 @@ class IndicatrixOld(Graphing):
         # Hacked fix to bug in Matplotlib that adds a bogus entry here
         axes.legend(handles, labels, loc='upper left', framealpha=1)
 
-    @staticmethod
-    def text_labels(gmeq, varphi_, px_, pz_, rdotx_, rdotz_,
+    def text_labels(self, gmeq, varphi_, px_, pz_, rdotx_, rdotz_,
                     zoom_factor, do_text_labels) -> None:
         """
         TBD
@@ -187,8 +183,7 @@ class IndicatrixOld(Graphing):
                      horizontalalignment='center', verticalalignment='center',
                      fontsize=15, color='b')
 
-    @staticmethod
-    def arrows(px_, pz_, rdotx_, rdotz_) -> None:
+    def arrows(self, px_, pz_, rdotx_, rdotz_) -> None:
         """
         TBD
         """
@@ -219,8 +214,7 @@ class IndicatrixOld(Graphing):
                 length_includes_head=True,
                 ec='b')
 
-    @staticmethod
-    def lines_and_points(pd, axes, zoomx, do_pz, do_shapes) -> None:
+    def lines_and_points(self, pd, axes, zoomx, do_pz, do_shapes) -> None:
         """
         TBD
         """
@@ -243,8 +237,7 @@ class IndicatrixOld(Graphing):
             axes.add_patch( Circle( (px_,pz_), radius=0.04, lw=1, ec='k', fc='b') )
             axes.add_patch( Circle( (rdotx_,rdotz_), radius=0.04, lw=1, ec='k', fc='r') )
 
-    @staticmethod
-    def annotations(axes, beta_, tanalpha_) -> None:
+    def annotations(self, axes, beta_, tanalpha_) -> None:
         """
         TBD
         """
@@ -269,8 +262,7 @@ class IndicatrixOld(Graphing):
                  fontsize=12, rotation=-85,
                  horizontalalignment='center', verticalalignment='center')
 
-    @staticmethod
-    def legend(gmeq, axes, do_legend, do_half, do_ray_slowness=False) -> None:
+    def legend(self, gmeq, axes, do_legend, do_half, do_ray_slowness=False) -> None:
         """
         TBD
         """
@@ -286,8 +278,7 @@ class IndicatrixOld(Graphing):
                  'lower left'
         axes.legend(handles[::-1], labels[::-1], loc=loc_)
 
-    @staticmethod
-    def figuratrix(gmeq, varphi_, n_points, pz_min_=1e-5, pz_max_=50) \
+    def figuratrix(self, gmeq, varphi_, n_points, pz_min_=1e-5, pz_max_=50) \
                         -> Tuple[np.array,np.array,Eq]:
         """
         TBD
@@ -302,8 +293,7 @@ class IndicatrixOld(Graphing):
         fgtx_px_array = np.array([float(px_pz_lambda(pz_)) for pz_ in fgtx_pz_array])
         return fgtx_px_array, fgtx_pz_array, px_pz_eqn
 
-    @staticmethod
-    def indicatrix(gmeq, varphi_, n_points, pz_min_=1e-5, pz_max_=300) \
+    def indicatrix(self, gmeq, varphi_, n_points, pz_min_=1e-5, pz_max_=300) \
                         -> Tuple[np.array,np.array,Eq,Eq]:
         """
         TBD
@@ -324,8 +314,7 @@ class IndicatrixOld(Graphing):
             = np.array([float(rdotz_pz_lambda(pz_)) for pz_ in fgtx_pz_array])
         return idtx_rdotx_array, idtx_rdotz_array, rdotx_pz_eqn, rdotz_pz_eqn
 
-    @staticmethod
-    def plot_figuratrix(fgtx_px_array, fgtx_pz_array,
+    def plot_figuratrix(self, fgtx_px_array, fgtx_pz_array,
                         maybe_recip_fn, do_ray_slowness=False) -> None:
         """
         TBD
@@ -337,8 +326,7 @@ class IndicatrixOld(Graphing):
         plt.plot( *maybe_recip_fn( fgtx_px_array, fgtx_pz_array),
                   lw=2, c='DarkBlue', ls='-')
 
-    @staticmethod
-    def plot_indicatrix(idtx_rdotx_array,idtx_rdotz_array,
+    def plot_indicatrix(self, idtx_rdotx_array,idtx_rdotz_array,
                         maybe_recip_fn, do_ray_slowness=False) -> None:
         """
         TBD
@@ -350,8 +338,7 @@ class IndicatrixOld(Graphing):
         plt.plot( *maybe_recip_fn(-idtx_rdotx_array, idtx_rdotz_array),
                   lw=2, c='DarkRed', ls='-')
 
-    @staticmethod
-    def plot_unit_circle(varphi_, do_varphi_circle) -> None:
+    def plot_unit_circle(self, varphi_, do_varphi_circle) -> None:
         """
         TBD
         """

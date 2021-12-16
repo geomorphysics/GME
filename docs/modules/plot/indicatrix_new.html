@@ -52,27 +52,25 @@
   <div class="section" id="module-gme.plot.indicatrix_new">
 <span id="indicatrix-new-py"></span><h1><code class="docutils literal notranslate"><span class="pre">indicatrix_new.py</span></code><a class="headerlink" href="#module-gme.plot.indicatrix_new" title="Permalink to this headline">¶</a></h1>
 <hr class="docutils" />
-<p>Visualization.</p>
-<p>Provides classes to generate a range of graphics for GME visualization.
-A base class extends <code class="xref py py-class docutils literal notranslate"><span class="pre">gmplib.plot.GraphingBase</span></code>
-provided by <code class="xref py py-mod docutils literal notranslate"><span class="pre">GMPLib</span></code>; the other classes build on this.
-Each is tailored to a particular category of GME problem,
-such as single ray tracing or for tracking knickpoints.</p>
+<p>New, alternative way of visualizing indicatrix &amp; figuratrix</p>
 <hr class="docutils" />
 <dl class="simple">
-<dt>Requires Python packages/modules:</dt><dd><ul class="simple">
-<li><p><a class="reference external" href="https://numpy.org/doc/stable/reference/index.html#module-numpy" title="(in NumPy v1.21)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy</span></code></a>, <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/index.html#module-scipy" title="(in SciPy v1.7.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">scipy</span></code></a>, <a class="reference external" href="https://docs.sympy.org/latest/modules/index.html#module-sympy" title="(in SymPy v1.9)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sympy</span></code></a></p></li>
-<li><p><a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.html#module-matplotlib.pyplot" title="(in Matplotlib v3.5.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">matplotlib.pyplot</span></code></a></p></li>
-<li><p><code class="xref py py-mod docutils literal notranslate"><span class="pre">gmplib.utils</span></code></p></li>
-<li><p><a class="reference internal" href="../core/symbols.html#module-gme.core.symbols" title="gme.core.symbols"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gme.core.symbols</span></code></a>, <a class="reference internal" href="base.html#module-gme.plot.base" title="gme.plot.base"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gme.plot.base</span></code></a></p></li>
+<dt>Requires Python packages:</dt><dd><ul class="simple">
+<li><p><a class="reference external" href="https://numpy.org/doc/stable/reference/index.html#module-numpy" title="(in NumPy v1.21)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy</span></code></a></p></li>
+<li><p><a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/index.html#module-scipy" title="(in SciPy v1.7.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">scipy</span></code></a></p></li>
+<li><p><a class="reference external" href="https://docs.sympy.org/latest/modules/index.html#module-sympy" title="(in SymPy v1.9)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sympy</span></code></a></p></li>
+<li><p><a class="reference external" href="https://matplotlib.org/stable/index.html#module-matplotlib" title="(in Matplotlib v3.5.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">matplotlib</span></code></a></p></li>
+<li><p><code class="xref py py-mod docutils literal notranslate"><span class="pre">gmplib</span></code></p></li>
+<li><p><code class="xref py py-mod docutils literal notranslate"><span class="pre">gme</span></code></p></li>
 </ul>
 </dd>
 </dl>
 <hr class="docutils" />
 <dl class="py class">
 <dt class="sig sig-object py" id="gme.plot.indicatrix_new.IndicatrixNew">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gme.plot.indicatrix_new.</span></span><span class="sig-name descname"><span class="pre">IndicatrixNew</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmeq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sub_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">varphi_</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dpi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">font_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">11</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gme.plot.indicatrix_new.IndicatrixNew" title="Permalink to this definition">¶</a></dt>
-<dd><p>Subclasses <code class="xref py py-class docutils literal notranslate"><span class="pre">gme.plot.Graphing</span></code>.</p>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gme.plot.indicatrix_new.</span></span><span class="sig-name descname"><span class="pre">IndicatrixNew</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmeq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sub_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">varphi_</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gme.plot.indicatrix_new.IndicatrixNew" title="Permalink to this definition">¶</a></dt>
+<dd><p>New, alternative way of visualizing indicatrix &amp; figuratrix.</p>
+<p>Subclasses <a class="reference internal" href="base.html#gme.plot.base.Graphing" title="gme.plot.base.Graphing"><code class="xref py py-class docutils literal notranslate"><span class="pre">gme.plot.base.Graphing</span></code></a>.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.plot.indicatrix_new.IndicatrixNew.Fstar_F_polar">
 <span class="sig-name descname"><span class="pre">Fstar_F_polar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmeq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">job_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fig_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.plot.indicatrix_new.IndicatrixNew.Fstar_F_polar" title="Permalink to this definition">¶</a></dt>
@@ -87,21 +85,13 @@ such as single ray tracing or for tracking knickpoints.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.plot.indicatrix_new.IndicatrixNew.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmeq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sub_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">varphi_</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dpi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">font_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">11</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.plot.indicatrix_new.IndicatrixNew.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmeq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sub_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">varphi_</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.plot.indicatrix_new.IndicatrixNew.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Constructor method.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>dpi</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – resolution for rasterized images</p></li>
-<li><p><strong>font_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – general font size</p></li>
-</ul>
-</dd>
-</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.plot.indicatrix_new.IndicatrixNew.convex_concave_annotations">
-<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">convex_concave_annotations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">do_zoom</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eta_</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.plot.indicatrix_new.IndicatrixNew.convex_concave_annotations" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">convex_concave_annotations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">do_zoom</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eta_</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.plot.indicatrix_new.IndicatrixNew.convex_concave_annotations" title="Permalink to this definition">¶</a></dt>
 <dd><p>TBD</p>
 </dd></dl>
 
@@ -112,21 +102,17 @@ such as single ray tracing or for tracking knickpoints.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">---------------------------------------------------------------------</span>
 
-<span class="sd">Visualization.</span>
-
-<span class="sd">Provides classes to generate a range of graphics for GME visualization.</span>
-<span class="sd">A base class extends :class:`gmplib.plot.GraphingBase &lt;gmplib.plot.GraphingBase&gt;`</span>
-<span class="sd">provided by :mod:`GMPLib`; the other classes build on this.</span>
-<span class="sd">Each is tailored to a particular category of GME problem,</span>
-<span class="sd">such as single ray tracing or for tracking knickpoints.</span>
+<span class="sd">New, alternative way of visualizing indicatrix &amp; figuratrix</span>
 
 <span class="sd">---------------------------------------------------------------------</span>
 
-<span class="sd">Requires Python packages/modules:</span>
-<span class="sd">  -  :mod:`numpy`, :mod:`scipy`, :mod:`sympy`</span>
-<span class="sd">  -  :mod:`matplotlib.pyplot`</span>
-<span class="sd">  -  :mod:`gmplib.utils`</span>
-<span class="sd">  -  :mod:`gme.core.symbols`, :mod:`gme.plot.base`</span>
+<span class="sd">Requires Python packages:</span>
+<span class="sd">  -  :mod:`numpy`</span>
+<span class="sd">  -  :mod:`scipy`</span>
+<span class="sd">  -  :mod:`sympy`</span>
+<span class="sd">  -  :mod:`matplotlib`</span>
+<span class="sd">  -  :mod:`gmplib`</span>
+<span class="sd">  -  :mod:`gme`</span>
 
 <span class="sd">---------------------------------------------------------------------</span>
 
@@ -162,20 +148,18 @@ such as single ray tracing or for tracking knickpoints.</p>
 
 <span class="k">class</span> <span class="nc">IndicatrixNew</span><span class="p">(</span><span class="n">Graphing</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Subclasses :class:`gme.plot.Graphing &lt;plot.Graphing&gt;`.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    New, alternative way of visualizing indicatrix &amp; figuratrix.</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gmeq</span><span class="p">,</span> <span class="n">pr</span><span class="p">,</span> <span class="n">sub_</span><span class="p">,</span> <span class="n">varphi_</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">font_size</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="sd">    Subclasses :class:`gme.plot.base.Graphing`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gmeq</span><span class="p">,</span> <span class="n">pr</span><span class="p">,</span> <span class="n">sub_</span><span class="p">,</span> <span class="n">varphi_</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Constructor method.</span>
-
-<span class="sd">        Args:</span>
-<span class="sd">            dpi (int): resolution for rasterized images</span>
-<span class="sd">            font_size (int): general font size</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">dpi</span><span class="p">,</span> <span class="n">font_size</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">H_parametric_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">((</span><span class="mi">2</span><span class="o">*</span><span class="n">gmeq</span><span class="o">.</span><span class="n">H_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span> \
-                                    <span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">varphi_r</span><span class="p">(</span><span class="n">rvec</span><span class="p">):</span><span class="n">varphi_</span><span class="p">,</span> <span class="n">xiv</span><span class="p">:</span><span class="n">xiv_0</span><span class="p">})</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">sub_</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">H_parametric_eqn</span> \
+            <span class="o">=</span> <span class="n">Eq</span><span class="p">((</span><span class="mi">2</span><span class="o">*</span><span class="n">gmeq</span><span class="o">.</span><span class="n">H_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span> \
+                    <span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">varphi_r</span><span class="p">(</span><span class="n">rvec</span><span class="p">):</span><span class="n">varphi_</span><span class="p">,</span> <span class="n">xiv</span><span class="p">:</span><span class="n">xiv_0</span><span class="p">})</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">sub_</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">pr</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">eta</span><span class="o">==</span><span class="n">Rational</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">):</span>
             <span class="n">pz_min_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">pz_min</span><span class="p">,</span>
@@ -230,8 +214,7 @@ such as single ray tracing or for tracking knickpoints.</p>
         <span class="bp">self</span><span class="o">.</span><span class="n">v_infc_array</span> <span class="o">=</span> <span class="n">v_lambda</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p_infc_array</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">v_supc_array</span> <span class="o">=</span> <span class="n">v_lambda</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p_supc_array</span><span class="p">)</span>
 
-    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">convex_concave_annotations</span><span class="p">(</span><span class="n">do_zoom</span><span class="p">,</span> <span class="n">eta_</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">convex_concave_annotations</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">do_zoom</span><span class="p">,</span> <span class="n">eta_</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        TBD</span>
 <span class="sd">        &quot;&quot;&quot;</span>

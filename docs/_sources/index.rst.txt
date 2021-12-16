@@ -5,7 +5,7 @@ The Geometric Mechanics of Erosion (GME)
 *Exploring how landscapes evolve using the tools of classical mechanics and differential geometry*
 
 
-.. figure:: ../../Plots/Schematics/sch_sinbeta_ramp_eta1p5_ratio0p5_xiv10_tis_cross_section.png
+.. figure:: ../../Plots/Schematics/sch_tis_cross_section.png
    :alt: Visualization of Hamiltonian ray tracing of erosion
    :align: center
 

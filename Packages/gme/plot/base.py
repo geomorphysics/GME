@@ -1,27 +1,21 @@
 """
 ---------------------------------------------------------------------
 
-Visualization.
-
-Provides classes to generate a range of graphics for GME visualization.
-A base class extends :class:`gmplib.plot.GraphingBase <gmplib.plot.GraphingBase>`
-provided by :mod:`GMPLib`; the other classes build on this.
-Each is tailored to a particular category of GME problem,
-such as single ray tracing or for tracking knickpoints.
+GME visualization base class.
 
 ---------------------------------------------------------------------
 
-Requires Python packages/modules:
+Requires Python packages:
   -  :mod:`numpy`
-  -  :mod:`matplotlib.pyplot`, :mod:`matplotlib.patches`, :mod:`matplotlib.cm`
-  -  :mod:`gmplib.plot`
-  -  :mod:`gme.core.symbols`
+  -  :mod:`matplotlib`
+  -  :mod:`gmplib`
+  -  :mod:`gme`
 
 ---------------------------------------------------------------------
 
 """
 import warnings
-import logging
+# import logging
 
 # Typing
 from typing import List
@@ -32,13 +26,14 @@ import numpy as np
 # MatPlotLib
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
+from matplotlib.colors import ListedColormap
 from matplotlib import cm
 
 # GMPLib
 from gmplib.plot import GraphingBase
 
 # GME
-from gme.core.symbols import xih_0, xiv_0, t
+# from gme.core.symbols import xih_0, xiv_0, t
 
 warnings.filterwarnings("ignore")
 
@@ -47,9 +42,18 @@ __all__ = ['Graphing']
 
 class Graphing(GraphingBase):
     """
+    GME visualization base class.
+
     Subclasses :class:`gmplib.plot.GraphingBase <gmplib.plot.GraphingBase>`
     """
-    def mycolors(self, i, r, n, do_smooth=False, cmap_choice='brg') -> List[str]:
+    def mycolors(
+        self,
+        i: int,
+        r: int,
+        n: int,
+        do_smooth: bool=False,
+        cmap_choice: str='brg'
+        ) -> List[str]:
         r"""
         Generate a color palette
         """
@@ -60,15 +64,13 @@ class Graphing(GraphingBase):
             colors_ = cmap(i/(n-1))
         return colors_
 
-    @staticmethod
-    def gray_color(i_isochrone=0, n_isochrones=1) -> str:
+    def gray_color(self, i_isochrone=0, n_isochrones=1) -> str:
         r"""
         Make a grey shade for to communicate isochrone time
         """
         return f'{(n_isochrones-1-i_isochrone)/(n_isochrones-1)*0.75}'
 
-    @staticmethod
-    def correct_quadrant(angle) -> float:
+    def correct_quadrant(self, angle) -> float:
         r"""
         If angle :math:`|\theta|\approx 0`, set :math:`\theta=0`;
         otherwise, if angle :math:`\theta<0`, map :math:`\theta \rightarrow \pi-\theta`.
@@ -87,24 +89,37 @@ class Graphing(GraphingBase):
             angle_ = np.pi+angle
         return angle_
 
-    def draw_rays_with_arrows_simple( self, axes, sub, xi_vh_ratio,
-                                      t_array, rx_array, rz_array, v_array=None,
-                                      n_t=None, n_rays=4,
-                                      ls='-', sf=1, color=None,
-                                      do_labels=True, do_one_ray=False ) -> None:
+    def draw_rays_with_arrows_simple(
+        self,
+        axes,
+        sub,
+        xi_vh_ratio,
+        t_array,
+        rx_array,
+        rz_array,
+        v_array=None,
+        n_t=None,
+        n_rays=4,
+        ls: str='-',
+        sf=1,
+        color=None,
+        do_labels=True,
+        do_one_ray=False
+        ) -> None:
         """
         Plot ray and arrowheads along the ray to visualize the direction of motion.
 
         Args:
-            axes (:class:`Matplotlib axes <matplotlib.axes.Axes>`): 'axes' instance
+            axes: 'axes' instance
                                         for current figure
-            sub (dict): dictionary of model parameter values to be used for
+            sub: dictionary of model parameter values to be used for
                         equation substitutions
-            t_array (numpy.ndarray): sample times along the ray
-            rx_array (numpy.ndarray): x coordinates along the sampled ray
-            rz_array (numpy.ndarray): z coordinates along the sampled ray
-            ls (str): optional line style
+            t_array: sample times along the ray
+            rx_array: x coordinates along the sampled ray
+            rz_array: z coordinates along the sampled ray
+            ls: optional line style
         """
+        del sub
         i_max = len(t_array) if n_t is None else n_t
         i_step = i_max//n_rays
         i_off = i_step*(1+i_max//i_step)-i_max + 1
@@ -134,7 +149,7 @@ class Graphing(GraphingBase):
                                       xytext=(rx_array[q], rz_array[q]-t_offset),
                                   arrowprops=dict(arrowstyle=my_arrow_style, color=rgba) )
         if v_array is not None:
-            color_map = plt.get_cmap('plasma')
+            color_map: ListedColormap = plt.get_cmap('plasma')
             sm = plt.cm.ScalarMappable(cmap=color_map, norm=plt.Normalize(vmin=0, vmax=1))
             cbar = plt.colorbar(sm, ticks=[], shrink=0.4, aspect=5, pad=0.03)
             for idx, tick_label in enumerate([r'$v_\mathrm{min}$',r'$v_\mathrm{max}$']):
@@ -198,6 +213,6 @@ class Graphing(GraphingBase):
                 if y_condition and x_condition:
                     axes.annotate('', xy=((rxz_array[0][q+1]),(rxz_array[1][q+1])),
                                   xytext=(rxz_array[0][q], rxz_array[1][q]-0),
-                                  arrowprops=dict(arrowstyle=my_arrow_style, color=color) )
+                                  arrowprops=dict(arrowstyle=my_arrow_style, color=color))
         plt.plot(rxz_array[0],rxz_array[1], color=color,
                   linestyle=line_style, lw=line_width, label=ray_label)

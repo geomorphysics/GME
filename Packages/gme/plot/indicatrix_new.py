@@ -1,21 +1,17 @@
 """
 ---------------------------------------------------------------------
 
-Visualization.
-
-Provides classes to generate a range of graphics for GME visualization.
-A base class extends :class:`gmplib.plot.GraphingBase <gmplib.plot.GraphingBase>`
-provided by :mod:`GMPLib`; the other classes build on this.
-Each is tailored to a particular category of GME problem,
-such as single ray tracing or for tracking knickpoints.
+New, alternative way of visualizing indicatrix & figuratrix
 
 ---------------------------------------------------------------------
 
-Requires Python packages/modules:
-  -  :mod:`numpy`, :mod:`scipy`, :mod:`sympy`
-  -  :mod:`matplotlib.pyplot`
-  -  :mod:`gmplib.utils`
-  -  :mod:`gme.core.symbols`, :mod:`gme.plot.base`
+Requires Python packages:
+  -  :mod:`numpy`
+  -  :mod:`scipy`
+  -  :mod:`sympy`
+  -  :mod:`matplotlib`
+  -  :mod:`gmplib`
+  -  :mod:`gme`
 
 ---------------------------------------------------------------------
 
@@ -51,20 +47,18 @@ __all__ = ['IndicatrixNew']
 
 class IndicatrixNew(Graphing):
     """
-    Subclasses :class:`gme.plot.Graphing <plot.Graphing>`.
-    """
+    New, alternative way of visualizing indicatrix & figuratrix.
 
-    def __init__(self, gmeq, pr, sub_, varphi_=1, dpi=100, font_size=11) -> None:
+    Subclasses :class:`gme.plot.base.Graphing`.
+    """
+    def __init__(self, gmeq, pr, sub_, varphi_=1) -> None:
         """
         Constructor method.
-
-        Args:
-            dpi (int): resolution for rasterized images
-            font_size (int): general font size
         """
-        super().__init__(dpi, font_size)
-        self.H_parametric_eqn = Eq((2*gmeq.H_eqn.rhs)**2,1) \
-                                    .subs({varphi_r(rvec):varphi_, xiv:xiv_0}).subs(sub_)
+        super().__init__()
+        self.H_parametric_eqn \
+            = Eq((2*gmeq.H_eqn.rhs)**2,1) \
+                    .subs({varphi_r(rvec):varphi_, xiv:xiv_0}).subs(sub_)
 
         if pr.model.eta==Rational(3,2):
             pz_min_eqn = Eq(pz_min,
@@ -119,8 +113,7 @@ class IndicatrixNew(Graphing):
         self.v_infc_array = v_lambda(self.p_infc_array)
         self.v_supc_array = v_lambda(self.p_supc_array)
 
-    @staticmethod
-    def convex_concave_annotations(do_zoom, eta_) -> None:
+    def convex_concave_annotations(self, do_zoom, eta_) -> None:
         """
         TBD
         """

@@ -53,18 +53,14 @@
   <div class="section" id="module-gme.plot.ray_profiles">
 <span id="ray-profiles-py"></span><h1><code class="docutils literal notranslate"><span class="pre">ray_profiles.py</span></code><a class="headerlink" href="#module-gme.plot.ray_profiles" title="Permalink to this headline">¶</a></h1>
 <hr class="docutils" />
-<p>Visualization.</p>
-<p>Provides classes to generate a range of graphics for GME visualization.
-A base class extends <code class="xref py py-class docutils literal notranslate"><span class="pre">gmplib.plot.GraphingBase</span></code>
-provided by <code class="xref py py-mod docutils literal notranslate"><span class="pre">GMPLib</span></code>; the other classes build on this.
-Each is tailored to a particular category of GME problem,
-such as single ray tracing or for tracking knickpoints.</p>
+<p>Visualization of ray properties along a profile.</p>
 <hr class="docutils" />
 <dl class="simple">
 <dt>Requires Python packages/modules:</dt><dd><ul class="simple">
-<li><p><a class="reference external" href="https://numpy.org/doc/stable/reference/index.html#module-numpy" title="(in NumPy v1.21)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy</span></code></a>, <a class="reference external" href="https://docs.sympy.org/latest/modules/index.html#module-sympy" title="(in SymPy v1.9)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sympy</span></code></a></p></li>
-<li><p><a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.html#module-matplotlib.pyplot" title="(in Matplotlib v3.5.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">matplotlib.pyplot</span></code></a></p></li>
-<li><p><a class="reference internal" href="../core/symbols.html#module-gme.core.symbols" title="gme.core.symbols"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gme.core.symbols</span></code></a>, <a class="reference internal" href="base.html#module-gme.plot.base" title="gme.plot.base"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gme.plot.base</span></code></a></p></li>
+<li><p><a class="reference external" href="https://numpy.org/doc/stable/reference/index.html#module-numpy" title="(in NumPy v1.21)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy</span></code></a></p></li>
+<li><p><a class="reference external" href="https://docs.sympy.org/latest/modules/index.html#module-sympy" title="(in SymPy v1.9)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sympy</span></code></a></p></li>
+<li><p><a class="reference external" href="https://matplotlib.org/stable/index.html#module-matplotlib" title="(in Matplotlib v3.5.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">matplotlib</span></code></a></p></li>
+<li><p><code class="xref py py-mod docutils literal notranslate"><span class="pre">gme</span></code></p></li>
 </ul>
 </dd>
 </dl>
@@ -72,16 +68,32 @@ such as single ray tracing or for tracking knickpoints.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="gme.plot.ray_profiles.RayProfiles">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gme.plot.ray_profiles.</span></span><span class="sig-name descname"><span class="pre">RayProfiles</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dpi</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">font_size</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">11</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gme.plot.ray_profiles.RayProfiles" title="Permalink to this definition">¶</a></dt>
-<dd><p>Subclasses <code class="xref py py-class docutils literal notranslate"><span class="pre">gme.plot.Graphing</span></code>.</p>
+<dd><p>Visualization of ray properties as a function of distance along
+the profile.</p>
+<p>Subclasses <a class="reference internal" href="base.html#gme.plot.base.Graphing" title="gme.plot.base.Graphing"><code class="xref py py-class docutils literal notranslate"><span class="pre">gme.plot.base.Graphing</span></code></a>.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.plot.ray_profiles.RayProfiles.profile_h">
-<span class="sig-name descname"><span class="pre">profile_h</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gmeq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sub</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fig_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dpi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_limits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eta_label_xy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_legend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_profile_points</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">profile_subsetting</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_etaxi_label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_pub_label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pub_label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pub_label_xy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0.93,</span> <span class="pre">0.33)</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.plot.ray_profiles.RayProfiles.profile_h" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">profile_h</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmes</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="../ode/time_invariant.html#gme.ode.time_invariant.TimeInvariantSolution" title="gme.ode.time_invariant.TimeInvariantSolution"><span class="pre">gme.ode.time_invariant.TimeInvariantSolution</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">gmeq</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="../core/equations.html#gme.core.equations.Equations" title="gme.core.equations.Equations"><span class="pre">gme.core.equations.Equations</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">sub</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">fig_size</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dpi</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_limits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eta_label_xy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_legend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_profile_points</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">profile_subsetting</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_etaxi_label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_pub_label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pub_label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pub_label_xy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0.93,</span> <span class="pre">0.33)</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.plot.ray_profiles.RayProfiles.profile_h" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot a time-invariant topographic profile solution of Hamilton’s equations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>gmes</strong> – instance of time invariant solution class
+defined in <a class="reference internal" href="../ode/time_invariant.html#module-gme.ode.time_invariant" title="gme.ode.time_invariant"><code class="xref py py-mod docutils literal notranslate"><span class="pre">time_invariant</span></code></a></p></li>
+<li><p><strong>gmeq</strong> – GME model equations class instance defined in <a class="reference internal" href="../core/equations.html#module-gme.core.equations" title="gme.core.equations"><code class="xref py py-mod docutils literal notranslate"><span class="pre">equations</span></code></a></p></li>
+<li><p><strong>sub</strong> – dictionary of model parameter values to be used for
+equation substitutions</p></li>
+<li><p><strong>name</strong> – name of figure (key in figure dictionary)</p></li>
+<li><p><strong>fig_size</strong> – optional figure width and height in inches</p></li>
+<li><p><strong>dpi</strong> – optional rasterization resolution</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.plot.ray_profiles.RayProfiles.profile_h_rays">
-<span class="sig-name descname"><span class="pre">profile_h_rays</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gmeq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sub</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fig_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dpi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_limits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_limits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_points</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">101</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_direct</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_rays</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_schematic</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_legend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_fault_bdry</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_compute_xivh_ratio</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_one_ray</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_t_sampling</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_etaxi_label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_pub_label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pub_label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pub_label_xy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0.93,</span> <span class="pre">0.33)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eta_label_xy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0.5,</span> <span class="pre">0.8)</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.plot.ray_profiles.RayProfiles.profile_h_rays" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">profile_h_rays</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmes</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="../ode/time_invariant.html#gme.ode.time_invariant.TimeInvariantSolution" title="gme.ode.time_invariant.TimeInvariantSolution"><span class="pre">gme.ode.time_invariant.TimeInvariantSolution</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">gmeq</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="../core/equations.html#gme.core.equations.Equations" title="gme.core.equations.Equations"><span class="pre">gme.core.equations.Equations</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">sub</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">fig_size</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dpi</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_limits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_limits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_points</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">101</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_direct</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_rays</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_schematic</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_legend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_fault_bdry</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_compute_xivh_ratio</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_one_ray</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_t_sampling</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_etaxi_label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_pub_label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pub_label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pub_label_xy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0.93,</span> <span class="pre">0.33)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eta_label_xy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0.5,</span> <span class="pre">0.8)</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.plot.ray_profiles.RayProfiles.profile_h_rays" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot a set of erosion rays for a time-invariant
 topographic profile solution of Hamilton’s equations.</p>
 <p>Hamilton’s equations are integrated once (from the left boundary to the divide)
@@ -102,19 +114,20 @@ solving Hamilton’s equations.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>fig</strong> (<a class="reference external" href="https://matplotlib.org/stable/api/figure_api.html#matplotlib.figure.Figure" title="(in Matplotlib v3.5.1)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Matplotlib</span> <span class="pre">figure</span></code></a>) – reference to figure instantiated by
-<code class="xref py py-meth docutils literal notranslate"><span class="pre">GMPLib</span> <span class="pre">create_figure</span></code></p></li>
-<li><p><strong>gmes</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">OneRaySolution</span></code>) – instance of single ray solution class defined in
-<code class="xref py py-mod docutils literal notranslate"><span class="pre">ode_raytracing</span></code></p></li>
-<li><p><strong>gmeq</strong> (<a class="reference internal" href="../core/equations.html#gme.core.equations.Equations" title="gme.core.equations.Equations"><code class="xref py py-class docutils literal notranslate"><span class="pre">Equations</span></code></a>) – GME model equations class instance defined in <a class="reference internal" href="../core/equations.html#module-gme.core.equations" title="gme.core.equations"><code class="xref py py-mod docutils literal notranslate"><span class="pre">equations</span></code></a></p></li>
-<li><p><strong>sub</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – dictionary of model parameter values to be used
-for equation substitutions</p></li>
-<li><p><strong>do_direct</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – plot directly integrated ray trajectory
+<li><p><strong>gmes</strong> – instance of time invariant solution class
+defined in <a class="reference internal" href="../ode/time_invariant.html#module-gme.ode.time_invariant" title="gme.ode.time_invariant"><code class="xref py py-mod docutils literal notranslate"><span class="pre">time_invariant</span></code></a></p></li>
+<li><p><strong>gmeq</strong> – GME model equations class instance defined in <a class="reference internal" href="../core/equations.html#module-gme.core.equations" title="gme.core.equations"><code class="xref py py-mod docutils literal notranslate"><span class="pre">equations</span></code></a></p></li>
+<li><p><strong>sub</strong> – dictionary of model parameter values to be used for
+equation substitutions</p></li>
+<li><p><strong>name</strong> – name of figure (key in figure dictionary)</p></li>
+<li><p><strong>fig_size</strong> – optional figure width and height in inches</p></li>
+<li><p><strong>dpi</strong> – optional rasterization resolution</p></li>
+<li><p><strong>do_direct</strong> – plot directly integrated ray trajectory
 (from <span class="math notranslate nohighlight">\(\mathbf{\widetilde{p}}\)</span> values) as a solid curve</p></li>
-<li><p><strong>ray_subsetting</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – optional ray subsampling rate
+<li><p><strong>ray_subsetting</strong> – optional ray subsampling rate
 (typically far more rays are computed than should be plotted)</p></li>
-<li><p><strong>do_schematic</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – optionally plot in more schematic form for expository purposes?</p></li>
-<li><p><strong>do_simple</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – optionally simplify?</p></li>
+<li><p><strong>do_schematic</strong> – optionally plot in more schematic form for expository purposes?</p></li>
+<li><p><strong>do_simple</strong> – optionally simplify?</p></li>
 </ul>
 </dd>
 </dl>
@@ -122,38 +135,23 @@ for equation substitutions</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.plot.ray_profiles.RayProfiles.profile_ray">
-<span class="sig-name descname"><span class="pre">profile_ray</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gmeq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sub</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fig_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dpi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_limits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eta_label_xy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_points</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">101</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aspect</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_schematic</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_ndim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_simple</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_t_sampling</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_etaxi_label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_pub_label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pub_label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pub_label_xy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0.15,</span> <span class="pre">0.5)</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.plot.ray_profiles.RayProfiles.profile_ray" title="Permalink to this definition">¶</a></dt>
-<dd><p>Plot a set of erosion rays for a time-invariant
-topographic profile solution of Hamilton’s equations.</p>
-<p>Hamilton’s equations are integrated once (from the left boundary to the divide)
-and a time-invariant profile is constructed by repeating
-the ray trajectory, with a suitable truncation and
-vertical initial offset, multiple times at the left boundary:
-the set of end of truncated rays constitutes
-the ‘steady-state’ topographic profile.
-The point of truncation of each trajectory corresponds to
-the effective time lag imposed by the choice of vertical initial
-offset (which is controlled by the vertical slip rate).</p>
-<p>Visualization of this profile includes: (i) plotting a
-subsampling of the terminated points of the ray truncations;
-(ii) plotting a continuous curve generated by integrating the
-surface gradient implied by the erosion-front normal
-covector values <span class="math notranslate nohighlight">\(\mathbf{\widetilde{p}}\)</span> values generated
-by solving Hamilton’s equations.</p>
+<span class="sig-name descname"><span class="pre">profile_ray</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmes</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="../ode/single_ray.html#gme.ode.single_ray.SingleRaySolution" title="gme.ode.single_ray.SingleRaySolution"><span class="pre">gme.ode.single_ray.SingleRaySolution</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">gmeq</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="../core/equations.html#gme.core.equations.Equations" title="gme.core.equations.Equations"><span class="pre">gme.core.equations.Equations</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">sub</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">fig_size</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dpi</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_limits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eta_label_xy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_points</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">101</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aspect</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_schematic</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_ndim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_simple</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_t_sampling</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_etaxi_label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_pub_label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pub_label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pub_label_xy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0.15,</span> <span class="pre">0.5)</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.plot.ray_profiles.RayProfiles.profile_ray" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot an erosion ray solution of Hamilton’s equations.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>fig</strong> (<a class="reference external" href="https://matplotlib.org/stable/api/figure_api.html#matplotlib.figure.Figure" title="(in Matplotlib v3.5.1)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Matplotlib</span> <span class="pre">figure</span></code></a>) – reference to figure instantiated by
-<code class="xref py py-meth docutils literal notranslate"><span class="pre">GMPLib</span> <span class="pre">create_figure</span></code></p></li>
-<li><p><strong>gmes</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">OneRaySolution</span></code>) – instance of single ray solution class defined in
-<code class="xref py py-mod docutils literal notranslate"><span class="pre">ode_raytracing</span></code></p></li>
-<li><p><strong>gmeq</strong> (<a class="reference internal" href="../core/equations.html#gme.core.equations.Equations" title="gme.core.equations.Equations"><code class="xref py py-class docutils literal notranslate"><span class="pre">Equations</span></code></a>) – GME model equations class instance defined in <a class="reference internal" href="../core/equations.html#module-gme.core.equations" title="gme.core.equations"><code class="xref py py-mod docutils literal notranslate"><span class="pre">equations</span></code></a></p></li>
-<li><p><strong>sub</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – dictionary of model parameter values
-to be used for equation substitutions</p></li>
-<li><p><strong>do_direct</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – plot directly integrated ray trajectory
+<li><p><strong>gmes</strong> – instance of single-ray solution class
+defined in <a class="reference internal" href="../ode/single_ray.html#module-gme.ode.single_ray" title="gme.ode.single_ray"><code class="xref py py-mod docutils literal notranslate"><span class="pre">single_ray</span></code></a></p></li>
+<li><p><strong>gmeq</strong> – GME model equations class instance defined in <a class="reference internal" href="../core/equations.html#module-gme.core.equations" title="gme.core.equations"><code class="xref py py-mod docutils literal notranslate"><span class="pre">equations</span></code></a></p></li>
+<li><p><strong>sub</strong> – dictionary of model parameter values to be used for
+equation substitutions</p></li>
+<li><p><strong>name</strong> – name of figure (key in figure dictionary)</p></li>
+<li><p><strong>fig_size</strong> – optional figure width and height in inches</p></li>
+<li><p><strong>dpi</strong> – optional rasterization resolution</p></li>
+<li><p><strong>do_direct</strong> – plot directly integrated ray trajectory
 (from <span class="math notranslate nohighlight">\(\mathbf{\widetilde{p}}\)</span> values) as a solid curve</p></li>
-<li><p><strong>do_schematic</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – optionally plot in more schematic form for expository purposes?</p></li>
-<li><p><strong>do_simple</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – optionally simplify?</p></li>
+<li><p><strong>do_schematic</strong> – optionally plot in more schematic form for expository purposes?</p></li>
+<li><p><strong>do_simple</strong> – optionally simplify?</p></li>
 </ul>
 </dd>
 </dl>
@@ -166,25 +164,24 @@ to be used for equation substitutions</p></li>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">---------------------------------------------------------------------</span>
 
-<span class="sd">Visualization.</span>
-
-<span class="sd">Provides classes to generate a range of graphics for GME visualization.</span>
-<span class="sd">A base class extends :class:`gmplib.plot.GraphingBase &lt;gmplib.plot.GraphingBase&gt;`</span>
-<span class="sd">provided by :mod:`GMPLib`; the other classes build on this.</span>
-<span class="sd">Each is tailored to a particular category of GME problem,</span>
-<span class="sd">such as single ray tracing or for tracking knickpoints.</span>
+<span class="sd">Visualization of ray properties along a profile.</span>
 
 <span class="sd">---------------------------------------------------------------------</span>
 
 <span class="sd">Requires Python packages/modules:</span>
-<span class="sd">  -  :mod:`numpy`, :mod:`sympy`</span>
-<span class="sd">  -  :mod:`matplotlib.pyplot`</span>
-<span class="sd">  -  :mod:`gme.core.symbols`, :mod:`gme.plot.base`</span>
+<span class="sd">  -  :mod:`numpy`</span>
+<span class="sd">  -  :mod:`sympy`</span>
+<span class="sd">  -  :mod:`matplotlib`</span>
+<span class="sd">  -  :mod:`gme`</span>
 
 <span class="sd">---------------------------------------------------------------------</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
+<span class="c1"># Library</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
+
+<span class="c1"># Typing</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Optional</span>
 
 <span class="c1"># Numpy</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -197,6 +194,9 @@ to be used for equation substitutions</p></li>
 
 <span class="c1"># GME</span>
 <span class="kn">from</span> <span class="nn">gme.core.symbols</span> <span class="kn">import</span> <span class="n">Ci</span><span class="p">,</span> <span class="n">xiv_0</span><span class="p">,</span> <span class="n">xih_0</span>
+<span class="kn">from</span> <span class="nn">gme.core.equations</span> <span class="kn">import</span> <span class="n">Equations</span>
+<span class="kn">from</span> <span class="nn">gme.ode.single_ray</span> <span class="kn">import</span> <span class="n">SingleRaySolution</span>
+<span class="kn">from</span> <span class="nn">gme.ode.time_invariant</span> <span class="kn">import</span> <span class="n">TimeInvariantSolution</span>
 <span class="kn">from</span> <span class="nn">gme.plot.base</span> <span class="kn">import</span> <span class="n">Graphing</span>
 
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
@@ -206,53 +206,58 @@ to be used for equation substitutions</p></li>
 
 <span class="k">class</span> <span class="nc">RayProfiles</span><span class="p">(</span><span class="n">Graphing</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Subclasses :class:`gme.plot.Graphing &lt;plot.Graphing&gt;`.</span>
+<span class="sd">    Visualization of ray properties as a function of distance along</span>
+<span class="sd">    the profile.</span>
+
+<span class="sd">    Subclasses :class:`gme.plot.base.Graphing`.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="k">def</span> <span class="nf">profile_ray</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">gmes</span><span class="p">,</span> <span class="n">gmeq</span><span class="p">,</span> <span class="n">sub</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">fig_size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                        <span class="n">y_limits</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">eta_label_xy</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">n_points</span><span class="o">=</span><span class="mi">101</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                        <span class="c1"># do_direct=True,</span>
-                        <span class="n">do_schematic</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">do_ndim</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                        <span class="n">do_simple</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">do_t_sampling</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">do_etaxi_label</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                        <span class="n">do_pub_label</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">pub_label</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">pub_label_xy</span><span class="o">=</span><span class="p">(</span><span class="mf">0.15</span><span class="p">,</span><span class="mf">0.50</span><span class="p">)</span> <span class="p">)</span> \
-                                <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">profile_ray</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">gmes</span><span class="p">:</span> <span class="n">SingleRaySolution</span><span class="p">,</span>
+        <span class="n">gmeq</span><span class="p">:</span> <span class="n">Equations</span><span class="p">,</span>
+        <span class="n">sub</span><span class="p">:</span> <span class="n">Dict</span><span class="p">,</span>
+        <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">fig_size</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span><span class="nb">float</span><span class="p">]]</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">dpi</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">y_limits</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">eta_label_xy</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">n_points</span><span class="o">=</span><span class="mi">101</span><span class="p">,</span>
+        <span class="n">aspect</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="c1"># do_direct=True,</span>
+        <span class="n">do_schematic</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">do_ndim</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">do_simple</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">do_t_sampling</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">do_etaxi_label</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">do_pub_label</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">pub_label</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
+        <span class="n">pub_label_xy</span><span class="o">=</span><span class="p">(</span><span class="mf">0.15</span><span class="p">,</span><span class="mf">0.50</span><span class="p">)</span>
+        <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Plot a set of erosion rays for a time-invariant</span>
-<span class="sd">        topographic profile solution of Hamilton&#39;s equations.</span>
-
-<span class="sd">        Hamilton&#39;s equations are integrated once (from the left boundary to the divide)</span>
-<span class="sd">        and a time-invariant profile is constructed by repeating</span>
-<span class="sd">        the ray trajectory, with a suitable truncation and</span>
-<span class="sd">        vertical initial offset, multiple times at the left boundary:</span>
-<span class="sd">        the set of end of truncated rays constitutes</span>
-<span class="sd">        the &#39;steady-state&#39; topographic profile.</span>
-<span class="sd">        The point of truncation of each trajectory corresponds to</span>
-<span class="sd">        the effective time lag imposed by the choice of vertical initial</span>
-<span class="sd">        offset (which is controlled by the vertical slip rate).</span>
-
-<span class="sd">        Visualization of this profile includes: (i) plotting a</span>
-<span class="sd">        subsampling of the terminated points of the ray truncations;</span>
-<span class="sd">        (ii) plotting a continuous curve generated by integrating the</span>
-<span class="sd">        surface gradient implied by the erosion-front normal</span>
-<span class="sd">        covector values :math:`\mathbf{\widetilde{p}}` values generated</span>
-<span class="sd">        by solving Hamilton&#39;s equations.</span>
+<span class="sd">        Plot an erosion ray solution of Hamilton&#39;s equations.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            fig (:obj:`Matplotlib figure &lt;matplotlib.figure.Figure&gt;`):</span>
-<span class="sd">                reference to figure instantiated by</span>
-<span class="sd">                :meth:`GMPLib create_figure &lt;plot.GraphingBase.create_figure&gt;`</span>
-<span class="sd">            gmes (:class:`~.ode_raytracing.OneRaySolution`):</span>
-<span class="sd">                    instance of single ray solution class defined in</span>
-<span class="sd">                    :mod:`~.ode_raytracing`</span>
-<span class="sd">            gmeq (:class:`~.equations.Equations`):</span>
-<span class="sd">                    GME model equations class instance defined in :mod:`~.equations`</span>
-<span class="sd">            sub (dict): dictionary of model parameter values</span>
-<span class="sd">                        to be used for equation substitutions</span>
-<span class="sd">            do_direct (bool): plot directly integrated ray trajectory</span>
-<span class="sd">                            (from :math:`\mathbf{\widetilde{p}}` values) as a solid curve</span>
-<span class="sd">            do_schematic (bool):</span>
+<span class="sd">            gmes:</span>
+<span class="sd">                instance of single-ray solution class</span>
+<span class="sd">                defined in :mod:`~.ode.single_ray`</span>
+<span class="sd">            gmeq:</span>
+<span class="sd">                GME model equations class instance defined in :mod:`~.equations`</span>
+<span class="sd">            sub:</span>
+<span class="sd">                dictionary of model parameter values to be used for</span>
+<span class="sd">                equation substitutions</span>
+<span class="sd">            name:</span>
+<span class="sd">                name of figure (key in figure dictionary)</span>
+<span class="sd">            fig_size:</span>
+<span class="sd">                optional figure width and height in inches</span>
+<span class="sd">            dpi:</span>
+<span class="sd">                optional rasterization resolution</span>
+<span class="sd">            do_direct:</span>
+<span class="sd">                plot directly integrated ray trajectory</span>
+<span class="sd">                (from :math:`\mathbf{\widetilde{p}}` values) as a solid curve</span>
+<span class="sd">            do_schematic:</span>
 <span class="sd">                optionally plot in more schematic form for expository purposes?</span>
-<span class="sd">            do_simple (bool): optionally simplify?</span>
+<span class="sd">            do_simple:</span>
+<span class="sd">                optionally simplify?</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_figure</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">fig_size</span><span class="o">=</span><span class="n">fig_size</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="n">dpi</span><span class="p">)</span>
@@ -307,14 +312,33 @@ to be used for equation substitutions</p></li>
         <span class="k">if</span> <span class="n">y_limits</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">*</span><span class="n">y_limits</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">profile_h_rays</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">gmes</span><span class="p">,</span> <span class="n">gmeq</span><span class="p">,</span> <span class="n">sub</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">fig_size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                        <span class="n">x_limits</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">y_limits</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">n_points</span><span class="o">=</span><span class="mi">101</span><span class="p">,</span>
-                        <span class="n">do_direct</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">n_rays</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="c1">#profile_subsetting=5,</span>
-                        <span class="n">do_schematic</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">do_legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="c1">#do_profile_points=True,</span>
-                        <span class="n">do_fault_bdry</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">do_compute_xivh_ratio</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                        <span class="n">do_one_ray</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">do_t_sampling</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">do_etaxi_label</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                        <span class="n">do_pub_label</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">pub_label</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
-                        <span class="n">pub_label_xy</span><span class="o">=</span><span class="p">(</span><span class="mf">0.93</span><span class="p">,</span><span class="mf">0.33</span><span class="p">),</span> <span class="n">eta_label_xy</span><span class="o">=</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">0.8</span><span class="p">)</span> <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">profile_h_rays</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">gmes</span><span class="p">:</span> <span class="n">TimeInvariantSolution</span><span class="p">,</span>
+        <span class="n">gmeq</span><span class="p">:</span> <span class="n">Equations</span><span class="p">,</span>
+        <span class="n">sub</span><span class="p">:</span> <span class="n">Dict</span><span class="p">,</span>
+        <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">fig_size</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span><span class="nb">float</span><span class="p">]]</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">dpi</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">x_limits</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">y_limits</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">n_points</span><span class="o">=</span><span class="mi">101</span><span class="p">,</span>
+        <span class="n">do_direct</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">n_rays</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+        <span class="c1">#profile_subsetting=5,</span>
+        <span class="n">do_schematic</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">do_legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="c1">#do_profile_points=True,</span>
+        <span class="n">do_fault_bdry</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">do_compute_xivh_ratio</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">do_one_ray</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">do_t_sampling</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">do_etaxi_label</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">do_pub_label</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">pub_label</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
+        <span class="n">pub_label_xy</span><span class="o">=</span><span class="p">(</span><span class="mf">0.93</span><span class="p">,</span><span class="mf">0.33</span><span class="p">),</span>
+        <span class="n">eta_label_xy</span><span class="o">=</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">0.8</span><span class="p">)</span>
+        <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Plot a set of erosion rays for a time-invariant</span>
 <span class="sd">        topographic profile solution of Hamilton&#39;s equations.</span>
@@ -337,23 +361,30 @@ to be used for equation substitutions</p></li>
 <span class="sd">        solving Hamilton&#39;s equations.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            fig (:obj:`Matplotlib figure &lt;matplotlib.figure.Figure&gt;`):</span>
-<span class="sd">                reference to figure instantiated by</span>
-<span class="sd">                :meth:`GMPLib create_figure &lt;plot.GraphingBase.create_figure&gt;`</span>
-<span class="sd">            gmes (:class:`~.ode_raytracing.OneRaySolution`):</span>
-<span class="sd">                    instance of single ray solution class defined in</span>
-<span class="sd">                    :mod:`~.ode_raytracing`</span>
-<span class="sd">            gmeq (:class:`~.equations.Equations`):</span>
-<span class="sd">                    GME model equations class instance defined in :mod:`~.equations`</span>
-<span class="sd">            sub (dict): dictionary of model parameter values to be used</span>
-<span class="sd">                        for equation substitutions</span>
-<span class="sd">            do_direct (bool): plot directly integrated ray trajectory</span>
-<span class="sd">                             (from :math:`\mathbf{\widetilde{p}}` values) as a solid curve</span>
-<span class="sd">            ray_subsetting (int): optional ray subsampling rate</span>
-<span class="sd">                            (typically far more rays are computed than should be plotted)</span>
-<span class="sd">            do_schematic (bool):</span>
+<span class="sd">            gmes:</span>
+<span class="sd">                instance of time invariant solution class</span>
+<span class="sd">                defined in :mod:`~.ode.time_invariant`</span>
+<span class="sd">            gmeq:</span>
+<span class="sd">                GME model equations class instance defined in :mod:`~.equations`</span>
+<span class="sd">            sub:</span>
+<span class="sd">                dictionary of model parameter values to be used for</span>
+<span class="sd">                equation substitutions</span>
+<span class="sd">            name:</span>
+<span class="sd">                name of figure (key in figure dictionary)</span>
+<span class="sd">            fig_size:</span>
+<span class="sd">                optional figure width and height in inches</span>
+<span class="sd">            dpi:</span>
+<span class="sd">                optional rasterization resolution</span>
+<span class="sd">            do_direct:</span>
+<span class="sd">                plot directly integrated ray trajectory</span>
+<span class="sd">                (from :math:`\mathbf{\widetilde{p}}` values) as a solid curve</span>
+<span class="sd">            ray_subsetting:</span>
+<span class="sd">                optional ray subsampling rate</span>
+<span class="sd">                (typically far more rays are computed than should be plotted)</span>
+<span class="sd">            do_schematic:</span>
 <span class="sd">                optionally plot in more schematic form for expository purposes?</span>
-<span class="sd">            do_simple (bool): optionally simplify?</span>
+<span class="sd">            do_simple:</span>
+<span class="sd">                optionally simplify?</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_figure</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">fig_size</span><span class="o">=</span><span class="n">fig_size</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="n">dpi</span><span class="p">)</span>
@@ -483,16 +514,45 @@ to be used for equation substitutions</p></li>
                            <span class="n">length_includes_head</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="n">shape_</span><span class="p">,</span>
                            <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;r&#39;</span> <span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">profile_h</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">gmes</span><span class="p">,</span> <span class="n">gmeq</span><span class="p">,</span> <span class="n">sub</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">fig_size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                    <span class="n">y_limits</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">eta_label_xy</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="c1"># n_points=101,</span>
-                    <span class="c1"># do_direct=True,</span>
-                    <span class="n">do_legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">do_profile_points</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                    <span class="n">profile_subsetting</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
-                    <span class="c1"># do_t_sampling=True,</span>
-                    <span class="n">do_etaxi_label</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                    <span class="n">do_pub_label</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">pub_label</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">pub_label_xy</span><span class="o">=</span><span class="p">(</span><span class="mf">0.93</span><span class="p">,</span><span class="mf">0.33</span><span class="p">)</span> <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">profile_h</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">gmes</span><span class="p">:</span> <span class="n">TimeInvariantSolution</span><span class="p">,</span>
+        <span class="n">gmeq</span><span class="p">:</span> <span class="n">Equations</span><span class="p">,</span>
+        <span class="n">sub</span><span class="p">:</span> <span class="n">Dict</span><span class="p">,</span>
+        <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">fig_size</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span><span class="nb">float</span><span class="p">]]</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">dpi</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">y_limits</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">eta_label_xy</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="c1"># n_points=101,</span>
+        <span class="c1"># do_direct=True,</span>
+        <span class="n">do_legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">do_profile_points</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">profile_subsetting</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+        <span class="c1"># do_t_sampling=True,</span>
+        <span class="n">do_etaxi_label</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">do_pub_label</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">pub_label</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
+        <span class="n">pub_label_xy</span><span class="o">=</span><span class="p">(</span><span class="mf">0.93</span><span class="p">,</span><span class="mf">0.33</span><span class="p">)</span>
+        <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Plot a time-invariant topographic profile solution of Hamilton&#39;s equations.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            gmes:</span>
+<span class="sd">                instance of time invariant solution class</span>
+<span class="sd">                defined in :mod:`~.ode.time_invariant`</span>
+<span class="sd">            gmeq:</span>
+<span class="sd">                GME model equations class instance defined in :mod:`~.equations`</span>
+<span class="sd">            sub:</span>
+<span class="sd">                dictionary of model parameter values to be used for</span>
+<span class="sd">                equation substitutions</span>
+<span class="sd">            name:</span>
+<span class="sd">                name of figure (key in figure dictionary)</span>
+<span class="sd">            fig_size:</span>
+<span class="sd">                optional figure width and height in inches</span>
+<span class="sd">            dpi:</span>
+<span class="sd">                optional rasterization resolution</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_figure</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">fig_size</span><span class="o">=</span><span class="n">fig_size</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="n">dpi</span><span class="p">)</span>
         <span class="c1"># pub_label_xy = [0.93,0.33] if pub_label_xy is None else pub_label_xy</span>

@@ -1,26 +1,24 @@
 """
 ---------------------------------------------------------------------
 
-Visualization.
-
-Provides classes to generate a range of graphics for GME visualization.
-A base class extends :class:`gmplib.plot.GraphingBase <gmplib.plot.GraphingBase>`
-provided by :mod:`GMPLib`; the other classes build on this.
-Each is tailored to a particular category of GME problem,
-such as single ray tracing or for tracking knickpoints.
+Visualization of ray-slope angular relationships, anisotropy
 
 ---------------------------------------------------------------------
 
 Requires Python packages/modules:
   -  :mod:`numpy`
   -  :mod:`sympy`
-  -  :mod:`matplotlib.pyplot`
-  -  :mod:`gme.plot.base`
+  -  :mod:`matplotlib`
+  -  :mod:`gme`
 
 ---------------------------------------------------------------------
 
 """
+# Library
 import warnings
+
+# Typing
+from typing import Dict, Tuple, Any, Union, List, Optional
 
 # Numpy
 import numpy as np
@@ -32,6 +30,7 @@ from sympy import Rational
 import matplotlib.pyplot as plt
 
 # GME
+from gme.core.equations import Equations
 from gme.plot.base import Graphing
 
 warnings.filterwarnings("ignore")
@@ -41,11 +40,21 @@ __all__ = ['AlphaBeta']
 
 class AlphaBeta(Graphing):
     """
-    Subclasses :class:`gme.plot.Graphing <plot.Graphing>`
-    """
+    Visualization of ray-slope angular relationships, anisotropy.
 
-    def alpha_beta(self, gmeq, name, alpha_array, beta_array, tanalpha_crit_,
-                   tanbeta_crit_, fig_size=None, dpi=None ) -> None:
+    Subclasses :class:`gme.plot.base.Graphing`.
+    """
+    def alpha_beta(
+        self,
+        gmeq: Equations,
+        name: str,
+        alpha_array,
+        beta_array,
+        tanalpha_crit_,
+        tanbeta_crit_,
+        fig_size: Optional[Tuple[float,float]]=None,
+        dpi: Optional[int]=None
+        ) -> None:
         """
         TBD
         """
@@ -67,8 +76,17 @@ class AlphaBeta(Graphing):
         plt.xlabel(r'Surface tilt  $\beta$   [${\degree}\!$ from horiz]')
         plt.ylabel(r'Ray angle  $\alpha$   [${\degree}\!$ from horiz]')
 
-    def beta_anisotropy(self, gmeq, name, alpha_array, beta_array,
-                        tanalpha_crit_, tanbeta_crit_, fig_size=None, dpi=None ) -> None:
+    def beta_anisotropy(
+        self,
+        gmeq: Equations,
+        name: str,
+        alpha_array,
+        beta_array,
+        tanalpha_crit_,
+        tanbeta_crit_,
+        fig_size: Optional[Tuple[float,float]]=None,
+        dpi: Optional[int]=None
+        ) -> None:
         """
         TBD
         """
@@ -99,8 +117,17 @@ class AlphaBeta(Graphing):
         plt.ylim(0,90)
         plt.plot(beta_array, beta_array, ':')
 
-    def alpha_anisotropy(self, gmeq, name, alpha_array, beta_array,
-                         tanalpha_crit_, tanbeta_crit_, fig_size=None, dpi=None ) -> None:
+    def alpha_anisotropy(
+        self,
+        gmeq: Equations,
+        name: str,
+        alpha_array,
+        beta_array,
+        tanalpha_crit_,
+        tanbeta_crit_,
+        fig_size: Optional[Tuple[float,float]]=None,
+        dpi: Optional[int]=None
+        ) -> None:
         """
         TBD
         """

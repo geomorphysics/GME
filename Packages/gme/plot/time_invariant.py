@@ -3,17 +3,14 @@
 
 Visualization of time-invariant solutions.
 
-Extends :class:`gmplib.plot.GraphingBase <gmplib.plot.GraphingBase>`.
-
-
 ---------------------------------------------------------------------
 
-Requires Python packages/modules:
+Requires Python packages:
   -  :mod:`numpy`
   -  :mod:`sympy`
-  -  :mod:`matplotlib`, :mod:`matplotlib.pyplot`, :mod:`matplotlib.patches`,
-     :mod:`matplotlib.cm`, :mod:`mpl_toolkits`
-  -  :mod:`gme.core.symbols`, :mod:`gme.plot.base`
+  -  :mod:`matplotlib`
+  -  :mod:`mpl_toolkits`
+  -  :mod:`gme`
 
 ---------------------------------------------------------------------
 
@@ -51,26 +48,29 @@ __all__ = ['TimeInvariant']
 
 class TimeInvariant(Graphing):
     """
-    Subclasses :class:`gme.plot.Graphing <plot.Graphing>`.
+    Visualization of time-invariant solutions.
+
+    Subclasses :class:`gme.plot.base.Graphing`.
     """
-    def profile_aniso( self,
-                        gmes: TimeInvariantSolution,
-                        gmeq: Equations,
-                        sub: Dict,
-                        name: str,
-                        fig_size: Optional[Tuple[float,float]]=None,
-                        dpi: Optional[int]=None,
-                        n_points: int=51,
-                        xf_stop: float=0.995,
-                        sf: Optional[Tuple[float,float]]=None,
-                        n_arrows: int=26,
-                        y_limits: Optional[Tuple[float,float]]=None,
-                        v_scale: float=0.4,
-                        v_exponent: float=1.0,
-                        do_pub_label: bool=False,
-                        pub_label: str='',
-                        eta_label_xy: Optional[Tuple[float,float]]=None
-                    ) -> None:
+    def profile_aniso(
+        self,
+        gmes: TimeInvariantSolution,
+        gmeq: Equations,
+        sub: Dict,
+        name: str,
+        fig_size: Optional[Tuple[float,float]]=None,
+        dpi: Optional[int]=None,
+        n_points: int=51,
+        xf_stop: float=0.995,
+        sf: Optional[Tuple[float,float]]=None,
+        n_arrows: int=26,
+        y_limits: Optional[Tuple[float,float]]=None,
+        v_scale: float=0.4,
+        v_exponent: float=1.0,
+        do_pub_label: bool=False,
+        pub_label: str='',
+        eta_label_xy: Optional[Tuple[float,float]]=None
+        ) -> None:
         r"""
         Plot time-invariant profile annotated with ray vectors,
         normal-slowness covector herringbones,

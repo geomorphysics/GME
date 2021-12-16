@@ -1,28 +1,24 @@
 """
 ---------------------------------------------------------------------
 
-Visualization.
-
-Provides classes to generate a range of graphics for GME visualization.
-A base class extends :class:`gmplib.plot.GraphingBase <gmplib.plot.GraphingBase>`
-provided by :mod:`GMPLib`; the other classes build on this.
-Each is tailored to a particular category of GME problem,
-such as single ray tracing or for tracking knickpoints.
+Visualization of geodesics.
 
 ---------------------------------------------------------------------
 
 Requires Python packages/modules:
-  -  :mod:`numpy`, :mod:`scipy`, :mod:`sympy`
-  -  :mod:`matplotlib.pyplot`, :mod:`matplotlib.patches`
-  -  :mod:`gme.core.symbols`, :mod:`gme.plot.base`
+  -  :mod:`numpy`
+  -  :mod:`scipy`
+  -  :mod:`sympy`
+  -  :mod:`matplotlib`
+  -  :mod:`gme`
 
 ---------------------------------------------------------------------
 
 """
 import warnings
 
-# Minimal typing
-from typing import List
+# Typing
+from typing import Tuple, Dict, List, Union, Any, Callable, Optional
 
 # Numpy
 import numpy as np
@@ -48,15 +44,30 @@ __all__ = ['RayGeodesics']
 
 class RayGeodesics(Graphing):
     """
-    Subclasses :class:`gme.plot.Graphing <plot.Graphing>`.
-    """
+    Visualization of geodesics.
 
-    def __init__( self, gmes, gmeq, n_points,
-                  do_recompute=False, dpi=100, font_size=11 ) -> None:
+    Subclasses :class:`gme.plot.base.Graphing`.
+
+    Args:
+        gmes:
+            instance of single-ray solution class
+            defined in :mod:`~.ode.single_ray`
+        gmeq:
+            GME model equations class instance defined in :mod:`~.equations`
+        n_points:
+            optional sample rate along each curve
+    """
+    def __init__(
+        self,
+        gmes,
+        gmeq,
+        n_points,
+        do_recompute=False
+        ) -> None:
         r"""
-        TBD
+        Constructor method
         """
-        super().__init__(dpi, font_size)
+        super().__init__()
         # if not hasattr(self,'x_array') or n_points!=len(self.x_array):
         # HACK!!!
         do_recompute=True
