@@ -55,7 +55,8 @@ class RayGeodesics(Graphing):
             instance of single-ray solution class
             defined in :mod:`gme.ode.single_ray`
         gmeq:
-            GME model equations class instance defined in :mod:`gme.core.equations`
+            GME model equations class instance defined in
+            :mod:`gme.core.equations`
         n_points:
             optional sample rate along each curve
     """
@@ -103,10 +104,9 @@ class RayGeodesics(Graphing):
         if not hasattr(gmeq, 'gstar_ij_mat'):
             return
         try:
-            self.gstar_matrices_list = [gmeq.gstar_ij_mat.subs({rx: x_, rdotx: vx_, rdotz: vz_})
-                                        for x_, vx_, vz_ in zip(x_array, vx_array, vz_array)]
-#if bool(do_recompute or self.gstar_matrices_list is None) else self.gstar_matrices_list
-# except Exception as e:
+            self.gstar_matrices_list \
+                = [gmeq.gstar_ij_mat.subs({rx: x_, rdotx: vx_, rdotz: vz_})
+                    for x_, vx_, vz_ in zip(x_array, vx_array, vz_array)]
         except ValueError as e:
             print(f'Failed to (re)generate gstar_matrices_list: "{e}"')
 
@@ -114,7 +114,6 @@ class RayGeodesics(Graphing):
             self.gstar_matrices_array \
                 = [np.array([float(re(elem_)) for elem_ in g_]).reshape(2, 2)
                     for g_ in self.gstar_matrices_list]
-#if bool(do_recompute or self.gstar_matrices_array is None) else self.gstar_matrices_array
         except ValueError as e:
             print(f'Failed to (re)generate gstar_matrices_array: "{e}"')
 
@@ -122,8 +121,6 @@ class RayGeodesics(Graphing):
             self.g_matrices_list \
                 = [gmeq.g_ij_mat.subs({rx: x_, rdotx: vx_, rdotz: vz_})
                     for x_, vx_, vz_ in zip(x_array, vx_array, vz_array)]
-#if bool(do_recompute or self.g_matrices_list is None) else self.g_matrices_list
-
         except ValueError as e:
             print(f'Failed to (re)generate g_matrices_list: "{e}"')
 
@@ -131,8 +128,6 @@ class RayGeodesics(Graphing):
             self.g_matrices_array \
                 = [np.array([float(re(elem_)) for elem_ in g_]).reshape(2, 2)
                     for g_ in self.g_matrices_list]
-#if bool(do_recompute or self.g_matrices_array is None) else self.g_matrices_array
-
         except ValueError as e:
             print(f'Failed to (re)generate g_matrices_array: "{e}"')
 
@@ -145,8 +140,8 @@ class RayGeodesics(Graphing):
             fig_size: Optional[Tuple[float, float]] = None,
             dpi: Optional[int] = None,
             y_limits=None,
-            #n_points=121,
-            #do_pub_label=False, pub_label='',
+            # n_points=121,
+            # do_pub_label=False, pub_label='',
             do_gstar=False,
             do_det=False,
             do_eigenvectors=False,
@@ -154,7 +149,7 @@ class RayGeodesics(Graphing):
             do_etaxi_label=True,
             legend_loc='lower left',
             # do_mod_v=False,
-            #do_recompute=False
+            # do_recompute=False
             do_pv=False
             ) -> None:
         r"""
@@ -165,7 +160,8 @@ class RayGeodesics(Graphing):
                 instance of single ray solution class defined in
                 :mod:`gme.ode.single_ray`
             gmeq:
-                GME model equations class instance defined in :mod:`~gme.core.equations`
+                GME model equations class instance defined in
+                :mod:`gme.core.equations`
             n_points: sample rate along each curve
         """
         _ = self.create_figure(name, fig_size=fig_size, dpi=dpi)
@@ -186,24 +182,28 @@ class RayGeodesics(Graphing):
         vz_array = self.vz_array
 
         if do_gstar:
-            # Use of lambdified g matrix here fails for eta=1/4, sin(beta) for some reason
+            # Use of lambdified g matrix here fails for eta=1/4, sin(beta)
+            #    for some reason
             # g_matrices_list = [gmeq.gstar_ij_mat_lambdified(x_,vx_,vz_)
-            #                         for x_,vx_,vz_ in zip(x_array,vx_array,vz_array)]
+            #                for x_,vx_,vz_ in zip(x_array,vx_array,vz_array)]
             g_label = '{g^*}'
             m_label = 'co-metric'
             h_label = 'H'
             eta_label_xy = [0.5, 0.2] if eta_label_xy is None else eta_label_xy
         else:
-            # Use of lambdified g* matrix here fails for eta=1/4, sin(beta) for some reason
+            # Use of lambdified g* matrix here fails for eta=1/4, sin(beta)
+            #   for some reason
             # g_matrices_list = [gmeq.g_ij_mat_lambdified(x_,vx_,vz_)
-            #                     for x_,vx_,vz_ in zip(x_array,vx_array,vz_array)]
+            #               for x_,vx_,vz_ in zip(x_array,vx_array,vz_array)]
             g_label = '{g}'
             m_label = 'metric'
             h_label = 'L'
             eta_label_xy = [
                 0.5, 0.85] if eta_label_xy is None else eta_label_xy
-        # g_eigenvalues_array = np.array([np.real(eig(g_)[0]) for g_ in g_matrices_array])
-        # The metric tensor matrices are symmetric therefore Hermitian so we can use 'eigh'
+        # g_eigenvalues_array
+        #  = np.array([np.real(eig(g_)[0]) for g_ in g_matrices_array])
+        # The metric tensor matrices are symmetric therefore Hermitian
+        #  so we can use 'eigh'
         # print(f'g_matrices_array = {g_matrices_array}')
         if g_matrices_array is not None:
             g_eigh_array = [eigh(g_) for g_ in g_matrices_array]
@@ -223,9 +223,10 @@ class RayGeodesics(Graphing):
             plt.plot(x_array, rz_array, '0.6', ls='-', lw=3, label=r'ray')
             plt.ylabel(r'Eigenvectors of $'+g_label+'$', fontsize=14)
             arrow_sf = 0.5
-            my_arrow_style = mpatches.ArrowStyle.Fancy(head_length=0.99*arrow_sf,
-                                                       head_width=0.6*arrow_sf,
-                                                       tail_width=0.01*arrow_sf)
+            my_arrow_style \
+                = mpatches.ArrowStyle.Fancy(head_length=0.99*arrow_sf,
+                                            head_width=0.6*arrow_sf,
+                                            tail_width=0.01*arrow_sf)
             step = 8
             off = 0*step//2
             ev_sf = 0.04
@@ -256,34 +257,50 @@ class RayGeodesics(Graphing):
             plt.plot(x_array, pv_array, 'r', ls='-', lw=2, label=r'$p_i v^i$')
             if self.gstar_matrices_array is not None:
                 gstarpp_array \
-                    = [np.dot(np.dot(gstar_, np.array([px_, pz_])), np.array([px_, pz_]))
+                    = [np.dot(
+                        np.dot(gstar_, np.array([px_, pz_])),
+                        np.array([px_, pz_])
+                        )
                         for gstar_, px_, pz_
                         in zip(self.gstar_matrices_array, px_array, pz_array)]
                 plt.plot(x_array, gstarpp_array, '0.5', ls='--', lw=3,
                          label=r'$g^j p_j p_j$')
             if self.g_matrices_array is not None:
-                gvv_array = [np.dot(np.dot(g_, np.array([vx_, vz_])), np.array([vx_, vz_]))
-                             for g_, vx_, vz_
-                             in zip(self.g_matrices_array, vx_array, vz_array)]
+                gvv_array \
+                    = [np.dot(
+                        np.dot(g_, np.array([vx_, vz_])),
+                        np.array([vx_, vz_])
+                        )
+                       for g_, vx_, vz_
+                       in zip(self.g_matrices_array, vx_array, vz_array)]
                 plt.plot(x_array, gvv_array, 'k', ls=':',
                          lw=4, label=r'$g_i v^iv^i$')
-            plt.ylabel(r'Inner product of $\mathbf{\widetilde{p}}$ and $\mathbf{{v}}$',
+            plt.ylabel(r'Inner product of $\mathbf{\widetilde{p}}$'
+                       + r' and $\mathbf{{v}}$',
                        fontsize=14)
             legend_loc = 'upper left'
         elif g_eigenvalues_array is not None:
-            sign_ev0, label_ev0 = (-1, 'negative  ') if g_eigenvalues_array[0, 0] < 0 \
-                            else (1, 'positive  ')
-            sign_ev1, label_ev1 = (-1, 'negative  ') if g_eigenvalues_array[0, 1] < 0 \
+            (sign_ev0, label_ev0) \
+                = (-1, 'negative  ') if g_eigenvalues_array[0, 0] < 0 \
+                else (1, 'positive  ')
+            (sign_ev1, label_ev1) \
+                = (-1, 'negative  ') if g_eigenvalues_array[0, 1] < 0 \
                 else (1, 'positive  ')
             plt.yscale('log')
-            plt.plot(x_array, sign_ev1*(g_eigenvalues_array[:, 1]),
-                     'DarkGreen', ls='-', lw=1.5,
+            plt.plot(x_array,
+                     sign_ev1*(g_eigenvalues_array[:, 1]),
+                     'DarkGreen',
+                     ls='-',
+                     lw=1.5,
                      label=f'{label_ev1}'+rf'$\lambda_{g_label}(1)$')
-            plt.plot(x_array, sign_ev0*(g_eigenvalues_array[:, 0]),
-                     'magenta', ls='-', lw=1.5,
+            plt.plot(x_array,
+                     sign_ev0*(g_eigenvalues_array[:, 0]),
+                     'magenta',
+                     ls='-',
+                     lw=1.5,
                      label=f'{label_ev0}'+rf'$\lambda_{g_label}(0)$')
-            plt.ylabel(
-                f'Eigenvalues of {m_label} tensor '+rf'${g_label}$', fontsize=12)
+            plt.ylabel(f'Eigenvalues of {m_label} tensor '+rf'${g_label}$',
+                       fontsize=12)
         else:
             return
 

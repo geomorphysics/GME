@@ -79,7 +79,8 @@ class RayProfiles(Graphing):
                 instance of single-ray solution class
                 defined in :mod:`gme.ode.single_ray`
             gmeq:
-                GME model equations class instance defined in :mod:`gme.core.equations`
+                GME model equations class instance defined in
+                :mod:`gme.core.equations`
             sub:
                 dictionary of model parameter values to be used for
                 equation substitutions
@@ -121,12 +122,18 @@ class RayProfiles(Graphing):
         # Plot arrow-annotated rays
         xi_vh_ratio = float(-tan(Ci).subs(sub)) if do_ndim \
             else float(-(xiv_0/xih_0).subs(sub))
-        self.draw_rays_with_arrows_simple(axes, sub, xi_vh_ratio,
+        self.draw_rays_with_arrows_simple(axes,
+                                          sub, xi_vh_ratio,
                                           t_rsmpld_array,
-                                          rx_rsmpld_array, rz_rsmpld_array,
+                                          rx_rsmpld_array,
+                                          rz_rsmpld_array,
                                           v_rsmpld_array,
-                                          n_rays=1, n_t=None,
-                                          ls='-', sf=1, do_one_ray=True, color='0.5')
+                                          n_rays=1,
+                                          n_t=None,
+                                          ls='-',
+                                          sf=1,
+                                          do_one_ray=True,
+                                          color='0.5')
 
         axes.set_aspect(aspect if aspect is not None else 1)
         plt.grid(True, ls=':')
@@ -140,13 +147,18 @@ class RayProfiles(Graphing):
                          rf'$\eta={gmeq.eta_}$'+r'$\quad\mathsf{Ci}=$'
                          + rf'${round(float(deg(Ci.subs(sub))))}\degree$',
                          transform=axes.transAxes,
-                         horizontalalignment='center', verticalalignment='center',
-                         fontsize=13, color='k')
+                         horizontalalignment='center',
+                         verticalalignment='center',
+                         fontsize=13,
+                         color='k')
             if do_pub_label:
-                plt.text(*pub_label_xy, pub_label,
+                plt.text(*pub_label_xy,
+                         pub_label,
                          transform=axes.transAxes,
-                         horizontalalignment='center', verticalalignment='center',
-                         fontsize=16, color='k')
+                         horizontalalignment='center',
+                         verticalalignment='center',
+                         fontsize=16,
+                         color='k')
         if y_limits is not None:
             plt.ylim(*y_limits)
 
@@ -163,10 +175,10 @@ class RayProfiles(Graphing):
             n_points=101,
             do_direct=True,
             n_rays=4,
-            #profile_subsetting=5,
+            # profile_subsetting=5,
             do_schematic=False,
             do_legend=True,
-            #do_profile_points=True,
+            # do_profile_points=True,
             do_fault_bdry=False,
             do_compute_xivh_ratio=False,
             do_one_ray=False,
@@ -181,7 +193,8 @@ class RayProfiles(Graphing):
         Plot a set of erosion rays for a time-invariant
         topographic profile solution of Hamilton's equations.
 
-        Hamilton's equations are integrated once (from the left boundary to the divide)
+        Hamilton's equations are integrated once
+        (from the left boundary to the divide)
         and a time-invariant profile is constructed by repeating
         the ray trajectory, with a suitable truncation and vertical
         initial offset, multiple times at the left boundary:
@@ -203,7 +216,8 @@ class RayProfiles(Graphing):
                 instance of time invariant solution class
                 defined in :mod:`gme.ode.time_invariant`
             gmeq:
-                GME model equations class instance defined in :mod:`gme.core.equations`
+                GME model equations class instance defined in
+                :mod:`gme.core.equations`
             sub:
                 dictionary of model parameter values to be used for
                 equation substitutions
@@ -246,10 +260,14 @@ class RayProfiles(Graphing):
         # Plot arrow-annotated rays
         xi_vh_ratio = float(-tan(Ci).subs(sub)) if do_compute_xivh_ratio \
             else float(-(xiv_0/xih_0).subs(sub))
-        self.draw_rays_with_arrows_simple(axes, sub, xi_vh_ratio,
+        self.draw_rays_with_arrows_simple(axes,
+                                          sub,
+                                          xi_vh_ratio,
                                           t_rsmpld_array,
-                                          rx_rsmpld_array, rz_rsmpld_array,
-                                          n_rays=n_rays, n_t=None,
+                                          rx_rsmpld_array,
+                                          rz_rsmpld_array,
+                                          n_rays=n_rays,
+                                          n_t=None,
                                           ls='-' if do_schematic else '-',
                                           sf=0.5 if do_schematic else 1,
                                           do_one_ray=do_one_ray)
@@ -257,10 +275,14 @@ class RayProfiles(Graphing):
         if do_schematic:
             # For schematic fig, also plot mirror-image topo profile
             #                     on opposite side of drainage divide
-            self.draw_rays_with_arrows_simple(axes, sub, xi_vh_ratio,
+            self.draw_rays_with_arrows_simple(axes,
+                                              sub,
+                                              xi_vh_ratio,
                                               t_rsmpld_array,
-                                              2-rx_rsmpld_array, rz_rsmpld_array,
-                                              n_rays=n_rays, n_t=None,
+                                              2-rx_rsmpld_array,
+                                              rz_rsmpld_array,
+                                              n_rays=n_rays,
+                                              n_t=None,
                                               ls='-' if do_schematic else '-',
                                               sf=0.5 if do_schematic else 1,
                                               do_labels=False)
@@ -270,23 +292,38 @@ class RayProfiles(Graphing):
         #     plt.plot( gmes.x_array[::profile_subsetting],
         #                             gmes.h_array[::profile_subsetting],
         #                 'k'+('s' if do_profile_points else '-'),
-        #                 ms=3, label=r'$T(\mathbf{r})$ from rays $\mathbf{r}(t)$' )
+        #            ms=3, label=r'$T(\mathbf{r})$ from rays $\mathbf{r}(t)$' )
 
         # Solid line = topo profile from direct integration of gradient array
         if (do_direct or do_schematic) and not do_one_ray:
-            plt.plot(gmes.h_x_array, (gmes.h_z_array-gmes.h_z_array[0]), 'k',
-                     label=r'$T(\mathbf{r})$' if do_schematic else r'$T(\mathbf{r})$')
+            plt.plot(gmes.h_x_array,
+                     gmes.h_z_array-gmes.h_z_array[0],
+                     'k',
+                     label=r'$T(\mathbf{r})$' if do_schematic
+                     else r'$T(\mathbf{r})$')
             if do_schematic:
-                plt.plot(gmes.h_x_array, (gmes.h_z_array-gmes.h_z_array[0])+0.26, '0.75',
-                         lw=1, ls='--')
-                plt.plot(gmes.h_x_array, (gmes.h_z_array-gmes.h_z_array[0])+0.13, '0.5',
+                plt.plot(gmes.h_x_array,
+                         gmes.h_z_array-gmes.h_z_array[0]+0.26,
+                         '0.75',
+                         lw=1,
+                         ls='--')
+                plt.plot(gmes.h_x_array,
+                         gmes.h_z_array-gmes.h_z_array[0]+0.13,
+                         '0.5',
+                         lw=1,
+                         ls='--')
+                plt.plot(2-gmes.h_x_array,
+                         gmes.h_z_array-gmes.h_z_array[0],
+                         'k')
+                plt.plot(2-gmes.h_x_array,
+                         gmes.h_z_array-gmes.h_z_array[0]+0.13,
+                         '0.5',
                          lw=1, ls='--')
                 plt.plot(2-gmes.h_x_array,
-                         (gmes.h_z_array-gmes.h_z_array[0]), 'k')
-                plt.plot(2-gmes.h_x_array, (gmes.h_z_array-gmes.h_z_array[0])+0.13, '0.5',
-                         lw=1, ls='--')
-                plt.plot(2-gmes.h_x_array, (gmes.h_z_array-gmes.h_z_array[0])+0.26, '0.75',
-                         lw=1, ls='--')
+                         gmes.h_z_array-gmes.h_z_array[0]+0.26,
+                         '0.75',
+                         lw=1,
+                         ls='--')
 
         axes.set_aspect(1)
         plt.grid(True, ls=':')
@@ -305,53 +342,84 @@ class RayProfiles(Graphing):
                          + r'$\quad\mathsf{Ci}=$'
                          + rf'${round(float(deg(Ci.subs(sub))))}\degree$',
                          transform=axes.transAxes,
-                         horizontalalignment='center', verticalalignment='center',
+                         horizontalalignment='center',
+                         verticalalignment='center',
                          fontsize=16, color='k')
             if do_pub_label:
-                plt.text(*pub_label_xy, pub_label,
+                plt.text(*pub_label_xy,
+                         pub_label,
                          transform=axes.transAxes,
-                         horizontalalignment='center', verticalalignment='center',
-                         fontsize=16, color='k')
+                         horizontalalignment='center',
+                         verticalalignment='center',
+                         fontsize=16,
+                         color='k')
         if x_limits is not None:
             plt.xlim(*x_limits)
         if y_limits is not None:
             plt.ylim(*y_limits)
 
         if do_schematic:
-            for x_, align_ in [(0.03, 'center'), (1.97, 'center')]:
-                plt.text(x_, 0.45, 'rays initiated',  # transform=axes.transAxes,
+            for x_, align_ in ((0.03, 'center'), (1.97, 'center')):
+                plt.text(x_,
+                         0.45,
+                         'rays initiated',
+                         # transform=axes.transAxes,
                          rotation=0,
-                         horizontalalignment=align_, verticalalignment='center',
+                         horizontalalignment=align_,
+                         verticalalignment='center',
                          fontsize=12, color='r')
-            plt.text(1, 0.53, 'rays annihilated',  # transform=axes.transAxes,
+            plt.text(1,
+                     0.53,
+                     'rays annihilated',
+                     # transform=axes.transAxes,
                      rotation=0,
-                     horizontalalignment='center', verticalalignment='center',
-                     fontsize=12, color='0.25')
-            for x_, align_ in [(-0.03, 'right'), (2.03, 'left')]:
-                plt.text(x_, 0.17,
-                         'fault slip b.c.' if do_fault_bdry else 'const. erosion rate',
+                     horizontalalignment='center',
+                     verticalalignment='center',
+                     fontsize=12,
+                     color='0.25')
+            for x_, align_ in ((-0.03, 'right'), (2.03, 'left')):
+                plt.text(x_,
+                         0.17,
+                         'fault slip b.c.' if do_fault_bdry
+                         else 'const. erosion rate',
                          rotation=90,
-                         horizontalalignment=align_, verticalalignment='center',
-                         fontsize=12, color='r', alpha=0.7)
-            plt.text(0.46, 0.38, r'surface isochrone $T(\mathbf{r})=\mathrm{past}$',
-                     #transform=axes.transAxes,
+                         horizontalalignment=align_,
+                         verticalalignment='center',
+                         fontsize=12,
+                         color='r',
+                         alpha=0.7)
+            plt.text(0.46,
+                     0.38,
+                     r'surface isochrone $T(\mathbf{r})=\mathrm{past}$',
+                     # transform=axes.transAxes,
                      rotation=12,
-                     horizontalalignment='center', verticalalignment='center',
+                     horizontalalignment='center',
+                     verticalalignment='center',
                      fontsize=10, color='0.2')
-            plt.text(0.52, 0.05, r'surface isochrone $T(\mathbf{r})=\mathrm{now}$',
-                     #transform=axes.transAxes,
+            plt.text(0.52,
+                     0.05,
+                     r'surface isochrone $T(\mathbf{r})=\mathrm{now}$',
+                     # transform=axes.transAxes,
                      rotation=12,
-                     horizontalalignment='center', verticalalignment='center',
+                     horizontalalignment='center',
+                     verticalalignment='center',
                      fontsize=10, color='k')
-            for x_, y_, dx_, dy_, shape_ in [(0, 0.4, 0, -0.15, 'left'),
-                                             (0, 0.25, 0, -0.15, 'left'),
-                                             (0, 0.1, 0, -0.15, 'left'),
-                                             (2, 0.4, 0, -0.15, 'right'),
-                                             (2, 0.25, 0, -0.15, 'right'),
-                                             (2, 0.1, 0, -0.15, 'right')]:
-                plt.arrow(x_, y_, dx_, dy_, head_length=0.04, head_width=0.03,
-                          length_includes_head=True, shape=shape_,
-                          facecolor='r', edgecolor='r')
+            for (x_, y_, dx_, dy_, shape_) in ((0, 0.4, 0, -0.15, 'left'),
+                                               (0, 0.25, 0, -0.15, 'left'),
+                                               (0, 0.1, 0, -0.15, 'left'),
+                                               (2, 0.4, 0, -0.15, 'right'),
+                                               (2, 0.25, 0, -0.15, 'right'),
+                                               (2, 0.1, 0, -0.15, 'right')):
+                plt.arrow(x_,
+                          y_,
+                          dx_,
+                          dy_,
+                          head_length=0.04,
+                          head_width=0.03,
+                          length_includes_head=True,
+                          shape=shape_,
+                          facecolor='r',
+                          edgecolor='r')
 
     def profile_h(
             self,
@@ -375,14 +443,16 @@ class RayProfiles(Graphing):
             pub_label_xy=(0.93, 0.33)
             ) -> None:
         r"""
-        Plot a time-invariant topographic profile solution of Hamilton's equations.
+        Plot a time-invariant topographic profile solution of
+        Hamilton's equations.
 
         Args:
             gmes:
                 instance of time invariant solution class
                 defined in :mod:`gme.ode.time_invariant`
             gmeq:
-                GME model equations class instance defined in :mod:`gme.core.equations`
+                GME model equations class instance defined in
+                :mod:`gme.core.equations`
             sub:
                 dictionary of model parameter values to be used for
                 equation substitutions
@@ -412,12 +482,16 @@ class RayProfiles(Graphing):
         # # rz_rsmpld_array = gmes.rz_interp_t(t_rsmpld_array)
 
         # Markers = topo profile from ray terminations
-        plt.plot(gmes.x_array[::profile_subsetting], gmes.h_array[::profile_subsetting],
+        plt.plot(gmes.x_array[::profile_subsetting],
+                 gmes.h_array[::profile_subsetting],
                  'k'+('s' if do_profile_points else '-'),
-                 ms=3, label=r'$T(\mathbf{r})$ from rays $\mathbf{r}(t)$')
+                 ms=3,
+                 label=r'$T(\mathbf{r})$ from rays $\mathbf{r}(t)$')
 
         # Solid line = topo profile from direct integration of gradient array
-        plt.plot(gmes.h_x_array, (gmes.h_z_array-gmes.h_z_array[0]), 'k',
+        plt.plot(gmes.h_x_array,
+                 (gmes.h_z_array-gmes.h_z_array[0]),
+                 'k',
                  label=r'$T(\mathbf{r})$ by integration')
         axes.set_aspect(1)
         plt.grid(True, ls=':')
