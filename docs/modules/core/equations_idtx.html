@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>equations_idtx.py &#8212; GME 1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pydoctheme.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+    
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <script src="../../_static/sidebar.js"></script>
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="equations_geodesic.py" href="equations_geodesic.html" />
+    <link rel="prev" title="equations_g.py" href="equations_g.html" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <link rel="shortcut icon" type="image/png" href="../../_static/favicon.png" />
+    <meta name="viewport" content="width=device-width,initial-scale=0.8">
+    
+    
+
+  </head><body>
+    <!-- <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="responsive-menu"><a href="#sidebar-anchor" title="Navigation">&#9776;</a></li>
+        <li><a href="../../index.html">GME 1.0 documentation</a> &#187;</li>
+          <li><a href="../Python.html" >Python package <cite>gme</cite></a> &#187;</li>
+          <li><a href="index.html" accesskey="U"><cite>gme.core</cite></a> &#187;</li> 
+      </ul>
+    </div> -->
+    <!-- 
+        <div class="badge">
+            <a href="https://github.com/geomorphysics/GME/">Fork me on GitHub</a>
+            <img src="../../_static/right-red@2x.png">
+        </div>
+     -->
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-gme.core.equations_idtx">
+<span id="equations-idtx-py"></span><h1><code class="docutils literal notranslate"><span class="pre">equations_idtx.py</span></code><a class="headerlink" href="#module-gme.core.equations_idtx" title="Permalink to this headline">¶</a></h1>
+<hr class="docutils" />
+<p>Equation definitions and derivations using <a class="reference external" href="https://docs.sympy.org/latest/modules/index.html#module-sympy" title="(in SymPy v1.9)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">SymPy</span></code></a>.</p>
+<hr class="docutils" />
+<dl class="simple">
+<dt>Requires Python packages/modules:</dt><dd><ul class="simple">
+<li><p><a class="reference external" href="https://docs.sympy.org/latest/modules/index.html#module-sympy" title="(in SymPy v1.9)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sympy</span></code></a></p></li>
+<li><p><code class="xref py py-mod docutils literal notranslate"><span class="pre">gme</span></code></p></li>
+</ul>
+</dd>
+</dl>
+<hr class="docutils" />
+<dl class="py class">
+<dt class="sig sig-object py" id="gme.core.equations_idtx.EquationsIdtxMixin">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gme.core.equations_idtx.</span></span><span class="sig-name descname"><span class="pre">EquationsIdtxMixin</span></span><a class="headerlink" href="#gme.core.equations_idtx.EquationsIdtxMixin" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="py method">
+<dt class="sig sig-object py" id="gme.core.equations_idtx.EquationsIdtxMixin.define_idtx_fgtx_eqns">
+<span class="sig-name descname"><span class="pre">define_idtx_fgtx_eqns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gme.core.equations_idtx.EquationsIdtxMixin.define_idtx_fgtx_eqns" title="Permalink to this definition">¶</a></dt>
+<dd><p>Define indicatrix and figuratrix equations</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gme.core.equations_idtx.EquationsIdtxMixin.pz_cosbeta_varphi_eqn">
+<span class="sig-name descname"><span class="pre">pz_cosbeta_varphi_eqn</span></span><a class="headerlink" href="#gme.core.equations_idtx.EquationsIdtxMixin.pz_cosbeta_varphi_eqn" title="Permalink to this definition">¶</a></dt>
+<dd><p><span class="math notranslate nohighlight">\(p_{z}^{4} = \dfrac{\cos^{4}{\left(\beta \right)}}{\varphi^{4} \left(1 - \cos^{2}{\left(\beta \right)}\right)^{3}}\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.sympy.org/latest/modules/core.html#sympy.core.relational.Equality" title="(in SymPy v1.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Equality</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gme.core.equations_idtx.EquationsIdtxMixin.cosbetasqrd_pz_varphi_solns">
+<span class="sig-name descname"><span class="pre">cosbetasqrd_pz_varphi_solns</span></span><a class="headerlink" href="#gme.core.equations_idtx.EquationsIdtxMixin.cosbetasqrd_pz_varphi_solns" title="Permalink to this definition">¶</a></dt>
+<dd><p><span class="math notranslate nohighlight">\(\left[
+-\frac{ \left(  -6 \varphi^{4} p_{z}^{4} \sqrt[3]{27 \varphi^{8} p_{z}^{8} - 18 \varphi^{4} p_{z}^{4}
++ \sqrt{729 \varphi^{16} p_{z}^{16} - 108 \varphi^{12} p_{z}^{12}} + 2} - 12 \sqrt[3]{2} \varphi^{4} p_{z}^{4}
++ 2^{\frac{2}{3}} \left(27 \varphi^{8} p_{z}^{8} - 18 \varphi^{4} p_{z}^{4}
++ \sqrt{729 \varphi^{16} p_{z}^{16} - 108 \varphi^{12} p_{z}^{12}} + 2\right)^{\frac{2}{3}}
++ 2 \sqrt[3]{27 \varphi^{8} p_{z}^{8} - 18 \varphi^{4} p_{z}^{4} + \sqrt{729 \varphi^{16} p_{z}^{16}
+- 108 \varphi^{12} p_{z}^{12}} + 2} + 2 \sqrt[3]{2} \right)
+}{6 \varphi^{4} p_{z}^{4} \sqrt[3]{27 \varphi^{8} p_{z}^{8}
+- 18 \varphi^{4} p_{z}^{4} + \sqrt{729 \varphi^{16} p_{z}^{16} - 108 \varphi^{12} p_{z}^{12}} + 2}}
+,\dots \right]\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>list of <a class="reference external" href="https://docs.sympy.org/latest/modules/core.html#sympy.core.expr.Expr" title="(in SymPy v1.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Expr</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gme.core.equations_idtx.EquationsIdtxMixin.fgtx_cossqrdbeta_pz_varphi_eqn">
+<span class="sig-name descname"><span class="pre">fgtx_cossqrdbeta_pz_varphi_eqn</span></span><a class="headerlink" href="#gme.core.equations_idtx.EquationsIdtxMixin.fgtx_cossqrdbeta_pz_varphi_eqn" title="Permalink to this definition">¶</a></dt>
+<dd><p><span class="math notranslate nohighlight">\(\cos^{2}{\left(\beta \right)}
+= - \frac{- 6 \varphi^{4} p_{z}^{4} \sqrt[3]{27 \varphi^{8} p_{z}^{8} - 18 \varphi^{4} p_{z}^{4}
++ \sqrt{729 \varphi^{16} p_{z}^{16} - 108 \varphi^{12} p_{z}^{12}} + 2} - 12 \sqrt[3]{2} \varphi^{4} p_{z}^{4}
++ 2^{\frac{2}{3}} \left(27 \varphi^{8} p_{z}^{8} - 18 \varphi^{4} p_{z}^{4} + \sqrt{729 \varphi^{16} p_{z}^{16}
+- 108 \varphi^{12} p_{z}^{12}} + 2\right)^{\frac{2}{3}} + 2 \sqrt[3]{27 \varphi^{8} p_{z}^{8}
+- 18 \varphi^{4} p_{z}^{4} + \sqrt{729 \varphi^{16} p_{z}^{16} - 108 \varphi^{12} p_{z}^{12}} + 2}
++ 2 \sqrt[3]{2}}{6 \varphi^{4} p_{z}^{4} \sqrt[3]{27 \varphi^{8} p_{z}^{8} - 18 \varphi^{4} p_{z}^{4}
++ \sqrt{729 \varphi^{16} p_{z}^{16} - 108 \varphi^{12} p_{z}^{12}} + 2}}\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.sympy.org/latest/modules/core.html#sympy.core.relational.Equality" title="(in SymPy v1.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Equality</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gme.core.equations_idtx.EquationsIdtxMixin.fgtx_tanbeta_pz_varphi_eqn">
+<span class="sig-name descname"><span class="pre">fgtx_tanbeta_pz_varphi_eqn</span></span><a class="headerlink" href="#gme.core.equations_idtx.EquationsIdtxMixin.fgtx_tanbeta_pz_varphi_eqn" title="Permalink to this definition">¶</a></dt>
+<dd><p><span class="math notranslate nohighlight">\(\tan{\left(\beta \right)}
+= \sqrt{\frac{- 12 \sqrt[3]{2} \varphi^{4} p_{z}^{4} + 2^{\frac{2}{3}} \left(27 \varphi^{8} p_{z}^{8}
+- 18 \varphi^{4} p_{z}^{4} + \sqrt{729 \varphi^{16} p_{z}^{16} - 108 \varphi^{12} p_{z}^{12}} + 2\right)^{\frac{2}{3}}
++ 2 \sqrt[3]{27 \varphi^{8} p_{z}^{8} - 18 \varphi^{4} p_{z}^{4} + \sqrt{729 \varphi^{16} p_{z}^{16}
+- 108 \varphi^{12} p_{z}^{12}} + 2} + 2 \sqrt[3]{2}}{6 \varphi^{4} p_{z}^{4} \sqrt[3]{27 \varphi^{8} p_{z}^{8}
+- 18 \varphi^{4} p_{z}^{4} + \sqrt{729 \varphi^{16} p_{z}^{16} - 108 \varphi^{12} p_{z}^{12}} + 2}
++ 12 \sqrt[3]{2} \varphi^{4} p_{z}^{4} - 2^{\frac{2}{3}} \left(27 \varphi^{8} p_{z}^{8}
+- 18 \varphi^{4} p_{z}^{4} + \sqrt{729 \varphi^{16} p_{z}^{16} - 108 \varphi^{12} p_{z}^{12}} + 2\right)^{\frac{2}{3}}
+- 2 \sqrt[3]{27 \varphi^{8} p_{z}^{8} - 18 \varphi^{4} p_{z}^{4} + \sqrt{729 \varphi^{16} p_{z}^{16}
+- 108 \varphi^{12} p_{z}^{12}} + 2} - 2 \sqrt[3]{2}}}\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.sympy.org/latest/modules/core.html#sympy.core.relational.Equality" title="(in SymPy v1.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Equality</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gme.core.equations_idtx.EquationsIdtxMixin.fgtx_px_pz_varphi_eqn">
+<span class="sig-name descname"><span class="pre">fgtx_px_pz_varphi_eqn</span></span><a class="headerlink" href="#gme.core.equations_idtx.EquationsIdtxMixin.fgtx_px_pz_varphi_eqn" title="Permalink to this definition">¶</a></dt>
+<dd><p><span class="math notranslate nohighlight">\(p_{x}
+= - p_{z} \sqrt{\frac{- 12 \sqrt[3]{2} \varphi^{4} p_{z}^{4} + 2^{\frac{2}{3}} \left(27 \varphi^{8} p_{z}^{8}
+- 18 \varphi^{4} p_{z}^{4} + \sqrt{729 \varphi^{16} p_{z}^{16} - 108 \varphi^{12} p_{z}^{12}} + 2\right)^{\frac{2}{3}}
++ 2 \sqrt[3]{27 \varphi^{8} p_{z}^{8} - 18 \varphi^{4} p_{z}^{4} + \sqrt{729 \varphi^{16} p_{z}^{16}
+- 108 \varphi^{12} p_{z}^{12}} + 2} + 2 \sqrt[3]{2}}{6 \varphi^{4} p_{z}^{4} \sqrt[3]{27 \varphi^{8} p_{z}^{8}
+- 18 \varphi^{4} p_{z}^{4} + \sqrt{729 \varphi^{16} p_{z}^{16} - 108 \varphi^{12} p_{z}^{12}} + 2}
++ 12 \sqrt[3]{2} \varphi^{4} p_{z}^{4} - 2^{\frac{2}{3}} \left(27 \varphi^{8} p_{z}^{8}
+- 18 \varphi^{4} p_{z}^{4} + \sqrt{729 \varphi^{16} p_{z}^{16} - 108 \varphi^{12} p_{z}^{12}} + 2\right)^{\frac{2}{3}}
+- 2 \sqrt[3]{27 \varphi^{8} p_{z}^{8} - 18 \varphi^{4} p_{z}^{4} + \sqrt{729 \varphi^{16} p_{z}^{16}
+- 108 \varphi^{12} p_{z}^{12}} + 2} - 2 \sqrt[3]{2}}}\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.sympy.org/latest/modules/core.html#sympy.core.relational.Equality" title="(in SymPy v1.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Equality</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gme.core.equations_idtx.EquationsIdtxMixin.idtx_rdotx_pz_varphi_eqn">
+<span class="sig-name descname"><span class="pre">idtx_rdotx_pz_varphi_eqn</span></span><a class="headerlink" href="#gme.core.equations_idtx.EquationsIdtxMixin.idtx_rdotx_pz_varphi_eqn" title="Permalink to this definition">¶</a></dt>
+<dd><p><span class="math notranslate nohighlight">\({r}^x = \dfrac{\sqrt{6} \left(- 81 \cdot 2^{\frac{2}{3}} \varphi^{12} p_{z}^{12} \sqrt[3]{27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2} - 378 \varphi^{12} p_{z}^{12} - 9 \cdot 2^{\frac{2}{3}} \sqrt{3} \varphi^{10} p_{z}^{10} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} \sqrt[3]{27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2} - 42 \sqrt{3} \varphi^{10} p_{z}^{10} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} + 45 \sqrt[3]{2} \varphi^{8} p_{z}^{8} \left(27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2\right)^{\frac{2}{3}} + 96 \cdot 2^{\frac{2}{3}} \varphi^{8} p_{z}^{8} \sqrt[3]{27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2} + 306 \varphi^{8} p_{z}^{8} + \sqrt[3]{2} \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} \left(27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2\right)^{\frac{2}{3}} + 2 \cdot 2^{\frac{2}{3}} \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} \sqrt[3]{27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2} + 6 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 20 \sqrt[3]{2} \varphi^{4} p_{z}^{4} \left(27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2\right)^{\frac{2}{3}} - 26 \cdot 2^{\frac{2}{3}} \varphi^{4} p_{z}^{4} \sqrt[3]{27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2} - 64 \varphi^{4} p_{z}^{4} + 2 \sqrt[3]{2} \left(27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2\right)^{\frac{2}{3}} + 2 \cdot 2^{\frac{2}{3}} \sqrt[3]{27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2} + 4\right)}{72 \varphi^{4} p_{z}^{5} \left(\frac{\sqrt[3]{27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2}}{6 \varphi^{4} p_{z}^{4} \sqrt[3]{27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2} + 12 \sqrt[3]{2} \varphi^{4} p_{z}^{4} - 2^{\frac{2}{3}} \left(27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2\right)^{\frac{2}{3}} - 2 \sqrt[3]{27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2} - 2 \sqrt[3]{2}}\right)^{\frac{3}{2}} \sqrt[3]{27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2} \left(- 54 \cdot 2^{\frac{2}{3}} \varphi^{12} p_{z}^{12} - 6 \cdot 2^{\frac{2}{3}} \sqrt{3} \varphi^{10} p_{z}^{10} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} + 6 \varphi^{8} p_{z}^{8} \left(27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2\right)^{\frac{2}{3}} + 33 \sqrt[3]{2} \varphi^{8} p_{z}^{8} \sqrt[3]{27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2} + 78 \cdot 2^{\frac{2}{3}} \varphi^{8} p_{z}^{8} + \sqrt[3]{2} \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} \sqrt[3]{27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2} + 2 \cdot 2^{\frac{2}{3}} \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 12 \varphi^{4} p_{z}^{4} \left(27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2\right)^{\frac{2}{3}} - 18 \sqrt[3]{2} \varphi^{4} p_{z}^{4} \sqrt[3]{27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2} - 24 \cdot 2^{\frac{2}{3}} \varphi^{4} p_{z}^{4} + 2 \left(27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2\right)^{\frac{2}{3}} + 2 \sqrt[3]{2} \sqrt[3]{27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2} + 2 \cdot 2^{\frac{2}{3}}\right)}\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.sympy.org/latest/modules/core.html#sympy.core.relational.Equality" title="(in SymPy v1.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Equality</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gme.core.equations_idtx.EquationsIdtxMixin.idtx_rdotz_pz_varphi_eqn">
+<span class="sig-name descname"><span class="pre">idtx_rdotz_pz_varphi_eqn</span></span><a class="headerlink" href="#gme.core.equations_idtx.EquationsIdtxMixin.idtx_rdotz_pz_varphi_eqn" title="Permalink to this definition">¶</a></dt>
+<dd><p><span class="math notranslate nohighlight">\({r}^z = \dfrac{\sqrt{6} \sqrt{\frac{- 12 \sqrt[3]{2} \varphi^{4} p_{z}^{4} + 2^{\frac{2}{3}} \left(27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2\right)^{\frac{2}{3}} + 2 \sqrt[3]{27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2} + 2 \sqrt[3]{2}}{6 \varphi^{4} p_{z}^{4} \sqrt[3]{27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2} + 12 \sqrt[3]{2} \varphi^{4} p_{z}^{4} - 2^{\frac{2}{3}} \left(27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2\right)^{\frac{2}{3}} - 2 \sqrt[3]{27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2} - 2 \sqrt[3]{2}}} \left(27 \cdot 2^{\frac{2}{3}} \varphi^{8} p_{z}^{8} + 3 \cdot 2^{\frac{2}{3}} \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 12 \sqrt[3]{2} \varphi^{4} p_{z}^{4} \sqrt[3]{27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2} - 18 \cdot 2^{\frac{2}{3}} \varphi^{4} p_{z}^{4} + 2 \left(27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2\right)^{\frac{2}{3}} + 2 \sqrt[3]{2} \sqrt[3]{27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2} + 2 \cdot 2^{\frac{2}{3}}\right)}{72 \varphi^{4} p_{z}^{5} \left(\frac{\sqrt[3]{27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2}}{6 \varphi^{4} p_{z}^{4} \sqrt[3]{27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2} + 12 \sqrt[3]{2} \varphi^{4} p_{z}^{4} - 2^{\frac{2}{3}} \left(27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2\right)^{\frac{2}{3}} - 2 \sqrt[3]{27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2} - 2 \sqrt[3]{2}}\right)^{\frac{3}{2}} \sqrt[3]{27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2} \left(- 6 \varphi^{4} p_{z}^{4} \sqrt[3]{27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2} - 12 \sqrt[3]{2} \varphi^{4} p_{z}^{4} + 2^{\frac{2}{3}} \left(27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2\right)^{\frac{2}{3}} + 2 \sqrt[3]{27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2} + 2 \sqrt[3]{2}\right)}\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.sympy.org/latest/modules/core.html#sympy.core.relational.Equality" title="(in SymPy v1.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Equality</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+<div class="section" id="code">
+<h2>Code<a class="headerlink" href="#code" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">---------------------------------------------------------------------</span>
+
+<span class="sd">Equation definitions and derivations using :mod:`SymPy &lt;sympy&gt;`.</span>
+
+<span class="sd">---------------------------------------------------------------------</span>
+
+<span class="sd">Requires Python packages/modules:</span>
+<span class="sd">  -  :mod:`sympy`</span>
+<span class="sd">  -  :mod:`gme`</span>
+
+<span class="sd">---------------------------------------------------------------------</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="c1"># Disable these pylint errors because it doesn&#39;t understand SymPy syntax</span>
+<span class="c1">#   - notably minus signs in equations flag an error</span>
+<span class="c1"># pylint: disable=invalid-unary-operand-type, not-callable</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+
+<span class="c1"># Typing</span>
+<span class="c1"># from typing import Dict, Type, Optional  # , Tuple, Any, List</span>
+
+<span class="c1"># SymPy</span>
+<span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">Eq</span><span class="p">,</span> <span class="n">Rational</span><span class="p">,</span> <span class="n">factor</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">re</span><span class="p">,</span> <span class="n">im</span><span class="p">,</span> <span class="n">sqrt</span><span class="p">,</span> <span class="n">solve</span><span class="p">,</span> \
+                  <span class="n">sin</span><span class="p">,</span> <span class="n">cos</span><span class="p">,</span> <span class="n">tan</span><span class="p">,</span> <span class="n">Abs</span>
+
+<span class="c1"># GME</span>
+<span class="kn">from</span> <span class="nn">gme.core.symbols</span> <span class="kn">import</span> \
+    <span class="n">p</span><span class="p">,</span> <span class="n">rx</span><span class="p">,</span> <span class="n">rz</span><span class="p">,</span> <span class="n">px</span><span class="p">,</span> <span class="n">pz</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">eta</span><span class="p">,</span> <span class="n">rvec</span><span class="p">,</span> <span class="n">varphi</span><span class="p">,</span> <span class="n">varphi_r</span>
+
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;EquationsIdtxMixin&#39;</span><span class="p">]</span>
+
+
+<span class="k">class</span> <span class="nc">EquationsIdtxMixin</span><span class="p">:</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">define_idtx_fgtx_eqns</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Define indicatrix and figuratrix equations</span>
+
+<span class="sd">        Attributes:</span>
+<span class="sd">            pz_cosbeta_varphi_eqn (:class:`~sympy.core.relational.Equality`):</span>
+<span class="sd">                :math:`p_{z}^{4} = \dfrac{\cos^{4}{\left(\beta \right)}}{\varphi^{4} \left(1 - \cos^{2}{\left(\beta \right)}\right)^{3}}`</span>
+<span class="sd">            cosbetasqrd_pz_varphi_solns  (list of :class:`~sympy.core.expr.Expr`) :</span>
+<span class="sd">                :math:`\left[</span>
+<span class="sd">                -\frac{ \left(  -6 \varphi^{4} p_{z}^{4} \sqrt[3]{27 \varphi^{8} p_{z}^{8} - 18 \varphi^{4} p_{z}^{4}</span>
+<span class="sd">                + \sqrt{729 \varphi^{16} p_{z}^{16} - 108 \varphi^{12} p_{z}^{12}} + 2} - 12 \sqrt[3]{2} \varphi^{4} p_{z}^{4}</span>
+<span class="sd">                + 2^{\frac{2}{3}} \left(27 \varphi^{8} p_{z}^{8} - 18 \varphi^{4} p_{z}^{4}</span>
+<span class="sd">                + \sqrt{729 \varphi^{16} p_{z}^{16} - 108 \varphi^{12} p_{z}^{12}} + 2\right)^{\frac{2}{3}}</span>
+<span class="sd">                + 2 \sqrt[3]{27 \varphi^{8} p_{z}^{8} - 18 \varphi^{4} p_{z}^{4} + \sqrt{729 \varphi^{16} p_{z}^{16}</span>
+<span class="sd">                - 108 \varphi^{12} p_{z}^{12}} + 2} + 2 \sqrt[3]{2} \right)</span>
+<span class="sd">                }{6 \varphi^{4} p_{z}^{4} \sqrt[3]{27 \varphi^{8} p_{z}^{8}</span>
+<span class="sd">                - 18 \varphi^{4} p_{z}^{4} + \sqrt{729 \varphi^{16} p_{z}^{16} - 108 \varphi^{12} p_{z}^{12}} + 2}}</span>
+<span class="sd">                ,\dots \right]`</span>
+<span class="sd">            fgtx_cossqrdbeta_pz_varphi_eqn (:class:`~sympy.core.relational.Equality`):</span>
+<span class="sd">                :math:`\cos^{2}{\left(\beta \right)}</span>
+<span class="sd">                = - \frac{- 6 \varphi^{4} p_{z}^{4} \sqrt[3]{27 \varphi^{8} p_{z}^{8} - 18 \varphi^{4} p_{z}^{4}</span>
+<span class="sd">                + \sqrt{729 \varphi^{16} p_{z}^{16} - 108 \varphi^{12} p_{z}^{12}} + 2} - 12 \sqrt[3]{2} \varphi^{4} p_{z}^{4}</span>
+<span class="sd">                + 2^{\frac{2}{3}} \left(27 \varphi^{8} p_{z}^{8} - 18 \varphi^{4} p_{z}^{4} + \sqrt{729 \varphi^{16} p_{z}^{16}</span>
+<span class="sd">                - 108 \varphi^{12} p_{z}^{12}} + 2\right)^{\frac{2}{3}} + 2 \sqrt[3]{27 \varphi^{8} p_{z}^{8}</span>
+<span class="sd">                - 18 \varphi^{4} p_{z}^{4} + \sqrt{729 \varphi^{16} p_{z}^{16} - 108 \varphi^{12} p_{z}^{12}} + 2}</span>
+<span class="sd">                + 2 \sqrt[3]{2}}{6 \varphi^{4} p_{z}^{4} \sqrt[3]{27 \varphi^{8} p_{z}^{8} - 18 \varphi^{4} p_{z}^{4}</span>
+<span class="sd">                + \sqrt{729 \varphi^{16} p_{z}^{16} - 108 \varphi^{12} p_{z}^{12}} + 2}}`</span>
+<span class="sd">            fgtx_tanbeta_pz_varphi_eqn (:class:`~sympy.core.relational.Equality`):</span>
+<span class="sd">                :math:`\tan{\left(\beta \right)}</span>
+<span class="sd">                = \sqrt{\frac{- 12 \sqrt[3]{2} \varphi^{4} p_{z}^{4} + 2^{\frac{2}{3}} \left(27 \varphi^{8} p_{z}^{8}</span>
+<span class="sd">                - 18 \varphi^{4} p_{z}^{4} + \sqrt{729 \varphi^{16} p_{z}^{16} - 108 \varphi^{12} p_{z}^{12}} + 2\right)^{\frac{2}{3}}</span>
+<span class="sd">                + 2 \sqrt[3]{27 \varphi^{8} p_{z}^{8} - 18 \varphi^{4} p_{z}^{4} + \sqrt{729 \varphi^{16} p_{z}^{16}</span>
+<span class="sd">                - 108 \varphi^{12} p_{z}^{12}} + 2} + 2 \sqrt[3]{2}}{6 \varphi^{4} p_{z}^{4} \sqrt[3]{27 \varphi^{8} p_{z}^{8}</span>
+<span class="sd">                - 18 \varphi^{4} p_{z}^{4} + \sqrt{729 \varphi^{16} p_{z}^{16} - 108 \varphi^{12} p_{z}^{12}} + 2}</span>
+<span class="sd">                + 12 \sqrt[3]{2} \varphi^{4} p_{z}^{4} - 2^{\frac{2}{3}} \left(27 \varphi^{8} p_{z}^{8}</span>
+<span class="sd">                - 18 \varphi^{4} p_{z}^{4} + \sqrt{729 \varphi^{16} p_{z}^{16} - 108 \varphi^{12} p_{z}^{12}} + 2\right)^{\frac{2}{3}}</span>
+<span class="sd">                - 2 \sqrt[3]{27 \varphi^{8} p_{z}^{8} - 18 \varphi^{4} p_{z}^{4} + \sqrt{729 \varphi^{16} p_{z}^{16}</span>
+<span class="sd">                - 108 \varphi^{12} p_{z}^{12}} + 2} - 2 \sqrt[3]{2}}}`</span>
+<span class="sd">            fgtx_px_pz_varphi_eqn (:class:`~sympy.core.relational.Equality`):</span>
+<span class="sd">                :math:`p_{x}</span>
+<span class="sd">                = - p_{z} \sqrt{\frac{- 12 \sqrt[3]{2} \varphi^{4} p_{z}^{4} + 2^{\frac{2}{3}} \left(27 \varphi^{8} p_{z}^{8}</span>
+<span class="sd">                - 18 \varphi^{4} p_{z}^{4} + \sqrt{729 \varphi^{16} p_{z}^{16} - 108 \varphi^{12} p_{z}^{12}} + 2\right)^{\frac{2}{3}}</span>
+<span class="sd">                + 2 \sqrt[3]{27 \varphi^{8} p_{z}^{8} - 18 \varphi^{4} p_{z}^{4} + \sqrt{729 \varphi^{16} p_{z}^{16}</span>
+<span class="sd">                - 108 \varphi^{12} p_{z}^{12}} + 2} + 2 \sqrt[3]{2}}{6 \varphi^{4} p_{z}^{4} \sqrt[3]{27 \varphi^{8} p_{z}^{8}</span>
+<span class="sd">                - 18 \varphi^{4} p_{z}^{4} + \sqrt{729 \varphi^{16} p_{z}^{16} - 108 \varphi^{12} p_{z}^{12}} + 2}</span>
+<span class="sd">                + 12 \sqrt[3]{2} \varphi^{4} p_{z}^{4} - 2^{\frac{2}{3}} \left(27 \varphi^{8} p_{z}^{8}</span>
+<span class="sd">                - 18 \varphi^{4} p_{z}^{4} + \sqrt{729 \varphi^{16} p_{z}^{16} - 108 \varphi^{12} p_{z}^{12}} + 2\right)^{\frac{2}{3}}</span>
+<span class="sd">                - 2 \sqrt[3]{27 \varphi^{8} p_{z}^{8} - 18 \varphi^{4} p_{z}^{4} + \sqrt{729 \varphi^{16} p_{z}^{16}</span>
+<span class="sd">                - 108 \varphi^{12} p_{z}^{12}} + 2} - 2 \sqrt[3]{2}}}`</span>
+<span class="sd">            idtx_rdotx_pz_varphi_eqn (:class:`~sympy.core.relational.Equality`):</span>
+<span class="sd">                :math:`{r}^x = \dfrac{\sqrt{6} \left(- 81 \cdot 2^{\frac{2}{3}} \varphi^{12} p_{z}^{12} \sqrt[3]{27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2} - 378 \varphi^{12} p_{z}^{12} - 9 \cdot 2^{\frac{2}{3}} \sqrt{3} \varphi^{10} p_{z}^{10} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} \sqrt[3]{27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2} - 42 \sqrt{3} \varphi^{10} p_{z}^{10} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} + 45 \sqrt[3]{2} \varphi^{8} p_{z}^{8} \left(27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2\right)^{\frac{2}{3}} + 96 \cdot 2^{\frac{2}{3}} \varphi^{8} p_{z}^{8} \sqrt[3]{27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2} + 306 \varphi^{8} p_{z}^{8} + \sqrt[3]{2} \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} \left(27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2\right)^{\frac{2}{3}} + 2 \cdot 2^{\frac{2}{3}} \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} \sqrt[3]{27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2} + 6 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 20 \sqrt[3]{2} \varphi^{4} p_{z}^{4} \left(27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2\right)^{\frac{2}{3}} - 26 \cdot 2^{\frac{2}{3}} \varphi^{4} p_{z}^{4} \sqrt[3]{27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2} - 64 \varphi^{4} p_{z}^{4} + 2 \sqrt[3]{2} \left(27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2\right)^{\frac{2}{3}} + 2 \cdot 2^{\frac{2}{3}} \sqrt[3]{27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2} + 4\right)}{72 \varphi^{4} p_{z}^{5} \left(\frac{\sqrt[3]{27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2}}{6 \varphi^{4} p_{z}^{4} \sqrt[3]{27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2} + 12 \sqrt[3]{2} \varphi^{4} p_{z}^{4} - 2^{\frac{2}{3}} \left(27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2\right)^{\frac{2}{3}} - 2 \sqrt[3]{27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2} - 2 \sqrt[3]{2}}\right)^{\frac{3}{2}} \sqrt[3]{27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2} \left(- 54 \cdot 2^{\frac{2}{3}} \varphi^{12} p_{z}^{12} - 6 \cdot 2^{\frac{2}{3}} \sqrt{3} \varphi^{10} p_{z}^{10} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} + 6 \varphi^{8} p_{z}^{8} \left(27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2\right)^{\frac{2}{3}} + 33 \sqrt[3]{2} \varphi^{8} p_{z}^{8} \sqrt[3]{27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2} + 78 \cdot 2^{\frac{2}{3}} \varphi^{8} p_{z}^{8} + \sqrt[3]{2} \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} \sqrt[3]{27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2} + 2 \cdot 2^{\frac{2}{3}} \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 12 \varphi^{4} p_{z}^{4} \left(27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2\right)^{\frac{2}{3}} - 18 \sqrt[3]{2} \varphi^{4} p_{z}^{4} \sqrt[3]{27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2} - 24 \cdot 2^{\frac{2}{3}} \varphi^{4} p_{z}^{4} + 2 \left(27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2\right)^{\frac{2}{3}} + 2 \sqrt[3]{2} \sqrt[3]{27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2} + 2 \cdot 2^{\frac{2}{3}}\right)}`</span>
+<span class="sd">            idtx_rdotz_pz_varphi_eqn (:class:`~sympy.core.relational.Equality`):</span>
+<span class="sd">                :math:`{r}^z = \dfrac{\sqrt{6} \sqrt{\frac{- 12 \sqrt[3]{2} \varphi^{4} p_{z}^{4} + 2^{\frac{2}{3}} \left(27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2\right)^{\frac{2}{3}} + 2 \sqrt[3]{27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2} + 2 \sqrt[3]{2}}{6 \varphi^{4} p_{z}^{4} \sqrt[3]{27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2} + 12 \sqrt[3]{2} \varphi^{4} p_{z}^{4} - 2^{\frac{2}{3}} \left(27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2\right)^{\frac{2}{3}} - 2 \sqrt[3]{27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2} - 2 \sqrt[3]{2}}} \left(27 \cdot 2^{\frac{2}{3}} \varphi^{8} p_{z}^{8} + 3 \cdot 2^{\frac{2}{3}} \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 12 \sqrt[3]{2} \varphi^{4} p_{z}^{4} \sqrt[3]{27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2} - 18 \cdot 2^{\frac{2}{3}} \varphi^{4} p_{z}^{4} + 2 \left(27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2\right)^{\frac{2}{3}} + 2 \sqrt[3]{2} \sqrt[3]{27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2} + 2 \cdot 2^{\frac{2}{3}}\right)}{72 \varphi^{4} p_{z}^{5} \left(\frac{\sqrt[3]{27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2}}{6 \varphi^{4} p_{z}^{4} \sqrt[3]{27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2} + 12 \sqrt[3]{2} \varphi^{4} p_{z}^{4} - 2^{\frac{2}{3}} \left(27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2\right)^{\frac{2}{3}} - 2 \sqrt[3]{27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2} - 2 \sqrt[3]{2}}\right)^{\frac{3}{2}} \sqrt[3]{27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2} \left(- 6 \varphi^{4} p_{z}^{4} \sqrt[3]{27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2} - 12 \sqrt[3]{2} \varphi^{4} p_{z}^{4} + 2^{\frac{2}{3}} \left(27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2\right)^{\frac{2}{3}} + 2 \sqrt[3]{27 \varphi^{8} p_{z}^{8} + 3 \sqrt{3} \varphi^{6} p_{z}^{6} \sqrt{27 \varphi^{4} p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2} + 2 \sqrt[3]{2}\right)}`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># if self.eta_ == 2:</span>
+        <span class="c1">#     pz_tanbeta_varphi_eqn = ( self.pz_p_beta_eqn</span>
+        <span class="c1">#      .subs({p:self.p_varphi_beta_eqn.rhs})</span>
+        <span class="c1">#      .subs({varphi_r(rvec):varphi})</span>
+        <span class="c1">#      .subs({cos(beta):sqrt(1/(1+tan(beta)**2))})</span>
+        <span class="c1">#      .subs({Abs(tan(beta)):tan(beta)})</span>
+        <span class="c1">#     )</span>
+        <span class="c1">#     tanbeta_pz_varphi_solns = solve( pz_tanbeta_varphi_eqn, tan(beta) )</span>
+        <span class="c1">#     tanbeta_pz_varphi_eqn = Eq(tan(beta), ([soln for soln in tanbeta_pz_varphi_solns</span>
+        <span class="c1">#                                         if Abs(im(N(soln.subs({varphi:1,pz:1}))))&lt;1e-20][0]) )</span>
+        <span class="c1">#     self.fgtx_tanbeta_pz_varphi_eqn = tanbeta_pz_varphi_eqn</span>
+        <span class="c1">#     self.fgtx_cossqrdbeta_pz_varphi_eqn = Eq(cos(beta)**2, 1/(1+tanbeta_pz_varphi_eqn.rhs**2))</span>
+        <span class="c1"># else:</span>
+        <span class="n">eta_sub</span> <span class="o">=</span> <span class="p">{</span><span class="n">eta</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">eta_</span><span class="p">}</span>
+        <span class="n">pz_cosbeta_varphi_tmp_eqn</span> \
+            <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pz_p_beta_eqn</span> \
+            <span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">p</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">p_varphi_beta_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">})</span> \
+            <span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">varphi_r</span><span class="p">(</span><span class="n">rvec</span><span class="p">):</span> <span class="n">varphi</span><span class="p">})</span> \
+            <span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">eta_sub</span><span class="p">)</span> \
+            <span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">Abs</span><span class="p">(</span><span class="n">tan</span><span class="p">(</span><span class="n">beta</span><span class="p">)):</span> <span class="n">Abs</span><span class="p">(</span><span class="n">sin</span><span class="p">(</span><span class="n">beta</span><span class="p">))</span><span class="o">/</span><span class="n">Abs</span><span class="p">(</span><span class="n">cos</span><span class="p">(</span><span class="n">beta</span><span class="p">))})</span> \
+            <span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">Abs</span><span class="p">(</span><span class="n">cos</span><span class="p">(</span><span class="n">beta</span><span class="p">)):</span> <span class="n">cos</span><span class="p">(</span><span class="n">beta</span><span class="p">),</span> <span class="n">Abs</span><span class="p">(</span><span class="n">sin</span><span class="p">(</span><span class="n">beta</span><span class="p">)):</span> <span class="n">sin</span><span class="p">(</span><span class="n">beta</span><span class="p">)})</span> \
+            <span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">sin</span><span class="p">(</span><span class="n">beta</span><span class="p">):</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">cos</span><span class="p">(</span><span class="n">beta</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)})</span>
+
+        <span class="n">pz_cosbeta_varphi_eqn</span> \
+            <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">pz_cosbeta_varphi_tmp_eqn</span><span class="o">.</span><span class="n">lhs</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">eta__dbldenom</span><span class="p">,</span>
+                 <span class="n">pz_cosbeta_varphi_tmp_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">eta__dbldenom</span><span class="p">)</span>
+
+        <span class="c1"># New</span>
+        <span class="c1"># pz_cosbeta_varphi_eqn \</span>
+        <span class="c1"># = (self.pz_varphi_beta_eqn</span>
+        <span class="c1"># .subs({Abs(sin(beta)**self.eta_):sin(beta)**self.eta_})</span>
+        <span class="c1">#                              .subs({varphi_r(rvec):varphi})</span>
+        <span class="c1">#                             .subs({sin(beta):sqrt(1-cos(beta)**2)}))</span>
+        <span class="c1"># cosbetasqrd_pz_varphi_soln</span>
+        <span class="c1">#  = (solve( pz_cosbeta_varphi_eqn, cos(beta)**2 ))[0]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">pz_cosbeta_varphi_eqn</span> <span class="o">=</span> <span class="n">pz_cosbeta_varphi_eqn</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cosbetasqrd_pz_varphi_solns</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cosbetasqrd_pz_varphi_soln</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fgtx_cossqrdbeta_pz_varphi_eqn</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fgtx_tanbeta_pz_varphi_eqn</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fgtx_px_pz_varphi_eqn</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">idtx_rdotx_pz_varphi_eqn</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">idtx_rdotz_pz_varphi_eqn</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cosbetasqrd_pz_varphi_solns</span> \
+            <span class="o">=</span> <span class="n">solve</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pz_cosbeta_varphi_eqn</span><span class="p">,</span> <span class="n">cos</span><span class="p">(</span><span class="n">beta</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">eta_</span> <span class="o">==</span> <span class="n">Rational</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">eta_</span> <span class="o">==</span> <span class="n">Rational</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span> \
+                <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">beta_type</span> <span class="o">==</span> <span class="s1">&#39;tan&#39;</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Cannot compute all indicatrix equations for &#39;</span>
+                  <span class="o">+</span> <span class="sa">rf</span><span class="s1">&#39;$\tan\beta$ model and $\eta=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">eta_</span><span class="si">}</span><span class="s1">$&#39;</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="k">def</span> <span class="nf">find_cosbetasqrd_root</span><span class="p">(</span><span class="n">sub</span><span class="p">):</span>
+            <span class="k">return</span> <span class="p">[</span>
+                <span class="n">soln</span> <span class="k">for</span> <span class="n">soln</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cosbetasqrd_pz_varphi_solns</span>
+                <span class="k">if</span> <span class="n">Abs</span><span class="p">(</span><span class="n">im</span><span class="p">(</span><span class="n">N</span><span class="p">(</span><span class="n">soln</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">sub</span><span class="p">))))</span> <span class="o">&lt;</span> <span class="mf">1e-20</span>
+                <span class="ow">and</span> <span class="p">(</span><span class="n">re</span><span class="p">(</span><span class="n">N</span><span class="p">(</span><span class="n">soln</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">sub</span><span class="p">))))</span> <span class="o">&gt;=</span> <span class="mi">0</span>
+                <span class="p">]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">cosbetasqrd_pz_varphi_soln</span> <span class="o">=</span> <span class="n">find_cosbetasqrd_root</span><span class="p">(</span>
+            <span class="p">{</span><span class="n">varphi</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="n">pz</span><span class="p">:</span> <span class="o">-</span><span class="mf">0.01</span><span class="p">})</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cosbetasqrd_pz_varphi_soln</span> <span class="o">==</span> <span class="p">[]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cosbetasqrd_pz_varphi_soln</span> <span class="o">=</span> <span class="n">find_cosbetasqrd_root</span><span class="p">(</span>
+                <span class="p">{</span><span class="n">varphi</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="n">pz</span><span class="p">:</span> <span class="o">-</span><span class="mf">0.5</span><span class="p">})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fgtx_cossqrdbeta_pz_varphi_eqn</span> \
+            <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">cos</span><span class="p">(</span><span class="n">beta</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span>
+                 <span class="bp">self</span><span class="o">.</span><span class="n">cosbetasqrd_pz_varphi_soln</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fgtx_tanbeta_pz_varphi_eqn</span> \
+            <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">tan</span><span class="p">(</span><span class="n">beta</span><span class="p">),</span>
+                 <span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fgtx_cossqrdbeta_pz_varphi_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fgtx_px_pz_varphi_eqn</span> \
+            <span class="o">=</span> <span class="n">factor</span><span class="p">(</span><span class="n">Eq</span><span class="p">(</span><span class="n">px</span><span class="p">,</span> <span class="o">-</span><span class="n">pz</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">fgtx_tanbeta_pz_varphi_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">))</span>
+        <span class="n">g_xx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">gstar_varphi_pxpz_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="n">g_zx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">gstar_varphi_pxpz_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="n">g_xz</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">gstar_varphi_pxpz_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="n">g_zz</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">gstar_varphi_pxpz_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">idtx_rdotx_pz_varphi_eqn</span> <span class="o">=</span> <span class="n">factor</span><span class="p">(</span>
+            <span class="n">Eq</span><span class="p">(</span><span class="n">rx</span><span class="p">,</span> <span class="p">(</span><span class="n">g_xx</span><span class="o">*</span><span class="n">px</span><span class="o">+</span><span class="n">g_xz</span><span class="o">*</span><span class="n">pz</span><span class="p">)</span>
+               <span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">px</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">fgtx_px_pz_varphi_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">,</span>
+                      <span class="n">varphi_r</span><span class="p">(</span><span class="n">rvec</span><span class="p">):</span> <span class="n">varphi</span><span class="p">}))</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">idtx_rdotz_pz_varphi_eqn</span> <span class="o">=</span> <span class="n">factor</span><span class="p">(</span><span class="n">factor</span><span class="p">(</span>
+            <span class="n">Eq</span><span class="p">(</span><span class="n">rz</span><span class="p">,</span> <span class="p">(</span><span class="n">g_zx</span><span class="o">*</span><span class="n">px</span><span class="o">+</span><span class="n">g_zz</span><span class="o">*</span><span class="n">pz</span><span class="p">)</span>
+               <span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">px</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">fgtx_px_pz_varphi_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">,</span>
+                      <span class="n">varphi_r</span><span class="p">(</span><span class="n">rvec</span><span class="p">):</span> <span class="n">varphi</span><span class="p">}))</span>
+        <span class="p">))</span>
+
+
+<span class="c1">#</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+    <a id="sidebar-anchor"></a>
+    
+
+<div id="searchbox" style="display: none" role="search">
+    <a class="biglink" href="../../index.html">
+        <img src="../../_static/gme_icon_varphi_rx.png" />
+    </a>
+  <h3></h3>
+    <form class="search" action="../../search.html" method="get">
+      <div class="ui action left icon input">
+        <i class="search icon"></i>
+        <input type="text" name="q" placeholder="Search...">
+        <div class="ui teal button"></div>
+      </div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<!-- <br> -->
+<script type="text/javascript">$('#searchbox').show(0);</script><h3><a href="../../index.html">Contents</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../Summary.html">  Summary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Presentations.html">  Presentations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Publications.html">  Publications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Design.html">  Software design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Dependencies.html">  Dependencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Installation.html">  Installation and set-up</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Running.html">  Running the notebooks</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../Python.html">  Python package docs</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Core</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ode/index.html">ODE integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plot/index.html">Plotting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../knickpoints/index.html">Knickpoint detection and tracking [in development]</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Notebooks.html">  Notebook docs</a></li>
+</ul>
+
+    <!-- <h3><a href="../../index.html">This page</a></h3> -->
+    <!-- <ul>
+<li><a class="reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">equations_idtx.py</span></code></a><ul>
+<li><a class="reference internal" href="#code">Code</a></li>
+</ul>
+</li>
+</ul>
+ -->
+    <p class="biglink">
+        <h3><a href="../../genindex.html"> Index</a></h3>
+    </p>
+  <br>
+  <!-- <p class="biglink"><a class="biglink" href="../../py-modindex.html">
+         Module index</a>
+  <br><br> -->
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="equations_geodesic.html" title="equations_geodesic.py"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="equations_g.html" title="equations_g.py"
+             accesskey="P">previous</a> |</li>
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, CPS.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.3.
+    </div>
+  </body>
+</html>

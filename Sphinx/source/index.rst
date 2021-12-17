@@ -2,7 +2,8 @@
 The Geometric Mechanics of Erosion (GME)
 ------------------------------------------------------------
 
-*Exploring how landscapes evolve using the tools of classical mechanics and differential geometry*
+*Exploring how landscapes evolve using the tools of classical mechanics
+and differential geometry*
 
 
 .. figure:: ../../Plots/Schematics/sch_tis_cross_section.png
@@ -21,8 +22,10 @@ and to make this platform-independent software freely available.
 
 
 These pages provide support for the `GitHub repository of the GME project`_.
-The repository provides access to the `gme`_ Python package and `related Jupyter notebooks`_.
-A `companion repository`_ provides access to the related `geomorphysics`_ Python library,
+The repository provides access to the `gme`_ Python package
+and `related Jupyter notebooks`_.
+A `companion repository`_ provides access to the related
+`geomorphysics`_ Python library,
 called `gmplib`_, which is required by `gme`_.
 
 
