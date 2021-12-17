@@ -76,7 +76,8 @@
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>gmes</strong> – instance of single-ray solution class
 defined in <a class="reference internal" href="../ode/single_ray.html#module-gme.ode.single_ray" title="gme.ode.single_ray"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gme.ode.single_ray</span></code></a></p></li>
-<li><p><strong>gmeq</strong> – GME model equations class instance defined in <a class="reference internal" href="../core/equations.html#module-gme.core.equations" title="gme.core.equations"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gme.core.equations</span></code></a></p></li>
+<li><p><strong>gmeq</strong> – GME model equations class instance defined in
+<a class="reference internal" href="../core/equations.html#module-gme.core.equations" title="gme.core.equations"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gme.core.equations</span></code></a></p></li>
 <li><p><strong>n_points</strong> – optional sample rate along each curve</p></li>
 </ul>
 </dd>
@@ -96,7 +97,8 @@ defined in <a class="reference internal" href="../ode/single_ray.html#module-gme
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>gmes</strong> – instance of single ray solution class defined in
 <a class="reference internal" href="../ode/single_ray.html#module-gme.ode.single_ray" title="gme.ode.single_ray"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gme.ode.single_ray</span></code></a></p></li>
-<li><p><strong>gmeq</strong> – GME model equations class instance defined in <a class="reference internal" href="../core/equations.html#module-gme.core.equations" title="gme.core.equations"><code class="xref py py-mod docutils literal notranslate"><span class="pre">equations</span></code></a></p></li>
+<li><p><strong>gmeq</strong> – GME model equations class instance defined in
+<a class="reference internal" href="../core/equations.html#module-gme.core.equations" title="gme.core.equations"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gme.core.equations</span></code></a></p></li>
 <li><p><strong>n_points</strong> – sample rate along each curve</p></li>
 </ul>
 </dd>
@@ -164,7 +166,8 @@ defined in <a class="reference internal" href="../ode/single_ray.html#module-gme
 <span class="sd">            instance of single-ray solution class</span>
 <span class="sd">            defined in :mod:`gme.ode.single_ray`</span>
 <span class="sd">        gmeq:</span>
-<span class="sd">            GME model equations class instance defined in :mod:`gme.core.equations`</span>
+<span class="sd">            GME model equations class instance defined in</span>
+<span class="sd">            :mod:`gme.core.equations`</span>
 <span class="sd">        n_points:</span>
 <span class="sd">            optional sample rate along each curve</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -212,10 +215,9 @@ defined in <a class="reference internal" href="../ode/single_ray.html#module-gme
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">gmeq</span><span class="p">,</span> <span class="s1">&#39;gstar_ij_mat&#39;</span><span class="p">):</span>
             <span class="k">return</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">gstar_matrices_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">gmeq</span><span class="o">.</span><span class="n">gstar_ij_mat</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">rx</span><span class="p">:</span> <span class="n">x_</span><span class="p">,</span> <span class="n">rdotx</span><span class="p">:</span> <span class="n">vx_</span><span class="p">,</span> <span class="n">rdotz</span><span class="p">:</span> <span class="n">vz_</span><span class="p">})</span>
-                                        <span class="k">for</span> <span class="n">x_</span><span class="p">,</span> <span class="n">vx_</span><span class="p">,</span> <span class="n">vz_</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">x_array</span><span class="p">,</span> <span class="n">vx_array</span><span class="p">,</span> <span class="n">vz_array</span><span class="p">)]</span>
-<span class="c1">#if bool(do_recompute or self.gstar_matrices_list is None) else self.gstar_matrices_list</span>
-<span class="c1"># except Exception as e:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">gstar_matrices_list</span> \
+                <span class="o">=</span> <span class="p">[</span><span class="n">gmeq</span><span class="o">.</span><span class="n">gstar_ij_mat</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">rx</span><span class="p">:</span> <span class="n">x_</span><span class="p">,</span> <span class="n">rdotx</span><span class="p">:</span> <span class="n">vx_</span><span class="p">,</span> <span class="n">rdotz</span><span class="p">:</span> <span class="n">vz_</span><span class="p">})</span>
+                    <span class="k">for</span> <span class="n">x_</span><span class="p">,</span> <span class="n">vx_</span><span class="p">,</span> <span class="n">vz_</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">x_array</span><span class="p">,</span> <span class="n">vx_array</span><span class="p">,</span> <span class="n">vz_array</span><span class="p">)]</span>
         <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Failed to (re)generate gstar_matrices_list: &quot;</span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s1">&quot;&#39;</span><span class="p">)</span>
 
@@ -223,7 +225,6 @@ defined in <a class="reference internal" href="../ode/single_ray.html#module-gme
             <span class="bp">self</span><span class="o">.</span><span class="n">gstar_matrices_array</span> \
                 <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="nb">float</span><span class="p">(</span><span class="n">re</span><span class="p">(</span><span class="n">elem_</span><span class="p">))</span> <span class="k">for</span> <span class="n">elem_</span> <span class="ow">in</span> <span class="n">g_</span><span class="p">])</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
                     <span class="k">for</span> <span class="n">g_</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">gstar_matrices_list</span><span class="p">]</span>
-<span class="c1">#if bool(do_recompute or self.gstar_matrices_array is None) else self.gstar_matrices_array</span>
         <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Failed to (re)generate gstar_matrices_array: &quot;</span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s1">&quot;&#39;</span><span class="p">)</span>
 
@@ -231,8 +232,6 @@ defined in <a class="reference internal" href="../ode/single_ray.html#module-gme
             <span class="bp">self</span><span class="o">.</span><span class="n">g_matrices_list</span> \
                 <span class="o">=</span> <span class="p">[</span><span class="n">gmeq</span><span class="o">.</span><span class="n">g_ij_mat</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">rx</span><span class="p">:</span> <span class="n">x_</span><span class="p">,</span> <span class="n">rdotx</span><span class="p">:</span> <span class="n">vx_</span><span class="p">,</span> <span class="n">rdotz</span><span class="p">:</span> <span class="n">vz_</span><span class="p">})</span>
                     <span class="k">for</span> <span class="n">x_</span><span class="p">,</span> <span class="n">vx_</span><span class="p">,</span> <span class="n">vz_</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">x_array</span><span class="p">,</span> <span class="n">vx_array</span><span class="p">,</span> <span class="n">vz_array</span><span class="p">)]</span>
-<span class="c1">#if bool(do_recompute or self.g_matrices_list is None) else self.g_matrices_list</span>
-
         <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Failed to (re)generate g_matrices_list: &quot;</span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s1">&quot;&#39;</span><span class="p">)</span>
 
@@ -240,8 +239,6 @@ defined in <a class="reference internal" href="../ode/single_ray.html#module-gme
             <span class="bp">self</span><span class="o">.</span><span class="n">g_matrices_array</span> \
                 <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="nb">float</span><span class="p">(</span><span class="n">re</span><span class="p">(</span><span class="n">elem_</span><span class="p">))</span> <span class="k">for</span> <span class="n">elem_</span> <span class="ow">in</span> <span class="n">g_</span><span class="p">])</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
                     <span class="k">for</span> <span class="n">g_</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">g_matrices_list</span><span class="p">]</span>
-<span class="c1">#if bool(do_recompute or self.g_matrices_array is None) else self.g_matrices_array</span>
-
         <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Failed to (re)generate g_matrices_array: &quot;</span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s1">&quot;&#39;</span><span class="p">)</span>
 
@@ -254,8 +251,8 @@ defined in <a class="reference internal" href="../ode/single_ray.html#module-gme
             <span class="n">fig_size</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
             <span class="n">dpi</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
             <span class="n">y_limits</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-            <span class="c1">#n_points=121,</span>
-            <span class="c1">#do_pub_label=False, pub_label=&#39;&#39;,</span>
+            <span class="c1"># n_points=121,</span>
+            <span class="c1"># do_pub_label=False, pub_label=&#39;&#39;,</span>
             <span class="n">do_gstar</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
             <span class="n">do_det</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
             <span class="n">do_eigenvectors</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
@@ -263,7 +260,7 @@ defined in <a class="reference internal" href="../ode/single_ray.html#module-gme
             <span class="n">do_etaxi_label</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
             <span class="n">legend_loc</span><span class="o">=</span><span class="s1">&#39;lower left&#39;</span><span class="p">,</span>
             <span class="c1"># do_mod_v=False,</span>
-            <span class="c1">#do_recompute=False</span>
+            <span class="c1"># do_recompute=False</span>
             <span class="n">do_pv</span><span class="o">=</span><span class="kc">False</span>
             <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
@@ -274,7 +271,8 @@ defined in <a class="reference internal" href="../ode/single_ray.html#module-gme
 <span class="sd">                instance of single ray solution class defined in</span>
 <span class="sd">                :mod:`gme.ode.single_ray`</span>
 <span class="sd">            gmeq:</span>
-<span class="sd">                GME model equations class instance defined in :mod:`~gme.core.equations`</span>
+<span class="sd">                GME model equations class instance defined in</span>
+<span class="sd">                :mod:`gme.core.equations`</span>
 <span class="sd">            n_points: sample rate along each curve</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_figure</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">fig_size</span><span class="o">=</span><span class="n">fig_size</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="n">dpi</span><span class="p">)</span>
@@ -295,24 +293,28 @@ defined in <a class="reference internal" href="../ode/single_ray.html#module-gme
         <span class="n">vz_array</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">vz_array</span>
 
         <span class="k">if</span> <span class="n">do_gstar</span><span class="p">:</span>
-            <span class="c1"># Use of lambdified g matrix here fails for eta=1/4, sin(beta) for some reason</span>
+            <span class="c1"># Use of lambdified g matrix here fails for eta=1/4, sin(beta)</span>
+            <span class="c1">#    for some reason</span>
             <span class="c1"># g_matrices_list = [gmeq.gstar_ij_mat_lambdified(x_,vx_,vz_)</span>
-            <span class="c1">#                         for x_,vx_,vz_ in zip(x_array,vx_array,vz_array)]</span>
+            <span class="c1">#                for x_,vx_,vz_ in zip(x_array,vx_array,vz_array)]</span>
             <span class="n">g_label</span> <span class="o">=</span> <span class="s1">&#39;{g^*}&#39;</span>
             <span class="n">m_label</span> <span class="o">=</span> <span class="s1">&#39;co-metric&#39;</span>
             <span class="n">h_label</span> <span class="o">=</span> <span class="s1">&#39;H&#39;</span>
             <span class="n">eta_label_xy</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">]</span> <span class="k">if</span> <span class="n">eta_label_xy</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">eta_label_xy</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="c1"># Use of lambdified g* matrix here fails for eta=1/4, sin(beta) for some reason</span>
+            <span class="c1"># Use of lambdified g* matrix here fails for eta=1/4, sin(beta)</span>
+            <span class="c1">#   for some reason</span>
             <span class="c1"># g_matrices_list = [gmeq.g_ij_mat_lambdified(x_,vx_,vz_)</span>
-            <span class="c1">#                     for x_,vx_,vz_ in zip(x_array,vx_array,vz_array)]</span>
+            <span class="c1">#               for x_,vx_,vz_ in zip(x_array,vx_array,vz_array)]</span>
             <span class="n">g_label</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{g}</span><span class="s1">&#39;</span>
             <span class="n">m_label</span> <span class="o">=</span> <span class="s1">&#39;metric&#39;</span>
             <span class="n">h_label</span> <span class="o">=</span> <span class="s1">&#39;L&#39;</span>
             <span class="n">eta_label_xy</span> <span class="o">=</span> <span class="p">[</span>
                 <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.85</span><span class="p">]</span> <span class="k">if</span> <span class="n">eta_label_xy</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">eta_label_xy</span>
-        <span class="c1"># g_eigenvalues_array = np.array([np.real(eig(g_)[0]) for g_ in g_matrices_array])</span>
-        <span class="c1"># The metric tensor matrices are symmetric therefore Hermitian so we can use &#39;eigh&#39;</span>
+        <span class="c1"># g_eigenvalues_array</span>
+        <span class="c1">#  = np.array([np.real(eig(g_)[0]) for g_ in g_matrices_array])</span>
+        <span class="c1"># The metric tensor matrices are symmetric therefore Hermitian</span>
+        <span class="c1">#  so we can use &#39;eigh&#39;</span>
         <span class="c1"># print(f&#39;g_matrices_array = {g_matrices_array}&#39;)</span>
         <span class="k">if</span> <span class="n">g_matrices_array</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">g_eigh_array</span> <span class="o">=</span> <span class="p">[</span><span class="n">eigh</span><span class="p">(</span><span class="n">g_</span><span class="p">)</span> <span class="k">for</span> <span class="n">g_</span> <span class="ow">in</span> <span class="n">g_matrices_array</span><span class="p">]</span>
@@ -332,9 +334,10 @@ defined in <a class="reference internal" href="../ode/single_ray.html#module-gme
             <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_array</span><span class="p">,</span> <span class="n">rz_array</span><span class="p">,</span> <span class="s1">&#39;0.6&#39;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;ray&#39;</span><span class="p">)</span>
             <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Eigenvectors of $&#39;</span><span class="o">+</span><span class="n">g_label</span><span class="o">+</span><span class="s1">&#39;$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
             <span class="n">arrow_sf</span> <span class="o">=</span> <span class="mf">0.5</span>
-            <span class="n">my_arrow_style</span> <span class="o">=</span> <span class="n">mpatches</span><span class="o">.</span><span class="n">ArrowStyle</span><span class="o">.</span><span class="n">Fancy</span><span class="p">(</span><span class="n">head_length</span><span class="o">=</span><span class="mf">0.99</span><span class="o">*</span><span class="n">arrow_sf</span><span class="p">,</span>
-                                                       <span class="n">head_width</span><span class="o">=</span><span class="mf">0.6</span><span class="o">*</span><span class="n">arrow_sf</span><span class="p">,</span>
-                                                       <span class="n">tail_width</span><span class="o">=</span><span class="mf">0.01</span><span class="o">*</span><span class="n">arrow_sf</span><span class="p">)</span>
+            <span class="n">my_arrow_style</span> \
+                <span class="o">=</span> <span class="n">mpatches</span><span class="o">.</span><span class="n">ArrowStyle</span><span class="o">.</span><span class="n">Fancy</span><span class="p">(</span><span class="n">head_length</span><span class="o">=</span><span class="mf">0.99</span><span class="o">*</span><span class="n">arrow_sf</span><span class="p">,</span>
+                                            <span class="n">head_width</span><span class="o">=</span><span class="mf">0.6</span><span class="o">*</span><span class="n">arrow_sf</span><span class="p">,</span>
+                                            <span class="n">tail_width</span><span class="o">=</span><span class="mf">0.01</span><span class="o">*</span><span class="n">arrow_sf</span><span class="p">)</span>
             <span class="n">step</span> <span class="o">=</span> <span class="mi">8</span>
             <span class="n">off</span> <span class="o">=</span> <span class="mi">0</span><span class="o">*</span><span class="n">step</span><span class="o">//</span><span class="mi">2</span>
             <span class="n">ev_sf</span> <span class="o">=</span> <span class="mf">0.04</span>
@@ -365,34 +368,50 @@ defined in <a class="reference internal" href="../ode/single_ray.html#module-gme
             <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_array</span><span class="p">,</span> <span class="n">pv_array</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$p_i v^i$&#39;</span><span class="p">)</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">gstar_matrices_array</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">gstarpp_array</span> \
-                    <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">gstar_</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">px_</span><span class="p">,</span> <span class="n">pz_</span><span class="p">])),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">px_</span><span class="p">,</span> <span class="n">pz_</span><span class="p">]))</span>
+                    <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span>
+                        <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">gstar_</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">px_</span><span class="p">,</span> <span class="n">pz_</span><span class="p">])),</span>
+                        <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">px_</span><span class="p">,</span> <span class="n">pz_</span><span class="p">])</span>
+                        <span class="p">)</span>
                         <span class="k">for</span> <span class="n">gstar_</span><span class="p">,</span> <span class="n">px_</span><span class="p">,</span> <span class="n">pz_</span>
                         <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">gstar_matrices_array</span><span class="p">,</span> <span class="n">px_array</span><span class="p">,</span> <span class="n">pz_array</span><span class="p">)]</span>
                 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_array</span><span class="p">,</span> <span class="n">gstarpp_array</span><span class="p">,</span> <span class="s1">&#39;0.5&#39;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
                          <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$g^j p_j p_j$&#39;</span><span class="p">)</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">g_matrices_array</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">gvv_array</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">g_</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">vx_</span><span class="p">,</span> <span class="n">vz_</span><span class="p">])),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">vx_</span><span class="p">,</span> <span class="n">vz_</span><span class="p">]))</span>
-                             <span class="k">for</span> <span class="n">g_</span><span class="p">,</span> <span class="n">vx_</span><span class="p">,</span> <span class="n">vz_</span>
-                             <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">g_matrices_array</span><span class="p">,</span> <span class="n">vx_array</span><span class="p">,</span> <span class="n">vz_array</span><span class="p">)]</span>
+                <span class="n">gvv_array</span> \
+                    <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span>
+                        <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">g_</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">vx_</span><span class="p">,</span> <span class="n">vz_</span><span class="p">])),</span>
+                        <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">vx_</span><span class="p">,</span> <span class="n">vz_</span><span class="p">])</span>
+                        <span class="p">)</span>
+                       <span class="k">for</span> <span class="n">g_</span><span class="p">,</span> <span class="n">vx_</span><span class="p">,</span> <span class="n">vz_</span>
+                       <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">g_matrices_array</span><span class="p">,</span> <span class="n">vx_array</span><span class="p">,</span> <span class="n">vz_array</span><span class="p">)]</span>
                 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_array</span><span class="p">,</span> <span class="n">gvv_array</span><span class="p">,</span> <span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">,</span>
                          <span class="n">lw</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$g_i v^iv^i$&#39;</span><span class="p">)</span>
-            <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Inner product of $\mathbf{\widetilde</span><span class="si">{p}</span><span class="s1">}$ and $\mathbf{{v}}$&#39;</span><span class="p">,</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Inner product of $\mathbf{\widetilde</span><span class="si">{p}</span><span class="s1">}$&#39;</span>
+                       <span class="o">+</span> <span class="sa">r</span><span class="s1">&#39; and $\mathbf{{v}}$&#39;</span><span class="p">,</span>
                        <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
             <span class="n">legend_loc</span> <span class="o">=</span> <span class="s1">&#39;upper left&#39;</span>
         <span class="k">elif</span> <span class="n">g_eigenvalues_array</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">sign_ev0</span><span class="p">,</span> <span class="n">label_ev0</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;negative  &#39;</span><span class="p">)</span> <span class="k">if</span> <span class="n">g_eigenvalues_array</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span> \
-                            <span class="k">else</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;positive  &#39;</span><span class="p">)</span>
-            <span class="n">sign_ev1</span><span class="p">,</span> <span class="n">label_ev1</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;negative  &#39;</span><span class="p">)</span> <span class="k">if</span> <span class="n">g_eigenvalues_array</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span> \
+            <span class="p">(</span><span class="n">sign_ev0</span><span class="p">,</span> <span class="n">label_ev0</span><span class="p">)</span> \
+                <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;negative  &#39;</span><span class="p">)</span> <span class="k">if</span> <span class="n">g_eigenvalues_array</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span> \
+                <span class="k">else</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;positive  &#39;</span><span class="p">)</span>
+            <span class="p">(</span><span class="n">sign_ev1</span><span class="p">,</span> <span class="n">label_ev1</span><span class="p">)</span> \
+                <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;negative  &#39;</span><span class="p">)</span> <span class="k">if</span> <span class="n">g_eigenvalues_array</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span> \
                 <span class="k">else</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;positive  &#39;</span><span class="p">)</span>
             <span class="n">plt</span><span class="o">.</span><span class="n">yscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
-            <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_array</span><span class="p">,</span> <span class="n">sign_ev1</span><span class="o">*</span><span class="p">(</span><span class="n">g_eigenvalues_array</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]),</span>
-                     <span class="s1">&#39;DarkGreen&#39;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_array</span><span class="p">,</span>
+                     <span class="n">sign_ev1</span><span class="o">*</span><span class="p">(</span><span class="n">g_eigenvalues_array</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]),</span>
+                     <span class="s1">&#39;DarkGreen&#39;</span><span class="p">,</span>
+                     <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span>
+                     <span class="n">lw</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span>
                      <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">label_ev1</span><span class="si">}</span><span class="s1">&#39;</span><span class="o">+</span><span class="sa">rf</span><span class="s1">&#39;$\lambda_</span><span class="si">{</span><span class="n">g_label</span><span class="si">}</span><span class="s1">(1)$&#39;</span><span class="p">)</span>
-            <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_array</span><span class="p">,</span> <span class="n">sign_ev0</span><span class="o">*</span><span class="p">(</span><span class="n">g_eigenvalues_array</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]),</span>
-                     <span class="s1">&#39;magenta&#39;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_array</span><span class="p">,</span>
+                     <span class="n">sign_ev0</span><span class="o">*</span><span class="p">(</span><span class="n">g_eigenvalues_array</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]),</span>
+                     <span class="s1">&#39;magenta&#39;</span><span class="p">,</span>
+                     <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span>
+                     <span class="n">lw</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span>
                      <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">label_ev0</span><span class="si">}</span><span class="s1">&#39;</span><span class="o">+</span><span class="sa">rf</span><span class="s1">&#39;$\lambda_</span><span class="si">{</span><span class="n">g_label</span><span class="si">}</span><span class="s1">(0)$&#39;</span><span class="p">)</span>
-            <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s1">&#39;Eigenvalues of </span><span class="si">{</span><span class="n">m_label</span><span class="si">}</span><span class="s1"> tensor &#39;</span><span class="o">+</span><span class="sa">rf</span><span class="s1">&#39;$</span><span class="si">{</span><span class="n">g_label</span><span class="si">}</span><span class="s1">$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Eigenvalues of </span><span class="si">{</span><span class="n">m_label</span><span class="si">}</span><span class="s1"> tensor &#39;</span><span class="o">+</span><span class="sa">rf</span><span class="s1">&#39;$</span><span class="si">{</span><span class="n">g_label</span><span class="si">}</span><span class="s1">$&#39;</span><span class="p">,</span>
+                       <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span>
 
