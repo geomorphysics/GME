@@ -17,6 +17,7 @@ Requires Python packages/modules:
 #   - notably minus signs in equations flag an error
 # pylint: disable=invalid-unary-operand-type, not-callable
 import warnings
+import logging
 
 # Typing
 # from typing import Dict, Type, Optional  # , Tuple, Any, List
@@ -42,7 +43,7 @@ class EquationsVarphiMixin:
     r"""
     """
 
-    def define_varphi_model_eqn(self, do_new: bool = True) -> None:
+    def define_varphi_model_eqns(self, do_new: bool = True) -> None:
         r"""
         Define flow component of erosion model function
 
@@ -59,6 +60,7 @@ class EquationsVarphiMixin:
                 - "hillslope-channel" model `varphi_model_rampflat_eqn` if `self.varphi_type=='ramp-flat'`
 
         """
+        logging.info('define_varphi_model_eqns')
         # The implicit assumption here is that upstream area A ~ x^2,
         #   which will not be true for a "hillslope" component,
         #   and for which we should have a transition to A ~ x
@@ -133,6 +135,7 @@ class EquationsVarphiMixin:
             pz_varphi_rx_beta_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`p_{z} = - \dfrac{\cos{\left(\beta \right)} \left|{\sin{\left(\beta \right)}}\right|^{- \eta}}{\varphi_0 \left(\varepsilon + \left(\dfrac{x_{1} - {r}^x}{x_{1}}\right)^{2 \mu}\right)}`
         """
+        logging.info('define_varphi_related_eqns')
         self.p_varphi_beta_eqn = self.p_xi_eqn.subs(
             e2d(self.xi_varphi_beta_eqn))
         # Note force px >= 0

@@ -6,7 +6,9 @@
 .. toctree::
     :maxdepth: 2
 
-    Definition of equation ensemble <equations>
+    Basic ensemble definition of equations <equations>
+
+    Extended ensemble definitions of equations <equations_extended>
 
     Symbol definitions <symbols>
 

@@ -17,6 +17,7 @@ Requires Python packages/modules:
 #   - notably minus signs in equations flag an error
 # pylint: disable=invalid-unary-operand-type, not-callable
 import warnings
+import logging
 from functools import reduce
 
 # Typing
@@ -56,51 +57,66 @@ class EquationsGeodesicMixin:
         Attributes:
             gstar_ij_tanbeta_mat (:class:`~sympy.matrices.immutable.ImmutableDenseMatrix`):
                 :math:`\dots`
+
             g_ij_tanbeta_mat (:class:`~sympy.matrices.immutable.ImmutableDenseMatrix`):
                 :math:`\dots`
+
             tanbeta_poly_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`\dots` where :math:`a := \tan\alpha`
+
             tanbeta_eqn (:class:`~sympy.core.relational.Equality`):
-                :math:`\tan{\left(\beta \right)} = \dots` where :math:`a := \tan\alpha`
+                :math:`\tan{\left(\beta \right)} = \dots` where
+                :math:`a := \tan\alpha`
+
             gstar_ij_tanalpha_mat (:class:`~sympy.matrices.immutable.ImmutableDenseMatrix`):
-                a symmetric tensor with components (using shorthand :math:`a := \tan\alpha`)
+                a symmetric tensor with components (using shorthand
+                :math:`a := \tan\alpha`)
 
                 :math:`g^*[1,1] = \dots`
 
                 :math:`g^*[1,2] = g^*[2,1] = \dots`
 
                 :math:`g^*[2,2] = \dots`
+
             gstar_ij_mat (:class:`~sympy.matrices.immutable.ImmutableDenseMatrix`):
                 a symmetric tensor with components
-                (using shorthand :math:`a := \tan\alpha`, and with a particular choice of model parameters)
+                (using shorthand :math:`a := \tan\alpha`, and with a
+                particular choice of model parameters)
 
                 :math:`g^*[1,1] = \dots`
 
                 :math:`g^*[1,2] = g^*[2,1] = \dots`
 
                 :math:`g^*[2,2] =  \dots`
+
             g_ij_tanalpha_mat (:class:`~sympy.matrices.immutable.ImmutableDenseMatrix`):
-                a symmetric tensor with components (using shorthand :math:`a := \tan\alpha`)
+                a symmetric tensor with components (using shorthand
+                :math:`a := \tan\alpha`)
 
                 :math:`g[1,1] = \dots`
 
                 :math:`g[1,2] = g[2,1] = \dots`
 
                 :math:`g[2,2] = \dots`
+
             g_ij_mat (:class:`~sympy.matrices.immutable.ImmutableDenseMatrix`):
                 a symmetric tensor with components
-                (using shorthand :math:`a := \tan\alpha`, and with a particular choice of model parameters)
+                (using shorthand :math:`a := \tan\alpha`, and with a
+                particular choice of model parameters)
 
                 :math:`g[1,1] =\dots`
 
                 :math:`g[1,2] = g[2,1] = \dots`
 
                 :math:`g[2,2] = \dots`
+
             g_ij_mat_lambdified   (function) :
                 lambdified version of `g_ij_mat`
-            gstar_ij_mat_lambdified   (function) :
+
+            gstar_ij_mat_lambdified (function) :
                 lambdified version of `gstar_ij_mat`
         """
+        logging.info('prep_geodesic_eqns')
         self.gstar_ij_tanbeta_mat = None
         self.g_ij_tanbeta_mat = None
         self.tanbeta_poly_eqn = None
@@ -196,13 +212,19 @@ class EquationsGeodesicMixin:
                 Derivatives of the components of the metric tensor:
                 these values are used to construct the Christoffel tensor.
                 Too unwieldy to display here.
+
             christoffel_ij_k_rx_rdot_lambda   (function) :
                 The Christoffel tensor coefficients, as a `lambda` function,
-                for each component :math:`r^x`, :math:`{\dot{r}^x}` and :math:`{\dot{r}^z}`.
+                for each component :math:`r^x`, :math:`{\dot{r}^x}`
+                and :math:`{\dot{r}^z}`.
+
             christoffel_ij_k_lambda   (function) :
-                The Christoffel tensor coefficients, as a `lambda` function, in a compact and indexable form.
+                The Christoffel tensor coefficients, as a `lambda` function,
+                in a compact and indexable form.
+
             geodesic_eqns (list of :class:`~sympy.core.relational.Equality`) :
-                Ray geodesic equations, but expressed indirectly as a pair of coupled 1st-order vector ODEs
+                Ray geodesic equations, but expressed indirectly as
+                a pair of coupled 1st-order vector ODEs
                 rather than a 2nd-order vector ODE for ray acceleration.
                 The 1st-order ODE form is easier to solve numerically.
 
@@ -213,11 +235,14 @@ class EquationsGeodesicMixin:
                 :math:`\dot{v}^x = \dots`
 
                 :math:`\dot{v}^z = \dots`
-            vdotx_lambdified   (function) :
+
+            vdotx_lambdified (function) :
                 lambdified version of :math:`\dot{v}^x`
-            vdotz_lambdified   (function) :
+
+            vdotz_lambdified (function) :
                 lambdified version of :math:`\dot{v}^z`
         """
+        logging.info('define_geodesic_eqns')
         self.dg_rk_ij_mat = None
         self.christoffel_ij_k_rx_rdot_lambda = None
         self.christoffel_ij_k_lambda = None
@@ -280,21 +305,21 @@ class EquationsGeodesicMixin:
              # -christoffel_ij_k_rx_rdot_lambda(1,0,1)*rdotz*rdotx
              - self.christoffel_ij_k_rx_rdot_lambda(1, 1, 1)*rdotz*rdotz)
         ])
-        # self.geodesic_eqns = Matrix([
-        #     Eq(rdotx_true, rdotx),
-        #     Eq(rdotz_true, rdotz),
-        #     # Use symmetry to abbreviate sum of diagonal terms
-        #     Eq(vdotx, (-self.christoffel_ij_k_rx_rdot_lambda(0,0,0)*rdotx*rdotx
-        #                -2*self.christoffel_ij_k_rx_rdot_lambda(0,1,0)*rdotx*rdotz
-        #                #-christoffel_ij_k_rx_rdot_lambda(1,0,0)*rdotz*rdotx
-        #                -self.christoffel_ij_k_rx_rdot_lambda(1,1,0)*rdotz*rdotz) ),
-        #     # Use symmetry to abbreviate sum of diagonal terms
-        #     Eq(vdotz, (-self.christoffel_ij_k_rx_rdot_lambda(0,0,1)*rdotx*rdotx
-        #                -2*self.christoffel_ij_k_rx_rdot_lambda(0,1,1)*rdotx*rdotz
-        #                #-christoffel_ij_k_rx_rdot_lambda(1,0,1)*rdotz*rdotx
-        #                -self.christoffel_ij_k_rx_rdot_lambda(1,1,1)*rdotz*rdotz) )
-        # ])
-        # Use of 'factor' here messes things up for eta<1
+# self.geodesic_eqns = Matrix([
+#     Eq(rdotx_true, rdotx),
+#     Eq(rdotz_true, rdotz),
+#     # Use symmetry to abbreviate sum of diagonal terms
+#     Eq(vdotx, (-self.christoffel_ij_k_rx_rdot_lambda(0,0,0)*rdotx*rdotx
+#                -2*self.christoffel_ij_k_rx_rdot_lambda(0,1,0)*rdotx*rdotz
+#                #-christoffel_ij_k_rx_rdot_lambda(1,0,0)*rdotz*rdotx
+#                -self.christoffel_ij_k_rx_rdot_lambda(1,1,0)*rdotz*rdotz) ),
+#     # Use symmetry to abbreviate sum of diagonal terms
+#     Eq(vdotz, (-self.christoffel_ij_k_rx_rdot_lambda(0,0,1)*rdotx*rdotx
+#                -2*self.christoffel_ij_k_rx_rdot_lambda(0,1,1)*rdotx*rdotz
+#                #-christoffel_ij_k_rx_rdot_lambda(1,0,1)*rdotz*rdotx
+#                -self.christoffel_ij_k_rx_rdot_lambda(1,1,1)*rdotz*rdotz) )
+# ])
+# Use of 'factor' here messes things up for eta<1
         self.vdotx_lambdified \
             = lambdify((rx, rdotx, rdotz, varepsilon),
                        (self.geodesic_eqns[2]), 'numpy')

@@ -88,7 +88,8 @@ Too unwieldy to display here.</p>
 <dt class="sig sig-object py" id="gme.core.equations_geodesic.EquationsGeodesicMixin.christoffel_ij_k_rx_rdot_lambda">
 <span class="sig-name descname"><span class="pre">christoffel_ij_k_rx_rdot_lambda</span></span><a class="headerlink" href="#gme.core.equations_geodesic.EquationsGeodesicMixin.christoffel_ij_k_rx_rdot_lambda" title="Permalink to this definition">¶</a></dt>
 <dd><p>The Christoffel tensor coefficients, as a <cite>lambda</cite> function,
-for each component <span class="math notranslate nohighlight">\(r^x\)</span>, <span class="math notranslate nohighlight">\({\dot{r}^x}\)</span> and <span class="math notranslate nohighlight">\({\dot{r}^z}\)</span>.</p>
+for each component <span class="math notranslate nohighlight">\(r^x\)</span>, <span class="math notranslate nohighlight">\({\dot{r}^x}\)</span>
+and <span class="math notranslate nohighlight">\({\dot{r}^z}\)</span>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
 <dd class="field-odd"><p>function</p>
@@ -99,7 +100,8 @@ for each component <span class="math notranslate nohighlight">\(r^x\)</span>, <s
 <dl class="py attribute">
 <dt class="sig sig-object py" id="gme.core.equations_geodesic.EquationsGeodesicMixin.christoffel_ij_k_lambda">
 <span class="sig-name descname"><span class="pre">christoffel_ij_k_lambda</span></span><a class="headerlink" href="#gme.core.equations_geodesic.EquationsGeodesicMixin.christoffel_ij_k_lambda" title="Permalink to this definition">¶</a></dt>
-<dd><p>The Christoffel tensor coefficients, as a <cite>lambda</cite> function, in a compact and indexable form.</p>
+<dd><p>The Christoffel tensor coefficients, as a <cite>lambda</cite> function,
+in a compact and indexable form.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
 <dd class="field-odd"><p>function</p>
@@ -110,7 +112,8 @@ for each component <span class="math notranslate nohighlight">\(r^x\)</span>, <s
 <dl class="py attribute">
 <dt class="sig sig-object py" id="gme.core.equations_geodesic.EquationsGeodesicMixin.geodesic_eqns">
 <span class="sig-name descname"><span class="pre">geodesic_eqns</span></span><a class="headerlink" href="#gme.core.equations_geodesic.EquationsGeodesicMixin.geodesic_eqns" title="Permalink to this definition">¶</a></dt>
-<dd><p>Ray geodesic equations, but expressed indirectly as a pair of coupled 1st-order vector ODEs
+<dd><p>Ray geodesic equations, but expressed indirectly as
+a pair of coupled 1st-order vector ODEs
 rather than a 2nd-order vector ODE for ray acceleration.
 The 1st-order ODE form is easier to solve numerically.</p>
 <p><span class="math notranslate nohighlight">\(\dot{r}^x = v^{x}\)</span></p>
@@ -194,7 +197,8 @@ equation substitutions</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="gme.core.equations_geodesic.EquationsGeodesicMixin.tanbeta_eqn">
 <span class="sig-name descname"><span class="pre">tanbeta_eqn</span></span><a class="headerlink" href="#gme.core.equations_geodesic.EquationsGeodesicMixin.tanbeta_eqn" title="Permalink to this definition">¶</a></dt>
-<dd><p><span class="math notranslate nohighlight">\(\tan{\left(\beta \right)} = \dots\)</span> where <span class="math notranslate nohighlight">\(a := \tan\alpha\)</span></p>
+<dd><p><span class="math notranslate nohighlight">\(\tan{\left(\beta \right)} = \dots\)</span> where
+<span class="math notranslate nohighlight">\(a := \tan\alpha\)</span></p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.sympy.org/latest/modules/core.html#sympy.core.relational.Equality" title="(in SymPy v1.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Equality</span></code></a></p>
@@ -205,7 +209,8 @@ equation substitutions</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="gme.core.equations_geodesic.EquationsGeodesicMixin.gstar_ij_tanalpha_mat">
 <span class="sig-name descname"><span class="pre">gstar_ij_tanalpha_mat</span></span><a class="headerlink" href="#gme.core.equations_geodesic.EquationsGeodesicMixin.gstar_ij_tanalpha_mat" title="Permalink to this definition">¶</a></dt>
-<dd><p>a symmetric tensor with components (using shorthand <span class="math notranslate nohighlight">\(a := \tan\alpha\)</span>)</p>
+<dd><p>a symmetric tensor with components (using shorthand
+<span class="math notranslate nohighlight">\(a := \tan\alpha\)</span>)</p>
 <p><span class="math notranslate nohighlight">\(g^*[1,1] = \dots\)</span></p>
 <p><span class="math notranslate nohighlight">\(g^*[1,2] = g^*[2,1] = \dots\)</span></p>
 <p><span class="math notranslate nohighlight">\(g^*[2,2] = \dots\)</span></p>
@@ -220,7 +225,8 @@ equation substitutions</p>
 <dt class="sig sig-object py" id="gme.core.equations_geodesic.EquationsGeodesicMixin.gstar_ij_mat">
 <span class="sig-name descname"><span class="pre">gstar_ij_mat</span></span><a class="headerlink" href="#gme.core.equations_geodesic.EquationsGeodesicMixin.gstar_ij_mat" title="Permalink to this definition">¶</a></dt>
 <dd><p>a symmetric tensor with components
-(using shorthand <span class="math notranslate nohighlight">\(a := \tan\alpha\)</span>, and with a particular choice of model parameters)</p>
+(using shorthand <span class="math notranslate nohighlight">\(a := \tan\alpha\)</span>, and with a
+particular choice of model parameters)</p>
 <p><span class="math notranslate nohighlight">\(g^*[1,1] = \dots\)</span></p>
 <p><span class="math notranslate nohighlight">\(g^*[1,2] = g^*[2,1] = \dots\)</span></p>
 <p><span class="math notranslate nohighlight">\(g^*[2,2] =  \dots\)</span></p>
@@ -234,7 +240,8 @@ equation substitutions</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="gme.core.equations_geodesic.EquationsGeodesicMixin.g_ij_tanalpha_mat">
 <span class="sig-name descname"><span class="pre">g_ij_tanalpha_mat</span></span><a class="headerlink" href="#gme.core.equations_geodesic.EquationsGeodesicMixin.g_ij_tanalpha_mat" title="Permalink to this definition">¶</a></dt>
-<dd><p>a symmetric tensor with components (using shorthand <span class="math notranslate nohighlight">\(a := \tan\alpha\)</span>)</p>
+<dd><p>a symmetric tensor with components (using shorthand
+<span class="math notranslate nohighlight">\(a := \tan\alpha\)</span>)</p>
 <p><span class="math notranslate nohighlight">\(g[1,1] = \dots\)</span></p>
 <p><span class="math notranslate nohighlight">\(g[1,2] = g[2,1] = \dots\)</span></p>
 <p><span class="math notranslate nohighlight">\(g[2,2] = \dots\)</span></p>
@@ -249,7 +256,8 @@ equation substitutions</p>
 <dt class="sig sig-object py" id="gme.core.equations_geodesic.EquationsGeodesicMixin.g_ij_mat">
 <span class="sig-name descname"><span class="pre">g_ij_mat</span></span><a class="headerlink" href="#gme.core.equations_geodesic.EquationsGeodesicMixin.g_ij_mat" title="Permalink to this definition">¶</a></dt>
 <dd><p>a symmetric tensor with components
-(using shorthand <span class="math notranslate nohighlight">\(a := \tan\alpha\)</span>, and with a particular choice of model parameters)</p>
+(using shorthand <span class="math notranslate nohighlight">\(a := \tan\alpha\)</span>, and with a
+particular choice of model parameters)</p>
 <p><span class="math notranslate nohighlight">\(g[1,1] =\dots\)</span></p>
 <p><span class="math notranslate nohighlight">\(g[1,2] = g[2,1] = \dots\)</span></p>
 <p><span class="math notranslate nohighlight">\(g[2,2] = \dots\)</span></p>
@@ -307,6 +315,7 @@ equation substitutions</p>
 <span class="c1">#   - notably minus signs in equations flag an error</span>
 <span class="c1"># pylint: disable=invalid-unary-operand-type, not-callable</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">reduce</span>
 
 <span class="c1"># Typing</span>
@@ -346,51 +355,66 @@ equation substitutions</p>
 <span class="sd">        Attributes:</span>
 <span class="sd">            gstar_ij_tanbeta_mat (:class:`~sympy.matrices.immutable.ImmutableDenseMatrix`):</span>
 <span class="sd">                :math:`\dots`</span>
+
 <span class="sd">            g_ij_tanbeta_mat (:class:`~sympy.matrices.immutable.ImmutableDenseMatrix`):</span>
 <span class="sd">                :math:`\dots`</span>
+
 <span class="sd">            tanbeta_poly_eqn (:class:`~sympy.core.relational.Equality`):</span>
 <span class="sd">                :math:`\dots` where :math:`a := \tan\alpha`</span>
+
 <span class="sd">            tanbeta_eqn (:class:`~sympy.core.relational.Equality`):</span>
-<span class="sd">                :math:`\tan{\left(\beta \right)} = \dots` where :math:`a := \tan\alpha`</span>
+<span class="sd">                :math:`\tan{\left(\beta \right)} = \dots` where</span>
+<span class="sd">                :math:`a := \tan\alpha`</span>
+
 <span class="sd">            gstar_ij_tanalpha_mat (:class:`~sympy.matrices.immutable.ImmutableDenseMatrix`):</span>
-<span class="sd">                a symmetric tensor with components (using shorthand :math:`a := \tan\alpha`)</span>
+<span class="sd">                a symmetric tensor with components (using shorthand</span>
+<span class="sd">                :math:`a := \tan\alpha`)</span>
 
 <span class="sd">                :math:`g^*[1,1] = \dots`</span>
 
 <span class="sd">                :math:`g^*[1,2] = g^*[2,1] = \dots`</span>
 
 <span class="sd">                :math:`g^*[2,2] = \dots`</span>
+
 <span class="sd">            gstar_ij_mat (:class:`~sympy.matrices.immutable.ImmutableDenseMatrix`):</span>
 <span class="sd">                a symmetric tensor with components</span>
-<span class="sd">                (using shorthand :math:`a := \tan\alpha`, and with a particular choice of model parameters)</span>
+<span class="sd">                (using shorthand :math:`a := \tan\alpha`, and with a</span>
+<span class="sd">                particular choice of model parameters)</span>
 
 <span class="sd">                :math:`g^*[1,1] = \dots`</span>
 
 <span class="sd">                :math:`g^*[1,2] = g^*[2,1] = \dots`</span>
 
 <span class="sd">                :math:`g^*[2,2] =  \dots`</span>
+
 <span class="sd">            g_ij_tanalpha_mat (:class:`~sympy.matrices.immutable.ImmutableDenseMatrix`):</span>
-<span class="sd">                a symmetric tensor with components (using shorthand :math:`a := \tan\alpha`)</span>
+<span class="sd">                a symmetric tensor with components (using shorthand</span>
+<span class="sd">                :math:`a := \tan\alpha`)</span>
 
 <span class="sd">                :math:`g[1,1] = \dots`</span>
 
 <span class="sd">                :math:`g[1,2] = g[2,1] = \dots`</span>
 
 <span class="sd">                :math:`g[2,2] = \dots`</span>
+
 <span class="sd">            g_ij_mat (:class:`~sympy.matrices.immutable.ImmutableDenseMatrix`):</span>
 <span class="sd">                a symmetric tensor with components</span>
-<span class="sd">                (using shorthand :math:`a := \tan\alpha`, and with a particular choice of model parameters)</span>
+<span class="sd">                (using shorthand :math:`a := \tan\alpha`, and with a</span>
+<span class="sd">                particular choice of model parameters)</span>
 
 <span class="sd">                :math:`g[1,1] =\dots`</span>
 
 <span class="sd">                :math:`g[1,2] = g[2,1] = \dots`</span>
 
 <span class="sd">                :math:`g[2,2] = \dots`</span>
+
 <span class="sd">            g_ij_mat_lambdified   (function) :</span>
 <span class="sd">                lambdified version of `g_ij_mat`</span>
-<span class="sd">            gstar_ij_mat_lambdified   (function) :</span>
+
+<span class="sd">            gstar_ij_mat_lambdified (function) :</span>
 <span class="sd">                lambdified version of `gstar_ij_mat`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;prep_geodesic_eqns&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">gstar_ij_tanbeta_mat</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">g_ij_tanbeta_mat</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tanbeta_poly_eqn</span> <span class="o">=</span> <span class="kc">None</span>
@@ -486,13 +510,19 @@ equation substitutions</p>
 <span class="sd">                Derivatives of the components of the metric tensor:</span>
 <span class="sd">                these values are used to construct the Christoffel tensor.</span>
 <span class="sd">                Too unwieldy to display here.</span>
+
 <span class="sd">            christoffel_ij_k_rx_rdot_lambda   (function) :</span>
 <span class="sd">                The Christoffel tensor coefficients, as a `lambda` function,</span>
-<span class="sd">                for each component :math:`r^x`, :math:`{\dot{r}^x}` and :math:`{\dot{r}^z}`.</span>
+<span class="sd">                for each component :math:`r^x`, :math:`{\dot{r}^x}`</span>
+<span class="sd">                and :math:`{\dot{r}^z}`.</span>
+
 <span class="sd">            christoffel_ij_k_lambda   (function) :</span>
-<span class="sd">                The Christoffel tensor coefficients, as a `lambda` function, in a compact and indexable form.</span>
+<span class="sd">                The Christoffel tensor coefficients, as a `lambda` function,</span>
+<span class="sd">                in a compact and indexable form.</span>
+
 <span class="sd">            geodesic_eqns (list of :class:`~sympy.core.relational.Equality`) :</span>
-<span class="sd">                Ray geodesic equations, but expressed indirectly as a pair of coupled 1st-order vector ODEs</span>
+<span class="sd">                Ray geodesic equations, but expressed indirectly as</span>
+<span class="sd">                a pair of coupled 1st-order vector ODEs</span>
 <span class="sd">                rather than a 2nd-order vector ODE for ray acceleration.</span>
 <span class="sd">                The 1st-order ODE form is easier to solve numerically.</span>
 
@@ -503,11 +533,14 @@ equation substitutions</p>
 <span class="sd">                :math:`\dot{v}^x = \dots`</span>
 
 <span class="sd">                :math:`\dot{v}^z = \dots`</span>
-<span class="sd">            vdotx_lambdified   (function) :</span>
+
+<span class="sd">            vdotx_lambdified (function) :</span>
 <span class="sd">                lambdified version of :math:`\dot{v}^x`</span>
-<span class="sd">            vdotz_lambdified   (function) :</span>
+
+<span class="sd">            vdotz_lambdified (function) :</span>
 <span class="sd">                lambdified version of :math:`\dot{v}^z`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;define_geodesic_eqns&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dg_rk_ij_mat</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">christoffel_ij_k_rx_rdot_lambda</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">christoffel_ij_k_lambda</span> <span class="o">=</span> <span class="kc">None</span>
@@ -570,21 +603,21 @@ equation substitutions</p>
              <span class="c1"># -christoffel_ij_k_rx_rdot_lambda(1,0,1)*rdotz*rdotx</span>
              <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">christoffel_ij_k_rx_rdot_lambda</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">rdotz</span><span class="o">*</span><span class="n">rdotz</span><span class="p">)</span>
         <span class="p">])</span>
-        <span class="c1"># self.geodesic_eqns = Matrix([</span>
-        <span class="c1">#     Eq(rdotx_true, rdotx),</span>
-        <span class="c1">#     Eq(rdotz_true, rdotz),</span>
-        <span class="c1">#     # Use symmetry to abbreviate sum of diagonal terms</span>
-        <span class="c1">#     Eq(vdotx, (-self.christoffel_ij_k_rx_rdot_lambda(0,0,0)*rdotx*rdotx</span>
-        <span class="c1">#                -2*self.christoffel_ij_k_rx_rdot_lambda(0,1,0)*rdotx*rdotz</span>
-        <span class="c1">#                #-christoffel_ij_k_rx_rdot_lambda(1,0,0)*rdotz*rdotx</span>
-        <span class="c1">#                -self.christoffel_ij_k_rx_rdot_lambda(1,1,0)*rdotz*rdotz) ),</span>
-        <span class="c1">#     # Use symmetry to abbreviate sum of diagonal terms</span>
-        <span class="c1">#     Eq(vdotz, (-self.christoffel_ij_k_rx_rdot_lambda(0,0,1)*rdotx*rdotx</span>
-        <span class="c1">#                -2*self.christoffel_ij_k_rx_rdot_lambda(0,1,1)*rdotx*rdotz</span>
-        <span class="c1">#                #-christoffel_ij_k_rx_rdot_lambda(1,0,1)*rdotz*rdotx</span>
-        <span class="c1">#                -self.christoffel_ij_k_rx_rdot_lambda(1,1,1)*rdotz*rdotz) )</span>
-        <span class="c1"># ])</span>
-        <span class="c1"># Use of &#39;factor&#39; here messes things up for eta&lt;1</span>
+<span class="c1"># self.geodesic_eqns = Matrix([</span>
+<span class="c1">#     Eq(rdotx_true, rdotx),</span>
+<span class="c1">#     Eq(rdotz_true, rdotz),</span>
+<span class="c1">#     # Use symmetry to abbreviate sum of diagonal terms</span>
+<span class="c1">#     Eq(vdotx, (-self.christoffel_ij_k_rx_rdot_lambda(0,0,0)*rdotx*rdotx</span>
+<span class="c1">#                -2*self.christoffel_ij_k_rx_rdot_lambda(0,1,0)*rdotx*rdotz</span>
+<span class="c1">#                #-christoffel_ij_k_rx_rdot_lambda(1,0,0)*rdotz*rdotx</span>
+<span class="c1">#                -self.christoffel_ij_k_rx_rdot_lambda(1,1,0)*rdotz*rdotz) ),</span>
+<span class="c1">#     # Use symmetry to abbreviate sum of diagonal terms</span>
+<span class="c1">#     Eq(vdotz, (-self.christoffel_ij_k_rx_rdot_lambda(0,0,1)*rdotx*rdotx</span>
+<span class="c1">#                -2*self.christoffel_ij_k_rx_rdot_lambda(0,1,1)*rdotx*rdotz</span>
+<span class="c1">#                #-christoffel_ij_k_rx_rdot_lambda(1,0,1)*rdotz*rdotx</span>
+<span class="c1">#                -self.christoffel_ij_k_rx_rdot_lambda(1,1,1)*rdotz*rdotz) )</span>
+<span class="c1"># ])</span>
+<span class="c1"># Use of &#39;factor&#39; here messes things up for eta&lt;1</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">vdotx_lambdified</span> \
             <span class="o">=</span> <span class="n">lambdify</span><span class="p">((</span><span class="n">rx</span><span class="p">,</span> <span class="n">rdotx</span><span class="p">,</span> <span class="n">rdotz</span><span class="p">,</span> <span class="n">varepsilon</span><span class="p">),</span>
                        <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">geodesic_eqns</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span> <span class="s1">&#39;numpy&#39;</span><span class="p">)</span>
@@ -633,6 +666,7 @@ equation substitutions</p>
 <li class="toctree-l1"><a class="reference internal" href="../Dependencies.html">  Dependencies</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Installation.html">  Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Running.html">  Running</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Notebooks.html">  Notebooks</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../Python.html">  Python package</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">Core</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ode/index.html">ODE integration</a></li>
@@ -640,7 +674,6 @@ equation substitutions</p>
 <li class="toctree-l2"><a class="reference internal" href="../knickpoints/index.html">Knickpoint detection and tracking [in development]</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../Notebooks.html">  Notebooks</a></li>
 </ul>
 
     <!-- <h3><a href="../../index.html">This page</a></h3> -->

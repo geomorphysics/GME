@@ -17,6 +17,7 @@ Requires Python packages/modules:
 #   - notably minus signs in equations flag an error
 # pylint: disable=invalid-unary-operand-type, not-callable
 import warnings
+import logging
 
 # Typing
 # from typing import Dict, Type, Optional  # , Tuple, Any, List
@@ -69,6 +70,7 @@ class EquationsPxpolyMixin:
                 - \left(\xi^{\downarrow{0}}\right)^{4} p_{x}^{2}
                 - \left(\xi^{\downarrow{0}}\right)^{2} = 0`
         """
+        logging.info(f'define_px_poly_eqn (ndim={do_ndim})')
         if do_ndim:
             # Non-dimensionalized version
             varphi0_solns = solve(self.sinCi_xih0_eqn.subs(

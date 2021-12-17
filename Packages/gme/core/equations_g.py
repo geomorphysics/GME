@@ -16,6 +16,7 @@ Requires Python packages/modules:
 #   - notably minus signs in equations flag an error
 # pylint: disable=invalid-unary-operand-type, not-callable
 import warnings
+import logging
 
 # Typing
 # from typing import Dict, Type, Optional  # , Tuple, Any, List
@@ -82,6 +83,7 @@ class EquationsMetricTensorMixin:
                 1 \
                 \end{matrix}\right]`
         """
+        logging.info('define_g_eqns')
         self.gstar_varphi_pxpz_eqn = None
         self.det_gstar_varphi_pxpz_eqn = None
         self.g_varphi_pxpz_eqn = None

@@ -16,6 +16,7 @@ Requires Python packages/modules:
 #   - notably minus signs in equations flag an error
 # pylint: disable=invalid-unary-operand-type, not-callable
 import warnings
+import logging
 
 # Typing
 # from typing import Dict, Type, Optional  # , Tuple, Any, List
@@ -51,6 +52,7 @@ class EquationsFHMixin:
                 \left(p_{x}^{2} + p_{z}^{2}\right)^{\frac{1}{2}-\frac{\eta}{2}}
                 \varphi{\left(\mathbf{r} \right)}`
         """
+        logging.info('define_Fstar_eqns')
         # Note force px >= 0
         self.Okubo_Fstar_eqn: Eq \
             = simplify(
@@ -80,6 +82,7 @@ class EquationsFHMixin:
                 \left(\varepsilon x_{1}^{2 \mu} +
                 \left(x_{1} - {r}^x\right)^{2 \mu}\right)^{2}}{2}`
         """
+        logging.info('define_H_eqns')
         self.H_eqn: Eq \
             = Eq(H, simplify(self.Fstar_eqn.rhs**2/2))
 

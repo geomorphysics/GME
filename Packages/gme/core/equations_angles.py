@@ -63,6 +63,7 @@ class EquationsAnglesMixin:
                 = \dfrac{\left(\eta - 1\right) \tan{\left(\beta \right)}}
                 {\eta + \tan^{2}{\left(\beta \right)}}`
         """
+        logging.info('define_tanalpha_eqns')
         self.tanalpha_rdot_eqn \
             = Eq(simplify(self.rdotz_rdot_alpha_eqn.rhs
                           / self.rdotx_rdot_alpha_eqn.rhs),
@@ -125,6 +126,7 @@ class EquationsAnglesMixin:
                 :math:`\tan{\left(\beta \right)}
                 = \dfrac{\xi^{\downarrow} + v^{z}}{v^{x}}`
         """
+        logging.info('define_tanbeta_eqns')
 
         # eta_sub = {eta: self.eta_}
 
@@ -195,6 +197,7 @@ class EquationsAnglesMixin:
                 :math:`\tan{\left(\beta \right)}
                 = \dfrac{\xi^{\downarrow} + v^{z}}{v^{x}}`
         """
+        logging.info('define_psi_eqns')
         self.psi_alpha_beta_eqn = Eq(psi, alpha-beta+pi/2)
 
 

@@ -17,6 +17,7 @@ Requires Python packages/modules:
 #   - notably minus signs in equations flag an error
 # pylint: disable=invalid-unary-operand-type, not-callable
 import warnings
+import logging
 
 # Typing
 # from typing import Dict, Type, Optional  # , Tuple, Any, List
@@ -67,6 +68,7 @@ class EquationsRpMixin:
             p_pz_cosbeta_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`p = -\dfrac{p_z}{\cos\beta}`
         """
+        logging.info('define_p_eqns')
         self.p_covec_eqn = Eq(pcovec, Matrix([px, pz]).T)
         self.px_p_beta_eqn = Eq(px, p*sin(beta))
         self.pz_p_beta_eqn = Eq(pz, -p*cos(beta))
@@ -99,6 +101,7 @@ class EquationsRpMixin:
             rz_r_alpha_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`r^z = r\sin\alpha`
         """
+        logging.info('define_r_eqns')
         self.rx_r_alpha_eqn = Eq(rx, r*cos(alpha))
         self.rz_r_alpha_eqn = Eq(rz, r*sin(alpha))
 

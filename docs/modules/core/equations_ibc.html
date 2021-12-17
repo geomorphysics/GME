@@ -206,6 +206,7 @@
 <span class="c1">#   - notably minus signs in equations flag an error</span>
 <span class="c1"># pylint: disable=invalid-unary-operand-type, not-callable</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">import</span> <span class="nn">logging</span>
 
 <span class="c1"># Typing</span>
 <span class="c1"># from typing import Dict, Type, Optional  # , Tuple, Any, List</span>
@@ -242,6 +243,7 @@
 <span class="sd">            pzpx_unity_eqn (:class:`~sympy.core.relational.Equality`):</span>
 <span class="sd">                :math:`\varphi^{2} p_{x}^{2} p_{x}^{2 \eta} \left(p_{x}^{2} + p_{z}^{2}\right)^{- \eta} + \varphi^{2} p_{x}^{2 \eta} p_{z}^{2} \left(p_{x}^{2} + p_{z}^{2}\right)^{- \eta} = 1`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;prep_ibc_eqns&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">pz0_xiv0_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">pz_0</span><span class="p">,</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="o">/</span><span class="n">xiv_0</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">pzpx_unity_eqn</span> <span class="o">=</span> <span class="n">expand</span><span class="p">(</span><span class="n">simplify</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">rdot_p_unity_eqn</span>
@@ -272,6 +274,7 @@
 
 <span class="sd">                    &#39;gradh&#39;: :math:`\dfrac{d}{d x} h{\left(x \right)} = \dfrac{\kappa_\mathrm{h} h_{0} \left(1 - \tanh^{2}{\left(\dfrac{\kappa_\mathrm{h} x}{x_{1}} - \kappa_\mathrm{h} \right)}\right)}{x_{1} \tanh{\left(\dfrac{\kappa_\mathrm{h}}{x_{1}} \right)}}`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;define_ibc_eqns&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">boundary_eqns</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s1">&#39;planar&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;h&#39;</span><span class="p">:</span> <span class="n">Eq</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="p">(</span><span class="n">h_0</span><span class="o">*</span><span class="n">x</span><span class="o">/</span><span class="n">Lc</span><span class="p">))},</span>
             <span class="s1">&#39;convex-up&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;h&#39;</span><span class="p">:</span>
@@ -307,6 +310,7 @@
 <span class="sd">            pz_initial_eqn (:class:`~sympy.core.relational.Equality`):</span>
 <span class="sd">                :math:`p_{z} = - \dfrac{x_{1}^{2 \mu + 1} \left(\dfrac{1}{\kappa_\mathrm{h} h_{0} \left|{\tanh^{2}{\left(\frac{\kappa_\mathrm{h} x}{x_{1}} \right)} - 1}\right|}\right)^{\eta} \left(\kappa_\mathrm{h}^{2} h_{0}^{2} \left(\tanh^{2}{\left(\frac{\kappa_\mathrm{h} x}{x_{1}} \right)} - 1\right)^{2} + x_{1}^{2} \tanh^{2}{\left(\frac{\kappa_\mathrm{h}}{x_{1}} \right)}\right)^{\frac{\eta}{2} - \frac{1}{2}} \tanh{\left(\frac{\kappa_\mathrm{h}}{x_{1}} \right)}}{\varphi_0 \left(\varepsilon x_{1}^{2 \mu} + \left(- x + x_{1}\right)^{2 \mu}\right)}`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;set_ibc_eqns&#39;</span><span class="p">)</span>
         <span class="n">cosbeta_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">cos</span><span class="p">(</span><span class="n">beta</span><span class="p">),</span> <span class="mi">1</span><span class="o">/</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">tan</span><span class="p">(</span><span class="n">beta</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
         <span class="n">sinbeta_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">sin</span><span class="p">(</span><span class="n">beta</span><span class="p">),</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">tan</span><span class="p">(</span><span class="n">beta</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)))</span>
         <span class="c1"># sintwobeta_eqn = Eq(sin(2*beta), cos(beta)**2-sin(beta)**2)</span>
@@ -375,6 +379,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../Dependencies.html">  Dependencies</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Installation.html">  Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Running.html">  Running</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Notebooks.html">  Notebooks</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../Python.html">  Python package</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">Core</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ode/index.html">ODE integration</a></li>
@@ -382,7 +387,6 @@
 <li class="toctree-l2"><a class="reference internal" href="../knickpoints/index.html">Knickpoint detection and tracking [in development]</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../Notebooks.html">  Notebooks</a></li>
 </ul>
 
     <!-- <h3><a href="../../index.html">This page</a></h3> -->

@@ -68,8 +68,8 @@
 <dt class="sig sig-object py" id="gme.core.equations_varphi.EquationsVarphiMixin">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gme.core.equations_varphi.</span></span><span class="sig-name descname"><span class="pre">EquationsVarphiMixin</span></span><a class="headerlink" href="#gme.core.equations_varphi.EquationsVarphiMixin" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="py method">
-<dt class="sig sig-object py" id="gme.core.equations_varphi.EquationsVarphiMixin.define_varphi_model_eqn">
-<span class="sig-name descname"><span class="pre">define_varphi_model_eqn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">do_new</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.core.equations_varphi.EquationsVarphiMixin.define_varphi_model_eqn" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="gme.core.equations_varphi.EquationsVarphiMixin.define_varphi_model_eqns">
+<span class="sig-name descname"><span class="pre">define_varphi_model_eqns</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">do_new</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.core.equations_varphi.EquationsVarphiMixin.define_varphi_model_eqns" title="Permalink to this definition">¶</a></dt>
 <dd><p>Define flow component of erosion model function</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="gme.core.equations_varphi.EquationsVarphiMixin.varphi_model_ramp_eqn">
@@ -265,6 +265,7 @@
 <span class="c1">#   - notably minus signs in equations flag an error</span>
 <span class="c1"># pylint: disable=invalid-unary-operand-type, not-callable</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">import</span> <span class="nn">logging</span>
 
 <span class="c1"># Typing</span>
 <span class="c1"># from typing import Dict, Type, Optional  # , Tuple, Any, List</span>
@@ -290,7 +291,7 @@
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">define_varphi_model_eqn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">do_new</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">define_varphi_model_eqns</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">do_new</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Define flow component of erosion model function</span>
 
@@ -307,6 +308,7 @@
 <span class="sd">                - &quot;hillslope-channel&quot; model `varphi_model_rampflat_eqn` if `self.varphi_type==&#39;ramp-flat&#39;`</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;define_varphi_model_eqns&#39;</span><span class="p">)</span>
         <span class="c1"># The implicit assumption here is that upstream area A ~ x^2,</span>
         <span class="c1">#   which will not be true for a &quot;hillslope&quot; component,</span>
         <span class="c1">#   and for which we should have a transition to A ~ x</span>
@@ -381,6 +383,7 @@
 <span class="sd">            pz_varphi_rx_beta_eqn (:class:`~sympy.core.relational.Equality`):</span>
 <span class="sd">                :math:`p_{z} = - \dfrac{\cos{\left(\beta \right)} \left|{\sin{\left(\beta \right)}}\right|^{- \eta}}{\varphi_0 \left(\varepsilon + \left(\dfrac{x_{1} - {r}^x}{x_{1}}\right)^{2 \mu}\right)}`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;define_varphi_related_eqns&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">p_varphi_beta_eqn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">p_xi_eqn</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span>
             <span class="n">e2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xi_varphi_beta_eqn</span><span class="p">))</span>
         <span class="c1"># Note force px &gt;= 0</span>
@@ -466,6 +469,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../Dependencies.html">  Dependencies</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Installation.html">  Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Running.html">  Running</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Notebooks.html">  Notebooks</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../Python.html">  Python package</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">Core</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ode/index.html">ODE integration</a></li>
@@ -473,7 +477,6 @@
 <li class="toctree-l2"><a class="reference internal" href="../knickpoints/index.html">Knickpoint detection and tracking [in development]</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../Notebooks.html">  Notebooks</a></li>
 </ul>
 
     <!-- <h3><a href="../../index.html">This page</a></h3> -->

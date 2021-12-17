@@ -17,6 +17,7 @@ Requires Python packages/modules:
 #   - notably minus signs in equations flag an error
 # pylint: disable=invalid-unary-operand-type, not-callable
 import warnings
+import logging
 
 # Typing
 # from typing import Dict, Type, Optional  # , Tuple, Any, List
@@ -53,6 +54,7 @@ class EquationsIbcMixin:
             pzpx_unity_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`\varphi^{2} p_{x}^{2} p_{x}^{2 \eta} \left(p_{x}^{2} + p_{z}^{2}\right)^{- \eta} + \varphi^{2} p_{x}^{2 \eta} p_{z}^{2} \left(p_{x}^{2} + p_{z}^{2}\right)^{- \eta} = 1`
         """
+        logging.info('prep_ibc_eqns')
         self.pz0_xiv0_eqn = Eq(pz_0, (-1/xiv_0))
         self.pzpx_unity_eqn = expand(simplify(
             self.rdot_p_unity_eqn
@@ -83,6 +85,7 @@ class EquationsIbcMixin:
 
                     'gradh': :math:`\dfrac{d}{d x} h{\left(x \right)} = \dfrac{\kappa_\mathrm{h} h_{0} \left(1 - \tanh^{2}{\left(\dfrac{\kappa_\mathrm{h} x}{x_{1}} - \kappa_\mathrm{h} \right)}\right)}{x_{1} \tanh{\left(\dfrac{\kappa_\mathrm{h}}{x_{1}} \right)}}`
         """
+        logging.info('define_ibc_eqns')
         self.boundary_eqns = {
             'planar': {'h': Eq(h, (h_0*x/Lc))},
             'convex-up': {'h':
@@ -118,6 +121,7 @@ class EquationsIbcMixin:
             pz_initial_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`p_{z} = - \dfrac{x_{1}^{2 \mu + 1} \left(\dfrac{1}{\kappa_\mathrm{h} h_{0} \left|{\tanh^{2}{\left(\frac{\kappa_\mathrm{h} x}{x_{1}} \right)} - 1}\right|}\right)^{\eta} \left(\kappa_\mathrm{h}^{2} h_{0}^{2} \left(\tanh^{2}{\left(\frac{\kappa_\mathrm{h} x}{x_{1}} \right)} - 1\right)^{2} + x_{1}^{2} \tanh^{2}{\left(\frac{\kappa_\mathrm{h}}{x_{1}} \right)}\right)^{\frac{\eta}{2} - \frac{1}{2}} \tanh{\left(\frac{\kappa_\mathrm{h}}{x_{1}} \right)}}{\varphi_0 \left(\varepsilon x_{1}^{2 \mu} + \left(- x + x_{1}\right)^{2 \mu}\right)}`
         """
+        logging.info('set_ibc_eqns')
         cosbeta_eqn = Eq(cos(beta), 1/sqrt(1+tan(beta)**2))
         sinbeta_eqn = Eq(sin(beta), sqrt(1-1/(1+tan(beta)**2)))
         # sintwobeta_eqn = Eq(sin(2*beta), cos(beta)**2-sin(beta)**2)

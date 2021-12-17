@@ -17,6 +17,7 @@ Requires Python packages/modules:
 #   - notably minus signs in equations flag an error
 # pylint: disable=invalid-unary-operand-type, not-callable
 import warnings
+import logging
 
 # Typing
 from typing import Dict
@@ -53,6 +54,7 @@ class EquationsNdimMixin:
 
         Attributes:
         """
+        logging.info('nondimensionalize')
         varsub: Dict = {}
 
         self.rx_rxhat_eqn = Eq(rx, Lc*rxhat)
@@ -190,6 +192,7 @@ class EquationsNdimMixin:
         """
         TBD
         """
+        logging.info('define_nodimensionalized_Hamiltons_eqns')
         self.hamiltons_ndim_eqns = Matrix((
                                         self.rdotxhat_eqn.rhs,
                                         self.rdotzhat_eqn.rhs,

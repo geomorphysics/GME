@@ -104,6 +104,7 @@ define dimensionless channel incision number <span class="math notranslate nohig
 <span class="c1">#   - notably minus signs in equations flag an error</span>
 <span class="c1"># pylint: disable=invalid-unary-operand-type, not-callable</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">import</span> <span class="nn">logging</span>
 
 <span class="c1"># Typing</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span>
@@ -140,6 +141,7 @@ define dimensionless channel incision number <span class="math notranslate nohig
 
 <span class="sd">        Attributes:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;nondimensionalize&#39;</span><span class="p">)</span>
         <span class="n">varsub</span><span class="p">:</span> <span class="n">Dict</span> <span class="o">=</span> <span class="p">{}</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">rx_rxhat_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">rx</span><span class="p">,</span> <span class="n">Lc</span><span class="o">*</span><span class="n">rxhat</span><span class="p">)</span>
@@ -277,6 +279,7 @@ define dimensionless channel incision number <span class="math notranslate nohig
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        TBD</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;define_nodimensionalized_Hamiltons_eqns&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">hamiltons_ndim_eqns</span> <span class="o">=</span> <span class="n">Matrix</span><span class="p">((</span>
                                         <span class="bp">self</span><span class="o">.</span><span class="n">rdotxhat_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">,</span>
                                         <span class="bp">self</span><span class="o">.</span><span class="n">rdotzhat_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">,</span>
@@ -326,6 +329,7 @@ define dimensionless channel incision number <span class="math notranslate nohig
 <li class="toctree-l1"><a class="reference internal" href="../Dependencies.html">  Dependencies</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Installation.html">  Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Running.html">  Running</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Notebooks.html">  Notebooks</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../Python.html">  Python package</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">Core</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ode/index.html">ODE integration</a></li>
@@ -333,7 +337,6 @@ define dimensionless channel incision number <span class="math notranslate nohig
 <li class="toctree-l2"><a class="reference internal" href="../knickpoints/index.html">Knickpoint detection and tracking [in development]</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../Notebooks.html">  Notebooks</a></li>
 </ul>
 
     <!-- <h3><a href="../../index.html">This page</a></h3> -->
