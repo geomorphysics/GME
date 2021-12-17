@@ -118,18 +118,20 @@ class Equations:
             See below
     """
 
-    def __init__(self,
-                 parameters: Optional[Dict] = None,
-                 eta_: Rational = Rational(3, 2),
-                 mu_: Rational = Rational(3, 4),
-                 beta_type: str = 'sin',
-                 varphi_type: str = 'ramp',
-                 ibc_type: str = 'convex-up',
-                 do_raw: bool = True,
-                 do_idtx: bool = False,
-                 do_geodesic: bool = False,
-                 do_nothing: bool = False,
-                 do_new_varphi_model: bool = True) -> None:
+    def __init__(
+        self,
+        parameters: Optional[Dict] = None,
+        eta_: Rational = Rational(3, 2),
+        mu_: Rational = Rational(3, 4),
+        beta_type: str = 'sin',
+        varphi_type: str = 'ramp',
+        ibc_type: str = 'convex-up',
+        do_raw: bool = True,
+        do_idtx: bool = False,
+        do_geodesic: bool = False,
+        do_nothing: bool = False,
+        do_new_varphi_model: bool = True
+    ) -> None:
         r"""
         Constructor method.
 
