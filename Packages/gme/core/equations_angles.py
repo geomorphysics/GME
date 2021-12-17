@@ -17,6 +17,7 @@ Requires Python packages/modules:
 #   - notably minus signs in equations flag an error
 # pylint: disable=invalid-unary-operand-type, not-callable
 import warnings
+import logging
 
 # Typing
 # from typing import Dict, Type, Optional  # , Tuple, Any, List
@@ -45,16 +46,22 @@ class EquationsAnglesMixin:
 
     def define_tanalpha_eqns(self) -> None:
         r"""
-        Define equations for ray angle :math:`\tan(\alpha)`
-
+        Define equations for ray angle :math:`\alpha`.
 
         Attributes:
+
             tanalpha_pxpz_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`\tan{\left(\alpha \right)} = \dfrac{v^{z}}{v^{x}}`
+
             tanalpha_beta_eqn (:class:`~sympy.core.relational.Equality`):
-                :math:`\tan{\left(\alpha \right)} = - \dfrac{p_{x} p_{z} \left(\eta - 1\right)}{\eta p_{z}^{2} + p_{x}^{2}}`
+                :math:`\tan{\left(\alpha \right)}
+                = - \dfrac{p_{x} p_{z} \left(\eta - 1\right)}
+                {\eta p_{z}^{2} + p_{x}^{2}}`
+
             tanalpha_rdot_eqn (:class:`~sympy.core.relational.Equality`):
-                :math:`\tan{\left(\alpha \right)} = \dfrac{\left(\eta - 1\right) \tan{\left(\beta \right)}}{\eta + \tan^{2}{\left(\beta \right)}}`
+                :math:`\tan{\left(\alpha \right)}
+                = \dfrac{\left(\eta - 1\right) \tan{\left(\beta \right)}}
+                {\eta + \tan^{2}{\left(\beta \right)}}`
         """
         self.tanalpha_rdot_eqn \
             = Eq(simplify(self.rdotz_rdot_alpha_eqn.rhs
@@ -69,37 +76,59 @@ class EquationsAnglesMixin:
 
     def define_tanbeta_eqns(self) -> None:
         r"""
-        Define equations for surface tilt angle :math:`\beta)`
+        Define equations for surface tilt angle :math:`\beta`.
 
         Attributes:
-            tanbeta_alpha_eqns   (list of :class:`~sympy.core.relational.Equality`) :
+
+            tanbeta_alpha_eqns (list) :
                 :math:`\left[ \tan{\left(\beta \right)} \
-                = \dfrac{\eta - \sqrt{\eta^{2} - 4 \eta \tan^{2}{\left(\alpha \right)} - 2 \eta + 1} - 1}{2 \tan{\left(\alpha \right)}},
-                \tan{\left(\beta \right)} = \dfrac{\eta + \sqrt{\eta^{2} - 4 \eta \tan^{2}{\left(\alpha \right)} - 2 \eta + 1} - 1}{2 \tan{\left(\alpha \right)}}\right]`
+                = \dfrac{\eta - \sqrt{\eta^{2}
+                - 4 \eta \tan^{2}{\left(\alpha \right)} - 2 \eta + 1} - 1}
+                {2 \tan{\left(\alpha \right)}},
+                \tan{\left(\beta \right)}
+                = \dfrac{\eta + \sqrt{\eta^{2}
+                - 4 \eta \tan^{2}{\left(\alpha \right)} - 2 \eta + 1} - 1}
+                {2 \tan{\left(\alpha \right)}}\right]`
+
             tanbeta_alpha_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`\tan{\left(\beta \right)}
-                = \dfrac{\eta - \sqrt{\eta^{2} - 4 \eta \tan^{2}{\left(\alpha \right)} - 2 \eta + 1} - 1}{2 \tan{\left(\alpha \right)}}`
-            tanalpha_ext_eqns   (list of :class:`~sympy.core.relational.Equality`) :
-                :math:`\left[ \tan{\left(\alpha_c \right)} = - \frac{\sqrt{\eta - 2 + \frac{1}{\eta}}}{2},
-                \tan{\left(\alpha_c \right)} = \frac{\sqrt{\eta - 2 + \frac{1}{\eta}}}{2}\right]`
+                = \dfrac{\eta - \sqrt{\eta^{2}
+                - 4 \eta \tan^{2}{\left(\alpha \right)} - 2 \eta + 1} - 1}
+                {2 \tan{\left(\alpha \right)}}`
+
+            tanalpha_ext_eqns (list) :
+                :math:`\left[ \tan{\left(\alpha_c \right)}
+                = - \frac{\sqrt{\eta - 2 + \frac{1}{\eta}}}{2},
+                \tan{\left(\alpha_c \right)}
+                = \frac{\sqrt{\eta - 2 + \frac{1}{\eta}}}{2}\right]`
+
             tanalpha_ext_eqn (:class:`~sympy.core.relational.Equality`):
-                :math:`\tan{\left(\alpha_c \right)} = \dfrac{\eta - 1}{2 \sqrt{\eta}}`
-            tanbeta_crit_eqns   (list of :class:`~sympy.core.relational.Equality`) :
-                :math:`\left[ \tan{\left(\beta_c \right)} = - \dfrac{\eta - 1}{\sqrt{\eta - 2 + \frac{1}{\eta}}},
-                \tan{\left(\beta_c \right)} = \dfrac{\eta - 1}{\sqrt{\eta - 2 + \frac{1}{\eta}}}\right]`
+                :math:`\tan{\left(\alpha_c \right)}
+                = \dfrac{\eta - 1}{2 \sqrt{\eta}}`
+
+            tanbeta_crit_eqns (list) :
+                :math:`\left[ \tan{\left(\beta_c \right)}
+                = - \dfrac{\eta - 1}{\sqrt{\eta - 2 + \frac{1}{\eta}}},
+                \tan{\left(\beta_c \right)}
+                = \dfrac{\eta - 1}{\sqrt{\eta - 2 + \frac{1}{\eta}}}\right]`
+
             tanbeta_crit_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`\tan{\left(\beta_c \right)} = \sqrt{\eta}`
+
             tanbeta_rdotxz_pz_eqn (:class:`~sympy.core.relational.Equality`):
-                :math:`\tan{\left(\beta \right)} = \dfrac{v^{z} - \frac{1}{p_{z}}}{v^{x}}`
+                :math:`\tan{\left(\beta \right)}
+                = \dfrac{v^{z} - \frac{1}{p_{z}}}{v^{x}}`
+
             tanbeta_rdotxz_xiv_eqn (:class:`~sympy.core.relational.Equality`):
-                :math:`\tan{\left(\beta \right)} = \dfrac{\xi^{\downarrow} + v^{z}}{v^{x}}`
+                :math:`\tan{\left(\beta \right)}
+                = \dfrac{\xi^{\downarrow} + v^{z}}{v^{x}}`
         """
 
         # eta_sub = {eta: self.eta_}
 
         if self.eta_ == 1 and self.beta_type == 'sin':
-            print(r'Cannot compute all $\beta$ equations '
-                  + r'for $\sin\beta$ model and $\eta=1$')
+            logging.info(r'Cannot compute all $\beta$ equations '
+                         + r'for $\sin\beta$ model and $\eta=1$')
             return
         solns = solve(self.tanalpha_beta_eqn.subs({tan(alpha): ta}), tan(beta))
         self.tanbeta_alpha_eqns \
@@ -153,11 +182,13 @@ class EquationsAnglesMixin:
 
     def define_psi_eqns(self) -> None:
         r"""
-        Define equations for anisotropy angle :math:`\psi)`
+        Define equation for anisotropy angle :math:`\psi`.
 
         Attributes:
+
             psi_alpha_beta_eqn (:class:`~sympy.core.relational.Equality`):
-                :math:`\tan{\left(\beta \right)} = \dfrac{\xi^{\downarrow} + v^{z}}{v^{x}}`
+                :math:`\tan{\left(\beta \right)}
+                = \dfrac{\xi^{\downarrow} + v^{z}}{v^{x}}`
         """
         self.psi_alpha_beta_eqn = Eq(psi, alpha-beta+pi/2)
 
