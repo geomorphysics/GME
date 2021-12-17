@@ -67,9 +67,11 @@ class EquationsAnglesMixin:
             = Eq(simplify(self.rdotz_rdot_alpha_eqn.rhs
                           / self.rdotx_rdot_alpha_eqn.rhs),
                  rdotz/rdotx)
+
         self.tanalpha_pxpz_eqn = self.tanalpha_rdot_eqn \
             .subs({self.rdotz_on_rdotx_eqn.lhs:
                    self.rdotz_on_rdotx_eqn.rhs})
+
         self.tanalpha_beta_eqn = self.tanalpha_rdot_eqn \
             .subs({self.rdotz_on_rdotx_eqn.lhs:
                    self.rdotz_on_rdotx_tanbeta_eqn.rhs})
@@ -146,11 +148,12 @@ class EquationsAnglesMixin:
             = [Eq(tan(alpha_ext), soln)
                 for soln in solve(Eq(root_terms[0][0], 0), tan(alpha))]
 
-        tac_lt1 = simplify((factor(simplify(
-                self.tanalpha_ext_eqns[0].rhs*sqrt(eta)
-                            ))/sqrt(eta))
-                           .subs({Abs(eta-1): 1-eta})
-                           )
+        tac_lt1 = simplify(
+                (factor(simplify(
+                    self.tanalpha_ext_eqns[0].rhs*sqrt(eta)
+                ))/sqrt(eta))
+                .subs({Abs(eta-1): 1-eta})
+            )
         tac_gt1 = simplify(
             (factor(
                 simplify(self.tanalpha_ext_eqns[1].rhs*sqrt(eta)))/sqrt(eta))
@@ -172,11 +175,13 @@ class EquationsAnglesMixin:
                  sqrt(simplify((self.tanbeta_crit_eqns[0].rhs)**2)))
 
         self.tanbeta_rdotxz_pz_eqn = Eq(tan(beta), (rdotz - 1/pz)/rdotx)
+
         self.tanbeta_rdotxz_xiv_eqn \
             = self.tanbeta_rdotxz_pz_eqn.subs({pz: self.pz_xiv_eqn.rhs})
 
         self.tanalpha_ext = float(
             N(self.tanalpha_ext_eqn.rhs.subs({eta: self.eta_})))
+
         self.tanbeta_crit = float(
             N(self.tanbeta_crit_eqn.rhs.subs({eta: self.eta_})))
 

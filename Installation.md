@@ -1,4 +1,4 @@
-# Installation and set-up
+# Installation
 
 The notes here are written for MacOS users, but will likely work with little to no modification on Linux.
 

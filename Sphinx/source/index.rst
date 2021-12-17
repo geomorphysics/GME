@@ -42,10 +42,10 @@ Contents
 
     Software design <../modules/Design>
     Dependencies <../modules/Dependencies>
-    Installation and set-up<../modules/Installation>
-    Running the notebooks <../modules/Running>
-    Python package docs <../modules/Python>
-    Notebook docs <../modules/Notebooks>
+    Installation<../modules/Installation>
+    Running <../modules/Running>
+    Notebooks <../modules/Notebooks>
+    Python package <../modules/Python>
 
 
 
