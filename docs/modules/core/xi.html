@@ -67,7 +67,9 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="gme.core.xi.XiMixin">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gme.core.xi.</span></span><span class="sig-name descname"><span class="pre">XiMixin</span></span><a class="headerlink" href="#gme.core.xi.XiMixin" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="py method">
+<dd><p>Erosion model <span class="math notranslate nohighlight">\(\xi\)</span> equations supplement
+to equation definition class.</p>
+<dl class="py method">
 <dt class="sig sig-object py" id="gme.core.xi.XiMixin.define_xi_eqns">
 <span class="sig-name descname"><span class="pre">define_xi_eqns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.core.xi.XiMixin.define_xi_eqns" title="Permalink to this definition">¶</a></dt>
 <dd><p>Define equations for surface erosion speed <span class="math notranslate nohighlight">\(\xi\)</span>
@@ -259,7 +261,15 @@ The derivations below are for an erosion model with
 
 <span class="k">class</span> <span class="nc">XiMixin</span><span class="p">:</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Erosion model :math:`\xi` equations supplement</span>
+<span class="sd">    to equation definition class.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">beta_type</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">do_raw</span><span class="p">:</span> <span class="nb">bool</span>
+    <span class="n">eta_</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">tanbeta_pxpz_eqn</span><span class="p">:</span> <span class="n">Eq</span>
+    <span class="n">cosbeta_pxpz_eqn</span><span class="p">:</span> <span class="n">Eq</span>
+    <span class="n">sinbeta_pxpz_eqn</span><span class="p">:</span> <span class="n">Eq</span>
 
     <span class="k">def</span> <span class="nf">define_xi_eqns</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>

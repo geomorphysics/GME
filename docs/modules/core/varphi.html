@@ -67,7 +67,9 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="gme.core.varphi.VarphiMixin">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gme.core.varphi.</span></span><span class="sig-name descname"><span class="pre">VarphiMixin</span></span><a class="headerlink" href="#gme.core.varphi.VarphiMixin" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="py method">
+<dd><p>Flow model <span class="math notranslate nohighlight">\(\varphi\)</span> equations supplement
+to equation definition class.</p>
+<dl class="py method">
 <dt class="sig sig-object py" id="gme.core.varphi.VarphiMixin.define_varphi_model_eqns">
 <span class="sig-name descname"><span class="pre">define_varphi_model_eqns</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">do_new</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.core.varphi.VarphiMixin.define_varphi_model_eqns" title="Permalink to this definition">¶</a></dt>
 <dd><p>Define flow component of erosion model function</p>
@@ -335,7 +337,19 @@
 
 <span class="k">class</span> <span class="nc">VarphiMixin</span><span class="p">:</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Flow model :math:`\varphi` equations supplement</span>
+<span class="sd">    to equation definition class.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">varphi_type</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">mu_</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">p_xi_eqn</span><span class="p">:</span> <span class="n">Eq</span>
+    <span class="n">xi_varphi_beta_eqn</span><span class="p">:</span> <span class="n">Eq</span>
+    <span class="n">tanbeta_pxpz_eqn</span><span class="p">:</span> <span class="n">Eq</span>
+    <span class="n">sinbeta_pxpz_eqn</span><span class="p">:</span> <span class="n">Eq</span>
+    <span class="n">p_norm_pxpz_eqn</span><span class="p">:</span> <span class="n">Eq</span>
+    <span class="n">pz_px_tanbeta_eqn</span><span class="p">:</span> <span class="n">Eq</span>
+    <span class="n">xi_p_eqn</span><span class="p">:</span> <span class="n">Eq</span>
+    <span class="n">p_pz_cosbeta_eqn</span><span class="p">:</span> <span class="n">Eq</span>
 
     <span class="k">def</span> <span class="nf">define_varphi_model_eqns</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">do_new</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>

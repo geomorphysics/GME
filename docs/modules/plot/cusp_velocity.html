@@ -13,6 +13,7 @@
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     
     <script src="../../_static/sidebar.js"></script>
     
@@ -49,8 +50,61 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="cusp-velocity-py">
-<h1><code class="docutils literal notranslate"><span class="pre">cusp_velocity.py</span></code><a class="headerlink" href="#cusp-velocity-py" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="module-gme.plot.cusp_velocity">
+<span id="cusp-velocity-py"></span><h1><code class="docutils literal notranslate"><span class="pre">cusp_velocity.py</span></code><a class="headerlink" href="#module-gme.plot.cusp_velocity" title="Permalink to this headline">¶</a></h1>
+<hr class="docutils" />
+<p>Visualization of velocity components of surface cusp.</p>
+<hr class="docutils" />
+<dl class="simple">
+<dt>Requires Python packages:</dt><dd><ul class="simple">
+<li><p><a class="reference external" href="https://numpy.org/doc/stable/reference/index.html#module-numpy" title="(in NumPy v1.21)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">NumPy</span></code></a></p></li>
+<li><p><a class="reference external" href="https://matplotlib.org/stable/index.html#module-matplotlib" title="(in Matplotlib v3.5.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">MatPlotLib</span></code></a></p></li>
+<li><p><a class="reference external" href="https://github.com/geomorphysics/GME">GME</a></p></li>
+</ul>
+</dd>
+</dl>
+<hr class="docutils" />
+<dl class="py class">
+<dt class="sig sig-object py" id="gme.plot.cusp_velocity.CuspVelocity">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gme.plot.cusp_velocity.</span></span><span class="sig-name descname"><span class="pre">CuspVelocity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dpi</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">font_size</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">11</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gme.plot.cusp_velocity.CuspVelocity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Visualization of velocity components of surface cusp.</p>
+<p>Extends <a class="reference internal" href="base.html#gme.plot.base.Graphing" title="gme.plot.base.Graphing"><code class="xref py py-class docutils literal notranslate"><span class="pre">gme.plot.base.Graphing</span></code></a>.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="gme.plot.cusp_velocity.CuspVelocity.profile_cusp_horizontal_speed">
+<span class="sig-name descname"><span class="pre">profile_cusp_horizontal_speed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmes</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="../ode/velocity_boundary.html#gme.ode.velocity_boundary.VelocityBoundarySolution" title="gme.ode.velocity_boundary.VelocityBoundarySolution"><span class="pre">gme.ode.velocity_boundary.VelocityBoundarySolution</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">gmeq</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="../core/equations.html#gme.core.equations.Equations" title="gme.core.equations.Equations"><span class="pre">gme.core.equations.Equations</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">sub</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">fig_size</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dpi</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_limits</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">(-</span> <span class="pre">0.05,</span> <span class="pre">1.05)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_limits</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">(-</span> <span class="pre">5,</span> <span class="pre">None)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_limits</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">(0,</span> <span class="pre">None)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend_loc</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'lower</span> <span class="pre">right'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_x</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_infer_initiation</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.plot.cusp_velocity.CuspVelocity.profile_cusp_horizontal_speed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot horizontal speed of cusp propagation</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>gmes</strong> – instance of velocity boundary solution class defined in
+<a class="reference internal" href="../ode/velocity_boundary.html#module-gme.ode.velocity_boundary" title="gme.ode.velocity_boundary"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gme.ode.velocity_boundary</span></code></a></p></li>
+<li><p><strong>gmeq</strong> – GME model equations class instance defined in
+<a class="reference internal" href="../core/equations.html#module-gme.core.equations" title="gme.core.equations"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gme.core.equations</span></code></a></p></li>
+<li><p><strong>sub</strong> – dictionary of model parameter values to be used for
+equation substitutions</p></li>
+<li><p><strong>name</strong> – name of plot in figures dictionary</p></li>
+<li><p><strong>fig_size</strong> – optional figure width and height in inches</p></li>
+<li><p><strong>dpi</strong> – optional rasterization resolution</p></li>
+<li><p><strong>x_limits</strong> – optional [x_min, x_max] horizontal plot range</p></li>
+<li><p><strong>y_limits</strong> – optional [z_min, z_max] vertical plot range</p></li>
+<li><p><strong>t_limits</strong> – optional [t_min, t_max] time range</p></li>
+<li><p><strong>legend_loc</strong> – where to plot the legend</p></li>
+<li><p><strong>do_x</strong> – optional plot x-axis as dimensionless horizontal distance
+<span class="math notranslate nohighlight">\(x/L_{\mathrm{c}}\)</span>;
+otherwise plot as time <span class="math notranslate nohighlight">\(t\)</span></p></li>
+<li><p><strong>do_infer_initiation</strong> – optional draw dotted line inferring cusp initiation at the left
+boundary</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition-todo admonition" id="id1">
+<p class="admonition-title">Todo</p>
+<p>implement <cite>do_infer_initiation</cite></p>
+</div>
+</dd></dl>
+
+</dd></dl>
+
 <div class="section" id="code">
 <h2>Code<a class="headerlink" href="#code" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
@@ -104,20 +158,20 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">profile_cusp_horizontal_speed</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span>
-            <span class="n">gmes</span><span class="p">:</span> <span class="n">VelocityBoundarySolution</span><span class="p">,</span>
-            <span class="n">gmeq</span><span class="p">:</span> <span class="n">Equations</span><span class="p">,</span>
-            <span class="n">sub</span><span class="p">:</span> <span class="n">Dict</span><span class="p">,</span>
-            <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-            <span class="n">fig_size</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-            <span class="n">dpi</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-            <span class="n">x_limits</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">1.05</span><span class="p">),</span>
-            <span class="n">y_limits</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
-            <span class="n">t_limits</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
-            <span class="n">legend_loc</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;lower right&#39;</span><span class="p">,</span>
-            <span class="n">do_x</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-            <span class="n">do_infer_initiation</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
-            <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">gmes</span><span class="p">:</span> <span class="n">VelocityBoundarySolution</span><span class="p">,</span>
+        <span class="n">gmeq</span><span class="p">:</span> <span class="n">Equations</span><span class="p">,</span>
+        <span class="n">sub</span><span class="p">:</span> <span class="n">Dict</span><span class="p">,</span>
+        <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">fig_size</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">dpi</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">x_limits</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">1.05</span><span class="p">),</span>
+        <span class="n">y_limits</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+        <span class="n">t_limits</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+        <span class="n">legend_loc</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;lower right&#39;</span><span class="p">,</span>
+        <span class="n">do_x</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">do_infer_initiation</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Plot horizontal speed of cusp propagation</span>
 
@@ -182,21 +236,38 @@
                  <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
                  <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
 
-        <span class="n">x_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span>
-            <span class="mf">0.001</span> <span class="k">if</span> <span class="n">do_infer_initiation</span> <span class="k">else</span> <span class="n">x_or_t_array</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">101</span><span class="p">)</span>
+        <span class="n">x_array</span> \
+            <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.001</span> <span class="k">if</span> <span class="n">do_infer_initiation</span> <span class="k">else</span> <span class="n">x_or_t_array</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                          <span class="mi">1</span><span class="p">,</span>
+                          <span class="n">num</span><span class="o">=</span><span class="mi">101</span><span class="p">)</span>
         <span class="c1"># color_cx, color_bounds = &#39;DarkGreen&#39;, &#39;Green&#39;</span>
         <span class="n">color_cx</span><span class="p">,</span> <span class="n">color_bounds</span> <span class="o">=</span> <span class="s1">&#39;Red&#39;</span><span class="p">,</span> <span class="s1">&#39;DarkRed&#39;</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_array</span><span class="p">,</span> <span class="n">gmes</span><span class="o">.</span><span class="n">cx_pz_lambda</span><span class="p">(</span><span class="n">x_array</span><span class="p">),</span>
-                 <span class="n">color</span><span class="o">=</span><span class="n">color_cx</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_array</span><span class="p">,</span>
+                 <span class="n">gmes</span><span class="o">.</span><span class="n">cx_pz_lambda</span><span class="p">(</span><span class="n">x_array</span><span class="p">),</span>
+                 <span class="n">color</span><span class="o">=</span><span class="n">color_cx</span><span class="p">,</span>
+                 <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span>
+                 <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
                  <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$c^x$ model ($p_z$)&#39;</span><span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_array</span><span class="p">,</span> <span class="n">gmes</span><span class="o">.</span><span class="n">cx_v_lambda</span><span class="p">(</span><span class="n">x_array</span><span class="p">),</span> <span class="s1">&#39;:&#39;</span><span class="p">,</span>
-                 <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_array</span><span class="p">,</span>
+                 <span class="n">gmes</span><span class="o">.</span><span class="n">cx_v_lambda</span><span class="p">(</span><span class="n">x_array</span><span class="p">),</span>
+                 <span class="s1">&#39;:&#39;</span><span class="p">,</span>
+                 <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span>
+                 <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span>
+                 <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
                  <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$c^x$ model ($\mathbf</span><span class="si">{v}</span><span class="s1">$)&#39;</span><span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_array</span><span class="p">,</span> <span class="n">gmes</span><span class="o">.</span><span class="n">vx_interp_fast</span><span class="p">(</span><span class="n">x_array</span><span class="p">),</span> <span class="s1">&#39;--&#39;</span><span class="p">,</span>
-                 <span class="n">color</span><span class="o">=</span><span class="n">color_bounds</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_array</span><span class="p">,</span>
+                 <span class="n">gmes</span><span class="o">.</span><span class="n">vx_interp_fast</span><span class="p">(</span><span class="n">x_array</span><span class="p">),</span>
+                 <span class="s1">&#39;--&#39;</span><span class="p">,</span>
+                 <span class="n">color</span><span class="o">=</span><span class="n">color_bounds</span><span class="p">,</span>
+                 <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span>
+                 <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
                  <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;fast ray $v^x$ bound&#39;</span><span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_array</span><span class="p">,</span> <span class="n">gmes</span><span class="o">.</span><span class="n">vx_interp_slow</span><span class="p">(</span><span class="n">x_array</span><span class="p">),</span> <span class="s1">&#39;-.&#39;</span><span class="p">,</span>
-                 <span class="n">color</span><span class="o">=</span><span class="n">color_bounds</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_array</span><span class="p">,</span>
+                 <span class="n">gmes</span><span class="o">.</span><span class="n">vx_interp_slow</span><span class="p">(</span><span class="n">x_array</span><span class="p">),</span>
+                 <span class="s1">&#39;-.&#39;</span><span class="p">,</span>
+                 <span class="n">color</span><span class="o">=</span><span class="n">color_bounds</span><span class="p">,</span>
+                 <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span>
+                 <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
                  <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;slow ray $v^x$ bound&#39;</span><span class="p">)</span>
 
         <span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="o">*</span><span class="n">x_limits</span><span class="p">)</span> <span class="k">if</span> <span class="n">do_x</span> <span class="k">else</span> <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="o">*</span><span class="n">t_limits</span><span class="p">)</span>

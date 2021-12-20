@@ -13,6 +13,7 @@
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     
     <script src="../../_static/sidebar.js"></script>
     
@@ -49,8 +50,63 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="ray-geodesics-py">
-<h1><code class="docutils literal notranslate"><span class="pre">ray_geodesics.py</span></code><a class="headerlink" href="#ray-geodesics-py" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="module-gme.plot.ray_geodesics">
+<span id="ray-geodesics-py"></span><h1><code class="docutils literal notranslate"><span class="pre">ray_geodesics.py</span></code><a class="headerlink" href="#module-gme.plot.ray_geodesics" title="Permalink to this headline">¶</a></h1>
+<hr class="docutils" />
+<p>Visualization of geodesics.</p>
+<hr class="docutils" />
+<dl class="simple">
+<dt>Requires Python packages/modules:</dt><dd><ul class="simple">
+<li><p><a class="reference external" href="https://numpy.org/doc/stable/reference/index.html#module-numpy" title="(in NumPy v1.21)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">NumPy</span></code></a></p></li>
+<li><p><a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/index.html#module-scipy" title="(in SciPy v1.7.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">SciPy</span></code></a></p></li>
+<li><p><a class="reference external" href="https://docs.sympy.org/latest/modules/index.html#module-sympy" title="(in SymPy v1.9)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">SymPy</span></code></a></p></li>
+<li><p><a class="reference external" href="https://matplotlib.org/stable/index.html#module-matplotlib" title="(in Matplotlib v3.5.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">MatPlotLib</span></code></a></p></li>
+<li><p><a class="reference external" href="https://github.com/geomorphysics/GME">GME</a></p></li>
+</ul>
+</dd>
+</dl>
+<hr class="docutils" />
+<dl class="py class">
+<dt class="sig sig-object py" id="gme.plot.ray_geodesics.RayGeodesics">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gme.plot.ray_geodesics.</span></span><span class="sig-name descname"><span class="pre">RayGeodesics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gmeq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_points</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_recompute</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gme.plot.ray_geodesics.RayGeodesics" title="Permalink to this definition">¶</a></dt>
+<dd><p>Visualization of geodesics.</p>
+<p>Extends <a class="reference internal" href="base.html#gme.plot.base.Graphing" title="gme.plot.base.Graphing"><code class="xref py py-class docutils literal notranslate"><span class="pre">gme.plot.base.Graphing</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>gmes</strong> – instance of single-ray solution class
+defined in <a class="reference internal" href="../ode/single_ray.html#module-gme.ode.single_ray" title="gme.ode.single_ray"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gme.ode.single_ray</span></code></a></p></li>
+<li><p><strong>gmeq</strong> – GME model equations class instance defined in
+<a class="reference internal" href="../core/equations.html#module-gme.core.equations" title="gme.core.equations"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gme.core.equations</span></code></a></p></li>
+<li><p><strong>n_points</strong> – optional sample rate along each curve</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="gme.plot.ray_geodesics.RayGeodesics.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gmeq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_points</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_recompute</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.plot.ray_geodesics.RayGeodesics.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructor method</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gme.plot.ray_geodesics.RayGeodesics.profile_g_properties">
+<span class="sig-name descname"><span class="pre">profile_g_properties</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmes</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="../ode/time_invariant.html#gme.ode.time_invariant.TimeInvariantSolution" title="gme.ode.time_invariant.TimeInvariantSolution"><span class="pre">gme.ode.time_invariant.TimeInvariantSolution</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">gmeq</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="../core/equations.html#gme.core.equations.Equations" title="gme.core.equations.Equations"><span class="pre">gme.core.equations.Equations</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">sub</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">fig_size</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dpi</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_limits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_gstar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_det</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_eigenvectors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eta_label_xy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_etaxi_label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend_loc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'lower</span> <span class="pre">left'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_pv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.plot.ray_geodesics.RayGeodesics.profile_g_properties" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot velocity <span class="math notranslate nohighlight">\(\dot{r}\)</span> along a ray.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>gmes</strong> – instance of single ray solution class defined in
+<a class="reference internal" href="../ode/single_ray.html#module-gme.ode.single_ray" title="gme.ode.single_ray"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gme.ode.single_ray</span></code></a></p></li>
+<li><p><strong>gmeq</strong> – GME model equations class instance defined in
+<a class="reference internal" href="../core/equations.html#module-gme.core.equations" title="gme.core.equations"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gme.core.equations</span></code></a></p></li>
+<li><p><strong>n_points</strong> – sample rate along each curve</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 <div class="section" id="code">
 <h2>Code<a class="headerlink" href="#code" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
@@ -158,9 +214,9 @@
 
         <span class="k">if</span> <span class="n">do_recompute</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">gstar_matrices_list</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Matrix</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">gstar_matrices_array</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">gstar_matrices_array</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">g_matrices_list</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Matrix</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">g_matrices_array</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">g_matrices_array</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">gmeq</span><span class="p">,</span> <span class="s1">&#39;gstar_ij_mat&#39;</span><span class="p">):</span>
             <span class="k">return</span>
         <span class="k">try</span><span class="p">:</span>

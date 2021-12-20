@@ -13,6 +13,7 @@
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     
     <script src="../../_static/sidebar.js"></script>
     
@@ -49,8 +50,76 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="manuscript-py">
-<h1><code class="docutils literal notranslate"><span class="pre">manuscript.py</span></code><a class="headerlink" href="#manuscript-py" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="module-gme.plot.manuscript">
+<span id="manuscript-py"></span><h1><code class="docutils literal notranslate"><span class="pre">manuscript.py</span></code><a class="headerlink" href="#module-gme.plot.manuscript" title="Permalink to this headline">¶</a></h1>
+<hr class="docutils" />
+<p>Generate plots for publications.</p>
+<hr class="docutils" />
+<dl class="simple">
+<dt>Requires Python packages/modules:</dt><dd><ul class="simple">
+<li><p><a class="reference external" href="https://numpy.org/doc/stable/reference/index.html#module-numpy" title="(in NumPy v1.21)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">NumPy</span></code></a></p></li>
+<li><p><a class="reference external" href="https://docs.sympy.org/latest/modules/index.html#module-sympy" title="(in SymPy v1.9)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">SymPy</span></code></a></p></li>
+<li><p><a class="reference external" href="https://matplotlib.org/stable/index.html#module-matplotlib" title="(in Matplotlib v3.5.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">MatPlotLib</span></code></a></p></li>
+<li><p><a class="reference external" href="https://github.com/geomorphysics/GMPLib">GMPLib</a></p></li>
+<li><p><a class="reference external" href="https://github.com/geomorphysics/GME">GME</a></p></li>
+</ul>
+</dd>
+</dl>
+<hr class="docutils" />
+<dl class="py class">
+<dt class="sig sig-object py" id="gme.plot.manuscript.Manuscript">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gme.plot.manuscript.</span></span><span class="sig-name descname"><span class="pre">Manuscript</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dpi</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">font_size</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">11</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gme.plot.manuscript.Manuscript" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate plots for publications.</p>
+<p>Extends <a class="reference internal" href="base.html#gme.plot.base.Graphing" title="gme.plot.base.Graphing"><code class="xref py py-class docutils literal notranslate"><span class="pre">gme.plot.base.Graphing</span></code></a>.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="gme.plot.manuscript.Manuscript.covector_isochrones">
+<span class="sig-name descname"><span class="pre">covector_isochrones</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fig_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dpi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.plot.manuscript.Manuscript.covector_isochrones" title="Permalink to this definition">¶</a></dt>
+<dd><p>Schematic illustrating relationship between normal erosion rate vector,
+normal slowness covector, isochrones, covector components,
+and vertical/normal erosion rates.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>fig</strong> (<a class="reference external" href="https://matplotlib.org/stable/api/figure_api.html#matplotlib.figure.Figure" title="(in Matplotlib v3.5.1)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Matplotlib</span> <span class="pre">figure</span></code></a>) – reference to figure instantiated by
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">GMPLib</span> <span class="pre">create_figure</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gme.plot.manuscript.Manuscript.huygens_wavelets">
+<span class="sig-name descname"><span class="pre">huygens_wavelets</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gmeq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sub</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fig_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dpi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_ray_conjugacy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_fast</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_legend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend_fontsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">annotation_fontsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">11</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.plot.manuscript.Manuscript.huygens_wavelets" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot the loci of <span class="math notranslate nohighlight">\(\mathbf{\widetilde{p}}\)</span>
+and <span class="math notranslate nohighlight">\(\mathbf{r}\)</span> and their behavior defined by <span class="math notranslate nohighlight">\(F\)</span>
+relative to the <span class="math notranslate nohighlight">\(\xi\)</span> circle.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>gmeq</strong> – GME model equations class instance defined in
+<a class="reference internal" href="../core/equations.html#module-gme.core.equations" title="gme.core.equations"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gme.core.equations</span></code></a></p></li>
+<li><p><strong>do_ray_conjugacy</strong> – optional generate ray conjugacy schematic?</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gme.plot.manuscript.Manuscript.point_pairing">
+<span class="sig-name descname"><span class="pre">point_pairing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">fig_size</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">(10,</span> <span class="pre">4)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dpi</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.plot.manuscript.Manuscript.point_pairing" title="Permalink to this definition">¶</a></dt>
+<dd><p>Schematic illustrating how points pair between successive
+erosion surfaces.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – name of figure (key in figure dictionary)</p></li>
+<li><p><strong>fig_size</strong> – optional figure width and height in inches</p></li>
+<li><p><strong>dpi</strong> – optional rasterization resolution</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 <div class="section" id="code">
 <h2>Code<a class="headerlink" href="#code" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
@@ -64,6 +133,7 @@
 <span class="sd">  -  :mod:`NumPy &lt;numpy&gt;`</span>
 <span class="sd">  -  :mod:`SymPy &lt;sympy&gt;`</span>
 <span class="sd">  -  :mod:`MatPlotLib &lt;matplotlib&gt;`</span>
+<span class="sd">  -  `GMPLib`_</span>
 <span class="sd">  -  `GME`_</span>
 
 <span class="sd">.. _GMPLib: https://github.com/geomorphysics/GMPLib</span>
@@ -194,14 +264,14 @@
             <span class="k">for</span> <span class="n">join_</span> <span class="ow">in</span> <span class="n">joins</span><span class="p">:</span>
                 <span class="n">fig_</span><span class="o">.</span><span class="n">add_artist</span><span class="p">(</span><span class="n">join_</span><span class="p">)</span>
 
-        <span class="k">def</span> <span class="nf">make_xy</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+        <span class="k">def</span> <span class="nf">make_xy</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
             <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">            TBD</span>
 <span class="sd">            &quot;&quot;&quot;</span>
             <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
             <span class="n">x_ndim</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="mf">0.5</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mf">0.9</span><span class="o">-</span><span class="mf">0.5</span><span class="p">)</span>
             <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">((</span><span class="mf">0.5</span><span class="o">+</span><span class="n">x</span><span class="p">)</span><span class="o">*</span><span class="mi">4</span><span class="p">)</span><span class="o">/</span><span class="mi">120</span>
-            <span class="k">return</span> <span class="n">x_ndim</span><span class="p">,</span> <span class="n">y</span>
+            <span class="k">return</span> <span class="p">(</span><span class="n">x_ndim</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
 
         <span class="k">def</span> <span class="nf">isochrones_subfig</span><span class="p">(</span><span class="n">fig_</span><span class="p">,</span> <span class="n">x_</span><span class="p">,</span> <span class="n">y_</span><span class="p">,</span> <span class="n">color_</span><span class="o">=</span><span class="n">gray_</span><span class="p">)</span> \
                 <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Axes</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]]:</span>
@@ -272,7 +342,7 @@
                     <span class="n">do_many</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                     <span class="n">do_legend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                     <span class="n">do_pts_only</span><span class="o">=</span><span class="kc">False</span>
-            <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">]:</span>
+            <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
                 <span class="n">x_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">n_pts</span><span class="p">)</span>
                 <span class="n">y_array1</span> <span class="o">=</span> <span class="n">x_array</span><span class="o">*</span><span class="mf">0.5</span>
                 <span class="n">y_array2</span> <span class="o">=</span> <span class="n">y_array1</span><span class="o">+</span><span class="mf">0.7</span>
@@ -1075,7 +1145,7 @@
             <span class="n">sf</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
             <span class="n">pz_min_</span><span class="o">=</span><span class="mf">2.5e-2</span><span class="p">,</span>
             <span class="n">pz_max_</span><span class="o">=</span><span class="mi">1000</span>
-        <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">]:</span>
+        <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
             <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">            TBD</span>
 <span class="sd">            &quot;&quot;&quot;</span>

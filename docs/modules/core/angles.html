@@ -68,7 +68,8 @@ and <span class="math notranslate nohighlight">\(\beta\)</span>.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="gme.core.angles.AnglesMixin">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gme.core.angles.</span></span><span class="sig-name descname"><span class="pre">AnglesMixin</span></span><a class="headerlink" href="#gme.core.angles.AnglesMixin" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="py method">
+<dd><p>Angle equations supplement to equation definition class.</p>
+<dl class="py method">
 <dt class="sig sig-object py" id="gme.core.angles.AnglesMixin.define_psi_eqns">
 <span class="sig-name descname"><span class="pre">define_psi_eqns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.core.angles.AnglesMixin.define_psi_eqns" title="Permalink to this definition">¶</a></dt>
 <dd><p>Define equation for anisotropy angle <span class="math notranslate nohighlight">\(\psi\)</span>.</p>
@@ -296,7 +297,15 @@ and <span class="math notranslate nohighlight">\(\beta\)</span>.</p>
 
 <span class="k">class</span> <span class="nc">AnglesMixin</span><span class="p">:</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Angle equations supplement to equation definition class.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">eta_</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">beta_type</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">rdotz_on_rdotx_eqn</span><span class="p">:</span> <span class="n">Eq</span>
+    <span class="n">rdotz_rdot_alpha_eqn</span><span class="p">:</span> <span class="n">Eq</span>
+    <span class="n">rdotx_rdot_alpha_eqn</span><span class="p">:</span> <span class="n">Eq</span>
+    <span class="n">rdotz_on_rdotx_tanbeta_eqn</span><span class="p">:</span> <span class="n">Eq</span>
+    <span class="n">pz_xiv_eqn</span><span class="p">:</span> <span class="n">Eq</span>
 
     <span class="k">def</span> <span class="nf">define_tanalpha_eqns</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>

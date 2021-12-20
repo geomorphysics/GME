@@ -68,7 +68,7 @@
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gme.core.idtx.</span></span><span class="sig-name descname"><span class="pre">IdtxMixin</span></span><a class="headerlink" href="#gme.core.idtx.IdtxMixin" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="py method">
 <dt class="sig sig-object py" id="gme.core.idtx.IdtxMixin.define_idtx_fgtx_eqns">
-<span class="sig-name descname"><span class="pre">define_idtx_fgtx_eqns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gme.core.idtx.IdtxMixin.define_idtx_fgtx_eqns" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">define_idtx_fgtx_eqns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.core.idtx.IdtxMixin.define_idtx_fgtx_eqns" title="Permalink to this definition">¶</a></dt>
 <dd><p>Define indicatrix and figuratrix equations</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="gme.core.idtx.IdtxMixin.pz_cosbeta_varphi_eqn">
@@ -84,8 +84,8 @@
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="gme.core.idtx.IdtxMixin.cosbetasqrd_pz_varphi_solns">
-<span class="sig-name descname"><span class="pre">cosbetasqrd_pz_varphi_solns</span></span><a class="headerlink" href="#gme.core.idtx.IdtxMixin.cosbetasqrd_pz_varphi_solns" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="gme.core.idtx.IdtxMixin.cosbeta_pz_varphi_solns">
+<span class="sig-name descname"><span class="pre">cosbeta_pz_varphi_solns</span></span><a class="headerlink" href="#gme.core.idtx.IdtxMixin.cosbeta_pz_varphi_solns" title="Permalink to this definition">¶</a></dt>
 <dd><p><span class="math notranslate nohighlight">\(\left[
 -\frac{ \left(  -6 \varphi^{4} p_{z}^{4} \sqrt[3]{27
 \varphi^{8} p_{z}^{8} - 18 \varphi^{4} p_{z}^{4}
@@ -110,8 +110,8 @@ p_{z}^{16} - 108 \varphi^{12} p_{z}^{12}} + 2}}
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="gme.core.idtx.IdtxMixin.fgtx_cossqrdbeta_pz_varphi_eqn">
-<span class="sig-name descname"><span class="pre">fgtx_cossqrdbeta_pz_varphi_eqn</span></span><a class="headerlink" href="#gme.core.idtx.IdtxMixin.fgtx_cossqrdbeta_pz_varphi_eqn" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="gme.core.idtx.IdtxMixin.fgtx_cosbeta_pz_varphi_eqn">
+<span class="sig-name descname"><span class="pre">fgtx_cosbeta_pz_varphi_eqn</span></span><a class="headerlink" href="#gme.core.idtx.IdtxMixin.fgtx_cosbeta_pz_varphi_eqn" title="Permalink to this definition">¶</a></dt>
 <dd><p><span class="math notranslate nohighlight">\(\cos^{2}{\left(\beta \right)}
 = - \frac{- 6 \varphi^{4} p_{z}^{4} \sqrt[3]{27 \varphi^{8}
 p_{z}^{8} - 18 \varphi^{4} p_{z}^{4}
@@ -407,8 +407,13 @@ p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2}
 <span class="k">class</span> <span class="nc">IdtxMixin</span><span class="p">:</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">eta_</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">beta_type</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">pz_p_beta_eqn</span><span class="p">:</span> <span class="n">Eq</span>
+    <span class="n">p_varphi_beta_eqn</span><span class="p">:</span> <span class="n">Eq</span>
+    <span class="n">gstar_varphi_pxpz_eqn</span><span class="p">:</span> <span class="n">Eq</span>
 
-    <span class="k">def</span> <span class="nf">define_idtx_fgtx_eqns</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">define_idtx_fgtx_eqns</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Define indicatrix and figuratrix equations</span>
 
@@ -418,7 +423,7 @@ p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2}
 <span class="sd">                {\varphi^{4} \left(1</span>
 <span class="sd">                - \cos^{2}{\left(\beta \right)}\right)^{3}}`</span>
 
-<span class="sd">            cosbetasqrd_pz_varphi_solns (list):</span>
+<span class="sd">            cosbeta_pz_varphi_solns (list):</span>
 <span class="sd">                :math:`\left[</span>
 <span class="sd">                -\frac{ \left(  -6 \varphi^{4} p_{z}^{4} \sqrt[3]{27</span>
 <span class="sd">                \varphi^{8} p_{z}^{8} - 18 \varphi^{4} p_{z}^{4}</span>
@@ -436,7 +441,7 @@ p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2}
 <span class="sd">                p_{z}^{16} - 108 \varphi^{12} p_{z}^{12}} + 2}}</span>
 <span class="sd">                ,\dots \right]`</span>
 
-<span class="sd">            fgtx_cossqrdbeta_pz_varphi_eqn (`Equality`_):</span>
+<span class="sd">            fgtx_cosbeta_pz_varphi_eqn (`Equality`_):</span>
 <span class="sd">                :math:`\cos^{2}{\left(\beta \right)}</span>
 <span class="sd">                = - \frac{- 6 \varphi^{4} p_{z}^{4} \sqrt[3]{27 \varphi^{8}</span>
 <span class="sd">                p_{z}^{8} - 18 \varphi^{4} p_{z}^{4}</span>
@@ -656,7 +661,7 @@ p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2}
         <span class="c1">#  ([soln for soln in tanbeta_pz_varphi_solns</span>
         <span class="c1">#               if Abs(im(N(soln.subs({varphi:1,pz:1}))))&lt;1e-20][0]) )</span>
         <span class="c1">#     self.fgtx_tanbeta_pz_varphi_eqn = tanbeta_pz_varphi_eqn</span>
-        <span class="c1">#     self.fgtx_cossqrdbeta_pz_varphi_eqn</span>
+        <span class="c1">#     self.fgtx_cosbeta_pz_varphi_eqn</span>
         <span class="c1">#         = Eq(cos(beta)**2, 1/(1+tanbeta_pz_varphi_eqn.rhs**2))</span>
         <span class="c1"># else:</span>
         <span class="n">eta_sub</span> <span class="o">=</span> <span class="p">{</span><span class="n">eta</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">eta_</span><span class="p">}</span>
@@ -670,8 +675,8 @@ p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2}
             <span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">sin</span><span class="p">(</span><span class="n">beta</span><span class="p">):</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">cos</span><span class="p">(</span><span class="n">beta</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)})</span>
 
         <span class="n">pz_cosbeta_varphi_eqn</span> \
-            <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">pz_cosbeta_varphi_tmp_eqn</span><span class="o">.</span><span class="n">lhs</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">eta__dbldenom</span><span class="p">,</span>
-                 <span class="n">pz_cosbeta_varphi_tmp_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">eta__dbldenom</span><span class="p">)</span>
+            <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">pz_cosbeta_varphi_tmp_eqn</span><span class="o">.</span><span class="n">lhs</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">eta_</span><span class="p">,</span>  <span class="c1"># __dbldenom</span>
+                 <span class="n">pz_cosbeta_varphi_tmp_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">eta_</span><span class="p">)</span>  <span class="c1"># __dbldenom</span>
 
         <span class="c1"># New</span>
         <span class="c1"># pz_cosbeta_varphi_eqn \</span>
@@ -679,43 +684,50 @@ p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2}
         <span class="c1"># .subs({Abs(sin(beta)**self.eta_):sin(beta)**self.eta_})</span>
         <span class="c1">#                              .subs({varphi_r(rvec):varphi})</span>
         <span class="c1">#                             .subs({sin(beta):sqrt(1-cos(beta)**2)}))</span>
-        <span class="c1"># cosbetasqrd_pz_varphi_soln</span>
+        <span class="c1"># cosbeta_pz_varphi_soln</span>
         <span class="c1">#  = (solve( pz_cosbeta_varphi_eqn, cos(beta)**2 ))[0]</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">pz_cosbeta_varphi_eqn</span> <span class="o">=</span> <span class="n">pz_cosbeta_varphi_eqn</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">cosbetasqrd_pz_varphi_solns</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">cosbetasqrd_pz_varphi_soln</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">fgtx_cossqrdbeta_pz_varphi_eqn</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cosbeta_pz_varphi_solns</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cosbeta_pz_varphi_soln</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fgtx_cosbeta_pz_varphi_eqn</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fgtx_tanbeta_pz_varphi_eqn</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fgtx_px_pz_varphi_eqn</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">idtx_rdotx_pz_varphi_eqn</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">idtx_rdotz_pz_varphi_eqn</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">cosbetasqrd_pz_varphi_solns</span> \
-            <span class="o">=</span> <span class="n">solve</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pz_cosbeta_varphi_eqn</span><span class="p">,</span> <span class="n">cos</span><span class="p">(</span><span class="n">beta</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cosbeta_pz_varphi_solns</span> \
+            <span class="o">=</span> <span class="n">solve</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pz_cosbeta_varphi_eqn</span><span class="p">,</span> <span class="n">cos</span><span class="p">(</span><span class="n">beta</span><span class="p">))</span>
+        <span class="c1"># self.cosbetasqrd_pz_varphi_solns \</span>
+        <span class="c1">#     = solve(self.pz_cosbeta_varphi_eqn, cos(beta)**2)</span>
         <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">eta_</span> <span class="o">==</span> <span class="n">Rational</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">eta_</span> <span class="o">==</span> <span class="n">Rational</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span> \
                 <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">beta_type</span> <span class="o">==</span> <span class="s1">&#39;tan&#39;</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Cannot compute all indicatrix equations for &#39;</span>
                   <span class="o">+</span> <span class="sa">rf</span><span class="s1">&#39;$\tan\beta$ model and $\eta=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">eta_</span><span class="si">}</span><span class="s1">$&#39;</span><span class="p">)</span>
             <span class="k">return</span>
 
-        <span class="k">def</span> <span class="nf">find_cosbetasqrd_root</span><span class="p">(</span><span class="n">sub</span><span class="p">):</span>
-            <span class="k">return</span> <span class="p">[</span>
-                <span class="n">soln</span> <span class="k">for</span> <span class="n">soln</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cosbetasqrd_pz_varphi_solns</span>
+        <span class="k">def</span> <span class="nf">find_cosbeta_root</span><span class="p">(</span><span class="n">sub</span><span class="p">):</span>
+            <span class="c1"># logging.info([</span>
+            <span class="c1">#     soln.subs(sub) for soln in self.cosbeta_pz_varphi_solns</span>
+            <span class="c1">#     ])</span>
+            <span class="n">rtn</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="n">soln</span> <span class="k">for</span> <span class="n">soln</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cosbeta_pz_varphi_solns</span>
                 <span class="k">if</span> <span class="n">Abs</span><span class="p">(</span><span class="n">im</span><span class="p">(</span><span class="n">N</span><span class="p">(</span><span class="n">soln</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">sub</span><span class="p">))))</span> <span class="o">&lt;</span> <span class="mf">1e-20</span>
                 <span class="ow">and</span> <span class="p">(</span><span class="n">re</span><span class="p">(</span><span class="n">N</span><span class="p">(</span><span class="n">soln</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">sub</span><span class="p">))))</span> <span class="o">&gt;=</span> <span class="mi">0</span>
                 <span class="p">]</span>
+            <span class="c1"># logging.info(rtn)</span>
+            <span class="k">return</span> <span class="n">rtn</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">cosbetasqrd_pz_varphi_soln</span> <span class="o">=</span> <span class="n">find_cosbetasqrd_root</span><span class="p">(</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cosbeta_pz_varphi_soln</span> <span class="o">=</span> <span class="n">find_cosbeta_root</span><span class="p">(</span>
             <span class="p">{</span><span class="n">varphi</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="n">pz</span><span class="p">:</span> <span class="o">-</span><span class="mf">0.01</span><span class="p">})</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cosbetasqrd_pz_varphi_soln</span> <span class="o">==</span> <span class="p">[]:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">cosbetasqrd_pz_varphi_soln</span> <span class="o">=</span> <span class="n">find_cosbetasqrd_root</span><span class="p">(</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cosbeta_pz_varphi_soln</span> <span class="o">==</span> <span class="p">[]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cosbeta_pz_varphi_soln</span> <span class="o">=</span> <span class="n">find_cosbeta_root</span><span class="p">(</span>
                 <span class="p">{</span><span class="n">varphi</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="n">pz</span><span class="p">:</span> <span class="o">-</span><span class="mf">0.5</span><span class="p">})</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">fgtx_cossqrdbeta_pz_varphi_eqn</span> \
-            <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">cos</span><span class="p">(</span><span class="n">beta</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span>
-                 <span class="bp">self</span><span class="o">.</span><span class="n">cosbetasqrd_pz_varphi_soln</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fgtx_cosbeta_pz_varphi_eqn</span> \
+            <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">cos</span><span class="p">(</span><span class="n">beta</span><span class="p">),</span>
+                 <span class="bp">self</span><span class="o">.</span><span class="n">cosbeta_pz_varphi_soln</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fgtx_tanbeta_pz_varphi_eqn</span> \
             <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">tan</span><span class="p">(</span><span class="n">beta</span><span class="p">),</span>
-                 <span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fgtx_cossqrdbeta_pz_varphi_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+                 <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fgtx_cosbeta_pz_varphi_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fgtx_px_pz_varphi_eqn</span> \
             <span class="o">=</span> <span class="n">factor</span><span class="p">(</span><span class="n">Eq</span><span class="p">(</span><span class="n">px</span><span class="p">,</span> <span class="o">-</span><span class="n">pz</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">fgtx_tanbeta_pz_varphi_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">))</span>
         <span class="n">g_xx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">gstar_varphi_pxpz_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
