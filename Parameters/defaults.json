@@ -10,8 +10,8 @@
 	},
 
 	"model": {
-		"eta" : "sy.Rational(1,1)",
-		"mu" :  "sy.Rational(1,2)",
+		"eta" : "sy.Rational(1,2)",
+		"mu" :  "sy.Rational(1,4)",
 		"beta_type" : "sin",
 		"varphi_type" : "ramp",
 		"ibc_type" : "concave-up",

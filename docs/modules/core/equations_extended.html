@@ -18,8 +18,8 @@
     
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="symbols.py" href="symbols.html" />
-    <link rel="prev" title="equations.py" href="equations.html" />
+    <link rel="next" title="equations_subset.py" href="equations_subset.html" />
+    <link rel="prev" title="symbols.py" href="symbols.html" />
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <link rel="shortcut icon" type="image/png" href="../../_static/favicon.png" />
     <meta name="viewport" content="width=device-width,initial-scale=0.8">
@@ -168,7 +168,7 @@
 <span class="sd">        Constructor method</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">parameters</span><span class="o">=</span><span class="n">parameters</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;EquationsGeodesic&#39;</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;core.equations_extended.EquationsGeodesic&#39;</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">prep_geodesic_eqns</span><span class="p">(</span><span class="n">parameters</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">do_raw</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">define_geodesic_eqns</span><span class="p">()</span>  <span class="c1"># parameters if not do_raw else None)</span>
@@ -188,7 +188,7 @@
 <span class="sd">        Constructor method</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">parameters</span><span class="o">=</span><span class="n">parameters</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;EquationsIdtx&#39;</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;core.equations_extended.EquationsIdtx&#39;</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">define_idtx_fgtx_eqns</span><span class="p">()</span>
 
@@ -208,7 +208,7 @@
 <span class="sd">        Constructor method</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">parameters</span><span class="o">=</span><span class="n">parameters</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;EquationsIbc&#39;</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;core.equations_extended.EquationsIbc&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ibc_type</span> <span class="o">=</span> <span class="n">ibc_type</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">prep_ibc_eqns</span><span class="p">()</span>
@@ -234,7 +234,7 @@
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Constructor method.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;EquationsSetup&#39;</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;core.equations_extended.EquationsSetup&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ibc_type</span> <span class="o">=</span> <span class="n">ibc_type</span>
 
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
@@ -320,10 +320,10 @@
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="symbols.html" title="symbols.py"
+          <a href="equations_subset.html" title="equations_subset.py"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="equations.html" title="equations.py"
+          <a href="symbols.html" title="symbols.py"
              accesskey="P">previous</a> |</li>
       </ul>
     </div>

@@ -18,10 +18,12 @@ Requires Python packages/modules:
 ---------------------------------------------------------------------
 
 """
+# Library
 # Disable these pylint errors because it doesn't understand SymPy syntax
 #   - notably minus signs in equations flag an error
 # pylint: disable=invalid-unary-operand-type, not-callable
 import warnings
+import logging
 
 # Typing
 from typing import Dict, Type
@@ -61,6 +63,7 @@ class EquationSubset:
         """
         TBD
         """
+        logging.info('core.equations_subset.EquationSubset')
         sub = parameters.copy()
         if do_revert and do_ndim:
             undimsub = {pxhat: px, pzhat: pz, rxhat: rx, xivhat: xiv,

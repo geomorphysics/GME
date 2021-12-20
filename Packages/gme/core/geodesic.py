@@ -122,7 +122,7 @@ class GeodesicMixin:
             gstar_ij_mat_lambdified (function) :
                 lambdified version of `gstar_ij_mat`
         """
-        logging.info('prep_geodesic_eqns')
+        logging.info('core.geodesic.prep_geodesic_eqns')
         self.gstar_ij_tanbeta_mat = None
         self.g_ij_tanbeta_mat = None
         self.tanbeta_poly_eqn = None
@@ -248,7 +248,7 @@ class GeodesicMixin:
             vdotz_lambdified (function) :
                 lambdified version of :math:`\dot{v}^z`
         """
-        logging.info('define_geodesic_eqns')
+        logging.info('core.geodesic.define_geodesic_eqns')
         self.dg_rk_ij_mat = None
         self.christoffel_ij_k_rx_rdot_lambda = None
         self.christoffel_ij_k_lambda = None

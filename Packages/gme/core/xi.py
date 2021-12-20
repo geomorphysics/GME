@@ -62,7 +62,7 @@ class XiMixin:
             pz_xiv_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`{p_z} = -\dfrac{1}{\xi^{\downarrow}}`
         """
-        logging.info('define_xi_eqns')
+        logging.info('core.xi.define_xi_eqns')
         self.xi_p_eqn = Eq(xi, 1/p)
         self.xiv_pz_eqn = (Eq(xiv, -1/pz))
         self.p_xi_eqn = Eq(p, solve(self.xi_p_eqn, p)[0])
@@ -88,7 +88,7 @@ class XiMixin:
                 :math:`\xi^{\perp}
                 = \varphi(\mathbf{r}) \, \left| \sin\beta \right|^\eta`
         """
-        logging.info('define_xi_model_eqn')
+        logging.info('core.xi.define_xi_model_eqn')
         if self.beta_type == 'sin':
             xi_model = varphi_r(rvec)*abs(sin(beta))**eta
         else:
@@ -138,7 +138,7 @@ class XiMixin:
                 a convenience variable, recording double the denominator of
                 :math:`\eta`, which must itself be a rational number
         """
-        logging.info('define_xi_related_eqns')
+        logging.info('core.xi.define_xi_related_eqns')
         eta_dbldenom = 2*denom(self.eta_)
         self.xiv_varphi_pxpz_eqn = simplify(
             Eq(xiv, (self.xi_varphi_beta_eqn.rhs/cos(beta))

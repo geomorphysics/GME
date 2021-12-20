@@ -93,7 +93,7 @@ class HamiltonsMixin:
             rdot_p_unity_eqn (`Equality`_):
                 :math:`p_{x} v^{x} + p_{z} v^{z} = 1`
         """
-        logging.info('define_rdot_eqns')
+        logging.info('core.hamiltons.define_rdot_eqns')
         self.rdotx_rdot_alpha_eqn = Eq(rdotx, rdot*cos(alpha))
         self.rdotz_rdot_alpha_eqn = Eq(rdotz, rdot*sin(alpha))
         self.rdotx_pxpz_eqn = factor(Eq(rdotx, diff(self.H_eqn.rhs, px)))
@@ -144,7 +144,7 @@ class HamiltonsMixin:
                 \left(\varepsilon x_{1}^{2 \mu} + \left(x_{1}
                 - {r}^x\right)^{2 \mu}\right) & 0\end{matrix}\right]`
         """
-        logging.info('define_pdot_eqns')
+        logging.info('core.hamiltons.define_pdot_eqns')
         self.pdotx_pxpz_eqn \
             = simplify(Eq(pdotx, (-diff(self.H_varphi_rx_eqn.rhs, rx)))) \
             .subs({Abs(pz): -pz,
@@ -186,7 +186,7 @@ class HamiltonsMixin:
                 \dot{p}_z = 0
                 \end{matrix}\right]`
         """
-        logging.info('define_Hamiltons_eqns')
+        logging.info('core.hamiltons.define_Hamiltons_eqns')
         self.hamiltons_eqns \
             = Matrix((
                 self.rdotx_pxpz_eqn.rhs.subs(e2d(self.varphi_rx_eqn)),

@@ -65,7 +65,7 @@ class IbcMixin:
                 + p_{z}^{2}\right)^{- \eta} + \varphi^{2} p_{x}^{2 \eta}
                 p_{z}^{2} \left(p_{x}^{2} + p_{z}^{2}\right)^{- \eta} = 1`
         """
-        logging.info('prep_ibc_eqns')
+        logging.info('core.ibc.prep_ibc_eqns')
         self.pz0_xiv0_eqn = Eq(pz_0, (-1/xiv_0))
         self.pzpx_unity_eqn = expand(simplify(
             self.rdot_p_unity_eqn
@@ -109,7 +109,7 @@ class IbcMixin:
                     - \kappa_\mathrm{h} \right)}\right)}{x_{1}
                     \tanh{\left(\dfrac{\kappa_\mathrm{h}}{x_{1}} \right)}}`
         """
-        logging.info('define_ibc_eqns')
+        logging.info('core.ibc.define_ibc_eqns')
         self.boundary_eqns = {
             'planar': {'h': Eq(h, (h_0*x/Lc))},
             'convex-up': {'h':
@@ -176,7 +176,7 @@ class IbcMixin:
                 \right)}}{\varphi_0 \left(\varepsilon x_{1}^{2 \mu} +
                 \left(- x + x_{1}\right)^{2 \mu}\right)}`
         """
-        logging.info('set_ibc_eqns')
+        logging.info('core.ibc.set_ibc_eqns')
         cosbeta_eqn = Eq(cos(beta), 1/sqrt(1+tan(beta)**2))
         sinbeta_eqn = Eq(sin(beta), sqrt(1-1/(1+tan(beta)**2)))
         # sintwobeta_eqn = Eq(sin(2*beta), cos(beta)**2-sin(beta)**2)

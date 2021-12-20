@@ -54,7 +54,7 @@ class EquationsGeodesic(Equations, GeodesicMixin):
         Constructor method
         """
         super().__init__(parameters=parameters, **kwargs)
-        logging.info('EquationsGeodesic')
+        logging.info('core.equations_extended.EquationsGeodesic')
 
         self.prep_geodesic_eqns(parameters if self.do_raw else None)
         self.define_geodesic_eqns()  # parameters if not do_raw else None)
@@ -74,7 +74,7 @@ class EquationsIdtx(Equations, IdtxMixin):
         Constructor method
         """
         super().__init__(parameters=parameters, **kwargs)
-        logging.info('EquationsIdtx')
+        logging.info('core.equations_extended.EquationsIdtx')
 
         self.define_idtx_fgtx_eqns()
 
@@ -94,7 +94,7 @@ class EquationsIbc(Equations, IbcMixin):
         Constructor method
         """
         super().__init__(parameters=parameters, **kwargs)
-        logging.info('EquationsIbc')
+        logging.info('core.equations_extended.EquationsIbc')
         self.ibc_type = ibc_type
 
         self.prep_ibc_eqns()
@@ -120,7 +120,7 @@ class EquationsSetupOnly(
         r"""
         Constructor method.
         """
-        logging.info('EquationsSetup')
+        logging.info('core.equations_extended.EquationsSetup')
         self.ibc_type = ibc_type
 
         super().__init__(**kwargs)

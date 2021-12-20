@@ -146,7 +146,7 @@ define dimensionless channel incision number <span class="math notranslate nohig
 
 <span class="sd">        Attributes:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;nondimensionalize&#39;</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;core.ndim.nondimensionalize&#39;</span><span class="p">)</span>
         <span class="n">varsub</span><span class="p">:</span> <span class="n">Dict</span> <span class="o">=</span> <span class="p">{}</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">rx_rxhat_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">rx</span><span class="p">,</span> <span class="n">Lc</span><span class="o">*</span><span class="n">rxhat</span><span class="p">)</span>
@@ -284,7 +284,7 @@ define dimensionless channel incision number <span class="math notranslate nohig
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        TBD</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;define_nodimensionalized_Hamiltons_eqns&#39;</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;core.ndim.define_nodimensionalized_Hamiltons_eqns&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">hamiltons_ndim_eqns</span> <span class="o">=</span> <span class="n">Matrix</span><span class="p">((</span>
                                         <span class="bp">self</span><span class="o">.</span><span class="n">rdotxhat_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">,</span>
                                         <span class="bp">self</span><span class="o">.</span><span class="n">rdotzhat_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">,</span>

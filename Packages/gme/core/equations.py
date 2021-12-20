@@ -81,7 +81,7 @@ class EquationsBase:
         Constructor method.
         """
 
-        logging.info('EquationsBase')
+        logging.info('core.equations.EquationsBase')
 
         self.eta_ = eta_
         self.mu_ = mu_
@@ -116,7 +116,7 @@ class EquationsMixedIn(
         r"""
         Constructor method.
         """
-        logging.info('EquationsMixedIn')
+        logging.info('core.equations.EquationsMixedIn')
 
         super().__init__(**kwargs)
 
@@ -176,7 +176,7 @@ class Equations(EquationsMixedIn):
         r"""
         Constructor method.
         """
-        logging.info('Equations')
+        logging.info('core.equations.Equations')
 
         super().__init__(parameters=parameters, **kwargs)
 

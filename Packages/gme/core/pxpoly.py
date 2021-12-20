@@ -61,7 +61,6 @@ class PxpolyMixin:
         :math:`\xi^{\downarrow} = -\dfrac{1}{p_z}`)
         and the erosion model flow component :math:`\varphi(\mathbf{r})`
 
-
         Args:
             eta_choice (:class:`~sympy.core.numbers.Rational`):
                 value of :math:`\eta` to use instead value given at
@@ -86,11 +85,11 @@ class PxpolyMixin:
                 - \left(\xi^{\downarrow{0}}\right)^{4} p_{x}^{2}
                 - \left(\xi^{\downarrow{0}}\right)^{2} = 0`
         """
-        logging.info(f'define_px_poly_eqn (ndim={do_ndim})')
+        logging.info(f'core.pxpoly.define_px_poly_eqn (ndim={do_ndim})')
         if do_ndim:
             # Non-dimensionalized version
-            varphi0_solns = solve(self.sinCi_xih0_eqn.subs(
-                {eta: eta_choice}), varphi_0)
+            varphi0_solns = solve(
+                self.sinCi_xih0_eqn.subs({eta: eta_choice}), varphi_0)
             varphi0_eqn = Eq(varphi_0, varphi0_solns[0])
             if eta_choice is not None and eta_choice <= 1:
                 tmp_eqn = separatevars(simplify(
@@ -102,7 +101,8 @@ class PxpolyMixin:
                 )
                 self.poly_pxhat_xiv_eqn = simplify(
                     Eq((numer(tmp_eqn.lhs)
-                        - denom(tmp_eqn.lhs)*(tmp_eqn.rhs))/xiv**2, 0))
+                        - denom(tmp_eqn.lhs)*(tmp_eqn.rhs))/xiv**2, 0)
+                )
                 self.poly_pxhat_xiv0_eqn \
                     = self.poly_pxhat_xiv_eqn\
                     .subs({xiv: xiv_0})\
@@ -113,8 +113,8 @@ class PxpolyMixin:
                     .subs({eta: eta_choice})
                     .subs({varphi_r(rvec): self.varphi_rxhat_eqn.rhs})
                     .subs(e2d(self.px_pxhat_eqn))
-                    .subs(e2d(varphi0_eqn)))
-                )
+                    .subs(e2d(varphi0_eqn))
+                ))
                 self.poly_pxhat_xiv_eqn = simplify(
                     Eq((numer(tmp_eqn.lhs)
                         - denom(tmp_eqn.lhs)*(tmp_eqn.rhs))/xiv**2, 0)

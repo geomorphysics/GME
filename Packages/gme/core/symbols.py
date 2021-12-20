@@ -13,10 +13,13 @@ Requires Python packages/modules:
 ---------------------------------------------------------------------
 
 """
-
-from sympy import symbols, MatrixSymbol, Function
-from sympy.physics.units import length, time
 from sympy.physics.units.systems import SI
+from sympy.physics.units import length, time
+from sympy import symbols, MatrixSymbol, Function
+
+# import logging
+# logging.info('core.symbols')
+
 
 i, j, k, l, m = symbols(r'i j k, l, m',  real=True)
 F = symbols(r'\mathcal{F}',  real=True, positive=True)

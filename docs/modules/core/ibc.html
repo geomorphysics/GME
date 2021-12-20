@@ -294,7 +294,7 @@ x_{1}^{2 \mu} + \left(- x + x_{1}\right)^{2 \mu}\right)}\)</span></p>
 <span class="sd">                + p_{z}^{2}\right)^{- \eta} + \varphi^{2} p_{x}^{2 \eta}</span>
 <span class="sd">                p_{z}^{2} \left(p_{x}^{2} + p_{z}^{2}\right)^{- \eta} = 1`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;prep_ibc_eqns&#39;</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;core.ibc.prep_ibc_eqns&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">pz0_xiv0_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">pz_0</span><span class="p">,</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="o">/</span><span class="n">xiv_0</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">pzpx_unity_eqn</span> <span class="o">=</span> <span class="n">expand</span><span class="p">(</span><span class="n">simplify</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">rdot_p_unity_eqn</span>
@@ -338,7 +338,7 @@ x_{1}^{2 \mu} + \left(- x + x_{1}\right)^{2 \mu}\right)}\)</span></p>
 <span class="sd">                    - \kappa_\mathrm{h} \right)}\right)}{x_{1}</span>
 <span class="sd">                    \tanh{\left(\dfrac{\kappa_\mathrm{h}}{x_{1}} \right)}}`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;define_ibc_eqns&#39;</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;core.ibc.define_ibc_eqns&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">boundary_eqns</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s1">&#39;planar&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;h&#39;</span><span class="p">:</span> <span class="n">Eq</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="p">(</span><span class="n">h_0</span><span class="o">*</span><span class="n">x</span><span class="o">/</span><span class="n">Lc</span><span class="p">))},</span>
             <span class="s1">&#39;convex-up&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;h&#39;</span><span class="p">:</span>
@@ -405,7 +405,7 @@ x_{1}^{2 \mu} + \left(- x + x_{1}\right)^{2 \mu}\right)}\)</span></p>
 <span class="sd">                \right)}}{\varphi_0 \left(\varepsilon x_{1}^{2 \mu} +</span>
 <span class="sd">                \left(- x + x_{1}\right)^{2 \mu}\right)}`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;set_ibc_eqns&#39;</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;core.ibc.set_ibc_eqns&#39;</span><span class="p">)</span>
         <span class="n">cosbeta_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">cos</span><span class="p">(</span><span class="n">beta</span><span class="p">),</span> <span class="mi">1</span><span class="o">/</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">tan</span><span class="p">(</span><span class="n">beta</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
         <span class="n">sinbeta_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">sin</span><span class="p">(</span><span class="n">beta</span><span class="p">),</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">tan</span><span class="p">(</span><span class="n">beta</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)))</span>
         <span class="c1"># sintwobeta_eqn = Eq(sin(2*beta), cos(beta)**2-sin(beta)**2)</span>

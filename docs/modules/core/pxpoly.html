@@ -184,7 +184,6 @@ domain=\mathbb{Z}\left[\varphi{\left(\mathbf{r} \right)},
 <span class="sd">        :math:`\xi^{\downarrow} = -\dfrac{1}{p_z}`)</span>
 <span class="sd">        and the erosion model flow component :math:`\varphi(\mathbf{r})`</span>
 
-
 <span class="sd">        Args:</span>
 <span class="sd">            eta_choice (:class:`~sympy.core.numbers.Rational`):</span>
 <span class="sd">                value of :math:`\eta` to use instead value given at</span>
@@ -209,11 +208,11 @@ domain=\mathbb{Z}\left[\varphi{\left(\mathbf{r} \right)},
 <span class="sd">                - \left(\xi^{\downarrow{0}}\right)^{4} p_{x}^{2}</span>
 <span class="sd">                - \left(\xi^{\downarrow{0}}\right)^{2} = 0`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;define_px_poly_eqn (ndim=</span><span class="si">{</span><span class="n">do_ndim</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;core.pxpoly.define_px_poly_eqn (ndim=</span><span class="si">{</span><span class="n">do_ndim</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">do_ndim</span><span class="p">:</span>
             <span class="c1"># Non-dimensionalized version</span>
-            <span class="n">varphi0_solns</span> <span class="o">=</span> <span class="n">solve</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sinCi_xih0_eqn</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span>
-                <span class="p">{</span><span class="n">eta</span><span class="p">:</span> <span class="n">eta_choice</span><span class="p">}),</span> <span class="n">varphi_0</span><span class="p">)</span>
+            <span class="n">varphi0_solns</span> <span class="o">=</span> <span class="n">solve</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">sinCi_xih0_eqn</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">eta</span><span class="p">:</span> <span class="n">eta_choice</span><span class="p">}),</span> <span class="n">varphi_0</span><span class="p">)</span>
             <span class="n">varphi0_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">varphi_0</span><span class="p">,</span> <span class="n">varphi0_solns</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
             <span class="k">if</span> <span class="n">eta_choice</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">eta_choice</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">:</span>
                 <span class="n">tmp_eqn</span> <span class="o">=</span> <span class="n">separatevars</span><span class="p">(</span><span class="n">simplify</span><span class="p">(</span>
@@ -225,7 +224,8 @@ domain=\mathbb{Z}\left[\varphi{\left(\mathbf{r} \right)},
                 <span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">poly_pxhat_xiv_eqn</span> <span class="o">=</span> <span class="n">simplify</span><span class="p">(</span>
                     <span class="n">Eq</span><span class="p">((</span><span class="n">numer</span><span class="p">(</span><span class="n">tmp_eqn</span><span class="o">.</span><span class="n">lhs</span><span class="p">)</span>
-                        <span class="o">-</span> <span class="n">denom</span><span class="p">(</span><span class="n">tmp_eqn</span><span class="o">.</span><span class="n">lhs</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">tmp_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">))</span><span class="o">/</span><span class="n">xiv</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+                        <span class="o">-</span> <span class="n">denom</span><span class="p">(</span><span class="n">tmp_eqn</span><span class="o">.</span><span class="n">lhs</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">tmp_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">))</span><span class="o">/</span><span class="n">xiv</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+                <span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">poly_pxhat_xiv0_eqn</span> \
                     <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">poly_pxhat_xiv_eqn</span>\
                     <span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">xiv</span><span class="p">:</span> <span class="n">xiv_0</span><span class="p">})</span>\
@@ -236,8 +236,8 @@ domain=\mathbb{Z}\left[\varphi{\left(\mathbf{r} \right)},
                     <span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">eta</span><span class="p">:</span> <span class="n">eta_choice</span><span class="p">})</span>
                     <span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">varphi_r</span><span class="p">(</span><span class="n">rvec</span><span class="p">):</span> <span class="bp">self</span><span class="o">.</span><span class="n">varphi_rxhat_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">})</span>
                     <span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">px_pxhat_eqn</span><span class="p">))</span>
-                    <span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="n">varphi0_eqn</span><span class="p">)))</span>
-                <span class="p">)</span>
+                    <span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="n">varphi0_eqn</span><span class="p">))</span>
+                <span class="p">))</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">poly_pxhat_xiv_eqn</span> <span class="o">=</span> <span class="n">simplify</span><span class="p">(</span>
                     <span class="n">Eq</span><span class="p">((</span><span class="n">numer</span><span class="p">(</span><span class="n">tmp_eqn</span><span class="o">.</span><span class="n">lhs</span><span class="p">)</span>
                         <span class="o">-</span> <span class="n">denom</span><span class="p">(</span><span class="n">tmp_eqn</span><span class="o">.</span><span class="n">lhs</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">tmp_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">))</span><span class="o">/</span><span class="n">xiv</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>

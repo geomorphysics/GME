@@ -177,7 +177,7 @@ class MetricTensorMixin:
                 1 \
                 \end{matrix}\right]`
         """
-        logging.info('define_g_eqns')
+        logging.info('core.metrictensor.define_g_eqns')
         self.gstar_varphi_pxpz_eqn = None
         self.det_gstar_varphi_pxpz_eqn = None
         self.g_varphi_pxpz_eqn = None

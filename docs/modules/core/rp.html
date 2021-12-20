@@ -20,7 +20,7 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="xi.py" href="xi.html" />
-    <link rel="prev" title="symbols.py" href="symbols.html" />
+    <link rel="prev" title="equations_subset.py" href="equations_subset.html" />
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <link rel="shortcut icon" type="image/png" href="../../_static/favicon.png" />
     <meta name="viewport" content="width=device-width,initial-scale=0.8">
@@ -290,7 +290,7 @@
 <span class="sd">            p_pz_cosbeta_eqn (:class:`~sympy.core.relational.Equality`):</span>
 <span class="sd">                :math:`p = -\dfrac{p_z}{\cos\beta}`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;define_p_eqns&#39;</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;core.rp.define_p_eqns&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">p_covec_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">pcovec</span><span class="p">,</span> <span class="n">Matrix</span><span class="p">([</span><span class="n">px</span><span class="p">,</span> <span class="n">pz</span><span class="p">])</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">px_p_beta_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">px</span><span class="p">,</span> <span class="n">p</span><span class="o">*</span><span class="n">sin</span><span class="p">(</span><span class="n">beta</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">pz_p_beta_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">pz</span><span class="p">,</span> <span class="o">-</span><span class="n">p</span><span class="o">*</span><span class="n">cos</span><span class="p">(</span><span class="n">beta</span><span class="p">))</span>
@@ -323,7 +323,7 @@
 <span class="sd">            rz_r_alpha_eqn (:class:`~sympy.core.relational.Equality`):</span>
 <span class="sd">                :math:`r^z = r\sin\alpha`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;define_r_eqns&#39;</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;core.rp.define_r_eqns&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">rx_r_alpha_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">rx</span><span class="p">,</span> <span class="n">r</span><span class="o">*</span><span class="n">cos</span><span class="p">(</span><span class="n">alpha</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">rz_r_alpha_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">rz</span><span class="p">,</span> <span class="n">r</span><span class="o">*</span><span class="n">sin</span><span class="p">(</span><span class="n">alpha</span><span class="p">))</span>
 
@@ -411,7 +411,7 @@
           <a href="xi.html" title="xi.py"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="symbols.html" title="symbols.py"
+          <a href="equations_subset.html" title="equations_subset.py"
              accesskey="P">previous</a> |</li>
       </ul>
     </div>
