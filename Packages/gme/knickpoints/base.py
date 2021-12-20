@@ -6,12 +6,14 @@ ODE integration of Hamilton's equations.
 ---------------------------------------------------------------------
 
 Requires Python packages/modules:
-  -  :mod:`numpy`
-  -  :mod:`scipy`
-  -  :mod:`sympy`
-  -  :mod:`gme`
+  -  :mod:`NumPy <numpy>`
+  -  :mod:`SymPy <sympy>`
+  -  `GME`_
 
-Imports symbols from :mod:`.symbols` module
+.. _GMPLib: https://github.com/geomorphysics/GMPLib
+.. _GME: https://github.com/geomorphysics/GME
+.. _Matrix:
+    https://docs.sympy.org/latest/modules/matrices/immutablematrices.html
 
 ---------------------------------------------------------------------
 

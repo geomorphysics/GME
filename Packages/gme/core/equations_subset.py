@@ -1,19 +1,20 @@
 """
 ---------------------------------------------------------------------
 
-Equation definitions and derivations using :mod:`SymPy <sympy>`.
+Extract a minimal subset of equations - only those needed for a
+particular numerical solution.
 
 ---------------------------------------------------------------------
 
 Requires Python packages/modules:
-  -  :mod:`sympy`
+  -  :mod:`SymPy <sympy>`
   -  `GMPLib`_
   -  `GME`_
 
 .. _GMPLib: https://github.com/geomorphysics/GMPLib
 .. _GME: https://github.com/geomorphysics/GME
-.. _Matrix: https://docs.sympy.org/latest/modules/matrices\
-/immutablematrices.html
+.. _Matrix:
+    https://docs.sympy.org/latest/modules/matrices/immutablematrices.html
 
 ---------------------------------------------------------------------
 

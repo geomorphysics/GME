@@ -6,14 +6,14 @@ Equation definitions and derivations using :mod:`SymPy <sympy>`.
 ---------------------------------------------------------------------
 
 Requires Python packages/modules:
-  -  :mod:`scipy`
-  -  :mod:`sympy`
+  -  :mod:`SciPy <scipy>`
+  -  :mod:`SymPy <sympy>`
   -  `GME`_
 
 .. _GMPLib: https://github.com/geomorphysics/GMPLib
 .. _GME: https://github.com/geomorphysics/GME
-.. _Matrix: https://docs.sympy.org/latest/modules/matrices\
-/immutablematrices.html
+.. _Matrix:
+    https://docs.sympy.org/latest/modules/matrices/immutablematrices.html
 
 ---------------------------------------------------------------------
 

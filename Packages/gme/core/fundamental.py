@@ -1,22 +1,25 @@
-"""
+r"""
 ---------------------------------------------------------------------
 
-Equation definitions and derivations using :mod:`SymPy <sympy>`.
+Derive equations for the geomorphic surface fundamental function
+:math:`\mathcal{F}` and the corresponding Hamiltonian
+:math:`\mathcal{H}`.
 
 ---------------------------------------------------------------------
 
 Requires Python packages/modules:
-  -  :mod:`sympy`
+  -  :mod:`SymPy <sympy>`
   -  `GME`_
 
 .. _GMPLib: https://github.com/geomorphysics/GMPLib
 .. _GME: https://github.com/geomorphysics/GME
-.. _Matrix: https://docs.sympy.org/latest/modules/matrices\
-/immutablematrices.html
+.. _Matrix:
+    https://docs.sympy.org/latest/modules/matrices/immutablematrices.html
 
 ---------------------------------------------------------------------
 
 """
+
 # Disable these pylint errors because it doesn't understand SymPy syntax
 #   - notably minus signs in equations flag an error
 # pylint: disable=invalid-unary-operand-type, not-callable

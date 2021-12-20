@@ -7,13 +7,13 @@ aka ODE integration of Hamilton's equations, for a velocity-boundary condition.
 ---------------------------------------------------------------------
 
 Requires Python packages/modules:
-  -  :mod:`numpy`
+  -  :mod:`NumPy <numpy>`
   -  `GME`_
 
 .. _GMPLib: https://github.com/geomorphysics/GMPLib
 .. _GME: https://github.com/geomorphysics/GME
-.. _Matrix: https://docs.sympy.org/latest/modules/matrices\
-/immutablematrices.html
+.. _Matrix:
+    https://docs.sympy.org/latest/modules/matrices/immutablematrices.html
 
 ---------------------------------------------------------------------
 

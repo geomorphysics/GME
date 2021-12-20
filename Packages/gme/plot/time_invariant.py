@@ -6,17 +6,15 @@ Visualization of time-invariant solutions.
 ---------------------------------------------------------------------
 
 Requires Python packages:
-  -  :mod:`numpy`
-  -  :mod:`sympy`
-  -  :mod:`matplotlib`
-  -  :mod:`mpl_toolkits`
-  -  `GMPLib`_
+  -  :mod:`NumPy <numpy>`
+  -  :mod:`SymPy <sympy>`
+  -  :mod:`MatPlotLib <matplotlib>`
   -  `GME`_
 
 .. _GMPLib: https://github.com/geomorphysics/GMPLib
 .. _GME: https://github.com/geomorphysics/GME
-.. _Matrix: https://docs.sympy.org/latest/modules/matrices\
-/immutablematrices.html
+.. _Matrix:
+    https://docs.sympy.org/latest/modules/matrices/immutablematrices.html
 
 ---------------------------------------------------------------------
 

@@ -1,7 +1,9 @@
 """
 ---------------------------------------------------------------------
 
-Equation definitions and derivations using :mod:`SymPy <sympy>`.
+Derive extended sets of equations, including those describing the loci
+of the indicatrix and figuratrix, those for handling convex and concave
+initial profiles, and the geodesic equations.
 
 ---------------------------------------------------------------------
 
@@ -57,7 +59,8 @@ class EquationsGeodesic(Equations, GeodesicMixin):
         logging.info('core.equations_extended.EquationsGeodesic')
 
         self.prep_geodesic_eqns(parameters if self.do_raw else None)
-        self.define_geodesic_eqns()  # parameters if not do_raw else None)
+        self.define_geodesic_eqns()
+        # parameters if not do_raw else None)
 
 
 class EquationsIdtx(Equations, IdtxMixin):

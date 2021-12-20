@@ -7,16 +7,16 @@ aka ODE integration of Hamilton's equations.
 ---------------------------------------------------------------------
 
 Requires Python packages/modules:
-  -  :mod:`numpy`
-  -  :mod:`scipy`
-  -  :mod:`sympy`
+  -  :mod:`NumPy <numpy>`
+  -  :mod:`SciPy <scipy>`
+  -  :mod:`SymPy <sympy>`
   -  `GMPLib`_
   -  `GME`_
 
 .. _GMPLib: https://github.com/geomorphysics/GMPLib
 .. _GME: https://github.com/geomorphysics/GME
-.. _Matrix: https://docs.sympy.org/latest/modules/matrices\
-/immutablematrices.html
+.. _Matrix:
+    https://docs.sympy.org/latest/modules/matrices/immutablematrices.html
 
 ---------------------------------------------------------------------
 

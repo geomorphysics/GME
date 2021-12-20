@@ -6,15 +6,15 @@ Visualization of ray angles.
 ---------------------------------------------------------------------
 
 Requires Python packages/modules:
-  -  :mod:`numpy`
-  -  :mod:`sympy`
-  -  :mod:`matplotlib`
+  -  :mod:`NumPy <numpy>`
+  -  :mod:`SymPy <sympy>`
+  -  :mod:`MatPlotLib <matplotlib>`
   -  `GME`_
 
 .. _GMPLib: https://github.com/geomorphysics/GMPLib
 .. _GME: https://github.com/geomorphysics/GME
-.. _Matrix: https://docs.sympy.org/latest/modules/matrices\
-/immutablematrices.html
+.. _Matrix:
+    https://docs.sympy.org/latest/modules/matrices/immutablematrices.html
 
 ---------------------------------------------------------------------
 

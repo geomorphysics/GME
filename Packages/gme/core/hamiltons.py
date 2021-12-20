@@ -6,16 +6,17 @@ Equation definitions and derivations using :mod:`SymPy <sympy>`.
 ---------------------------------------------------------------------
 
 Requires Python packages/modules:
-  -  :mod:`sympy`
+  -  :mod:`SymPy <sympy>`
   -  `GMPLib`_
   -  `GME`_
 
 .. _GMPLib: https://github.com/geomorphysics/GMPLib
 .. _GME: https://github.com/geomorphysics/GME
-.. _Matrix: https://docs.sympy.org/latest/modules/matrices\
-/immutablematrices.html
-.. _Equality: https://docs.sympy.org/latest/modules/core.html\
-#sympy.core.relational.Equality
+.. _Matrix:
+    https://docs.sympy.org/latest/modules/matrices/immutablematrices.html
+.. _Equality:
+    https://docs.sympy.org/latest/modules/core.html
+    #sympy.core.relational.Equality
 
 ---------------------------------------------------------------------
 

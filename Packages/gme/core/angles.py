@@ -1,19 +1,20 @@
-"""
+r"""
 ---------------------------------------------------------------------
 
-Equation definitions and derivations using :mod:`SymPy <sympy>`.
+Equation definitions for angular properties such as :math:`\alpha`
+and :math:`\beta`.
 
 ---------------------------------------------------------------------
 
 Requires Python packages/modules:
-  -  :mod:`sympy`
+  -  :mod:`SymPy <sympy>`
   -  `GMPLib`_
   -  `GME`_
 
 .. _GMPLib: https://github.com/geomorphysics/GMPLib
 .. _GME: https://github.com/geomorphysics/GME
-.. _Matrix: https://docs.sympy.org/latest/modules/matrices\
-/immutablematrices.html
+.. _Matrix:
+    https://docs.sympy.org/latest/modules/matrices/immutablematrices.html
 
 ---------------------------------------------------------------------
 

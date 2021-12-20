@@ -8,7 +8,7 @@ and their latex representation for pretty printing in notebooks.
 ---------------------------------------------------------------------
 
 Requires Python packages/modules:
-  -  :mod:`sympy`
+  -  :mod:`SymPy <sympy>`
 
 ---------------------------------------------------------------------
 

@@ -1,7 +1,7 @@
 """
 ---------------------------------------------------------------------
 
-Equation definitions and derivations using :mod:`SymPy <sympy>`.
+Derive an ensemble of GME equations using :mod:`SymPy <sympy>`.
 
 ---------------------------------------------------------------------
 
@@ -19,13 +19,13 @@ The rest of the equations are derived from these core results.
 ---------------------------------------------------------------------
 
 Requires Python packages/modules:
-  -  :mod:`sympy`
+  -  :mod:`SymPy <sympy>`
   -  `GME`_
 
 .. _GMPLib: https://github.com/geomorphysics/GMPLib
 .. _GME: https://github.com/geomorphysics/GME
-.. _Matrix: https://docs.sympy.org/latest/modules/matrices\
-/immutablematrices.html
+.. _Matrix:
+    https://docs.sympy.org/latest/modules/matrices/immutablematrices.html
 
 ---------------------------------------------------------------------
 

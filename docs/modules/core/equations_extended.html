@@ -52,7 +52,9 @@
   <div class="section" id="module-gme.core.equations_extended">
 <span id="equations-extended-py"></span><h1><code class="docutils literal notranslate"><span class="pre">equations_extended.py</span></code><a class="headerlink" href="#module-gme.core.equations_extended" title="Permalink to this headline">¶</a></h1>
 <hr class="docutils" />
-<p>Equation definitions and derivations using <a class="reference external" href="https://docs.sympy.org/latest/modules/index.html#module-sympy" title="(in SymPy v1.9)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">SymPy</span></code></a>.</p>
+<p>Derive extended sets of equations, including those describing the loci
+of the indicatrix and figuratrix, those for handling convex and concave
+initial profiles, and the geodesic equations.</p>
 <hr class="docutils" />
 <dl class="simple">
 <dt>Requires Python packages/modules:</dt><dd><ul class="simple">
@@ -115,7 +117,9 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">---------------------------------------------------------------------</span>
 
-<span class="sd">Equation definitions and derivations using :mod:`SymPy &lt;sympy&gt;`.</span>
+<span class="sd">Derive extended sets of equations, including those describing the loci</span>
+<span class="sd">of the indicatrix and figuratrix, those for handling convex and concave</span>
+<span class="sd">initial profiles, and the geodesic equations.</span>
 
 <span class="sd">---------------------------------------------------------------------</span>
 
@@ -171,7 +175,8 @@
         <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;core.equations_extended.EquationsGeodesic&#39;</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">prep_geodesic_eqns</span><span class="p">(</span><span class="n">parameters</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">do_raw</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">define_geodesic_eqns</span><span class="p">()</span>  <span class="c1"># parameters if not do_raw else None)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">define_geodesic_eqns</span><span class="p">()</span>
+        <span class="c1"># parameters if not do_raw else None)</span>
 
 
 <span class="k">class</span> <span class="nc">EquationsIdtx</span><span class="p">(</span><span class="n">Equations</span><span class="p">,</span> <span class="n">IdtxMixin</span><span class="p">):</span>

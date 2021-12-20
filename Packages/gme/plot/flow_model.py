@@ -6,15 +6,14 @@ Visualization of flow model.
 ---------------------------------------------------------------------
 
 Requires Python packages/modules:
-  -  :mod:`numpy`
-  -  :mod:`matplotlib`
-  -  :mod:`mpl_toolkits`
+  -  :mod:`NumPy <numpy>`
+  -  :mod:`MatPlotLib <matplotlib>`
   -  `GME`_
 
 .. _GMPLib: https://github.com/geomorphysics/GMPLib
 .. _GME: https://github.com/geomorphysics/GME
-.. _Matrix: https://docs.sympy.org/latest/modules/matrices\
-/immutablematrices.html
+.. _Matrix:
+    https://docs.sympy.org/latest/modules/matrices/immutablematrices.html
 
 ---------------------------------------------------------------------
 
