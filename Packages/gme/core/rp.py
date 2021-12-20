@@ -45,6 +45,8 @@ __all__ = ['RpMixin']
 
 class RpMixin:
     r"""
+    Basic :math:`\mathbf{r}` and :math:`\mathbf{\tilde{p}}`
+    equations supplement to equation definition class.
     """
 
     def define_p_eqns(self) -> None:

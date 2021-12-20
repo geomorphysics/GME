@@ -22,7 +22,7 @@ Requires Python packages/modules:
 import warnings
 
 # Minimal typing
-from typing import Tuple
+from typing import Tuple, Callable, Dict
 
 # Numpy
 import numpy as np
@@ -32,6 +32,7 @@ from sympy import Eq, N, re, factor, lambdify
 
 # MatPlotLib
 import matplotlib.pyplot as plt
+from matplotlib.pyplot import Axes
 import matplotlib.patches as mpatches
 from matplotlib.patches import Circle, RegularPolygon
 
@@ -53,17 +54,17 @@ class IndicatrixOld(Graphing):
 
     def comparison_logpolar(
         self,
-        gmeq,
-        name,
-        fig_size=None,
-        dpi=None,
-        varphi_=1,
-        n_points=100,
-        idtx_pz_min=1e-3,
-        idtx_pz_max=1000,
-        fgtx_pz_min=1e-3,
-        fgtx_pz_max=1000,
-        y_limits=None
+        gmeq: Eq,
+        name: str,
+        fig_size: Tuple[float, float] = None,
+        dpi: float = None,
+        varphi_: float = 1,
+        n_points: int = 100,
+        idtx_pz_min: float = 1e-3,
+        idtx_pz_max: float = 1000,
+        fgtx_pz_min: float = 1e-3,
+        fgtx_pz_max: float = 1000,
+        y_limits: Tuple[float, float] = None
     ) -> None:
         """
         Plot both indicatrix and figuratrix on one log-polar graph.
@@ -145,7 +146,7 @@ class IndicatrixOld(Graphing):
                   label=r'$\alpha=\alpha_{\mathrm{ext}}$')
 
         # Labelling etc
-        posn_list = [0, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75]
+        posn_list = (0, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75)
         xtick_posns = [(-np.pi/i_ if i_ != 0 else np.pi) for i_ in posn_list]
         xtick_posns = plt.xticks()[0]
         xtick_labels \
@@ -166,7 +167,7 @@ class IndicatrixOld(Graphing):
         plt.xticks(xtick_posns, xtick_labels)
 
         if y_limits is None:
-            y_limits = [-2, 3]
+            y_limits = (-2, 3)
             ytick_posns = [-1, 0, 1, 2, 3, 4]
         else:
             ytick_posns = list(range(int(y_limits[0]), int(y_limits[1])+2))
@@ -175,37 +176,65 @@ class IndicatrixOld(Graphing):
         plt.yticks(ytick_posns, ytick_labels)
 
         axes = plt.gca()
-        plt.text(np.pi/1.1, (1+y_limits[1]-y_limits[0])*2/3+y_limits[0],
-                 rf'$\eta={gmeq.eta_}$', fontsize=16)
+        plt.text(np.pi/1.1,
+                 (1+y_limits[1]-y_limits[0])*2/3+y_limits[0],
+                 rf'$\eta={gmeq.eta_}$',
+                 fontsize=16)
 
         axes.set_theta_zero_location("S")
 
         handles, labels = axes.get_legend_handles_labels()
-        subset = [3, 2, 0, 5, 6]
+        subset = (3, 2, 0, 5, 6)
         handles = [handles[idx] for idx in subset]
         labels = [labels[idx] for idx in subset]
         # Hacked fix to bug in Matplotlib that adds a bogus entry here
         axes.legend(handles, labels, loc='upper left', framealpha=1)
 
-    def text_labels(self, gmeq, varphi_, px_, pz_, rdotx_, rdotz_,
-                    zoom_factor, do_text_labels) -> None:
+    def text_labels(
+        self,
+        gmeq: Eq,
+        varphi_: float,
+        px_: float,
+        pz_: float,
+        rdotx_: float,
+        rdotz_: float,
+        zoom_factor: float,
+        do_text_labels: bool
+    ) -> None:
         """
         TBD
         """
         xy_ = (2.5, -2) if zoom_factor >= 1 else (1.25, 0.9)
-        plt.text(*xy_, rf'$\varphi={varphi_}\quad\eta={gmeq.eta_}$',
-                 horizontalalignment='center', verticalalignment='center',
-                 fontsize=14, color='k')
+        plt.text(*xy_,
+                 rf'$\varphi={varphi_}\quad\eta={gmeq.eta_}$',
+                 horizontalalignment='center',
+                 verticalalignment='center',
+                 fontsize=14,
+                 color='k')
         if do_text_labels:
-            plt.text(rdotx_*0.97, rdotz_+0.2, r'$\mathbf{v}$',
-                     horizontalalignment='center', verticalalignment='center',
-                     fontsize=15, color='r')
+            plt.text(rdotx_*0.97,
+                     rdotz_+0.2,
+                     r'$\mathbf{v}$',
+                     horizontalalignment='center',
+                     verticalalignment='center',
+                     fontsize=15,
+                     color='r')
             sf = 1.2 if varphi_ >= 0.5 else 0.85
-            plt.text(px_+0.25, pz_*sf, r'$\mathbf{\widetilde{p}}$',
-                     horizontalalignment='center', verticalalignment='center',
-                     fontsize=15, color='b')
+            plt.text(px_+0.25,
+                     pz_*sf,
+                     r'$\mathbf{\widetilde{p}}$',
+                     horizontalalignment='center',
+                     verticalalignment='center',
+                     fontsize=15,
+                     color='b')
 
-    def arrows(self, px_, pz_, rdotx_, rdotz_) -> None:
+    def arrows(
+        self,
+        px_: float,
+        pz_: float,
+        rdotx_: float,
+        rdotz_: float
+    ) -> None:
         """
         TBD
         """
@@ -237,35 +266,68 @@ class IndicatrixOld(Graphing):
                   length_includes_head=True,
                   ec='b')
 
-    def lines_and_points(self, pd, axes, zoomx, do_pz, do_shapes) -> None:
+    def lines_and_points(self,
+                         pd: Dict,
+                         axes: Axes,
+                         zoomx: np.ndarray,
+                         do_pz: bool,
+                         do_shapes: bool
+                         ) -> None:
         """
         TBD
         """
         # Unpack
-        n_vertices_, ls_ = pd['n_vertices'], pd['ls']
-        px_, pz_, rdotx_, rdotz_ = pd['px'], pd['pz'], pd['rdotx'], pd['rdotz']
+        (n_vertices_, ls_) = (pd['n_vertices'], pd['ls'])
+        (px_, pz_, rdotx_, rdotz_) \
+            = (pd['px'], pd['pz'], pd['rdotx'], pd['rdotz'])
         psqrd_ = (px_**2+pz_**2)
-        plt.plot([px_/psqrd_, rdotx_],
-                 [pz_/psqrd_, rdotz_], c='r', ls=ls_, lw=1)
-        plt.plot([0, px_], [0, pz_], c='b', ls=ls_, lw=1)
+        plt.plot((px_/psqrd_, rdotx_),
+                 (pz_/psqrd_, rdotz_),
+                 c='r',
+                 ls=ls_,
+                 lw=1)
+        plt.plot((0, px_),
+                 (0, pz_),
+                 c='b',
+                 ls=ls_,
+                 lw=1)
         if do_pz:
-            plt.plot([zoomx[0], zoomx[1]], [pz_, pz_], c='b', ls=':', lw=1)
+            plt.plot((zoomx[0], zoomx[1]),
+                     (pz_, pz_),
+                     c='b',
+                     ls=':',
+                     lw=1)
         if psqrd_ < 1:
-            plt.plot([px_, px_/psqrd_], [pz_, pz_/psqrd_], c='b', ls=ls_, lw=1)
+            plt.plot((px_, px_/psqrd_),
+                     (pz_, pz_/psqrd_),
+                     c='b',
+                     ls=ls_,
+                     lw=1)
         if do_shapes:
             axes.add_patch(RegularPolygon((px_, pz_),
-                                          n_vertices_, radius=0.08,
-                                          lw=1, ec='k', fc='b'))
+                                          n_vertices_,
+                                          radius=0.08,
+                                          lw=1,
+                                          ec='k',
+                                          fc='b'))
             axes.add_patch(RegularPolygon((rdotx_, rdotz_),
-                                          n_vertices_, radius=0.08,
-                                          lw=1, ec='k', fc='r'))
+                                          n_vertices_,
+                                          radius=0.08,
+                                          lw=1,
+                                          ec='k',
+                                          fc='r'))
         else:
             axes.add_patch(
                 Circle((px_, pz_), radius=0.04, lw=1, ec='k', fc='b'))
             axes.add_patch(
                 Circle((rdotx_, rdotz_), radius=0.04, lw=1, ec='k', fc='r'))
 
-    def annotations(self, axes, beta_, tanalpha_) -> None:
+    def annotations(
+        self,
+        axes: Axes,
+        beta_: float,
+        tanalpha_: float
+    ) -> None:
         """
         TBD
         """
@@ -302,11 +364,11 @@ class IndicatrixOld(Graphing):
 
     def legend(
         self,
-        gmeq,
-        axes,
-        do_legend,
-        do_half,
-        do_ray_slowness=False
+        gmeq: Eq,
+        axes: Axes,
+        do_legend: bool,
+        do_half: bool,
+        do_ray_slowness: bool = False
     ) -> None:
         """
         TBD
@@ -324,8 +386,14 @@ class IndicatrixOld(Graphing):
                  'lower left'
         axes.legend(handles[::-1], labels[::-1], loc=loc_)
 
-    def figuratrix(self, gmeq, varphi_, n_points, pz_min_=1e-5, pz_max_=50) \
-            -> Tuple[np.array, np.array, Eq]:
+    def figuratrix(
+        self,
+        gmeq: Eq,
+        varphi_: float,
+        n_points: int,
+        pz_min_: float = 1e-5,
+        pz_max_: float = 50
+    ) -> Tuple[np.ndarray, np.ndarray, Eq]:
         """
         TBD
         """
@@ -343,8 +411,14 @@ class IndicatrixOld(Graphing):
                                  for pz_ in fgtx_pz_array])
         return fgtx_px_array, fgtx_pz_array, px_pz_eqn
 
-    def indicatrix(self, gmeq, varphi_, n_points, pz_min_=1e-5, pz_max_=300) \
-            -> Tuple[np.array, np.array, Eq, Eq]:
+    def indicatrix(
+        self,
+        gmeq: Eq,
+        varphi_: float,
+        n_points: int,
+        pz_min_: float = 1e-5,
+        pz_max_: float = 300
+    ) -> Tuple[np.ndarray, np.ndarray, Eq, Eq]:
         """
         TBD
         """
@@ -367,8 +441,13 @@ class IndicatrixOld(Graphing):
             = np.array([float(rdotz_pz_lambda(pz_)) for pz_ in fgtx_pz_array])
         return idtx_rdotx_array, idtx_rdotz_array, rdotx_pz_eqn, rdotz_pz_eqn
 
-    def plot_figuratrix(self, fgtx_px_array, fgtx_pz_array,
-                        maybe_recip_fn, do_ray_slowness=False) -> None:
+    def plot_figuratrix(
+        self,
+        fgtx_px_array,
+        fgtx_pz_array,
+        maybe_recip_fn,
+        do_ray_slowness: bool = False
+    ) -> None:
         """
         TBD
         """
@@ -379,8 +458,13 @@ class IndicatrixOld(Graphing):
         plt.plot(*maybe_recip_fn(fgtx_px_array, fgtx_pz_array),
                  lw=2, c='DarkBlue', ls='-')
 
-    def plot_indicatrix(self, idtx_rdotx_array, idtx_rdotz_array,
-                        maybe_recip_fn, do_ray_slowness=False) -> None:
+    def plot_indicatrix(
+        self,
+        idtx_rdotx_array: np.ndarray,
+        idtx_rdotz_array: np.ndarray,
+        maybe_recip_fn: Callable,
+        do_ray_slowness: bool = False
+    ) -> None:
         """
         TBD
         """
@@ -391,7 +475,11 @@ class IndicatrixOld(Graphing):
         plt.plot(*maybe_recip_fn(-idtx_rdotx_array, idtx_rdotz_array),
                  lw=2, c='DarkRed', ls='-')
 
-    def plot_unit_circle(self, varphi_, do_varphi_circle) -> None:
+    def plot_unit_circle(
+        self,
+        varphi_: float,
+        do_varphi_circle: bool
+    ) -> None:
         """
         TBD
         """
@@ -406,24 +494,24 @@ class IndicatrixOld(Graphing):
 
     def relative_geometry(
         self,
-        gmeq,
-        name,
-        fig_size=None,
-        dpi=None,
-        varphi_=1,
-        zoom_factor=1,
-        do_half=False,
-        do_legend=True,
-        do_text_labels=True,
-        do_arrows=True,
-        do_lines_points=True,
-        do_shapes=False,
-        do_varphi_circle=False,
-        do_pz=False,
-        do_ray_slowness=False,
-        x_max=3.4,
-        n_points=100,
-        pz_min_=1e-1
+        gmeq: Eq,
+        name: str,
+        fig_size: Tuple[float, float] = None,
+        dpi: float = None,
+        varphi_: float = 1,
+        zoom_factor: float = 1,
+        do_half: bool = False,
+        do_legend: bool = True,
+        do_text_labels: bool = True,
+        do_arrows: bool = True,
+        do_lines_points: bool = True,
+        do_shapes: bool = False,
+        do_varphi_circle: bool = False,
+        do_pz: bool = False,
+        do_ray_slowness: bool = False,
+        x_max: float = 3.4,
+        n_points: int = 100,
+        pz_min_: float = 1e-1
     ) -> None:
         r"""
         Plot the loci of :math:`\mathbf{\widetilde{p}}` and :math:`\mathbf{r}`

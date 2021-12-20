@@ -47,6 +47,10 @@ class FundamentalMixin:
     to equation definition class.
     """
 
+    p_norm_pxpz_eqn: Eq
+    p_varphi_pxpz_eqn: Eq
+    varphi_rx_eqn: Eq
+
     def define_Fstar_eqns(self) -> None:
         r"""
         Define the fundamental function.

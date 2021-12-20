@@ -50,7 +50,12 @@ __all__ = ['NdimMixin']
 
 class NdimMixin:
     r"""
+    Non-dimensionalization supplement to equation definition class.
     """
+    varphi_rx_eqn: Eq
+    xi_varphi_beta_eqn: Eq
+    pz_xiv_eqn: Eq
+    H_varphi_rx_eqn: Eq
 
     def nondimensionalize(self) -> None:
         r"""

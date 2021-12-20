@@ -68,9 +68,6 @@ class AlphaBeta(Graphing):
             gmeq:
                 GME model equations class instance defined in
                 :mod:`gme.core.equations`
-            sub:
-                dictionary of model parameter values to be used for
-                equation substitutions
             name:
                 name of figure (key in figure dictionary)
             alpha_array:
@@ -105,18 +102,37 @@ class AlphaBeta(Graphing):
         plt.ylabel(r'Ray angle  $\alpha$   [${\degree}\!$ from horiz]')
 
     def beta_anisotropy(
-            self,
-            gmeq: Equations,
-            name: str,
-            alpha_array: np.ndarray,
-            beta_array: np.ndarray,
-            tanalpha_ext_: float,
-            tanbeta_crit_: float,
-            fig_size: Optional[Tuple[float, float]] = None,
-            dpi: Optional[int] = None
-            ) -> None:
-        """
-        TBD
+        self,
+        gmeq: Equations,
+        name: str,
+        alpha_array: np.ndarray,
+        beta_array: np.ndarray,
+        tanalpha_ext_: float,
+        tanbeta_crit_: float,
+        fig_size: Optional[Tuple[float, float]] = None,
+        dpi: Optional[int] = None
+    ) -> None:
+        r"""
+        Plot :math:`\psi(\beta)`.
+
+        Args:
+            gmeq:
+                GME model equations class instance defined in
+                :mod:`gme.core.equations`
+            name:
+                name of figure (key in figure dictionary)
+            alpha_array:
+                ray angle :math:`\alpha` values
+            beta_array:
+                surface tilt :math:`\beta` values
+            tanalpha_ext_:
+                value of :math:`\tan\alpha_\mathrm{ext}`
+            tanbeta_crit_:
+                value of :math:`\tan\beta_c`
+            fig_size:
+                optional figure width and height in inches
+            dpi:
+                optional rasterization resolution
         """
         # Create figure
         _ = self.create_figure(name, fig_size=fig_size, dpi=dpi)
@@ -150,17 +166,35 @@ class AlphaBeta(Graphing):
         plt.plot(beta_array, beta_array, ':')
 
     def alpha_anisotropy(
-            self,
-            gmeq: Equations,
-            name: str,
-            alpha_array: np.ndarray,
-            beta_array: np.ndarray,
-            tanalpha_ext_: float,
-            tanbeta_crit_: float,
-            fig_size: Optional[Tuple[float, float]] = None,
-            dpi: Optional[int] = None) -> None:
-        """
-        TBD
+        self,
+        gmeq: Equations,
+        name: str,
+        alpha_array: np.ndarray,
+        beta_array: np.ndarray,
+        tanalpha_ext_: float,
+        tanbeta_crit_: float,
+        fig_size: Optional[Tuple[float, float]] = None,
+        dpi: Optional[int] = None
+    ) -> None:
+        r"""
+        Args:
+            gmeq:
+                GME model equations class instance defined in
+                :mod:`gme.core.equations`
+            name:
+                name of figure (key in figure dictionary)
+            alpha_array:
+                ray angle :math:`\alpha` values
+            beta_array:
+                surface tilt :math:`\beta` values
+            tanalpha_ext_:
+                value of :math:`\tan\alpha_\mathrm{ext}`
+            tanbeta_crit_:
+                value of :math:`\tan\beta_c`
+            fig_size:
+                optional figure width and height in inches
+            dpi:
+                optional rasterization resolution
         """
         # Create figure
         _ = self.create_figure(name, fig_size=fig_size, dpi=dpi)
@@ -200,17 +234,40 @@ class AlphaBeta(Graphing):
         axes.invert_xaxis()
         axes.set_aspect(2)
 
-    def alpha_image(self,
-                    gmeq,
-                    name,
-                    alpha_array,
-                    beta_array,
-                    tanalpha_ext_,
-                    tanbeta_crit_,
-                    fig_size=None,
-                    dpi=None) -> None:
-        """
-        TBD
+    def alpha_image(
+        self,
+        gmeq: Equations,
+        name: str,
+        alpha_array: np.ndarray,
+        beta_array: np.ndarray,
+        tanalpha_ext_: float,
+        tanbeta_crit_: float,
+        fig_size: Optional[Tuple[float, float]] = None,
+        dpi: Optional[int] = None
+    ) -> None:
+        r"""
+        Plot alpha 'image'.
+
+        TODO: better explanation
+
+        Args:
+            gmeq:
+                GME model equations class instance defined in
+                :mod:`gme.core.equations`
+            name:
+                name of figure (key in figure dictionary)
+            alpha_array:
+                ray angle :math:`\alpha` values
+            beta_array:
+                surface tilt :math:`\beta` values
+            tanalpha_ext_:
+                value of :math:`\tan\alpha_\mathrm{ext}`
+            tanbeta_crit_:
+                value of :math:`\tan\beta_c`
+            fig_size:
+                optional figure width and height in inches
+            dpi:
+                optional rasterization resolution
         """
         # Create figure
         _ = self.create_figure(name, fig_size=fig_size, dpi=dpi)

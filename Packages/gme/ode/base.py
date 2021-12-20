@@ -39,15 +39,15 @@ from scipy.interpolate import interp1d
 from scipy.optimize import fsolve
 
 # SymPy
-from sympy import Matrix, lambdify, simplify
+from sympy import Matrix, lambdify, simplify, Eq
 
 # GME
 from gme.core.symbols import px, pz, rx, rdotx, rdotz, Lc
 
 warnings.filterwarnings("ignore")
 
-rp_tuple = ('rx', 'rz', 'px', 'pz')
-rpt_tuple = rp_tuple+('t',)
+rp_tuple: Tuple[str, str, str, str] = ('rx', 'rz', 'px', 'pz')
+rpt_tuple: Tuple[str, str, str, str, str] = rp_tuple+('t',)
 
 __all__ = ['solve_ODE_system',
            'solve_Hamiltons_equations',
@@ -75,10 +75,15 @@ def eventAttr():
 #     and corrected afterwards
 
 
-def solve_ODE_system(model, method, do_dense, ic,
-                     # t0,t1,nt,
-                     t_array,
-                     x_stop=0.999) -> Any:
+def solve_ODE_system(
+    model,
+    method,
+    do_dense: bool,
+    ic: Tuple[float, float, float, float],
+    # t0,t1,nt,
+    t_array: np.ndarray,
+    x_stop: float = 0.999
+) -> Any:
     """
     Integrate a coupled system of ODEs - presumed to be Hamilton's equations.
     """
@@ -109,19 +114,22 @@ def solve_ODE_system(model, method, do_dense, ic,
 def solve_Hamiltons_equations(
     model,
     method,
-    do_dense,
-    ic,
-    parameters,
-    t_array,
-    x_stop=1.0,
-    t_lag=0
-) -> Tuple[Any, Dict[str, List[np.array]]]:
+    do_dense: bool,
+    ic: Tuple[float, float, float, float],
+    parameters: Dict,
+    t_array: np.ndarray,
+    x_stop: float = 1.0,
+    t_lag: float = 0
+) -> Tuple[Any, Dict[str, np.ndarray]]:
     """
     Perform ray tracing by integrating Hamilton's ODEs for r and p.
     """
     # Do ODE integration
     # t0, t1, nt = t_array[0], t_array[-1], len(t_array)
-    ivp_soln = solve_ODE_system(model, method, do_dense, ic,
+    ivp_soln = solve_ODE_system(model,
+                                method,
+                                do_dense,
+                                ic,
                                 # t0,t1,nt,
                                 t_array,
                                 x_stop=x_stop)
@@ -173,7 +181,7 @@ def solve_Hamiltons_equations(
             + f'x={np.round(rx_array[-1],5)} t={np.round(t_array[-1],3)}'
         )
 
-    rpt_arrays: Dict[str, np.array] = {}
+    rpt_arrays: Dict[str, np.ndarray] = {}
     rpt_arrays['t'] = np.concatenate(
         (rpt_lag_arrays['t'], t_array[0:i_end]+t_lag))
     for rp_idx, rp_ in enumerate(rp_tuple):
@@ -199,6 +207,8 @@ def solve_Hamiltons_equations(
     #         rpt_arrays[rpt_] = a[:i_end]
     # print('solve Hamiltons equations #2:', rpt_arrays['rx'])
     return (ivp_soln, rpt_arrays)
+    #           Tuple[Any, Dict[str, ndarray[Any, Any]]]
+    # expected: Tuple[Any, Dict[str, List[ndarray[Any, Any]]]]
 
 
 def report_progress(
@@ -235,19 +245,19 @@ class BaseSolution(ABC):
 
     def __init__(
         self,
-        gmeq,
-        parameters,
-        choice='Hamilton',
-        method='Radau',
-        do_dense=True,
-        x_stop=0.999,
-        t_end=0.04,
-        t_slip_end=0.08,
-        t_distribn=2,
-        n_rays=20,
-        n_t=101,
-        tp_xiv0_list=None,
-        customize_t_fn=None
+        gmeq: Eq,
+        parameters: Dict,
+        choice: str = 'Hamilton',
+        method: str = 'Radau',
+        do_dense: bool = True,
+        x_stop: float = 0.999,
+        t_end: float = 0.04,
+        t_slip_end: float = 0.08,
+        t_distribn: float = 2,
+        n_rays: int = 20,
+        n_t: int = 101,
+        tp_xiv0_list: Optional[List[Tuple[float, float]]] = None,
+        customize_t_fn: Optional[Callable] = None
     ) -> None:
         """
         Initialize class instance.
@@ -261,14 +271,14 @@ class BaseSolution(ABC):
                 equation substitutions
         """
         # Container for GME equations
-        self.gmeq = gmeq
+        self.gmeq: Eq = gmeq
 
         # Model/equation parameters
-        self.parameters = parameters
+        self.parameters: Dict = parameters
 
         # ODE solution method
-        self.choice = choice
-        self.method = method
+        self.choice: str = choice
+        self.method: str = method
         report = 'ode.base.BaseSolution.init: '
         if self.choice == 'Hamilton':
             report += 'Solve Hamilton\'s ODEs'
@@ -276,20 +286,20 @@ class BaseSolution(ABC):
             report += 'Solve geodesic ODEs'
         report += f' using {method} method of integration'
         logging.info(report)
-        self.do_dense = do_dense
-        self.x_stop = x_stop
+        self.do_dense: bool = do_dense
+        self.x_stop: float = x_stop
 
         # Rays
         self.tp_xiv0_list: Optional[List[Tuple[float, float]]] = tp_xiv0_list
-        self.n_rays = n_rays
-        self.t_end = t_end
-        self.t_distribn = t_distribn
-        self.t_slip_end = t_slip_end
-        self.n_t = n_t
+        self.n_rays: int = n_rays
+        self.t_end: float = t_end
+        self.t_distribn: float = t_distribn
+        self.t_slip_end: float = t_slip_end
+        self.n_t: int = n_t
         # To record the longest ray time
         self.t_ensemble_max: float
         # Ray interpolation
-        self.interp1d_kind = 'linear'
+        self.interp1d_kind: str = 'linear'
 
         # ODEs & related
         self.pz_velocity_boundary_eqn = gmeq.pz_xiv_eqn.subs(self.parameters)
@@ -298,24 +308,27 @@ class BaseSolution(ABC):
         self.model_dXdt_lambda: \
             Callable[[float, Tuple[Any, Any, Any, Any]],
                      float] = lambda a, b: 0.0
-        self.customize_t_fn = customize_t_fn
+        self.customize_t_fn: Optional[Callable] = customize_t_fn
 
         # Preliminary definitions and type annotations
         self.ic_list: List[Tuple[float, float, float, float]]
-        self.ref_t_array = np.linspace(
-            0, 1, self.n_t)**self.t_distribn * self.t_end
-        self.rpt_arrays: Dict[str, np.array] = {}
+        self.ref_t_array \
+            = np.linspace(0, 1, self.n_t)**self.t_distribn * self.t_end
+        self.rpt_arrays: Dict[str, List[np.ndarray]] = {}
         for rp_ in rpt_tuple:
-            self.rpt_arrays.update({rp_: [np.array([0])]*self.n_rays})
+            self.rpt_arrays.update({
+                rp_: [np.array([0])]*self.n_rays
+            })
+        # logging.info(type(self.rpt_arrays['rx']))
         self.ivp_solns_list: List[Any] = []
-        self.rp_t_interp_fns: Dict[str, List[np.array]] = {}
+        self.rp_t_interp_fns: Dict[str, List[Optional[Callable]]] = {}
         self.t_isochrone_max: float = 0.0
         self.n_isochrones: int = 0
         self.x_subset: int = 0
         self.tolerance: float = 0.0
         self.rpt_isochrones: Dict[str, List] = {}
-        self.trxz_cusps: List[Tuple[np.array, Any, Any]] = []
-        self.cusps: Dict[str, np.array] = {}
+        self.trxz_cusps: List[Tuple[np.ndarray, Any, Any]] = []
+        self.cusps: Dict[str, np.ndarray] = {}
         self.cx_pz_tanbeta_lambda: Optional[Callable[[float], float]] = None
         self.cx_pz_lambda: Optional[Callable[[float], float]] = None
         self.cx_v_lambda: Optional[Callable[[float], float]] = None
@@ -336,7 +349,7 @@ class BaseSolution(ABC):
         """
 
     def make_model(self) \
-            -> Callable[[float, Tuple[Any, Any, Any, Any]], float]:
+            -> Callable[[float, Tuple[Any, Any, Any, Any]], np.ndarray]:
         """
         Generate a lambda for Hamilton's equations (or the geodesic equations)
            that returns a matrix of dr/dt and dp/dt (resp. dr/dt and dv/dt)
@@ -356,6 +369,7 @@ class BaseSolution(ABC):
             drpdt_raw_lambda = lambdify([rx, px, pz], drpdt_eqn_matrix)
             return lambda t_, rp_: \
                 np.ndarray.flatten(drpdt_raw_lambda(rp_[0], rp_[2], rp_[3]))
+
         logging.info(f'{log_string} Constructing model geodesic equations')
         drvdt_eqn_matrix = Matrix(
             ([(eq_.rhs) for eq_ in self.gmeq.geodesic_eqns]))
@@ -371,30 +385,30 @@ class BaseSolution(ABC):
         #  that override this method
         _ = (spline_order, extrapolation_mode)
         for rp_ in rp_tuple:
-            self.rp_t_interp_fns.update({rp_: [np.array([0])]*self.n_rays})
+            self.rp_t_interp_fns.update({rp_: [None]*self.n_rays})
         fill_value_ = 'extrapolate'
         for (i_ray, t_array) in enumerate(self.rpt_arrays['t']):
             if t_array.size > 1:
                 # Generate interpolation functions for each component
                 #   rx[t], rz[t], px[t], pz[t]
                 for rp_ in rp_tuple:
+                    # logging.info((i_ray, rp_))
                     self.rp_t_interp_fns[rp_][i_ray] \
-                        = interp1d(
-                            t_array,
-                            self.rpt_arrays[rp_][i_ray],
-                            kind=self.interp1d_kind,
-                            fill_value=fill_value_,
-                            assume_sorted=True)
+                        = interp1d(t_array,
+                                   self.rpt_arrays[rp_][i_ray],
+                                   kind=self.interp1d_kind,
+                                   fill_value=fill_value_,
+                                   assume_sorted=True)
 
     def resolve_isochrones(
         self,
-        x_subset=1,
-        t_isochrone_max=0.04,
-        n_isochrones=25,
-        n_resample_pts=301,
-        tolerance=1e-3,
-        do_eliminate_caustics=True,
-        dont_crop_cusps=False
+        x_subset: int = 1,
+        t_isochrone_max: float = 0.04,
+        n_isochrones: int = 25,
+        n_resample_pts: int = 301,
+        tolerance: float = 1e-3,
+        do_eliminate_caustics: bool = True,
+        dont_crop_cusps: bool = False
     ) -> None:
         """
         Resample the ensemble of rays at selected time slices to generate
@@ -444,10 +458,10 @@ class BaseSolution(ABC):
             for rpt_ in rpt_tuple:
                 self.rpt_isochrones.update({rpt_: [None]*n_isochrones})
             # self.rpt_isochrones_lowres = self.rpt_isochrones.copy()
-            # self.trxz_cusps: List[Tuple[np.array,Any,Any]] = []
+            # self.trxz_cusps: List[Tuple[np.ndarray,Any,Any]] = []
 
         def truncate_isochrone(rpt_isochrone, i_from=None, i_to=None) \
-                -> Dict[str, np.array]:
+                -> Dict[str, np.ndarray]:
             """
             TBD
             """
@@ -521,7 +535,7 @@ class BaseSolution(ABC):
             return xz1_intercept, xz2_intercept, pxz1_intercept, pxz2_intercept
 
         def eliminate_caustic(is_good_pt_array, rpt_isochrone) \
-                -> Tuple[Dict[str, np.array], Tuple[Any, Any, Any]]:
+                -> Tuple[Dict[str, np.ndarray], Tuple[Any, Any, Any]]:
             """
             TBD
             """
@@ -614,7 +628,7 @@ class BaseSolution(ABC):
                      or rxz1_intercept[0] <= self.parameters[Lc]) \
                 else (None, None, None)
 
-        def compose_isochrone(t_) -> Dict[str, np.array]:
+        def compose_isochrone(t_) -> Dict[str, np.ndarray]:
             """
             TBD
             """
@@ -624,16 +638,17 @@ class BaseSolution(ABC):
             for rp_ in rp_tuple:
                 # Sample each ray at time t_ from each of the components
                 #    of r,p vectors using their interpolating fns
-                rp_interpolated_isochrone = [float(interp_fn(t_)) for interp_fn
-                                             in self.rp_t_interp_fns[rp_]
-                                             if interp_fn is not None]
+                rp_interpolated_isochrone \
+                    = [float(interp_fn(t_))
+                        for interp_fn in self.rp_t_interp_fns[rp_]
+                       if interp_fn is not None]
                 rpt_isochrone.update(
                     {rp_: np.array(rp_interpolated_isochrone)})
             rpt_isochrone.update({'t': t_})
             return rpt_isochrone
 
         def resample_isochrone(rpt_isochrone_in, n_resample_pts) \
-                -> Dict[str, np.array]:
+                -> Dict[str, np.ndarray]:
             """
             TBD
             """
@@ -665,7 +680,7 @@ class BaseSolution(ABC):
         #   for the current isochrone
 
         def clean_isochrone(rpt_isochrone) \
-                -> Tuple[Dict[str, np.array], Tuple[Any, Any, Any]]:
+                -> Tuple[Dict[str, np.ndarray], Tuple[Any, Any, Any]]:
             """
             TBD
             """
@@ -702,7 +717,7 @@ class BaseSolution(ABC):
                 (t_rxz_intercept, pxz1_intercept, pxz2_intercept)
             )
 
-        def prune_isochrone(rpt_isochrone_in) -> Dict[str, np.array]:
+        def prune_isochrone(rpt_isochrone_in) -> Dict[str, np.ndarray]:
             """
             TBD
             """
@@ -747,7 +762,7 @@ class BaseSolution(ABC):
             """
             TBD
             """
-            # self.cusps: Dict[str,np.array] = {}
+            # self.cusps: Dict[str,np.ndarray] = {}
             self.cusps['t'] = np.array([t_ for (t_, rxz_), pxz1_, pxz2_
                                         in self.trxz_cusps
                                         if rxz_[0] >= 0 and rxz_[0] <= 1])
@@ -894,6 +909,7 @@ class BaseSolution(ABC):
         """
         TBD
         """
+        logging.debug('ode.base.BaseSolution.save')
         for rpt_ in rpt_tuple:
             self.rpt_arrays[rpt_][idx] = rpt_arrays[rpt_]
         rx_length = len(self.rpt_arrays['rx'][idx])
@@ -926,36 +942,36 @@ class ExtendedSolution(BaseSolution):
         self.pz0: float
         self.rays: List
 
-        self.t_array: np.array
-        self.rx_array: np.array
-        self.rz_array: np.array
-        self.p_array: np.array
-        self.px_array: np.array
-        self.pz_array: np.array
-        self.rdot_array: np.array
-        self.rdotx_array: np.array
-        self.rdotz_array: np.array
-        self.pdot_array: np.array
-        self.pdotx_array: np.array
-        self.pdotz_array: np.array
-        self.tanalpha_array: np.array
-        self.tanbeta_array: np.array
-        self.alpha_array: np.array
-        self.beta_array: np.array
-        self.xiv_p_array: np.array
-        self.xiv_v_array: np.array
-        self.uhorizontal_p_array: np.array
-        self.uhorizontal_v_array: np.array
-        self.cosbeta_array: np.array
-        self.sinbeta_array: np.array
-        self.u_array: np.array
-        self.x_array: np.array
-        self.h_array: np.array
-        self.h_x_array: np.array
-        self.h_z_array: np.array
-        self.dhdx_array: np.array
-        self.beta_vt_array: np.array
-        self.beta_ts_array: np.array
+        self.t_array: np.ndarray
+        self.rx_array: np.ndarray
+        self.rz_array: np.ndarray
+        self.p_array: np.ndarray
+        self.px_array: np.ndarray
+        self.pz_array: np.ndarray
+        self.rdot_array: np.ndarray
+        self.rdotx_array: np.ndarray
+        self.rdotz_array: np.ndarray
+        self.pdot_array: np.ndarray
+        self.pdotx_array: np.ndarray
+        self.pdotz_array: np.ndarray
+        self.tanalpha_array: np.ndarray
+        self.tanbeta_array: np.ndarray
+        self.alpha_array: np.ndarray
+        self.beta_array: np.ndarray
+        self.xiv_p_array: np.ndarray
+        self.xiv_v_array: np.ndarray
+        self.uhorizontal_p_array: np.ndarray
+        self.uhorizontal_v_array: np.ndarray
+        self.cosbeta_array: np.ndarray
+        self.sinbeta_array: np.ndarray
+        self.u_array: np.ndarray
+        self.x_array: np.ndarray
+        self.h_array: np.ndarray
+        self.h_x_array: np.ndarray
+        self.h_z_array: np.ndarray
+        self.dhdx_array: np.ndarray
+        self.beta_vt_array: np.ndarray
+        self.beta_ts_array: np.ndarray
 
         self.t_interp_x: Callable
         self.rz_interp: Callable

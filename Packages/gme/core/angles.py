@@ -48,7 +48,15 @@ __all__ = ['AnglesMixin']
 
 class AnglesMixin:
     r"""
+    Angle equations supplement to equation definition class.
     """
+    eta_: float
+    beta_type: str
+    rdotz_on_rdotx_eqn: Eq
+    rdotz_rdot_alpha_eqn: Eq
+    rdotx_rdot_alpha_eqn: Eq
+    rdotz_on_rdotx_tanbeta_eqn: Eq
+    pz_xiv_eqn: Eq
 
     def define_tanalpha_eqns(self) -> None:
         r"""

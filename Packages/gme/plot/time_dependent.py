@@ -171,9 +171,12 @@ class TimeDependent(Graphing):
 
         # Initial boundary
         if hasattr(gmes, 'rpt_isochrones') and do_zero_isochrone:
-            n_isochrones = len(rx_isochrones)
-            plt.plot(rx_isochrones[0], rz_isochrones[0], '-',
-                     color=self.gray_color(0, n_isochrones), lw=2,
+            n_isochrones: int = len(rx_isochrones)
+            plt.plot(rx_isochrones[0],
+                     rz_isochrones[0],
+                     '-',
+                     color=self.gray_color(0, n_isochrones),
+                     lw=2,
                      label=('zero isochrone' if do_legend else None))
 
         # Rays
@@ -212,23 +215,27 @@ class TimeDependent(Graphing):
 
         # Time slices or isochrones of erosion front
         if hasattr(gmes, 'rpt_isochrones') and do_isochrones:
-            n_isochrones: int = len(rx_isochrones)
+            n_isochrones = len(rx_isochrones)
             delta_t: float = t_isochrones[1]
             i_isochrone, rx_isochrone, rz_isochrone = None, None, None
             # suppresses annoying pylint warning
             for i_isochrone, (rx_isochrone, rz_isochrone, _) in \
                     enumerate(zip(rx_isochrones, rz_isochrones, t_isochrones)):
-                i_subsetted: int = (i_isochrone//isochrone_subsetting
-                                    - i_isochrone/isochrone_subsetting)
-                i_subsubsetted: int = (i_isochrone//(isochrone_subsetting*10)
-                                       - i_isochrone/(isochrone_subsetting*10))
-                if i_isochrone > 0 and i_subsetted == 0 \
+                i_subsetted: float \
+                    = float((i_isochrone//isochrone_subsetting
+                             - i_isochrone/isochrone_subsetting))
+                i_subsubsetted: float \
+                    = float((i_isochrone//(isochrone_subsetting*10)
+                             - i_isochrone/(isochrone_subsetting*10)))
+                if i_isochrone > 0 and i_subsetted == 0.0 \
                         and rx_isochrone is not None:
-                    lw_: float = 1.3*isochrone_lw if i_subsubsetted == 0 \
+                    lw_: float = 1.3*isochrone_lw if i_subsubsetted == 0.0 \
                                 else 0.5*isochrone_lw
-                    plt.plot(rx_isochrone, rz_isochrone,
+                    plt.plot(rx_isochrone,
+                             rz_isochrone,
                              self.gray_color(i_isochrone, n_isochrones),
-                             linestyle=isochrone_ls, lw=lw_)
+                             linestyle=isochrone_ls,
+                             lw=lw_)
             # Hack legend items
             if rx_isochrone is not None:
                 label_part = r'isochrone $\Delta{\hat{t}}=$'

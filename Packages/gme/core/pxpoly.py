@@ -45,7 +45,14 @@ __all__ = ['PxpolyMixin']
 
 class PxpolyMixin:
     r"""
+    Polynomial :math:`p_x` equations supplement to equation definition class.
     """
+    sinCi_xih0_eqn: Eq
+    px_xiv_varphi_eqn: Eq
+    varphi_rxhat_eqn: Eq
+    px_pxhat_eqn: Eq
+    xiv0_xih0_Ci_eqn: Eq
+    varphi_rx_eqn: Eq
 
     def define_px_poly_eqn(
         self,

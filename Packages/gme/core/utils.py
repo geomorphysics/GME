@@ -21,7 +21,7 @@ Requires Python packages/modules:
 import warnings
 
 # Typing
-from typing import Tuple, Dict, Any, List, Callable
+from typing import Tuple, Dict, Any, List, Callable, Optional
 
 # SciPy
 from scipy.optimize import root_scalar
@@ -90,7 +90,7 @@ def px_value_search(
     x_: float,
     pz_: float,
     px_poly_eqn: Eq,
-    method: bool = 'newton',
+    method: str = 'newton',
     px_guess: float = 0.01,
     px_var_: Symbol = px,
     pz_var_: Symbol = pz,
@@ -105,7 +105,7 @@ def px_value_search(
         = lambdify([px_var_], diff(px_poly_eqn_.as_expr(), px_var_)) \
         if method == 'newton' \
         else None
-    bracket_: Tuple[float, float] \
+    bracket_: Optional[Tuple[float, float]] \
         = bracket if method == 'brentq' \
         else None
     for px_guess_ in [1, px_guess]:
@@ -135,6 +135,6 @@ def px_value(
     """
     px_poly_eqn_: Poly = poly(px_poly_eqn.subs({rx: x_, x: x_, pz_var_: pz_}))
     px_poly_roots: List[float] = nroots(px_poly_eqn_)
-    pxgen: List[float] = [root_ for root_ in px_poly_roots
-                          if Abs(im(root_)) < 1e-10 and re(root_) > 0][0]
+    pxgen: float = [root_ for root_ in px_poly_roots
+                    if Abs(im(root_)) < 1e-10 and re(root_) > 0][0]
     return solve(Eq(px_poly_eqn_.gens[0], pxgen), px_var_)[0]

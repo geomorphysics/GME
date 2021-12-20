@@ -45,7 +45,15 @@ __all__ = ['XiMixin']
 
 class XiMixin:
     r"""
+    Erosion model :math:`\xi` equations supplement
+    to equation definition class.
     """
+    beta_type: str
+    do_raw: bool
+    eta_: float
+    tanbeta_pxpz_eqn: Eq
+    cosbeta_pxpz_eqn: Eq
+    sinbeta_pxpz_eqn: Eq
 
     def define_xi_eqns(self) -> None:
         r"""

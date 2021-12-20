@@ -48,7 +48,19 @@ __all__ = ['VarphiMixin']
 
 class VarphiMixin:
     r"""
+    Flow model :math:`\varphi` equations supplement
+    to equation definition class.
     """
+    varphi_type: str
+    mu_: float
+    p_xi_eqn: Eq
+    xi_varphi_beta_eqn: Eq
+    tanbeta_pxpz_eqn: Eq
+    sinbeta_pxpz_eqn: Eq
+    p_norm_pxpz_eqn: Eq
+    pz_px_tanbeta_eqn: Eq
+    xi_p_eqn: Eq
+    p_pz_cosbeta_eqn: Eq
 
     def define_varphi_model_eqns(self, do_new: bool = True) -> None:
         r"""

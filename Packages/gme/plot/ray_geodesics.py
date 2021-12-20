@@ -103,9 +103,9 @@ class RayGeodesics(Graphing):
 
         if do_recompute:
             self.gstar_matrices_list: List[Matrix] = []
-            self.gstar_matrices_array: List[np.array] = []
+            self.gstar_matrices_array: List[np.ndarray] = []
             self.g_matrices_list: List[Matrix] = []
-            self.g_matrices_array: List[np.array] = []
+            self.g_matrices_array: List[np.ndarray] = []
         if not hasattr(gmeq, 'gstar_ij_mat'):
             return
         try:

@@ -2,7 +2,7 @@
 	"job": {
 		"title": "Unset",
 		"subtitle" : "",
-		"group_name": "Generic",
+		"group_name": "Theory",
 		"short_name": "unnamed",
 		"verbose" : true,
 		"very_verbose" : false,

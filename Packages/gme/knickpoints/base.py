@@ -20,19 +20,47 @@ Requires Python packages/modules:
 TODO: broken version - needs major overhaul
 
 """
+# Library
+import warnings
+# import logging
+
+# Typing
+from typing import Tuple, Callable, Dict, Optional, Union
+
+# NumPy
 import numpy as np
 
+# SymPy
 from sympy import atan2, Matrix
 
+# GME
 from gme.ode.base import BaseSolution
 from gme.ode.velocity_boundary import VelocityBoundarySolution
 from gme.core.symbols import x, rx, Lc, beta, px, pz
 from gme.ode.base import rpt_tuple
 
+warnings.filterwarnings("ignore")
 
 __all__ = ['InitialProfileSolution',
            'InitialCornerSolution',
            'CompositeSolution']
+
+
+# class DummySolution(BaseSolution):
+#     solve: Optional[Callable]
+#     t_ensemble_max: float
+#     model_dXdt_lambda: Optional[Callable]
+#     rpt_arrays: Optional[Dict]
+#
+#     def __init__(self, gmeq, parameters, **kwargs) -> None:
+#         """
+#         Constructor method.
+#         """
+#         super().__init__(gmeq, parameters, **kwargs)
+#         self.solve = None
+#         self.t_ensemble_max = 0
+#         self.model_dXdt_lambda = None
+#         self.rpt_arrays = None
 
 
 class InitialProfileSolution(BaseSolution):
@@ -40,8 +68,11 @@ class InitialProfileSolution(BaseSolution):
     Integration of Hamilton's equations (ODEs) from an initial
     topographic profile.
     """
+    t_ensemble_max: float
+    model_dXdt_lambda: Optional[Callable]
+    rpt_arrays: Optional[Dict]
 
-    def __init__(self, gmeq, parameters, **kwargs):
+    def __init__(self, gmeq, parameters, **kwargs) -> None:
         """
         Constructor method.
 
@@ -60,7 +91,7 @@ class InitialProfileSolution(BaseSolution):
         # Initial condition equations
         self.rz_initial_surface_eqn = gmeq.rz_initial_eqn.subs({rx: x})
 
-    def initial_conditions(self, x_):
+    def initial_conditions(self, x_) -> Tuple[float, float, float, float]:
         rx0_ = x_
         rz0_ = float(self.rz_initial_surface_eqn.rhs.subs(
             {x: x_}).subs(self.parameters))
@@ -68,7 +99,7 @@ class InitialProfileSolution(BaseSolution):
             {x: x_}).subs(self.parameters))
         pz0_ = float(self.pz_initial_surface_eqn.rhs.subs(
             {x: x_}).subs(self.parameters))
-        return [rx0_, rz0_, px0_, pz0_]
+        return (rx0_, rz0_, px0_, pz0_)
 
     def solve(self, report_pc_step=1):
         self.prep_arrays()
@@ -101,8 +132,11 @@ class InitialCornerSolution(BaseSolution):
     Provides a set of ray integrations to span solutions along an initial
     profile and solutions from a slip velocity boundary.
     """
+    t_ensemble_max: float
+    model_dXdt_lambda: Optional[Callable]
+    rpt_arrays: Optional[Dict]
 
-    def __init__(self, gmeq, parameters, **kwargs):
+    def __init__(self, gmeq, parameters, **kwargs) -> None:
         """
         Constructor method.
 
@@ -144,7 +178,7 @@ class InitialCornerSolution(BaseSolution):
         else:
             self.rdot = None
 
-    def initial_conditions(self, beta0_):
+    def initial_conditions(self, beta0_) -> Tuple:
         rx0_ = 0
         rz0_ = 0
         px0_ = float(self.px_initial_corner_eqn.rhs
@@ -154,11 +188,12 @@ class InitialCornerSolution(BaseSolution):
                      .subs({beta: beta0_})
                      .subs(self.parameters))
         if self.choice == 'Hamilton':
-            return [rx0_, rz0_,
-                    px0_, pz0_]
+            return (rx0_, rz0_, px0_, pz0_)
         else:
-            return [rx0_, rz0_,
-                    *self.rdot.subs({rx: rx0_, px: px0_, pz: pz0_})]
+            return (rx0_, rz0_,
+                    *(self.rdot.subs({rx: rx0_, px: px0_, pz: pz0_})
+                      if self.rdot is not None
+                      else (0, 0)))
 
     def solve(self, report_pc_step=1, verbose=True):
         print('Solving Hamilton\'s equations' if self.choice == 'Hamilton'
@@ -201,8 +236,11 @@ class CompositeSolution(BaseSolution):
     to generate a 'complete' ray integration solution from a
     complex topographic boundary.
     """
+    t_ensemble_max: float
+    model_dXdt_lambda: Optional[Callable]
+    rpt_arrays: Optional[Dict]
 
-    def __init__(self, gmeq, parameters, **kwargs):
+    def __init__(self, gmeq, parameters, **kwargs) -> None:
         """
         Constructor method.
 
@@ -218,10 +256,14 @@ class CompositeSolution(BaseSolution):
         """
         super().__init__(gmeq, parameters, **kwargs)
 
-    def create_solutions(self, t_end=0.04, t_slip_end=0.08,
-                         do_solns=dict(ip=True, ic=True, vb=True),
-                         n_rays=dict(ip=101, ic=31, vb=101),
-                         n_t=dict(ip=1001, ic=1001, vb=1001)):
+    def create_solutions(
+        self,
+        t_end=0.04,
+        t_slip_end=0.08,
+        do_solns=dict(ip=True, ic=True, vb=True),
+        n_rays=dict(ip=101, ic=31, vb=101),
+        n_t=dict(ip=1001, ic=1001, vb=1001)
+    ) -> None:
         self.do_solns = do_solns
         self.t_end = t_end
         self.t_slip_end = t_slip_end
@@ -261,34 +303,57 @@ class CompositeSolution(BaseSolution):
                     ) if do_solns['vb'] \
             else None
 
-    def solve(self):
-        self.ips.solve() if self.do_solns['ip'] else False
-        self.ics.solve() if self.do_solns['ic'] else False
-        self.vbs.solve() if self.do_solns['vb'] else False
-        self.t_ensemble_max \
-            = self.vbs.t_ensemble_max if self.do_solns['vb'] \
-            else self.ics.t_ensemble_max if self.do_solns['ic'] \
-            else self.ips.t_ensemble_max if self.do_solns['ip'] \
-            else None
-        self.model_dXdt_lambda \
-            = self.vbs.model_dXdt_lambda if self.do_solns['vb'] \
-            else self.ics.model_dXdt_lambda if self.do_solns['ic'] \
-            else self.ips.model_dXdt_lambda if self.do_solns['ip'] \
-            else None
+    def solve(self) -> None:
+        soln_method: Union[InitialProfileSolution,
+                           InitialCornerSolution,
+                           VelocityBoundarySolution]
+        if self.do_solns['ip']:
+            soln_method = self.ips
+        elif self.do_solns['ic']:
+            soln_method = self.ics
+        elif self.do_solns['vb']:
+            soln_method = self.vbs
+        soln_method.solve()
+        self.t_ensemble_max = soln_method.t_ensemble_max
+        self.model_dXdt_lambda = soln_method.model_dXdt_lambda
 
-    def merge_rays(self):
+    # def solve(self) -> None:
+    #     if self.do_solns['ip']:
+    #         self.ips.solve()
+    #     if self.do_solns['ic']:
+    #         self.ics.solve()
+    #     if self.do_solns['vb']:
+    #         self.vbs.solve()
+    #     self.t_ensemble_max \
+    #         = self.vbs.t_ensemble_max if self.do_solns['vb'] \
+    #         else self.ics.t_ensemble_max if self.do_solns['ic'] \
+    #         else self.ips.t_ensemble_max if self.do_solns['ip'] \
+    #         else None
+    #     self.model_dXdt_lambda \
+    #         = self.vbs.model_dXdt_lambda if self.do_solns['vb'] \
+    #         else self.ics.model_dXdt_lambda if self.do_solns['ic'] \
+    #         else self.ips.model_dXdt_lambda if self.do_solns['ip'] \
+    #         else None
+
+    def merge_rays(self) -> None:
         # Combine all three solutions such that rays are all in rz order
-        self.rpt_arrays = dict()
+        self.rpt_arrays = {}
+        soln_method: Union[InitialProfileSolution,
+                           InitialCornerSolution,
+                           VelocityBoundarySolution]
         for rpt_ in rpt_tuple:
+            soln_method = self.vbs
             vbs_arrays \
-                = [] if self.vbs is None  \
-                else self.vbs.rpt_arrays[rpt_][:-1]
+                = [] if soln_method is None  \
+                else soln_method.rpt_arrays[rpt_][:-1]
+            soln_method = self.ics
             ics_arrays \
-                = [] if self.ics is None \
-                else self.ics.rpt_arrays[rpt_]
+                = [] if soln_method is None \
+                else soln_method.rpt_arrays[rpt_]
+            soln_method = self.ips
             ips_arrays \
-                = [] if self.ips is None \
-                else self.ips.rpt_arrays[rpt_]
+                = [] if soln_method is None \
+                else soln_method.rpt_arrays[rpt_]
             self.rpt_arrays.update(
                 {rpt_: vbs_arrays + ics_arrays + ips_arrays})
         # Eliminate empty rays
@@ -298,4 +363,5 @@ class CompositeSolution(BaseSolution):
                 = [rpt_array for rx_array, rpt_array
                     in zip(rx_arrays, self.rpt_arrays[rpt_])
                    if len(rx_array) >= 0]
+        self.n_rays = len(self.rpt_arrays['t'])
         self.n_rays = len(self.rpt_arrays['t'])

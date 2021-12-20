@@ -49,20 +49,20 @@ class CuspVelocity(Graphing):
     """
 
     def profile_cusp_horizontal_speed(
-            self,
-            gmes: VelocityBoundarySolution,
-            gmeq: Equations,
-            sub: Dict,
-            name: str,
-            fig_size: Optional[Tuple[float, float]] = None,
-            dpi: Optional[int] = None,
-            x_limits: Tuple[float, float] = (-0.05, 1.05),
-            y_limits: Tuple[float, Optional[float]] = (-5, None),
-            t_limits: Tuple[float, Optional[float]] = (0, None),
-            legend_loc: str = 'lower right',
-            do_x: bool = True,
-            do_infer_initiation: bool = True
-            ) -> None:
+        self,
+        gmes: VelocityBoundarySolution,
+        gmeq: Equations,
+        sub: Dict,
+        name: str,
+        fig_size: Optional[Tuple[float, float]] = None,
+        dpi: Optional[int] = None,
+        x_limits: Tuple[float, float] = (-0.05, 1.05),
+        y_limits: Tuple[float, Optional[float]] = (-5, None),
+        t_limits: Tuple[float, Optional[float]] = (0, None),
+        legend_loc: str = 'lower right',
+        do_x: bool = True,
+        do_infer_initiation: bool = True
+    ) -> None:
         r"""
         Plot horizontal speed of cusp propagation
 
@@ -127,21 +127,38 @@ class CuspVelocity(Graphing):
                  horizontalalignment='center', verticalalignment='center',
                  fontsize=14, color='k')
 
-        x_array = np.linspace(
-            0.001 if do_infer_initiation else x_or_t_array[0], 1, num=101)
+        x_array \
+            = np.linspace(0.001 if do_infer_initiation else x_or_t_array[0],
+                          1,
+                          num=101)
         # color_cx, color_bounds = 'DarkGreen', 'Green'
         color_cx, color_bounds = 'Red', 'DarkRed'
-        plt.plot(x_array, gmes.cx_pz_lambda(x_array),
-                 color=color_cx, alpha=0.8, lw=2,
+        plt.plot(x_array,
+                 gmes.cx_pz_lambda(x_array),
+                 color=color_cx,
+                 alpha=0.8,
+                 lw=2,
                  label=r'$c^x$ model ($p_z$)')
-        plt.plot(x_array, gmes.cx_v_lambda(x_array), ':',
-                 color='k', alpha=0.8, lw=2,
+        plt.plot(x_array,
+                 gmes.cx_v_lambda(x_array),
+                 ':',
+                 color='k',
+                 alpha=0.8,
+                 lw=2,
                  label=r'$c^x$ model ($\mathbf{v}$)')
-        plt.plot(x_array, gmes.vx_interp_fast(x_array), '--',
-                 color=color_bounds, alpha=0.8, lw=1,
+        plt.plot(x_array,
+                 gmes.vx_interp_fast(x_array),
+                 '--',
+                 color=color_bounds,
+                 alpha=0.8,
+                 lw=1,
                  label=r'fast ray $v^x$ bound')
-        plt.plot(x_array, gmes.vx_interp_slow(x_array), '-.',
-                 color=color_bounds, alpha=0.8, lw=1,
+        plt.plot(x_array,
+                 gmes.vx_interp_slow(x_array),
+                 '-.',
+                 color=color_bounds,
+                 alpha=0.8,
+                 lw=1,
                  label=r'slow ray $v^x$ bound')
 
         _ = plt.xlim(*x_limits) if do_x else plt.xlim(*t_limits)

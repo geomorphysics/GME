@@ -48,7 +48,13 @@ __all__ = ['HamiltonsMixin']
 
 class HamiltonsMixin:
     r"""
+    Hamilton's equations supplement to equation definition class.
     """
+    H_eqn: Eq
+    px_pz_tanbeta_eqn: Eq
+    H_varphi_rx_eqn: Eq
+    varphi_rx_eqn: Eq
+    tanbeta_pxpz_eqn: Eq
 
     def define_rdot_eqns(self) -> None:
         r"""

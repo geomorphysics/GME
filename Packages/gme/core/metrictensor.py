@@ -42,7 +42,13 @@ __all__ = ['MetricTensorMixin']
 
 class MetricTensorMixin:
     r"""
+    Metric tensor equations supplement to equation definition class.
     """
+    eta_: float
+    rdot_vec_eqn: Eq
+    p_covec_eqn: Eq
+    beta_type: str
+    varphi_rx_eqn: Eq
 
     def define_g_eqns(self) -> None:
         r"""

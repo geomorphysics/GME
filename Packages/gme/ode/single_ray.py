@@ -23,7 +23,7 @@ import warnings
 import logging
 
 # Typing
-from typing import Tuple
+from typing import Tuple, List
 
 # Numpy
 import numpy as np
@@ -56,10 +56,10 @@ class SingleRaySolution(ExtendedSolution):
         """
         TBD
         """
-        rz0_, rx0_ = 0, 0
-        px0_, pz0_ = pxpz0_from_xiv0(self.parameters,
-                                     self.gmeq.pz_xiv_eqn,
-                                     self.gmeq.poly_px_xiv0_eqn)
+        (rz0_, rx0_) = (0, 0)
+        (px0_, pz0_) = pxpz0_from_xiv0(self.parameters,
+                                       self.gmeq.pz_xiv_eqn,
+                                       self.gmeq.poly_px_xiv0_eqn)
         return (rz0_, rx0_, px0_, pz0_.subs(e2d(self.gmeq.xiv0_xih0_Ci_eqn)))
 
     def solve(self) -> None:
@@ -67,7 +67,8 @@ class SingleRaySolution(ExtendedSolution):
         TBD
         """
         # Record the ic as a list of one - to be used by solve_ODE_system
-        self.ic_list = [self.initial_conditions()]
+        self.ic_list: List[Tuple[float, float, float, float]] \
+            = [self.initial_conditions()]
         self.model_dXdt_lambda = self.make_model()
         parameters_ = {Lc: self.parameters[Lc]}
         logging.debug('ode.single_ray.solve: calling solver')
@@ -94,9 +95,11 @@ class SingleRaySolution(ExtendedSolution):
         TBD
         """
         # Basics
-        (self.rx_array, self.rz_array,
-         self.px_array, self.pz_array,
-         self.t_array) \
+        [self.rx_array,
+         self.rz_array,
+         self.px_array,
+         self.pz_array,
+         self.t_array] \
             = [self.rpt_arrays[rpt_][0] for rpt_ in rpt_tuple]
         self.pz0 = self.pz_array[0]
         self.p_array = np.sqrt(self.px_array**2+self.pz_array**2)

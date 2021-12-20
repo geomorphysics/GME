@@ -416,20 +416,20 @@ class RayAngles(Graphing):
             axes_.legend(loc=loc_)
 
         plot_partial(
-            (0, 1),
-            axes,
-            (10, 0.7),
-            -1,
-            y_limits,
-            (0.028, 0.27)
+            eta_range_=(0, 1),
+            axes_=axes,
+            dashes_=(10, 2),
+            alpha_sign_=-1,
+            y_limits_=y_limits,
+            loc_=(0.028, 0.27)
         )
         plot_partial(
-            (1, 2),
-            axes.twinx(),
-            (1, 0),
-            +1,
-            y_limits,
-            (1.07, 0.35)
+            eta_range_=(1, 2),
+            axes_=axes.twinx(),
+            dashes_=(1, 0),
+            alpha_sign_=+1,
+            y_limits_=y_limits,
+            loc_=(1.07, 0.35)
         )
 
 #

@@ -756,17 +756,19 @@ class SlicingPlots(Graphing):
                 levels_ = np.linspace(contour_range[0], contour_range[1],
                                       n_levels_, endpoint=True)
                 levels_H0p5 = np.array([0])
-                if do_rxpx:
-                    def fmt_H(H):
-                        H_ = np.round(10**H/2,
-                                      2 if 10**H < 0.5
-                                      else (1 if 10**H < 5 else 0))
-                        return rf'$H={H_:g}$'
-                else:
-                    def fmt_H(H):
-                        return rf'$2H=10^{H:g}$'  # % f'{H:g}'
 
-                def fmt_H0p5(H): return r'$H=0.5$'
+                def fmt_H_rxpx(H):
+                    H_ = np.round(10**H/2,
+                                  2 if 10**H < 0.5
+                                  else (1 if 10**H < 5 else 0))
+                    return rf'$H={H_:g}$'
+
+                def fmt_H_pxpz(H):
+                    return rf'$2H=10^{H:g}$'  # % f'{H:g}'
+                fmt_H = fmt_H_rxpx if do_rxpx else fmt_H_pxpz
+
+                # def fmt_H0p5(H): return r'$H=0.5$'
+
                 manual_location = (0.1, -7)
             levels__ = levels_H0p5[0] if levels_ is None \
                 else levels_[levels_ != levels_H0p5[0]]

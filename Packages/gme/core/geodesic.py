@@ -50,6 +50,13 @@ class GeodesicMixin:
     r"""
     Geodesic equations supplement to equation definition class.
     """
+    eta_: float
+    mu_: float
+    H_eqn: Eq
+    px_pz_tanbeta_eqn: Eq
+    tanalpha_beta_eqn: Eq
+    tanalpha_rdot_eqn: Eq
+    varphi_rx_eqn: Eq
 
     def prep_geodesic_eqns(self, parameters: Dict = None):
         r"""

@@ -13,7 +13,6 @@
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
-    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     
     <script src="../../_static/sidebar.js"></script>
     
@@ -50,123 +49,8 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="module-gme.plot.indicatrix_old">
-<span id="indicatrix-old-py"></span><h1><code class="docutils literal notranslate"><span class="pre">indicatrix_old.py</span></code><a class="headerlink" href="#module-gme.plot.indicatrix_old" title="Permalink to this headline">¶</a></h1>
-<hr class="docutils" />
-<p>Old way of visualizing indicatrix &amp; figuratrix</p>
-<hr class="docutils" />
-<dl class="simple">
-<dt>Requires Python packages/modules:</dt><dd><ul class="simple">
-<li><p><a class="reference external" href="https://numpy.org/doc/stable/reference/index.html#module-numpy" title="(in NumPy v1.21)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">NumPy</span></code></a></p></li>
-<li><p><a class="reference external" href="https://docs.sympy.org/latest/modules/index.html#module-sympy" title="(in SymPy v1.9)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">SymPy</span></code></a></p></li>
-<li><p><a class="reference external" href="https://matplotlib.org/stable/index.html#module-matplotlib" title="(in Matplotlib v3.5.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">MatPlotLib</span></code></a></p></li>
-<li><p><a class="reference external" href="https://github.com/geomorphysics/GME">GME</a></p></li>
-</ul>
-</dd>
-</dl>
-<hr class="docutils" />
-<dl class="py class">
-<dt class="sig sig-object py" id="gme.plot.indicatrix_old.IndicatrixOld">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gme.plot.indicatrix_old.</span></span><span class="sig-name descname"><span class="pre">IndicatrixOld</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dpi</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">font_size</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">11</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gme.plot.indicatrix_old.IndicatrixOld" title="Permalink to this definition">¶</a></dt>
-<dd><p>Old way of visualizing indicatrix &amp; figuratrix.</p>
-<p>Extends <a class="reference internal" href="base.html#gme.plot.base.Graphing" title="gme.plot.base.Graphing"><code class="xref py py-class docutils literal notranslate"><span class="pre">gme.plot.base.Graphing</span></code></a>.</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="gme.plot.indicatrix_old.IndicatrixOld.annotations">
-<span class="sig-name descname"><span class="pre">annotations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">axes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tanalpha_</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.plot.indicatrix_old.IndicatrixOld.annotations" title="Permalink to this definition">¶</a></dt>
-<dd><p>TBD</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="gme.plot.indicatrix_old.IndicatrixOld.arrows">
-<span class="sig-name descname"><span class="pre">arrows</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">px_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pz_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rdotx_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rdotz_</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.plot.indicatrix_old.IndicatrixOld.arrows" title="Permalink to this definition">¶</a></dt>
-<dd><p>TBD</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="gme.plot.indicatrix_old.IndicatrixOld.comparison_logpolar">
-<span class="sig-name descname"><span class="pre">comparison_logpolar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmeq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fig_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dpi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">varphi_</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_points</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idtx_pz_min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idtx_pz_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fgtx_pz_min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fgtx_pz_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_limits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.plot.indicatrix_old.IndicatrixOld.comparison_logpolar" title="Permalink to this definition">¶</a></dt>
-<dd><p>Plot both indicatrix and figuratrix on one log-polar graph.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="gme.plot.indicatrix_old.IndicatrixOld.figuratrix">
-<span class="sig-name descname"><span class="pre">figuratrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmeq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">varphi_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_points</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pz_min_</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pz_max_</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.array</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.array</span><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.sympy.org/latest/modules/core.html#sympy.core.relational.Equality" title="(in SymPy v1.9)"><span class="pre">sympy.core.relational.Equality</span></a><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#gme.plot.indicatrix_old.IndicatrixOld.figuratrix" title="Permalink to this definition">¶</a></dt>
-<dd><p>TBD</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="gme.plot.indicatrix_old.IndicatrixOld.indicatrix">
-<span class="sig-name descname"><span class="pre">indicatrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmeq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">varphi_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_points</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pz_min_</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pz_max_</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">300</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.array</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.array</span><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.sympy.org/latest/modules/core.html#sympy.core.relational.Equality" title="(in SymPy v1.9)"><span class="pre">sympy.core.relational.Equality</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.sympy.org/latest/modules/core.html#sympy.core.relational.Equality" title="(in SymPy v1.9)"><span class="pre">sympy.core.relational.Equality</span></a><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#gme.plot.indicatrix_old.IndicatrixOld.indicatrix" title="Permalink to this definition">¶</a></dt>
-<dd><p>TBD</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="gme.plot.indicatrix_old.IndicatrixOld.legend">
-<span class="sig-name descname"><span class="pre">legend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmeq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_legend</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_half</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_ray_slowness</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.plot.indicatrix_old.IndicatrixOld.legend" title="Permalink to this definition">¶</a></dt>
-<dd><p>TBD</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="gme.plot.indicatrix_old.IndicatrixOld.lines_and_points">
-<span class="sig-name descname"><span class="pre">lines_and_points</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pd</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zoomx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_pz</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_shapes</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.plot.indicatrix_old.IndicatrixOld.lines_and_points" title="Permalink to this definition">¶</a></dt>
-<dd><p>TBD</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="gme.plot.indicatrix_old.IndicatrixOld.plot_figuratrix">
-<span class="sig-name descname"><span class="pre">plot_figuratrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fgtx_px_array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fgtx_pz_array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maybe_recip_fn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_ray_slowness</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.plot.indicatrix_old.IndicatrixOld.plot_figuratrix" title="Permalink to this definition">¶</a></dt>
-<dd><p>TBD</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="gme.plot.indicatrix_old.IndicatrixOld.plot_indicatrix">
-<span class="sig-name descname"><span class="pre">plot_indicatrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idtx_rdotx_array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idtx_rdotz_array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maybe_recip_fn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_ray_slowness</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.plot.indicatrix_old.IndicatrixOld.plot_indicatrix" title="Permalink to this definition">¶</a></dt>
-<dd><p>TBD</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="gme.plot.indicatrix_old.IndicatrixOld.plot_unit_circle">
-<span class="sig-name descname"><span class="pre">plot_unit_circle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">varphi_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_varphi_circle</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.plot.indicatrix_old.IndicatrixOld.plot_unit_circle" title="Permalink to this definition">¶</a></dt>
-<dd><p>TBD</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="gme.plot.indicatrix_old.IndicatrixOld.relative_geometry">
-<span class="sig-name descname"><span class="pre">relative_geometry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmeq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fig_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dpi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">varphi_</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zoom_factor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_half</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_legend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_text_labels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_arrows</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_lines_points</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_shapes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_varphi_circle</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_pz</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_ray_slowness</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3.4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_points</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pz_min_</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.plot.indicatrix_old.IndicatrixOld.relative_geometry" title="Permalink to this definition">¶</a></dt>
-<dd><p>Plot the loci of <span class="math notranslate nohighlight">\(\mathbf{\widetilde{p}}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{r}\)</span>
-and their behavior defined by <span class="math notranslate nohighlight">\(F\)</span> relative to the
-<span class="math notranslate nohighlight">\(\xi\)</span> circle.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>gmeq</strong> – GME model equations class instance defined in
-<a class="reference internal" href="../core/equations.html#module-gme.core.equations" title="gme.core.equations"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gme.core.equations</span></code></a></p></li>
-<li><p><strong>varphi_choice</strong> – the value of <span class="math notranslate nohighlight">\(\varphi\)</span> to use</p></li>
-<li><p><strong>zoom_factor</strong> – fractional zoom factor relative to preassigned graph limits</p></li>
-<li><p><strong>do_half</strong> – plot only for <span class="math notranslate nohighlight">\(x\geq0\)</span>?</p></li>
-<li><p><strong>do_annotations</strong> – plot annotated arcs, faster/slower arrows?</p></li>
-<li><p><strong>do_legend</strong> – display the legend?</p></li>
-<li><p><strong>do_text_labels</strong> – display text annotations?</p></li>
-<li><p><strong>do_arrows</strong> – display vector/covector arrows?</p></li>
-<li><p><strong>do_lines_points</strong> – display dashed/dotted tangent lines etc?</p></li>
-<li><p><strong>do_shapes</strong> – plot key points using polygon symbols
-rather than simple circles</p></li>
-<li><p><strong>do_varphi_circle</strong> – plot the <span class="math notranslate nohighlight">\(\xi\)</span> (typically unit) circle?</p></li>
-<li><p><strong>do_pz</strong> – plot horizontal dotted line indicating magnitude of <span class="math notranslate nohighlight">\(p_z\)</span></p></li>
-<li><p><strong>do_ray_slowness</strong> – invert ray speed (but keep ray direction) in indicatrix?</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="gme.plot.indicatrix_old.IndicatrixOld.text_labels">
-<span class="sig-name descname"><span class="pre">text_labels</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmeq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">varphi_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">px_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pz_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rdotx_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rdotz_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zoom_factor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_text_labels</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.plot.indicatrix_old.IndicatrixOld.text_labels" title="Permalink to this definition">¶</a></dt>
-<dd><p>TBD</p>
-</dd></dl>
-
-</dd></dl>
-
+  <div class="section" id="indicatrix-old-py">
+<h1><code class="docutils literal notranslate"><span class="pre">indicatrix_old.py</span></code><a class="headerlink" href="#indicatrix-old-py" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="code">
 <h2>Code<a class="headerlink" href="#code" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>

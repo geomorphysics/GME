@@ -9,6 +9,7 @@ Requires Python packages/modules:
   -  :mod:`NumPy <numpy>`
   -  :mod:`SymPy <sympy>`
   -  :mod:`MatPlotLib <matplotlib>`
+  -  `GMPLib`_
   -  `GME`_
 
 .. _GMPLib: https://github.com/geomorphysics/GMPLib
@@ -139,14 +140,14 @@ class Manuscript(Graphing):
             for join_ in joins:
                 fig_.add_artist(join_)
 
-        def make_xy() -> Tuple[float, float]:
+        def make_xy() -> Tuple[np.ndarray, np.ndarray]:
             r"""
             TBD
             """
             x = np.linspace(0, 1)
             x_ndim = (x-0.5)/(0.9-0.5)
             y = np.exp((0.5+x)*4)/120
-            return x_ndim, y
+            return (x_ndim, y)
 
         def isochrones_subfig(fig_, x_, y_, color_=gray_) \
                 -> Tuple[Axes, List[float]]:
@@ -217,7 +218,7 @@ class Manuscript(Graphing):
                     do_many=False,
                     do_legend=False,
                     do_pts_only=False
-            ) -> Tuple[np.array, np.array, np.array]:
+            ) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
                 x_array = np.linspace(-1, 3, n_pts)
                 y_array1 = x_array*0.5
                 y_array2 = y_array1+0.7
@@ -1020,7 +1021,7 @@ class Manuscript(Graphing):
             sf=1,
             pz_min_=2.5e-2,
             pz_max_=1000
-        ) -> Tuple[np.array, np.array]:
+        ) -> Tuple[np.ndarray, np.ndarray]:
             r"""
             TBD
             """

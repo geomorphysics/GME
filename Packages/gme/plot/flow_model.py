@@ -50,17 +50,17 @@ class FlowModel(Graphing):
     """
 
     def profile_flow_model(
-            self,
-            gmeq: Equations,
-            sub: Dict,
-            name: str,
-            fig_size: Optional[Tuple[float, float]] = None,
-            dpi: Optional[int] = None,
-            n_points: int = 26,
-            subtitle: str = '',
-            do_subtitling: bool = False,
-            do_extra_annotations: bool = False
-            ) -> None:
+        self,
+        gmeq: Equations,
+        sub: Dict,
+        name: str,
+        fig_size: Optional[Tuple[float, float]] = None,
+        dpi: Optional[int] = None,
+        n_points: int = 26,
+        subtitle: str = '',
+        do_subtitling: bool = False,
+        do_extra_annotations: bool = False
+    ) -> None:
         """
         Plot the flow component of the erosion model.
 

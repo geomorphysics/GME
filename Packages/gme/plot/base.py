@@ -23,13 +23,14 @@ import warnings
 # import logging
 
 # Typing
-from typing import List, Tuple
+from typing import List, Tuple, Dict
 
 # Numpy
 import numpy as np
 
 # MatPlotLib
 import matplotlib.pyplot as plt
+from matplotlib.pyplot import Axes
 import matplotlib.patches as mpatches
 from matplotlib.colors import ListedColormap
 from matplotlib import cm
@@ -70,13 +71,17 @@ class Graphing(GraphingBase):
             colors_ = cmap(i/(n-1))
         return colors_
 
-    def gray_color(self, i_isochrone=0, n_isochrones=1) -> str:
+    def gray_color(
+        self,
+        i_isochrone: int = 0,
+        n_isochrones: int = 1
+    ) -> str:
         r"""
         Make a grey shade for to communicate isochrone time
         """
         return f'{(n_isochrones-1-i_isochrone)/(n_isochrones-1)*0.75}'
 
-    def correct_quadrant(self, angle) -> float:
+    def correct_quadrant(self, angle: float) -> float:
         r"""
         If angle :math:`|\theta|\approx 0`, set :math:`\theta=0`;
         otherwise, if angle :math:`\theta<0`,
@@ -98,8 +103,8 @@ class Graphing(GraphingBase):
 
     def draw_rays_with_arrows_simple(
             self,
-            axes,
-            sub,
+            axes: Axes,
+            sub: Dict,
             xi_vh_ratio,
             t_array,
             rx_array,
@@ -142,7 +147,7 @@ class Graphing(GraphingBase):
                                         tail_width=0.01*sf)
         if v_array is not None:
             v_max, v_min = max(v_array), min(v_array)
-            color_map = plt.get_cmap('plasma')
+            color_map: ListedColormap = plt.get_cmap('plasma')
         t_ref = t_array[i_max-1]
         for i in range(i_max-1, 0, -1):
             color = color if do_one_ray else self.colors[(
@@ -169,7 +174,7 @@ class Graphing(GraphingBase):
                                   arrowprops=dict(arrowstyle=my_arrow_style,
                                                   color=rgba))
         if v_array is not None:
-            color_map: ListedColormap = plt.get_cmap('plasma')
+            color_map = plt.get_cmap('plasma')
             sm = plt.cm.ScalarMappable(
                 cmap=color_map, norm=plt.Normalize(vmin=0, vmax=1))
             cbar = plt.colorbar(sm, ticks=[], shrink=0.4, aspect=5, pad=0.03)
@@ -184,7 +189,7 @@ class Graphing(GraphingBase):
             self,
             rx_array,
             rz_array,
-            axes,
+            axes: Axes,
             i_ray,
             i_ray_step,
             n_rays, n_arrows,
@@ -237,9 +242,10 @@ class Graphing(GraphingBase):
         # Drop repeated points on vb
         rxz_array = np.unique(np.vstack([rx_array, rz_array]), axis=1)
         n_pts: int = rxz_array.shape[1]
-        my_arrow_style = mpatches.ArrowStyle.Fancy(head_length=0.99*arrow_sf,
-                                                   head_width=0.6*arrow_sf,
-                                                   tail_width=0.01*arrow_sf)
+        my_arrow_style \
+            = mpatches.ArrowStyle.Fancy(head_length=0.99*arrow_sf,
+                                        head_width=0.6*arrow_sf,
+                                        tail_width=0.01*arrow_sf)
         # color = self.colors[(i_ray//i_ray_step)%self.n_colors]
         color: List[str] = self.mycolors(i_ray, i_ray_step, n_rays,
                                          do_smooth=do_smooth_colors)

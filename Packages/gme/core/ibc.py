@@ -50,6 +50,12 @@ class IbcMixin:
     Initial condition/boundary condition equations supplement
     to equation definition class.
     """
+    rdot_p_unity_eqn: Eq
+    rdotx_pxpz_eqn: Eq
+    rdotz_pxpz_eqn: Eq
+    ibc_type: str
+    p_varphi_beta_eqn: Eq
+    varphi_rx_eqn: Eq
 
     def prep_ibc_eqns(self) -> None:
         r"""
