@@ -56,9 +56,10 @@
 <hr class="docutils" />
 <dl class="simple">
 <dt>Requires Python packages/modules:</dt><dd><ul class="simple">
-<li><p><a class="reference external" href="https://numpy.org/doc/stable/reference/index.html#module-numpy" title="(in NumPy v1.21)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy</span></code></a>, <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/index.html#module-scipy" title="(in SciPy v1.7.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">scipy</span></code></a>, <a class="reference external" href="https://docs.sympy.org/latest/modules/index.html#module-sympy" title="(in SymPy v1.9)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sympy</span></code></a></p></li>
-<li><p><code class="xref py py-mod docutils literal notranslate"><span class="pre">gmplib.utils</span></code></p></li>
-<li><p><a class="reference internal" href="../core/symbols.html#module-gme.core.symbols" title="gme.core.symbols"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gme.core.symbols</span></code></a></p></li>
+<li><p><a class="reference external" href="https://numpy.org/doc/stable/reference/index.html#module-numpy" title="(in NumPy v1.21)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy</span></code></a></p></li>
+<li><p><a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/index.html#module-scipy" title="(in SciPy v1.7.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">scipy</span></code></a></p></li>
+<li><p><a class="reference external" href="https://docs.sympy.org/latest/modules/index.html#module-sympy" title="(in SymPy v1.9)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sympy</span></code></a></p></li>
+<li><p><a class="reference external" href="https://github.com/geomorphysics/GME">GME</a></p></li>
 </ul>
 </dd>
 </dl>
@@ -204,9 +205,15 @@ equation substitutions</p></li>
 <span class="sd">---------------------------------------------------------------------</span>
 
 <span class="sd">Requires Python packages/modules:</span>
-<span class="sd">   -  :mod:`numpy`, :mod:`scipy`, :mod:`sympy`</span>
-<span class="sd">   -  :mod:`gmplib.utils`</span>
-<span class="sd">   -  :mod:`gme.core.symbols`</span>
+<span class="sd">   -  :mod:`numpy`</span>
+<span class="sd">   -  :mod:`scipy`</span>
+<span class="sd">   -  :mod:`sympy`</span>
+<span class="sd">   -  `GME`_</span>
+
+<span class="sd">.. _GMPLib: https://github.com/geomorphysics/GMPLib</span>
+<span class="sd">.. _GME: https://github.com/geomorphysics/GME</span>
+<span class="sd">.. _Matrix: https://docs.sympy.org/latest/modules/matrices\</span>
+<span class="sd">/immutablematrices.html</span>
 
 <span class="sd">---------------------------------------------------------------------</span>
 
@@ -241,8 +248,11 @@ equation substitutions</p></li>
 <span class="n">rp_tuple</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;rx&#39;</span><span class="p">,</span> <span class="s1">&#39;rz&#39;</span><span class="p">,</span> <span class="s1">&#39;px&#39;</span><span class="p">,</span> <span class="s1">&#39;pz&#39;</span><span class="p">)</span>
 <span class="n">rpt_tuple</span> <span class="o">=</span> <span class="n">rp_tuple</span><span class="o">+</span><span class="p">(</span><span class="s1">&#39;t&#39;</span><span class="p">,)</span>
 
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;solve_ODE_system&#39;</span><span class="p">,</span> <span class="s1">&#39;solve_Hamiltons_equations&#39;</span><span class="p">,</span> <span class="s1">&#39;report_progress&#39;</span><span class="p">,</span>
-           <span class="s1">&#39;BaseSolution&#39;</span><span class="p">,</span> <span class="s1">&#39;ExtendedSolution&#39;</span><span class="p">]</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;solve_ODE_system&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;solve_Hamiltons_equations&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;report_progress&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;BaseSolution&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;ExtendedSolution&#39;</span><span class="p">]</span>
 
 
 <span class="k">def</span> <span class="nf">eventAttr</span><span class="p">():</span>
@@ -1219,6 +1229,7 @@ equation substitutions</p></li>
 <li class="toctree-l1"><a class="reference internal" href="../Dependencies.html">  Dependencies</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Installation.html">  Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Running.html">  Running</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Notebooks.html">  Notebooks</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../Python.html">  Python package</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../core/index.html">Core</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">ODE integration</a></li>
@@ -1226,7 +1237,6 @@ equation substitutions</p></li>
 <li class="toctree-l2"><a class="reference internal" href="../knickpoints/index.html">Knickpoint detection and tracking [in development]</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../Notebooks.html">  Notebooks</a></li>
 </ul>
 
     <!-- <h3><a href="../../index.html">This page</a></h3> -->

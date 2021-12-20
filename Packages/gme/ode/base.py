@@ -6,9 +6,15 @@ Base module for performing ray tracing of Hamilton's equations.
 ---------------------------------------------------------------------
 
 Requires Python packages/modules:
-   -  :mod:`numpy`, :mod:`scipy`, :mod:`sympy`
-   -  :mod:`gmplib.utils`
-   -  :mod:`gme.core.symbols`
+   -  :mod:`numpy`
+   -  :mod:`scipy`
+   -  :mod:`sympy`
+   -  `GME`_
+
+.. _GMPLib: https://github.com/geomorphysics/GMPLib
+.. _GME: https://github.com/geomorphysics/GME
+.. _Matrix: https://docs.sympy.org/latest/modules/matrices\
+/immutablematrices.html
 
 ---------------------------------------------------------------------
 
@@ -43,8 +49,11 @@ warnings.filterwarnings("ignore")
 rp_tuple = ('rx', 'rz', 'px', 'pz')
 rpt_tuple = rp_tuple+('t',)
 
-__all__ = ['solve_ODE_system', 'solve_Hamiltons_equations', 'report_progress',
-           'BaseSolution', 'ExtendedSolution']
+__all__ = ['solve_ODE_system',
+           'solve_Hamiltons_equations',
+           'report_progress',
+           'BaseSolution',
+           'ExtendedSolution']
 
 
 def eventAttr():

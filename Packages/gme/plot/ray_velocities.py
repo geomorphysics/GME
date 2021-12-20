@@ -9,7 +9,12 @@ Requires Python packages:
   -  :mod:`numpy`
   -  :mod:`sympy`
   -  :mod:`matplotlib`
-  -  :mod:`gme`
+  -  `GME`_
+
+.. _GMPLib: https://github.com/geomorphysics/GMPLib
+.. _GME: https://github.com/geomorphysics/GME
+.. _Matrix: https://docs.sympy.org/latest/modules/matrices\
+/immutablematrices.html
 
 ---------------------------------------------------------------------
 
@@ -43,7 +48,7 @@ class RayVelocities(Graphing):
     """
     Visualization of ray velocities.
 
-    Subclasses :class:`gme.plot.base.Graphing`.
+    Extends :class:`gme.plot.base.Graphing`.
     """
 
     def profile_v(

@@ -8,8 +8,13 @@ Single-ray tracing through ODE integration of Hamilton's equations.
 Requires Python packages/modules:
   -  :mod:`numpy`
   -  :mod:`scipy`
-  -  :mod:`gmplib`
-  -  :mod:`gme`
+  -  `GMPLib`_
+  -  `GME`_
+
+.. _GMPLib: https://github.com/geomorphysics/GMPLib
+.. _GME: https://github.com/geomorphysics/GME
+.. _Matrix: https://docs.sympy.org/latest/modules/matrices\
+/immutablematrices.html
 
 ---------------------------------------------------------------------
 """
@@ -27,7 +32,7 @@ from gmplib.utils import e2d
 
 # GME
 from gme.core.symbols import Lc
-from gme.core.equation_utils import pxpz0_from_xiv0
+from gme.core.utils import pxpz0_from_xiv0
 from gme.ode.base import ExtendedSolution, solve_Hamiltons_equations
 from gme.ode.base import rpt_tuple
 

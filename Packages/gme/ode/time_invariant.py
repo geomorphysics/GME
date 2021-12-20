@@ -10,8 +10,13 @@ Requires Python packages/modules:
   -  :mod:`numpy`
   -  :mod:`scipy`
   -  :mod:`sympy`
-  -  :mod:`gmplib`
-  -  :mod:`gme`
+  -  `GMPLib`_
+  -  `GME`_
+
+.. _GMPLib: https://github.com/geomorphysics/GMPLib
+.. _GME: https://github.com/geomorphysics/GME
+.. _Matrix: https://docs.sympy.org/latest/modules/matrices\
+/immutablematrices.html
 
 ---------------------------------------------------------------------
 
@@ -33,7 +38,7 @@ from gmplib.utils import e2d
 
 # GME
 from gme.core.symbols import xiv_0, xih_0, px, Lc
-from gme.core.equation_utils import gradient_value
+from gme.core.utils import gradient_value
 from gme.ode.single_ray import SingleRaySolution
 
 warnings.filterwarnings("ignore")

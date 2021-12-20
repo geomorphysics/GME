@@ -9,7 +9,12 @@ Requires Python packages/modules:
   -  :mod:`numpy`
   -  :mod:`matplotlib`
   -  :mod:`mpl_toolkits`
-  -  :mod:`gme`
+  -  `GME`_
+
+.. _GMPLib: https://github.com/geomorphysics/GMPLib
+.. _GME: https://github.com/geomorphysics/GME
+.. _Matrix: https://docs.sympy.org/latest/modules/matrices\
+/immutablematrices.html
 
 ---------------------------------------------------------------------
 
@@ -42,7 +47,7 @@ class FlowModel(Graphing):
     """
     Visualization of flow model.
 
-    Subclasses :class:`gme.plot.base.Graphing`.
+    Extends :class:`gme.plot.base.Graphing`.
     """
 
     def profile_flow_model(

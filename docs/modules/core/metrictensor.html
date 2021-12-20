@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>metrictensor.py &#8212; GME 1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pydoctheme.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+    
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <script src="../../_static/sidebar.js"></script>
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <link rel="shortcut icon" type="image/png" href="../../_static/favicon.png" />
+    <meta name="viewport" content="width=device-width,initial-scale=0.8">
+    
+    
+
+  </head><body>
+    <!-- <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="responsive-menu"><a href="#sidebar-anchor" title="Navigation">&#9776;</a></li>
+        <li><a href="../../index.html">GME 1.0 documentation</a> &#187;</li> 
+      </ul>
+    </div> -->
+    <!-- 
+        <div class="badge">
+            <a href="https://github.com/geomorphysics/GME/">Fork me on GitHub</a>
+            <img src="../../_static/right-red@2x.png">
+        </div>
+     -->
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-gme.core.metrictensor">
+<span id="metrictensor-py"></span><h1><code class="docutils literal notranslate"><span class="pre">metrictensor.py</span></code><a class="headerlink" href="#module-gme.core.metrictensor" title="Permalink to this headline">¶</a></h1>
+<hr class="docutils" />
+<p>Equation definitions and derivations using <a class="reference external" href="https://docs.sympy.org/latest/modules/index.html#module-sympy" title="(in SymPy v1.9)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">SymPy</span></code></a>.</p>
+<hr class="docutils" />
+<dl class="simple">
+<dt>Requires Python packages/modules:</dt><dd><ul class="simple">
+<li><p><a class="reference external" href="https://docs.sympy.org/latest/modules/index.html#module-sympy" title="(in SymPy v1.9)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sympy</span></code></a></p></li>
+<li><p><a class="reference external" href="https://github.com/geomorphysics/GME">GME</a></p></li>
+</ul>
+</dd>
+</dl>
+<hr class="docutils" />
+<dl class="py class">
+<dt class="sig sig-object py" id="gme.core.metrictensor.MetricTensorMixin">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gme.core.metrictensor.</span></span><span class="sig-name descname"><span class="pre">MetricTensorMixin</span></span><a class="headerlink" href="#gme.core.metrictensor.MetricTensorMixin" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="py method">
+<dt class="sig sig-object py" id="gme.core.metrictensor.MetricTensorMixin.define_g_eqns">
+<span class="sig-name descname"><span class="pre">define_g_eqns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.core.metrictensor.MetricTensorMixin.define_g_eqns" title="Permalink to this definition">¶</a></dt>
+<dd><p>Define equations for the metric tensor <span class="math notranslate nohighlight">\(g\)</span> and
+its dual  <span class="math notranslate nohighlight">\(g^*\)</span></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gme.core.metrictensor.MetricTensorMixin.gstar_varphi_pxpz_eqn">
+<span class="sig-name descname"><span class="pre">gstar_varphi_pxpz_eqn</span></span><a class="headerlink" href="#gme.core.metrictensor.MetricTensorMixin.gstar_varphi_pxpz_eqn" title="Permalink to this definition">¶</a></dt>
+<dd><p><span class="math notranslate nohighlight">\(g^{*} = \left[\begin{matrix}\
+\dfrac{2 p_{x}^{3} \varphi^{2}{\left(\mathbf{r} \right)}}
+{\left(p_{x}^{2} + p_{z}^{2}\right)^{\frac{3}{2}}} \
+- \dfrac{3 p_{x}^{3} \left(p_{x}^{2}
++ \dfrac{3 p_{z}^{2}}{2}\right)
+\varphi^{2}{\left(\mathbf{r} \right)}}
+{\left(p_{x}^{2} + p_{z}^{2}\right)^{\frac{5}{2}}} \
++ \dfrac{2 p_{x} \left(p_{x}^{2}
++ \dfrac{3 p_{z}^{2}}{2}\right)
+\varphi^{2}{\left(\mathbf{r} \right)}}
+{\left(p_{x}^{2} + p_{z}^{2}\right)^{\frac{3}{2}}} \
+&amp; \dfrac{3 p_{x}^{4} p_{z}
+\varphi^{2}{\left(\mathbf{r} \right)}}{2 \left(p_{x}^{2}
++ p_{z}^{2}\right)^{\frac{5}{2}}} \
+- \dfrac{3 p_{x}^{2} p_{z}
+\varphi^{2}{\left(\mathbf{r} \right)}}
+{2 \left(p_{x}^{2} + p_{z}^{2}\right)^{\frac{3}{2}}}\\ \
+\dfrac{3 p_{x}^{2} p_{z} \varphi^{2}{\left(\mathbf{r} \right)}}
+{\left(p_{x}^{2} + p_{z}^{2}\right)^{\frac{3}{2}}} \
+- \dfrac{3 p_{x}^{2} p_{z} \left(p_{x}^{2}
++ \dfrac{3 p_{z}^{2}}{2}\right)
+\varphi^{2}{\left(\mathbf{r} \right)}}
+{\left(p_{x}^{2} + p_{z}^{2}\right)^{\frac{5}{2}}} \
+&amp; \dfrac{3 p_{x}^{3} p_{z}^{2} \varphi^{2}
+{\left(\mathbf{r} \right)}}
+{2 \left(p_{x}^{2} + p_{z}^{2}\right)^{\frac{5}{2}}} \
+- \dfrac{p_{x}^{3} \varphi^{2}{\left(\mathbf{r} \right)}}
+{2 \left(p_{x}^{2} + p_{z}^{2}\right)^{\frac{3}{2}}}\
+\end{matrix}\right]\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.sympy.org/latest/modules/core.html#sympy.core.relational.Equality">Equality</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gme.core.metrictensor.MetricTensorMixin.det_gstar_varphi_pxpz_eqn">
+<span class="sig-name descname"><span class="pre">det_gstar_varphi_pxpz_eqn</span></span><a class="headerlink" href="#gme.core.metrictensor.MetricTensorMixin.det_gstar_varphi_pxpz_eqn" title="Permalink to this definition">¶</a></dt>
+<dd><p><span class="math notranslate nohighlight">\(\det\left(g^*\right) \
+= \dfrac{p_{x}^{4} \left(- \dfrac{p_{x}^{2}}{2} \
++ \dfrac{3 p_{z}^{2}}{4}\right) \varphi^{4}{\left(\mathbf{r}
+\right)}}{p_{x}^{6} + 3 p_{x}^{4} p_{z}^{2}
++ 3 p_{x}^{2} p_{z}^{4} + p_{z}^{6}}\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.sympy.org/latest/modules/core.html#sympy.core.relational.Equality">Equality</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gme.core.metrictensor.MetricTensorMixin.g_varphi_pxpz_eqn">
+<span class="sig-name descname"><span class="pre">g_varphi_pxpz_eqn</span></span><a class="headerlink" href="#gme.core.metrictensor.MetricTensorMixin.g_varphi_pxpz_eqn" title="Permalink to this definition">¶</a></dt>
+<dd><p><span class="math notranslate nohighlight">\(g = \left[\begin{matrix}\
+\dfrac{2 \left(p_{x}^{2} - 2 p_{z}^{2}\right) \sqrt{p_{x}^{2}
++ p_{z}^{2}}}{p_{x} \left(2 p_{x}^{2}
+- 3 p_{z}^{2}\right) \varphi^{2}{\left(\mathbf{r} \right)}} \
+&amp; - \dfrac{6 p_{z}^{3} \sqrt{p_{x}^{2} + p_{z}^{2}}}{p_{x}^{2}
+\left(2 p_{x}^{2} - 3 p_{z}^{2}\right)
+\varphi^{2}{\left(\mathbf{r} \right)}}\\ \
+- \dfrac{6 p_{z}^{3} \sqrt{p_{x}^{2} + p_{z}^{2}}}{p_{x}^{2}
+\left(2 p_{x}^{2} - 3 p_{z}^{2}\right)
+\varphi^{2}{\left(\mathbf{r} \right)}} \
+&amp; - \dfrac{4 p_{x}^{6} + 14 p_{x}^{4} p_{z}^{2}
++ 22 p_{x}^{2} p_{z}^{4} + 12 p_{z}^{6}}{p_{x}^{3}
+\sqrt{p_{x}^{2} + p_{z}^{2}} \left(2 p_{x}^{2}
+- 3 p_{z}^{2}\right) \varphi^{2}{\left(\mathbf{r}
+\right)}}\
+\end{matrix}\right]\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.sympy.org/latest/modules/core.html#sympy.core.relational.Equality">Equality</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gme.core.metrictensor.MetricTensorMixin.gstar_eigen_varphi_pxpz">
+<span class="sig-name descname"><span class="pre">gstar_eigen_varphi_pxpz</span></span><a class="headerlink" href="#gme.core.metrictensor.MetricTensorMixin.gstar_eigen_varphi_pxpz" title="Permalink to this definition">¶</a></dt>
+<dd><p>eigenvalues and eigenvectors of <span class="math notranslate nohighlight">\(g^{*}\)</span> in one object</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>list of <a class="reference external" href="https://docs.sympy.org/latest/modules/core.html#sympy.core.expr.Expr" title="(in SymPy v1.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Expr</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gme.core.metrictensor.MetricTensorMixin.gstar_eigenvalues">
+<span class="sig-name descname"><span class="pre">gstar_eigenvalues</span></span><a class="headerlink" href="#gme.core.metrictensor.MetricTensorMixin.gstar_eigenvalues" title="Permalink to this definition">¶</a></dt>
+<dd><p><span class="math notranslate nohighlight">\(\left[\begin{matrix}\
+\dfrac{\varphi_0^{2} p_{x} x_{1}^{- 4 \mu} \left(\varepsilon
+x_{1}^{2 \mu} + \left(x_{1} - {r}^x\right)^{2 \mu}\right)^{2}
+\left(- 3 \left(p_{x}^{2} + p_{z}^{2}\right) \sqrt{p_{x}^{12}
++ 4 p_{x}^{10} p_{z}^{2} + 10 p_{x}^{8} p_{z}^{4}
++ 20 p_{x}^{6} p_{z}^{6} + 25 p_{x}^{4} p_{z}^{8}
++ 16 p_{x}^{2} p_{z}^{10} + 4 p_{z}^{12}} + \left(p_{x}^{2}
++ 6 p_{z}^{2}\right) \left(p_{x}^{6} + 3 p_{x}^{4} p_{z}^{2}
++ 3 p_{x}^{2} p_{z}^{4} + p_{z}^{6}\right)\right)}
+{4 \left(p_{x}^{2} + p_{z}^{2}\right)^{\frac{3}{2}}
+\left(p_{x}^{6}
++ 3 p_{x}^{4} p_{z}^{2} + 3 p_{x}^{2} p_{z}^{4}
++ p_{z}^{6}\right)}\\\
+\dfrac{\varphi_0^{2} p_{x} x_{1}^{- 4 \mu} \left(\varepsilon
+x_{1}^{2 \mu} + \left(x_{1} - {r}^x\right)^{2 \mu}\right)^{2}
+\left(3 \left(p_{x}^{2} + p_{z}^{2}\right) \sqrt{p_{x}^{12}
++ 4 p_{x}^{10} p_{z}^{2} + 10 p_{x}^{8} p_{z}^{4} + 20
+p_{x}^{6} p_{z}^{6} + 25 p_{x}^{4} p_{z}^{8} + 16 p_{x}^{2}
+p_{z}^{10} + 4 p_{z}^{12}} + \left(p_{x}^{2}
++ 6 p_{z}^{2}\right) \left(p_{x}^{6} + 3 p_{x}^{4} p_{z}^{2}
++ 3 p_{x}^{2} p_{z}^{4} + p_{z}^{6}\right)\right)}
+{4 \left(p_{x}^{2} + p_{z}^{2}\right)^{\frac{3}{2}}
+\left(p_{x}^{6} + 3 p_{x}^{4}
+p_{z}^{2} + 3 p_{x}^{2} p_{z}^{4} + p_{z}^{6}\right)}\
+\end{matrix}\right]\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.sympy.org/latest/modules/matrices/immutablematrices.html">Matrix</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gme.core.metrictensor.MetricTensorMixin.gstar_eigenvectors">
+<span class="sig-name descname"><span class="pre">gstar_eigenvectors</span></span><a class="headerlink" href="#gme.core.metrictensor.MetricTensorMixin.gstar_eigenvectors" title="Permalink to this definition">¶</a></dt>
+<dd><p><span class="math notranslate nohighlight">\(\left[\
+\begin{matrix}\dfrac{p_{x} p_{z}^{3} \left(p_{x}^{6}
++ 2 p_{x}^{4} p_{z}^{2} + 3 p_{x}^{2} p_{z}^{4} + 2 p_{z}^{6}
++ \sqrt{p_{x}^{12} + 4 p_{x}^{10} p_{z}^{2} + 10 p_{x}^{8}
+p_{z}^{4} + 20 p_{x}^{6} p_{z}^{6} + 25 p_{x}^{4} p_{z}^{8}
++ 16 p_{x}^{2} p_{z}^{10} + 4 p_{z}^{12}}\right)}{p_{x}^{10}
++ 3 p_{x}^{8} p_{z}^{2} + 7 p_{x}^{6} p_{z}^{4} + 11 p_{x}^{4}
+p_{z}^{6} + p_{x}^{4} \sqrt{p_{x}^{12} + 4 p_{x}^{10}
+p_{z}^{2} + 10 p_{x}^{8} p_{z}^{4} + 20 p_{x}^{6} p_{z}^{6}
++ 25 p_{x}^{4} p_{z}^{8} + 16 p_{x}^{2}p_{z}^{10}+4 p_{z}^{12}}
++ 10 p_{x}^{2} p_{z}^{8} + p_{x}^{2} p_{z}^{2} \sqrt{p_{x}^{12}
++ 4 p_{x}^{10} p_{z}^{2} + 10 p_{x}^{8} p_{z}^{4} +20 p_{x}^{6}
+p_{z}^{6} + 25 p_{x}^{4} p_{z}^{8} + 16 p_{x}^{2} p_{z}^{10}
++ 4 p_{z}^{12}} + 4 p_{z}^{10} + 2 p_{z}^{4} \sqrt{p_{x}^{12}
++ 4 p_{x}^{10} p_{z}^{2} + 10 p_{x}^{8} p_{z}^{4} + 20p_{x}^{6}
+p_{z}^{6} + 25 p_{x}^{4} p_{z}^{8} + 16 p_{x}^{2} p_{z}^{10}
++ 4 p_{z}^{12}}}\\ \
+1 \
+\end{matrix}\
+\right] \\ \
+\left[\
+\begin{matrix}\dfrac{p_{x} p_{z}^{3} \left(p_{x}^{6}
++ 2 p_{x}^{4} p_{z}^{2} + 3 p_{x}^{2} p_{z}^{4} + 2 p_{z}^{6}
+- \sqrt{p_{x}^{12} + 4 p_{x}^{10} p_{z}^{2} + 10 p_{x}^{8}
+p_{z}^{4} + 20 p_{x}^{6} p_{z}^{6} + 25 p_{x}^{4} p_{z}^{8}
++ 16 p_{x}^{2} p_{z}^{10} + 4 p_{z}^{12}}\right)}{p_{x}^{10}
++ 3 p_{x}^{8} p_{z}^{2} + 7 p_{x}^{6} p_{z}^{4} + 11 p_{x}^{4}
+p_{z}^{6} - p_{x}^{4} \sqrt{p_{x}^{12} + 4 p_{x}^{10} p_{z}^{2}
++ 10 p_{x}^{8} p_{z}^{4} + 20 p_{x}^{6} p_{z}^{6}
++ 25 p_{x}^{4} p_{z}^{8} + 16 p_{x}^{2} p_{z}^{10}
++ 4 p_{z}^{12}} + 10 p_{x}^{2} p_{z}^{8} - p_{x}^{2} p_{z}^{2}
+\sqrt{p_{x}^{12} + 4 p_{x}^{10} p_{z}^{2} + 10 p_{x}^{8}
+p_{z}^{4} + 20 p_{x}^{6} p_{z}^{6} + 25 p_{x}^{4} p_{z}^{8}
++ 16 p_{x}^{2} p_{z}^{10} + 4 p_{z}^{12}} + 4 p_{z}^{10} -
+2 p_{z}^{4} \sqrt{p_{x}^{12} + 4 p_{x}^{10} p_{z}^{2} +
+10 p_{x}^{8} p_{z}^{4} + 20 p_{x}^{6} p_{z}^{6} + 25 p_{x}^{4}
+p_{z}^{8} + 16 p_{x}^{2} p_{z}^{10} + 4 p_{z}^{12}}}\\ \
+1 \
+\end{matrix}\right]\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)">list</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+<div class="section" id="code">
+<h2>Code<a class="headerlink" href="#code" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">---------------------------------------------------------------------</span>
+
+<span class="sd">Equation definitions and derivations using :mod:`SymPy &lt;sympy&gt;`.</span>
+
+<span class="sd">---------------------------------------------------------------------</span>
+
+<span class="sd">Requires Python packages/modules:</span>
+<span class="sd">  -  :mod:`sympy`</span>
+<span class="sd">  -  `GME`_</span>
+
+<span class="sd">.. _GMPLib: https://github.com/geomorphysics/GMPLib</span>
+<span class="sd">.. _GME: https://github.com/geomorphysics/GME</span>
+<span class="sd">.. _Matrix: https://docs.sympy.org/latest/modules/matrices\</span>
+<span class="sd">/immutablematrices.html</span>
+<span class="sd">.. _Equality: https://docs.sympy.org/latest/modules/core.html\</span>
+<span class="sd">#sympy.core.relational.Equality</span>
+
+<span class="sd">---------------------------------------------------------------------</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="c1"># Disable these pylint errors because it doesn&#39;t understand SymPy syntax</span>
+<span class="c1">#   - notably minus signs in equations flag an error</span>
+<span class="c1"># pylint: disable=invalid-unary-operand-type, not-callable</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="c1"># Typing</span>
+<span class="c1"># from typing import Dict, Type, Optional  # , Tuple, Any, List</span>
+
+<span class="c1"># SymPy</span>
+<span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">Eq</span><span class="p">,</span> <span class="n">simplify</span><span class="p">,</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">factor</span><span class="p">,</span> <span class="n">diff</span>
+
+<span class="c1"># GME</span>
+<span class="kn">from</span> <span class="nn">gme.core.symbols</span> <span class="kn">import</span> \
+    <span class="n">eta</span><span class="p">,</span> <span class="n">gstar</span><span class="p">,</span> <span class="n">det_gstar</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">varphi_r</span><span class="p">,</span> <span class="n">rvec</span>
+
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;MetricTensorMixin&#39;</span><span class="p">]</span>
+
+
+<span class="k">class</span> <span class="nc">MetricTensorMixin</span><span class="p">:</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">define_g_eqns</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Define equations for the metric tensor :math:`g` and</span>
+<span class="sd">        its dual  :math:`g^*`</span>
+
+<span class="sd">        Attributes:</span>
+<span class="sd">            gstar_varphi_pxpz_eqn (`Equality`_):</span>
+<span class="sd">                :math:`g^{*} = \left[\begin{matrix}\</span>
+<span class="sd">                \dfrac{2 p_{x}^{3} \varphi^{2}{\left(\mathbf{r} \right)}}</span>
+<span class="sd">                {\left(p_{x}^{2} + p_{z}^{2}\right)^{\frac{3}{2}}} \</span>
+<span class="sd">                - \dfrac{3 p_{x}^{3} \left(p_{x}^{2}</span>
+<span class="sd">                + \dfrac{3 p_{z}^{2}}{2}\right)</span>
+<span class="sd">                \varphi^{2}{\left(\mathbf{r} \right)}}</span>
+<span class="sd">                {\left(p_{x}^{2} + p_{z}^{2}\right)^{\frac{5}{2}}} \</span>
+<span class="sd">                + \dfrac{2 p_{x} \left(p_{x}^{2}</span>
+<span class="sd">                + \dfrac{3 p_{z}^{2}}{2}\right)</span>
+<span class="sd">                \varphi^{2}{\left(\mathbf{r} \right)}}</span>
+<span class="sd">                {\left(p_{x}^{2} + p_{z}^{2}\right)^{\frac{3}{2}}} \</span>
+<span class="sd">                &amp; \dfrac{3 p_{x}^{4} p_{z}</span>
+<span class="sd">                \varphi^{2}{\left(\mathbf{r} \right)}}{2 \left(p_{x}^{2}</span>
+<span class="sd">                + p_{z}^{2}\right)^{\frac{5}{2}}} \</span>
+<span class="sd">                - \dfrac{3 p_{x}^{2} p_{z}</span>
+<span class="sd">                \varphi^{2}{\left(\mathbf{r} \right)}}</span>
+<span class="sd">                {2 \left(p_{x}^{2} + p_{z}^{2}\right)^{\frac{3}{2}}}\\ \</span>
+<span class="sd">                \dfrac{3 p_{x}^{2} p_{z} \varphi^{2}{\left(\mathbf{r} \right)}}</span>
+<span class="sd">                {\left(p_{x}^{2} + p_{z}^{2}\right)^{\frac{3}{2}}} \</span>
+<span class="sd">                - \dfrac{3 p_{x}^{2} p_{z} \left(p_{x}^{2}</span>
+<span class="sd">                + \dfrac{3 p_{z}^{2}}{2}\right)</span>
+<span class="sd">                \varphi^{2}{\left(\mathbf{r} \right)}}</span>
+<span class="sd">                {\left(p_{x}^{2} + p_{z}^{2}\right)^{\frac{5}{2}}} \</span>
+<span class="sd">                &amp; \dfrac{3 p_{x}^{3} p_{z}^{2} \varphi^{2}</span>
+<span class="sd">                {\left(\mathbf{r} \right)}}</span>
+<span class="sd">                {2 \left(p_{x}^{2} + p_{z}^{2}\right)^{\frac{5}{2}}} \</span>
+<span class="sd">                - \dfrac{p_{x}^{3} \varphi^{2}{\left(\mathbf{r} \right)}}</span>
+<span class="sd">                {2 \left(p_{x}^{2} + p_{z}^{2}\right)^{\frac{3}{2}}}\</span>
+<span class="sd">                \end{matrix}\right]`</span>
+
+<span class="sd">            det_gstar_varphi_pxpz_eqn (`Equality`_):</span>
+<span class="sd">                :math:`\det\left(g^*\right) \</span>
+<span class="sd">                = \dfrac{p_{x}^{4} \left(- \dfrac{p_{x}^{2}}{2} \</span>
+<span class="sd">                + \dfrac{3 p_{z}^{2}}{4}\right) \varphi^{4}{\left(\mathbf{r}</span>
+<span class="sd">                \right)}}{p_{x}^{6} + 3 p_{x}^{4} p_{z}^{2}</span>
+<span class="sd">                + 3 p_{x}^{2} p_{z}^{4} + p_{z}^{6}}`</span>
+
+<span class="sd">            g_varphi_pxpz_eqn (`Equality`_):</span>
+<span class="sd">                :math:`g = \left[\begin{matrix}\</span>
+<span class="sd">                \dfrac{2 \left(p_{x}^{2} - 2 p_{z}^{2}\right) \sqrt{p_{x}^{2}</span>
+<span class="sd">                + p_{z}^{2}}}{p_{x} \left(2 p_{x}^{2}</span>
+<span class="sd">                - 3 p_{z}^{2}\right) \varphi^{2}{\left(\mathbf{r} \right)}} \</span>
+<span class="sd">                &amp; - \dfrac{6 p_{z}^{3} \sqrt{p_{x}^{2} + p_{z}^{2}}}{p_{x}^{2}</span>
+<span class="sd">                \left(2 p_{x}^{2} - 3 p_{z}^{2}\right)</span>
+<span class="sd">                \varphi^{2}{\left(\mathbf{r} \right)}}\\ \</span>
+<span class="sd">                - \dfrac{6 p_{z}^{3} \sqrt{p_{x}^{2} + p_{z}^{2}}}{p_{x}^{2}</span>
+<span class="sd">                \left(2 p_{x}^{2} - 3 p_{z}^{2}\right)</span>
+<span class="sd">                \varphi^{2}{\left(\mathbf{r} \right)}} \</span>
+<span class="sd">                &amp; - \dfrac{4 p_{x}^{6} + 14 p_{x}^{4} p_{z}^{2}</span>
+<span class="sd">                + 22 p_{x}^{2} p_{z}^{4} + 12 p_{z}^{6}}{p_{x}^{3}</span>
+<span class="sd">                \sqrt{p_{x}^{2} + p_{z}^{2}} \left(2 p_{x}^{2}</span>
+<span class="sd">                - 3 p_{z}^{2}\right) \varphi^{2}{\left(\mathbf{r}</span>
+<span class="sd">                \right)}}\</span>
+<span class="sd">                \end{matrix}\right]`</span>
+
+<span class="sd">            gstar_eigen_varphi_pxpz (list of :class:`~sympy.core.expr.Expr`) :</span>
+<span class="sd">                eigenvalues and eigenvectors of :math:`g^{*}` in one object</span>
+
+<span class="sd">            gstar_eigenvalues (`Matrix`_):</span>
+<span class="sd">                :math:`\left[\begin{matrix}\</span>
+<span class="sd">                \dfrac{\varphi_0^{2} p_{x} x_{1}^{- 4 \mu} \left(\varepsilon</span>
+<span class="sd">                x_{1}^{2 \mu} + \left(x_{1} - {r}^x\right)^{2 \mu}\right)^{2}</span>
+<span class="sd">                \left(- 3 \left(p_{x}^{2} + p_{z}^{2}\right) \sqrt{p_{x}^{12}</span>
+<span class="sd">                + 4 p_{x}^{10} p_{z}^{2} + 10 p_{x}^{8} p_{z}^{4}</span>
+<span class="sd">                + 20 p_{x}^{6} p_{z}^{6} + 25 p_{x}^{4} p_{z}^{8}</span>
+<span class="sd">                + 16 p_{x}^{2} p_{z}^{10} + 4 p_{z}^{12}} + \left(p_{x}^{2}</span>
+<span class="sd">                + 6 p_{z}^{2}\right) \left(p_{x}^{6} + 3 p_{x}^{4} p_{z}^{2}</span>
+<span class="sd">                + 3 p_{x}^{2} p_{z}^{4} + p_{z}^{6}\right)\right)}</span>
+<span class="sd">                {4 \left(p_{x}^{2} + p_{z}^{2}\right)^{\frac{3}{2}}</span>
+<span class="sd">                \left(p_{x}^{6}</span>
+<span class="sd">                + 3 p_{x}^{4} p_{z}^{2} + 3 p_{x}^{2} p_{z}^{4}</span>
+<span class="sd">                + p_{z}^{6}\right)}\\\</span>
+<span class="sd">                \dfrac{\varphi_0^{2} p_{x} x_{1}^{- 4 \mu} \left(\varepsilon</span>
+<span class="sd">                x_{1}^{2 \mu} + \left(x_{1} - {r}^x\right)^{2 \mu}\right)^{2}</span>
+<span class="sd">                \left(3 \left(p_{x}^{2} + p_{z}^{2}\right) \sqrt{p_{x}^{12}</span>
+<span class="sd">                + 4 p_{x}^{10} p_{z}^{2} + 10 p_{x}^{8} p_{z}^{4} + 20</span>
+<span class="sd">                p_{x}^{6} p_{z}^{6} + 25 p_{x}^{4} p_{z}^{8} + 16 p_{x}^{2}</span>
+<span class="sd">                p_{z}^{10} + 4 p_{z}^{12}} + \left(p_{x}^{2}</span>
+<span class="sd">                + 6 p_{z}^{2}\right) \left(p_{x}^{6} + 3 p_{x}^{4} p_{z}^{2}</span>
+<span class="sd">                + 3 p_{x}^{2} p_{z}^{4} + p_{z}^{6}\right)\right)}</span>
+<span class="sd">                {4 \left(p_{x}^{2} + p_{z}^{2}\right)^{\frac{3}{2}}</span>
+<span class="sd">                \left(p_{x}^{6} + 3 p_{x}^{4}</span>
+<span class="sd">                p_{z}^{2} + 3 p_{x}^{2} p_{z}^{4} + p_{z}^{6}\right)}\</span>
+<span class="sd">                \end{matrix}\right]`</span>
+
+<span class="sd">            gstar_eigenvectors (list) :</span>
+<span class="sd">                :math:`\left[\</span>
+<span class="sd">                \begin{matrix}\dfrac{p_{x} p_{z}^{3} \left(p_{x}^{6}</span>
+<span class="sd">                + 2 p_{x}^{4} p_{z}^{2} + 3 p_{x}^{2} p_{z}^{4} + 2 p_{z}^{6}</span>
+<span class="sd">                + \sqrt{p_{x}^{12} + 4 p_{x}^{10} p_{z}^{2} + 10 p_{x}^{8}</span>
+<span class="sd">                p_{z}^{4} + 20 p_{x}^{6} p_{z}^{6} + 25 p_{x}^{4} p_{z}^{8}</span>
+<span class="sd">                + 16 p_{x}^{2} p_{z}^{10} + 4 p_{z}^{12}}\right)}{p_{x}^{10}</span>
+<span class="sd">                + 3 p_{x}^{8} p_{z}^{2} + 7 p_{x}^{6} p_{z}^{4} + 11 p_{x}^{4}</span>
+<span class="sd">                p_{z}^{6} + p_{x}^{4} \sqrt{p_{x}^{12} + 4 p_{x}^{10}</span>
+<span class="sd">                p_{z}^{2} + 10 p_{x}^{8} p_{z}^{4} + 20 p_{x}^{6} p_{z}^{6}</span>
+<span class="sd">                + 25 p_{x}^{4} p_{z}^{8} + 16 p_{x}^{2}p_{z}^{10}+4 p_{z}^{12}}</span>
+<span class="sd">                + 10 p_{x}^{2} p_{z}^{8} + p_{x}^{2} p_{z}^{2} \sqrt{p_{x}^{12}</span>
+<span class="sd">                + 4 p_{x}^{10} p_{z}^{2} + 10 p_{x}^{8} p_{z}^{4} +20 p_{x}^{6}</span>
+<span class="sd">                p_{z}^{6} + 25 p_{x}^{4} p_{z}^{8} + 16 p_{x}^{2} p_{z}^{10}</span>
+<span class="sd">                + 4 p_{z}^{12}} + 4 p_{z}^{10} + 2 p_{z}^{4} \sqrt{p_{x}^{12}</span>
+<span class="sd">                + 4 p_{x}^{10} p_{z}^{2} + 10 p_{x}^{8} p_{z}^{4} + 20p_{x}^{6}</span>
+<span class="sd">                p_{z}^{6} + 25 p_{x}^{4} p_{z}^{8} + 16 p_{x}^{2} p_{z}^{10}</span>
+<span class="sd">                + 4 p_{z}^{12}}}\\ \</span>
+<span class="sd">                1 \</span>
+<span class="sd">                \end{matrix}\</span>
+<span class="sd">                \right] \\ \</span>
+<span class="sd">                \left[\</span>
+<span class="sd">                \begin{matrix}\dfrac{p_{x} p_{z}^{3} \left(p_{x}^{6}</span>
+<span class="sd">                + 2 p_{x}^{4} p_{z}^{2} + 3 p_{x}^{2} p_{z}^{4} + 2 p_{z}^{6}</span>
+<span class="sd">                - \sqrt{p_{x}^{12} + 4 p_{x}^{10} p_{z}^{2} + 10 p_{x}^{8}</span>
+<span class="sd">                p_{z}^{4} + 20 p_{x}^{6} p_{z}^{6} + 25 p_{x}^{4} p_{z}^{8}</span>
+<span class="sd">                + 16 p_{x}^{2} p_{z}^{10} + 4 p_{z}^{12}}\right)}{p_{x}^{10}</span>
+<span class="sd">                + 3 p_{x}^{8} p_{z}^{2} + 7 p_{x}^{6} p_{z}^{4} + 11 p_{x}^{4}</span>
+<span class="sd">                p_{z}^{6} - p_{x}^{4} \sqrt{p_{x}^{12} + 4 p_{x}^{10} p_{z}^{2}</span>
+<span class="sd">                + 10 p_{x}^{8} p_{z}^{4} + 20 p_{x}^{6} p_{z}^{6}</span>
+<span class="sd">                + 25 p_{x}^{4} p_{z}^{8} + 16 p_{x}^{2} p_{z}^{10}</span>
+<span class="sd">                + 4 p_{z}^{12}} + 10 p_{x}^{2} p_{z}^{8} - p_{x}^{2} p_{z}^{2}</span>
+<span class="sd">                \sqrt{p_{x}^{12} + 4 p_{x}^{10} p_{z}^{2} + 10 p_{x}^{8}</span>
+<span class="sd">                p_{z}^{4} + 20 p_{x}^{6} p_{z}^{6} + 25 p_{x}^{4} p_{z}^{8}</span>
+<span class="sd">                + 16 p_{x}^{2} p_{z}^{10} + 4 p_{z}^{12}} + 4 p_{z}^{10} -</span>
+<span class="sd">                2 p_{z}^{4} \sqrt{p_{x}^{12} + 4 p_{x}^{10} p_{z}^{2} +</span>
+<span class="sd">                10 p_{x}^{8} p_{z}^{4} + 20 p_{x}^{6} p_{z}^{6} + 25 p_{x}^{4}</span>
+<span class="sd">                p_{z}^{8} + 16 p_{x}^{2} p_{z}^{10} + 4 p_{z}^{12}}}\\ \</span>
+<span class="sd">                1 \</span>
+<span class="sd">                \end{matrix}\right]`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;define_g_eqns&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gstar_varphi_pxpz_eqn</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">det_gstar_varphi_pxpz_eqn</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">g_varphi_pxpz_eqn</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gstar_eigen_varphi_pxpz</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gstar_eigenvalues</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gstar_eigenvectors</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="n">eta_sub</span> <span class="o">=</span> <span class="p">{</span><span class="n">eta</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">eta_</span><span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gstar_varphi_pxpz_eqn</span> \
+            <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">gstar</span><span class="p">,</span> <span class="n">factor</span><span class="p">(</span>
+                    <span class="n">Matrix</span><span class="p">([</span><span class="n">diff</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rdot_vec_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">,</span>
+                                 <span class="bp">self</span><span class="o">.</span><span class="n">p_covec_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">T</span><span class="p">,</span>
+                            <span class="n">diff</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rdot_vec_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">,</span>
+                                 <span class="bp">self</span><span class="o">.</span><span class="n">p_covec_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">T</span><span class="p">])</span>
+                <span class="p">))</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">eta_sub</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">det_gstar_varphi_pxpz_eqn</span> \
+            <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">det_gstar</span><span class="p">,</span> <span class="p">(</span><span class="n">simplify</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">gstar_varphi_pxpz_eqn</span><span class="o">.</span><span class="n">rhs</span>
+                                      <span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">eta_sub</span><span class="p">)</span><span class="o">.</span><span class="n">det</span><span class="p">())))</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eta_</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">beta_type</span> <span class="o">==</span> <span class="s1">&#39;sin&#39;</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Cannot compute all metric tensor $g^</span><span class="si">{ij}</span><span class="s1">$ equations &#39;</span>
+                  <span class="o">+</span> <span class="sa">r</span><span class="s1">&#39;for $\sin\beta$ model and $\eta=1$&#39;</span><span class="p">)</span>
+            <span class="k">return</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">g_varphi_pxpz_eqn</span> \
+            <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">simplify</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">gstar_varphi_pxpz_eqn</span><span class="o">.</span><span class="n">rhs</span>
+                             <span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">eta_sub</span><span class="p">)</span><span class="o">.</span><span class="n">inverse</span><span class="p">()))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gstar_eigen_varphi_pxpz</span> \
+            <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">gstar_varphi_pxpz_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="o">.</span><span class="n">eigenvects</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gstar_eigenvalues</span> <span class="o">=</span> <span class="n">simplify</span><span class="p">(</span>
+            <span class="n">Matrix</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">gstar_eigen_varphi_pxpz</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">gstar_eigen_varphi_pxpz</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]])</span>
+            <span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">varphi_r</span><span class="p">(</span><span class="n">rvec</span><span class="p">):</span> <span class="bp">self</span><span class="o">.</span><span class="n">varphi_rx_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">}))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gstar_eigenvectors</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="p">[</span><span class="n">simplify</span><span class="p">(</span><span class="n">Matrix</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">gstar_eigen_varphi_pxpz</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">2</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+                      <span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">varphi_r</span><span class="p">(</span><span class="n">rvec</span><span class="p">):</span> <span class="bp">self</span><span class="o">.</span><span class="n">varphi_rx_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">})),</span>
+             <span class="n">simplify</span><span class="p">(</span><span class="n">Matrix</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">gstar_eigen_varphi_pxpz</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">2</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+                      <span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">varphi_r</span><span class="p">(</span><span class="n">rvec</span><span class="p">):</span> <span class="bp">self</span><span class="o">.</span><span class="n">varphi_rx_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">}))])</span>
+
+
+<span class="c1">#</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+    <a id="sidebar-anchor"></a>
+    
+
+<div id="searchbox" style="display: none" role="search">
+    <a class="biglink" href="../../index.html">
+        <img src="../../_static/gme_icon_varphi_rx.png" />
+    </a>
+  <h3></h3>
+    <form class="search" action="../../search.html" method="get">
+      <div class="ui action left icon input">
+        <i class="search icon"></i>
+        <input type="text" name="q" placeholder="Search...">
+        <div class="ui teal button"></div>
+      </div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<!-- <br> -->
+<script type="text/javascript">$('#searchbox').show(0);</script><h3><a href="../../index.html">Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Summary.html">  Summary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Presentations.html">  Presentations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Publications.html">  Publications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Design.html">  Software design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Dependencies.html">  Dependencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Installation.html">  Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Running.html">  Running</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Notebooks.html">  Notebooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Python.html">  Python package</a></li>
+</ul>
+
+    <!-- <h3><a href="../../index.html">This page</a></h3> -->
+    <!-- <ul>
+<li><a class="reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">metrictensor.py</span></code></a><ul>
+<li><a class="reference internal" href="#code">Code</a></li>
+</ul>
+</li>
+</ul>
+ -->
+    <p class="biglink">
+        <h3><a href="../../genindex.html"> Index</a></h3>
+    </p>
+  <br>
+  <!-- <p class="biglink"><a class="biglink" href="../../py-modindex.html">
+         Module index</a>
+  <br><br> -->
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, CPS.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.3.
+    </div>
+  </body>
+</html>

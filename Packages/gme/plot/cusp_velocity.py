@@ -8,7 +8,12 @@ Visualization of velocity components of surface cusp.
 Requires Python packages:
   -  :mod:`numpy`
   -  :mod:`matplotlib`
-  -  :mod:`gme`
+  -  `GME`_
+
+.. _GMPLib: https://github.com/geomorphysics/GMPLib
+.. _GME: https://github.com/geomorphysics/GME
+.. _Matrix: https://docs.sympy.org/latest/modules/matrices\
+/immutablematrices.html
 
 ---------------------------------------------------------------------
 
@@ -39,7 +44,7 @@ class CuspVelocity(Graphing):
     """
     Visualization of velocity components of surface cusp.
 
-    Subclasses :class:`gme.plot.base.Graphing`.
+    Extends :class:`gme.plot.base.Graphing`.
     """
 
     def profile_cusp_horizontal_speed(

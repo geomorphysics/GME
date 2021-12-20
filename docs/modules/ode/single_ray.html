@@ -58,8 +58,8 @@
 <dt>Requires Python packages/modules:</dt><dd><ul class="simple">
 <li><p><a class="reference external" href="https://numpy.org/doc/stable/reference/index.html#module-numpy" title="(in NumPy v1.21)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy</span></code></a></p></li>
 <li><p><a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/index.html#module-scipy" title="(in SciPy v1.7.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">scipy</span></code></a></p></li>
-<li><p><code class="xref py py-mod docutils literal notranslate"><span class="pre">gmplib</span></code></p></li>
-<li><p><code class="xref py py-mod docutils literal notranslate"><span class="pre">gme</span></code></p></li>
+<li><p><a class="reference external" href="https://github.com/geomorphysics/GMPLib">GMPLib</a></p></li>
+<li><p><a class="reference external" href="https://github.com/geomorphysics/GME">GME</a></p></li>
 </ul>
 </dd>
 </dl>
@@ -101,8 +101,13 @@
 <span class="sd">Requires Python packages/modules:</span>
 <span class="sd">  -  :mod:`numpy`</span>
 <span class="sd">  -  :mod:`scipy`</span>
-<span class="sd">  -  :mod:`gmplib`</span>
-<span class="sd">  -  :mod:`gme`</span>
+<span class="sd">  -  `GMPLib`_</span>
+<span class="sd">  -  `GME`_</span>
+
+<span class="sd">.. _GMPLib: https://github.com/geomorphysics/GMPLib</span>
+<span class="sd">.. _GME: https://github.com/geomorphysics/GME</span>
+<span class="sd">.. _Matrix: https://docs.sympy.org/latest/modules/matrices\</span>
+<span class="sd">/immutablematrices.html</span>
 
 <span class="sd">---------------------------------------------------------------------</span>
 <span class="sd">&quot;&quot;&quot;</span>
@@ -120,7 +125,7 @@
 
 <span class="c1"># GME</span>
 <span class="kn">from</span> <span class="nn">gme.core.symbols</span> <span class="kn">import</span> <span class="n">Lc</span>
-<span class="kn">from</span> <span class="nn">gme.core.equation_utils</span> <span class="kn">import</span> <span class="n">pxpz0_from_xiv0</span>
+<span class="kn">from</span> <span class="nn">gme.core.utils</span> <span class="kn">import</span> <span class="n">pxpz0_from_xiv0</span>
 <span class="kn">from</span> <span class="nn">gme.ode.base</span> <span class="kn">import</span> <span class="n">ExtendedSolution</span><span class="p">,</span> <span class="n">solve_Hamiltons_equations</span>
 <span class="kn">from</span> <span class="nn">gme.ode.base</span> <span class="kn">import</span> <span class="n">rpt_tuple</span>
 
@@ -366,6 +371,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../Dependencies.html">  Dependencies</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Installation.html">  Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Running.html">  Running</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Notebooks.html">  Notebooks</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../Python.html">  Python package</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../core/index.html">Core</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">ODE integration</a></li>
@@ -373,7 +379,6 @@
 <li class="toctree-l2"><a class="reference internal" href="../knickpoints/index.html">Knickpoint detection and tracking [in development]</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../Notebooks.html">  Notebooks</a></li>
 </ul>
 
     <!-- <h3><a href="../../index.html">This page</a></h3> -->

@@ -6,10 +6,15 @@ Old way of visualizing indicatrix & figuratrix
 ---------------------------------------------------------------------
 
 Requires Python packages/modules:
-  -  :mod:`numpy`, :mod:`sympy`
-  -  :mod:`matplotlib.pyplot`, :mod:`matplotlib.patches`
-  -  :mod:`gmplib.utils`
-  -  :mod:`gme.core.symbols`, :mod:`gme.plot.base`
+  -  :mod:`numpy`
+  -  :mod:`sympy`
+  -  :mod:`matplotlib`
+  -  `GME`_
+
+.. _GMPLib: https://github.com/geomorphysics/GMPLib
+.. _GME: https://github.com/geomorphysics/GME
+.. _Matrix: https://docs.sympy.org/latest/modules/matrices\
+/immutablematrices.html
 
 ---------------------------------------------------------------------
 
@@ -43,7 +48,7 @@ class IndicatrixOld(Graphing):
     """
     Old way of visualizing indicatrix & figuratrix.
 
-    Subclasses :class:`gme.plot.base.Graphing`.
+    Extends :class:`gme.plot.base.Graphing`.
     """
 
     def comparison_logpolar(

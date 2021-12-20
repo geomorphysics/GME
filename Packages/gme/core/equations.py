@@ -20,7 +20,12 @@ The rest of the equations are derived from these core results.
 
 Requires Python packages/modules:
   -  :mod:`sympy`
-  -  :mod:`gme`
+  -  `GME`_
+
+.. _GMPLib: https://github.com/geomorphysics/GMPLib
+.. _GME: https://github.com/geomorphysics/GME
+.. _Matrix: https://docs.sympy.org/latest/modules/matrices\
+/immutablematrices.html
 
 ---------------------------------------------------------------------
 
@@ -38,18 +43,18 @@ from typing import Dict, Optional
 from sympy import Rational
 
 # GME
-from gme.core.equations_rp import EquationsRpMixin
-from gme.core.equations_xi import EquationsXiMixin
-from gme.core.equations_varphi import EquationsVarphiMixin
-from gme.core.equations_FH import EquationsFHMixin
-from gme.core.equations_hamiltons import EquationsHamiltonsMixin
-from gme.core.equations_ndim import EquationsNdimMixin
-from gme.core.equations_angles import EquationsAnglesMixin
-from gme.core.equations_g import EquationsMetricTensorMixin
-from gme.core.equations_pxpoly import EquationsPxpolyMixin
-# from gme.core.equations_idtx import EquationsIdtxMixin
-# from gme.core.equations_geodesic import EquationsGeodesicMixin
-# from gme.core.equations_ibc import EquationsIbcMixin
+from gme.core.rp import RpMixin
+from gme.core.xi import XiMixin
+from gme.core.varphi import VarphiMixin
+from gme.core.fundamental import FundamentalMixin
+from gme.core.hamiltons import HamiltonsMixin
+from gme.core.ndim import NdimMixin
+from gme.core.angles import AnglesMixin
+from gme.core.metrictensor import MetricTensorMixin
+from gme.core.pxpoly import PxpolyMixin
+# from gme.core.idtx import IdtxMixin
+# from gme.core.geodesic import GeodesicMixin
+# from gme.core.ibc import IbcMixin
 
 warnings.filterwarnings("ignore")
 
@@ -58,7 +63,7 @@ __all__ = ['EquationsBase', 'EquationsMixedIn', 'Equations']
 
 class EquationsBase:
     r"""
-    TBD
+    Bare-bones base class for equation definitions.
     """
 
     def __init__(
@@ -88,18 +93,20 @@ class EquationsBase:
 
 class EquationsMixedIn(
             EquationsBase,
-            EquationsRpMixin,
-            EquationsXiMixin,
-            EquationsVarphiMixin,
-            EquationsFHMixin,
-            EquationsHamiltonsMixin,
-            EquationsNdimMixin,
-            EquationsAnglesMixin,
-            EquationsMetricTensorMixin,
-            EquationsPxpolyMixin,
+            RpMixin,
+            XiMixin,
+            VarphiMixin,
+            FundamentalMixin,
+            HamiltonsMixin,
+            NdimMixin,
+            AnglesMixin,
+            MetricTensorMixin,
+            PxpolyMixin,
         ):
     r"""
-    TBD
+    Extended base class that's furnished with
+    mixins providing all the basic equation definitions, but none of
+    which are automatically acted upon.
     """
 
     def __init__(
@@ -120,36 +127,37 @@ class Equations(EquationsMixedIn):
     and to provide them in a form(sometimes lambdified) that can be used for
     numerical evaluation.
 
-    Much of the derivation sequence here keeps: math: `\eta` and: math: `\mu`
+    Much of the derivation sequence here keeps :math:`\eta` and :math:`\mu`
     unspecified, up until the Hamiltonian is defined, but eventually values
     for these parameters need to be substituted in order to make further
-    progress. In this documentation, we set: math: `\eta = 3/2`, for now.
+    progress. In this documentation, we set :math:`\eta = 3/2`, for now.
 
-    TODO: provide solutions for both: math: `\eta = 1/2` and
-          : math: `\eta = 3/2` where appropriate.
+    TODO: provide solutions for both :math:`\eta = 1/2` and
+           :math:`\eta = 3/2` where appropriate.
 
     Args:
-        parameters(dict): dictionary of model parameter values to be
+        parameters: dictionary of model parameter values to be
                            used for equation substitutions
                            (used when defining geodesic equations)
-        eta\_(: class: `~sympy.core.numbers.Rational`):
-            exponent in slope component of erosion model(equivalent of
-            gradient exponent: math: `n` in SPIM)
-        mu\_(: class: `~sympy.core.numbers.Rational`):
-            exponent in flow component of erosion model
-            (equivalent of area exponent: math: `m` in SPIM)
-        beta_type(str): choice of slope component of erosion model
+        eta\_:
+            exponent :math:`\eta ` in slope component of erosion
+            model (equivalent of
+            gradient exponent :math:`n` in SPIM)
+        mu\_:
+            exponent :math:`\mu` in flow component of erosion model
+            (equivalent of area exponent :math:`m` in SPIM)
+        beta_type: choice of slope component of erosion model
                          (`'sin'` or `'tan'`)
-        varphi_type(str): choice of flow component of erosion model
+        varphi_type: choice of flow component of erosion model
                            (`'ramp'` or `'ramp-flat'`)
-        ibc_type(str): choice of initial boundary shape
+        ibc_type: choice of initial boundary shape
                         (`'convex-up'` or `'concave-up'`,
                         i.e., concave vs convex in mathematical parlance)
-        do_raw(bool): suppress substitution of: math: `eta` value
+        do_raw: suppress substitution of :math:`eta` value
                         when defining `xi_varphi_beta_eqn`?
-        do_idtx(bool): generate indicatrix and figuratrix equations?
-        do_geodesic(bool): generate geodesic equations?
-        do_nothing(bool):
+        do_idtx: generate indicatrix and figuratrix equations?
+        do_geodesic: generate geodesic equations?
+        do_nothing:
             just create the class instance and set its data,
              but don't run any of the equation definition methods
         do_new_varphi_model(bool): use new form of varphi model?

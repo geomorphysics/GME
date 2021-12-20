@@ -9,12 +9,19 @@ Requires Python packages/modules:
   -  :mod:`numpy`
   -  :mod:`sympy`
   -  :mod:`matplotlib`
-  -  :mod:`gme`
+  -  `GME`_
+
+.. _GMPLib: https://github.com/geomorphysics/GMPLib
+.. _GME: https://github.com/geomorphysics/GME
+.. _Matrix: https://docs.sympy.org/latest/modules/matrices\
+/immutablematrices.html
 
 ---------------------------------------------------------------------
 
 """
+# Library
 import warnings
+from cycler import cycler
 
 # Typing
 from typing import Tuple, Dict, Optional
@@ -27,6 +34,7 @@ from sympy import deg  # , atan
 
 # MatPlotLib
 import matplotlib.pyplot as plt
+from matplotlib.pyplot import Axes
 
 # GME
 from gme.core.symbols import Ci
@@ -43,7 +51,7 @@ class RayAngles(Graphing):
     """
     Visualization of ray angles.
 
-    Subclasses :class:`gme.plot.base.Graphing`.
+    Extends :class:`gme.plot.base.Graphing`.
     """
 
     def alpha_beta(
@@ -281,9 +289,18 @@ class RayAngles(Graphing):
                  horizontalalignment='center', verticalalignment='center',
                  fontsize=14, color='k')
 
-    def profile_alpha(self, gmes, gmeq, sub, name, fig_size=None, dpi=None,
-                      n_points=201, do_legend=True,
-                      eta_label_xy=(0.25, 0.5)) -> None:
+    def profile_alpha(
+        self,
+        gmes,
+        gmeq,
+        sub,
+        name,
+        fig_size=None,
+        dpi=None,
+        n_points=201,
+        do_legend=True,
+        eta_label_xy=(0.25, 0.5)
+    ) -> None:
         r"""
         Plot ray vector angle :math:`\alpha` along a time-invariant profile.
 
@@ -329,3 +346,90 @@ class RayAngles(Graphing):
         # plt.text(0.8,0.7, rf'$\eta={gmeq.eta_}$', transform=axes.transAxes,
         #          horizontalalignment='center', verticalalignment='center',
         #          fontsize=14, color='k')
+
+    def psi_eta_alpha(
+        self,
+        gmeq: Equations,
+        name: str,
+        n_points=5000,
+        fig_size: Optional[Tuple[float, float]] = (8, 4),
+        dpi: Optional[int] = None,
+    ) -> None:
+        r"""
+        Plot anisotropy angle :math:`\psi` at a function of :math:`\eta`
+        for selected values of :math:`\alpha`.
+
+        Args:
+            gmeq:
+                GME model equations class instance defined in
+                :mod:`gme.core.equations`
+            n_points:
+                optional sample rate along each curve
+        """
+        _ = self.create_figure(name, fig_size=fig_size, dpi=dpi)
+        axes = plt.gca()
+        default_cycler = cycler(color='bgrcmyk')
+
+        plt.grid(':')
+        plt.ylabel(r'Anisotropy  $\psi(\eta; \alpha)$   [$\degree$]')
+        plt.xlabel(r'Exponent  $\eta$   [-]')
+        plt.xlim(0, 2)
+        rd = np.deg2rad
+        y_limits = (0, 90)
+
+        def plot_partial(
+            eta_range_: Tuple[float, float],
+            axes_: Axes,
+            dashes_: Tuple[float, float],
+            alpha_sign_: float,
+            y_limits_: Tuple[float, float],
+            loc_: Tuple[float, float]
+        ) -> None:
+            eta_array_ = np.linspace(*eta_range_, n_points)
+            axes_.set_prop_cycle(default_cycler)
+            for alpha_ in [1, 5, 10, 15]:
+                psi_array_ = np.concatenate([
+                    [gmeq.psi_eta_beta_lambdas[0](eta_, rd(alpha_*alpha_sign_))
+                     for eta_ in (eta_array_
+                     if alpha_sign_ == -1
+                     else np.flip(eta_array_))],
+                    [gmeq.psi_eta_beta_lambdas[1](eta_, rd(alpha_*alpha_sign_))
+                     for eta_ in (np.flip(eta_array_)
+                     if alpha_sign_ == -1
+                     else eta_array_)]
+                ])
+                eta_rept_array_ = np.concatenate(
+                    [eta_array_, np.flip(eta_array_)]
+                    if alpha_sign_ == -1
+                    else [np.flip(eta_array_),
+                          eta_array_]
+                )
+                eta_rept_array_ = eta_rept_array_[np.isfinite(psi_array_)]
+                psi_array_ = psi_array_[np.isfinite(psi_array_)]
+                axes_.plot(
+                    eta_rept_array_,
+                    np.rad2deg(psi_array_),
+                    dashes=dashes_,
+                    label=rf'$\alpha={alpha_*alpha_sign_}\degree$'
+                )
+            axes_.set_ylim(*y_limits_)
+            axes_.legend(loc=loc_)
+
+        plot_partial(
+            (0, 1),
+            axes,
+            (10, 0.7),
+            -1,
+            y_limits,
+            (0.028, 0.27)
+        )
+        plot_partial(
+            (1, 2),
+            axes.twinx(),
+            (1, 0),
+            +1,
+            y_limits,
+            (1.07, 0.35)
+        )
+
+#

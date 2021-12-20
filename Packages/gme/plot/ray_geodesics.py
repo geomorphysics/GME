@@ -10,7 +10,12 @@ Requires Python packages/modules:
   -  :mod:`scipy`
   -  :mod:`sympy`
   -  :mod:`matplotlib`
-  -  :mod:`gme`
+  -  `GME`_
+
+.. _GMPLib: https://github.com/geomorphysics/GMPLib
+.. _GME: https://github.com/geomorphysics/GME
+.. _Matrix: https://docs.sympy.org/latest/modules/matrices\
+/immutablematrices.html
 
 ---------------------------------------------------------------------
 
@@ -48,7 +53,7 @@ class RayGeodesics(Graphing):
     """
     Visualization of geodesics.
 
-    Subclasses :class:`gme.plot.base.Graphing`.
+    Extends :class:`gme.plot.base.Graphing`.
 
     Args:
         gmes:

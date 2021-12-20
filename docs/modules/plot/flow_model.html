@@ -59,7 +59,7 @@
 <li><p><a class="reference external" href="https://numpy.org/doc/stable/reference/index.html#module-numpy" title="(in NumPy v1.21)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy</span></code></a></p></li>
 <li><p><a class="reference external" href="https://matplotlib.org/stable/index.html#module-matplotlib" title="(in Matplotlib v3.5.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">matplotlib</span></code></a></p></li>
 <li><p><code class="xref py py-mod docutils literal notranslate"><span class="pre">mpl_toolkits</span></code></p></li>
-<li><p><code class="xref py py-mod docutils literal notranslate"><span class="pre">gme</span></code></p></li>
+<li><p><a class="reference external" href="https://github.com/geomorphysics/GME">GME</a></p></li>
 </ul>
 </dd>
 </dl>
@@ -68,7 +68,7 @@
 <dt class="sig sig-object py" id="gme.plot.flow_model.FlowModel">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gme.plot.flow_model.</span></span><span class="sig-name descname"><span class="pre">FlowModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dpi</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">font_size</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">11</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gme.plot.flow_model.FlowModel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Visualization of flow model.</p>
-<p>Subclasses <a class="reference internal" href="base.html#gme.plot.base.Graphing" title="gme.plot.base.Graphing"><code class="xref py py-class docutils literal notranslate"><span class="pre">gme.plot.base.Graphing</span></code></a>.</p>
+<p>Extends <a class="reference internal" href="base.html#gme.plot.base.Graphing" title="gme.plot.base.Graphing"><code class="xref py py-class docutils literal notranslate"><span class="pre">gme.plot.base.Graphing</span></code></a>.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.plot.flow_model.FlowModel.profile_flow_model">
 <span class="sig-name descname"><span class="pre">profile_flow_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmeq</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="../core/equations.html#gme.core.equations.Equations" title="gme.core.equations.Equations"><span class="pre">gme.core.equations.Equations</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">sub</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">fig_size</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dpi</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_points</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">26</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subtitle</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_subtitling</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_extra_annotations</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.plot.flow_model.FlowModel.profile_flow_model" title="Permalink to this definition">¶</a></dt>
@@ -107,7 +107,12 @@ used for equation substitutions</p></li>
 <span class="sd">  -  :mod:`numpy`</span>
 <span class="sd">  -  :mod:`matplotlib`</span>
 <span class="sd">  -  :mod:`mpl_toolkits`</span>
-<span class="sd">  -  :mod:`gme`</span>
+<span class="sd">  -  `GME`_</span>
+
+<span class="sd">.. _GMPLib: https://github.com/geomorphysics/GMPLib</span>
+<span class="sd">.. _GME: https://github.com/geomorphysics/GME</span>
+<span class="sd">.. _Matrix: https://docs.sympy.org/latest/modules/matrices\</span>
+<span class="sd">/immutablematrices.html</span>
 
 <span class="sd">---------------------------------------------------------------------</span>
 
@@ -140,7 +145,7 @@ used for equation substitutions</p></li>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Visualization of flow model.</span>
 
-<span class="sd">    Subclasses :class:`gme.plot.base.Graphing`.</span>
+<span class="sd">    Extends :class:`gme.plot.base.Graphing`.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">profile_flow_model</span><span class="p">(</span>
@@ -276,6 +281,7 @@ used for equation substitutions</p></li>
 <li class="toctree-l1"><a class="reference internal" href="../Dependencies.html">  Dependencies</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Installation.html">  Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Running.html">  Running</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Notebooks.html">  Notebooks</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../Python.html">  Python package</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../core/index.html">Core</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ode/index.html">ODE integration</a></li>
@@ -283,7 +289,6 @@ used for equation substitutions</p></li>
 <li class="toctree-l2"><a class="reference internal" href="../knickpoints/index.html">Knickpoint detection and tracking [in development]</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../Notebooks.html">  Notebooks</a></li>
 </ul>
 
     <!-- <h3><a href="../../index.html">This page</a></h3> -->

@@ -10,7 +10,13 @@ Requires Python packages:
   -  :mod:`sympy`
   -  :mod:`matplotlib`
   -  :mod:`mpl_toolkits`
-  -  :mod:`gme`
+  -  `GMPLib`_
+  -  `GME`_
+
+.. _GMPLib: https://github.com/geomorphysics/GMPLib
+.. _GME: https://github.com/geomorphysics/GME
+.. _Matrix: https://docs.sympy.org/latest/modules/matrices\
+/immutablematrices.html
 
 ---------------------------------------------------------------------
 
@@ -50,7 +56,7 @@ class TimeInvariant(Graphing):
     """
     Visualization of time-invariant solutions.
 
-    Subclasses :class:`gme.plot.base.Graphing`.
+    Extends :class:`gme.plot.base.Graphing`.
     """
 
     def profile_aniso(
@@ -526,17 +532,18 @@ class TimeInvariant(Graphing):
                      horizontalalignment='center', verticalalignment='center',
                      fontsize=16, color='k')
 
-    def profile_beta_error(self,
-                           gmes: TimeInvariantSolution,
-                           gmeq: Equations,
-                           sub: Dict,
-                           name: str,
-                           fig_size: Optional[Tuple[float, float]] = None,
-                           dpi: Optional[int] = None,
-                           n_points: int = 101,
-                           eta_label_xy: Tuple[float, float] = (0.5, 0.8),
-                           xf_stop: float = 0.995
-                           ) -> None:
+    def profile_beta_error(
+        self,
+        gmes: TimeInvariantSolution,
+        gmeq: Equations,
+        sub: Dict,
+        name: str,
+        fig_size: Optional[Tuple[float, float]] = None,
+        dpi: Optional[int] = None,
+        n_points: int = 101,
+        eta_label_xy: Tuple[float, float] = (0.5, 0.8),
+        xf_stop: float = 0.995
+    ) -> None:
         r"""
         For a time-invariant (steady-state) topographic profile,
         plot the error in the estimated surface-normal covector
@@ -603,23 +610,24 @@ class TimeInvariant(Graphing):
                  horizontalalignment='center', verticalalignment='center',
                  fontsize=14, color='k')
 
-    def profile_xi(self,
-                   gmes: TimeInvariantSolution,
-                   gmeq: Equations,
-                   sub: Dict,
-                   name: str,
-                   fig_size: Optional[Tuple[float, float]] = None,
-                   dpi: Optional[int] = None,
-                   xf_stop: float = 1,
-                   n_points: int = 201,
-                   pub_label_xy: Tuple[float, float] = (0.5, 0.2),
-                   eta_label_xy: Tuple[float, float] = (0.5, 0.5),
-                   var_label_xy: Tuple[float, float] = (0.8, 0.5),
-                   do_etaxi_label=True,
-                   do_pub_label=False,
-                   pub_label: str = '(a)',
-                   xi_norm: Optional[float] = None
-                   ) -> None:
+    def profile_xi(
+        self,
+        gmes: TimeInvariantSolution,
+        gmeq: Equations,
+        sub: Dict,
+        name: str,
+        fig_size: Optional[Tuple[float, float]] = None,
+        dpi: Optional[int] = None,
+        xf_stop: float = 1,
+        n_points: int = 201,
+        pub_label_xy: Tuple[float, float] = (0.5, 0.2),
+        eta_label_xy: Tuple[float, float] = (0.5, 0.5),
+        var_label_xy: Tuple[float, float] = (0.8, 0.5),
+        do_etaxi_label=True,
+        do_pub_label=False,
+        pub_label: str = '(a)',
+        xi_norm: Optional[float] = None
+    ) -> None:
         r"""
         Plot surface-normal erosion speed :math:`\xi^{\perp}`
         along a time-invariant profile.
@@ -708,23 +716,24 @@ class TimeInvariant(Graphing):
                  transform=axes.transAxes, horizontalalignment='center',
                  verticalalignment='center', fontsize=16, color='k')
 
-    def profile_xihorizontal(self,
-                             gmes: TimeInvariantSolution,
-                             gmeq: Equations,
-                             sub: Dict,
-                             name: str,
-                             fig_size: Optional[Tuple[float, float]] = None,
-                             dpi: Optional[int] = None,
-                             xf_stop: float = 1,
-                             n_points: int = 201,
-                             pub_label_xy: Tuple[float, float] = (0.55, 0.81),
-                             eta_label_xy: Tuple[float, float] = (0.5, 0.2),
-                             var_label_xy: Tuple[float, float] = (0.85, 0.81),
-                             do_etaxi_label: bool = True,
-                             do_pub_label: bool = False,
-                             pub_label: str = '(d)',
-                             xi_norm: Optional[float] = None
-                             ) -> None:
+    def profile_xihorizontal(
+        self,
+        gmes: TimeInvariantSolution,
+        gmeq: Equations,
+        sub: Dict,
+        name: str,
+        fig_size: Optional[Tuple[float, float]] = None,
+        dpi: Optional[int] = None,
+        xf_stop: float = 1,
+        n_points: int = 201,
+        pub_label_xy: Tuple[float, float] = (0.55, 0.81),
+        eta_label_xy: Tuple[float, float] = (0.5, 0.2),
+        var_label_xy: Tuple[float, float] = (0.85, 0.81),
+        do_etaxi_label: bool = True,
+        do_pub_label: bool = False,
+        pub_label: str = '(d)',
+        xi_norm: Optional[float] = None
+    ) -> None:
         r"""
         Plot horizontal erosion speed :math:`\xi^{\rightarrow}`
         along a time-invariant profile.
@@ -813,24 +822,25 @@ class TimeInvariant(Graphing):
                  transform=axes.transAxes, horizontalalignment='center',
                  verticalalignment='center', fontsize=16, color='k')
 
-    def profile_xivertical(self,
-                           gmes: TimeInvariantSolution,
-                           gmeq: Equations,
-                           sub: Dict,
-                           name: str,
-                           fig_size: Optional[Tuple[float, float]] = None,
-                           dpi: Optional[int] = None,
-                           xf_stop: float = 1,
-                           n_points: int = 201,
-                           y_limits: Optional[Tuple[float, float]] = None,
-                           pub_label_xy: Tuple[float, float] = (0.5, 0.81),
-                           eta_label_xy: Tuple[float, float] = (0.5, 0.2),
-                           var_label_xy: Tuple[float, float] = (0.85, 0.81),
-                           do_etaxi_label: bool = True,
-                           do_pub_label: bool = False,
-                           pub_label: str = '(e)',
-                           xi_norm: Optional[float] = None
-                           ) -> None:
+    def profile_xivertical(
+        self,
+        gmes: TimeInvariantSolution,
+        gmeq: Equations,
+        sub: Dict,
+        name: str,
+        fig_size: Optional[Tuple[float, float]] = None,
+        dpi: Optional[int] = None,
+        xf_stop: float = 1,
+        n_points: int = 201,
+        y_limits: Optional[Tuple[float, float]] = None,
+        pub_label_xy: Tuple[float, float] = (0.5, 0.81),
+        eta_label_xy: Tuple[float, float] = (0.5, 0.2),
+        var_label_xy: Tuple[float, float] = (0.85, 0.81),
+        do_etaxi_label: bool = True,
+        do_pub_label: bool = False,
+        pub_label: str = '(e)',
+        xi_norm: Optional[float] = None
+    ) -> None:
         r"""
         Plot vertical erosion speed
         :math:`\xi^{\downarrow}` along a time-invariant profile.
@@ -921,13 +931,14 @@ class TimeInvariant(Graphing):
                  transform=axes.transAxes, horizontalalignment='center',
                  verticalalignment='center', fontsize=16, color='k')
 
-    def profile_ensemble(self,
-                         gmes: TimeInvariantSolution,
-                         pr_choices: Dict,
-                         name: str,
-                         fig_size: Optional[Tuple[float, float]] = None,
-                         dpi: Optional[int] = None
-                         ) -> None:
+    def profile_ensemble(
+        self,
+        gmes: TimeInvariantSolution,
+        pr_choices: Dict,
+        name: str,
+        fig_size: Optional[Tuple[float, float]] = None,
+        dpi: Optional[int] = None
+    ) -> None:
         r"""
         Plot set of time-invariant profiles for a selection of values of
         :math:`\mathsf{Ci}` and :math:`\eta`.

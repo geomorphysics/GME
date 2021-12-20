@@ -61,8 +61,8 @@
 <li><p><a class="reference external" href="https://docs.sympy.org/latest/modules/index.html#module-sympy" title="(in SymPy v1.9)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sympy</span></code></a></p></li>
 <li><p><a class="reference external" href="https://matplotlib.org/stable/index.html#module-matplotlib" title="(in Matplotlib v3.5.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">matplotlib</span></code></a></p></li>
 <li><p><code class="xref py py-mod docutils literal notranslate"><span class="pre">mpl_toolkits</span></code></p></li>
-<li><p><code class="xref py py-mod docutils literal notranslate"><span class="pre">gmplib</span></code></p></li>
-<li><p><code class="xref py py-mod docutils literal notranslate"><span class="pre">gme</span></code></p></li>
+<li><p><a class="reference external" href="https://github.com/geomorphysics/GMPLib">GMPLib</a></p></li>
+<li><p><a class="reference external" href="https://github.com/geomorphysics/GME">GME</a></p></li>
 </ul>
 </dd>
 </dl>
@@ -236,8 +236,13 @@ the choices are <cite>(px,pz)</cite> and <cite>(rx,pz)</cite></p></li>
 <span class="sd">  -  :mod:`sympy`</span>
 <span class="sd">  -  :mod:`matplotlib`</span>
 <span class="sd">  -  :mod:`mpl_toolkits`</span>
-<span class="sd">  -  :mod:`gmplib`</span>
-<span class="sd">  -  :mod:`gme`</span>
+<span class="sd">  -  `GMPLib`_</span>
+<span class="sd">  -  `GME`_</span>
+
+<span class="sd">.. _GMPLib: https://github.com/geomorphysics/GMPLib</span>
+<span class="sd">.. _GME: https://github.com/geomorphysics/GME</span>
+<span class="sd">.. _Matrix: https://docs.sympy.org/latest/modules/matrices\</span>
+<span class="sd">/immutablematrices.html</span>
 
 <span class="sd">---------------------------------------------------------------------</span>
 
@@ -273,7 +278,7 @@ the choices are <cite>(px,pz)</cite> and <cite>(rx,pz)</cite></p></li>
 <span class="kn">from</span> <span class="nn">gme.core.symbols</span> <span class="kn">import</span> <span class="n">H</span><span class="p">,</span> <span class="n">Lc</span><span class="p">,</span> <span class="n">gstarhat</span><span class="p">,</span> <span class="n">xih_0</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">eta</span><span class="p">,</span> \
                              <span class="n">pxhat</span><span class="p">,</span> <span class="n">pzhat</span><span class="p">,</span> <span class="n">rxhat</span><span class="p">,</span> <span class="n">Ci</span><span class="p">,</span> <span class="n">beta</span>
 <span class="kn">from</span> <span class="nn">gme.core.equations</span> <span class="kn">import</span> <span class="n">Equations</span>
-<span class="kn">from</span> <span class="nn">gme.core.equation_utils</span> <span class="kn">import</span> <span class="n">px_value</span>
+<span class="kn">from</span> <span class="nn">gme.core.utils</span> <span class="kn">import</span> <span class="n">px_value</span>
 <span class="kn">from</span> <span class="nn">gme.plot.base</span> <span class="kn">import</span> <span class="n">Graphing</span>
 
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
@@ -1126,6 +1131,7 @@ the choices are <cite>(px,pz)</cite> and <cite>(rx,pz)</cite></p></li>
 <li class="toctree-l1"><a class="reference internal" href="../Dependencies.html">  Dependencies</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Installation.html">  Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Running.html">  Running</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Notebooks.html">  Notebooks</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../Python.html">  Python package</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../core/index.html">Core</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ode/index.html">ODE integration</a></li>
@@ -1133,7 +1139,6 @@ the choices are <cite>(px,pz)</cite> and <cite>(rx,pz)</cite></p></li>
 <li class="toctree-l2"><a class="reference internal" href="../knickpoints/index.html">Knickpoint detection and tracking [in development]</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../Notebooks.html">  Notebooks</a></li>
 </ul>
 
     <!-- <h3><a href="../../index.html">This page</a></h3> -->

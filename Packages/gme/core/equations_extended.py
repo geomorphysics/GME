@@ -5,22 +5,14 @@ Equation definitions and derivations using :mod:`SymPy <sympy>`.
 
 ---------------------------------------------------------------------
 
-This module provides a derivation of GME theory using :mod:`SymPy <sympy>`
-for a 2D slice of a 3D landscape along a channel transect.
-
-Starting from a model equation for the surface-normal erosion rate in terms of
-the tilt angle of the topographic surface and the distance downstream
-(used to infer the flow component of the model erosion process), we derive
-the fundamental function (of a co-Finsler metric space), the corresponding
-Hamiltonian,
-and the equivalent metric tensor.
-The rest of the equations are derived from these core results.
-
----------------------------------------------------------------------
-
 Requires Python packages/modules:
   -  :mod:`sympy`
-  -  :mod:`gme`
+  -  `GME`_
+
+.. _GMPLib: https://github.com/geomorphysics/GMPLib
+.. _GME: https://github.com/geomorphysics/GME
+.. _Matrix: https://docs.sympy.org/latest/modules/matrices\
+/immutablematrices.html
 
 ---------------------------------------------------------------------
 
@@ -32,26 +24,32 @@ import warnings
 import logging
 
 # Typing
-# from typing import Dict, Optional
+from typing import Dict
 
 # GME
 from gme.core.equations import EquationsMixedIn, Equations
-from gme.core.equations_geodesic import EquationsGeodesicMixin
-from gme.core.equations_idtx import EquationsIdtxMixin
-from gme.core.equations_ibc import EquationsIbcMixin
+from gme.core.geodesic import GeodesicMixin
+from gme.core.idtx import IdtxMixin
+from gme.core.ibc import IbcMixin
 
 warnings.filterwarnings("ignore")
 
-__all__ = ['EquationsGeodesic', 'EquationsIdtx', 'EquationsIbc',
+__all__ = ['EquationsGeodesic',
+           'EquationsIdtx',
+           'EquationsIbc',
            'EquationsSetupOnly']
 
 
-class EquationsGeodesic(Equations, EquationsGeodesicMixin):
+class EquationsGeodesic(Equations, GeodesicMixin):
     r"""
-    TBD
+    Generate set of equations including geodesic equations.
     """
 
-    def __init__(self, parameters, **kwargs) -> None:
+    def __init__(
+        self,
+        parameters: Dict,
+        **kwargs
+    ) -> None:
         r"""
         Constructor method
         """
@@ -62,12 +60,16 @@ class EquationsGeodesic(Equations, EquationsGeodesicMixin):
         self.define_geodesic_eqns()  # parameters if not do_raw else None)
 
 
-class EquationsIdtx(Equations, EquationsIdtxMixin):
+class EquationsIdtx(Equations, IdtxMixin):
     r"""
-    TBD
+    Generate set of equations including indicatrix/figuratrix equations.
     """
 
-    def __init__(self, parameters, **kwargs) -> None:
+    def __init__(
+        self,
+        parameters: Dict,
+        **kwargs
+    ) -> None:
         r"""
         Constructor method
         """
@@ -77,13 +79,17 @@ class EquationsIdtx(Equations, EquationsIdtxMixin):
         self.define_idtx_fgtx_eqns()
 
 
-class EquationsIbc(Equations, EquationsIbcMixin):
+class EquationsIbc(Equations, IbcMixin):
     r"""
-    TBD
+    Generate set of equations including initial/boundary condition equations.
     """
 
-    def __init__(self, parameters, ibc_type: str = 'convex-up', **kwargs) \
-            -> None:
+    def __init__(
+        self,
+        parameters: Dict,
+        ibc_type: str = 'convex-up',
+        **kwargs
+    ) -> None:
         r"""
         Constructor method
         """
@@ -98,22 +104,24 @@ class EquationsIbc(Equations, EquationsIbcMixin):
 
 class EquationsSetupOnly(
             EquationsMixedIn,
-            EquationsGeodesicMixin,
-            EquationsIdtxMixin,
-            EquationsIbcMixin
+            GeodesicMixin,
+            IdtxMixin,
+            IbcMixin
         ):
     r"""
-    TBD
+    Generate methods to perform equation definitions but don't act on them.
     """
 
     def __init__(
         self,
+        ibc_type: str = 'convex-up',
         **kwargs
     ) -> None:
         r"""
         Constructor method.
         """
         logging.info('EquationsSetup')
+        self.ibc_type = ibc_type
 
         super().__init__(**kwargs)
 

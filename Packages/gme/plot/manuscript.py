@@ -10,7 +10,12 @@ Requires Python packages/modules:
   -  :mod:`sympy`
   -  :mod:`matplotlib`
   -  :mod:`mpl_toolkits`
-  -  :mod:`gme`
+  -  `GME`_
+
+.. _GMPLib: https://github.com/geomorphysics/GMPLib
+.. _GME: https://github.com/geomorphysics/GME
+.. _Matrix: https://docs.sympy.org/latest/modules/matrices\
+/immutablematrices.html
 
 ---------------------------------------------------------------------
 
@@ -49,7 +54,7 @@ class Manuscript(Graphing):
     r"""
     Generate plots for publications.
 
-    Subclasses :class:`gme.plot.base.Graphing`.
+    Extends :class:`gme.plot.base.Graphing`.
     """
 
     def point_pairing(

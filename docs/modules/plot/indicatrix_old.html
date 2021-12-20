@@ -57,10 +57,10 @@
 <hr class="docutils" />
 <dl class="simple">
 <dt>Requires Python packages/modules:</dt><dd><ul class="simple">
-<li><p><a class="reference external" href="https://numpy.org/doc/stable/reference/index.html#module-numpy" title="(in NumPy v1.21)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy</span></code></a>, <a class="reference external" href="https://docs.sympy.org/latest/modules/index.html#module-sympy" title="(in SymPy v1.9)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sympy</span></code></a></p></li>
-<li><p><a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.html#module-matplotlib.pyplot" title="(in Matplotlib v3.5.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">matplotlib.pyplot</span></code></a>, <a class="reference external" href="https://matplotlib.org/stable/api/patches_api.html#module-matplotlib.patches" title="(in Matplotlib v3.5.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">matplotlib.patches</span></code></a></p></li>
-<li><p><code class="xref py py-mod docutils literal notranslate"><span class="pre">gmplib.utils</span></code></p></li>
-<li><p><a class="reference internal" href="../core/symbols.html#module-gme.core.symbols" title="gme.core.symbols"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gme.core.symbols</span></code></a>, <a class="reference internal" href="base.html#module-gme.plot.base" title="gme.plot.base"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gme.plot.base</span></code></a></p></li>
+<li><p><a class="reference external" href="https://numpy.org/doc/stable/reference/index.html#module-numpy" title="(in NumPy v1.21)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy</span></code></a></p></li>
+<li><p><a class="reference external" href="https://docs.sympy.org/latest/modules/index.html#module-sympy" title="(in SymPy v1.9)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sympy</span></code></a></p></li>
+<li><p><a class="reference external" href="https://matplotlib.org/stable/index.html#module-matplotlib" title="(in Matplotlib v3.5.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">matplotlib</span></code></a></p></li>
+<li><p><a class="reference external" href="https://github.com/geomorphysics/GME">GME</a></p></li>
 </ul>
 </dd>
 </dl>
@@ -69,7 +69,7 @@
 <dt class="sig sig-object py" id="gme.plot.indicatrix_old.IndicatrixOld">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gme.plot.indicatrix_old.</span></span><span class="sig-name descname"><span class="pre">IndicatrixOld</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dpi</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">font_size</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">11</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gme.plot.indicatrix_old.IndicatrixOld" title="Permalink to this definition">¶</a></dt>
 <dd><p>Old way of visualizing indicatrix &amp; figuratrix.</p>
-<p>Subclasses <a class="reference internal" href="base.html#gme.plot.base.Graphing" title="gme.plot.base.Graphing"><code class="xref py py-class docutils literal notranslate"><span class="pre">gme.plot.base.Graphing</span></code></a>.</p>
+<p>Extends <a class="reference internal" href="base.html#gme.plot.base.Graphing" title="gme.plot.base.Graphing"><code class="xref py py-class docutils literal notranslate"><span class="pre">gme.plot.base.Graphing</span></code></a>.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.plot.indicatrix_old.IndicatrixOld.annotations">
 <span class="sig-name descname"><span class="pre">annotations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">axes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tanalpha_</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.plot.indicatrix_old.IndicatrixOld.annotations" title="Permalink to this definition">¶</a></dt>
@@ -177,10 +177,15 @@ rather than simple circles</p></li>
 <span class="sd">---------------------------------------------------------------------</span>
 
 <span class="sd">Requires Python packages/modules:</span>
-<span class="sd">  -  :mod:`numpy`, :mod:`sympy`</span>
-<span class="sd">  -  :mod:`matplotlib.pyplot`, :mod:`matplotlib.patches`</span>
-<span class="sd">  -  :mod:`gmplib.utils`</span>
-<span class="sd">  -  :mod:`gme.core.symbols`, :mod:`gme.plot.base`</span>
+<span class="sd">  -  :mod:`numpy`</span>
+<span class="sd">  -  :mod:`sympy`</span>
+<span class="sd">  -  :mod:`matplotlib`</span>
+<span class="sd">  -  `GME`_</span>
+
+<span class="sd">.. _GMPLib: https://github.com/geomorphysics/GMPLib</span>
+<span class="sd">.. _GME: https://github.com/geomorphysics/GME</span>
+<span class="sd">.. _Matrix: https://docs.sympy.org/latest/modules/matrices\</span>
+<span class="sd">/immutablematrices.html</span>
 
 <span class="sd">---------------------------------------------------------------------</span>
 
@@ -214,7 +219,7 @@ rather than simple circles</p></li>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Old way of visualizing indicatrix &amp; figuratrix.</span>
 
-<span class="sd">    Subclasses :class:`gme.plot.base.Graphing`.</span>
+<span class="sd">    Extends :class:`gme.plot.base.Graphing`.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">comparison_logpolar</span><span class="p">(</span>
@@ -733,6 +738,7 @@ rather than simple circles</p></li>
 <li class="toctree-l1"><a class="reference internal" href="../Dependencies.html">  Dependencies</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Installation.html">  Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Running.html">  Running</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Notebooks.html">  Notebooks</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../Python.html">  Python package</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../core/index.html">Core</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ode/index.html">ODE integration</a></li>
@@ -740,7 +746,6 @@ rather than simple circles</p></li>
 <li class="toctree-l2"><a class="reference internal" href="../knickpoints/index.html">Knickpoint detection and tracking [in development]</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../Notebooks.html">  Notebooks</a></li>
 </ul>
 
     <!-- <h3><a href="../../index.html">This page</a></h3> -->

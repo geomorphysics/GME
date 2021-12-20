@@ -10,8 +10,13 @@ Requires Python packages:
   -  :mod:`sympy`
   -  :mod:`matplotlib`
   -  :mod:`mpl_toolkits`
-  -  :mod:`gmplib`
-  -  :mod:`gme`
+  -  `GMPLib`_
+  -  `GME`_
+
+.. _GMPLib: https://github.com/geomorphysics/GMPLib
+.. _GME: https://github.com/geomorphysics/GME
+.. _Matrix: https://docs.sympy.org/latest/modules/matrices\
+/immutablematrices.html
 
 ---------------------------------------------------------------------
 
@@ -47,7 +52,7 @@ from gmplib.utils import e2d, omitdict
 from gme.core.symbols import H, Lc, gstarhat, xih_0, mu, eta, \
                              pxhat, pzhat, rxhat, Ci, beta
 from gme.core.equations import Equations
-from gme.core.equation_utils import px_value
+from gme.core.utils import px_value
 from gme.plot.base import Graphing
 
 warnings.filterwarnings("ignore")

@@ -6,36 +6,36 @@
 .. toctree::
     :maxdepth: 2
 
-    Basic ensemble definition of equations <equations>
-
-    Extended ensemble definitions of equations <equations_extended>
+    Ensemble of equation definitions <equations>
 
     Symbol definitions <symbols>
 
-    Point vector r and surface-normal covector p equations <equations_rp>
+    Extended ensembles equation definitions <equations_extended>
 
-    Erosion model xi equation <equations_xi>
+    Subsetting of equation definitions <equations_subset>
 
-    Flow model varphi equations <equations_varphi>
+    Point vector r and surface-normal covector p equations <rp>
 
-    Fundamental function F and Hamiltonian H equations <equations_FH>
+    Erosion model xi equation <xi>
 
-    Hamilton's equations <equations_hamiltons>
+    Flow model varphi equations <varphi>
 
-    Non-dimensionalization <equations_ndim>
+    Fundamental function F and Hamiltonian H equations <fundamental>
 
-    Angle equations <equations_angles>
+    Hamilton's equations <hamiltons>
 
-    Metric tensor g equations <equations_g>
+    Non-dimensionalization <ndim>
 
-    Indicatrix and figuratrix equations <equations_idtx>
+    Angle equations <angles>
 
-    Geodesic equations <equations_geodesic>
+    Metric tensor g equations <metrictensor>
 
-    pxpoly equation <equations_pxpoly>
+    Indicatrix and figuratrix equations <idtx>
 
-    Initial and boundary conditions <equations_ibc>
+    Geodesic equations <geodesic>
 
-    Equation subsetting <equations_subset>
+    pxpoly equation <pxpoly>
 
-    Equation utility functions <equation_utils>
+    Initial and boundary conditions <ibc>
+
+    Utility functions <utils>

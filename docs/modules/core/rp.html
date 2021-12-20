@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>rp.py &#8212; GME 1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pydoctheme.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+    
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <script src="../../_static/sidebar.js"></script>
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="xi.py" href="xi.html" />
+    <link rel="prev" title="symbols.py" href="symbols.html" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <link rel="shortcut icon" type="image/png" href="../../_static/favicon.png" />
+    <meta name="viewport" content="width=device-width,initial-scale=0.8">
+    
+    
+
+  </head><body>
+    <!-- <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="responsive-menu"><a href="#sidebar-anchor" title="Navigation">&#9776;</a></li>
+        <li><a href="../../index.html">GME 1.0 documentation</a> &#187;</li>
+          <li><a href="../Python.html" >Python package <cite>gme</cite></a> &#187;</li>
+          <li><a href="index.html" accesskey="U"><cite>gme.core</cite></a> &#187;</li> 
+      </ul>
+    </div> -->
+    <!-- 
+        <div class="badge">
+            <a href="https://github.com/geomorphysics/GME/">Fork me on GitHub</a>
+            <img src="../../_static/right-red@2x.png">
+        </div>
+     -->
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-gme.core.rp">
+<span id="rp-py"></span><h1><code class="docutils literal notranslate"><span class="pre">rp.py</span></code><a class="headerlink" href="#module-gme.core.rp" title="Permalink to this headline">¶</a></h1>
+<hr class="docutils" />
+<p>Equation definitions and derivations using <a class="reference external" href="https://docs.sympy.org/latest/modules/index.html#module-sympy" title="(in SymPy v1.9)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">SymPy</span></code></a>.</p>
+<hr class="docutils" />
+<dl class="simple">
+<dt>Requires Python packages/modules:</dt><dd><ul class="simple">
+<li><p><a class="reference external" href="https://docs.sympy.org/latest/modules/index.html#module-sympy" title="(in SymPy v1.9)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sympy</span></code></a></p></li>
+<li><p><a class="reference external" href="https://github.com/geomorphysics/GMPLib">GMPLib</a></p></li>
+<li><p><a class="reference external" href="https://github.com/geomorphysics/GME">GME</a></p></li>
+</ul>
+</dd>
+</dl>
+<hr class="docutils" />
+<dl class="py class">
+<dt class="sig sig-object py" id="gme.core.rp.RpMixin">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gme.core.rp.</span></span><span class="sig-name descname"><span class="pre">RpMixin</span></span><a class="headerlink" href="#gme.core.rp.RpMixin" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="py method">
+<dt class="sig sig-object py" id="gme.core.rp.RpMixin.define_p_eqns">
+<span class="sig-name descname"><span class="pre">define_p_eqns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.core.rp.RpMixin.define_p_eqns" title="Permalink to this definition">¶</a></dt>
+<dd><p>Define normal slowness <span class="math notranslate nohighlight">\(p\)</span> and derive related equations</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gme.core.rp.RpMixin.p_covec_eqn">
+<span class="sig-name descname"><span class="pre">p_covec_eqn</span></span><a class="headerlink" href="#gme.core.rp.RpMixin.p_covec_eqn" title="Permalink to this definition">¶</a></dt>
+<dd><p><span class="math notranslate nohighlight">\(\mathbf{\widetilde{p}} := [p_x, p_z]\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.sympy.org/latest/modules/core.html#sympy.core.relational.Equality" title="(in SymPy v1.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Equality</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gme.core.rp.RpMixin.px_p_beta_eqn">
+<span class="sig-name descname"><span class="pre">px_p_beta_eqn</span></span><a class="headerlink" href="#gme.core.rp.RpMixin.px_p_beta_eqn" title="Permalink to this definition">¶</a></dt>
+<dd><p><span class="math notranslate nohighlight">\(p_x = p \sin\beta\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.sympy.org/latest/modules/core.html#sympy.core.relational.Equality" title="(in SymPy v1.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Equality</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gme.core.rp.RpMixin.pz_p_beta_eqn">
+<span class="sig-name descname"><span class="pre">pz_p_beta_eqn</span></span><a class="headerlink" href="#gme.core.rp.RpMixin.pz_p_beta_eqn" title="Permalink to this definition">¶</a></dt>
+<dd><p><span class="math notranslate nohighlight">\(p_z = p \cos\beta\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.sympy.org/latest/modules/core.html#sympy.core.relational.Equality" title="(in SymPy v1.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Equality</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gme.core.rp.RpMixin.p_norm_pxpz_eqn">
+<span class="sig-name descname"><span class="pre">p_norm_pxpz_eqn</span></span><a class="headerlink" href="#gme.core.rp.RpMixin.p_norm_pxpz_eqn" title="Permalink to this definition">¶</a></dt>
+<dd><p><span class="math notranslate nohighlight">\(p = \sqrt{p_x^2+p_z^2}\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.sympy.org/latest/modules/core.html#sympy.core.relational.Equality" title="(in SymPy v1.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Equality</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gme.core.rp.RpMixin.tanbeta_pxpz_eqn">
+<span class="sig-name descname"><span class="pre">tanbeta_pxpz_eqn</span></span><a class="headerlink" href="#gme.core.rp.RpMixin.tanbeta_pxpz_eqn" title="Permalink to this definition">¶</a></dt>
+<dd><p><span class="math notranslate nohighlight">\(\tan\beta = -\dfrac{p_x}{p_z}\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.sympy.org/latest/modules/core.html#sympy.core.relational.Equality" title="(in SymPy v1.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Equality</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gme.core.rp.RpMixin.sinbeta_pxpz_eqn">
+<span class="sig-name descname"><span class="pre">sinbeta_pxpz_eqn</span></span><a class="headerlink" href="#gme.core.rp.RpMixin.sinbeta_pxpz_eqn" title="Permalink to this definition">¶</a></dt>
+<dd><p><span class="math notranslate nohighlight">\(\sin\beta = \dfrac{p_x}{\sqrt{p_x^2+p_z^2}}\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.sympy.org/latest/modules/core.html#sympy.core.relational.Equality" title="(in SymPy v1.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Equality</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gme.core.rp.RpMixin.cosbeta_pxpz_eqn">
+<span class="sig-name descname"><span class="pre">cosbeta_pxpz_eqn</span></span><a class="headerlink" href="#gme.core.rp.RpMixin.cosbeta_pxpz_eqn" title="Permalink to this definition">¶</a></dt>
+<dd><p><span class="math notranslate nohighlight">\(\cos\beta = \dfrac{-p_z}{\sqrt{p_x^2+p_z^2}}\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.sympy.org/latest/modules/core.html#sympy.core.relational.Equality" title="(in SymPy v1.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Equality</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gme.core.rp.RpMixin.pz_px_tanbeta_eqn">
+<span class="sig-name descname"><span class="pre">pz_px_tanbeta_eqn</span></span><a class="headerlink" href="#gme.core.rp.RpMixin.pz_px_tanbeta_eqn" title="Permalink to this definition">¶</a></dt>
+<dd><p><span class="math notranslate nohighlight">\(p_z = -\dfrac{p_x}{\tan\beta}\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.sympy.org/latest/modules/core.html#sympy.core.relational.Equality" title="(in SymPy v1.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Equality</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gme.core.rp.RpMixin.px_pz_tanbeta_eqn">
+<span class="sig-name descname"><span class="pre">px_pz_tanbeta_eqn</span></span><a class="headerlink" href="#gme.core.rp.RpMixin.px_pz_tanbeta_eqn" title="Permalink to this definition">¶</a></dt>
+<dd><p><span class="math notranslate nohighlight">\(p_x = -{p_z}{\tan\beta}\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.sympy.org/latest/modules/core.html#sympy.core.relational.Equality" title="(in SymPy v1.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Equality</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gme.core.rp.RpMixin.p_pz_cosbeta_eqn">
+<span class="sig-name descname"><span class="pre">p_pz_cosbeta_eqn</span></span><a class="headerlink" href="#gme.core.rp.RpMixin.p_pz_cosbeta_eqn" title="Permalink to this definition">¶</a></dt>
+<dd><p><span class="math notranslate nohighlight">\(p = -\dfrac{p_z}{\cos\beta}\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.sympy.org/latest/modules/core.html#sympy.core.relational.Equality" title="(in SymPy v1.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Equality</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gme.core.rp.RpMixin.define_r_eqns">
+<span class="sig-name descname"><span class="pre">define_r_eqns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.core.rp.RpMixin.define_r_eqns" title="Permalink to this definition">¶</a></dt>
+<dd><p>Define equations for ray position <span class="math notranslate nohighlight">\(\vec{r}\)</span></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gme.core.rp.RpMixin.rx_r_alpha_eqn">
+<span class="sig-name descname"><span class="pre">rx_r_alpha_eqn</span></span><a class="headerlink" href="#gme.core.rp.RpMixin.rx_r_alpha_eqn" title="Permalink to this definition">¶</a></dt>
+<dd><p><span class="math notranslate nohighlight">\(r^x = r\cos\alpha\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.sympy.org/latest/modules/core.html#sympy.core.relational.Equality" title="(in SymPy v1.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Equality</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gme.core.rp.RpMixin.rz_r_alpha_eqn">
+<span class="sig-name descname"><span class="pre">rz_r_alpha_eqn</span></span><a class="headerlink" href="#gme.core.rp.RpMixin.rz_r_alpha_eqn" title="Permalink to this definition">¶</a></dt>
+<dd><p><span class="math notranslate nohighlight">\(r^z = r\sin\alpha\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.sympy.org/latest/modules/core.html#sympy.core.relational.Equality" title="(in SymPy v1.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Equality</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+<div class="section" id="code">
+<h2>Code<a class="headerlink" href="#code" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">---------------------------------------------------------------------</span>
+
+<span class="sd">Equation definitions and derivations using :mod:`SymPy &lt;sympy&gt;`.</span>
+
+<span class="sd">---------------------------------------------------------------------</span>
+
+<span class="sd">Requires Python packages/modules:</span>
+<span class="sd">  -  :mod:`sympy`</span>
+<span class="sd">  -  `GMPLib`_</span>
+<span class="sd">  -  `GME`_</span>
+
+<span class="sd">.. _GMPLib: https://github.com/geomorphysics/GMPLib</span>
+<span class="sd">.. _GME: https://github.com/geomorphysics/GME</span>
+<span class="sd">.. _Matrix: https://docs.sympy.org/latest/modules/matrices\</span>
+<span class="sd">/immutablematrices.html</span>
+
+<span class="sd">---------------------------------------------------------------------</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="c1"># Disable these pylint errors because it doesn&#39;t understand SymPy syntax</span>
+<span class="c1">#   - notably minus signs in equations flag an error</span>
+<span class="c1"># pylint: disable=invalid-unary-operand-type, not-callable</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="c1"># Typing</span>
+<span class="c1"># from typing import Dict, Type, Optional  # , Tuple, Any, List</span>
+
+<span class="c1"># SymPy</span>
+<span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">Eq</span><span class="p">,</span> <span class="n">sqrt</span><span class="p">,</span> <span class="n">simplify</span><span class="p">,</span> <span class="n">solve</span><span class="p">,</span> <span class="n">Matrix</span><span class="p">,</span> \
+                  <span class="n">sin</span><span class="p">,</span> <span class="n">cos</span><span class="p">,</span> <span class="n">trigsimp</span>
+
+<span class="c1"># GMPLib</span>
+<span class="kn">from</span> <span class="nn">gmplib.utils</span> <span class="kn">import</span> <span class="n">e2d</span>
+
+<span class="c1"># GME</span>
+<span class="kn">from</span> <span class="nn">gme.core.symbols</span> <span class="kn">import</span> \
+    <span class="n">p</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">rx</span><span class="p">,</span> <span class="n">rz</span><span class="p">,</span> <span class="n">px</span><span class="p">,</span> <span class="n">pz</span><span class="p">,</span> <span class="n">pcovec</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span>
+
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;RpMixin&#39;</span><span class="p">]</span>
+
+
+<span class="k">class</span> <span class="nc">RpMixin</span><span class="p">:</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">define_p_eqns</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Define normal slowness :math:`p` and derive related equations</span>
+
+<span class="sd">        Attributes:</span>
+<span class="sd">            p_covec_eqn (:class:`~sympy.core.relational.Equality`):</span>
+<span class="sd">                :math:`\mathbf{\widetilde{p}} := [p_x, p_z]`</span>
+<span class="sd">            px_p_beta_eqn (:class:`~sympy.core.relational.Equality`):</span>
+<span class="sd">                :math:`p_x = p \sin\beta`</span>
+<span class="sd">            pz_p_beta_eqn (:class:`~sympy.core.relational.Equality`):</span>
+<span class="sd">                :math:`p_z = p \cos\beta`</span>
+<span class="sd">            p_norm_pxpz_eqn (:class:`~sympy.core.relational.Equality`):</span>
+<span class="sd">                :math:`p = \sqrt{p_x^2+p_z^2}`</span>
+<span class="sd">            tanbeta_pxpz_eqn (:class:`~sympy.core.relational.Equality`):</span>
+<span class="sd">                :math:`\tan\beta = -\dfrac{p_x}{p_z}`</span>
+<span class="sd">            sinbeta_pxpz_eqn (:class:`~sympy.core.relational.Equality`):</span>
+<span class="sd">                :math:`\sin\beta = \dfrac{p_x}{\sqrt{p_x^2+p_z^2}}`</span>
+<span class="sd">            cosbeta_pxpz_eqn (:class:`~sympy.core.relational.Equality`):</span>
+<span class="sd">                :math:`\cos\beta = \dfrac{-p_z}{\sqrt{p_x^2+p_z^2}}`</span>
+<span class="sd">            pz_px_tanbeta_eqn (:class:`~sympy.core.relational.Equality`):</span>
+<span class="sd">                :math:`p_z = -\dfrac{p_x}{\tan\beta}`</span>
+<span class="sd">            px_pz_tanbeta_eqn (:class:`~sympy.core.relational.Equality`):</span>
+<span class="sd">                :math:`p_x = -{p_z}{\tan\beta}`</span>
+<span class="sd">            p_pz_cosbeta_eqn (:class:`~sympy.core.relational.Equality`):</span>
+<span class="sd">                :math:`p = -\dfrac{p_z}{\cos\beta}`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;define_p_eqns&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">p_covec_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">pcovec</span><span class="p">,</span> <span class="n">Matrix</span><span class="p">([</span><span class="n">px</span><span class="p">,</span> <span class="n">pz</span><span class="p">])</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">px_p_beta_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">px</span><span class="p">,</span> <span class="n">p</span><span class="o">*</span><span class="n">sin</span><span class="p">(</span><span class="n">beta</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pz_p_beta_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">pz</span><span class="p">,</span> <span class="o">-</span><span class="n">p</span><span class="o">*</span><span class="n">cos</span><span class="p">(</span><span class="n">beta</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">p_norm_pxpz_eqn</span> \
+            <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">trigsimp</span><span class="p">(</span><span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">px_p_beta_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="o">**</span><span class="mi">2</span>
+                               <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">pz_p_beta_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="o">**</span><span class="mi">2</span><span class="p">)),</span>
+                 <span class="p">(</span><span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">px_p_beta_eqn</span><span class="o">.</span><span class="n">lhs</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">pz_p_beta_eqn</span><span class="o">.</span><span class="n">lhs</span><span class="o">**</span><span class="mi">2</span><span class="p">)))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tanbeta_pxpz_eqn</span> \
+            <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">simplify</span><span class="p">(</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">px_p_beta_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">pz_p_beta_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">),</span>
+                 <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">px_p_beta_eqn</span><span class="o">.</span><span class="n">lhs</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">pz_p_beta_eqn</span><span class="o">.</span><span class="n">lhs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sinbeta_pxpz_eqn</span> \
+            <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">sin</span><span class="p">(</span><span class="n">beta</span><span class="p">),</span>
+                 <span class="n">solve</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">px_p_beta_eqn</span><span class="p">,</span> <span class="n">sin</span><span class="p">(</span><span class="n">beta</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
+                 <span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p_norm_pxpz_eqn</span><span class="p">)))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cosbeta_pxpz_eqn</span> \
+            <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">cos</span><span class="p">(</span><span class="n">beta</span><span class="p">),</span>
+                 <span class="n">solve</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pz_p_beta_eqn</span><span class="p">,</span> <span class="n">cos</span><span class="p">(</span><span class="n">beta</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
+                 <span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p_norm_pxpz_eqn</span><span class="p">)))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pz_px_tanbeta_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">pz</span><span class="p">,</span> <span class="n">solve</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tanbeta_pxpz_eqn</span><span class="p">,</span> <span class="n">pz</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">px_pz_tanbeta_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">px</span><span class="p">,</span> <span class="n">solve</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tanbeta_pxpz_eqn</span><span class="p">,</span> <span class="n">px</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">p_pz_cosbeta_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">solve</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pz_p_beta_eqn</span><span class="p">,</span> <span class="n">p</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+
+    <span class="k">def</span> <span class="nf">define_r_eqns</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Define equations for ray position :math:`\vec{r}`</span>
+
+<span class="sd">        Attributes:</span>
+<span class="sd">            rx_r_alpha_eqn (:class:`~sympy.core.relational.Equality`):</span>
+<span class="sd">                :math:`r^x = r\cos\alpha`</span>
+<span class="sd">            rz_r_alpha_eqn (:class:`~sympy.core.relational.Equality`):</span>
+<span class="sd">                :math:`r^z = r\sin\alpha`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;define_r_eqns&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rx_r_alpha_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">rx</span><span class="p">,</span> <span class="n">r</span><span class="o">*</span><span class="n">cos</span><span class="p">(</span><span class="n">alpha</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rz_r_alpha_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">rz</span><span class="p">,</span> <span class="n">r</span><span class="o">*</span><span class="n">sin</span><span class="p">(</span><span class="n">alpha</span><span class="p">))</span>
+
+
+<span class="c1">#</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+    <a id="sidebar-anchor"></a>
+    
+
+<div id="searchbox" style="display: none" role="search">
+    <a class="biglink" href="../../index.html">
+        <img src="../../_static/gme_icon_varphi_rx.png" />
+    </a>
+  <h3></h3>
+    <form class="search" action="../../search.html" method="get">
+      <div class="ui action left icon input">
+        <i class="search icon"></i>
+        <input type="text" name="q" placeholder="Search...">
+        <div class="ui teal button"></div>
+      </div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<!-- <br> -->
+<script type="text/javascript">$('#searchbox').show(0);</script><h3><a href="../../index.html">Contents</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../Summary.html">  Summary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Presentations.html">  Presentations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Publications.html">  Publications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Design.html">  Software design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Dependencies.html">  Dependencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Installation.html">  Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Running.html">  Running</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Notebooks.html">  Notebooks</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../Python.html">  Python package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Core</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ode/index.html">ODE integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plot/index.html">Plotting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../knickpoints/index.html">Knickpoint detection and tracking [in development]</a></li>
+</ul>
+</li>
+</ul>
+
+    <!-- <h3><a href="../../index.html">This page</a></h3> -->
+    <!-- <ul>
+<li><a class="reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">rp.py</span></code></a><ul>
+<li><a class="reference internal" href="#code">Code</a></li>
+</ul>
+</li>
+</ul>
+ -->
+    <p class="biglink">
+        <h3><a href="../../genindex.html"> Index</a></h3>
+    </p>
+  <br>
+  <!-- <p class="biglink"><a class="biglink" href="../../py-modindex.html">
+         Module index</a>
+  <br><br> -->
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="xi.html" title="xi.py"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="symbols.html" title="symbols.py"
+             accesskey="P">previous</a> |</li>
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, CPS.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.3.
+    </div>
+  </body>
+</html>

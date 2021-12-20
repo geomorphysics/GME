@@ -10,8 +10,13 @@ Requires Python packages:
   -  :mod:`scipy`
   -  :mod:`sympy`
   -  :mod:`matplotlib`
-  -  :mod:`gmplib`
-  -  :mod:`gme`
+  -  `GMPLib`_
+  -  `GME`_
+
+.. _GMPLib: https://github.com/geomorphysics/GMPLib
+.. _GME: https://github.com/geomorphysics/GME
+.. _Matrix: https://docs.sympy.org/latest/modules/matrices\
+/immutablematrices.html
 
 ---------------------------------------------------------------------
 
@@ -49,7 +54,7 @@ class IndicatrixNew(Graphing):
     """
     New, alternative way of visualizing indicatrix & figuratrix.
 
-    Subclasses :class:`gme.plot.base.Graphing`.
+    Extends :class:`gme.plot.base.Graphing`.
     """
 
     def __init__(

@@ -54,31 +54,21 @@
 <hr class="docutils" />
 <p>Equation definitions and derivations using <a class="reference external" href="https://docs.sympy.org/latest/modules/index.html#module-sympy" title="(in SymPy v1.9)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">SymPy</span></code></a>.</p>
 <hr class="docutils" />
-<p>This module provides a derivation of GME theory using <a class="reference external" href="https://docs.sympy.org/latest/modules/index.html#module-sympy" title="(in SymPy v1.9)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">SymPy</span></code></a>
-for a 2D slice of a 3D landscape along a channel transect.</p>
-<p>Starting from a model equation for the surface-normal erosion rate in terms of
-the tilt angle of the topographic surface and the distance downstream
-(used to infer the flow component of the model erosion process), we derive
-the fundamental function (of a co-Finsler metric space), the corresponding
-Hamiltonian,
-and the equivalent metric tensor.
-The rest of the equations are derived from these core results.</p>
-<hr class="docutils" />
 <dl class="simple">
 <dt>Requires Python packages/modules:</dt><dd><ul class="simple">
 <li><p><a class="reference external" href="https://docs.sympy.org/latest/modules/index.html#module-sympy" title="(in SymPy v1.9)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sympy</span></code></a></p></li>
-<li><p><code class="xref py py-mod docutils literal notranslate"><span class="pre">gme</span></code></p></li>
+<li><p><a class="reference external" href="https://github.com/geomorphysics/GME">GME</a></p></li>
 </ul>
 </dd>
 </dl>
 <hr class="docutils" />
 <dl class="py class">
 <dt class="sig sig-object py" id="gme.core.equations_extended.EquationsGeodesic">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gme.core.equations_extended.</span></span><span class="sig-name descname"><span class="pre">EquationsGeodesic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gme.core.equations_extended.EquationsGeodesic" title="Permalink to this definition">¶</a></dt>
-<dd><p>TBD</p>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gme.core.equations_extended.</span></span><span class="sig-name descname"><span class="pre">EquationsGeodesic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gme.core.equations_extended.EquationsGeodesic" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate set of equations including geodesic equations.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.core.equations_extended.EquationsGeodesic.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.core.equations_extended.EquationsGeodesic.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.core.equations_extended.EquationsGeodesic.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Constructor method</p>
 </dd></dl>
 
@@ -86,11 +76,11 @@ The rest of the equations are derived from these core results.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="gme.core.equations_extended.EquationsIbc">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gme.core.equations_extended.</span></span><span class="sig-name descname"><span class="pre">EquationsIbc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ibc_type</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'convex-up'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gme.core.equations_extended.EquationsIbc" title="Permalink to this definition">¶</a></dt>
-<dd><p>TBD</p>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gme.core.equations_extended.</span></span><span class="sig-name descname"><span class="pre">EquationsIbc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ibc_type</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'convex-up'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gme.core.equations_extended.EquationsIbc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate set of equations including initial/boundary condition equations.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.core.equations_extended.EquationsIbc.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ibc_type</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'convex-up'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.core.equations_extended.EquationsIbc.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ibc_type</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'convex-up'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.core.equations_extended.EquationsIbc.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Constructor method</p>
 </dd></dl>
 
@@ -98,11 +88,11 @@ The rest of the equations are derived from these core results.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="gme.core.equations_extended.EquationsIdtx">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gme.core.equations_extended.</span></span><span class="sig-name descname"><span class="pre">EquationsIdtx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gme.core.equations_extended.EquationsIdtx" title="Permalink to this definition">¶</a></dt>
-<dd><p>TBD</p>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gme.core.equations_extended.</span></span><span class="sig-name descname"><span class="pre">EquationsIdtx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gme.core.equations_extended.EquationsIdtx" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate set of equations including indicatrix/figuratrix equations.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.core.equations_extended.EquationsIdtx.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.core.equations_extended.EquationsIdtx.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.core.equations_extended.EquationsIdtx.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Constructor method</p>
 </dd></dl>
 
@@ -110,11 +100,11 @@ The rest of the equations are derived from these core results.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="gme.core.equations_extended.EquationsSetupOnly">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gme.core.equations_extended.</span></span><span class="sig-name descname"><span class="pre">EquationsSetupOnly</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gme.core.equations_extended.EquationsSetupOnly" title="Permalink to this definition">¶</a></dt>
-<dd><p>TBD</p>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gme.core.equations_extended.</span></span><span class="sig-name descname"><span class="pre">EquationsSetupOnly</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ibc_type</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'convex-up'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gme.core.equations_extended.EquationsSetupOnly" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate methods to perform equation definitions but don’t act on them.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.core.equations_extended.EquationsSetupOnly.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.core.equations_extended.EquationsSetupOnly.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ibc_type</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'convex-up'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.core.equations_extended.EquationsSetupOnly.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Constructor method.</p>
 </dd></dl>
 
@@ -129,22 +119,14 @@ The rest of the equations are derived from these core results.</p>
 
 <span class="sd">---------------------------------------------------------------------</span>
 
-<span class="sd">This module provides a derivation of GME theory using :mod:`SymPy &lt;sympy&gt;`</span>
-<span class="sd">for a 2D slice of a 3D landscape along a channel transect.</span>
-
-<span class="sd">Starting from a model equation for the surface-normal erosion rate in terms of</span>
-<span class="sd">the tilt angle of the topographic surface and the distance downstream</span>
-<span class="sd">(used to infer the flow component of the model erosion process), we derive</span>
-<span class="sd">the fundamental function (of a co-Finsler metric space), the corresponding</span>
-<span class="sd">Hamiltonian,</span>
-<span class="sd">and the equivalent metric tensor.</span>
-<span class="sd">The rest of the equations are derived from these core results.</span>
-
-<span class="sd">---------------------------------------------------------------------</span>
-
 <span class="sd">Requires Python packages/modules:</span>
 <span class="sd">  -  :mod:`sympy`</span>
-<span class="sd">  -  :mod:`gme`</span>
+<span class="sd">  -  `GME`_</span>
+
+<span class="sd">.. _GMPLib: https://github.com/geomorphysics/GMPLib</span>
+<span class="sd">.. _GME: https://github.com/geomorphysics/GME</span>
+<span class="sd">.. _Matrix: https://docs.sympy.org/latest/modules/matrices\</span>
+<span class="sd">/immutablematrices.html</span>
 
 <span class="sd">---------------------------------------------------------------------</span>
 
@@ -156,26 +138,32 @@ The rest of the equations are derived from these core results.</p>
 <span class="kn">import</span> <span class="nn">logging</span>
 
 <span class="c1"># Typing</span>
-<span class="c1"># from typing import Dict, Optional</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span>
 
 <span class="c1"># GME</span>
 <span class="kn">from</span> <span class="nn">gme.core.equations</span> <span class="kn">import</span> <span class="n">EquationsMixedIn</span><span class="p">,</span> <span class="n">Equations</span>
-<span class="kn">from</span> <span class="nn">gme.core.equations_geodesic</span> <span class="kn">import</span> <span class="n">EquationsGeodesicMixin</span>
-<span class="kn">from</span> <span class="nn">gme.core.equations_idtx</span> <span class="kn">import</span> <span class="n">EquationsIdtxMixin</span>
-<span class="kn">from</span> <span class="nn">gme.core.equations_ibc</span> <span class="kn">import</span> <span class="n">EquationsIbcMixin</span>
+<span class="kn">from</span> <span class="nn">gme.core.geodesic</span> <span class="kn">import</span> <span class="n">GeodesicMixin</span>
+<span class="kn">from</span> <span class="nn">gme.core.idtx</span> <span class="kn">import</span> <span class="n">IdtxMixin</span>
+<span class="kn">from</span> <span class="nn">gme.core.ibc</span> <span class="kn">import</span> <span class="n">IbcMixin</span>
 
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
 
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;EquationsGeodesic&#39;</span><span class="p">,</span> <span class="s1">&#39;EquationsIdtx&#39;</span><span class="p">,</span> <span class="s1">&#39;EquationsIbc&#39;</span><span class="p">,</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;EquationsGeodesic&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;EquationsIdtx&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;EquationsIbc&#39;</span><span class="p">,</span>
            <span class="s1">&#39;EquationsSetupOnly&#39;</span><span class="p">]</span>
 
 
-<span class="k">class</span> <span class="nc">EquationsGeodesic</span><span class="p">(</span><span class="n">Equations</span><span class="p">,</span> <span class="n">EquationsGeodesicMixin</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">EquationsGeodesic</span><span class="p">(</span><span class="n">Equations</span><span class="p">,</span> <span class="n">GeodesicMixin</span><span class="p">):</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    TBD</span>
+<span class="sd">    Generate set of equations including geodesic equations.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parameters</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">parameters</span><span class="p">:</span> <span class="n">Dict</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Constructor method</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -186,12 +174,16 @@ The rest of the equations are derived from these core results.</p>
         <span class="bp">self</span><span class="o">.</span><span class="n">define_geodesic_eqns</span><span class="p">()</span>  <span class="c1"># parameters if not do_raw else None)</span>
 
 
-<span class="k">class</span> <span class="nc">EquationsIdtx</span><span class="p">(</span><span class="n">Equations</span><span class="p">,</span> <span class="n">EquationsIdtxMixin</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">EquationsIdtx</span><span class="p">(</span><span class="n">Equations</span><span class="p">,</span> <span class="n">IdtxMixin</span><span class="p">):</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    TBD</span>
+<span class="sd">    Generate set of equations including indicatrix/figuratrix equations.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parameters</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">parameters</span><span class="p">:</span> <span class="n">Dict</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Constructor method</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -201,13 +193,17 @@ The rest of the equations are derived from these core results.</p>
         <span class="bp">self</span><span class="o">.</span><span class="n">define_idtx_fgtx_eqns</span><span class="p">()</span>
 
 
-<span class="k">class</span> <span class="nc">EquationsIbc</span><span class="p">(</span><span class="n">Equations</span><span class="p">,</span> <span class="n">EquationsIbcMixin</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">EquationsIbc</span><span class="p">(</span><span class="n">Equations</span><span class="p">,</span> <span class="n">IbcMixin</span><span class="p">):</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    TBD</span>
+<span class="sd">    Generate set of equations including initial/boundary condition equations.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parameters</span><span class="p">,</span> <span class="n">ibc_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;convex-up&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> \
-            <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">parameters</span><span class="p">:</span> <span class="n">Dict</span><span class="p">,</span>
+        <span class="n">ibc_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;convex-up&#39;</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Constructor method</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -222,22 +218,24 @@ The rest of the equations are derived from these core results.</p>
 
 <span class="k">class</span> <span class="nc">EquationsSetupOnly</span><span class="p">(</span>
             <span class="n">EquationsMixedIn</span><span class="p">,</span>
-            <span class="n">EquationsGeodesicMixin</span><span class="p">,</span>
-            <span class="n">EquationsIdtxMixin</span><span class="p">,</span>
-            <span class="n">EquationsIbcMixin</span>
+            <span class="n">GeodesicMixin</span><span class="p">,</span>
+            <span class="n">IdtxMixin</span><span class="p">,</span>
+            <span class="n">IbcMixin</span>
         <span class="p">):</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    TBD</span>
+<span class="sd">    Generate methods to perform equation definitions but don&#39;t act on them.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
+        <span class="n">ibc_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;convex-up&#39;</span><span class="p">,</span>
         <span class="o">**</span><span class="n">kwargs</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Constructor method.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;EquationsSetup&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ibc_type</span> <span class="o">=</span> <span class="n">ibc_type</span>
 
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
