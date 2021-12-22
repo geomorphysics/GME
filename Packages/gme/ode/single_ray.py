@@ -19,10 +19,9 @@ Requires Python packages/modules:
 
 ---------------------------------------------------------------------
 """
+# Library
 import warnings
 import logging
-
-# Typing
 from typing import Tuple, List
 
 # Numpy
@@ -34,8 +33,8 @@ from gmplib.utils import e2d
 # GME
 from gme.core.symbols import Lc
 from gme.core.utils import pxpz0_from_xiv0
-from gme.ode.base import ExtendedSolution, solve_Hamiltons_equations
-from gme.ode.base import rpt_tuple
+from gme.ode.extended import ExtendedSolution
+from gme.ode.solve import solve_Hamiltons_equations, rpt_tuple
 
 # SciPy
 from scipy.interpolate import InterpolatedUnivariateSpline
@@ -56,7 +55,8 @@ class SingleRaySolution(ExtendedSolution):
         """
         TBD
         """
-        (rz0_, rx0_) = (0, 0)
+        rz0_: float = 0
+        rx0_: float = 0
         (px0_, pz0_) = pxpz0_from_xiv0(self.parameters,
                                        self.gmeq.pz_xiv_eqn,
                                        self.gmeq.poly_px_xiv0_eqn)
@@ -72,7 +72,7 @@ class SingleRaySolution(ExtendedSolution):
         self.model_dXdt_lambda = self.make_model()
         parameters_ = {Lc: self.parameters[Lc]}
         logging.debug('ode.single_ray.solve: calling solver')
-        ivp_soln, rpt_arrays \
+        (ivp_soln, rpt_arrays) \
             = solve_Hamiltons_equations(
                 model=self.model_dXdt_lambda,
                 method=self.method,
@@ -82,7 +82,7 @@ class SingleRaySolution(ExtendedSolution):
                 t_array=self.ref_t_array.copy(),
                 x_stop=self.x_stop,
                 t_lag=0.0
-                )
+            )
         self.ivp_solns_list = [ivp_soln]
         self.save(rpt_arrays, 0)
 
@@ -104,72 +104,89 @@ class SingleRaySolution(ExtendedSolution):
         self.pz0 = self.pz_array[0]
         self.p_array = np.sqrt(self.px_array**2+self.pz_array**2)
         rpdot_array = np.array([self.model_dXdt_lambda(0, rp_)
-                                for rp_ in zip(self.rx_array, self.rz_array,
-                                               self.px_array, self.pz_array)])
-        (self.rdotx_array, self.rdotz_array,
-         self.pdotx_array, self.pdotz_array) \
+                                for rp_ in zip(self.rx_array,
+                                               self.rz_array,
+                                               self.px_array,
+                                               self.pz_array)])
+        [self.rdotx_array,
+         self.rdotz_array,
+         self.pdotx_array,
+         self.pdotz_array] \
             = [rpdot_array[:, idx] for idx in [0, 1, 2, 3]]
         self.rdot_array = np.sqrt(self.rdotx_array**2+self.rdotz_array**2)
         self.pdot_array = np.sqrt(self.pdotx_array**2+self.pdotz_array**2)
 
         # Interpolation functions to facilitate resampling and co-plotting
         self.t_interp_x \
-            = InterpolatedUnivariateSpline(self.rx_array, self.t_array,
+            = InterpolatedUnivariateSpline(self.rx_array,
+                                           self.t_array,
                                            k=spline_order,
                                            ext=extrapolation_mode)
         self.rx_interp_t \
-            = InterpolatedUnivariateSpline(self.t_array, self.rx_array,
+            = InterpolatedUnivariateSpline(self.t_array,
+                                           self.rx_array,
                                            k=spline_order,
                                            ext=extrapolation_mode)
         self.rz_interp_t \
-            = InterpolatedUnivariateSpline(self.t_array, self.rz_array,
+            = InterpolatedUnivariateSpline(self.t_array,
+                                           self.rz_array,
                                            k=spline_order,
                                            ext=extrapolation_mode)
 
         self.x_interp_t \
-            = InterpolatedUnivariateSpline(self.t_array, self.rx_array,
+            = InterpolatedUnivariateSpline(self.t_array,
+                                           self.rx_array,
                                            k=spline_order,
                                            ext=extrapolation_mode)
         self.rz_interp \
-            = InterpolatedUnivariateSpline(self.rx_array, self.rz_array,
+            = InterpolatedUnivariateSpline(self.rx_array,
+                                           self.rz_array,
                                            k=spline_order,
                                            ext=extrapolation_mode)
         self.p_interp \
-            = InterpolatedUnivariateSpline(self.rx_array, self.p_array,
+            = InterpolatedUnivariateSpline(self.rx_array,
+                                           self.p_array,
                                            k=spline_order,
                                            ext=extrapolation_mode)
         self.rdot_interp\
-            = InterpolatedUnivariateSpline(self.rx_array, self.rdot_array,
+            = InterpolatedUnivariateSpline(self.rx_array,
+                                           self.rdot_array,
                                            k=spline_order,
                                            ext=extrapolation_mode)
         self.rdotx_interp \
-            = InterpolatedUnivariateSpline(self.rx_array, self.rdotx_array,
+            = InterpolatedUnivariateSpline(self.rx_array,
+                                           self.rdotx_array,
                                            k=spline_order,
                                            ext=extrapolation_mode)
         self.rdotz_interp \
-            = InterpolatedUnivariateSpline(self.rx_array, self.rdotz_array,
+            = InterpolatedUnivariateSpline(self.rx_array,
+                                           self.rdotz_array,
                                            k=spline_order,
                                            ext=extrapolation_mode)
         self.pdot_interp \
-            = InterpolatedUnivariateSpline(self.rx_array, self.pdot_array,
+            = InterpolatedUnivariateSpline(self.rx_array,
+                                           self.pdot_array,
                                            k=spline_order,
                                            ext=extrapolation_mode)
         self.px_interp \
-            = InterpolatedUnivariateSpline(self.rx_array, self.px_array,
+            = InterpolatedUnivariateSpline(self.rx_array,
+                                           self.px_array,
                                            k=spline_order,
                                            ext=extrapolation_mode)
         self.pz_interp \
-            = InterpolatedUnivariateSpline(self.rx_array, self.pz_array,
+            = InterpolatedUnivariateSpline(self.rx_array,
+                                           self.pz_array,
                                            k=spline_order,
                                            ext=extrapolation_mode)
-
         # Ray acceleration
         self.rdotx_interp_t \
-            = InterpolatedUnivariateSpline(self.t_array, self.rdotx_array,
+            = InterpolatedUnivariateSpline(self.t_array,
+                                           self.rdotx_array,
                                            k=spline_order,
                                            ext=extrapolation_mode)
         self.rdotz_interp_t \
-            = InterpolatedUnivariateSpline(self.t_array, self.rdotz_array,
+            = InterpolatedUnivariateSpline(self.t_array,
+                                           self.rdotz_array,
                                            k=spline_order,
                                            ext=extrapolation_mode)
         self.rddotx_interp_t = self.rdotx_interp_t.derivative(n=1)
@@ -180,13 +197,15 @@ class SingleRaySolution(ExtendedSolution):
         self.tanalpha_array = -self.rdotx_array/self.rdotz_array
         self.beta_array = np.arctan(self.tanbeta_array)
         self.beta_p_interp \
-            = InterpolatedUnivariateSpline(self.rx_array, self.beta_array,
+            = InterpolatedUnivariateSpline(self.rx_array,
+                                           self.beta_array,
                                            k=spline_order,
                                            ext=extrapolation_mode)
 
         self.alpha_array = np.mod(np.pi+np.arctan(self.tanalpha_array), np.pi)
         self.alpha_interp \
-            = InterpolatedUnivariateSpline(self.rx_array, self.alpha_array,
+            = InterpolatedUnivariateSpline(self.rx_array,
+                                           self.alpha_array,
                                            k=spline_order,
                                            ext=extrapolation_mode)
 
@@ -207,7 +226,8 @@ class SingleRaySolution(ExtendedSolution):
         self.uhorizontal_p_array[np.isnan(self.uhorizontal_p_array)] = 0
         self.uhorizontal_v_array = self.u_array/np.sin(self.beta_array)
         self.u_interp \
-            = InterpolatedUnivariateSpline(self.rx_array, self.u_array,
+            = InterpolatedUnivariateSpline(self.rx_array,
+                                           self.u_array,
                                            k=spline_order,
                                            ext=extrapolation_mode)
         self.u_from_rdot_interp \
@@ -219,12 +239,14 @@ class SingleRaySolution(ExtendedSolution):
                                            ext=extrapolation_mode)
         # u^\downarrow = \dot{r}*\cos(\alpha-\beta) / \cos(\beta)
         self.xiv_p_interp \
-            = InterpolatedUnivariateSpline(self.rx_array, self.xiv_p_array,
+            = InterpolatedUnivariateSpline(self.rx_array,
+                                           self.xiv_p_array,
                                            k=spline_order,
                                            ext=extrapolation_mode)
         # u^\downarrow = u^\perp / \cos(\beta)
         self.xiv_v_interp \
-            = InterpolatedUnivariateSpline(self.rx_array, self.xiv_v_array,
+            = InterpolatedUnivariateSpline(self.rx_array,
+                                           self.xiv_v_array,
                                            k=spline_order,
                                            ext=extrapolation_mode)
         # u^\downarrow = \dot{r}*\cos(\alpha-\beta) / \sin(\beta)

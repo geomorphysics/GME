@@ -18,7 +18,7 @@
     
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="single_ray.py" href="single_ray.html" />
+    <link rel="next" title="extended.py" href="extended.html" />
     <link rel="prev" title="gme.ode" href="index.html" />
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <link rel="shortcut icon" type="image/png" href="../../_static/favicon.png" />
@@ -110,7 +110,7 @@ for a given state [rx,px,pz] (resp. [rx,vx,vx])</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.ode.base.BaseSolution.postprocessing">
-<span class="sig-name descname"><span class="pre">postprocessing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spline_order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extrapolation_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.ode.base.BaseSolution.postprocessing" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">postprocessing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spline_order</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extrapolation_mode</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.ode.base.BaseSolution.postprocessing" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generate interpolating functions for (r,p)[t] using ray samples</p>
 </dd></dl>
 
@@ -141,7 +141,7 @@ ray at a cusp.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.ode.base.BaseSolution.save">
-<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rpt_arrays</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idx</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.ode.base.BaseSolution.save" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rpt_arrays</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idx</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.ode.base.BaseSolution.save" title="Permalink to this definition">¶</a></dt>
 <dd><p>TBD</p>
 </dd></dl>
 
@@ -151,48 +151,6 @@ ray at a cusp.</p></li>
 <dd><p>Dummy method of solution that must be defined by any subclass</p>
 </dd></dl>
 
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="gme.ode.base.ExtendedSolution">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gme.ode.base.</span></span><span class="sig-name descname"><span class="pre">ExtendedSolution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmeq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gme.ode.base.ExtendedSolution" title="Permalink to this definition">¶</a></dt>
-<dd><p>Integration of Hamilton’s equations (ODEs) to solve for
-propagation of a single ray.</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="gme.ode.base.ExtendedSolution.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmeq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.ode.base.ExtendedSolution.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initialize class instance.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>gmeq</strong> – GME model equations class instance defined in
-<a class="reference internal" href="../core/equations.html#module-gme.core.equations" title="gme.core.equations"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gme.core.equations</span></code></a></p></li>
-<li><p><strong>parameters</strong> – dictionary of model parameter values to be used for
-equation substitutions</p></li>
-<li><p><strong>**kwargs</strong> – remaining keyword arguments (see base class for details)</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="gme.ode.base.report_progress">
-<span class="sig-prename descclassname"><span class="pre">gme.ode.base.</span></span><span class="sig-name descname"><span class="pre">report_progress</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress_was</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pc_step</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_initial_step</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><a class="headerlink" href="#gme.ode.base.report_progress" title="Permalink to this definition">¶</a></dt>
-<dd><p>Print percentage estimated progress of some ongoing jobzzzsd</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="gme.ode.base.solve_Hamiltons_equations">
-<span class="sig-prename descclassname"><span class="pre">gme.ode.base.</span></span><span class="sig-name descname"><span class="pre">solve_Hamiltons_equations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_dense</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">ic</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_array</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.21)"><span class="pre">numpy.ndarray</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_stop</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_lag</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.21)"><span class="pre">numpy.ndarray</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#gme.ode.base.solve_Hamiltons_equations" title="Permalink to this definition">¶</a></dt>
-<dd><p>Perform ray tracing by integrating Hamilton’s ODEs for r and p.</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="gme.ode.base.solve_ODE_system">
-<span class="sig-prename descclassname"><span class="pre">gme.ode.base.</span></span><span class="sig-name descname"><span class="pre">solve_ODE_system</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_dense</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">ic</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_array</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.21)"><span class="pre">numpy.ndarray</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_stop</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0.999</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Any</span><a class="headerlink" href="#gme.ode.base.solve_ODE_system" title="Permalink to this definition">¶</a></dt>
-<dd><p>Integrate a coupled system of ODEs - presumed to be Hamilton’s equations.</p>
 </dd></dl>
 
 <div class="section" id="code">
@@ -218,22 +176,20 @@ equation substitutions</p></li>
 <span class="sd">---------------------------------------------------------------------</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
+<span class="c1"># Library</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="c1"># from functools import lru_cache</span>
 <span class="c1"># from enum import Enum, auto</span>
-
-<span class="c1"># Typing</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Optional</span>
 
 <span class="c1"># Abstract classes &amp; methods</span>
 <span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
 
-<span class="c1"># Numpy</span>
+<span class="c1"># NumPy</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="c1"># SciPy</span>
-<span class="kn">from</span> <span class="nn">scipy.integrate</span> <span class="kn">import</span> <span class="n">solve_ivp</span>
 <span class="kn">from</span> <span class="nn">scipy.interpolate</span> <span class="kn">import</span> <span class="n">interp1d</span>
 <span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="kn">import</span> <span class="n">fsolve</span>
 
@@ -248,185 +204,8 @@ equation substitutions</p></li>
 <span class="n">rp_tuple</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;rx&#39;</span><span class="p">,</span> <span class="s1">&#39;rz&#39;</span><span class="p">,</span> <span class="s1">&#39;px&#39;</span><span class="p">,</span> <span class="s1">&#39;pz&#39;</span><span class="p">)</span>
 <span class="n">rpt_tuple</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">rp_tuple</span><span class="o">+</span><span class="p">(</span><span class="s1">&#39;t&#39;</span><span class="p">,)</span>
 
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;solve_ODE_system&#39;</span><span class="p">,</span>
-           <span class="s1">&#39;solve_Hamiltons_equations&#39;</span><span class="p">,</span>
-           <span class="s1">&#39;report_progress&#39;</span><span class="p">,</span>
-           <span class="s1">&#39;BaseSolution&#39;</span><span class="p">,</span>
-           <span class="s1">&#39;ExtendedSolution&#39;</span><span class="p">]</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;BaseSolution&#39;</span><span class="p">]</span>
 
-
-<span class="k">def</span> <span class="nf">eventAttr</span><span class="p">():</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    TBD</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="nf">decorator</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        TBD</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># func.direction = 0</span>
-        <span class="n">func</span><span class="o">.</span><span class="n">terminal</span> <span class="o">=</span> <span class="kc">True</span>
-        <span class="k">return</span> <span class="n">func</span>
-    <span class="k">return</span> <span class="n">decorator</span>
-
-<span class="c1"># Caching would only work if t_array were replaced with something hashable</span>
-<span class="c1">#   - worse, to prevent recomputation for variable rz but constant rx,</span>
-<span class="c1">#     initial conditions ic would have to be frozen in the calling function</span>
-<span class="c1">#     and corrected afterwards</span>
-
-
-<span class="k">def</span> <span class="nf">solve_ODE_system</span><span class="p">(</span>
-    <span class="n">model</span><span class="p">,</span>
-    <span class="n">method</span><span class="p">,</span>
-    <span class="n">do_dense</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
-    <span class="n">ic</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
-    <span class="c1"># t0,t1,nt,</span>
-    <span class="n">t_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
-    <span class="n">x_stop</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.999</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Integrate a coupled system of ODEs - presumed to be Hamilton&#39;s equations.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1"># Define stop condition</span>
-    <span class="nd">@eventAttr</span><span class="p">()</span>
-    <span class="k">def</span> <span class="nf">almost_reached_divide</span><span class="p">(</span><span class="n">_</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
-        <span class="c1"># function yielding &gt;0 if rx&lt;x1*x_stop ~ along profile</span>
-        <span class="c1">#              and  &lt;0 if rx&gt;x1*x_stop ≈ @divide</span>
-        <span class="c1">#  - thus triggers an event when rx surpasses x1*x_stop</span>
-        <span class="c1">#    because = zero-crossing in -ve sense</span>
-        <span class="k">return</span> <span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="n">x_stop</span>
-    <span class="c1">#   almost_reached_divide.terminal = True</span>
-
-    <span class="c1"># Perform ODE integration</span>
-    <span class="c1"># t_array = np.linspace(t0,t1,nt)</span>
-    <span class="k">return</span> <span class="n">solve_ivp</span><span class="p">(</span><span class="n">model</span><span class="p">,</span>
-                     <span class="p">[</span><span class="n">t_array</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">t_array</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]],</span>
-                     <span class="n">ic</span><span class="p">,</span>
-                     <span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">,</span>
-                     <span class="n">t_eval</span><span class="o">=</span><span class="n">t_array</span><span class="p">,</span>
-                     <span class="n">dense_output</span><span class="o">=</span><span class="n">do_dense</span><span class="p">,</span>
-                     <span class="c1"># min_step=0, #max_step=np.inf,</span>
-                     <span class="c1"># rtol=1e-3, atol=1e-6,</span>
-                     <span class="n">events</span><span class="o">=</span><span class="n">almost_reached_divide</span><span class="p">,</span>
-                     <span class="n">vectorized</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-
-
-<span class="k">def</span> <span class="nf">solve_Hamiltons_equations</span><span class="p">(</span>
-    <span class="n">model</span><span class="p">,</span>
-    <span class="n">method</span><span class="p">,</span>
-    <span class="n">do_dense</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
-    <span class="n">ic</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
-    <span class="n">parameters</span><span class="p">:</span> <span class="n">Dict</span><span class="p">,</span>
-    <span class="n">t_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
-    <span class="n">x_stop</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
-    <span class="n">t_lag</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]]:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Perform ray tracing by integrating Hamilton&#39;s ODEs for r and p.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1"># Do ODE integration</span>
-    <span class="c1"># t0, t1, nt = t_array[0], t_array[-1], len(t_array)</span>
-    <span class="n">ivp_soln</span> <span class="o">=</span> <span class="n">solve_ODE_system</span><span class="p">(</span><span class="n">model</span><span class="p">,</span>
-                                <span class="n">method</span><span class="p">,</span>
-                                <span class="n">do_dense</span><span class="p">,</span>
-                                <span class="n">ic</span><span class="p">,</span>
-                                <span class="c1"># t0,t1,nt,</span>
-                                <span class="n">t_array</span><span class="p">,</span>
-                                <span class="n">x_stop</span><span class="o">=</span><span class="n">x_stop</span><span class="p">)</span>
-
-    <span class="c1"># Process solution</span>
-    <span class="n">rp_t_soln</span> <span class="o">=</span> <span class="n">ivp_soln</span><span class="o">.</span><span class="n">y</span>
-    <span class="n">rx_array</span><span class="p">,</span> <span class="n">rz_array</span> <span class="o">=</span> <span class="n">rp_t_soln</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">rp_t_soln</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-    <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;ode.base.solve_Hamiltons_equations:&#39;</span>
-                  <span class="o">+</span> <span class="sa">f</span><span class="s1">&#39; ic=</span><span class="si">{</span><span class="n">ic</span><span class="si">}</span><span class="s1">&#39;</span>
-                  <span class="o">+</span> <span class="sa">f</span><span class="s1">&#39; rx[0]=</span><span class="si">{</span><span class="n">rx_array</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1"> rz[0]=</span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">rz_array</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="mi">5</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-    <span class="c1"># Did we exceed the domain bounds?</span>
-    <span class="c1"># If so, find the index of the first point out of bounds,</span>
-    <span class="c1">#    otherwise set as None</span>
-    <span class="n">i_end</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argwhere</span><span class="p">(</span><span class="n">rx_array</span> <span class="o">&gt;=</span> <span class="n">parameters</span><span class="p">[</span><span class="n">Lc</span><span class="p">])[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> \
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argwhere</span><span class="p">(</span><span class="n">rx_array</span> <span class="o">&gt;=</span> <span class="n">parameters</span><span class="p">[</span><span class="n">Lc</span><span class="p">]))</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="kc">None</span>
-    <span class="k">if</span> <span class="n">i_end</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">rx_array</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="n">parameters</span><span class="p">[</span><span class="n">Lc</span><span class="p">]:</span>
-            <span class="n">i_end</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">t_array</span><span class="p">),</span> <span class="n">i_end</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">i_end</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">t_array</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span>
-
-    <span class="c1"># Record solution</span>
-    <span class="n">rpt_lag_arrays</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="k">if</span> <span class="n">t_lag</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="n">dt</span> <span class="o">=</span> <span class="n">t_array</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">t_array</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">n_lag</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">t_lag</span><span class="o">/</span><span class="n">dt</span><span class="p">)</span>
-        <span class="n">rpt_lag_arrays</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">t_lag</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="n">n_lag</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">rp_idx</span><span class="p">,</span> <span class="n">rp_</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">rp_tuple</span><span class="p">):</span>
-            <span class="n">rpt_lag_arrays</span><span class="p">[</span><span class="n">rp_</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">n_lag</span><span class="p">,</span> <span class="n">rp_t_soln</span><span class="p">[</span><span class="n">rp_idx</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">n_lag</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="k">for</span> <span class="n">rpt_</span> <span class="ow">in</span> <span class="n">rpt_tuple</span><span class="p">:</span>
-            <span class="n">rpt_lag_arrays</span><span class="p">[</span><span class="n">rpt_</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
-
-    <span class="c1"># Report</span>
-    <span class="k">if</span> <span class="n">i_end</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
-            <span class="s1">&#39;ode.base.solve_Hamiltons_equations:</span><span class="se">\n\t</span><span class="s1">&#39;</span>
-            <span class="o">+</span> <span class="sa">f</span><span class="s1">&#39; from </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">rx_array</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="mi">5</span><span class="p">)</span><span class="si">}</span><span class="s1">,</span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">rz_array</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="mi">5</span><span class="p">)</span><span class="si">}</span><span class="s1">:&#39;</span>
-            <span class="o">+</span> <span class="s1">&#39; out of bounds @ i=&#39;</span>
-            <span class="o">+</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">n_lag</span><span class="o">+</span><span class="n">i_end</span> <span class="k">if</span> <span class="n">i_end</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="nb">len</span><span class="p">(</span><span class="n">t_array</span><span class="p">)</span><span class="si">}</span><span class="s1"> &#39;</span>
-            <span class="o">+</span> <span class="sa">f</span><span class="s1">&#39;x=</span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">rx_array</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="mi">5</span><span class="p">)</span><span class="si">}</span><span class="s1"> t=</span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">t_array</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="mi">3</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span>
-        <span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
-            <span class="s1">&#39;ode.base.solve_Hamiltons_equations:</span><span class="se">\n\t</span><span class="s1">&#39;</span>
-            <span class="o">+</span> <span class="sa">f</span><span class="s1">&#39; from </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">rx_array</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="mi">5</span><span class="p">)</span><span class="si">}</span><span class="s1">,</span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">rz_array</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="mi">5</span><span class="p">)</span><span class="si">}</span><span class="s1">: &#39;</span>
-            <span class="o">+</span> <span class="sa">f</span><span class="s1">&#39;terminating @ i=</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">t_array</span><span class="p">)</span><span class="si">}</span><span class="s1"> &#39;</span>
-            <span class="o">+</span> <span class="sa">f</span><span class="s1">&#39;x=</span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">rx_array</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="mi">5</span><span class="p">)</span><span class="si">}</span><span class="s1"> t=</span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">t_array</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="mi">3</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span>
-        <span class="p">)</span>
-
-    <span class="n">rpt_arrays</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="n">rpt_arrays</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span>
-        <span class="p">(</span><span class="n">rpt_lag_arrays</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">],</span> <span class="n">t_array</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">i_end</span><span class="p">]</span><span class="o">+</span><span class="n">t_lag</span><span class="p">))</span>
-    <span class="k">for</span> <span class="n">rp_idx</span><span class="p">,</span> <span class="n">rp_</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">rp_tuple</span><span class="p">):</span>
-        <span class="n">rpt_arrays</span><span class="p">[</span><span class="n">rp_</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span>
-            <span class="p">(</span><span class="n">rpt_lag_arrays</span><span class="p">[</span><span class="n">rp_</span><span class="p">],</span> <span class="n">rp_t_soln</span><span class="p">[</span><span class="n">rp_idx</span><span class="p">][</span><span class="mi">0</span><span class="p">:</span><span class="n">i_end</span><span class="p">]))</span>
-    <span class="c1"># print(&#39;solve_ODE_system:&#39;, rpt_arrays[&#39;rx&#39;])</span>
-
-    <span class="c1"># return (ivp_soln, rpt_arrays,</span>
-    <span class="c1"># (n_lag+i_end if i_end is not None else len(t_array)))</span>
-
-    <span class="c1"># print(&#39;solve Hamiltons equations #1:&#39;,</span>
-    <span class="c1">#       i_end, len(rpt_arrays[&#39;rx&#39;]), rpt_arrays[&#39;rx&#39;])</span>
-    <span class="c1"># Record the ivp solutions for posterity (but don&#39;t use!)</span>
-    <span class="c1"># self.solns = [soln_ivp]</span>
-    <span class="c1"># print(f&quot;i_end={i_end}, {len(rpt_arrays[&#39;t&#39;])}, {len(rpt_arrays[&#39;rx&#39;])}&quot;)</span>
-    <span class="c1"># if i_end is not None:</span>
-    <span class="c1">#     # Bug fix here - shouldn&#39;t be needed?</span>
-    <span class="c1">#     if len(rpt_arrays[&#39;rx&#39;]) &lt; i_end: i_end = len(rpt_arrays[&#39;rx&#39;])</span>
-    <span class="c1">#     if self.verbose:</span>
-    <span class="c1">#         pass</span>
-    <span class="c1">#     for rpt_ in rpt_tuple:</span>
-    <span class="c1">#         a = copy(rpt_arrays[rpt_])</span>
-    <span class="c1">#         rpt_arrays[rpt_] = a[:i_end]</span>
-    <span class="c1"># print(&#39;solve Hamiltons equations #2:&#39;, rpt_arrays[&#39;rx&#39;])</span>
-    <span class="k">return</span> <span class="p">(</span><span class="n">ivp_soln</span><span class="p">,</span> <span class="n">rpt_arrays</span><span class="p">)</span>
-    <span class="c1">#           Tuple[Any, Dict[str, ndarray[Any, Any]]]</span>
-    <span class="c1"># expected: Tuple[Any, Dict[str, List[ndarray[Any, Any]]]]</span>
-
-
-<span class="k">def</span> <span class="nf">report_progress</span><span class="p">(</span>
-    <span class="n">i</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-    <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-    <span class="n">progress_was</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
-    <span class="n">pc_step</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
-    <span class="n">is_initial_step</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Print percentage estimated progress of some ongoing jobzzzsd</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">progress_now</span><span class="p">:</span> <span class="nb">float</span> \
-        <span class="o">=</span> <span class="mi">100</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">((</span><span class="mi">100</span><span class="o">/</span><span class="n">pc_step</span><span class="p">)</span><span class="o">*</span><span class="n">i</span><span class="o">/</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span> <span class="k">if</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="mi">1</span><span class="p">))</span> \
-        <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">100</span><span class="o">/</span><span class="n">pc_step</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">progress_now</span> <span class="o">&gt;</span> <span class="n">progress_was</span> <span class="ow">or</span> <span class="n">is_initial_step</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">progress_now</span><span class="si">:</span><span class="s1">0.0f</span><span class="si">}</span><span class="s1">% &#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span> <span class="k">if</span> <span class="n">progress_now</span>
-              <span class="o">&lt;</span> <span class="mi">100</span> <span class="k">else</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">progress_now</span>
 
 <span class="c1"># class Choice(Enum):</span>
 <span class="c1">#     HAMILTON = auto()</span>
@@ -576,7 +355,11 @@ equation substitutions</p></li>
         <span class="k">return</span> <span class="k">lambda</span> <span class="n">t_</span><span class="p">,</span> <span class="n">rv_</span><span class="p">:</span> \
             <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="n">drvdt_raw_lambda</span><span class="p">(</span><span class="n">rv_</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">rv_</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">rv_</span><span class="p">[</span><span class="mi">3</span><span class="p">]))</span>
 
-    <span class="k">def</span> <span class="nf">postprocessing</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">spline_order</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">extrapolation_mode</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">postprocessing</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">spline_order</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="n">extrapolation_mode</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Generate interpolating functions for (r,p)[t] using ray samples</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -659,8 +442,11 @@ equation substitutions</p></li>
             <span class="c1"># self.rpt_isochrones_lowres = self.rpt_isochrones.copy()</span>
             <span class="c1"># self.trxz_cusps: List[Tuple[np.ndarray,Any,Any]] = []</span>
 
-        <span class="k">def</span> <span class="nf">truncate_isochrone</span><span class="p">(</span><span class="n">rpt_isochrone</span><span class="p">,</span> <span class="n">i_from</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">i_to</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> \
-                <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+        <span class="k">def</span> <span class="nf">truncate_isochrone</span><span class="p">(</span>
+            <span class="n">rpt_isochrone</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span>
+            <span class="n">i_from</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">i_to</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
             <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">            TBD</span>
 <span class="sd">            &quot;&quot;&quot;</span>
@@ -668,8 +454,11 @@ equation substitutions</p></li>
                 <span class="n">rpt_isochrone</span><span class="p">[</span><span class="n">rp_</span><span class="p">]</span> <span class="o">=</span> <span class="n">rpt_isochrone</span><span class="p">[</span><span class="n">rp_</span><span class="p">][</span><span class="n">i_from</span><span class="p">:</span><span class="n">i_to</span><span class="p">]</span>
             <span class="k">return</span> <span class="n">rpt_isochrone</span>
 
-        <span class="k">def</span> <span class="nf">find_intercept</span><span class="p">(</span><span class="n">rpt_isochrone</span><span class="p">,</span> <span class="n">slice1</span><span class="p">,</span> <span class="n">slice2</span><span class="p">)</span> \
-                <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+        <span class="k">def</span> <span class="nf">find_intercept</span><span class="p">(</span>
+            <span class="n">rpt_isochrone</span><span class="p">,</span>
+            <span class="n">slice1</span><span class="p">,</span>
+            <span class="n">slice2</span>
+        <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
             <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">            TBD</span>
 <span class="sd">            &quot;&quot;&quot;</span>
@@ -731,10 +520,18 @@ equation substitutions</p></li>
             <span class="c1"># self.z2_interp = z2_interp</span>
             <span class="c1"># self.xydiff_lambda = xydiff_lambda</span>
 
-            <span class="k">return</span> <span class="n">xz1_intercept</span><span class="p">,</span> <span class="n">xz2_intercept</span><span class="p">,</span> <span class="n">pxz1_intercept</span><span class="p">,</span> <span class="n">pxz2_intercept</span>
+            <span class="k">return</span> \
+                <span class="p">(</span><span class="n">xz1_intercept</span><span class="p">,</span> <span class="n">xz2_intercept</span><span class="p">,</span> <span class="n">pxz1_intercept</span><span class="p">,</span> <span class="n">pxz2_intercept</span><span class="p">)</span>
 
-        <span class="k">def</span> <span class="nf">eliminate_caustic</span><span class="p">(</span><span class="n">is_good_pt_array</span><span class="p">,</span> <span class="n">rpt_isochrone</span><span class="p">)</span> \
-                <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
+        <span class="k">def</span> <span class="nf">eliminate_caustic</span><span class="p">(</span>
+            <span class="n">is_good_pt_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+            <span class="n">rpt_isochrone</span>
+        <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span>
+                <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span>
+                <span class="n">Tuple</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span>
+                      <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span>
+                      <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]]</span>
+                <span class="p">]:</span>
             <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">            TBD</span>
 <span class="sd">            &quot;&quot;&quot;</span>
@@ -819,15 +616,23 @@ equation substitutions</p></li>
                 <span class="n">rpt_isochrone_rtn</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">rp_</span><span class="p">:</span> <span class="n">isochrone_</span><span class="p">})</span>
             <span class="n">rpt_isochrone_rtn</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;t&#39;</span><span class="p">:</span> <span class="n">rpt_isochrone</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">]})</span>
 
-            <span class="k">return</span> <span class="n">rpt_isochrone_rtn</span><span class="p">,</span> \
-                <span class="p">((</span><span class="n">rpt_isochrone</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">rxz1_intercept</span><span class="p">)),</span>
-                 <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">pxz1_intercept</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">pxz2_intercept</span><span class="p">))</span> \
-                <span class="k">if</span> <span class="n">rxz1_intercept</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span> \
+            <span class="n">intercept</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span>
+                             <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span>
+                             <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]]</span>
+            <span class="k">if</span> <span class="n">rxz1_intercept</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span> \
                 <span class="ow">and</span> <span class="p">(</span><span class="n">dont_crop_cusps</span>
-                     <span class="ow">or</span> <span class="n">rxz1_intercept</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">Lc</span><span class="p">])</span> \
-                <span class="k">else</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+                     <span class="ow">or</span> <span class="n">rxz1_intercept</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">Lc</span><span class="p">]):</span>
+                <span class="n">intercept</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="c1"># (rpt_isochrone[&#39;t&#39;],</span>
+                    <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">rxz1_intercept</span><span class="p">),</span>
+                    <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">pxz1_intercept</span><span class="p">),</span>
+                    <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">pxz2_intercept</span><span class="p">)</span>
+                <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">intercept</span> <span class="o">=</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="k">return</span> <span class="p">(</span><span class="n">rpt_isochrone_rtn</span><span class="p">,</span> <span class="n">intercept</span><span class="p">)</span>
 
-        <span class="k">def</span> <span class="nf">compose_isochrone</span><span class="p">(</span><span class="n">t_</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+        <span class="k">def</span> <span class="nf">compose_isochrone</span><span class="p">(</span><span class="n">t_</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
             <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">            TBD</span>
 <span class="sd">            &quot;&quot;&quot;</span>
@@ -846,8 +651,10 @@ equation substitutions</p></li>
             <span class="n">rpt_isochrone</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;t&#39;</span><span class="p">:</span> <span class="n">t_</span><span class="p">})</span>
             <span class="k">return</span> <span class="n">rpt_isochrone</span>
 
-        <span class="k">def</span> <span class="nf">resample_isochrone</span><span class="p">(</span><span class="n">rpt_isochrone_in</span><span class="p">,</span> <span class="n">n_resample_pts</span><span class="p">)</span> \
-                <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+        <span class="k">def</span> <span class="nf">resample_isochrone</span><span class="p">(</span>
+            <span class="n">rpt_isochrone_in</span><span class="p">:</span> <span class="n">Dict</span><span class="p">,</span>
+            <span class="n">n_resample_pts</span><span class="p">:</span> <span class="nb">int</span>
+        <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
             <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">            TBD</span>
 <span class="sd">            &quot;&quot;&quot;</span>
@@ -878,8 +685,12 @@ equation substitutions</p></li>
         <span class="c1"># Crop out-of-bounds points and points on caustics</span>
         <span class="c1">#   for the current isochrone</span>
 
-        <span class="k">def</span> <span class="nf">clean_isochrone</span><span class="p">(</span><span class="n">rpt_isochrone</span><span class="p">)</span> \
-                <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
+        <span class="k">def</span> <span class="nf">clean_isochrone</span><span class="p">(</span>
+            <span class="n">rpt_isochrone</span><span class="p">:</span> <span class="n">Dict</span>
+        <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]],</span>
+                   <span class="n">Tuple</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span>
+                         <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span>
+                         <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]]]:</span>
             <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">            TBD</span>
 <span class="sd">            &quot;&quot;&quot;</span>
@@ -900,23 +711,24 @@ equation substitutions</p></li>
             <span class="c1">#   (t_rxz_intercept, pxz1_intercept, pxz2_intercept) \</span>
             <span class="c1">#         = eliminate_caustic(is_good_pt_array, rpt_isochrone)</span>
             <span class="c1">#            if do_eliminate_caustics else None, (None,None,None)</span>
+            <span class="n">rtn</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]],</span>
+                       <span class="n">Tuple</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span>
+                             <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span>
+                             <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]]]</span>
+            <span class="c1"># (rpt_isochrone,</span>
+            <span class="c1">#  (t_rxz_intercept, pxz1_intercept, pxz2_intercept)) \</span>
             <span class="k">if</span> <span class="n">do_eliminate_caustics</span><span class="p">:</span>
-                <span class="p">(</span><span class="n">rpt_isochrone</span><span class="p">,</span>
-                 <span class="p">(</span><span class="n">t_rxz_intercept</span><span class="p">,</span> <span class="n">pxz1_intercept</span><span class="p">,</span> <span class="n">pxz2_intercept</span><span class="p">))</span> \
-                    <span class="o">=</span> <span class="n">eliminate_caustic</span><span class="p">(</span><span class="n">is_good_pt_array</span><span class="p">,</span> <span class="n">rpt_isochrone</span><span class="p">)</span>
+                <span class="n">rtn</span> <span class="o">=</span> <span class="n">eliminate_caustic</span><span class="p">(</span><span class="n">is_good_pt_array</span><span class="p">,</span> <span class="n">rpt_isochrone</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="p">(</span><span class="n">rpt_isochrone</span><span class="p">,</span>
-                 <span class="p">(</span><span class="n">t_rxz_intercept</span><span class="p">,</span> <span class="n">pxz1_intercept</span><span class="p">,</span> <span class="n">pxz2_intercept</span><span class="p">))</span> \
-                    <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+                <span class="n">rtn</span> <span class="o">=</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span>
             <span class="c1"># print(rpt_isochrone_try)</span>
             <span class="c1"># rpt_isochrone = rpt_isochrone_try if rpt_isochrone_try</span>
             <span class="c1">#                          is not None else rpt_isochrone</span>
-            <span class="k">return</span> <span class="p">(</span>
-                <span class="n">rpt_isochrone</span><span class="p">,</span>
-                <span class="p">(</span><span class="n">t_rxz_intercept</span><span class="p">,</span> <span class="n">pxz1_intercept</span><span class="p">,</span> <span class="n">pxz2_intercept</span><span class="p">)</span>
-            <span class="p">)</span>
+            <span class="k">return</span> <span class="n">rtn</span>
 
-        <span class="k">def</span> <span class="nf">prune_isochrone</span><span class="p">(</span><span class="n">rpt_isochrone_in</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+        <span class="k">def</span> <span class="nf">prune_isochrone</span><span class="p">(</span>
+            <span class="n">rpt_isochrone_in</span><span class="p">:</span> <span class="n">Dict</span>
+        <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
             <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">            TBD</span>
 <span class="sd">            &quot;&quot;&quot;</span>
@@ -940,7 +752,10 @@ equation substitutions</p></li>
                                           <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">rpt_at_x1</span><span class="p">])])</span>
             <span class="k">return</span> <span class="n">rpt_isochrone_out</span>
 
-        <span class="k">def</span> <span class="nf">record_isochrone</span><span class="p">(</span><span class="n">rpt_isochrone</span><span class="p">,</span> <span class="n">i_isochrone</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">def</span> <span class="nf">record_isochrone</span><span class="p">(</span>
+            <span class="n">rpt_isochrone</span><span class="p">:</span> <span class="n">Dict</span><span class="p">,</span>
+            <span class="n">i_isochrone</span><span class="p">:</span> <span class="nb">int</span>
+        <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
             <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">            TBD</span>
 <span class="sd">            &quot;&quot;&quot;</span>
@@ -948,7 +763,11 @@ equation substitutions</p></li>
             <span class="k">for</span> <span class="n">rpt_</span> <span class="ow">in</span> <span class="n">rpt_tuple</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">rpt_isochrones</span><span class="p">[</span><span class="n">rpt_</span><span class="p">][</span><span class="n">i_isochrone</span><span class="p">]</span> <span class="o">=</span> <span class="n">rpt_isochrone</span><span class="p">[</span><span class="n">rpt_</span><span class="p">]</span>
 
-        <span class="k">def</span> <span class="nf">record_cusp</span><span class="p">(</span><span class="n">trxz_cusp</span><span class="p">,</span> <span class="n">pxz1_intercept</span><span class="p">,</span> <span class="n">pxz2_intercept</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">def</span> <span class="nf">record_cusp</span><span class="p">(</span>
+            <span class="n">trxz_cusp</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span>
+            <span class="n">pxz1_intercept</span><span class="p">,</span>
+            <span class="n">pxz2_intercept</span>
+        <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
             <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">            TBD</span>
 <span class="sd">            &quot;&quot;&quot;</span>
@@ -993,12 +812,14 @@ equation substitutions</p></li>
         <span class="n">t_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">t_isochrone_max</span><span class="p">,</span> <span class="n">n_isochrones</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">i_isochrone</span><span class="p">,</span> <span class="n">t_</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">t_array</span><span class="p">):</span>
             <span class="n">rpt_isochrone</span> <span class="o">=</span> <span class="n">compose_isochrone</span><span class="p">(</span><span class="n">t_</span><span class="p">)</span>  <span class="c1"># i_isochrone,</span>
-            <span class="n">rpt_isochrone</span> <span class="o">=</span> <span class="n">resample_isochrone</span><span class="p">(</span><span class="n">rpt_isochrone</span><span class="p">,</span> <span class="n">n_resample_pts</span><span class="p">)</span>
-            <span class="n">rpt_isochrone</span><span class="p">,</span> <span class="p">(</span><span class="n">trxz_cusp</span><span class="p">,</span> <span class="n">pxz1_intercept</span><span class="p">,</span> <span class="n">pxz2_intercept</span><span class="p">)</span> \
-                <span class="o">=</span> <span class="n">clean_isochrone</span><span class="p">(</span><span class="n">rpt_isochrone</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">rpt_isochrone</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">rpt_isochrone</span> <span class="o">=</span> <span class="n">prune_isochrone</span><span class="p">(</span><span class="n">rpt_isochrone</span><span class="p">)</span>
-                <span class="n">record_isochrone</span><span class="p">(</span><span class="n">rpt_isochrone</span><span class="p">,</span> <span class="n">i_isochrone</span><span class="p">)</span>
+            <span class="n">rpt_isochrone_resampled</span> \
+                <span class="o">=</span> <span class="n">resample_isochrone</span><span class="p">(</span><span class="n">rpt_isochrone</span><span class="p">,</span> <span class="n">n_resample_pts</span><span class="p">)</span>
+            <span class="p">(</span><span class="n">rpt_isochrone_clean</span><span class="p">,</span>
+             <span class="p">(</span><span class="n">trxz_cusp</span><span class="p">,</span> <span class="n">pxz1_intercept</span><span class="p">,</span> <span class="n">pxz2_intercept</span><span class="p">))</span> \
+                <span class="o">=</span> <span class="n">clean_isochrone</span><span class="p">(</span><span class="n">rpt_isochrone_resampled</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">rpt_isochrone_clean</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">rpt_isochrone_pruned</span> <span class="o">=</span> <span class="n">prune_isochrone</span><span class="p">(</span><span class="n">rpt_isochrone_clean</span><span class="p">)</span>
+                <span class="n">record_isochrone</span><span class="p">(</span><span class="n">rpt_isochrone_pruned</span><span class="p">,</span> <span class="n">i_isochrone</span><span class="p">)</span>
                 <span class="n">record_cusp</span><span class="p">(</span><span class="n">trxz_cusp</span><span class="p">,</span> <span class="n">pxz1_intercept</span><span class="p">,</span> <span class="n">pxz2_intercept</span><span class="p">)</span>
         <span class="n">organize_cusps</span><span class="p">()</span>
 
@@ -1006,7 +827,8 @@ equation substitutions</p></li>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        TBD</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">kwargs_</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">,</span> <span class="n">fill_value</span><span class="o">=</span><span class="s1">&#39;extrapolate&#39;</span><span class="p">,</span>
+        <span class="n">kwargs_</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">,</span>
+                       <span class="n">fill_value</span><span class="o">=</span><span class="s1">&#39;extrapolate&#39;</span><span class="p">,</span>
                        <span class="n">assume_sorted</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cusps</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
@@ -1016,13 +838,14 @@ equation substitutions</p></li>
             <span class="bp">self</span><span class="o">.</span><span class="n">vx_interp_fast</span> <span class="o">=</span> <span class="kc">None</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">vx_interp_slow</span> <span class="o">=</span> <span class="kc">None</span>
             <span class="k">return</span>
-        <span class="n">_</span><span class="p">,</span> <span class="n">rxz_array</span><span class="p">,</span> <span class="n">pxz_fast_array</span><span class="p">,</span> <span class="n">pxz_slow_array</span> \
+        <span class="p">(</span><span class="n">_</span><span class="p">,</span> <span class="n">rxz_array</span><span class="p">,</span> <span class="n">pxz_fast_array</span><span class="p">,</span> <span class="n">pxz_slow_array</span><span class="p">)</span> \
             <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">cusps</span><span class="p">[</span><span class="n">key_</span><span class="p">]</span> <span class="k">for</span> <span class="n">key_</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">,</span> <span class="s1">&#39;rxz&#39;</span><span class="p">,</span> <span class="s1">&#39;pxz1&#39;</span><span class="p">,</span> <span class="s1">&#39;pxz2&#39;</span><span class="p">]]</span>
-        <span class="n">px_fast_array</span><span class="p">,</span> <span class="n">pz_fast_array</span> <span class="o">=</span> <span class="n">pxz_fast_array</span><span class="p">[:,</span>
-                                                      <span class="mi">0</span><span class="p">],</span> <span class="n">pxz_fast_array</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span>
-        <span class="n">px_slow_array</span><span class="p">,</span> <span class="n">pz_slow_array</span> <span class="o">=</span> <span class="n">pxz_slow_array</span><span class="p">[:,</span>
-                                                      <span class="mi">0</span><span class="p">],</span> <span class="n">pxz_slow_array</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span>
-        <span class="n">rx_array</span><span class="p">,</span> <span class="n">rz_array</span> <span class="o">=</span> <span class="n">rxz_array</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">rxz_array</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="p">(</span><span class="n">px_fast_array</span><span class="p">,</span> <span class="n">pz_fast_array</span><span class="p">)</span> \
+            <span class="o">=</span> <span class="p">(</span><span class="n">pxz_fast_array</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">pxz_fast_array</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])</span>
+        <span class="p">(</span><span class="n">px_slow_array</span><span class="p">,</span> <span class="n">pz_slow_array</span><span class="p">)</span> \
+            <span class="o">=</span> <span class="p">(</span><span class="n">pxz_slow_array</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">pxz_slow_array</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])</span>
+        <span class="p">(</span><span class="n">rx_array</span><span class="p">,</span> <span class="n">rz_array</span><span class="p">)</span> \
+            <span class="o">=</span> <span class="p">(</span><span class="n">rxz_array</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">rxz_array</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])</span>
 
         <span class="c1"># p_fast_array = np.sqrt(px_fast_array**2+pz_fast_array**2)</span>
         <span class="n">tanbeta_fast_array</span> <span class="o">=</span> <span class="o">-</span><span class="n">px_fast_array</span><span class="o">/</span><span class="n">pz_fast_array</span>
@@ -1048,9 +871,9 @@ equation substitutions</p></li>
         <span class="c1"># p_slow_interp</span>
         <span class="c1">#     = interp1d( rxz_array[:,0], p_slow_array, **kwargs_ )</span>
         <span class="n">px_slow_interp</span> <span class="o">=</span> <span class="n">interp1d</span><span class="p">(</span>
-            <span class="n">rxz_array</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">px_slow_array</span><span class="p">,</span>      <span class="o">**</span><span class="n">kwargs_</span><span class="p">)</span>
+            <span class="n">rxz_array</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">px_slow_array</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs_</span><span class="p">)</span>
         <span class="n">pz_slow_interp</span> <span class="o">=</span> <span class="n">interp1d</span><span class="p">(</span>
-            <span class="n">rxz_array</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">pz_slow_array</span><span class="p">,</span>      <span class="o">**</span><span class="n">kwargs_</span><span class="p">)</span>
+            <span class="n">rxz_array</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">pz_slow_array</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs_</span><span class="p">)</span>
         <span class="n">tanbeta_slow_interp</span> <span class="o">=</span> <span class="n">interp1d</span><span class="p">(</span>
             <span class="n">rxz_array</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">tanbeta_slow_array</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs_</span><span class="p">)</span>
         <span class="c1"># sinbeta_slow_interp \</span>
@@ -1067,10 +890,11 @@ equation substitutions</p></li>
         <span class="c1">#                - cosbeta_fast_interp(x_)*sinbeta_slow_interp(x_)</span>
         <span class="c1"># tanbeta_diff_lambda \</span>
         <span class="c1">#   = lambda x_: tanbeta_fast_interp(x_)-tanbeta_slow_interp(x_)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">cx_pz_tanbeta_lambda</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x_</span><span class="p">:</span> <span class="p">(</span>
-            <span class="o">-</span> <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">pz_fast_interp</span><span class="p">(</span><span class="n">x_</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="o">/</span><span class="n">pz_slow_interp</span><span class="p">(</span><span class="n">x_</span><span class="p">))</span>
-            <span class="o">/</span> <span class="p">(</span><span class="n">tanbeta_fast_interp</span><span class="p">(</span><span class="n">x_</span><span class="p">)</span> <span class="o">-</span> <span class="n">tanbeta_slow_interp</span><span class="p">(</span><span class="n">x_</span><span class="p">))</span>
-        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cx_pz_tanbeta_lambda</span> \
+            <span class="o">=</span> <span class="k">lambda</span> <span class="n">x_</span><span class="p">:</span> <span class="p">(</span>
+                <span class="o">-</span> <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">pz_fast_interp</span><span class="p">(</span><span class="n">x_</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="o">/</span><span class="n">pz_slow_interp</span><span class="p">(</span><span class="n">x_</span><span class="p">))</span>
+                <span class="o">/</span> <span class="p">(</span><span class="n">tanbeta_fast_interp</span><span class="p">(</span><span class="n">x_</span><span class="p">)</span> <span class="o">-</span> <span class="n">tanbeta_slow_interp</span><span class="p">(</span><span class="n">x_</span><span class="p">))</span>
+                <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cx_pz_lambda</span> \
             <span class="o">=</span> <span class="k">lambda</span> <span class="n">x_</span><span class="p">:</span> <span class="p">(</span>
                 <span class="p">(</span><span class="n">pz_slow_interp</span><span class="p">(</span><span class="n">x_</span><span class="p">)</span> <span class="o">-</span> <span class="n">pz_fast_interp</span><span class="p">(</span><span class="n">x_</span><span class="p">))</span>
@@ -1104,7 +928,11 @@ equation substitutions</p></li>
         <span class="bp">self</span><span class="o">.</span><span class="n">vx_interp_fast</span> <span class="o">=</span> <span class="n">vx_interp_fast</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">vx_interp_slow</span> <span class="o">=</span> <span class="n">vx_interp_slow</span>
 
-    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rpt_arrays</span><span class="p">,</span> <span class="n">idx</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">rpt_arrays</span><span class="p">:</span> <span class="n">Dict</span><span class="p">,</span>
+        <span class="n">idx</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        TBD</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -1113,95 +941,6 @@ equation substitutions</p></li>
             <span class="bp">self</span><span class="o">.</span><span class="n">rpt_arrays</span><span class="p">[</span><span class="n">rpt_</span><span class="p">][</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">rpt_arrays</span><span class="p">[</span><span class="n">rpt_</span><span class="p">]</span>
         <span class="n">rx_length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rpt_arrays</span><span class="p">[</span><span class="s1">&#39;rx&#39;</span><span class="p">][</span><span class="n">idx</span><span class="p">])</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">rpt_arrays</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">][</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rpt_arrays</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">][</span><span class="n">idx</span><span class="p">][:</span><span class="n">rx_length</span><span class="p">]</span>
-
-
-<span class="k">class</span> <span class="nc">ExtendedSolution</span><span class="p">(</span><span class="n">BaseSolution</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Integration of Hamilton&#39;s equations (ODEs) to solve for</span>
-<span class="sd">    propagation of a single ray.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gmeq</span><span class="p">,</span> <span class="n">parameters</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Initialize class instance.</span>
-
-<span class="sd">        Args:</span>
-<span class="sd">            gmeq:</span>
-<span class="sd">                GME model equations class instance defined in</span>
-<span class="sd">                :mod:`gme.core.equations`</span>
-<span class="sd">            parameters:</span>
-<span class="sd">                dictionary of model parameter values to be used for</span>
-<span class="sd">                equation substitutions</span>
-<span class="sd">            **kwargs: remaining keyword arguments (see base class for details)</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">gmeq</span><span class="p">,</span> <span class="n">parameters</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-
-        <span class="c1"># Type declarations</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">pz0</span><span class="p">:</span> <span class="nb">float</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rays</span><span class="p">:</span> <span class="n">List</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">t_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rx_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rz_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">p_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">px_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">pz_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rdot_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rdotx_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rdotz_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">pdot_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">pdotx_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">pdotz_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">tanalpha_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">tanbeta_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">alpha_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">beta_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">xiv_p_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">xiv_v_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">uhorizontal_p_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">uhorizontal_v_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">cosbeta_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">sinbeta_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">u_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">x_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">h_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">h_x_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">h_z_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">dhdx_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">beta_vt_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">beta_ts_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">t_interp_x</span><span class="p">:</span> <span class="n">Callable</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rz_interp</span><span class="p">:</span> <span class="n">Callable</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rx_interp_t</span><span class="p">:</span> <span class="n">Callable</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rz_interp_t</span><span class="p">:</span> <span class="n">Callable</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">x_interp_t</span><span class="p">:</span> <span class="n">Callable</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">p_interp</span><span class="p">:</span> <span class="n">Callable</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">px_interp</span><span class="p">:</span> <span class="n">Callable</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">pz_interp</span><span class="p">:</span> <span class="n">Callable</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rdot_interp</span><span class="p">:</span> <span class="n">Callable</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rdotx_interp</span><span class="p">:</span> <span class="n">Callable</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rdotz_interp</span><span class="p">:</span> <span class="n">Callable</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">pdot_interp</span><span class="p">:</span> <span class="n">Callable</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">pdot_interp_t</span><span class="p">:</span> <span class="n">Callable</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rdotx_interp_t</span><span class="p">:</span> <span class="n">Any</span>  <span class="c1"># HACK</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rdotz_interp_t</span><span class="p">:</span> <span class="n">Any</span>  <span class="c1"># HACK</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rddotx_interp_t</span><span class="p">:</span> <span class="n">Callable</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rddotz_interp_t</span><span class="p">:</span> <span class="n">Callable</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">beta_p_interp</span><span class="p">:</span> <span class="n">Callable</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">beta_ts_interp</span><span class="p">:</span> <span class="n">Callable</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">beta_ts_error_interp</span><span class="p">:</span> <span class="n">Callable</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">beta_vt_interp</span><span class="p">:</span> <span class="n">Callable</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">beta_vt_error_interp</span><span class="p">:</span> <span class="n">Callable</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">u_interp</span><span class="p">:</span> <span class="n">Callable</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">uhorizontal_p_interp</span><span class="p">:</span> <span class="n">Callable</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">uhorizontal_v_interp</span><span class="p">:</span> <span class="n">Callable</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">u_from_rdot_interp</span><span class="p">:</span> <span class="n">Callable</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">xiv_v_interp</span><span class="p">:</span> <span class="n">Callable</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">xiv_p_interp</span><span class="p">:</span> <span class="n">Callable</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">alpha_interp</span><span class="p">:</span> <span class="n">Callable</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">h_interp</span><span class="p">:</span> <span class="n">Callable</span>
 
 
 <span class="c1">#</span>
@@ -1284,7 +1023,7 @@ equation substitutions</p></li>
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="single_ray.html" title="single_ray.py"
+          <a href="extended.html" title="extended.py"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="index.html" title="gme.ode"

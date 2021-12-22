@@ -24,10 +24,10 @@ Requires Python packages/modules:
 # Disable these pylint errors because it doesn't understand SymPy syntax
 #   - notably minus signs in equations flag an error
 # pylint: disable=invalid-unary-operand-type, not-callable
+
+# Library
 import warnings
 import logging
-
-# Typing
 # from typing import Dict, Type, Optional  # , Tuple, Any, List
 
 # SymPy
@@ -50,6 +50,7 @@ class HamiltonsMixin:
     r"""
     Hamilton's equations supplement to equation definition class.
     """
+    # Prerequisites
     H_eqn: Eq
     px_pz_tanbeta_eqn: Eq
     H_varphi_rx_eqn: Eq

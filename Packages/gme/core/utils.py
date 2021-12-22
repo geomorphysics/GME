@@ -18,9 +18,9 @@ Requires Python packages/modules:
 ---------------------------------------------------------------------
 
 """
-import warnings
 
-# Typing
+# Library
+import warnings
 from typing import Tuple, Dict, Any, List, Callable, Optional
 
 # SciPy

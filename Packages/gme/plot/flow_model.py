@@ -22,11 +22,9 @@ Requires Python packages/modules:
 
 # Library
 import warnings
-
-# Typing
 from typing import Dict, Tuple, Optional
 
-# Numpy
+# NumPy
 import numpy as np
 
 # MatPlotLib
@@ -96,9 +94,14 @@ class FlowModel(Graphing):
             gmeq.varphi_rx_eqn.rhs.subs({x_h: 1}).subs(sub).subs({rx: x_})
             for x_ in x_array
         ]
-        plt.plot(x_array, varphi_array, '-', color=self.colors[0],
+        plt.plot(x_array, varphi_array,
+                 '-',
+                 color=self.colors[0],
                  label='hillslope-channel model')
-        plt.plot(x_array, varphi_xh1p0_array, '--', color=self.colors[0],
+        plt.plot(x_array,
+                 varphi_xh1p0_array,
+                 '--',
+                 color=self.colors[0],
                  label='channel-only model')
 
         # axes.set_aspect(1)
@@ -107,34 +110,53 @@ class FlowModel(Graphing):
             r'Dimensionless horizontal distance, $x/L_{\mathrm{c}}$  [-]')
         plt.ylabel(r'$\varphi(x)$  [-]')
         if do_subtitling:
-            plt.text(0.1, 0.15, rf'$\eta={gmeq.eta_}$',
+            plt.text(0.1,
+                     0.15,
+                     rf'$\eta={gmeq.eta_}$',
                      transform=axes.transAxes,
-                     horizontalalignment='left', verticalalignment='center',
-                     fontsize=12, color='k')
-            plt.text(0.05, 0.22, subtitle,
+                     horizontalalignment='left',
+                     verticalalignment='center',
+                     fontsize=12,
+                     color='k')
+            plt.text(0.05,
+                     0.22,
+                     subtitle,
                      transform=axes.transAxes,
-                     horizontalalignment='left', verticalalignment='center',
-                     fontsize=12, color='k')
+                     horizontalalignment='left',
+                     verticalalignment='center',
+                     fontsize=12,
+                     color='k')
         if do_extra_annotations:
-            plt.text(0.4, 0.45, 'channel',
+            plt.text(0.4,
+                     0.45,
+                     'channel',
                      transform=axes.transAxes,
                      rotation=-43,
-                     horizontalalignment='center', verticalalignment='center',
-                     fontsize=12, color='0.2')
-            plt.text(0.83, 0.16, 'hillslope',
+                     horizontalalignment='center',
+                     verticalalignment='center',
+                     fontsize=12,
+                     color='0.2')
+            plt.text(0.83,
+                     0.16,
+                     'hillslope',
                      transform=axes.transAxes,
-                     horizontalalignment='left', verticalalignment='center',
-                     fontsize=11, color='0.2')
+                     horizontalalignment='left',
+                     verticalalignment='center',
+                     fontsize=11,
+                     color='0.2')
 
         y_limits: Tuple[float, float] = axes.get_ylim()
         x_h_: float = float(x_h.subs(sub))
         varphi_h_: float = float(
             gmeq.varphi_rx_eqn.rhs.subs({rx: x_h}).subs(sub))
         plt.plot([x_h_, x_h_], [varphi_h_-30, varphi_h_+70], 'b:')
-        plt.text(x_h_, varphi_h_+77, r'$x_h/L_{\mathrm{c}}$',
-                 # transform=axes.transAxes,
-                 horizontalalignment='center', verticalalignment='bottom',
-                 fontsize=12, color='b')
+        plt.text(x_h_,
+                 varphi_h_+77,
+                 r'$x_h/L_{\mathrm{c}}$',
+                 horizontalalignment='center',
+                 verticalalignment='bottom',
+                 fontsize=12,
+                 color='b')
 
         plt.legend(loc='upper right', fontsize=11, framealpha=0.95)
         plt.xlim(None, 1.05)

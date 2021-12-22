@@ -19,12 +19,11 @@ Requires Python packages:
 ---------------------------------------------------------------------
 
 """
+# Library
 import warnings
-
-# Typing
 from typing import Dict, Tuple, Optional
 
-# Numpy
+# NumPy
 import numpy as np
 
 # SymPy
@@ -63,7 +62,7 @@ class RayVelocities(Graphing):
         do_pub_label: bool = False,
         pub_label: str = '',
         pub_label_xy: Tuple[float, float] = (0.5, 0.5),
-        do_etaxi_label=True,
+        do_etaxi_label: bool = True,
         eta_label_xy: Tuple[float, float] = (0.5, 0.81),
         var_label_xy: Tuple[float, float] = (0.8, 0.5),
         xi_norm: Optional[float] = None,

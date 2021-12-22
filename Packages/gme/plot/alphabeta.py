@@ -21,11 +21,9 @@ Requires Python packages/modules:
 """
 # Library
 import warnings
-
-# Typing
 from typing import Tuple, Optional
 
-# Numpy
+# NumPy
 import numpy as np
 
 # SymPy

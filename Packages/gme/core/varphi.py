@@ -23,10 +23,10 @@ Requires Python packages/modules:
 # Disable these pylint errors because it doesn't understand SymPy syntax
 #   - notably minus signs in equations flag an error
 # pylint: disable=invalid-unary-operand-type, not-callable
+
+# Library
 import warnings
 import logging
-
-# Typing
 # from typing import Dict, Type, Optional  # , Tuple, Any, List
 
 # SymPy
@@ -51,6 +51,7 @@ class VarphiMixin:
     Flow model :math:`\varphi` equations supplement
     to equation definition class.
     """
+    # Prerequisites
     varphi_type: str
     mu_: float
     p_xi_eqn: Eq

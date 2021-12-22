@@ -19,12 +19,11 @@ Requires Python packages/modules:
 ---------------------------------------------------------------------
 
 """
+# Library
 import warnings
-
-# Minimal typing
 from typing import Tuple, Callable, Dict
 
-# Numpy
+# NumPy
 import numpy as np
 
 # SymPy
@@ -119,30 +118,46 @@ class IndicatrixOld(Graphing):
         # fgtx_label = r'figuratrix $F^*(\mathbf{\widetilde{p}},\beta)$'
         idtx_label = r'ray velocity'
         fgtx_label = r'normal slowness'
-        plt.polar(fgtx_theta_array, fgtx_p_array,
-                  'DarkBlue', '-', lw=1.5,
+        plt.polar(fgtx_theta_array,
+                  fgtx_p_array,
+                  'DarkBlue',
+                  '-',
+                  lw=1.5,
                   label=fgtx_label)
-        plt.polar(idtx_theta_array, idtx_rdot_array,
-                  'DarkRed', ls='-', lw=1.5,
+        plt.polar(idtx_theta_array,
+                  idtx_rdot_array,
+                  'DarkRed',
+                  ls='-',
+                  lw=1.5,
                   label=idtx_label)
-        plt.polar(2*np.pi-idtx_theta_array, idtx_rdot_array,
-                  'DarkRed', ls='-', lw=1.5)
+        plt.polar(2*np.pi-idtx_theta_array,
+                  idtx_rdot_array,
+                  'DarkRed',
+                  ls='-',
+                  lw=1.5)
         # plt.polar( idtx_theta_posrdot_array, idtx_rdot_posrdot_array,
         # 'magenta', ls='-', lw=3)
         # plt.polar( idtx_theta_negrdot_array, idtx_rdot_negrdot_array,
         # 'k', ls='-', lw=3)
-        plt.polar(unit_circle_beta_array, unit_circle_beta_array*0,
-                  'g', ':', lw=1,
+        plt.polar(unit_circle_beta_array,
+                  unit_circle_beta_array*0,
+                  'g',
+                  ':',
+                  lw=1,
                   label='unit circle')
 
         # Critical angles
         beta_crit = np.arctan(float(gmeq.tanbeta_crit))
         alpha_crit = np.pi/2+np.arctan(float(gmeq.tanalpha_crit))
-        plt.polar([beta_crit, beta_crit], [-2, 3],
-                  ':', color='DarkBlue',
+        plt.polar([beta_crit, beta_crit],
+                  [-2, 3],
+                  ':',
+                  color='DarkBlue',
                   label=r'$\beta=\beta_c$')
-        plt.polar([alpha_crit, alpha_crit], [-2, 3],
-                  ':', color='DarkRed',
+        plt.polar([alpha_crit, alpha_crit],
+                  [-2, 3],
+                  ':',
+                  color='DarkRed',
                   label=r'$\alpha=\alpha_{\mathrm{ext}}$')
 
         # Labelling etc
@@ -166,18 +181,20 @@ class IndicatrixOld(Graphing):
         ]
         plt.xticks(xtick_posns, xtick_labels)
 
+        y_limits_: Tuple[float, float]
         if y_limits is None:
-            y_limits = (-2, 3)
+            y_limits_ = (-2, 3)
             ytick_posns = [-1, 0, 1, 2, 3, 4]
         else:
-            ytick_posns = list(range(int(y_limits[0]), int(y_limits[1])+2))
-        plt.ylim(*y_limits)
+            y_limits_ = y_limits
+            ytick_posns = list(range(int(y_limits_[0]), int(y_limits_[1])+2))
+        plt.ylim(*y_limits_)
         ytick_labels = [rf'$10^{int(y_)}$' for y_ in ytick_posns]
         plt.yticks(ytick_posns, ytick_labels)
 
         axes = plt.gca()
         plt.text(np.pi/1.1,
-                 (1+y_limits[1]-y_limits[0])*2/3+y_limits[0],
+                 (1+y_limits_[1]-y_limits_[0])*2/3+y_limits_[0],
                  rf'$\eta={gmeq.eta_}$',
                  fontsize=16)
 
@@ -204,7 +221,8 @@ class IndicatrixOld(Graphing):
         """
         TBD
         """
-        xy_ = (2.5, -2) if zoom_factor >= 1 else (1.25, 0.9)
+        xy_ = (2.5, -2) if zoom_factor >= 1 \
+            else (1.25, 0.9)
         plt.text(*xy_,
                  rf'$\varphi={varphi_}\quad\eta={gmeq.eta_}$',
                  horizontalalignment='center',
@@ -240,29 +258,54 @@ class IndicatrixOld(Graphing):
         """
         p_ = np.sqrt(px_**2+pz_**2)
         # Arrow for rdot direction
-        plt.arrow(0, 0, rdotx_, rdotz_,
-                  head_width=0.08, head_length=0.16, lw=1,
-                  length_includes_head=True, ec='r', fc='r')
+        plt.arrow(0,
+                  0,
+                  rdotx_,
+                  rdotz_,
+                  head_width=0.08,
+                  head_length=0.16,
+                  lw=1,
+                  length_includes_head=True,
+                  ec='r',
+                  fc='r')
         # Fishbone for p direction
         np_ = int(0.5+((p_)*5)) if p_ >= 0.2 else 1
         hw_ = 0.2  # if do_half else 0.2
-        plt.arrow(px_, pz_, -px_, -pz_, color='b',
-                  head_width=hw_, head_length=-0.1, lw=1,
-                  shape='full', overhang=1,
+        plt.arrow(px_,
+                  pz_,
+                  -px_,
+                  -pz_,
+                  color='b',
+                  head_width=hw_,
+                  head_length=-0.1,
+                  lw=1,
+                  shape='full',
+                  overhang=1,
                   length_includes_head=True,
                   head_starts_at_zero=False,
                   ec='b')
         for i_head in list(range(1, np_)):
             len_head = i_head/(np_)
-            plt.arrow(0, 0, px_*len_head, pz_*len_head,
-                      head_width=hw_, head_length=0, lw=1,
-                      shape='full', overhang=0,
+            plt.arrow(0, 0,
+                      px_*len_head,
+                      pz_*len_head,
+                      head_width=hw_,
+                      head_length=0,
+                      lw=1,
+                      shape='full',
+                      overhang=0,
                       length_includes_head=True,
                       ec='b')
         len_head = 1
-        plt.arrow(0, 0, px_*len_head, pz_*len_head,
-                  head_width=hw_*2.5, head_length=0, lw=2,
-                  shape='full', overhang=0,
+        plt.arrow(0,
+                  0,
+                  px_*len_head,
+                  pz_*len_head,
+                  head_width=hw_*2.5,
+                  head_length=0,
+                  lw=2,
+                  shape='full',
+                  overhang=0,
                   length_includes_head=True,
                   ec='b')
 
@@ -332,35 +375,62 @@ class IndicatrixOld(Graphing):
         TBD
         """
         # alpha arc
-        plt.text(0.45, -0.05, r'$\alpha$', color='DarkRed',
+        plt.text(0.45,
+                 -0.05,
+                 r'$\alpha$',
+                 color='DarkRed',
                  # transform=axes.transAxes,
                  fontsize=12,
-                 horizontalalignment='center', verticalalignment='center')
+                 horizontalalignment='center',
+                 verticalalignment='center')
         axes.add_patch(
-            mpatches.Arc((0, 0), 1.2, 1.2, color='DarkRed',
-                         linewidth=0.5, fill=False, zorder=2,
+            mpatches.Arc((0, 0),
+                         1.2,
+                         1.2,
+                         color='DarkRed',
+                         linewidth=0.5,
+                         fill=False,
+                         zorder=2,
                          theta1=270,
                          theta2=90+np.rad2deg(np.arctan(tanalpha_)))
             )
         # beta arc
-        plt.text(0.08, -0.30, r'$\beta$', color='DarkBlue',
+        plt.text(0.08,
+                 -0.30,
+                 r'$\beta$',
+                 color='DarkBlue',
                  # transform=axes.transAxes,
                  fontsize=10,
-                 horizontalalignment='center', verticalalignment='center')
+                 horizontalalignment='center',
+                 verticalalignment='center')
         axes.add_patch(
-            mpatches.Arc((0, 0), 0.9, 0.9, color='DarkBlue',
-                         linewidth=0.5, fill=False, zorder=2,
+            mpatches.Arc((0, 0),
+                         0.9,
+                         0.9,
+                         color='DarkBlue',
+                         linewidth=0.5,
+                         fill=False, zorder=2,
                          theta1=270,
                          theta2=270+np.rad2deg(beta_))
             )
         # "faster" direction
-        plt.text(3.05, 1.6, 'faster', color='r',  # transform=axes.transAxes,
-                 fontsize=12, rotation=55,
-                 horizontalalignment='center', verticalalignment='center')
+        plt.text(3.05,
+                 1.6,
+                 'faster',
+                 color='r',  # transform=axes.transAxes,
+                 fontsize=12,
+                 rotation=55,
+                 horizontalalignment='center',
+                 verticalalignment='center')
         # "faster" direction
-        plt.text(1.03, -2, 'slower', color='b',  # transform=axes.transAxes,
-                 fontsize=12, rotation=-85,
-                 horizontalalignment='center', verticalalignment='center')
+        plt.text(1.03,
+                 -2,
+                 'slower',
+                 color='b',  # transform=axes.transAxes,
+                 fontsize=12,
+                 rotation=-85,
+                 horizontalalignment='center',
+                 verticalalignment='center')
 
     def legend(
         self,
@@ -443,9 +513,9 @@ class IndicatrixOld(Graphing):
 
     def plot_figuratrix(
         self,
-        fgtx_px_array,
-        fgtx_pz_array,
-        maybe_recip_fn,
+        fgtx_px_array: np.ndarray,
+        fgtx_pz_array: np.ndarray,
+        maybe_recip_fn: Callable,
         do_ray_slowness: bool = False
     ) -> None:
         """
@@ -454,9 +524,14 @@ class IndicatrixOld(Graphing):
         # label = r'normal speed' if do_ray_slowness else r'figuratrix $F^*$'
         label = r'normal velocity' if do_ray_slowness else r'normal slowness'
         plt.plot(*maybe_recip_fn(-fgtx_px_array, fgtx_pz_array),
-                 lw=2, c='DarkBlue', ls='-', label=label)
+                 lw=2,
+                 c='DarkBlue',
+                 ls='-',
+                 label=label)
         plt.plot(*maybe_recip_fn(fgtx_px_array, fgtx_pz_array),
-                 lw=2, c='DarkBlue', ls='-')
+                 lw=2,
+                 c='DarkBlue',
+                 ls='-')
 
     def plot_indicatrix(
         self,
@@ -471,9 +546,14 @@ class IndicatrixOld(Graphing):
         # label = r'ray slowness' if do_ray_slowness else r'indicatrix $F$'
         label = r'ray slowness' if do_ray_slowness else r'ray velocity'
         plt.plot(*maybe_recip_fn(idtx_rdotx_array, idtx_rdotz_array),
-                 lw=2, c='DarkRed', ls='-', label=label)
+                 lw=2,
+                 c='DarkRed',
+                 ls='-',
+                 label=label)
         plt.plot(*maybe_recip_fn(-idtx_rdotx_array, idtx_rdotz_array),
-                 lw=2, c='DarkRed', ls='-')
+                 lw=2,
+                 c='DarkRed',
+                 ls='-')
 
     def plot_unit_circle(
         self,
@@ -486,11 +566,16 @@ class IndicatrixOld(Graphing):
         unit_circle_beta_array = np.linspace(0, np.pi)
         plt.plot(np.cos(unit_circle_beta_array*2),
                  np.sin(unit_circle_beta_array*2),
-                 lw=1, c='g', ls='-', label='unit circle')
+                 lw=1, c='g',
+                 ls='-',
+                 label='unit circle')
         if do_varphi_circle:
             plt.plot(varphi_*np.cos(unit_circle_beta_array*2),
                      varphi_*np.sin(unit_circle_beta_array*2),
-                     lw=1, c='g', ls=':', label=rf'$\varphi={varphi_}$')
+                     lw=1,
+                     c='g',
+                     ls=':',
+                     label=rf'$\varphi={varphi_}$')
 
     def relative_geometry(
         self,
@@ -553,11 +638,11 @@ class IndicatrixOld(Graphing):
         _ = self.create_figure(name, fig_size=fig_size, dpi=dpi)
 
         # Adjust plot scale, limits
-        axes = plt.gca()
+        axes: Axes = plt.gca()
         axes.set_aspect(1)
         plt.grid(True, ls=':')
-        x_min = -0.1 if do_half else -x_max
-        y_minmax = 2.4 if gmeq.eta_ >= 1 else 2.4
+        x_min: float = -0.1 if do_half else -x_max
+        y_minmax: float = 2.4 if gmeq.eta_ >= 1 else 2.4
         zoomx = np.array([x_min, x_max]) * zoom_factor
         zoomz = np.array([-y_minmax, y_minmax]) * zoom_factor
         plt.xlim(zoomx)
@@ -589,10 +674,15 @@ class IndicatrixOld(Graphing):
         # Compute some stuff
         pdict = points_tangents_dicts[varphi_]
         fgtx_px_array, fgtx_pz_array, px_pz_eqn \
-            = self.figuratrix(gmeq, varphi_, n_points)
+            = self.figuratrix(gmeq,
+                              varphi_,
+                              n_points)
         idtx_rdotx_array, idtx_rdotz_array, rdotx_pz_eqn, rdotz_pz_eqn \
-            = self.indicatrix(gmeq, varphi_, n_points,
-                              pz_min_=pdict['pz_min'], pz_max_=pdict['pz_max'])
+            = self.indicatrix(gmeq,
+                              varphi_,
+                              n_points,
+                              pz_min_=pdict['pz_min'],
+                              pz_max_=pdict['pz_max'])
         pz_ = -np.cos(np.pi/4)
         px_ = float(N(re(px_pz_eqn.rhs.subs({pz: pz_}))))
         rdotx_ = float(re(rdotx_pz_eqn.rhs.subs({pz: pz_})))
@@ -602,15 +692,25 @@ class IndicatrixOld(Graphing):
                       'rdotx': rdotx_, 'rdotz': rdotz_})
 
         # Do the plotting
-        self.plot_indicatrix(idtx_rdotx_array, idtx_rdotz_array,
-                             maybe_recip_fn, do_ray_slowness)
-        self.plot_figuratrix(fgtx_px_array, fgtx_pz_array,
-                             maybe_recip_fn, do_ray_slowness)
+        self.plot_indicatrix(idtx_rdotx_array,
+                             idtx_rdotz_array,
+                             maybe_recip_fn,
+                             do_ray_slowness)
+        self.plot_figuratrix(fgtx_px_array,
+                             fgtx_pz_array,
+                             maybe_recip_fn,
+                             do_ray_slowness)
         self.plot_unit_circle(varphi_, do_varphi_circle)
         if do_lines_points:
             self.lines_and_points(pdict, axes, zoomx, do_pz, do_shapes)
-        self.text_labels(gmeq, varphi_, px_, pz_, rdotx_, rdotz_,
-                         zoom_factor, do_text_labels)
+        self.text_labels(gmeq,
+                         varphi_,
+                         px_,
+                         pz_,
+                         rdotx_,
+                         rdotz_,
+                         zoom_factor,
+                         do_text_labels)
         if do_arrows:
             self.arrows(px_, pz_, rdotx_, rdotz_)
         # if do_annotations: self.annotations(axes, beta_, tanalpha_)

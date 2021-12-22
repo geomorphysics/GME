@@ -23,11 +23,9 @@ Requires Python packages/modules:
 # Library
 import warnings
 import logging
+from typing import Tuple, List, Optional, Union, Type
 
-# Typing
-from typing import Tuple, List, Optional
-
-# Numpy
+# NumPy
 import numpy as np
 
 # SymPy
@@ -86,9 +84,13 @@ class Manuscript(Graphing):
         gray1_: str = self.gray_color(1, n_gray)
         gray2_: str = self.gray_color(2, n_gray)
 
-        def remove_ticks_etc(axes_) -> None:
+        def remove_ticks_etc(axes_: Axes) -> None:
             r"""
             Clean off ticks etc from graph axes so they become simple boxes.
+
+            Args:
+                axes:
+                    Graph 'axes' object
             """
             axes_.set_xticklabels([])
             axes_.set_xticks([])
@@ -144,32 +146,38 @@ class Manuscript(Graphing):
             r"""
             TBD
             """
-            x = np.linspace(0, 1)
-            x_ndim = (x-0.5)/(0.9-0.5)
-            y = np.exp((0.5+x)*4)/120
+            x: np.ndarray = np.linspace(0, 1)
+            x_ndim: np.ndarray = (x-0.5)/(0.9-0.5)
+            y: np.ndarray = np.exp((0.5+x)*4)/120
             return (x_ndim, y)
 
-        def isochrones_subfig(fig_, x_, y_, color_=gray_) \
-                -> Tuple[Axes, List[float]]:
+        def isochrones_subfig(
+            fig_: Figure,
+            x_: np.ndarray,
+            y_: np.ndarray,
+            color_: str = gray_
+        ) -> Tuple[Axes, Tuple[float, float]]:
             r"""
             TBD
             """
             # Top left isochrones 0
-            size_zoom_0 = [0.65, 0.55]
-            posn_0 = [0.0, 0.75]
+            size_zoom_0: Tuple[float, float] = (0.65, 0.55)
+            posn_0: Tuple[float, float] = (0.0, 0.75)
             axes_0 = fig_.add_axes([*posn_0, *size_zoom_0])
             plt.axis('off')
             n_isochrones = 6
             for i_, sf_ in enumerate(np.linspace(0.5, 1.2, n_isochrones)):
-                plt.plot(x_, sf_*y_, '-',
-                         color=self.gray_color(i_, n_gray), lw=2.5)
+                plt.plot(*(x_, sf_*y_),
+                         '-',
+                         color=self.gray_color(i_, n_gray),
+                         lw=2.5)
             plt.xlim(0, 1)
             plt.ylim(0, 1)
             sf1_ = 1.3
             sf2_ = 1.3
-            arrow_xy_ = np.array([0.2, 0.8])
-            arrow_dxy_ = np.array([-0.025, 0.15])
-            motion_xy_ = [0.1, 0.8]
+            arrow_xy_: np.ndarray = np.array([0.2, 0.8])
+            arrow_dxy_: np.ndarray = np.array([-0.025, 0.15])
+            motion_xy_: Tuple[float, float] = (0.1, 0.8)
             motion_angle_ = 23
             my_arrow_style = ArrowStyle.Simple(head_length=1*sf1_,
                                                head_width=1*sf1_,
@@ -188,36 +196,41 @@ class Manuscript(Graphing):
                      transform=axes_0.transAxes,
                      horizontalalignment='center',
                      verticalalignment='center')
-            return axes_0, posn_0
+            return (axes_0, posn_0)
 
-        def set_colors(obj_type, axes_list, color_) -> None:
+        def set_colors(
+            obj_type: Type,
+            axes_list: List[Axes],
+            color_: str
+        ) -> None:
             r"""
             TBD
             """
+            # logging.info(type(obj_type))
             for axes_ in axes_list:
                 _ = [child.set_color(color_) for child in axes_.get_children()
                      if isinstance(child, obj_type)]
 
         def zoom_boxes(
-            fig_,
-            ta_color_=gray2_,
-            tb_color_=gray1_
+            fig_: Figure,
+            ta_color_: str = gray2_,
+            tb_color_: str = gray1_
         ) -> Tuple[Axes, Axes, Axes, Axes, str]:  # mpl.axes._axes.
             r"""
             TBD
             """
-            size_zoom_AB = [0.3, 0.7]
-            size_zoom_C = [0.3, 0.7]
-            n_pts = 300
+            size_zoom_AB: Tuple[float, float] = (0.3, 0.7)
+            size_zoom_C: Tuple[float, float] = (0.3, 0.7)
+            n_pts: int = 300
 
             def zoomed_isochrones(
-                    axes_,
-                    name_text,
-                    i_pt1_,
-                    i_pt2_,
-                    do_many=False,
-                    do_legend=False,
-                    do_pts_only=False
+                axes_: Axes,
+                name_text: str,
+                i_pt1_: Union[int, List[int]],
+                i_pt2_: int,  # Union[int, List[int]],
+                do_many: bool = False,
+                do_legend: bool = False,
+                do_pts_only: bool = False
             ) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
                 x_array = np.linspace(-1, 3, n_pts)
                 y_array1 = x_array*0.5
@@ -250,9 +263,14 @@ class Manuscript(Graphing):
                              verticalalignment='center')
                 # Tb
                 if not do_pts_only:
-                    plt.plot(x_array, y_array1, '-', color=tb_color_, lw=2.5,
+                    plt.plot(x_array,
+                             y_array1,
+                             '-',
+                             color=tb_color_,
+                             lw=2.5,
                              label=r'$T_b = T_a+\Delta{T}$')
-                i_pts1 = [i_pt1_]
+                # if isinstance(i_pt1_, List) else [i_pt1_]
+                i_pts1: List = [i_pt1_]
                 xy_pts1_tmp \
                     = np.array(
                         [np.array([x_array[i_pt1__], y_array1[i_pt1__]])
@@ -264,7 +282,8 @@ class Manuscript(Graphing):
                     else xy_pts1_tmp
                 marker_style1 = marker_style2.copy()
                 marker_style1.update(
-                    {'markeredgecolor': tb_color_, 'markerfacecolor': 'w'})
+                    {'markeredgecolor': tb_color_, 'markerfacecolor': 'w'}
+                )
                 for xy_pt1_ in xy_pts1:
                     plt.plot(*xy_pt1_, **marker_style1)
 
@@ -304,16 +323,16 @@ class Manuscript(Graphing):
                 )
 
             def v_arrow(
-                axes_,
-                xy_pt1,
-                xy_pt2,
-                dxy=None,
-                a_f=0.54,
-                v_f=0.5,
-                v_label=r'$\mathbf{v}$',
-                color_=red_,
-                do_dashing=False,
-                do_label=False
+                axes_: Axes,
+                xy_pt1: np.ndarray,
+                xy_pt2: np.ndarray,
+                dxy: Tuple[float, float],
+                a_f: float = 0.54,
+                v_f: float = 0.5,
+                v_label: str = r'$\mathbf{v}$',
+                color_: str = red_,
+                do_dashing: bool = False,
+                do_label: bool = False
             ) -> None:
                 v_lw = 1.5
                 axes_.arrow(*((xy_pt1*a_f+xy_pt2*(1-a_f))),
@@ -344,14 +363,14 @@ class Manuscript(Graphing):
                                verticalalignment='bottom')
 
             def p_bones(
-                axes_,
-                xy_pt1,
-                xy_pt2,
-                dxy,
-                p_f=0.9,
-                color_=blue_,
-                n_bones=5,
-                do_primary=True
+                axes_: Axes,
+                xy_pt1: np.ndarray,
+                xy_pt2: np.ndarray,
+                dxy: np.ndarray,
+                p_f: float = 0.9,
+                color_: str = blue_,
+                n_bones: int = 5,
+                do_primary: bool = True
             ) -> None:
                 alpha_ = 0.7
                 p_dashing = [1, 0]  # [4, 4]
@@ -390,12 +409,12 @@ class Manuscript(Graphing):
                                verticalalignment='bottom')
 
             def psi_label(
-                axes_,
-                xy_pt1_B,
-                xy_pt2_B,
-                xy_pt1_C,
-                xy_pt2_C,
-                color_=red_
+                axes_: Axes,
+                xy_pt1_B: np.ndarray,
+                xy_pt2_B: np.ndarray,
+                xy_pt1_C: np.ndarray,
+                xy_pt2_C: np.ndarray,
+                color_: str = red_
             ) -> None:
                 label_xy = [0.5, 0.53]
                 axes_.text(*label_xy,
@@ -430,10 +449,10 @@ class Manuscript(Graphing):
                                     theta2=angle_C-angle_B))
 
             def beta_label(
-                axes_,
-                xy_pt1_B,
-                xy_pt2_B,
-                color_=blue_
+                axes_: Axes,
+                xy_pt1_B: np.ndarray,
+                xy_pt2_B: np.ndarray,
+                color_: str = blue_
             ) -> None:
                 label_xy = [0.28, 0.47]
                 axes_.text(*label_xy,
@@ -469,10 +488,10 @@ class Manuscript(Graphing):
                            color=color_)
 
             def alpha_label(
-                axes_,
-                xy_pt1_B,
-                xy_pt2_B,
-                color_=red_
+                axes_: Axes,
+                xy_pt1_B: np.ndarray,
+                xy_pt2_B: np.ndarray,
+                color_: str = red_
             ) -> None:
                 label_xy = [0.55, 0.75]
                 axes_.text(*label_xy,
@@ -520,6 +539,7 @@ class Manuscript(Graphing):
             remove_ticks_etc(axes_A)
             i_pt2_A = 92
             i_pts1_A = [i_pt2_A+i_ for i_ in np.arange(-43, 100, 15)]
+            # logging.info(type(i_pts1_A))
             (xy_pts1_A, xy_pt2_A, _) \
                 = zoomed_isochrones(axes_A,
                                     'free',
@@ -530,7 +550,7 @@ class Manuscript(Graphing):
                 v_arrow(axes_A,
                         xy_pt1_A,
                         xy_pt2_A,
-                        dxy=[0.12, 0.05],
+                        dxy=(0.12, 0.05),
                         do_dashing=True,
                         v_f=0.35,
                         v_label=r'$\{\mathbf{v}\}$',
@@ -557,7 +577,7 @@ class Manuscript(Graphing):
                     xy_pt1_B,
                     xy_pt2_B,
                     v_f=0.5,
-                    dxy=[0.13, 0.02],
+                    dxy=(0.13, 0.02),
                     do_label=True)
             _ = zoomed_isochrones(axes_B,
                                   '',
@@ -584,7 +604,7 @@ class Manuscript(Graphing):
                     xy_pt2_C,
                     a_f=0.8,
                     v_f=0.72,
-                    dxy=[0.1, 0.05],
+                    dxy=(0.1, 0.05),
                     do_label=True)
             _ = zoomed_isochrones(axes_C,
                                   '',
@@ -601,12 +621,17 @@ class Manuscript(Graphing):
             set_colors(Spine, [axes_A, axes_B, axes_C, axes_D], brown_)
             return axes_A, axes_B, axes_C, axes_D, brown_
 
-        x, y = make_xy()
-        _, posn_0 = isochrones_subfig(fig, x, y)
-        axes_A, axes_B, axes_C, axes_D, _ = zoom_boxes(fig)
+        (x, y) = make_xy()
+        (_, posn_0) = isochrones_subfig(fig, x, y)
+        (axes_A, axes_B, axes_C, axes_D, _) = zoom_boxes(fig)
         linking_lines(fig, axes_A, axes_B, axes_C, axes_D)
 
-    def covector_isochrones(self, name, fig_size=None, dpi=None) -> None:
+    def covector_isochrones(
+        self,
+        name: str,
+        fig_size: Optional[Tuple[float, float]] = None,
+        dpi: Optional[int] = None,
+    ) -> None:
         """
         Schematic illustrating relationship between normal erosion rate vector,
         normal slowness covector, isochrones, covector components,
@@ -773,7 +798,8 @@ class Manuscript(Graphing):
                  '$x$',
                  horizontalalignment='left',
                  verticalalignment='center',
-                 fontsize=20, color='k')
+                 fontsize=20,
+                 color='k')
         plt.text(x_limit/10-0.265+x_off,
                  y_limit*0.7+0.2+y_off,
                  '$z$',
@@ -790,7 +816,8 @@ class Manuscript(Graphing):
                  rotation=beta_deg,
                  horizontalalignment='center',
                  verticalalignment='bottom',
-                 fontsize=15,  color='Gray')
+                 fontsize=15,
+                 color='Gray')
 
         # Angle arc and text
         arc_radius = 1.35
@@ -839,33 +866,51 @@ class Manuscript(Graphing):
 
         # Unit normal n vector
         off_x, off_z = 1.1, 0.55
-        plt.text(origin_[0]+off_x, origin_[1]+off_z,
+        plt.text(origin_[0]+off_x,
+                 origin_[1]+off_z,
                  r'$\mathbf{n} = $',
-                 horizontalalignment='right', verticalalignment='center',
-                 fontsize=15,  color='k')
-        plt.text(origin_[0]+off_x, origin_[1]+off_z,
+                 horizontalalignment='right',
+                 verticalalignment='center',
+                 fontsize=15,
+                 color='k')
+        plt.text(origin_[0]+off_x,
+                 origin_[1]+off_z,
                  r'$\left[ \,\genfrac{}{}{0}{}{\sqrt{3}/{2}}{-1/2}\, \right]$',
                  #  \binom{\sqrt{3}/{2}}{-1/2}
-                 horizontalalignment='left', verticalalignment='center',
-                 fontsize=20,  color='k')
+                 horizontalalignment='left',
+                 verticalalignment='center',
+                 fontsize=20,
+                 color='k')
 
         # p text annotations
-        plt.text(origin_[0]+1.7, origin_[1]+0.1,
+        plt.text(origin_[0]+1.7,
+                 origin_[1]+0.1,
                  r'${{p}}_x(\mathbf{{n}}) = 3$',
-                 horizontalalignment='center', verticalalignment='bottom',
-                 fontsize=18, color=p_color)
-        plt.text(origin_[0]+0.1, origin_[1]-1,
+                 horizontalalignment='center',
+                 verticalalignment='bottom',
+                 fontsize=18,
+                 color=p_color)
+        plt.text(origin_[0]+0.1,
+                 origin_[1]-1,
                  r'${{p}}_z(\mathbf{{n}}) = 1$',
-                 horizontalalignment='left', verticalalignment='center',
-                 fontsize=18, color=p_color)
-        plt.text(origin_[0]+1.77, origin_[1]-1.05,
+                 horizontalalignment='left',
+                 verticalalignment='center',
+                 fontsize=18,
+                 color=p_color)
+        plt.text(origin_[0]+1.77,
+                 origin_[1]-1.05,
                  r'$\mathbf{\widetilde{p}}(\mathbf{{n}}) = p = 4$',
-                 horizontalalignment='left', verticalalignment='center',
-                 fontsize=18, color=p_color)
-        plt.text(origin_[0]+1, origin_[1]-0.4,
+                 horizontalalignment='left',
+                 verticalalignment='center',
+                 fontsize=18,
+                 color=p_color)
+        plt.text(origin_[0]+1,
+                 origin_[1]-0.4,
                  r'$\mathbf{\widetilde{p}} = [2\sqrt{3} \,\,\, -\!2]$',
-                 horizontalalignment='left', verticalalignment='center',
-                 fontsize=18, color=p_color)
+                 horizontalalignment='left',
+                 verticalalignment='center',
+                 fontsize=18,
+                 color=p_color)
 
         # u arrows
         lw_u = 3
@@ -1016,11 +1061,11 @@ class Manuscript(Graphing):
 
         def trace_indicatrix(
             sub,
-            n_points,
-            xy_offset,
-            sf=1,
-            pz_min_=2.5e-2,
-            pz_max_=1000
+            n_points: int,
+            xy_offset: Tuple[float, float],
+            sf: float = 1,
+            pz_min_: float = 2.5e-2,
+            pz_max_: float = 1000
         ) -> Tuple[np.ndarray, np.ndarray]:
             r"""
             TBD
@@ -1115,8 +1160,7 @@ class Manuscript(Graphing):
         lw = 3.0 if do_ray_conjugacy else 5.0
         l_erosion_arrow = 0.4
         gray_ = self.gray_color(2, 5)
-        plt.arrow(rx_,
-                  rz_,
+        plt.arrow(*(rx_, rz_),
                   l_erosion_arrow*np.tan(beta_)*sf,
                   -l_erosion_arrow*sf,
                   head_width=0.15*sf,
@@ -1132,8 +1176,7 @@ class Manuscript(Graphing):
         (off_x, off_z) \
             = (-0.002, +0.015) if do_ray_conjugacy else (0.02, -0.005)
         rotation = beta_deg if do_ray_conjugacy else beta_deg-90
-        plt.text(rx_+off_x,
-                 rz_+off_z,
+        plt.text(*(rx_+off_x, rz_+off_z),
                  'erosion',
                  rotation=rotation,
                  horizontalalignment='center',
@@ -1169,7 +1212,7 @@ class Manuscript(Graphing):
             (idtx_rdotx_array, idtx_rdotz_array) \
                 = trace_indicatrix({varphi: varphi_},
                                    n_points=n_points,
-                                   xy_offset=[rx_, rz_],
+                                   xy_offset=(rx_, rz_),
                                    sf=dt_,
                                    pz_min_=1e-3,
                                    pz_max_=pz_max_)
@@ -1243,17 +1286,15 @@ class Manuscript(Graphing):
                      markeredgewidth=1.5)
 
             # Normal slownesses
-            plt.plot(
-                [rx_, rx_+dpx_],
-                [rz_, rz_+dpz_],
-                '-',
-                c=p_color,
-                lw=3 if do_ray_conjugacy else r_width,
-                label='front increment  '
-                + r'$\mathbf{\widetilde{p}}\Delta{t}\,/\,{p}^2$'
-                if i_ == i_from
-                else None
-                )
+            plt.plot([rx_, rx_+dpx_],
+                     [rz_, rz_+dpz_],
+                     '-',
+                     c=p_color,
+                     lw=3 if do_ray_conjugacy else r_width,
+                     label='front increment  '
+                     + r'$\mathbf{\widetilde{p}}\Delta{t}\,/\,{p}^2$'
+                     if i_ == i_from
+                     else None)
 
             sf = 1.5
             plt.arrow(rx_-dpx_*0.15,

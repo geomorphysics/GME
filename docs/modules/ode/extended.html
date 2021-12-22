@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>extended.py &#8212; GME 1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pydoctheme.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+    
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    
+    <script src="../../_static/sidebar.js"></script>
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="solve.py" href="solve.html" />
+    <link rel="prev" title="base.py" href="base.html" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <link rel="shortcut icon" type="image/png" href="../../_static/favicon.png" />
+    <meta name="viewport" content="width=device-width,initial-scale=0.8">
+    
+    
+
+  </head><body>
+    <!-- <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="responsive-menu"><a href="#sidebar-anchor" title="Navigation">&#9776;</a></li>
+        <li><a href="../../index.html">GME 1.0 documentation</a> &#187;</li>
+          <li><a href="../Python.html" >Python package <cite>gme</cite></a> &#187;</li>
+          <li><a href="index.html" accesskey="U"><cite>gme.ode</cite></a> &#187;</li> 
+      </ul>
+    </div> -->
+    <!-- 
+        <div class="badge">
+            <a href="https://github.com/geomorphysics/GME/">Fork me on GitHub</a>
+            <img src="../../_static/right-red@2x.png">
+        </div>
+     -->
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-gme.ode.extended">
+<span id="extended-py"></span><h1><code class="docutils literal notranslate"><span class="pre">extended.py</span></code><a class="headerlink" href="#module-gme.ode.extended" title="Permalink to this headline">¶</a></h1>
+<hr class="docutils" />
+<p>Base module for performing ray tracing of Hamilton’s equations.</p>
+<hr class="docutils" />
+<dl class="simple">
+<dt>Requires Python packages/modules:</dt><dd><ul class="simple">
+<li><p><a class="reference external" href="https://numpy.org/doc/stable/reference/index.html#module-numpy" title="(in NumPy v1.21)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">NumPy</span></code></a></p></li>
+<li><p><a class="reference external" href="https://github.com/geomorphysics/GME">GME</a></p></li>
+</ul>
+</dd>
+</dl>
+<hr class="docutils" />
+<dl class="py class">
+<dt class="sig sig-object py" id="gme.ode.extended.ExtendedSolution">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gme.ode.extended.</span></span><span class="sig-name descname"><span class="pre">ExtendedSolution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmeq</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="../core/equations.html#gme.core.equations.Equations" title="gme.core.equations.Equations"><span class="pre">gme.core.equations.Equations</span></a><span class="p"><span class="pre">,</span> </span><a class="reference internal" href="../core/equations_extended.html#gme.core.equations_extended.EquationsGeodesic" title="gme.core.equations_extended.EquationsGeodesic"><span class="pre">gme.core.equations_extended.EquationsGeodesic</span></a><span class="p"><span class="pre">,</span> </span><a class="reference internal" href="../core/equations_extended.html#gme.core.equations_extended.EquationsIdtx" title="gme.core.equations_extended.EquationsIdtx"><span class="pre">gme.core.equations_extended.EquationsIdtx</span></a><span class="p"><span class="pre">,</span> </span><a class="reference internal" href="../core/equations_extended.html#gme.core.equations_extended.EquationsIbc" title="gme.core.equations_extended.EquationsIbc"><span class="pre">gme.core.equations_extended.EquationsIbc</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gme.ode.extended.ExtendedSolution" title="Permalink to this definition">¶</a></dt>
+<dd><p>Integration of Hamilton’s equations (ODEs) to solve for
+propagation of a single ray.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="gme.ode.extended.ExtendedSolution.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmeq</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="../core/equations.html#gme.core.equations.Equations" title="gme.core.equations.Equations"><span class="pre">gme.core.equations.Equations</span></a><span class="p"><span class="pre">,</span> </span><a class="reference internal" href="../core/equations_extended.html#gme.core.equations_extended.EquationsGeodesic" title="gme.core.equations_extended.EquationsGeodesic"><span class="pre">gme.core.equations_extended.EquationsGeodesic</span></a><span class="p"><span class="pre">,</span> </span><a class="reference internal" href="../core/equations_extended.html#gme.core.equations_extended.EquationsIdtx" title="gme.core.equations_extended.EquationsIdtx"><span class="pre">gme.core.equations_extended.EquationsIdtx</span></a><span class="p"><span class="pre">,</span> </span><a class="reference internal" href="../core/equations_extended.html#gme.core.equations_extended.EquationsIbc" title="gme.core.equations_extended.EquationsIbc"><span class="pre">gme.core.equations_extended.EquationsIbc</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.ode.extended.ExtendedSolution.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize class instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>gmeq</strong> – GME model equations class instance defined in
+<a class="reference internal" href="../core/equations.html#module-gme.core.equations" title="gme.core.equations"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gme.core.equations</span></code></a></p></li>
+<li><p><strong>parameters</strong> – dictionary of model parameter values to be used for
+equation substitutions</p></li>
+<li><p><strong>**kwargs</strong> – remaining keyword arguments (see base class for details)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<div class="section" id="code">
+<h2>Code<a class="headerlink" href="#code" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">---------------------------------------------------------------------</span>
+
+<span class="sd">Base module for performing ray tracing of Hamilton&#39;s equations.</span>
+
+<span class="sd">---------------------------------------------------------------------</span>
+
+<span class="sd">Requires Python packages/modules:</span>
+<span class="sd">  -  :mod:`NumPy &lt;numpy&gt;`</span>
+<span class="sd">  -  `GME`_</span>
+
+<span class="sd">.. _GMPLib: https://github.com/geomorphysics/GMPLib</span>
+<span class="sd">.. _GME: https://github.com/geomorphysics/GME</span>
+<span class="sd">.. _Matrix:</span>
+<span class="sd">    https://docs.sympy.org/latest/modules/matrices/immutablematrices.html</span>
+
+<span class="sd">---------------------------------------------------------------------</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="c1"># Library</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="c1"># import logging</span>
+<span class="c1"># from functools import lru_cache</span>
+<span class="c1"># from enum import Enum, auto</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">List</span>
+
+<span class="c1"># NumPy</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1"># GME</span>
+<span class="kn">from</span> <span class="nn">gme.core.equations</span> <span class="kn">import</span> <span class="n">Equations</span>
+<span class="kn">from</span> <span class="nn">gme.core.equations_extended</span> \
+    <span class="kn">import</span> <span class="nn">EquationsGeodesic</span><span class="o">,</span> <span class="nn">EquationsIdtx</span><span class="o">,</span> <span class="nn">EquationsIbc</span>
+<span class="kn">from</span> <span class="nn">gme.ode.base</span> <span class="kn">import</span> <span class="n">BaseSolution</span>
+
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ExtendedSolution&#39;</span><span class="p">]</span>
+
+
+<span class="k">class</span> <span class="nc">ExtendedSolution</span><span class="p">(</span><span class="n">BaseSolution</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Integration of Hamilton&#39;s equations (ODEs) to solve for</span>
+<span class="sd">    propagation of a single ray.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">pz0</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">rays</span><span class="p">:</span> <span class="n">List</span>
+
+    <span class="n">t_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+    <span class="n">rx_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+    <span class="n">rz_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+    <span class="n">p_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+    <span class="n">px_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+    <span class="n">pz_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+    <span class="n">rdot_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+    <span class="n">rdotx_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+    <span class="n">rdotz_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+    <span class="n">pdot_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+    <span class="n">pdotx_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+    <span class="n">pdotz_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+    <span class="n">tanalpha_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+    <span class="n">tanbeta_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+    <span class="n">alpha_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+    <span class="n">beta_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+    <span class="n">xiv_p_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+    <span class="n">xiv_v_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+    <span class="n">uhorizontal_p_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+    <span class="n">uhorizontal_v_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+    <span class="n">cosbeta_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+    <span class="n">sinbeta_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+    <span class="n">u_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+    <span class="n">x_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+    <span class="n">h_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+    <span class="n">h_x_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+    <span class="n">h_z_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+    <span class="n">dhdx_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+    <span class="n">beta_vt_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+    <span class="n">beta_ts_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+
+    <span class="n">t_interp_x</span><span class="p">:</span> <span class="n">Callable</span>
+    <span class="n">rz_interp</span><span class="p">:</span> <span class="n">Callable</span>
+    <span class="n">rx_interp_t</span><span class="p">:</span> <span class="n">Callable</span>
+    <span class="n">rz_interp_t</span><span class="p">:</span> <span class="n">Callable</span>
+    <span class="n">x_interp_t</span><span class="p">:</span> <span class="n">Callable</span>
+    <span class="n">p_interp</span><span class="p">:</span> <span class="n">Callable</span>
+    <span class="n">px_interp</span><span class="p">:</span> <span class="n">Callable</span>
+    <span class="n">pz_interp</span><span class="p">:</span> <span class="n">Callable</span>
+    <span class="n">rdot_interp</span><span class="p">:</span> <span class="n">Callable</span>
+    <span class="n">rdotx_interp</span><span class="p">:</span> <span class="n">Callable</span>
+    <span class="n">rdotz_interp</span><span class="p">:</span> <span class="n">Callable</span>
+    <span class="n">pdot_interp</span><span class="p">:</span> <span class="n">Callable</span>
+    <span class="n">pdot_interp_t</span><span class="p">:</span> <span class="n">Callable</span>
+    <span class="n">rdotx_interp_t</span><span class="p">:</span> <span class="n">Any</span>  <span class="c1"># HACK</span>
+    <span class="n">rdotz_interp_t</span><span class="p">:</span> <span class="n">Any</span>  <span class="c1"># HACK</span>
+    <span class="n">rddotx_interp_t</span><span class="p">:</span> <span class="n">Callable</span>
+    <span class="n">rddotz_interp_t</span><span class="p">:</span> <span class="n">Callable</span>
+    <span class="n">beta_p_interp</span><span class="p">:</span> <span class="n">Callable</span>
+    <span class="n">beta_ts_interp</span><span class="p">:</span> <span class="n">Callable</span>
+    <span class="n">beta_ts_error_interp</span><span class="p">:</span> <span class="n">Callable</span>
+    <span class="n">beta_vt_interp</span><span class="p">:</span> <span class="n">Callable</span>
+    <span class="n">beta_vt_error_interp</span><span class="p">:</span> <span class="n">Callable</span>
+    <span class="n">u_interp</span><span class="p">:</span> <span class="n">Callable</span>
+    <span class="n">uhorizontal_p_interp</span><span class="p">:</span> <span class="n">Callable</span>
+    <span class="n">uhorizontal_v_interp</span><span class="p">:</span> <span class="n">Callable</span>
+    <span class="n">u_from_rdot_interp</span><span class="p">:</span> <span class="n">Callable</span>
+    <span class="n">xiv_v_interp</span><span class="p">:</span> <span class="n">Callable</span>
+    <span class="n">xiv_p_interp</span><span class="p">:</span> <span class="n">Callable</span>
+    <span class="n">alpha_interp</span><span class="p">:</span> <span class="n">Callable</span>
+    <span class="n">h_interp</span><span class="p">:</span> <span class="n">Callable</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">gmeq</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Equations</span><span class="p">,</span>
+                    <span class="n">EquationsGeodesic</span><span class="p">,</span>
+                    <span class="n">EquationsIdtx</span><span class="p">,</span>
+                    <span class="n">EquationsIbc</span><span class="p">],</span>
+        <span class="n">parameters</span><span class="p">:</span> <span class="n">Dict</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize class instance.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            gmeq:</span>
+<span class="sd">                GME model equations class instance defined in</span>
+<span class="sd">                :mod:`gme.core.equations`</span>
+<span class="sd">            parameters:</span>
+<span class="sd">                dictionary of model parameter values to be used for</span>
+<span class="sd">                equation substitutions</span>
+<span class="sd">            **kwargs: remaining keyword arguments (see base class for details)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">gmeq</span><span class="p">,</span> <span class="n">parameters</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+
+<span class="c1">#</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+    <a id="sidebar-anchor"></a>
+    
+
+<div id="searchbox" style="display: none" role="search">
+    <a class="biglink" href="../../index.html">
+        <img src="../../_static/gme_icon_varphi_rx.png" />
+    </a>
+  <h3></h3>
+    <form class="search" action="../../search.html" method="get">
+      <div class="ui action left icon input">
+        <i class="search icon"></i>
+        <input type="text" name="q" placeholder="Search...">
+        <div class="ui teal button"></div>
+      </div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<!-- <br> -->
+<script type="text/javascript">$('#searchbox').show(0);</script><h3><a href="../../index.html">Contents</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../Summary.html">  Summary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Presentations.html">  Presentations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Publications.html">  Publications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Design.html">  Software design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Dependencies.html">  Dependencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Installation.html">  Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Running.html">  Running</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Notebooks.html">  Notebooks</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../Python.html">  Python package</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../core/index.html">Core</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">ODE integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plot/index.html">Plotting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../knickpoints/index.html">Knickpoint detection and tracking [in development]</a></li>
+</ul>
+</li>
+</ul>
+
+    <!-- <h3><a href="../../index.html">This page</a></h3> -->
+    <!-- <ul>
+<li><a class="reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">extended.py</span></code></a><ul>
+<li><a class="reference internal" href="#code">Code</a></li>
+</ul>
+</li>
+</ul>
+ -->
+    <p class="biglink">
+        <h3><a href="../../genindex.html"> Index</a></h3>
+    </p>
+  <br>
+  <!-- <p class="biglink"><a class="biglink" href="../../py-modindex.html">
+         Module index</a>
+  <br><br> -->
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="solve.html" title="solve.py"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="base.html" title="base.py"
+             accesskey="P">previous</a> |</li>
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, CPS.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.3.
+    </div>
+  </body>
+</html>

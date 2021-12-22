@@ -21,15 +21,14 @@ Requires Python packages:
 """
 # Library
 import warnings
-
-# Typing
 from typing import Dict, Tuple, Optional
 
-# Numpy
+# NumPy
 import numpy as np
 
 # MatPlotLib
 import matplotlib.pyplot as plt
+from matplotlib.pyplot import Axes
 
 # GME
 from gme.core.equations import Equations
@@ -57,8 +56,8 @@ class CuspVelocity(Graphing):
         fig_size: Optional[Tuple[float, float]] = None,
         dpi: Optional[int] = None,
         x_limits: Tuple[float, float] = (-0.05, 1.05),
-        y_limits: Tuple[float, Optional[float]] = (-5, None),
-        t_limits: Tuple[float, Optional[float]] = (0, None),
+        y_limits: Tuple[Optional[float], Optional[float]] = (-5, None),
+        t_limits: Tuple[Optional[float], Optional[float]] = (0, None),
         legend_loc: str = 'lower right',
         do_x: bool = True,
         do_infer_initiation: bool = True
@@ -72,7 +71,7 @@ class CuspVelocity(Graphing):
                 :mod:`gme.ode.velocity_boundary`
             gmeq:
                 GME model equations class instance defined in
-                :mod:`gme.core.equations`
+                :mod:`gme.core.equations` or similar
             sub:
                 dictionary of model parameter values to be used for
                 equation substitutions
@@ -109,7 +108,7 @@ class CuspVelocity(Graphing):
         x_or_t_array \
             = gmes.cusps['rxz'][:-1][:, 0] if do_x else gmes.cusps['t'][:-1]
         vc_array = np.array(
-            [(x1_-x0_)/(t1_-t0_) for (x0_, z0), (x1_, z1), t0_, t1_
+            [(x1_-x0_)/(t1_-t0_) for ((x0_, z0), (x1_, z1), t0_, t1_)
              in zip(gmes.cusps['rxz'][:-1], gmes.cusps['rxz'][1:],
                     gmes.cusps['t'][:-1], gmes.cusps['t'][1:])]
         )
@@ -122,13 +121,19 @@ class CuspVelocity(Graphing):
             plt.xlabel(r'Time, $t$')
         plt.ylabel(r'Cusp horiz propagation speed,  $c^x$')
 
-        axes = plt.gca()
-        plt.text(0.15, 0.2, rf'$\eta={gmeq.eta_}$', transform=axes.transAxes,
-                 horizontalalignment='center', verticalalignment='center',
-                 fontsize=14, color='k')
+        axes: Axes = plt.gca()
+        plt.text(0.15,
+                 0.2,
+                 rf'$\eta={gmeq.eta_}$',
+                 transform=axes.transAxes,
+                 horizontalalignment='center',
+                 verticalalignment='center',
+                 fontsize=14,
+                 color='k')
 
         x_array \
-            = np.linspace(0.001 if do_infer_initiation else x_or_t_array[0],
+            = np.linspace(0.001 if do_infer_initiation
+                          else x_or_t_array[0],
                           1,
                           num=101)
         # color_cx, color_bounds = 'DarkGreen', 'Green'

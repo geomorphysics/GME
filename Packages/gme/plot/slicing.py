@@ -21,13 +21,13 @@ Requires Python packages:
 
 """
 # pylint: disable=invalid-unary-operand-type
+
+# Library
 import warnings
 import logging
-
-# Typing
 from typing import Tuple, Dict, List, Union, Any, Callable, Optional
 
-# Numpy
+# NumPy
 import numpy as np
 
 # SymPy
@@ -77,12 +77,13 @@ class SlicingMath:
             optionally generate lambdas to held to plot :math:`|v|`
     """
 
-    def __init__(self,
-                 gmeq: Equations,
-                 sub_: Dict,
-                 var_list: List[Symbol],
-                 do_modv: bool = True
-                 ) -> None:
+    def __init__(
+        self,
+        gmeq: Equations,
+        sub_: Dict,
+        var_list: List[Symbol],
+        do_modv: bool = True
+    ) -> None:
         r"""
         Constructor method
         """
@@ -115,10 +116,11 @@ class SlicingMath:
                     ), pzhat)[0]
                 )
 
-    def define_H_lambda(self,
-                        sub_: Dict,
-                        var_list: List[Symbol]
-                        ) -> None:
+    def define_H_lambda(
+        self,
+        sub_: Dict,
+        var_list: List[Symbol]
+    ) -> None:
         r"""
         Generate lambda for :math:`H`
         """
@@ -127,10 +129,11 @@ class SlicingMath:
                        .subs({mu: eta/2}).subs(sub_),
                        'numpy')
 
-    def define_d2Hdpzhat2_lambda(self,
-                                 sub_: Dict,
-                                 var_list: List[Symbol]
-                                 ) -> None:
+    def define_d2Hdpzhat2_lambda(
+        self,
+        sub_: Dict,
+        var_list: List[Symbol]
+     ) -> None:
         r"""
         Generate lambda for :math:`d^2H/d{p_\hat{z}}^2`
         """
@@ -139,10 +142,11 @@ class SlicingMath:
                 ).subs({mu: eta/2}).subs(sub_),
             'numpy')
 
-    def define_detHessianSqrd_lambda(self,
-                                     sub_: Dict,
-                                     var_list: List[Symbol]
-                                     ) -> None:
+    def define_detHessianSqrd_lambda(
+        self,
+        sub_: Dict,
+        var_list: List[Symbol]
+       ) -> None:
         r"""
         Generate lambda for :math:`|\det\{\mathrm{Hessian}\}|^2`
         """
@@ -155,10 +159,11 @@ class SlicingMath:
                 ).subs({mu: eta/2}).subs(sub_),
                 'numpy')
 
-    def define_Ci_lambda(self,
-                         sub_: Dict,
-                         var_list: List[Symbol]
-                         ) -> None:
+    def define_Ci_lambda(
+        self,
+        sub_: Dict,
+        var_list: List[Symbol]
+    ) -> None:
         r"""
         Generate lambda for :math:`\mathsf{Ci}`
         """
@@ -169,10 +174,11 @@ class SlicingMath:
                        .subs(sub_),
                        'numpy')
 
-    def define_Hessian_eigenvals(self,
-                                 sub_: Dict,
-                                 var_list: List[Symbol]
-                                 ) -> None:
+    def define_Hessian_eigenvals(
+        self,
+        sub_: Dict,
+        var_list: List[Symbol]
+     ) -> None:
         r"""
         Generate lambda for eigenvalues of Hessian of H
         """
@@ -195,10 +201,11 @@ class SlicingMath:
             = lambda x_, y_: int(np.sum(np.sign(np.linalg.eigh(
                 np.array(gstar_hessian_lambda(x_, y_), dtype=float))[0])))//2
 
-    def define_gstarhat_lambda(self,
-                               sub_: Dict,
-                               var_list: List[Symbol]
-                               ) -> None:
+    def define_gstarhat_lambda(
+        self,
+        sub_: Dict,
+        var_list: List[Symbol]
+    ) -> None:
         r"""
         Generate lambda for :math:`\mathbf{\hat{g}}_*`
         """
@@ -209,9 +216,10 @@ class SlicingMath:
                        .subs(sub_),
                        modules='numpy')
 
-    def define_v_pxpzhat_lambda(self,
-                                sub_: Dict
-                                ) -> None:
+    def define_v_pxpzhat_lambda(
+        self,
+        sub_: Dict
+    ) -> None:
         r"""
         Generate lambda for :math:`\mathbf{\hat{v}}` (both components).
 
@@ -225,9 +233,10 @@ class SlicingMath:
                                  * Matrix([pxhat, pzhat]))),
                        modules='numpy')
 
-    def define_modv_pxpzhat_lambda(self,
-                                   sub_: Dict
-                                   ) -> None:
+    def define_modv_pxpzhat_lambda(
+        self,
+        sub_: Dict
+     ) -> None:
         r"""
         Generate lambda for :math:`|\mathbf{\hat{v}}|`.
 
@@ -241,10 +250,11 @@ class SlicingMath:
                                  * Matrix([pxhat, pzhat])).norm()),
                        modules='numpy')
 
-    def pxhatsqrd_Ci_polylike_eqn(self,
-                                  sub_: Dict,
-                                  pzhat_: float
-                                  ) -> Eq:
+    def pxhatsqrd_Ci_polylike_eqn(
+        self,
+        sub_: Dict,
+        pzhat_: float
+    ) -> Eq:
         r"""
         TBD
         """
@@ -253,12 +263,13 @@ class SlicingMath:
                .subs(omitdict(sub_, [Ci])))**2
         return Eq(4*numer(tmp)-denom(tmp), 0)
 
-    def pxhat_Ci_soln(self,
-                      eqn_: Eq,
-                      sub_: Dict,
-                      rxhat_: float,
-                      tolerance: float = 1e-3
-                      ) -> float:
+    def pxhat_Ci_soln(
+        self,
+        eqn_: Eq,
+        sub_: Dict,
+        rxhat_: float,
+        tolerance: float = 1e-3
+    ) -> float:
         r"""
         TBD
         """
@@ -268,10 +279,11 @@ class SlicingMath:
                 if Abs(im(soln_)) < tolerance and re(soln_) > 0][0]
         ))
 
-    def pxpzhat0_values(self,
-                        contour_values_: Union[List[float], Tuple[float]],
-                        sub_: Dict
-                        ) -> List[Tuple[float, float]]:
+    def pxpzhat0_values(
+        self,
+        contour_values_: Union[List[float], Tuple[float]],
+        sub_: Dict
+    ) -> List[Tuple[float, float]]:
         r"""
         TBD
         """
@@ -287,9 +299,10 @@ class SlicingMath:
             pxpzhat_values_[i_] = (x_, y_)
         return pxpzhat_values_
 
-    def get_rxhat_pzhat(self,
-                        sub_: Dict[Any, Any]
-                        ) -> List[float]:
+    def get_rxhat_pzhat(
+        self,
+        sub_: Dict[Any, Any]
+    ) -> List[float]:
         r"""
         TBD
         """
@@ -321,12 +334,13 @@ class SlicingPlots(Graphing):
             general font size
     """
 
-    def __init__(self,
-                 gmeq: Equations,
-                 grid_res: int = 301,
-                 dpi: int = 100,
-                 font_size: int = 11
-                 ) -> None:
+    def __init__(
+        self,
+        gmeq: Equations,
+        grid_res: int = 301,
+        dpi: int = 100,
+        font_size: int = 11
+    ) -> None:
         r"""
         Constructor method.
         """
@@ -359,14 +373,15 @@ class SlicingPlots(Graphing):
             = np.meshgrid(self.grid_array,  self.grid_array,
                           sparse=False, indexing='ij')
 
-    def plot_dHdp_slice(self,
-                        sm: SlicingMath,
-                        sub_: Dict,
-                        psub_: Dict,
-                        pxhat_: float,
-                        do_detHessian: bool = False,
-                        do_at_rxcrit: bool = False
-                        ) -> str:
+    def plot_dHdp_slice(
+        self,
+        sm: SlicingMath,
+        sub_: Dict,
+        psub_: Dict,
+        pxhat_: float,
+        do_detHessian: bool = False,
+        do_at_rxcrit: bool = False
+    ) -> str:
         r"""
         TBD
         """
@@ -444,12 +459,13 @@ class SlicingPlots(Graphing):
 
         return fig_name
 
-    def plot_modv_slice(self,
-                        sm: SlicingMath,
-                        sub_: Dict,
-                        psub_: Dict,
-                        do_at_rxcrit: bool = False
-                        ) -> str:
+    def plot_modv_slice(
+        self,
+        sm: SlicingMath,
+        sub_: Dict,
+        psub_: Dict,
+        do_at_rxcrit: bool = False
+    ) -> str:
         r"""
         TBD
         """
@@ -527,13 +543,14 @@ class SlicingPlots(Graphing):
                      transform=axes.transAxes)
         return fig_name
 
-    def H_rxpx_contours(self,
-                        sm,
-                        sub_,
-                        psf,
-                        do_Ci,
-                        **kwargs
-                        ) -> str:
+    def H_rxpx_contours(
+        self,
+        sm: SlicingMath,
+        sub_: Dict,
+        psf: float,
+        do_Ci: bool,
+        **kwargs
+    ) -> str:
         r"""
         TBD
         """
@@ -548,13 +565,14 @@ class SlicingPlots(Graphing):
                                        do_grid=True,
                                        **kwargs)
 
-    def H_pxpz_contours(self,
-                        sm,
-                        sub_,
-                        psf,
-                        do_Ci,
-                        **kwargs
-                        ) -> str:
+    def H_pxpz_contours(
+        self,
+        sm: SlicingMath,
+        sub_: Dict,
+        psf: float,
+        do_Ci: bool,
+        **kwargs
+    ) -> str:
         r"""
         TBD
         """
@@ -569,28 +587,29 @@ class SlicingPlots(Graphing):
                                        do_grid=False,
                                        **kwargs)
 
-    def plot_Hetc_contours(self,
-                           sm: SlicingMath,
-                           grids_: Tuple[Any, Any],
-                           sub_: Dict,
-                           do_Ci: bool,
-                           do_modv: bool = False,
-                           do_fmt_labels: bool = False,
-                           do_aspect: bool = True,
-                           do_rxpx: bool = False,
-                           pxpz_points=None,
-                           do_log2H: bool = False,
-                           do_siggrid: bool = True,
-                           do_black_contours: bool = False,
-                           do_grid: bool = True,
-                           do_at_rxcrit: bool = False,
-                           contour_nlevels:
-                           Optional[Union[int, List, Tuple]] = None,
-                           contour_range: Tuple[float, float] = (0, 1),
-                           v_contour_range: Tuple[float, float] = (0, 1),
-                           contour_values: Optional[List[float]] = None,
-                           contour_label_locs: Optional[List] = None
-                           ) -> str:
+    def plot_Hetc_contours(
+        self,
+        sm: SlicingMath,
+        grids_: Tuple[Any, Any],
+        sub_: Dict,
+        do_Ci: bool,
+        do_modv: bool = False,
+        do_fmt_labels: bool = False,
+        do_aspect: bool = True,
+        do_rxpx: bool = False,
+        pxpz_points=None,
+        do_log2H: bool = False,
+        do_siggrid: bool = True,
+        do_black_contours: bool = False,
+        do_grid: bool = True,
+        do_at_rxcrit: bool = False,
+        contour_nlevels:
+        Optional[Union[int, List, Tuple]] = None,
+        contour_range: Tuple[float, float] = (0, 1),
+        v_contour_range: Tuple[float, float] = (0, 1),
+        contour_values: Optional[List[float]] = None,
+        contour_label_locs: Optional[List] = None
+      ) -> str:
         r"""
         TBD
         """
@@ -740,10 +759,15 @@ class SlicingPlots(Graphing):
                 logging.debug(f'contour_nlevels={contour_nlevels}')
                 logging.debug(f'n_levels_={contour_nlevels}')
                 levels_ = np.concatenate([
-                    np.linspace(0.0, 0.5, n_levels_[0], endpoint=False),
+                    np.linspace(0.0,
+                                0.5,
+                                n_levels_[0],
+                                endpoint=False),
                     np.flip(
-                        np.linspace(contour_range[1], 0.5, n_levels_[
-                                    1], endpoint=False)
+                        np.linspace(contour_range[1],
+                                    0.5,
+                                    n_levels_[1],
+                                    endpoint=False)
                     )
                 ])
                 levels_H0p5 = np.array([0.5])
@@ -757,17 +781,16 @@ class SlicingPlots(Graphing):
                                       n_levels_, endpoint=True)
                 levels_H0p5 = np.array([0])
 
-                def fmt_H_rxpx(H):
-                    H_ = np.round(10**H/2,
-                                  2 if 10**H < 0.5
-                                  else (1 if 10**H < 5 else 0))
-                    return rf'$H={H_:g}$'
+                def fmt_H_rxpx(H_):
+                    H__ = np.round(10**H_/2,
+                                   2 if 10**H_ < 0.5
+                                   else (1 if 10**H_ < 5 else 0))
+                    return rf'$H={H__:g}$'
 
-                def fmt_H_pxpz(H):
-                    return rf'$2H=10^{H:g}$'  # % f'{H:g}'
+                def fmt_H_pxpz(H_): return rf'$2H=10^{H_:g}$'
                 fmt_H = fmt_H_rxpx if do_rxpx else fmt_H_pxpz
 
-                # def fmt_H0p5(H): return r'$H=0.5$'
+                def fmt_H0p5(H): return r'$H=0.5$'
 
                 manual_location = (0.1, -7)
             levels__ = levels_H0p5[0] if levels_ is None \

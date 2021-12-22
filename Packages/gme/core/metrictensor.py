@@ -22,10 +22,10 @@ Requires Python packages/modules:
 # Disable these pylint errors because it doesn't understand SymPy syntax
 #   - notably minus signs in equations flag an error
 # pylint: disable=invalid-unary-operand-type, not-callable
+
+# Library
 import warnings
 import logging
-
-# Typing
 # from typing import Dict, Type, Optional  # , Tuple, Any, List
 
 # SymPy
@@ -44,10 +44,11 @@ class MetricTensorMixin:
     r"""
     Metric tensor equations supplement to equation definition class.
     """
+    # Prerequisites
     eta_: float
+    beta_type: str
     rdot_vec_eqn: Eq
     p_covec_eqn: Eq
-    beta_type: str
     varphi_rx_eqn: Eq
 
     def define_g_eqns(self) -> None:

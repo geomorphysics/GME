@@ -19,22 +19,20 @@ Requires Python packages/modules:
 ---------------------------------------------------------------------
 
 """
+# Library
 import warnings
 import logging
 # from functools import lru_cache
 # from enum import Enum, auto
-
-# Typing
 from typing import List, Dict, Any, Tuple, Callable, Optional
 
 # Abstract classes & methods
 from abc import ABC, abstractmethod
 
-# Numpy
+# NumPy
 import numpy as np
 
 # SciPy
-from scipy.integrate import solve_ivp
 from scipy.interpolate import interp1d
 from scipy.optimize import fsolve
 
@@ -49,185 +47,8 @@ warnings.filterwarnings("ignore")
 rp_tuple: Tuple[str, str, str, str] = ('rx', 'rz', 'px', 'pz')
 rpt_tuple: Tuple[str, str, str, str, str] = rp_tuple+('t',)
 
-__all__ = ['solve_ODE_system',
-           'solve_Hamiltons_equations',
-           'report_progress',
-           'BaseSolution',
-           'ExtendedSolution']
+__all__ = ['BaseSolution']
 
-
-def eventAttr():
-    """
-    TBD
-    """
-    def decorator(func):
-        """
-        TBD
-        """
-        # func.direction = 0
-        func.terminal = True
-        return func
-    return decorator
-
-# Caching would only work if t_array were replaced with something hashable
-#   - worse, to prevent recomputation for variable rz but constant rx,
-#     initial conditions ic would have to be frozen in the calling function
-#     and corrected afterwards
-
-
-def solve_ODE_system(
-    model,
-    method,
-    do_dense: bool,
-    ic: Tuple[float, float, float, float],
-    # t0,t1,nt,
-    t_array: np.ndarray,
-    x_stop: float = 0.999
-) -> Any:
-    """
-    Integrate a coupled system of ODEs - presumed to be Hamilton's equations.
-    """
-    # Define stop condition
-    @eventAttr()
-    def almost_reached_divide(_, y):
-        # function yielding >0 if rx<x1*x_stop ~ along profile
-        #              and  <0 if rx>x1*x_stop ≈ @divide
-        #  - thus triggers an event when rx surpasses x1*x_stop
-        #    because = zero-crossing in -ve sense
-        return y[0]-x_stop
-    #   almost_reached_divide.terminal = True
-
-    # Perform ODE integration
-    # t_array = np.linspace(t0,t1,nt)
-    return solve_ivp(model,
-                     [t_array[0], t_array[-1]],
-                     ic,
-                     method=method,
-                     t_eval=t_array,
-                     dense_output=do_dense,
-                     # min_step=0, #max_step=np.inf,
-                     # rtol=1e-3, atol=1e-6,
-                     events=almost_reached_divide,
-                     vectorized=False)
-
-
-def solve_Hamiltons_equations(
-    model,
-    method,
-    do_dense: bool,
-    ic: Tuple[float, float, float, float],
-    parameters: Dict,
-    t_array: np.ndarray,
-    x_stop: float = 1.0,
-    t_lag: float = 0
-) -> Tuple[Any, Dict[str, np.ndarray]]:
-    """
-    Perform ray tracing by integrating Hamilton's ODEs for r and p.
-    """
-    # Do ODE integration
-    # t0, t1, nt = t_array[0], t_array[-1], len(t_array)
-    ivp_soln = solve_ODE_system(model,
-                                method,
-                                do_dense,
-                                ic,
-                                # t0,t1,nt,
-                                t_array,
-                                x_stop=x_stop)
-
-    # Process solution
-    rp_t_soln = ivp_soln.y
-    rx_array, rz_array = rp_t_soln[0], rp_t_soln[1]
-    logging.debug('ode.base.solve_Hamiltons_equations:'
-                  + f' ic={ic}'
-                  + f' rx[0]={rx_array[0]} rz[0]={np.round(rz_array[0],5)}')
-    # Did we exceed the domain bounds?
-    # If so, find the index of the first point out of bounds,
-    #    otherwise set as None
-    i_end = np.argwhere(rx_array >= parameters[Lc])[0][0] \
-        if len(np.argwhere(rx_array >= parameters[Lc])) > 0 else None
-    if i_end is not None:
-        if rx_array[0] != parameters[Lc]:
-            i_end = min(len(t_array), i_end)
-        else:
-            i_end = min(len(t_array), 2)
-
-    # Record solution
-    rpt_lag_arrays = {}
-    if t_lag > 0:
-        dt = t_array[1]-t_array[0]
-        n_lag = int(t_lag/dt)
-        rpt_lag_arrays['t'] = np.linspace(0, t_lag, num=n_lag, endpoint=False)
-        for rp_idx, rp_ in enumerate(rp_tuple):
-            rpt_lag_arrays[rp_] = np.full(n_lag, rp_t_soln[rp_idx][0])
-    else:
-        n_lag = 0
-        for rpt_ in rpt_tuple:
-            rpt_lag_arrays[rpt_] = np.array([])
-
-    # Report
-    if i_end is not None:
-        logging.debug(
-            'ode.base.solve_Hamiltons_equations:\n\t'
-            + f' from {np.round(rx_array[0],5)},{np.round(rz_array[0],5)}:'
-            + ' out of bounds @ i='
-            + f'{n_lag+i_end if i_end is not None else len(t_array)} '
-            + f'x={np.round(rx_array[-1],5)} t={np.round(t_array[-1],3)}'
-        )
-    else:
-        logging.debug(
-            'ode.base.solve_Hamiltons_equations:\n\t'
-            + f' from {np.round(rx_array[0],5)},{np.round(rz_array[0],5)}: '
-            + f'terminating @ i={len(t_array)} '
-            + f'x={np.round(rx_array[-1],5)} t={np.round(t_array[-1],3)}'
-        )
-
-    rpt_arrays: Dict[str, np.ndarray] = {}
-    rpt_arrays['t'] = np.concatenate(
-        (rpt_lag_arrays['t'], t_array[0:i_end]+t_lag))
-    for rp_idx, rp_ in enumerate(rp_tuple):
-        rpt_arrays[rp_] = np.concatenate(
-            (rpt_lag_arrays[rp_], rp_t_soln[rp_idx][0:i_end]))
-    # print('solve_ODE_system:', rpt_arrays['rx'])
-
-    # return (ivp_soln, rpt_arrays,
-    # (n_lag+i_end if i_end is not None else len(t_array)))
-
-    # print('solve Hamiltons equations #1:',
-    #       i_end, len(rpt_arrays['rx']), rpt_arrays['rx'])
-    # Record the ivp solutions for posterity (but don't use!)
-    # self.solns = [soln_ivp]
-    # print(f"i_end={i_end}, {len(rpt_arrays['t'])}, {len(rpt_arrays['rx'])}")
-    # if i_end is not None:
-    #     # Bug fix here - shouldn't be needed?
-    #     if len(rpt_arrays['rx']) < i_end: i_end = len(rpt_arrays['rx'])
-    #     if self.verbose:
-    #         pass
-    #     for rpt_ in rpt_tuple:
-    #         a = copy(rpt_arrays[rpt_])
-    #         rpt_arrays[rpt_] = a[:i_end]
-    # print('solve Hamiltons equations #2:', rpt_arrays['rx'])
-    return (ivp_soln, rpt_arrays)
-    #           Tuple[Any, Dict[str, ndarray[Any, Any]]]
-    # expected: Tuple[Any, Dict[str, List[ndarray[Any, Any]]]]
-
-
-def report_progress(
-    i: int,
-    n: int,
-    progress_was: float = 0.0,
-    pc_step: float = 1,
-    is_initial_step: bool = False
-) -> float:
-    """
-    Print percentage estimated progress of some ongoing jobzzzsd
-    """
-    progress_now: float \
-        = 100*np.round((100/pc_step)*i/(n-1 if n > 1 else 1)) \
-        / np.round(100/pc_step)
-    if progress_now > progress_was or is_initial_step:
-        print(f'{progress_now:0.0f}% ', end='' if progress_now
-              < 100 else '\n', flush=True)
-    return progress_now
 
 # class Choice(Enum):
 #     HAMILTON = auto()
@@ -377,7 +198,11 @@ class BaseSolution(ABC):
         return lambda t_, rv_: \
             np.ndarray.flatten(drvdt_raw_lambda(rv_[0], rv_[2], rv_[3]))
 
-    def postprocessing(self, spline_order=2, extrapolation_mode=0) -> None:
+    def postprocessing(
+        self,
+        spline_order: int = 2,
+        extrapolation_mode: int = 0
+    ) -> None:
         """
         Generate interpolating functions for (r,p)[t] using ray samples
         """
@@ -460,8 +285,11 @@ class BaseSolution(ABC):
             # self.rpt_isochrones_lowres = self.rpt_isochrones.copy()
             # self.trxz_cusps: List[Tuple[np.ndarray,Any,Any]] = []
 
-        def truncate_isochrone(rpt_isochrone, i_from=None, i_to=None) \
-                -> Dict[str, np.ndarray]:
+        def truncate_isochrone(
+            rpt_isochrone: Dict[str, np.ndarray],
+            i_from: Optional[int] = None,
+            i_to: Optional[int] = None
+        ) -> Dict[str, np.ndarray]:
             """
             TBD
             """
@@ -469,8 +297,11 @@ class BaseSolution(ABC):
                 rpt_isochrone[rp_] = rpt_isochrone[rp_][i_from:i_to]
             return rpt_isochrone
 
-        def find_intercept(rpt_isochrone, slice1, slice2) \
-                -> Tuple[Any, Any, Any, Any]:
+        def find_intercept(
+            rpt_isochrone,
+            slice1,
+            slice2
+        ) -> Tuple[Any, Any, Any, Any]:
             """
             TBD
             """
@@ -532,10 +363,18 @@ class BaseSolution(ABC):
             # self.z2_interp = z2_interp
             # self.xydiff_lambda = xydiff_lambda
 
-            return xz1_intercept, xz2_intercept, pxz1_intercept, pxz2_intercept
+            return \
+                (xz1_intercept, xz2_intercept, pxz1_intercept, pxz2_intercept)
 
-        def eliminate_caustic(is_good_pt_array, rpt_isochrone) \
-                -> Tuple[Dict[str, np.ndarray], Tuple[Any, Any, Any]]:
+        def eliminate_caustic(
+            is_good_pt_array: np.ndarray,
+            rpt_isochrone
+        ) -> Tuple[
+                Dict[str, np.ndarray],
+                Tuple[Optional[np.ndarray],
+                      Optional[np.ndarray],
+                      Optional[np.ndarray]]
+                ]:
             """
             TBD
             """
@@ -620,15 +459,23 @@ class BaseSolution(ABC):
                 rpt_isochrone_rtn.update({rp_: isochrone_})
             rpt_isochrone_rtn.update({'t': rpt_isochrone['t']})
 
-            return rpt_isochrone_rtn, \
-                ((rpt_isochrone['t'], np.array(rxz1_intercept)),
-                 np.array(pxz1_intercept), np.array(pxz2_intercept)) \
-                if rxz1_intercept[0] > 0 \
+            intercept: Tuple[Optional[np.ndarray],
+                             Optional[np.ndarray],
+                             Optional[np.ndarray]]
+            if rxz1_intercept[0] > 0 \
                 and (dont_crop_cusps
-                     or rxz1_intercept[0] <= self.parameters[Lc]) \
-                else (None, None, None)
+                     or rxz1_intercept[0] <= self.parameters[Lc]):
+                intercept = (
+                    # (rpt_isochrone['t'],
+                    np.array(rxz1_intercept),
+                    np.array(pxz1_intercept),
+                    np.array(pxz2_intercept)
+                )
+            else:
+                intercept = (None, None, None)
+            return (rpt_isochrone_rtn, intercept)
 
-        def compose_isochrone(t_) -> Dict[str, np.ndarray]:
+        def compose_isochrone(t_: float) -> Dict[str, np.ndarray]:
             """
             TBD
             """
@@ -647,8 +494,10 @@ class BaseSolution(ABC):
             rpt_isochrone.update({'t': t_})
             return rpt_isochrone
 
-        def resample_isochrone(rpt_isochrone_in, n_resample_pts) \
-                -> Dict[str, np.ndarray]:
+        def resample_isochrone(
+            rpt_isochrone_in: Dict,
+            n_resample_pts: int
+        ) -> Dict[str, np.ndarray]:
             """
             TBD
             """
@@ -679,8 +528,12 @@ class BaseSolution(ABC):
         # Crop out-of-bounds points and points on caustics
         #   for the current isochrone
 
-        def clean_isochrone(rpt_isochrone) \
-                -> Tuple[Dict[str, np.ndarray], Tuple[Any, Any, Any]]:
+        def clean_isochrone(
+            rpt_isochrone: Dict
+        ) -> Tuple[Optional[Dict[str, np.ndarray]],
+                   Tuple[Optional[np.ndarray],
+                         Optional[np.ndarray],
+                         Optional[np.ndarray]]]:
             """
             TBD
             """
@@ -701,23 +554,24 @@ class BaseSolution(ABC):
             #   (t_rxz_intercept, pxz1_intercept, pxz2_intercept) \
             #         = eliminate_caustic(is_good_pt_array, rpt_isochrone)
             #            if do_eliminate_caustics else None, (None,None,None)
+            rtn: Tuple[Optional[Dict[str, np.ndarray]],
+                       Tuple[Optional[np.ndarray],
+                             Optional[np.ndarray],
+                             Optional[np.ndarray]]]
+            # (rpt_isochrone,
+            #  (t_rxz_intercept, pxz1_intercept, pxz2_intercept)) \
             if do_eliminate_caustics:
-                (rpt_isochrone,
-                 (t_rxz_intercept, pxz1_intercept, pxz2_intercept)) \
-                    = eliminate_caustic(is_good_pt_array, rpt_isochrone)
+                rtn = eliminate_caustic(is_good_pt_array, rpt_isochrone)
             else:
-                (rpt_isochrone,
-                 (t_rxz_intercept, pxz1_intercept, pxz2_intercept)) \
-                    = None, (None, None, None)
+                rtn = (None, (None, None, None))
             # print(rpt_isochrone_try)
             # rpt_isochrone = rpt_isochrone_try if rpt_isochrone_try
             #                          is not None else rpt_isochrone
-            return (
-                rpt_isochrone,
-                (t_rxz_intercept, pxz1_intercept, pxz2_intercept)
-            )
+            return rtn
 
-        def prune_isochrone(rpt_isochrone_in) -> Dict[str, np.ndarray]:
+        def prune_isochrone(
+            rpt_isochrone_in: Dict
+        ) -> Dict[str, np.ndarray]:
             """
             TBD
             """
@@ -741,7 +595,10 @@ class BaseSolution(ABC):
                                           np.array([rpt_at_x1])])
             return rpt_isochrone_out
 
-        def record_isochrone(rpt_isochrone, i_isochrone) -> None:
+        def record_isochrone(
+            rpt_isochrone: Dict,
+            i_isochrone: int
+        ) -> None:
             """
             TBD
             """
@@ -749,7 +606,11 @@ class BaseSolution(ABC):
             for rpt_ in rpt_tuple:
                 self.rpt_isochrones[rpt_][i_isochrone] = rpt_isochrone[rpt_]
 
-        def record_cusp(trxz_cusp, pxz1_intercept, pxz2_intercept) -> None:
+        def record_cusp(
+            trxz_cusp: Optional[np.ndarray],
+            pxz1_intercept,
+            pxz2_intercept
+        ) -> None:
             """
             TBD
             """
@@ -794,12 +655,14 @@ class BaseSolution(ABC):
         t_array = np.linspace(0, t_isochrone_max, n_isochrones)
         for i_isochrone, t_ in enumerate(t_array):
             rpt_isochrone = compose_isochrone(t_)  # i_isochrone,
-            rpt_isochrone = resample_isochrone(rpt_isochrone, n_resample_pts)
-            rpt_isochrone, (trxz_cusp, pxz1_intercept, pxz2_intercept) \
-                = clean_isochrone(rpt_isochrone)
-            if rpt_isochrone is not None:
-                rpt_isochrone = prune_isochrone(rpt_isochrone)
-                record_isochrone(rpt_isochrone, i_isochrone)
+            rpt_isochrone_resampled \
+                = resample_isochrone(rpt_isochrone, n_resample_pts)
+            (rpt_isochrone_clean,
+             (trxz_cusp, pxz1_intercept, pxz2_intercept)) \
+                = clean_isochrone(rpt_isochrone_resampled)
+            if rpt_isochrone_clean is not None:
+                rpt_isochrone_pruned = prune_isochrone(rpt_isochrone_clean)
+                record_isochrone(rpt_isochrone_pruned, i_isochrone)
                 record_cusp(trxz_cusp, pxz1_intercept, pxz2_intercept)
         organize_cusps()
 
@@ -807,7 +670,8 @@ class BaseSolution(ABC):
         """
         TBD
         """
-        kwargs_ = dict(kind='linear', fill_value='extrapolate',
+        kwargs_ = dict(kind='linear',
+                       fill_value='extrapolate',
                        assume_sorted=True)
 
         if self.cusps['t'].shape[0] == 0:
@@ -817,13 +681,14 @@ class BaseSolution(ABC):
             self.vx_interp_fast = None
             self.vx_interp_slow = None
             return
-        _, rxz_array, pxz_fast_array, pxz_slow_array \
+        (_, rxz_array, pxz_fast_array, pxz_slow_array) \
             = [self.cusps[key_] for key_ in ['t', 'rxz', 'pxz1', 'pxz2']]
-        px_fast_array, pz_fast_array = pxz_fast_array[:,
-                                                      0], pxz_fast_array[:, 1]
-        px_slow_array, pz_slow_array = pxz_slow_array[:,
-                                                      0], pxz_slow_array[:, 1]
-        rx_array, rz_array = rxz_array[:, 0], rxz_array[:, 1]
+        (px_fast_array, pz_fast_array) \
+            = (pxz_fast_array[:, 0], pxz_fast_array[:, 1])
+        (px_slow_array, pz_slow_array) \
+            = (pxz_slow_array[:, 0], pxz_slow_array[:, 1])
+        (rx_array, rz_array) \
+            = (rxz_array[:, 0], rxz_array[:, 1])
 
         # p_fast_array = np.sqrt(px_fast_array**2+pz_fast_array**2)
         tanbeta_fast_array = -px_fast_array/pz_fast_array
@@ -849,9 +714,9 @@ class BaseSolution(ABC):
         # p_slow_interp
         #     = interp1d( rxz_array[:,0], p_slow_array, **kwargs_ )
         px_slow_interp = interp1d(
-            rxz_array[:, 0], px_slow_array,      **kwargs_)
+            rxz_array[:, 0], px_slow_array, **kwargs_)
         pz_slow_interp = interp1d(
-            rxz_array[:, 0], pz_slow_array,      **kwargs_)
+            rxz_array[:, 0], pz_slow_array, **kwargs_)
         tanbeta_slow_interp = interp1d(
             rxz_array[:, 0], tanbeta_slow_array, **kwargs_)
         # sinbeta_slow_interp \
@@ -868,10 +733,11 @@ class BaseSolution(ABC):
         #                - cosbeta_fast_interp(x_)*sinbeta_slow_interp(x_)
         # tanbeta_diff_lambda \
         #   = lambda x_: tanbeta_fast_interp(x_)-tanbeta_slow_interp(x_)
-        self.cx_pz_tanbeta_lambda = lambda x_: (
-            - (1/pz_fast_interp(x_) - 1/pz_slow_interp(x_))
-            / (tanbeta_fast_interp(x_) - tanbeta_slow_interp(x_))
-        )
+        self.cx_pz_tanbeta_lambda \
+            = lambda x_: (
+                - (1/pz_fast_interp(x_) - 1/pz_slow_interp(x_))
+                / (tanbeta_fast_interp(x_) - tanbeta_slow_interp(x_))
+                )
         self.cx_pz_lambda \
             = lambda x_: (
                 (pz_slow_interp(x_) - pz_fast_interp(x_))
@@ -905,7 +771,11 @@ class BaseSolution(ABC):
         self.vx_interp_fast = vx_interp_fast
         self.vx_interp_slow = vx_interp_slow
 
-    def save(self, rpt_arrays, idx) -> None:
+    def save(
+        self,
+        rpt_arrays: Dict,
+        idx: int
+    ) -> None:
         """
         TBD
         """
@@ -914,95 +784,6 @@ class BaseSolution(ABC):
             self.rpt_arrays[rpt_][idx] = rpt_arrays[rpt_]
         rx_length = len(self.rpt_arrays['rx'][idx])
         self.rpt_arrays['t'][idx] = self.rpt_arrays['t'][idx][:rx_length]
-
-
-class ExtendedSolution(BaseSolution):
-    """
-    Integration of Hamilton's equations (ODEs) to solve for
-    propagation of a single ray.
-    """
-
-    def __init__(self, gmeq, parameters, **kwargs) -> None:
-        """
-        Initialize class instance.
-
-        Args:
-            gmeq:
-                GME model equations class instance defined in
-                :mod:`gme.core.equations`
-            parameters:
-                dictionary of model parameter values to be used for
-                equation substitutions
-            **kwargs: remaining keyword arguments (see base class for details)
-        """
-        super().__init__(gmeq, parameters, **kwargs)
-
-        # Type declarations
-
-        self.pz0: float
-        self.rays: List
-
-        self.t_array: np.ndarray
-        self.rx_array: np.ndarray
-        self.rz_array: np.ndarray
-        self.p_array: np.ndarray
-        self.px_array: np.ndarray
-        self.pz_array: np.ndarray
-        self.rdot_array: np.ndarray
-        self.rdotx_array: np.ndarray
-        self.rdotz_array: np.ndarray
-        self.pdot_array: np.ndarray
-        self.pdotx_array: np.ndarray
-        self.pdotz_array: np.ndarray
-        self.tanalpha_array: np.ndarray
-        self.tanbeta_array: np.ndarray
-        self.alpha_array: np.ndarray
-        self.beta_array: np.ndarray
-        self.xiv_p_array: np.ndarray
-        self.xiv_v_array: np.ndarray
-        self.uhorizontal_p_array: np.ndarray
-        self.uhorizontal_v_array: np.ndarray
-        self.cosbeta_array: np.ndarray
-        self.sinbeta_array: np.ndarray
-        self.u_array: np.ndarray
-        self.x_array: np.ndarray
-        self.h_array: np.ndarray
-        self.h_x_array: np.ndarray
-        self.h_z_array: np.ndarray
-        self.dhdx_array: np.ndarray
-        self.beta_vt_array: np.ndarray
-        self.beta_ts_array: np.ndarray
-
-        self.t_interp_x: Callable
-        self.rz_interp: Callable
-        self.rx_interp_t: Callable
-        self.rz_interp_t: Callable
-        self.x_interp_t: Callable
-        self.p_interp: Callable
-        self.px_interp: Callable
-        self.pz_interp: Callable
-        self.rdot_interp: Callable
-        self.rdotx_interp: Callable
-        self.rdotz_interp: Callable
-        self.pdot_interp: Callable
-        self.pdot_interp_t: Callable
-        self.rdotx_interp_t: Any  # HACK
-        self.rdotz_interp_t: Any  # HACK
-        self.rddotx_interp_t: Callable
-        self.rddotz_interp_t: Callable
-        self.beta_p_interp: Callable
-        self.beta_ts_interp: Callable
-        self.beta_ts_error_interp: Callable
-        self.beta_vt_interp: Callable
-        self.beta_vt_error_interp: Callable
-        self.u_interp: Callable
-        self.uhorizontal_p_interp: Callable
-        self.uhorizontal_v_interp: Callable
-        self.u_from_rdot_interp: Callable
-        self.xiv_v_interp: Callable
-        self.xiv_p_interp: Callable
-        self.alpha_interp: Callable
-        self.h_interp: Callable
 
 
 #

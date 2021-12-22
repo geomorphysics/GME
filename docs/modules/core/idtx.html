@@ -385,10 +385,10 @@ p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2}
 <span class="c1"># Disable these pylint errors because it doesn&#39;t understand SymPy syntax</span>
 <span class="c1">#   - notably minus signs in equations flag an error</span>
 <span class="c1"># pylint: disable=invalid-unary-operand-type, not-callable</span>
+
+<span class="c1"># Library</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">import</span> <span class="nn">logging</span>
-
-<span class="c1"># Typing</span>
 <span class="c1"># from typing import Dict, Type, Optional  # , Tuple, Any, List</span>
 
 <span class="c1"># SymPy</span>
@@ -407,6 +407,7 @@ p_{z}^{4} - 4} - 18 \varphi^{4} p_{z}^{4} + 2}
 <span class="k">class</span> <span class="nc">IdtxMixin</span><span class="p">:</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Prerequisites</span>
     <span class="n">eta_</span><span class="p">:</span> <span class="nb">float</span>
     <span class="n">beta_type</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">pz_p_beta_eqn</span><span class="p">:</span> <span class="n">Eq</span>

@@ -21,10 +21,10 @@ Requires Python packages/modules:
 # Disable these pylint errors because it doesn't understand SymPy syntax
 #   - notably minus signs in equations flag an error
 # pylint: disable=invalid-unary-operand-type, not-callable
+
+# Library
 import warnings
 import logging
-
-# Typing
 # from typing import Dict, Type, Optional  # , Tuple, Any, List
 
 # SymPy
@@ -47,6 +47,7 @@ class PxpolyMixin:
     r"""
     Polynomial :math:`p_x` equations supplement to equation definition class.
     """
+    # Prerequisites
     sinCi_xih0_eqn: Eq
     px_xiv_varphi_eqn: Eq
     varphi_rxhat_eqn: Eq

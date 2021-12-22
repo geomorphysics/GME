@@ -23,8 +23,6 @@ TODO: broken version - needs major overhaul
 # Library
 import warnings
 # import logging
-
-# Typing
 from typing import Tuple, Callable, Dict, Optional, Union
 
 # NumPy
@@ -68,6 +66,7 @@ class InitialProfileSolution(BaseSolution):
     Integration of Hamilton's equations (ODEs) from an initial
     topographic profile.
     """
+    # Prerequisites
     t_ensemble_max: float
     model_dXdt_lambda: Optional[Callable]
     rpt_arrays: Optional[Dict]
@@ -132,6 +131,7 @@ class InitialCornerSolution(BaseSolution):
     Provides a set of ray integrations to span solutions along an initial
     profile and solutions from a slip velocity boundary.
     """
+    # Prerequisites
     t_ensemble_max: float
     model_dXdt_lambda: Optional[Callable]
     rpt_arrays: Optional[Dict]
@@ -236,6 +236,7 @@ class CompositeSolution(BaseSolution):
     to generate a 'complete' ray integration solution from a
     complex topographic boundary.
     """
+    # Prerequisites
     t_ensemble_max: float
     model_dXdt_lambda: Optional[Callable]
     rpt_arrays: Optional[Dict]

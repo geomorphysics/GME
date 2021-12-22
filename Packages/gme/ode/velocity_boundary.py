@@ -18,10 +18,10 @@ Requires Python packages/modules:
 ---------------------------------------------------------------------
 
 """
+
+# Library
 import warnings
 import logging
-
-# Typing
 from typing import Tuple, List, Optional
 
 # Numpy
@@ -29,8 +29,8 @@ import numpy as np
 
 # GME
 from gme.core.symbols import xiv_0, xih_0, Lc
-from gme.ode.base import ExtendedSolution, solve_Hamiltons_equations, \
-                         report_progress
+from gme.ode.extended import ExtendedSolution
+from gme.ode.solve import solve_Hamiltons_equations, report_progress
 
 warnings.filterwarnings("ignore")
 

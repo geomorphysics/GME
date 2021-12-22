@@ -21,11 +21,11 @@ Requires Python packages/modules:
 # Disable these pylint errors because it doesn't understand SymPy syntax
 #   - notably minus signs in equations flag an error
 # pylint: disable=invalid-unary-operand-type, not-callable
+
+# Library
 import warnings
 import logging
 from functools import reduce
-
-# Typing
 from typing import Dict
 
 # SymPy
@@ -50,6 +50,7 @@ class GeodesicMixin:
     r"""
     Geodesic equations supplement to equation definition class.
     """
+    # Prerequisites
     eta_: float
     mu_: float
     H_eqn: Eq

@@ -23,10 +23,10 @@ Requires Python packages/modules:
 # Disable these pylint errors because it doesn't understand SymPy syntax
 #   - notably minus signs in equations flag an error
 # pylint: disable=invalid-unary-operand-type, not-callable
+
+# Library
 import warnings
 import logging
-
-# Typing
 # from typing import Dict, Type, Optional  # , Tuple, Any, List
 
 # SymPy
@@ -46,7 +46,7 @@ class FundamentalMixin:
     Fundamental function and Hamiltonian equations supplement
     to equation definition class.
     """
-
+    # Prerequisites
     p_norm_pxpz_eqn: Eq
     p_varphi_pxpz_eqn: Eq
     varphi_rx_eqn: Eq

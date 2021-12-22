@@ -114,7 +114,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.plot.indicatrix_old.IndicatrixOld.plot_figuratrix">
-<span class="sig-name descname"><span class="pre">plot_figuratrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fgtx_px_array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fgtx_pz_array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maybe_recip_fn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_ray_slowness</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.plot.indicatrix_old.IndicatrixOld.plot_figuratrix" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">plot_figuratrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fgtx_px_array</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.21)"><span class="pre">numpy.ndarray</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">fgtx_pz_array</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.21)"><span class="pre">numpy.ndarray</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">maybe_recip_fn</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Callable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_ray_slowness</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.plot.indicatrix_old.IndicatrixOld.plot_figuratrix" title="Permalink to this definition">¶</a></dt>
 <dd><p>TBD</p>
 </dd></dl>
 
@@ -190,12 +190,11 @@ rather than simple circles</p></li>
 <span class="sd">---------------------------------------------------------------------</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
+<span class="c1"># Library</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
-
-<span class="c1"># Minimal typing</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Dict</span>
 
-<span class="c1"># Numpy</span>
+<span class="c1"># NumPy</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="c1"># SymPy</span>
@@ -290,30 +289,46 @@ rather than simple circles</p></li>
         <span class="c1"># fgtx_label = r&#39;figuratrix $F^*(\mathbf{\widetilde{p}},\beta)$&#39;</span>
         <span class="n">idtx_label</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;ray velocity&#39;</span>
         <span class="n">fgtx_label</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;normal slowness&#39;</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">polar</span><span class="p">(</span><span class="n">fgtx_theta_array</span><span class="p">,</span> <span class="n">fgtx_p_array</span><span class="p">,</span>
-                  <span class="s1">&#39;DarkBlue&#39;</span><span class="p">,</span> <span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">polar</span><span class="p">(</span><span class="n">fgtx_theta_array</span><span class="p">,</span>
+                  <span class="n">fgtx_p_array</span><span class="p">,</span>
+                  <span class="s1">&#39;DarkBlue&#39;</span><span class="p">,</span>
+                  <span class="s1">&#39;-&#39;</span><span class="p">,</span>
+                  <span class="n">lw</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span>
                   <span class="n">label</span><span class="o">=</span><span class="n">fgtx_label</span><span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">polar</span><span class="p">(</span><span class="n">idtx_theta_array</span><span class="p">,</span> <span class="n">idtx_rdot_array</span><span class="p">,</span>
-                  <span class="s1">&#39;DarkRed&#39;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">polar</span><span class="p">(</span><span class="n">idtx_theta_array</span><span class="p">,</span>
+                  <span class="n">idtx_rdot_array</span><span class="p">,</span>
+                  <span class="s1">&#39;DarkRed&#39;</span><span class="p">,</span>
+                  <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span>
+                  <span class="n">lw</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span>
                   <span class="n">label</span><span class="o">=</span><span class="n">idtx_label</span><span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">polar</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">-</span><span class="n">idtx_theta_array</span><span class="p">,</span> <span class="n">idtx_rdot_array</span><span class="p">,</span>
-                  <span class="s1">&#39;DarkRed&#39;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">polar</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">-</span><span class="n">idtx_theta_array</span><span class="p">,</span>
+                  <span class="n">idtx_rdot_array</span><span class="p">,</span>
+                  <span class="s1">&#39;DarkRed&#39;</span><span class="p">,</span>
+                  <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span>
+                  <span class="n">lw</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
         <span class="c1"># plt.polar( idtx_theta_posrdot_array, idtx_rdot_posrdot_array,</span>
         <span class="c1"># &#39;magenta&#39;, ls=&#39;-&#39;, lw=3)</span>
         <span class="c1"># plt.polar( idtx_theta_negrdot_array, idtx_rdot_negrdot_array,</span>
         <span class="c1"># &#39;k&#39;, ls=&#39;-&#39;, lw=3)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">polar</span><span class="p">(</span><span class="n">unit_circle_beta_array</span><span class="p">,</span> <span class="n">unit_circle_beta_array</span><span class="o">*</span><span class="mi">0</span><span class="p">,</span>
-                  <span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="s1">&#39;:&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">polar</span><span class="p">(</span><span class="n">unit_circle_beta_array</span><span class="p">,</span>
+                  <span class="n">unit_circle_beta_array</span><span class="o">*</span><span class="mi">0</span><span class="p">,</span>
+                  <span class="s1">&#39;g&#39;</span><span class="p">,</span>
+                  <span class="s1">&#39;:&#39;</span><span class="p">,</span>
+                  <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
                   <span class="n">label</span><span class="o">=</span><span class="s1">&#39;unit circle&#39;</span><span class="p">)</span>
 
         <span class="c1"># Critical angles</span>
         <span class="n">beta_crit</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arctan</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">gmeq</span><span class="o">.</span><span class="n">tanbeta_crit</span><span class="p">))</span>
         <span class="n">alpha_crit</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">arctan</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">gmeq</span><span class="o">.</span><span class="n">tanalpha_crit</span><span class="p">))</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">polar</span><span class="p">([</span><span class="n">beta_crit</span><span class="p">,</span> <span class="n">beta_crit</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
-                  <span class="s1">&#39;:&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;DarkBlue&#39;</span><span class="p">,</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">polar</span><span class="p">([</span><span class="n">beta_crit</span><span class="p">,</span> <span class="n">beta_crit</span><span class="p">],</span>
+                  <span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+                  <span class="s1">&#39;:&#39;</span><span class="p">,</span>
+                  <span class="n">color</span><span class="o">=</span><span class="s1">&#39;DarkBlue&#39;</span><span class="p">,</span>
                   <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$\beta=\beta_c$&#39;</span><span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">polar</span><span class="p">([</span><span class="n">alpha_crit</span><span class="p">,</span> <span class="n">alpha_crit</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
-                  <span class="s1">&#39;:&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;DarkRed&#39;</span><span class="p">,</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">polar</span><span class="p">([</span><span class="n">alpha_crit</span><span class="p">,</span> <span class="n">alpha_crit</span><span class="p">],</span>
+                  <span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+                  <span class="s1">&#39;:&#39;</span><span class="p">,</span>
+                  <span class="n">color</span><span class="o">=</span><span class="s1">&#39;DarkRed&#39;</span><span class="p">,</span>
                   <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$\alpha=\alpha_{\mathrm</span><span class="si">{ext}</span><span class="s1">}$&#39;</span><span class="p">)</span>
 
         <span class="c1"># Labelling etc</span>
@@ -337,18 +352,20 @@ rather than simple circles</p></li>
         <span class="p">]</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">xtick_posns</span><span class="p">,</span> <span class="n">xtick_labels</span><span class="p">)</span>
 
+        <span class="n">y_limits_</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span>
         <span class="k">if</span> <span class="n">y_limits</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">y_limits</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+            <span class="n">y_limits_</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
             <span class="n">ytick_posns</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">ytick_posns</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">y_limits</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="nb">int</span><span class="p">(</span><span class="n">y_limits</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">+</span><span class="mi">2</span><span class="p">))</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">*</span><span class="n">y_limits</span><span class="p">)</span>
+            <span class="n">y_limits_</span> <span class="o">=</span> <span class="n">y_limits</span>
+            <span class="n">ytick_posns</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">y_limits_</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="nb">int</span><span class="p">(</span><span class="n">y_limits_</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">+</span><span class="mi">2</span><span class="p">))</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">*</span><span class="n">y_limits_</span><span class="p">)</span>
         <span class="n">ytick_labels</span> <span class="o">=</span> <span class="p">[</span><span class="sa">rf</span><span class="s1">&#39;$10^</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">y_</span><span class="p">)</span><span class="si">}</span><span class="s1">$&#39;</span> <span class="k">for</span> <span class="n">y_</span> <span class="ow">in</span> <span class="n">ytick_posns</span><span class="p">]</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">ytick_posns</span><span class="p">,</span> <span class="n">ytick_labels</span><span class="p">)</span>
 
         <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mf">1.1</span><span class="p">,</span>
-                 <span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">y_limits</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">y_limits</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">*</span><span class="mi">2</span><span class="o">/</span><span class="mi">3</span><span class="o">+</span><span class="n">y_limits</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                 <span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">y_limits_</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">y_limits_</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">*</span><span class="mi">2</span><span class="o">/</span><span class="mi">3</span><span class="o">+</span><span class="n">y_limits_</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
                  <span class="sa">rf</span><span class="s1">&#39;$\eta=</span><span class="si">{</span><span class="n">gmeq</span><span class="o">.</span><span class="n">eta_</span><span class="si">}</span><span class="s1">$&#39;</span><span class="p">,</span>
                  <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
 
@@ -375,7 +392,8 @@ rather than simple circles</p></li>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        TBD</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">xy_</span> <span class="o">=</span> <span class="p">(</span><span class="mf">2.5</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">)</span> <span class="k">if</span> <span class="n">zoom_factor</span> <span class="o">&gt;=</span> <span class="mi">1</span> <span class="k">else</span> <span class="p">(</span><span class="mf">1.25</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">)</span>
+        <span class="n">xy_</span> <span class="o">=</span> <span class="p">(</span><span class="mf">2.5</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">)</span> <span class="k">if</span> <span class="n">zoom_factor</span> <span class="o">&gt;=</span> <span class="mi">1</span> \
+            <span class="k">else</span> <span class="p">(</span><span class="mf">1.25</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">)</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">*</span><span class="n">xy_</span><span class="p">,</span>
                  <span class="sa">rf</span><span class="s1">&#39;$\varphi=</span><span class="si">{</span><span class="n">varphi_</span><span class="si">}</span><span class="s1">\quad\eta=</span><span class="si">{</span><span class="n">gmeq</span><span class="o">.</span><span class="n">eta_</span><span class="si">}</span><span class="s1">$&#39;</span><span class="p">,</span>
                  <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
@@ -411,29 +429,54 @@ rather than simple circles</p></li>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">p_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">px_</span><span class="o">**</span><span class="mi">2</span><span class="o">+</span><span class="n">pz_</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
         <span class="c1"># Arrow for rdot direction</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">arrow</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">rdotx_</span><span class="p">,</span> <span class="n">rdotz_</span><span class="p">,</span>
-                  <span class="n">head_width</span><span class="o">=</span><span class="mf">0.08</span><span class="p">,</span> <span class="n">head_length</span><span class="o">=</span><span class="mf">0.16</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-                  <span class="n">length_includes_head</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ec</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">fc</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">arrow</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span>
+                  <span class="mi">0</span><span class="p">,</span>
+                  <span class="n">rdotx_</span><span class="p">,</span>
+                  <span class="n">rdotz_</span><span class="p">,</span>
+                  <span class="n">head_width</span><span class="o">=</span><span class="mf">0.08</span><span class="p">,</span>
+                  <span class="n">head_length</span><span class="o">=</span><span class="mf">0.16</span><span class="p">,</span>
+                  <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                  <span class="n">length_includes_head</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                  <span class="n">ec</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span>
+                  <span class="n">fc</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
         <span class="c1"># Fishbone for p direction</span>
         <span class="n">np_</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mf">0.5</span><span class="o">+</span><span class="p">((</span><span class="n">p_</span><span class="p">)</span><span class="o">*</span><span class="mi">5</span><span class="p">))</span> <span class="k">if</span> <span class="n">p_</span> <span class="o">&gt;=</span> <span class="mf">0.2</span> <span class="k">else</span> <span class="mi">1</span>
         <span class="n">hw_</span> <span class="o">=</span> <span class="mf">0.2</span>  <span class="c1"># if do_half else 0.2</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">arrow</span><span class="p">(</span><span class="n">px_</span><span class="p">,</span> <span class="n">pz_</span><span class="p">,</span> <span class="o">-</span><span class="n">px_</span><span class="p">,</span> <span class="o">-</span><span class="n">pz_</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span>
-                  <span class="n">head_width</span><span class="o">=</span><span class="n">hw_</span><span class="p">,</span> <span class="n">head_length</span><span class="o">=-</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-                  <span class="n">shape</span><span class="o">=</span><span class="s1">&#39;full&#39;</span><span class="p">,</span> <span class="n">overhang</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">arrow</span><span class="p">(</span><span class="n">px_</span><span class="p">,</span>
+                  <span class="n">pz_</span><span class="p">,</span>
+                  <span class="o">-</span><span class="n">px_</span><span class="p">,</span>
+                  <span class="o">-</span><span class="n">pz_</span><span class="p">,</span>
+                  <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span>
+                  <span class="n">head_width</span><span class="o">=</span><span class="n">hw_</span><span class="p">,</span>
+                  <span class="n">head_length</span><span class="o">=-</span><span class="mf">0.1</span><span class="p">,</span>
+                  <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                  <span class="n">shape</span><span class="o">=</span><span class="s1">&#39;full&#39;</span><span class="p">,</span>
+                  <span class="n">overhang</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
                   <span class="n">length_includes_head</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                   <span class="n">head_starts_at_zero</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                   <span class="n">ec</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">i_head</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">np_</span><span class="p">)):</span>
             <span class="n">len_head</span> <span class="o">=</span> <span class="n">i_head</span><span class="o">/</span><span class="p">(</span><span class="n">np_</span><span class="p">)</span>
-            <span class="n">plt</span><span class="o">.</span><span class="n">arrow</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">px_</span><span class="o">*</span><span class="n">len_head</span><span class="p">,</span> <span class="n">pz_</span><span class="o">*</span><span class="n">len_head</span><span class="p">,</span>
-                      <span class="n">head_width</span><span class="o">=</span><span class="n">hw_</span><span class="p">,</span> <span class="n">head_length</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-                      <span class="n">shape</span><span class="o">=</span><span class="s1">&#39;full&#39;</span><span class="p">,</span> <span class="n">overhang</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">arrow</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span>
+                      <span class="n">px_</span><span class="o">*</span><span class="n">len_head</span><span class="p">,</span>
+                      <span class="n">pz_</span><span class="o">*</span><span class="n">len_head</span><span class="p">,</span>
+                      <span class="n">head_width</span><span class="o">=</span><span class="n">hw_</span><span class="p">,</span>
+                      <span class="n">head_length</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                      <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                      <span class="n">shape</span><span class="o">=</span><span class="s1">&#39;full&#39;</span><span class="p">,</span>
+                      <span class="n">overhang</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
                       <span class="n">length_includes_head</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                       <span class="n">ec</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>
         <span class="n">len_head</span> <span class="o">=</span> <span class="mi">1</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">arrow</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">px_</span><span class="o">*</span><span class="n">len_head</span><span class="p">,</span> <span class="n">pz_</span><span class="o">*</span><span class="n">len_head</span><span class="p">,</span>
-                  <span class="n">head_width</span><span class="o">=</span><span class="n">hw_</span><span class="o">*</span><span class="mf">2.5</span><span class="p">,</span> <span class="n">head_length</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-                  <span class="n">shape</span><span class="o">=</span><span class="s1">&#39;full&#39;</span><span class="p">,</span> <span class="n">overhang</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">arrow</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span>
+                  <span class="mi">0</span><span class="p">,</span>
+                  <span class="n">px_</span><span class="o">*</span><span class="n">len_head</span><span class="p">,</span>
+                  <span class="n">pz_</span><span class="o">*</span><span class="n">len_head</span><span class="p">,</span>
+                  <span class="n">head_width</span><span class="o">=</span><span class="n">hw_</span><span class="o">*</span><span class="mf">2.5</span><span class="p">,</span>
+                  <span class="n">head_length</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                  <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                  <span class="n">shape</span><span class="o">=</span><span class="s1">&#39;full&#39;</span><span class="p">,</span>
+                  <span class="n">overhang</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
                   <span class="n">length_includes_head</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                   <span class="n">ec</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>
 
@@ -503,35 +546,62 @@ rather than simple circles</p></li>
 <span class="sd">        TBD</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># alpha arc</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.45</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.05</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$\alpha$&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;DarkRed&#39;</span><span class="p">,</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.45</span><span class="p">,</span>
+                 <span class="o">-</span><span class="mf">0.05</span><span class="p">,</span>
+                 <span class="sa">r</span><span class="s1">&#39;$\alpha$&#39;</span><span class="p">,</span>
+                 <span class="n">color</span><span class="o">=</span><span class="s1">&#39;DarkRed&#39;</span><span class="p">,</span>
                  <span class="c1"># transform=axes.transAxes,</span>
                  <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span>
-                 <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">)</span>
+                 <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+                 <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">)</span>
         <span class="n">axes</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span>
-            <span class="n">mpatches</span><span class="o">.</span><span class="n">Arc</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="mf">1.2</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;DarkRed&#39;</span><span class="p">,</span>
-                         <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+            <span class="n">mpatches</span><span class="o">.</span><span class="n">Arc</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+                         <span class="mf">1.2</span><span class="p">,</span>
+                         <span class="mf">1.2</span><span class="p">,</span>
+                         <span class="n">color</span><span class="o">=</span><span class="s1">&#39;DarkRed&#39;</span><span class="p">,</span>
+                         <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+                         <span class="n">fill</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                         <span class="n">zorder</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
                          <span class="n">theta1</span><span class="o">=</span><span class="mi">270</span><span class="p">,</span>
                          <span class="n">theta2</span><span class="o">=</span><span class="mi">90</span><span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">rad2deg</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arctan</span><span class="p">(</span><span class="n">tanalpha_</span><span class="p">)))</span>
             <span class="p">)</span>
         <span class="c1"># beta arc</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.08</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.30</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$\beta$&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;DarkBlue&#39;</span><span class="p">,</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.08</span><span class="p">,</span>
+                 <span class="o">-</span><span class="mf">0.30</span><span class="p">,</span>
+                 <span class="sa">r</span><span class="s1">&#39;$\beta$&#39;</span><span class="p">,</span>
+                 <span class="n">color</span><span class="o">=</span><span class="s1">&#39;DarkBlue&#39;</span><span class="p">,</span>
                  <span class="c1"># transform=axes.transAxes,</span>
                  <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
-                 <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">)</span>
+                 <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+                 <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">)</span>
         <span class="n">axes</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span>
-            <span class="n">mpatches</span><span class="o">.</span><span class="n">Arc</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;DarkBlue&#39;</span><span class="p">,</span>
-                         <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+            <span class="n">mpatches</span><span class="o">.</span><span class="n">Arc</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+                         <span class="mf">0.9</span><span class="p">,</span>
+                         <span class="mf">0.9</span><span class="p">,</span>
+                         <span class="n">color</span><span class="o">=</span><span class="s1">&#39;DarkBlue&#39;</span><span class="p">,</span>
+                         <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+                         <span class="n">fill</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
                          <span class="n">theta1</span><span class="o">=</span><span class="mi">270</span><span class="p">,</span>
                          <span class="n">theta2</span><span class="o">=</span><span class="mi">270</span><span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">rad2deg</span><span class="p">(</span><span class="n">beta_</span><span class="p">))</span>
             <span class="p">)</span>
         <span class="c1"># &quot;faster&quot; direction</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">3.05</span><span class="p">,</span> <span class="mf">1.6</span><span class="p">,</span> <span class="s1">&#39;faster&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span>  <span class="c1"># transform=axes.transAxes,</span>
-                 <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">55</span><span class="p">,</span>
-                 <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">3.05</span><span class="p">,</span>
+                 <span class="mf">1.6</span><span class="p">,</span>
+                 <span class="s1">&#39;faster&#39;</span><span class="p">,</span>
+                 <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span>  <span class="c1"># transform=axes.transAxes,</span>
+                 <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span>
+                 <span class="n">rotation</span><span class="o">=</span><span class="mi">55</span><span class="p">,</span>
+                 <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+                 <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">)</span>
         <span class="c1"># &quot;faster&quot; direction</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">1.03</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;slower&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span>  <span class="c1"># transform=axes.transAxes,</span>
-                 <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=-</span><span class="mi">85</span><span class="p">,</span>
-                 <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">1.03</span><span class="p">,</span>
+                 <span class="o">-</span><span class="mi">2</span><span class="p">,</span>
+                 <span class="s1">&#39;slower&#39;</span><span class="p">,</span>
+                 <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span>  <span class="c1"># transform=axes.transAxes,</span>
+                 <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span>
+                 <span class="n">rotation</span><span class="o">=-</span><span class="mi">85</span><span class="p">,</span>
+                 <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+                 <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">legend</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -614,9 +684,9 @@ rather than simple circles</p></li>
 
     <span class="k">def</span> <span class="nf">plot_figuratrix</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">fgtx_px_array</span><span class="p">,</span>
-        <span class="n">fgtx_pz_array</span><span class="p">,</span>
-        <span class="n">maybe_recip_fn</span><span class="p">,</span>
+        <span class="n">fgtx_px_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+        <span class="n">fgtx_pz_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+        <span class="n">maybe_recip_fn</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span>
         <span class="n">do_ray_slowness</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -625,9 +695,14 @@ rather than simple circles</p></li>
         <span class="c1"># label = r&#39;normal speed&#39; if do_ray_slowness else r&#39;figuratrix $F^*$&#39;</span>
         <span class="n">label</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;normal velocity&#39;</span> <span class="k">if</span> <span class="n">do_ray_slowness</span> <span class="k">else</span> <span class="sa">r</span><span class="s1">&#39;normal slowness&#39;</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="o">*</span><span class="n">maybe_recip_fn</span><span class="p">(</span><span class="o">-</span><span class="n">fgtx_px_array</span><span class="p">,</span> <span class="n">fgtx_pz_array</span><span class="p">),</span>
-                 <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;DarkBlue&#39;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">)</span>
+                 <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                 <span class="n">c</span><span class="o">=</span><span class="s1">&#39;DarkBlue&#39;</span><span class="p">,</span>
+                 <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span>
+                 <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">)</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="o">*</span><span class="n">maybe_recip_fn</span><span class="p">(</span><span class="n">fgtx_px_array</span><span class="p">,</span> <span class="n">fgtx_pz_array</span><span class="p">),</span>
-                 <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;DarkBlue&#39;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">)</span>
+                 <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                 <span class="n">c</span><span class="o">=</span><span class="s1">&#39;DarkBlue&#39;</span><span class="p">,</span>
+                 <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">plot_indicatrix</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -642,9 +717,14 @@ rather than simple circles</p></li>
         <span class="c1"># label = r&#39;ray slowness&#39; if do_ray_slowness else r&#39;indicatrix $F$&#39;</span>
         <span class="n">label</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;ray slowness&#39;</span> <span class="k">if</span> <span class="n">do_ray_slowness</span> <span class="k">else</span> <span class="sa">r</span><span class="s1">&#39;ray velocity&#39;</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="o">*</span><span class="n">maybe_recip_fn</span><span class="p">(</span><span class="n">idtx_rdotx_array</span><span class="p">,</span> <span class="n">idtx_rdotz_array</span><span class="p">),</span>
-                 <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;DarkRed&#39;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">)</span>
+                 <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                 <span class="n">c</span><span class="o">=</span><span class="s1">&#39;DarkRed&#39;</span><span class="p">,</span>
+                 <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span>
+                 <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">)</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="o">*</span><span class="n">maybe_recip_fn</span><span class="p">(</span><span class="o">-</span><span class="n">idtx_rdotx_array</span><span class="p">,</span> <span class="n">idtx_rdotz_array</span><span class="p">),</span>
-                 <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;DarkRed&#39;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">)</span>
+                 <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                 <span class="n">c</span><span class="o">=</span><span class="s1">&#39;DarkRed&#39;</span><span class="p">,</span>
+                 <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">plot_unit_circle</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -657,11 +737,16 @@ rather than simple circles</p></li>
         <span class="n">unit_circle_beta_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">unit_circle_beta_array</span><span class="o">*</span><span class="mi">2</span><span class="p">),</span>
                  <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">unit_circle_beta_array</span><span class="o">*</span><span class="mi">2</span><span class="p">),</span>
-                 <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;unit circle&#39;</span><span class="p">)</span>
+                 <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">,</span>
+                 <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span>
+                 <span class="n">label</span><span class="o">=</span><span class="s1">&#39;unit circle&#39;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">do_varphi_circle</span><span class="p">:</span>
             <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">varphi_</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">unit_circle_beta_array</span><span class="o">*</span><span class="mi">2</span><span class="p">),</span>
                      <span class="n">varphi_</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">unit_circle_beta_array</span><span class="o">*</span><span class="mi">2</span><span class="p">),</span>
-                     <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">rf</span><span class="s1">&#39;$\varphi=</span><span class="si">{</span><span class="n">varphi_</span><span class="si">}</span><span class="s1">$&#39;</span><span class="p">)</span>
+                     <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                     <span class="n">c</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">,</span>
+                     <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">,</span>
+                     <span class="n">label</span><span class="o">=</span><span class="sa">rf</span><span class="s1">&#39;$\varphi=</span><span class="si">{</span><span class="n">varphi_</span><span class="si">}</span><span class="s1">$&#39;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">relative_geometry</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -724,11 +809,11 @@ rather than simple circles</p></li>
         <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_figure</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">fig_size</span><span class="o">=</span><span class="n">fig_size</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="n">dpi</span><span class="p">)</span>
 
         <span class="c1"># Adjust plot scale, limits</span>
-        <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
+        <span class="n">axes</span><span class="p">:</span> <span class="n">Axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
         <span class="n">axes</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
-        <span class="n">x_min</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.1</span> <span class="k">if</span> <span class="n">do_half</span> <span class="k">else</span> <span class="o">-</span><span class="n">x_max</span>
-        <span class="n">y_minmax</span> <span class="o">=</span> <span class="mf">2.4</span> <span class="k">if</span> <span class="n">gmeq</span><span class="o">.</span><span class="n">eta_</span> <span class="o">&gt;=</span> <span class="mi">1</span> <span class="k">else</span> <span class="mf">2.4</span>
+        <span class="n">x_min</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.1</span> <span class="k">if</span> <span class="n">do_half</span> <span class="k">else</span> <span class="o">-</span><span class="n">x_max</span>
+        <span class="n">y_minmax</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">2.4</span> <span class="k">if</span> <span class="n">gmeq</span><span class="o">.</span><span class="n">eta_</span> <span class="o">&gt;=</span> <span class="mi">1</span> <span class="k">else</span> <span class="mf">2.4</span>
         <span class="n">zoomx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span><span class="p">])</span> <span class="o">*</span> <span class="n">zoom_factor</span>
         <span class="n">zoomz</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="n">y_minmax</span><span class="p">,</span> <span class="n">y_minmax</span><span class="p">])</span> <span class="o">*</span> <span class="n">zoom_factor</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="n">zoomx</span><span class="p">)</span>
@@ -760,10 +845,15 @@ rather than simple circles</p></li>
         <span class="c1"># Compute some stuff</span>
         <span class="n">pdict</span> <span class="o">=</span> <span class="n">points_tangents_dicts</span><span class="p">[</span><span class="n">varphi_</span><span class="p">]</span>
         <span class="n">fgtx_px_array</span><span class="p">,</span> <span class="n">fgtx_pz_array</span><span class="p">,</span> <span class="n">px_pz_eqn</span> \
-            <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">figuratrix</span><span class="p">(</span><span class="n">gmeq</span><span class="p">,</span> <span class="n">varphi_</span><span class="p">,</span> <span class="n">n_points</span><span class="p">)</span>
+            <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">figuratrix</span><span class="p">(</span><span class="n">gmeq</span><span class="p">,</span>
+                              <span class="n">varphi_</span><span class="p">,</span>
+                              <span class="n">n_points</span><span class="p">)</span>
         <span class="n">idtx_rdotx_array</span><span class="p">,</span> <span class="n">idtx_rdotz_array</span><span class="p">,</span> <span class="n">rdotx_pz_eqn</span><span class="p">,</span> <span class="n">rdotz_pz_eqn</span> \
-            <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">indicatrix</span><span class="p">(</span><span class="n">gmeq</span><span class="p">,</span> <span class="n">varphi_</span><span class="p">,</span> <span class="n">n_points</span><span class="p">,</span>
-                              <span class="n">pz_min_</span><span class="o">=</span><span class="n">pdict</span><span class="p">[</span><span class="s1">&#39;pz_min&#39;</span><span class="p">],</span> <span class="n">pz_max_</span><span class="o">=</span><span class="n">pdict</span><span class="p">[</span><span class="s1">&#39;pz_max&#39;</span><span class="p">])</span>
+            <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">indicatrix</span><span class="p">(</span><span class="n">gmeq</span><span class="p">,</span>
+                              <span class="n">varphi_</span><span class="p">,</span>
+                              <span class="n">n_points</span><span class="p">,</span>
+                              <span class="n">pz_min_</span><span class="o">=</span><span class="n">pdict</span><span class="p">[</span><span class="s1">&#39;pz_min&#39;</span><span class="p">],</span>
+                              <span class="n">pz_max_</span><span class="o">=</span><span class="n">pdict</span><span class="p">[</span><span class="s1">&#39;pz_max&#39;</span><span class="p">])</span>
         <span class="n">pz_</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span>
         <span class="n">px_</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">N</span><span class="p">(</span><span class="n">re</span><span class="p">(</span><span class="n">px_pz_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">pz</span><span class="p">:</span> <span class="n">pz_</span><span class="p">}))))</span>
         <span class="n">rdotx_</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">re</span><span class="p">(</span><span class="n">rdotx_pz_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">pz</span><span class="p">:</span> <span class="n">pz_</span><span class="p">})))</span>
@@ -773,15 +863,25 @@ rather than simple circles</p></li>
                       <span class="s1">&#39;rdotx&#39;</span><span class="p">:</span> <span class="n">rdotx_</span><span class="p">,</span> <span class="s1">&#39;rdotz&#39;</span><span class="p">:</span> <span class="n">rdotz_</span><span class="p">})</span>
 
         <span class="c1"># Do the plotting</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">plot_indicatrix</span><span class="p">(</span><span class="n">idtx_rdotx_array</span><span class="p">,</span> <span class="n">idtx_rdotz_array</span><span class="p">,</span>
-                             <span class="n">maybe_recip_fn</span><span class="p">,</span> <span class="n">do_ray_slowness</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">plot_figuratrix</span><span class="p">(</span><span class="n">fgtx_px_array</span><span class="p">,</span> <span class="n">fgtx_pz_array</span><span class="p">,</span>
-                             <span class="n">maybe_recip_fn</span><span class="p">,</span> <span class="n">do_ray_slowness</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">plot_indicatrix</span><span class="p">(</span><span class="n">idtx_rdotx_array</span><span class="p">,</span>
+                             <span class="n">idtx_rdotz_array</span><span class="p">,</span>
+                             <span class="n">maybe_recip_fn</span><span class="p">,</span>
+                             <span class="n">do_ray_slowness</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">plot_figuratrix</span><span class="p">(</span><span class="n">fgtx_px_array</span><span class="p">,</span>
+                             <span class="n">fgtx_pz_array</span><span class="p">,</span>
+                             <span class="n">maybe_recip_fn</span><span class="p">,</span>
+                             <span class="n">do_ray_slowness</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">plot_unit_circle</span><span class="p">(</span><span class="n">varphi_</span><span class="p">,</span> <span class="n">do_varphi_circle</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">do_lines_points</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">lines_and_points</span><span class="p">(</span><span class="n">pdict</span><span class="p">,</span> <span class="n">axes</span><span class="p">,</span> <span class="n">zoomx</span><span class="p">,</span> <span class="n">do_pz</span><span class="p">,</span> <span class="n">do_shapes</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">text_labels</span><span class="p">(</span><span class="n">gmeq</span><span class="p">,</span> <span class="n">varphi_</span><span class="p">,</span> <span class="n">px_</span><span class="p">,</span> <span class="n">pz_</span><span class="p">,</span> <span class="n">rdotx_</span><span class="p">,</span> <span class="n">rdotz_</span><span class="p">,</span>
-                         <span class="n">zoom_factor</span><span class="p">,</span> <span class="n">do_text_labels</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">text_labels</span><span class="p">(</span><span class="n">gmeq</span><span class="p">,</span>
+                         <span class="n">varphi_</span><span class="p">,</span>
+                         <span class="n">px_</span><span class="p">,</span>
+                         <span class="n">pz_</span><span class="p">,</span>
+                         <span class="n">rdotx_</span><span class="p">,</span>
+                         <span class="n">rdotz_</span><span class="p">,</span>
+                         <span class="n">zoom_factor</span><span class="p">,</span>
+                         <span class="n">do_text_labels</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">do_arrows</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">arrows</span><span class="p">(</span><span class="n">px_</span><span class="p">,</span> <span class="n">pz_</span><span class="p">,</span> <span class="n">rdotx_</span><span class="p">,</span> <span class="n">rdotz_</span><span class="p">)</span>
         <span class="c1"># if do_annotations: self.annotations(axes, beta_, tanalpha_)</span>

@@ -250,10 +250,10 @@ x_{1}^{2 \mu} + \left(- x + x_{1}\right)^{2 \mu}\right)}\)</span></p>
 <span class="c1"># Disable these pylint errors because it doesn&#39;t understand SymPy syntax</span>
 <span class="c1">#   - notably minus signs in equations flag an error</span>
 <span class="c1"># pylint: disable=invalid-unary-operand-type, not-callable</span>
+
+<span class="c1"># Library</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">import</span> <span class="nn">logging</span>
-
-<span class="c1"># Typing</span>
 <span class="c1"># from typing import Dict, Type, Optional  # , Tuple, Any, List</span>
 
 <span class="c1"># SymPy</span>
@@ -279,6 +279,9 @@ x_{1}^{2 \mu} + \left(- x + x_{1}\right)^{2 \mu}\right)}\)</span></p>
 <span class="sd">    Initial condition/boundary condition equations supplement</span>
 <span class="sd">    to equation definition class.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Prerequisites</span>
+    <span class="n">pz0_xiv0_eqn</span><span class="p">:</span> <span class="n">Eq</span>
+    <span class="n">pzpx_unity_eqn</span><span class="p">:</span> <span class="n">Eq</span>
     <span class="n">rdot_p_unity_eqn</span><span class="p">:</span> <span class="n">Eq</span>
     <span class="n">rdotx_pxpz_eqn</span><span class="p">:</span> <span class="n">Eq</span>
     <span class="n">rdotz_pxpz_eqn</span><span class="p">:</span> <span class="n">Eq</span>

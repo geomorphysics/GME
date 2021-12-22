@@ -21,9 +21,11 @@ Requires Python packages/modules:
 ---------------------------------------------------------------------
 
 """
+# Library
 import warnings
+from typing import List, Callable
 
-# Numpy
+# NumPy
 import numpy as np
 
 # SciPy
@@ -31,7 +33,7 @@ from scipy.integrate import cumtrapz
 from scipy.interpolate import InterpolatedUnivariateSpline
 
 # Sympy
-from sympy import poly
+from sympy import poly, Poly
 
 # GMPLib
 from gmplib.utils import e2d
@@ -50,11 +52,26 @@ class TimeInvariantSolution(SingleRaySolution):
     """
     Integration of Hamilton's equations (ODEs) to generate time-invariant
     (steady-state) profile solutions.
+
+    Extends :class:`gme.ode.single_ray.SingleRaySolution`.
     """
 
-    def postprocessing(self, spline_order=2, extrapolation_mode=0) -> None:
+    def postprocessing(
+        self,
+        spline_order: int = 2,
+        extrapolation_mode: int = 0
+    ) -> None:
         """
-        TBD
+        Process the results of ODE integration, supplementing the
+        standard set of array generations.
+
+        Args:
+            spline_order:
+                optional order of spline interpolation to be used
+                when resampling along the profile at regular x intervals
+            extrapolation_mode:
+                optionally extrapolate (1) or don't extrapolate (1)
+                at the end of the interpolation span
         """
         super().postprocessing(spline_order=spline_order,
                                extrapolation_mode=extrapolation_mode)
@@ -69,9 +86,9 @@ class TimeInvariantSolution(SingleRaySolution):
         self.beta_vt_error_interp \
             = lambda x_: 100*(self.beta_vt_interp(x_)-self.beta_p_interp(x_)) \
             / self.beta_p_interp(x_)
-        self.x_array, self.h_array = [
+        (self.x_array, self.h_array) = [
             np.empty_like(self.t_array) for idx in [0, 1]]
-        self.rays = []
+        self.rays: List = []
         for i in range(0, len(self.t_array), 1):
             if i < len(self.t_array):
                 self.rays \
@@ -79,48 +96,73 @@ class TimeInvariantSolution(SingleRaySolution):
                                   self.rz_array[:i+1]+self.t_array[i]*xiv0_])]
             self.x_array[i] = self.rx_array[i]
             self.h_array[i] = self.rz_array[i]+self.t_array[i]*xiv0_
-        self.h_interp \
-            = InterpolatedUnivariateSpline(self.x_array, self.h_array,
+        self.h_interp: Callable \
+            = InterpolatedUnivariateSpline(self.x_array,
+                                           self.h_array,
                                            k=spline_order,
                                            ext=extrapolation_mode)
-        dhdx_interp \
+        dhdx_interp: Callable \
             = InterpolatedUnivariateSpline(self.x_array,
                                            self.h_array,
                                            k=spline_order,
                                            ext=extrapolation_mode).derivative()
         self.beta_ts_interp = lambda x_: np.arctan(dhdx_interp(x_))
-        self.dhdx_array = dhdx_interp(self.x_array)
-        self.beta_ts_array = self.beta_ts_interp(self.x_array)
-        self.beta_ts_error_interp \
+        self.dhdx_array: np.ndarray = dhdx_interp(self.x_array)
+        self.beta_ts_array: np.ndarray = self.beta_ts_interp(self.x_array)
+        self.beta_ts_error_interp: Callable \
             = lambda x_: 100*(self.beta_ts_interp(x_)-self.beta_p_interp(x_)) \
             / self.beta_p_interp(x_)
 
-    def integrate_h_profile(self, n_pts=301, x_max=None,
-                            do_truncate=True, do_use_newton=False) -> None:
+    def integrate_h_profile(
+        self,
+        n_pts: int = 301,
+        x_max: float = None,
+        do_truncate: bool = True,
+        do_use_newton: bool = False
+    ) -> None:
         """
-        TBD
+        Generate topographic profile by numerically integrating gradient
+        using simple quadrature.
+
+        Args:
+            n_pts:
+                optional sample rate along each curve
+            x_max:
+                optional x-axis limit
+            do_truncate:
+                optionally omit that last couple of points?
+            do_use_newton:
+                optionally use Newton-Raphson method to find gradient values
+                (default is to find these values algebraically)
         """
-        x_max = float(Lc.subs(self.parameters)) if x_max is None else x_max
-        self.h_x_array = np.linspace(0, x_max, n_pts)
-        px0_poly_eqn = poly(
-            self.gmeq.poly_px_xiv0_eqn.subs(self.parameters), px)
+        x_max_: float = float(Lc.subs(self.parameters)) if x_max is None \
+            else x_max
+        self.h_x_array: np.ndarray = np.linspace(0, x_max_, n_pts)
+        px0_poly_eqn: Poly \
+            = poly(self.gmeq.poly_px_xiv0_eqn.subs(self.parameters), px)
         if do_truncate:
             h_x_array = self.h_x_array[:-2]
-            gradient_array \
-                = np.array([gradient_value(x_, pz_=self.pz0,
+            gradient_array: np.ndarray \
+                = np.array([gradient_value(x_,
+                                           pz_=self.pz0,
                                            px_poly_eqn=px0_poly_eqn,
                                            do_use_newton=do_use_newton)
                             for x_ in h_x_array])
-            h_z_array = cumtrapz(gradient_array, h_x_array, initial=0)
-            h_z_interp = InterpolatedUnivariateSpline(
-                h_x_array, h_z_array, k=2, ext=0)
-            self.h_z_array = h_z_interp(self.h_x_array)
+            h_z_array: np.ndarray \
+                = cumtrapz(gradient_array, h_x_array, initial=0)
+            h_z_interp: Callable \
+                = InterpolatedUnivariateSpline(h_x_array,
+                                               h_z_array,
+                                               k=2,
+                                               ext=0)
+            self.h_z_array: np.ndarray = h_z_interp(self.h_x_array)
         else:
             h_x_array = self.h_x_array
             # for x_ in h_x_array:
             #     print(x_,self.gradient_value(x_,parameters=self.parameters))
             gradient_array \
-                = np.array([gradient_value(x_, pz_=self.pz0,
+                = np.array([gradient_value(x_,
+                                           pz_=self.pz0,
                                            px_poly_eqn=px0_poly_eqn,
                                            do_use_newton=do_use_newton)
                             for x_ in h_x_array])

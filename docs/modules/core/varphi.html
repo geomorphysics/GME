@@ -312,10 +312,10 @@ to equation definition class.</p>
 <span class="c1"># Disable these pylint errors because it doesn&#39;t understand SymPy syntax</span>
 <span class="c1">#   - notably minus signs in equations flag an error</span>
 <span class="c1"># pylint: disable=invalid-unary-operand-type, not-callable</span>
+
+<span class="c1"># Library</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">import</span> <span class="nn">logging</span>
-
-<span class="c1"># Typing</span>
 <span class="c1"># from typing import Dict, Type, Optional  # , Tuple, Any, List</span>
 
 <span class="c1"># SymPy</span>
@@ -340,6 +340,7 @@ to equation definition class.</p>
 <span class="sd">    Flow model :math:`\varphi` equations supplement</span>
 <span class="sd">    to equation definition class.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Prerequisites</span>
     <span class="n">varphi_type</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">mu_</span><span class="p">:</span> <span class="nb">float</span>
     <span class="n">p_xi_eqn</span><span class="p">:</span> <span class="n">Eq</span>

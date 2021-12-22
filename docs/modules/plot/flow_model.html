@@ -119,11 +119,9 @@ used for equation substitutions</p></li>
 
 <span class="c1"># Library</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
-
-<span class="c1"># Typing</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Optional</span>
 
-<span class="c1"># Numpy</span>
+<span class="c1"># NumPy</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="c1"># MatPlotLib</span>
@@ -193,9 +191,14 @@ used for equation substitutions</p></li>
             <span class="n">gmeq</span><span class="o">.</span><span class="n">varphi_rx_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">x_h</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">sub</span><span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">rx</span><span class="p">:</span> <span class="n">x_</span><span class="p">})</span>
             <span class="k">for</span> <span class="n">x_</span> <span class="ow">in</span> <span class="n">x_array</span>
         <span class="p">]</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_array</span><span class="p">,</span> <span class="n">varphi_array</span><span class="p">,</span> <span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">colors</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_array</span><span class="p">,</span> <span class="n">varphi_array</span><span class="p">,</span>
+                 <span class="s1">&#39;-&#39;</span><span class="p">,</span>
+                 <span class="n">color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">colors</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
                  <span class="n">label</span><span class="o">=</span><span class="s1">&#39;hillslope-channel model&#39;</span><span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_array</span><span class="p">,</span> <span class="n">varphi_xh1p0_array</span><span class="p">,</span> <span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">colors</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_array</span><span class="p">,</span>
+                 <span class="n">varphi_xh1p0_array</span><span class="p">,</span>
+                 <span class="s1">&#39;--&#39;</span><span class="p">,</span>
+                 <span class="n">color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">colors</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
                  <span class="n">label</span><span class="o">=</span><span class="s1">&#39;channel-only model&#39;</span><span class="p">)</span>
 
         <span class="c1"># axes.set_aspect(1)</span>
@@ -204,34 +207,53 @@ used for equation substitutions</p></li>
             <span class="sa">r</span><span class="s1">&#39;Dimensionless horizontal distance, $x/L_{\mathrm</span><span class="si">{c}</span><span class="s1">}$  [-]&#39;</span><span class="p">)</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\varphi(x)$  [-]&#39;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">do_subtitling</span><span class="p">:</span>
-            <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">,</span> <span class="sa">rf</span><span class="s1">&#39;$\eta=</span><span class="si">{</span><span class="n">gmeq</span><span class="o">.</span><span class="n">eta_</span><span class="si">}</span><span class="s1">$&#39;</span><span class="p">,</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span>
+                     <span class="mf">0.15</span><span class="p">,</span>
+                     <span class="sa">rf</span><span class="s1">&#39;$\eta=</span><span class="si">{</span><span class="n">gmeq</span><span class="o">.</span><span class="n">eta_</span><span class="si">}</span><span class="s1">$&#39;</span><span class="p">,</span>
                      <span class="n">transform</span><span class="o">=</span><span class="n">axes</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span>
-                     <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
-                     <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
-            <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.22</span><span class="p">,</span> <span class="n">subtitle</span><span class="p">,</span>
+                     <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span>
+                     <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+                     <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span>
+                     <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.05</span><span class="p">,</span>
+                     <span class="mf">0.22</span><span class="p">,</span>
+                     <span class="n">subtitle</span><span class="p">,</span>
                      <span class="n">transform</span><span class="o">=</span><span class="n">axes</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span>
-                     <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
-                     <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+                     <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span>
+                     <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+                     <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span>
+                     <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">do_extra_annotations</span><span class="p">:</span>
-            <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.45</span><span class="p">,</span> <span class="s1">&#39;channel&#39;</span><span class="p">,</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.4</span><span class="p">,</span>
+                     <span class="mf">0.45</span><span class="p">,</span>
+                     <span class="s1">&#39;channel&#39;</span><span class="p">,</span>
                      <span class="n">transform</span><span class="o">=</span><span class="n">axes</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span>
                      <span class="n">rotation</span><span class="o">=-</span><span class="mi">43</span><span class="p">,</span>
-                     <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
-                     <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;0.2&#39;</span><span class="p">)</span>
-            <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.83</span><span class="p">,</span> <span class="mf">0.16</span><span class="p">,</span> <span class="s1">&#39;hillslope&#39;</span><span class="p">,</span>
+                     <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+                     <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+                     <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span>
+                     <span class="n">color</span><span class="o">=</span><span class="s1">&#39;0.2&#39;</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.83</span><span class="p">,</span>
+                     <span class="mf">0.16</span><span class="p">,</span>
+                     <span class="s1">&#39;hillslope&#39;</span><span class="p">,</span>
                      <span class="n">transform</span><span class="o">=</span><span class="n">axes</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span>
-                     <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
-                     <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;0.2&#39;</span><span class="p">)</span>
+                     <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span>
+                     <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+                     <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span>
+                     <span class="n">color</span><span class="o">=</span><span class="s1">&#39;0.2&#39;</span><span class="p">)</span>
 
         <span class="n">y_limits</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="n">axes</span><span class="o">.</span><span class="n">get_ylim</span><span class="p">()</span>
         <span class="n">x_h_</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">x_h</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">sub</span><span class="p">))</span>
         <span class="n">varphi_h_</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span>
             <span class="n">gmeq</span><span class="o">.</span><span class="n">varphi_rx_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">rx</span><span class="p">:</span> <span class="n">x_h</span><span class="p">})</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">sub</span><span class="p">))</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">x_h_</span><span class="p">,</span> <span class="n">x_h_</span><span class="p">],</span> <span class="p">[</span><span class="n">varphi_h_</span><span class="o">-</span><span class="mi">30</span><span class="p">,</span> <span class="n">varphi_h_</span><span class="o">+</span><span class="mi">70</span><span class="p">],</span> <span class="s1">&#39;b:&#39;</span><span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">x_h_</span><span class="p">,</span> <span class="n">varphi_h_</span><span class="o">+</span><span class="mi">77</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$x_h/L_{\mathrm</span><span class="si">{c}</span><span class="s1">}$&#39;</span><span class="p">,</span>
-                 <span class="c1"># transform=axes.transAxes,</span>
-                 <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;bottom&#39;</span><span class="p">,</span>
-                 <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">x_h_</span><span class="p">,</span>
+                 <span class="n">varphi_h_</span><span class="o">+</span><span class="mi">77</span><span class="p">,</span>
+                 <span class="sa">r</span><span class="s1">&#39;$x_h/L_{\mathrm</span><span class="si">{c}</span><span class="s1">}$&#39;</span><span class="p">,</span>
+                 <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+                 <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;bottom&#39;</span><span class="p">,</span>
+                 <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span>
+                 <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>
 
         <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span> <span class="n">framealpha</span><span class="o">=</span><span class="mf">0.95</span><span class="p">)</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mf">1.05</span><span class="p">)</span>

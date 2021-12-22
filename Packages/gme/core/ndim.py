@@ -21,10 +21,10 @@ Requires Python packages/modules:
 # Disable these pylint errors because it doesn't understand SymPy syntax
 #   - notably minus signs in equations flag an error
 # pylint: disable=invalid-unary-operand-type, not-callable
+
+# Library
 import warnings
 import logging
-
-# Typing
 from typing import Dict
 
 # SymPy
@@ -52,6 +52,7 @@ class NdimMixin:
     r"""
     Non-dimensionalization supplement to equation definition class.
     """
+    # Prerequisites
     varphi_rx_eqn: Eq
     xi_varphi_beta_eqn: Eq
     pz_xiv_eqn: Eq
@@ -200,7 +201,7 @@ class NdimMixin:
 
     def define_nodimensionalized_Hamiltons_eqns(self) -> None:
         """
-        TBD
+        Group Hamilton's equations into matrix form
         """
         logging.info('core.ndim.define_nodimensionalized_Hamiltons_eqns')
         self.hamiltons_ndim_eqns = Matrix((

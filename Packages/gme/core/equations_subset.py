@@ -19,14 +19,13 @@ Requires Python packages/modules:
 ---------------------------------------------------------------------
 
 """
-# Library
 # Disable these pylint errors because it doesn't understand SymPy syntax
 #   - notably minus signs in equations flag an error
 # pylint: disable=invalid-unary-operand-type, not-callable
+
+# Library
 import warnings
 import logging
-
-# Typing
 from typing import Dict, Type
 
 # SymPy

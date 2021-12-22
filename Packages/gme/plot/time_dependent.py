@@ -19,12 +19,11 @@ Requires Python packages:
 ---------------------------------------------------------------------
 
 """
+# Library
 import warnings
-
-# Typing
 from typing import Dict, Tuple, Optional
 
-# Numpy
+# NumPy
 import numpy as np
 
 # SymPy
@@ -196,10 +195,14 @@ class TimeDependent(Graphing):
                         else None)
                     if do_annotate_rays:
                         self.arrow_annotate_ray_custom(
-                            rx_array, rz_array,
-                            axes, i_ray,
-                            ray_subsetting, n_rays,
-                            n_arrows, arrow_sf, arrow_offset,
+                            rx_array,
+                            rz_array,
+                            axes,
+                            i_ray,
+                            ray_subsetting,
+                            n_rays,
+                            n_arrows, arrow_sf,
+                            arrow_offset,
                             x_limits=x_limits,
                             y_limits=y_limits,
                             line_style=ray_ls,
@@ -208,10 +211,16 @@ class TimeDependent(Graphing):
                             do_smooth_colors=do_smooth_colors
                         )
                     else:
-                        color_ = self.mycolors(i_ray, ray_subsetting, n_rays,
+                        color_ = self.mycolors(i_ray,
+                                               ray_subsetting,
+                                               n_rays,
                                                do_smooth=do_smooth_colors)
-                        plt.plot(rx_array, rz_array, lw=ray_lw, color=color_,
-                                 linestyle=ray_ls, label=this_ray_label)
+                        plt.plot(rx_array,
+                                 rz_array,
+                                 lw=ray_lw,
+                                 color=color_,
+                                 linestyle=ray_ls,
+                                 label=this_ray_label)
 
         # Time slices or isochrones of erosion front
         if hasattr(gmes, 'rpt_isochrones') and do_isochrones:
@@ -240,14 +249,18 @@ class TimeDependent(Graphing):
             if rx_isochrone is not None:
                 label_part = r'isochrone $\Delta{\hat{t}}=$'
                 label_ = rf'{label_part}${int(10*delta_t)}$'
-                plt.plot(rx_isochrone, rz_isochrone,
+                plt.plot(rx_isochrone,
+                         rz_isochrone,
                          self.gray_color(i_isochrone, n_isochrones),
-                         linestyle=isochrone_ls, lw=1.3*isochrone_lw,
+                         linestyle=isochrone_ls,
+                         lw=1.3*isochrone_lw,
                          label=label_)
                 label_ = rf'{label_part}${round(delta_t,1)}$'
-                plt.plot(rx_isochrone, rz_isochrone,
+                plt.plot(rx_isochrone,
+                         rz_isochrone,
                          self.gray_color(i_isochrone, n_isochrones),
-                         linestyle=isochrone_ls, lw=0.5*isochrone_lw,
+                         linestyle=isochrone_ls,
+                         lw=0.5*isochrone_lw,
                          label=label_)
 
         # Knickpoint aka cusp propagation
@@ -257,8 +270,11 @@ class TimeDependent(Graphing):
                                   if rxz != [] and rxz[0] <= 1.01])
             if (n_cusps := len(rxz_array)) > 0:
                 # Plot locations of cusps as a propagation curve
-                plt.plot(rxz_array.T[0][:-1], rxz_array.T[1][:-1],
-                         lw=cusp_lw, color='r', alpha=0.4,
+                plt.plot(rxz_array.T[0][:-1],
+                         rxz_array.T[1][:-1],
+                         lw=cusp_lw,
+                         color='r',
+                         alpha=0.4,
                          label='cusp propagation')
 
                 # Plot inferred initiation of cusp propagation
@@ -268,8 +284,12 @@ class TimeDependent(Graphing):
                     dx_, dy_ = (x2_-x1_)/100, (y2_-y1_)/100
                     x0_ = 0
                     y0_ = y1_+(dy_/dx_)*(x0_-x1_)
-                    plt.plot((x0_, x1_), (y0_, y1_), ':',
-                             lw=cusp_lw, color='r', alpha=0.4,
+                    plt.plot((x0_, x1_),
+                             (y0_, y1_),
+                             ':',
+                             lw=cusp_lw,
+                             color='r',
+                             alpha=0.4,
                              label='inferred initiation')
 
                 # Plot arrow annotations using subset of cusps
@@ -294,7 +314,8 @@ class TimeDependent(Graphing):
                             '', xy=(x0_, y0_),
                             xytext=(x0_+dx_, y0_+dy_),
                             arrowprops=dict(arrowstyle=my_arrow_style,
-                                            color='r', alpha=0.4))
+                                            color='r',
+                                            alpha=0.4))
 
         # Label axes
         plt.xlabel(r'Distance, $x/L_{\mathrm{c}}$  [-]', fontsize=16)
@@ -315,9 +336,15 @@ class TimeDependent(Graphing):
                      rf'$\eta={gmeq.eta_}$'+r'$\quad\mathsf{Ci}=$'
                      + rf'${round(float(deg(Ci.subs(sub))))}\degree$',
                      transform=axes.transAxes,
-                     horizontalalignment='center', verticalalignment='center',
-                     fontsize=14, color='k')
+                     horizontalalignment='center',
+                     verticalalignment='center',
+                     fontsize=14,
+                     color='k')
         if do_pub_label:
-            plt.text(*pub_label_xy, pub_label, transform=axes.transAxes,
-                     horizontalalignment='center', verticalalignment='center',
-                     fontsize=14, color='k')
+            plt.text(*pub_label_xy,
+                     pub_label,
+                     transform=axes.transAxes,
+                     horizontalalignment='center',
+                     verticalalignment='center',
+                     fontsize=14,
+                     color='k')

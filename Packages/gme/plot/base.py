@@ -19,13 +19,12 @@ Requires Python packages:
 ---------------------------------------------------------------------
 
 """
+# Library
 import warnings
 # import logging
+from typing import List, Tuple, Dict, Optional
 
-# Typing
-from typing import List, Tuple, Dict
-
-# Numpy
+# NumPy
 import numpy as np
 
 # MatPlotLib
@@ -54,13 +53,13 @@ class Graphing(GraphingBase):
     """
 
     def mycolors(
-            self,
-            i: int,
-            r: int,
-            n: int,
-            do_smooth: bool = False,
-            cmap_choice: str = 'brg'
-            ) -> List[str]:
+        self,
+        i: int,
+        r: int,
+        n: int,
+        do_smooth: bool = False,
+        cmap_choice: str = 'brg'
+    ) -> List[str]:
         r"""
         Generate a color palette
         """
@@ -102,21 +101,21 @@ class Graphing(GraphingBase):
         return angle_
 
     def draw_rays_with_arrows_simple(
-            self,
-            axes: Axes,
-            sub: Dict,
-            xi_vh_ratio,
-            t_array,
-            rx_array,
-            rz_array,
-            v_array=None,
-            n_t=None,
-            n_rays=4,
-            ls: str = '-',
-            sf=1,
-            color=None,
-            do_labels=True,
-            do_one_ray=False
+        self,
+        axes: Axes,
+        sub: Dict,
+        xi_vh_ratio: float,
+        t_array: np.ndarray,
+        rx_array: np.ndarray,
+        rz_array: np.ndarray,
+        v_array: Optional[np.ndarray] = None,
+        n_t: int = None,
+        n_rays: int = 4,
+        ls: str = '-',
+        sf: float = 1,
+        color: Optional[str] = None,
+        do_labels: bool = True,
+        do_one_ray: bool = False
     ) -> None:
         """
         Plot ray and arrowheads along the ray to visualize the
@@ -186,21 +185,22 @@ class Graphing(GraphingBase):
             # cbar.ax.set_ylabel(r'ray speed  $v$', rotation=90)
 
     def arrow_annotate_ray_custom(
-            self,
-            rx_array,
-            rz_array,
-            axes: Axes,
-            i_ray,
-            i_ray_step,
-            n_rays, n_arrows,
-            arrow_sf=0.7,
-            arrow_offset=1,
-            x_limits=None,
-            y_limits=None,
-            line_style='dashed',
-            line_width=1,
-            ray_label=None,
-            do_smooth_colors=False
+        self,
+        rx_array: np.ndarray,
+        rz_array: np.ndarray,
+        axes: Axes,
+        i_ray: int,
+        i_ray_step: int,
+        n_rays: int,
+        n_arrows: int,
+        arrow_sf: float = 0.7,
+        arrow_offset: int = 1,
+        x_limits: Optional[Tuple[Optional[float], Optional[float]]] = None,
+        y_limits: Optional[Tuple[Optional[float], Optional[float]]] = None,
+        line_style: str = 'dashed',
+        line_width: float = 1,
+        ray_label: str = None,
+        do_smooth_colors: bool = False
     ) -> None:
         """
         Add arrowheads to a ray trajectory to visualize

@@ -21,10 +21,10 @@ Requires Python packages/modules:
 # Disable these pylint errors because it doesn't understand SymPy syntax
 #   - notably minus signs in equations flag an error
 # pylint: disable=invalid-unary-operand-type, not-callable
+
+# Library
 import warnings
 import logging
-
-# Typing
 # from typing import Dict, Type, Optional  # , Tuple, Any, List
 
 # SymPy
@@ -50,6 +50,9 @@ class IbcMixin:
     Initial condition/boundary condition equations supplement
     to equation definition class.
     """
+    # Prerequisites
+    pz0_xiv0_eqn: Eq
+    pzpx_unity_eqn: Eq
     rdot_p_unity_eqn: Eq
     rdotx_pxpz_eqn: Eq
     rdotz_pxpz_eqn: Eq

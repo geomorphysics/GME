@@ -20,9 +20,8 @@ Requires Python packages/modules:
 ---------------------------------------------------------------------
 
 """
+# Library
 import warnings
-
-# Typing
 from typing import Tuple, Dict, List, Optional
 
 # Numpy
@@ -40,7 +39,7 @@ import matplotlib.patches as mpatches
 
 # GME
 from gme.core.symbols import Ci, rx, rdotx, rdotz
-from gme.core.equations import Equations
+from gme.core.equations_extended import EquationsGeodesic
 from gme.ode.time_invariant import TimeInvariantSolution
 from gme.plot.base import Graphing
 
@@ -61,18 +60,20 @@ class RayGeodesics(Graphing):
             defined in :mod:`gme.ode.single_ray`
         gmeq:
             GME model equations class instance defined in
-            :mod:`gme.core.equations`
+                :mod:`gme.core.equations` or similar
         n_points:
             optional sample rate along each curve
+        do_recompute:
+            optionally redo (slow) computation of metric tensors?
     """
 
     def __init__(
-            self,
-            gmes,
-            gmeq,
-            n_points,
-            do_recompute=False
-            ) -> None:
+        self,
+        gmes: TimeInvariantSolution,
+        gmeq: EquationsGeodesic,
+        n_points: int,
+        do_recompute: bool = False
+    ) -> None:
         r"""
         Constructor method
         """
@@ -137,26 +138,26 @@ class RayGeodesics(Graphing):
             print(f'Failed to (re)generate g_matrices_array: "{e}"')
 
     def profile_g_properties(
-            self,
-            gmes: TimeInvariantSolution,
-            gmeq: Equations,
-            sub: Dict,
-            name: str,
-            fig_size: Optional[Tuple[float, float]] = None,
-            dpi: Optional[int] = None,
-            y_limits=None,
-            # n_points=121,
-            # do_pub_label=False, pub_label='',
-            do_gstar=False,
-            do_det=False,
-            do_eigenvectors=False,
-            eta_label_xy=None,
-            do_etaxi_label=True,
-            legend_loc='lower left',
-            # do_mod_v=False,
-            # do_recompute=False
-            do_pv=False
-            ) -> None:
+        self,
+        gmes: TimeInvariantSolution,
+        gmeq: EquationsGeodesic,
+        sub: Dict,
+        name: str,
+        fig_size: Optional[Tuple[float, float]] = None,
+        dpi: Optional[int] = None,
+        y_limits: Optional[Tuple[Optional[float], Optional[float]]] = None,
+        # n_points=121,
+        # do_pub_label=False, pub_label='',
+        do_gstar: bool = False,
+        do_det: bool = False,
+        do_eigenvectors: bool = False,
+        eta_label_xy: Optional[Tuple[float, float]] = None,
+        do_etaxi_label: bool = True,
+        legend_loc: str = 'lower left',
+        # do_mod_v=False,
+        # do_recompute=False
+        do_pv: bool = False
+    ) -> None:
         r"""
         Plot velocity :math:`\dot{r}` along a ray.
 
@@ -170,7 +171,9 @@ class RayGeodesics(Graphing):
             n_points: sample rate along each curve
         """
         _ = self.create_figure(name, fig_size=fig_size, dpi=dpi)
-        y_limits = [None, None] if y_limits is None else y_limits
+        y_limits_: Tuple[Optional[float], Optional[float]] \
+            = (None, None) if y_limits is None \
+            else y_limits
         axes = plt.gca()
 
         # HACK
@@ -194,7 +197,9 @@ class RayGeodesics(Graphing):
             g_label = '{g^*}'
             m_label = 'co-metric'
             h_label = 'H'
-            eta_label_xy = [0.5, 0.2] if eta_label_xy is None else eta_label_xy
+            eta_label_xy_: Tuple[float, float] \
+                = (0.5, 0.2) if eta_label_xy is None \
+                else eta_label_xy
         else:
             # Use of lambdified g* matrix here fails for eta=1/4, sin(beta)
             #   for some reason
@@ -203,15 +208,17 @@ class RayGeodesics(Graphing):
             g_label = '{g}'
             m_label = 'metric'
             h_label = 'L'
-            eta_label_xy = [
-                0.5, 0.85] if eta_label_xy is None else eta_label_xy
+            eta_label_xy_ \
+                = (0.5, 0.85) if eta_label_xy is None \
+                else eta_label_xy
         # g_eigenvalues_array
         #  = np.array([np.real(eig(g_)[0]) for g_ in g_matrices_array])
         # The metric tensor matrices are symmetric therefore Hermitian
         #  so we can use 'eigh'
         # print(f'g_matrices_array = {g_matrices_array}')
         if g_matrices_array is not None:
-            g_eigh_array = [eigh(g_) for g_ in g_matrices_array]
+            g_eigh_array: Optional[List] \
+                = [eigh(g_) for g_ in g_matrices_array]
             g_det_array = np.array([det(g_) for g_ in g_matrices_array])
         else:
             g_eigh_array = None
@@ -251,24 +258,37 @@ class RayGeodesics(Graphing):
             plt.plot(0, 0, 'magenta', ls='-', lw=1.5, label=r'eigenvector 1')
             axes.set_aspect(1)
         elif do_det and g_det_array is not None:
-            plt.plot(x_array, g_det_array, 'DarkBlue', ls='-', lw=1.5,
+            plt.plot(x_array, g_det_array,
+                     'DarkBlue',
+                     ls='-',
+                     lw=1.5,
                      label=r'$\det('+g_label+')$')
             plt.ylabel(r'Det of $'+g_label
-                       + '$ (Hessian of $'+h_label+'$)', fontsize=14)
+                       + '$ (Hessian of $'+h_label+'$)',
+                       fontsize=14)
         elif do_pv:
             px_array = gmes.px_interp(x_array)
             pz_array = gmes.pz_interp(x_array)
             pv_array = px_array*vx_array + pz_array*vz_array
-            plt.plot(x_array, pv_array, 'r', ls='-', lw=2, label=r'$p_i v^i$')
+            plt.plot(x_array,
+                     pv_array,
+                     'r',
+                     ls='-',
+                     lw=2,
+                     label=r'$p_i v^i$')
             if self.gstar_matrices_array is not None:
                 gstarpp_array \
                     = [np.dot(
-                        np.dot(gstar_, np.array([px_, pz_])),
-                        np.array([px_, pz_])
+                            np.dot(gstar_, np.array([px_, pz_])),
+                            np.array([px_, pz_])
                         )
                         for gstar_, px_, pz_
                         in zip(self.gstar_matrices_array, px_array, pz_array)]
-                plt.plot(x_array, gstarpp_array, '0.5', ls='--', lw=3,
+                plt.plot(x_array,
+                         gstarpp_array,
+                         '0.5',
+                         ls='--',
+                         lw=3,
                          label=r'$g^j p_j p_j$')
             if self.g_matrices_array is not None:
                 gvv_array \
@@ -278,8 +298,12 @@ class RayGeodesics(Graphing):
                         )
                        for g_, vx_, vz_
                        in zip(self.g_matrices_array, vx_array, vz_array)]
-                plt.plot(x_array, gvv_array, 'k', ls=':',
-                         lw=4, label=r'$g_i v^iv^i$')
+                plt.plot(x_array,
+                         gvv_array,
+                         'k',
+                         ls=':',
+                         lw=4,
+                         label=r'$g_i v^iv^i$')
             plt.ylabel(r'Inner product of $\mathbf{\widetilde{p}}$'
                        + r' and $\mathbf{{v}}$',
                        fontsize=14)
@@ -310,7 +334,7 @@ class RayGeodesics(Graphing):
             return
 
         if do_eigenvectors:
-            axes.set_ylim(*y_limits)
+            axes.set_ylim(*y_limits_)
         elif do_det:
             ylim = plt.ylim()
             if ylim[1] < 0:
@@ -325,13 +349,15 @@ class RayGeodesics(Graphing):
         # axes.set_ylim(ylim[0]*1.1,-0)
         plt.legend(loc=legend_loc, fontsize=12, framealpha=0.95)
         if do_etaxi_label:
-            plt.text(*eta_label_xy,
+            plt.text(*eta_label_xy_,
                      rf'$\eta={gmeq.eta_}$'
                      + r'$\quad\mathsf{Ci}=$'
                      + rf'${round(float(deg(Ci.subs(sub))))}\degree$',
                      transform=axes.transAxes,
-                     horizontalalignment='center', verticalalignment='center',
-                     fontsize=14, color='k')
+                     horizontalalignment='center',
+                     verticalalignment='center',
+                     fontsize=14,
+                     color='k')
 
 
 #

@@ -8,6 +8,7 @@ Visualization of ray angles.
 Requires Python packages/modules:
   -  :mod:`NumPy <numpy>`
   -  :mod:`SymPy <sympy>`
+  -  `Cycler`_
   -  :mod:`MatPlotLib <matplotlib>`
   -  `GME`_
 
@@ -15,22 +16,22 @@ Requires Python packages/modules:
 .. _GME: https://github.com/geomorphysics/GME
 .. _Matrix:
     https://docs.sympy.org/latest/modules/matrices/immutablematrices.html
-
+.. _Cycler: https://matplotlib.org/cycler/
 ---------------------------------------------------------------------
 
 """
 # Library
 import warnings
+from typing import Tuple, Dict, Optional, Callable, Union
+
+# Cycler
 from cycler import cycler
 
-# Typing
-from typing import Tuple, Dict, Optional
-
-# Numpy
+# NumPy
 import numpy as np
 
 # SymPy
-from sympy import deg  # , atan
+from sympy import deg
 
 # MatPlotLib
 import matplotlib.pyplot as plt
@@ -39,7 +40,11 @@ from matplotlib.pyplot import Axes
 # GME
 from gme.core.symbols import Ci
 from gme.core.equations import Equations
+from gme.core.equations_extended \
+    import EquationsGeodesic, EquationsIdtx, EquationsIbc
 from gme.ode.single_ray import SingleRaySolution
+from gme.ode.time_invariant import TimeInvariantSolution
+from gme.ode.velocity_boundary import VelocityBoundarySolution
 from gme.plot.base import Graphing
 
 warnings.filterwarnings("ignore")
@@ -56,22 +61,27 @@ class RayAngles(Graphing):
 
     def alpha_beta(
         self,
-        gmes: SingleRaySolution,
-        gmeq: Equations,
+        gmes: Union[SingleRaySolution,
+                    TimeInvariantSolution,
+                    VelocityBoundarySolution],
+        gmeq: Union[Equations,
+                    EquationsGeodesic,
+                    EquationsIdtx,
+                    EquationsIbc],
         sub: Dict,
         name: str,
         fig_size: Optional[Tuple[float, float]] = None,
         dpi: Optional[int] = None,
-        aspect=1,
-        n_points=201,
-        x_limits=None,
-        y_limits=None,
-        do_legend=True,
-        do_etaxi_label=True,
-        eta_label_xy=(0.5, 0.85),
-        do_pub_label=False,
-        pub_label='',
-        pub_label_xy=(0.88, 0.7)
+        aspect: float = 1,
+        n_points: int = 201,
+        x_limits: Optional[Tuple[Optional[float], Optional[float]]] = None,
+        y_limits: Optional[Tuple[Optional[float], Optional[float]]] = None,
+        do_legend: bool = True,
+        do_pub_label: bool = False,
+        pub_label_xy: Tuple[float, float] = (0.88, 0.7),
+        pub_label: str = '',
+        do_etaxi_label: bool = True,
+        eta_label_xy: Tuple[float, float] = (0.5, 0.85),
     ) -> None:
         r"""
         Plot ray vector angle :math:`\alpha`
@@ -84,7 +94,7 @@ class RayAngles(Graphing):
                 defined in :mod:`gme.ode.single_ray`
             gmeq:
                 GME model equations class instance defined in
-                :mod:`gme.core.equations`
+                :mod:`gme.core.equations` or similar
             sub:
                 dictionary of model parameter values to be used for
                 equation substitutions
@@ -101,7 +111,17 @@ class RayAngles(Graphing):
             y_limits:
                 optional [z_min, z_max] vertical plot range
             do_legend:
-                optional plot legend?
+                optionally plot legend?
+            pub_label_xy:
+                optional position of 'publication' annotation
+            eta_label_xy:
+                optional position of :math:`\eta` annotation
+            do_pub_label:
+                optionally do 'publication' annotation'?
+            do_etaxi_label:
+                optionally do :math:`\eta`, :math:`\xi` annotation'?
+            pub_label:
+                optional 'publication' annotation text
         """
         _ = self.create_figure(name, fig_size=fig_size, dpi=dpi)
         # eta_label_xy = [0.5,0.85] if eta_label_xy is None else eta_label_xy
@@ -110,8 +130,11 @@ class RayAngles(Graphing):
         x_array = np.linspace(0, 1, n_points)
         alpha_array = np.rad2deg(gmes.alpha_interp(x_array))
         beta_p_array = np.rad2deg(gmes.beta_p_interp(x_array))
-        plt.plot(beta_p_array, alpha_array-90, 'b',
-                 ls='-', label=r'$\alpha(\beta)-90$')
+        plt.plot(beta_p_array,
+                 alpha_array-90,
+                 'b',
+                 ls='-',
+                 label=r'$\alpha(\beta)-90$')
         plt.xlabel(
             r'Surface normal angle  $\beta$  [${\degree}$ from vertical]')
         plt.ylabel(r'Ray angle  $\alpha\,$  [${\degree}$ from horiz]')
@@ -121,8 +144,8 @@ class RayAngles(Graphing):
         axes.set_aspect(aspect)
         xlim = axes.get_xlim()
         # ylim = axes.get_ylim()
-        axes.set_yticks([-40, -30, -20, -10, 0, 10, 20,
-                        30, 40, 50, 60, 70, 80, 90])
+        axes.set_yticks((-40, -30, -20, -10, 0, 10, 20,
+                         30, 40, 50, 60, 70, 80, 90))
         if x_limits is None:
             axes.set_xlim(-(xlim[1]-xlim[0])/30, xlim[1])
         else:
@@ -137,30 +160,40 @@ class RayAngles(Graphing):
                      rf'$\eta={gmeq.eta_}$'+r'$\quad\mathsf{Ci}=$'
                      + rf'${round(float(deg(Ci.subs(sub))))}\degree$',
                      transform=axes.transAxes,
-                     horizontalalignment='center', verticalalignment='center',
-                     fontsize=14, color='k')
+                     horizontalalignment='center',
+                     verticalalignment='center',
+                     fontsize=14,
+                     color='k')
         if do_pub_label:
-            plt.text(*pub_label_xy, pub_label, transform=axes.transAxes,
-                     horizontalalignment='center', verticalalignment='center',
-                     fontsize=16, color='k')
+            plt.text(*pub_label_xy,
+                     pub_label,
+                     transform=axes.transAxes,
+                     horizontalalignment='center',
+                     verticalalignment='center',
+                     fontsize=16,
+                     color='k')
 
     def angular_disparity(
         self,
-        gmes,
-        gmeq,
-        name,
-        fig_size=None,
-        dpi=None,
-        n_points=201,
-        x_limits=None,
-        y_limits=None,
-        do_legend=True,
-        aspect=0.75,
-        pub_label_xy=(0.5, 0.2),
-        eta_label_xy=(0.5, 0.81),
-        # var_label_xy=(0.85,0.81),
-        do_pub_label=False,
-        pub_label=''
+        gmes: Union[SingleRaySolution,
+                    TimeInvariantSolution,
+                    VelocityBoundarySolution],
+        gmeq: Union[Equations,
+                    EquationsGeodesic,
+                    EquationsIdtx,
+                    EquationsIbc],
+        name: str,
+        fig_size: Optional[Tuple[float, float]] = None,
+        dpi: Optional[int] = None,
+        n_points: int = 201,
+        x_limits: Optional[Tuple[Optional[float], Optional[float]]] = None,
+        y_limits: Optional[Tuple[Optional[float], Optional[float]]] = None,
+        do_legend: bool = True,
+        aspect: float = 0.75,
+        do_pub_label: bool = False,
+        pub_label: str = '',
+        pub_label_xy: Tuple[float, float] = (0.88, 0.7),
+        eta_label_xy: Tuple[float, float] = (0.5, 0.85),
     ) -> None:
         r"""
         Plot ray vector angular disparity :math:`\alpha-\beta`
@@ -172,7 +205,7 @@ class RayAngles(Graphing):
                 :mod:`gme.ode.raytracing`
             gmeq:
                 GME model equations class instance defined in
-                :mod:`gme.core.equations`
+                :mod:`gme.core.equations` or similar
             n_points:
                 optional sample rate along each curve
             x_limits:
@@ -190,7 +223,10 @@ class RayAngles(Graphing):
         x_array = np.linspace(0, 1, n_points)
         alpha_array = np.rad2deg(gmes.alpha_interp(x_array))
         beta_p_array = np.rad2deg(gmes.beta_p_interp(x_array))
-        plt.plot(beta_p_array, alpha_array-beta_p_array, 'DarkBlue', ls='-',
+        plt.plot(beta_p_array,
+                 alpha_array-beta_p_array,
+                 'DarkBlue',
+                 ls='-',
                  label=r'$\alpha(\beta)-90$')
         plt.xlabel(
             r'Surface normal angle  $\beta$  [${\degree}$ from vertical]')
@@ -202,7 +238,7 @@ class RayAngles(Graphing):
         axes.set_aspect(aspect)
         xlim = axes.get_xlim()
         # ylim = axes.get_ylim()
-        axes.set_yticks([-20, -10, 0, 10, 20, 30, 40, 50, 60, 70, 80, 90])
+        axes.set_yticks((-20, -10, 0, 10, 20, 30, 40, 50, 60, 70, 80, 90))
         if x_limits is None:
             axes.set_xlim(-(xlim[1]-xlim[0])/30, xlim[1])
         else:
@@ -211,28 +247,41 @@ class RayAngles(Graphing):
             axes.set_ylim(*y_limits)
         if do_legend:
             plt.legend()
-        plt.text(*eta_label_xy, rf'$\eta={gmeq.eta_}$',
+        plt.text(*eta_label_xy,
+                 rf'$\eta={gmeq.eta_}$',
                  transform=axes.transAxes,
-                 horizontalalignment='center', verticalalignment='center',
-                 fontsize=14, color='k')
+                 horizontalalignment='center',
+                 verticalalignment='center',
+                 fontsize=14,
+                 color='k')
         if do_pub_label:
-            plt.text(*pub_label_xy, pub_label, transform=axes.transAxes,
-                     horizontalalignment='center', verticalalignment='center',
-                     fontsize=16, color='k')
+            plt.text(*pub_label_xy,
+                     pub_label,
+                     transform=axes.transAxes,
+                     horizontalalignment='center',
+                     verticalalignment='center',
+                     fontsize=16,
+                     color='k')
 
     def profile_angular_disparity(
         self,
-        gmes,
-        gmeq,
-        sub,
-        name,
-        fig_size=None,
-        dpi=None,
-        n_points=201,
-        pub_label_xy=(0.5, 0.2),
-        eta_label_xy=(0.25, 0.5),
-        var_label_xy=(0.8, 0.35),
-        do_pub_label=False, pub_label='(a)'
+        gmes: Union[SingleRaySolution,
+                    TimeInvariantSolution,
+                    VelocityBoundarySolution],
+        gmeq: Union[Equations,
+                    EquationsGeodesic,
+                    EquationsIdtx,
+                    EquationsIbc],
+        sub: Dict,
+        name: str,
+        fig_size: Optional[Tuple[float, float]] = None,
+        dpi: Optional[int] = None,
+        n_points: int = 201,
+        do_pub_label: bool = False,
+        pub_label: str = '(a)',
+        pub_label_xy: Tuple[float, float] = (0.5, 0.2),
+        eta_label_xy: Tuple[float, float] = (0.25, 0.5),
+        var_label_xy: Tuple[float, float] = (0.8, 0.35),
     ) -> None:
         r"""
         Plot horizontal erosion speed :math:`\xi^{\rightarrow}` along
@@ -240,29 +289,52 @@ class RayAngles(Graphing):
 
         Args:
             gmes:
-                instance of single ray solution class defined in
-                :mod:`gme.ode.raytracing`
-            gmeq :
+                instance of single-ray solution class
+                defined in :mod:`gme.ode.single_ray`
+            gmeq:
                 GME model equations class instance defined in
-                :mod:`gme.core.equations`
+                :mod:`gme.core.equations` or similar
+            sub:
+                dictionary of model parameter values to be used for
+                equation substitutions
+            name:
+                name of figure (key in figure dictionary)
+            fig_size:
+                optional figure width and height in inches
+            dpi:
+                optional rasterization resolution
             n_points:
-                sample rate along each curve
+                optional sample rate along each curve
+            pub_label_xy:
+                optional position of 'publication' annotation
+            eta_label_xy:
+                optional position of :math:`\eta` annotation
+            var_label_xy:
+                optional position of variable (e.g. :math:`\psi`) annotation
+            do_pub_label:
+                optionally do 'publication' annotation'?
+            pub_label:
+                optional 'publication' annotation text
         """
         _ = self.create_figure(name, fig_size=fig_size, dpi=dpi)
         # pub_label_xy = [0.5,0.2] if pub_label_xy is None else pub_label_xy
         # eta_label_xy = [0.25,0.5] if eta_label_xy is None else eta_label_xy
         # var_label_xy = [0.8,0.35] if var_label_xy is None else var_label_xy
 
-        x_array = np.linspace(0, 1, n_points)
+        x_array: np.ndarray = np.linspace(0, 1, n_points)
         # x_dbl_array = np.linspace(0,1,n_points*2-1)
-        angular_diff_array \
+        angular_diff_array: np.ndarray \
             = np.rad2deg(gmes.alpha_interp(x_array)
                          - gmes.beta_p_interp(x_array))
-        plt.plot(x_array, angular_diff_array, 'DarkBlue', ls='-', lw=1.5,
+        plt.plot(x_array,
+                 angular_diff_array,
+                 'DarkBlue',
+                 ls='-',
+                 lw=1.5,
                  label=r'$\alpha(x)-\beta(x)$')
-        axes = plt.gca()
+        axes: Axes = plt.gca()
         # ylim = plt.ylim()
-        axes.set_yticks([-30, 0, 30, 60, 90])
+        axes.set_yticks((-30, 0, 30, 60, 90))
         axes.set_ylim(-5, 95)
         plt.grid(True, ls=':')
 
@@ -275,31 +347,42 @@ class RayAngles(Graphing):
         plt.text(*pub_label_xy,
                  pub_label if do_pub_label else rf'$\eta={gmeq.eta_}$',
                  transform=axes.transAxes,
-                 horizontalalignment='center', verticalalignment='center',
-                 fontsize=16, color='k')
+                 horizontalalignment='center',
+                 verticalalignment='center',
+                 fontsize=16,
+                 color='k')
         plt.text(*var_label_xy,
                  r'$\psi(x)$' if do_pub_label else '',
                  transform=axes.transAxes,
-                 horizontalalignment='center', verticalalignment='center',
-                 fontsize=18, color='k')
+                 horizontalalignment='center',
+                 verticalalignment='center',
+                 fontsize=18,
+                 color='k')
         plt.text(*eta_label_xy,
                  rf'$\eta={gmeq.eta_}$'+r'$\quad\mathsf{Ci}=$'
                  + rf'${round(float(deg(Ci.subs(sub))))}\degree$',
                  transform=axes.transAxes,
-                 horizontalalignment='center', verticalalignment='center',
-                 fontsize=14, color='k')
+                 horizontalalignment='center',
+                 verticalalignment='center',
+                 fontsize=14,
+                 color='k')
 
     def profile_alpha(
         self,
-        gmes,
-        gmeq,
-        sub,
-        name,
-        fig_size=None,
-        dpi=None,
-        n_points=201,
-        do_legend=True,
-        eta_label_xy=(0.25, 0.5)
+        gmes: Union[SingleRaySolution,
+                    TimeInvariantSolution,
+                    VelocityBoundarySolution],
+        gmeq: Union[Equations,
+                    EquationsGeodesic,
+                    EquationsIdtx,
+                    EquationsIbc],
+        sub: Dict,
+        name: str,
+        fig_size: Optional[Tuple[float, float]] = None,
+        dpi: Optional[int] = None,
+        n_points: int = 201,
+        do_legend: bool = True,
+        eta_label_xy: Tuple[float, float] = (0.25, 0.5)
     ) -> None:
         r"""
         Plot ray vector angle :math:`\alpha` along a time-invariant profile.
@@ -310,7 +393,7 @@ class RayAngles(Graphing):
                 :mod:`gme.ode.raytracing`
             gmeq:
                 GME model equations class instance defined in
-                :mod:`gme.core.equations`
+                :mod:`gme.core.equations` or similar
             n_points:
                 optional sample rate along each curve
             do_legend:
@@ -318,10 +401,13 @@ class RayAngles(Graphing):
         """
         _ = self.create_figure(name, fig_size=fig_size, dpi=dpi)
 
-        x_array = np.linspace(0, 1, n_points)
-        alpha_array = np.rad2deg(gmes.alpha_interp(x_array))
-        plt.plot(x_array, alpha_array-90, 'DarkBlue',
-                 ls='-', label=r'$\alpha(x)$')
+        x_array: np.ndarray = np.linspace(0, 1, n_points)
+        alpha_array: np.ndarray = np.rad2deg(gmes.alpha_interp(x_array))
+        plt.plot(x_array,
+                 alpha_array-90,
+                 'DarkBlue',
+                 ls='-',
+                 label=r'$\alpha(x)$')
         # x_array = np.linspace(0,1,11)
         # pz0_ = gmes.pz0
         # # TBD
@@ -336,24 +422,29 @@ class RayAngles(Graphing):
 
         if do_legend:
             plt.legend()
-        axes = plt.gca()
+        axes: Axes = plt.gca()
         plt.text(*eta_label_xy,
                  rf'$\eta={gmeq.eta_}$'+r'$\quad\mathsf{Ci}=$'
                  + rf'${round(float(deg(Ci.subs(sub))))}\degree$',
                  transform=axes.transAxes,
-                 horizontalalignment='center', verticalalignment='center',
-                 fontsize=14, color='k')
+                 horizontalalignment='center',
+                 verticalalignment='center',
+                 fontsize=14,
+                 color='k')
         # plt.text(0.8,0.7, rf'$\eta={gmeq.eta_}$', transform=axes.transAxes,
         #          horizontalalignment='center', verticalalignment='center',
         #          fontsize=14, color='k')
 
     def psi_eta_alpha(
         self,
-        gmeq: Equations,
+        gmeq: Union[Equations,
+                    EquationsGeodesic,
+                    EquationsIdtx,
+                    EquationsIbc],
         name: str,
-        n_points=5000,
         fig_size: Optional[Tuple[float, float]] = (8, 4),
         dpi: Optional[int] = None,
+        n_points: int = 5000
     ) -> None:
         r"""
         Plot anisotropy angle :math:`\psi` at a function of :math:`\eta`
@@ -362,7 +453,13 @@ class RayAngles(Graphing):
         Args:
             gmeq:
                 GME model equations class instance defined in
-                :mod:`gme.core.equations`
+                :mod:`gme.core.equations` or similar
+            name:
+                name of figure (key in figure dictionary)
+            fig_size:
+                optional figure width and height in inches
+            dpi:
+                optional rasterization resolution
             n_points:
                 optional sample rate along each curve
         """
@@ -374,7 +471,6 @@ class RayAngles(Graphing):
         plt.ylabel(r'Anisotropy  $\psi(\eta; \alpha)$   [$\degree$]')
         plt.xlabel(r'Exponent  $\eta$   [-]')
         plt.xlim(0, 2)
-        rd = np.deg2rad
         y_limits = (0, 90)
 
         def plot_partial(
@@ -385,9 +481,10 @@ class RayAngles(Graphing):
             y_limits_: Tuple[float, float],
             loc_: Tuple[float, float]
         ) -> None:
-            eta_array_ = np.linspace(*eta_range_, n_points)
+            eta_array_: np.ndarray = np.linspace(*eta_range_, n_points)
+            rd: Callable = np.deg2rad
             axes_.set_prop_cycle(default_cycler)
-            for alpha_ in [1, 5, 10, 15]:
+            for alpha_ in (1, 5, 10, 15):
                 psi_array_ = np.concatenate([
                     [gmeq.psi_eta_beta_lambdas[0](eta_, rd(alpha_*alpha_sign_))
                      for eta_ in (eta_array_
@@ -404,11 +501,9 @@ class RayAngles(Graphing):
                     else [np.flip(eta_array_),
                           eta_array_]
                 )
-                eta_rept_array_ = eta_rept_array_[np.isfinite(psi_array_)]
-                psi_array_ = psi_array_[np.isfinite(psi_array_)]
                 axes_.plot(
-                    eta_rept_array_,
-                    np.rad2deg(psi_array_),
+                    eta_rept_array_[np.isfinite(psi_array_)],
+                    np.rad2deg(psi_array_[np.isfinite(psi_array_)]),
                     dashes=dashes_,
                     label=rf'$\alpha={alpha_*alpha_sign_}\degree$'
                 )

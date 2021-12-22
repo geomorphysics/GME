@@ -21,11 +21,9 @@ Requires Python packages/modules:
 """
 # Library
 import warnings
-
-# Typing
 from typing import Tuple, Dict, Optional
 
-# Numpy
+# NumPy
 import numpy as np
 
 # SymPy
@@ -33,6 +31,7 @@ from sympy import deg, tan
 
 # MatPlotLib
 import matplotlib.pyplot as plt
+from matplotlib.pyplot import Axes
 
 # GME
 from gme.core.symbols import Ci, xiv_0, xih_0
@@ -55,27 +54,26 @@ class RayProfiles(Graphing):
     """
 
     def profile_ray(
-            self,
-            gmes: SingleRaySolution,
-            gmeq: Equations,
-            sub: Dict,
-            name: str,
-            fig_size: Optional[Tuple[float, float]] = None,
-            dpi: Optional[int] = None,
-            y_limits=None,
-            eta_label_xy=None,
-            n_points=101,
-            aspect=None,
-            # do_direct=True,
-            do_schematic=False,
-            do_ndim=True,
-            do_simple=False,
-            do_t_sampling=True,
-            do_etaxi_label=True,
-            do_pub_label=False,
-            pub_label='',
-            pub_label_xy=(0.15, 0.50)
-            ) -> None:
+        self,
+        gmes: SingleRaySolution,
+        gmeq: Equations,
+        sub: Dict,
+        name: str,
+        fig_size: Optional[Tuple[float, float]] = None,
+        dpi: Optional[int] = None,
+        y_limits: Optional[Tuple[Optional[float], Optional[float]]] = None,
+        n_points: int = 101,
+        aspect: Optional[float] = None,
+        do_schematic: bool = False,
+        do_ndim: bool = True,
+        do_simple: bool = False,
+        do_t_sampling: bool = True,
+        do_pub_label: bool = False,
+        pub_label: str = '',
+        pub_label_xy: Tuple[float, float] = (0.15, 0.50),
+        do_etaxi_label: bool = True,
+        eta_label_xy=None,
+    ) -> None:
         r"""
         Plot an erosion ray solution of Hamilton's equations.
 
@@ -105,7 +103,7 @@ class RayProfiles(Graphing):
 
         """
         _ = self.create_figure(name, fig_size=fig_size, dpi=dpi)
-        axes = plt.gca()
+        axes: Axes = plt.gca()
         # pub_label_xy = [0.15,0.50] if pub_label_xy is None else pub_label_xy
 
         t_array = gmes.t_array
@@ -168,32 +166,30 @@ class RayProfiles(Graphing):
             plt.ylim(*y_limits)
 
     def profile_h_rays(
-            self,
-            gmes: TimeInvariantSolution,
-            gmeq: Equations,
-            sub: Dict,
-            name: str,
-            fig_size: Optional[Tuple[float, float]] = None,
-            dpi: Optional[int] = None,
-            x_limits=None,
-            y_limits=None,
-            n_points=101,
-            do_direct=True,
-            n_rays=4,
-            # profile_subsetting=5,
-            do_schematic=False,
-            do_legend=True,
-            # do_profile_points=True,
-            do_fault_bdry=False,
-            do_compute_xivh_ratio=False,
-            do_one_ray=False,
-            do_t_sampling=True,
-            do_etaxi_label=True,
-            do_pub_label=False,
-            pub_label='',
-            pub_label_xy=(0.93, 0.33),
-            eta_label_xy=(0.5, 0.8)
-            ) -> None:
+        self,
+        gmes: TimeInvariantSolution,
+        gmeq: Equations,
+        sub: Dict,
+        name: str,
+        fig_size: Optional[Tuple[float, float]] = None,
+        dpi: Optional[int] = None,
+        x_limits: Optional[Tuple[Optional[float], Optional[float]]] = None,
+        y_limits: Optional[Tuple[Optional[float], Optional[float]]] = None,
+        n_points: int = 101,
+        do_direct: bool = True,
+        n_rays: int = 4,
+        do_schematic: bool = False,
+        do_legend: bool = True,
+        do_fault_bdry: bool = False,
+        do_compute_xivh_ratio: bool = False,
+        do_one_ray: bool = False,
+        do_t_sampling: bool = True,
+        do_pub_label: bool = False,
+        pub_label: str = '',
+        pub_label_xy: Tuple[float, float] = (0.93, 0.33),
+        do_etaxi_label: bool = True,
+        eta_label_xy: Tuple[float, float] = (0.5, 0.8)
+    ) -> None:
         r"""
         Plot a set of erosion rays for a time-invariant
         topographic profile solution of Hamilton's equations.
@@ -247,14 +243,14 @@ class RayProfiles(Graphing):
         _ = self.create_figure(name, fig_size=fig_size, dpi=dpi)
         # pub_label_xy = [0.93,0.33] if pub_label_xy is None else pub_label_xy
         # eta_label_xy = [0.5,0.8] if eta_label_xy is None else eta_label_xy
-        axes = plt.gca()
+        axes: Axes = plt.gca()
 
         t_array = gmes.t_array  # [::ray_subsetting]
         rx_array = gmes.rx_array  # [::ray_subsetting]
         # rz_array = gmes.rz_array #[::ray_subsetting]
 
         if do_t_sampling:
-            t_begin, t_end = t_array[0], t_array[-1]
+            (t_begin, t_end) = t_array[0], t_array[-1]
             t_rsmpld_array = np.linspace(t_begin, t_end, n_points)
         else:
             x_rsmpld_array = np.linspace(rx_array[0], rx_array[-1], n_points)
@@ -323,7 +319,8 @@ class RayProfiles(Graphing):
                 plt.plot(2-gmes.h_x_array,
                          gmes.h_z_array-gmes.h_z_array[0]+0.13,
                          '0.5',
-                         lw=1, ls='--')
+                         lw=1,
+                         ls='--')
                 plt.plot(2-gmes.h_x_array,
                          gmes.h_z_array-gmes.h_z_array[0]+0.26,
                          '0.75',
@@ -349,7 +346,8 @@ class RayProfiles(Graphing):
                          transform=axes.transAxes,
                          horizontalalignment='center',
                          verticalalignment='center',
-                         fontsize=16, color='k')
+                         fontsize=16,
+                         color='k')
             if do_pub_label:
                 plt.text(*pub_label_xy,
                          pub_label,
@@ -368,15 +366,14 @@ class RayProfiles(Graphing):
                 plt.text(x_,
                          0.45,
                          'rays initiated',
-                         # transform=axes.transAxes,
                          rotation=0,
                          horizontalalignment=align_,
                          verticalalignment='center',
-                         fontsize=12, color='r')
+                         fontsize=12,
+                         color='r')
             plt.text(1,
                      0.53,
                      'rays annihilated',
-                     # transform=axes.transAxes,
                      rotation=0,
                      horizontalalignment='center',
                      verticalalignment='center',
@@ -396,19 +393,19 @@ class RayProfiles(Graphing):
             plt.text(0.46,
                      0.38,
                      r'surface isochrone $T(\mathbf{r})=\mathrm{past}$',
-                     # transform=axes.transAxes,
                      rotation=12,
                      horizontalalignment='center',
                      verticalalignment='center',
-                     fontsize=10, color='0.2')
+                     fontsize=10,
+                     color='0.2')
             plt.text(0.52,
                      0.05,
                      r'surface isochrone $T(\mathbf{r})=\mathrm{now}$',
-                     # transform=axes.transAxes,
                      rotation=12,
                      horizontalalignment='center',
                      verticalalignment='center',
-                     fontsize=10, color='k')
+                     fontsize=10,
+                     color='k')
             for (x_, y_, dx_, dy_, shape_) in ((0, 0.4, 0, -0.15, 'left'),
                                                (0, 0.25, 0, -0.15, 'left'),
                                                (0, 0.1, 0, -0.15, 'left'),
@@ -427,26 +424,23 @@ class RayProfiles(Graphing):
                           edgecolor='r')
 
     def profile_h(
-            self,
-            gmes: TimeInvariantSolution,
-            gmeq: Equations,
-            sub: Dict,
-            name: str,
-            fig_size: Optional[Tuple[float, float]] = None,
-            dpi: Optional[int] = None,
-            y_limits=None,
-            eta_label_xy=None,
-            # n_points=101,
-            # do_direct=True,
-            do_legend=True,
-            do_profile_points=True,
-            profile_subsetting=5,
-            # do_t_sampling=True,
-            do_etaxi_label=True,
-            do_pub_label=False,
-            pub_label='',
-            pub_label_xy=(0.93, 0.33)
-            ) -> None:
+        self,
+        gmes: TimeInvariantSolution,
+        gmeq: Equations,
+        sub: Dict,
+        name: str,
+        fig_size: Optional[Tuple[float, float]] = None,
+        dpi: Optional[int] = None,
+        y_limits: Optional[Tuple[Optional[float], Optional[float]]] = None,
+        do_legend: bool = True,
+        do_profile_points: bool = True,
+        profile_subsetting: int = 5,
+        do_pub_label: bool = False,
+        pub_label: str = '',
+        pub_label_xy: Tuple[float, float] = (0.93, 0.33),
+        do_etaxi_label=True,
+        eta_label_xy: Tuple[float, float] = None,
+    ) -> None:
         r"""
         Plot a time-invariant topographic profile solution of
         Hamilton's equations.
@@ -470,7 +464,7 @@ class RayProfiles(Graphing):
         """
         _ = self.create_figure(name, fig_size=fig_size, dpi=dpi)
         # pub_label_xy = [0.93,0.33] if pub_label_xy is None else pub_label_xy
-        axes = plt.gca()
+        axes: Axes = plt.gca()
 
         # t_array  = gmes.t_array #[::ray_subsetting]
         # rx_array = gmes.rx_array #[::ray_subsetting]
@@ -511,12 +505,17 @@ class RayProfiles(Graphing):
                      rf'$\eta={gmeq.eta_}$'+r'$\quad\mathsf{Ci}=$'
                      + rf'${round(float(deg(Ci.subs(sub))))}\degree$',
                      transform=axes.transAxes,
-                     horizontalalignment='center', verticalalignment='center',
-                     fontsize=16, color='k')
+                     horizontalalignment='center',
+                     verticalalignment='center',
+                     fontsize=16,
+                     color='k')
         if do_pub_label:
-            plt.text(*pub_label_xy, pub_label,
+            plt.text(*pub_label_xy,
+                     pub_label,
                      transform=axes.transAxes,
-                     horizontalalignment='center', verticalalignment='center',
-                     fontsize=16, color='k')
+                     horizontalalignment='center',
+                     verticalalignment='center',
+                     fontsize=16,
+                     color='k')
         if y_limits is not None:
             plt.ylim(*y_limits)

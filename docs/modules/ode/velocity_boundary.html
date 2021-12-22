@@ -65,7 +65,7 @@ aka ODE integration of Hamilton’s equations, for a velocity-boundary condition
 <hr class="docutils" />
 <dl class="py class">
 <dt class="sig sig-object py" id="gme.ode.velocity_boundary.VelocityBoundarySolution">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gme.ode.velocity_boundary.</span></span><span class="sig-name descname"><span class="pre">VelocityBoundarySolution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmeq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gme.ode.velocity_boundary.VelocityBoundarySolution" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gme.ode.velocity_boundary.</span></span><span class="sig-name descname"><span class="pre">VelocityBoundarySolution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmeq</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="../core/equations.html#gme.core.equations.Equations" title="gme.core.equations.Equations"><span class="pre">gme.core.equations.Equations</span></a><span class="p"><span class="pre">,</span> </span><a class="reference internal" href="../core/equations_extended.html#gme.core.equations_extended.EquationsGeodesic" title="gme.core.equations_extended.EquationsGeodesic"><span class="pre">gme.core.equations_extended.EquationsGeodesic</span></a><span class="p"><span class="pre">,</span> </span><a class="reference internal" href="../core/equations_extended.html#gme.core.equations_extended.EquationsIdtx" title="gme.core.equations_extended.EquationsIdtx"><span class="pre">gme.core.equations_extended.EquationsIdtx</span></a><span class="p"><span class="pre">,</span> </span><a class="reference internal" href="../core/equations_extended.html#gme.core.equations_extended.EquationsIbc" title="gme.core.equations_extended.EquationsIbc"><span class="pre">gme.core.equations_extended.EquationsIbc</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gme.ode.velocity_boundary.VelocityBoundarySolution" title="Permalink to this definition">¶</a></dt>
 <dd><p>Integration of Hamilton’s equations (ODEs) from a ‘fault slip’
 velocity boundary.</p>
 <p>Currently the velocity boundary is required to lie along the
@@ -106,10 +106,10 @@ left domain edge and to be vertical.</p>
 <span class="sd">---------------------------------------------------------------------</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="c1"># Library</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">import</span> <span class="nn">logging</span>
-
-<span class="c1"># Typing</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
 
 <span class="c1"># Numpy</span>
@@ -117,8 +117,8 @@ left domain edge and to be vertical.</p>
 
 <span class="c1"># GME</span>
 <span class="kn">from</span> <span class="nn">gme.core.symbols</span> <span class="kn">import</span> <span class="n">xiv_0</span><span class="p">,</span> <span class="n">xih_0</span><span class="p">,</span> <span class="n">Lc</span>
-<span class="kn">from</span> <span class="nn">gme.ode.base</span> <span class="kn">import</span> <span class="n">ExtendedSolution</span><span class="p">,</span> <span class="n">solve_Hamiltons_equations</span><span class="p">,</span> \
-                         <span class="n">report_progress</span>
+<span class="kn">from</span> <span class="nn">gme.ode.extended</span> <span class="kn">import</span> <span class="n">ExtendedSolution</span>
+<span class="kn">from</span> <span class="nn">gme.ode.solve</span> <span class="kn">import</span> <span class="n">solve_Hamiltons_equations</span><span class="p">,</span> <span class="n">report_progress</span>
 
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
 
