@@ -235,23 +235,25 @@ class BaseSolution(ABC):
         do_eliminate_caustics: bool = True,
         dont_crop_cusps: bool = False
     ) -> None:
-        """
+        r"""
         Resample the ensemble of rays at selected time slices to generate
-        synchronous values of (r,p) aka isochrones.
+        synchronous values of :math:`(\mathbf{r},\mathbf{\widetilde{p}})`
+        aka isochrones.
 
         Each ray trajectory is numerically integrated independently, and
         so the integration points along one ray are
         not synchronous with those of any other ray. If we want to compare
-        the (r,p) "positions" of the ray ensemble
+        the :math:`(\mathbf{r},\mathbf{\widetilde{p}})`
+        "positions" of the ray ensemble
         at a chosen time, we need to resample along all the rays
         at mutually consistent time slices.
         This is achieved by first interpolating along each
-        rx[t], rz[t], pz[t], and pz[t] sequence, and then
+        :math:`\{r^x[t], r^z[t], p_x[t], p_z[t]\}` sequence, and then
         resampling along a reference time sequence.
 
         Two additional actions are taken:
            (1) termination of each resampled ray at the domain boundary
-               at rx=Lc (or a bit beyond, for better viz quality);
+               at :math:`r^x=L_c` (or a bit beyond, for better viz quality);
            (2) termination of any resampled ray that is overtaken by another
                ray at a cusp.
         """

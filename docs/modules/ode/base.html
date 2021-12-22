@@ -13,6 +13,7 @@
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     
     <script src="../../_static/sidebar.js"></script>
     
@@ -118,20 +119,22 @@ for a given state [rx,px,pz] (resp. [rx,vx,vx])</p>
 <dt class="sig sig-object py" id="gme.ode.base.BaseSolution.resolve_isochrones">
 <span class="sig-name descname"><span class="pre">resolve_isochrones</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_subset</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_isochrone_max</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0.04</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_isochrones</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">25</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_resample_pts</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">301</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tolerance</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0.001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_eliminate_caustics</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dont_crop_cusps</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.ode.base.BaseSolution.resolve_isochrones" title="Permalink to this definition">¶</a></dt>
 <dd><p>Resample the ensemble of rays at selected time slices to generate
-synchronous values of (r,p) aka isochrones.</p>
+synchronous values of <span class="math notranslate nohighlight">\((\mathbf{r},\mathbf{\widetilde{p}})\)</span>
+aka isochrones.</p>
 <p>Each ray trajectory is numerically integrated independently, and
 so the integration points along one ray are
 not synchronous with those of any other ray. If we want to compare
-the (r,p) “positions” of the ray ensemble
+the <span class="math notranslate nohighlight">\((\mathbf{r},\mathbf{\widetilde{p}})\)</span>
+“positions” of the ray ensemble
 at a chosen time, we need to resample along all the rays
 at mutually consistent time slices.
 This is achieved by first interpolating along each
-rx[t], rz[t], pz[t], and pz[t] sequence, and then
+<span class="math notranslate nohighlight">\(\{r^x[t], r^z[t], p_x[t], p_z[t]\}\)</span> sequence, and then
 resampling along a reference time sequence.</p>
 <dl class="simple">
 <dt>Two additional actions are taken:</dt><dd><ol class="arabic simple">
 <li><p>termination of each resampled ray at the domain boundary
-at rx=Lc (or a bit beyond, for better viz quality);</p></li>
+at <span class="math notranslate nohighlight">\(r^x=L_c\)</span> (or a bit beyond, for better viz quality);</p></li>
 <li><p>termination of any resampled ray that is overtaken by another
 ray at a cusp.</p></li>
 </ol>
@@ -392,23 +395,25 @@ ray at a cusp.</p></li>
         <span class="n">do_eliminate_caustics</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
         <span class="n">dont_crop_cusps</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Resample the ensemble of rays at selected time slices to generate</span>
-<span class="sd">        synchronous values of (r,p) aka isochrones.</span>
+<span class="sd">        synchronous values of :math:`(\mathbf{r},\mathbf{\widetilde{p}})`</span>
+<span class="sd">        aka isochrones.</span>
 
 <span class="sd">        Each ray trajectory is numerically integrated independently, and</span>
 <span class="sd">        so the integration points along one ray are</span>
 <span class="sd">        not synchronous with those of any other ray. If we want to compare</span>
-<span class="sd">        the (r,p) &quot;positions&quot; of the ray ensemble</span>
+<span class="sd">        the :math:`(\mathbf{r},\mathbf{\widetilde{p}})`</span>
+<span class="sd">        &quot;positions&quot; of the ray ensemble</span>
 <span class="sd">        at a chosen time, we need to resample along all the rays</span>
 <span class="sd">        at mutually consistent time slices.</span>
 <span class="sd">        This is achieved by first interpolating along each</span>
-<span class="sd">        rx[t], rz[t], pz[t], and pz[t] sequence, and then</span>
+<span class="sd">        :math:`\{r^x[t], r^z[t], p_x[t], p_z[t]\}` sequence, and then</span>
 <span class="sd">        resampling along a reference time sequence.</span>
 
 <span class="sd">        Two additional actions are taken:</span>
 <span class="sd">           (1) termination of each resampled ray at the domain boundary</span>
-<span class="sd">               at rx=Lc (or a bit beyond, for better viz quality);</span>
+<span class="sd">               at :math:`r^x=L_c` (or a bit beyond, for better viz quality);</span>
 <span class="sd">           (2) termination of any resampled ray that is overtaken by another</span>
 <span class="sd">               ray at a cusp.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
