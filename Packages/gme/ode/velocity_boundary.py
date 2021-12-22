@@ -24,7 +24,7 @@ import warnings
 import logging
 from typing import Tuple, List, Optional
 
-# Numpy
+# NumPy
 import numpy as np
 
 # GME

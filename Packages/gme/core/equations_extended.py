@@ -39,6 +39,7 @@ warnings.filterwarnings("ignore")
 __all__ = ['EquationsGeodesic',
            'EquationsIdtx',
            'EquationsIbc',
+           'EquationsIdtxIbc',
            'EquationsSetupOnly']
 
 
@@ -105,12 +106,36 @@ class EquationsIbc(Equations, IbcMixin):
         self.set_ibc_eqns()
 
 
+class EquationsIdtxIbc(EquationsIdtx, IbcMixin):
+    r"""
+    Generate set of equations including indicatrix/figuratrix
+    and initial/boundary condition equations.
+    """
+
+    def __init__(
+        self,
+        parameters: Dict,
+        ibc_type: str = 'convex-up',
+        **kwargs
+    ) -> None:
+        r"""
+        Constructor method
+        """
+        super().__init__(parameters=parameters, **kwargs)
+        logging.info('core.equations_extended.EquationsIdtxIbc')
+        self.ibc_type = ibc_type
+
+        self.prep_ibc_eqns()
+        self.define_ibc_eqns()
+        self.set_ibc_eqns()
+
+
 class EquationsSetupOnly(
-            EquationsMixedIn,
-            GeodesicMixin,
-            IdtxMixin,
-            IbcMixin
-        ):
+    EquationsMixedIn,
+    GeodesicMixin,
+    IdtxMixin,
+    IbcMixin
+):
     r"""
     Generate methods to perform equation definitions but don't act on them.
     """

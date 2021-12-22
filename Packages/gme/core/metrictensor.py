@@ -32,8 +32,7 @@ import logging
 from sympy import Eq, simplify, Matrix, factor, diff
 
 # GME
-from gme.core.symbols import \
-    eta, gstar, det_gstar, g, varphi_r, rvec
+from gme.core.symbols import eta, gstar, det_gstar, g, varphi_r, rvec
 
 warnings.filterwarnings("ignore")
 

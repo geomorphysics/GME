@@ -35,8 +35,7 @@ from sympy import Eq, sqrt, simplify, solve, Matrix, \
 from gmplib.utils import e2d
 
 # GME
-from gme.core.symbols import \
-    p, r, rx, rz, px, pz, pcovec, alpha, beta
+from gme.core.symbols import p, r, rx, rz, px, pz, pcovec, alpha, beta
 
 warnings.filterwarnings("ignore")
 

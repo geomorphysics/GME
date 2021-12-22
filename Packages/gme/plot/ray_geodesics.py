@@ -24,7 +24,7 @@ Requires Python packages/modules:
 import warnings
 from typing import Tuple, Dict, List, Optional
 
-# Numpy
+# NumPy
 import numpy as np
 
 # Scipy utils

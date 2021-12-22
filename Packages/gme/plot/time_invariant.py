@@ -23,7 +23,6 @@ Requires Python packages:
 
 # Library
 import warnings
-
 from typing import Dict, Tuple, Optional
 
 # NumPy
