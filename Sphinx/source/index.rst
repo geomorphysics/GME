@@ -29,6 +29,17 @@ A `companion repository`_ provides access to the related
 called `gmplib`_, which is required by `gme`_.
 
 
+
+
+.. _GitHub repository of the GME project: https://github.com/geomorphysics/GME
+.. _gme: https://github.com/geomorphysics/GME/tree/master/Packages/gme
+.. _related Jupyter notebooks: https://github.com/geomorphysics/GME/tree/main/Notebooks
+.. _companion repository: https://github.com/geomorphysics/GMPLib
+.. _geomorphysics: https://geomorphysics.github.io/GMPLib/
+.. _gmplib: https://github.com/geomorphysics/GMPLib/tree/main/Packages/gmplib
+
+
+
 Contents
 --------------------------------
 
@@ -46,17 +57,6 @@ Contents
     Running <../modules/Running>
     Notebooks <../modules/Notebooks>
     Python package <../modules/Python>
-
-
-
-.. _GitHub repository of the GME project: https://github.com/geomorphysics/GME
-.. _gme: https://github.com/geomorphysics/GME/tree/master/Packages/gme
-.. _related Jupyter notebooks: https://github.com/geomorphysics\
-/GME/tree/main/Notebooks
-.. _companion repository: https://github.com/geomorphysics/GMPLib
-.. _geomorphysics: https://geomorphysics.github.io/GMPLib/
-.. _gmplib: https://github.com/geomorphysics/GMPLib/tree/main/Packages/gmplib
-
 
 
 
