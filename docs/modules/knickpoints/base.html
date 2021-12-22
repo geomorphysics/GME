@@ -210,6 +210,8 @@ any subclass</p>
 <span class="kn">from</span> <span class="nn">gme.ode.velocity_boundary</span> <span class="kn">import</span> <span class="n">VelocityBoundarySolution</span>
 <span class="kn">from</span> <span class="nn">gme.core.symbols</span> <span class="kn">import</span> <span class="n">x</span><span class="p">,</span> <span class="n">rx</span><span class="p">,</span> <span class="n">Lc</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">px</span><span class="p">,</span> <span class="n">pz</span>
 <span class="kn">from</span> <span class="nn">gme.ode.base</span> <span class="kn">import</span> <span class="n">rpt_tuple</span>
+<span class="c1"># from gme.ode.solve import solve_Hamiltons_equations</span>
+<span class="kn">from</span> <span class="nn">gme.ode.utils</span> <span class="kn">import</span> <span class="n">report_progress</span>
 
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
 
@@ -278,7 +280,7 @@ any subclass</p>
         <span class="bp">self</span><span class="o">.</span><span class="n">prep_arrays</span><span class="p">()</span>
         <span class="n">Lc_</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">Lc</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">))</span>
         <span class="c1"># print(self.t_end)</span>
-        <span class="n">pc_progress</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">report_progress</span><span class="p">(</span>
+        <span class="n">pc_progress</span> <span class="o">=</span> <span class="n">report_progress</span><span class="p">(</span>
             <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">n_rays</span><span class="p">,</span> <span class="n">is_initial_step</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="c1"># Points along the initial profile boundary</span>
         <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">x_</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">Lc_</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_rays</span><span class="p">,</span>
@@ -291,11 +293,14 @@ any subclass</p>
             <span class="n">rpt_arrays</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">solve_Hamiltons_equations</span><span class="p">(</span>
                 <span class="n">t_array</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ref_t_array</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">rpt_arrays</span><span class="p">,</span> <span class="n">idx</span><span class="p">)</span>
-            <span class="n">pc_progress</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">report_progress</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="n">idx</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">n_rays</span><span class="p">,</span>
-                                               <span class="n">pc_step</span><span class="o">=</span><span class="n">report_pc_step</span><span class="p">,</span>
-                                               <span class="n">progress_was</span><span class="o">=</span><span class="n">pc_progress</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">report_progress</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="n">idx</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">n_rays</span><span class="p">,</span> <span class="n">pc_step</span><span class="o">=</span><span class="n">report_pc_step</span><span class="p">,</span>
-                             <span class="n">progress_was</span><span class="o">=</span><span class="n">pc_progress</span><span class="p">)</span>
+            <span class="n">pc_progress</span> <span class="o">=</span> <span class="n">report_progress</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="n">idx</span><span class="p">,</span>
+                                          <span class="n">n</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">n_rays</span><span class="p">,</span>
+                                          <span class="n">pc_step</span><span class="o">=</span><span class="n">report_pc_step</span><span class="p">,</span>
+                                          <span class="n">progress_was</span><span class="o">=</span><span class="n">pc_progress</span><span class="p">)</span>
+        <span class="n">report_progress</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="n">idx</span><span class="p">,</span>
+                        <span class="n">n</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">n_rays</span><span class="p">,</span>
+                        <span class="n">pc_step</span><span class="o">=</span><span class="n">report_pc_step</span><span class="p">,</span>
+                        <span class="n">progress_was</span><span class="o">=</span><span class="n">pc_progress</span><span class="p">)</span>
 
 
 <span class="k">class</span> <span class="nc">InitialCornerSolution</span><span class="p">(</span><span class="n">BaseSolution</span><span class="p">):</span>
@@ -374,7 +379,7 @@ any subclass</p>
               <span class="k">else</span> <span class="s1">&#39;Solving geodesic equations&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">prep_arrays</span><span class="p">()</span>
         <span class="c1"># Surface tilt angles spanning velocity b.c. to initial surface b.c.</span>
-        <span class="n">pc_progress</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">report_progress</span><span class="p">(</span>
+        <span class="n">pc_progress</span> <span class="o">=</span> <span class="n">report_progress</span><span class="p">(</span>
             <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">n_rays</span><span class="p">,</span> <span class="n">is_initial_step</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">beta0_</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">beta_velocity_corner</span><span class="p">,</span>
                                                  <span class="bp">self</span><span class="o">.</span><span class="n">beta_surface_corner</span><span class="p">,</span>
@@ -395,12 +400,14 @@ any subclass</p>
             <span class="c1"># print(list(zip(rpt_arrays[&#39;rx&#39;])))</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">rpt_arrays</span><span class="p">,</span> <span class="n">idx</span><span class="p">)</span>
             <span class="n">pc_progress</span> \
-                <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">report_progress</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="n">idx</span><span class="p">,</span>
-                                       <span class="n">n</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">n_rays</span><span class="p">,</span>
-                                       <span class="n">pc_step</span><span class="o">=</span><span class="n">report_pc_step</span><span class="p">,</span>
-                                       <span class="n">progress_was</span><span class="o">=</span><span class="n">pc_progress</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">report_progress</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="n">idx</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">n_rays</span><span class="p">,</span>
-                             <span class="n">pc_step</span><span class="o">=</span><span class="n">report_pc_step</span><span class="p">,</span> <span class="n">progress_was</span><span class="o">=</span><span class="n">pc_progress</span><span class="p">)</span>
+                <span class="o">=</span> <span class="n">report_progress</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="n">idx</span><span class="p">,</span>
+                                  <span class="n">n</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">n_rays</span><span class="p">,</span>
+                                  <span class="n">pc_step</span><span class="o">=</span><span class="n">report_pc_step</span><span class="p">,</span>
+                                  <span class="n">progress_was</span><span class="o">=</span><span class="n">pc_progress</span><span class="p">)</span>
+        <span class="n">report_progress</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="n">idx</span><span class="p">,</span>
+                        <span class="n">n</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">n_rays</span><span class="p">,</span>
+                        <span class="n">pc_step</span><span class="o">=</span><span class="n">report_pc_step</span><span class="p">,</span>
+                        <span class="n">progress_was</span><span class="o">=</span><span class="n">pc_progress</span><span class="p">)</span>
 
 
 <span class="k">class</span> <span class="nc">CompositeSolution</span><span class="p">(</span><span class="n">BaseSolution</span><span class="p">):</span>

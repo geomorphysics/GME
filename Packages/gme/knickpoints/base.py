@@ -36,6 +36,8 @@ from gme.ode.base import BaseSolution
 from gme.ode.velocity_boundary import VelocityBoundarySolution
 from gme.core.symbols import x, rx, Lc, beta, px, pz
 from gme.ode.base import rpt_tuple
+# from gme.ode.solve import solve_Hamiltons_equations
+from gme.ode.utils import report_progress
 
 warnings.filterwarnings("ignore")
 
@@ -104,7 +106,7 @@ class InitialProfileSolution(BaseSolution):
         self.prep_arrays()
         Lc_ = float(Lc.subs(self.parameters))
         # print(self.t_end)
-        pc_progress = self.report_progress(
+        pc_progress = report_progress(
             i=0, n=self.n_rays, is_initial_step=True)
         # Points along the initial profile boundary
         for idx, x_ in enumerate(np.linspace(0, Lc_, self.n_rays,
@@ -117,11 +119,14 @@ class InitialProfileSolution(BaseSolution):
             rpt_arrays = self.solve_Hamiltons_equations(
                 t_array=self.ref_t_array.copy())
             self.save(rpt_arrays, idx)
-            pc_progress = self.report_progress(i=idx, n=self.n_rays,
-                                               pc_step=report_pc_step,
-                                               progress_was=pc_progress)
-        self.report_progress(i=idx, n=self.n_rays, pc_step=report_pc_step,
-                             progress_was=pc_progress)
+            pc_progress = report_progress(i=idx,
+                                          n=self.n_rays,
+                                          pc_step=report_pc_step,
+                                          progress_was=pc_progress)
+        report_progress(i=idx,
+                        n=self.n_rays,
+                        pc_step=report_pc_step,
+                        progress_was=pc_progress)
 
 
 class InitialCornerSolution(BaseSolution):
@@ -200,7 +205,7 @@ class InitialCornerSolution(BaseSolution):
               else 'Solving geodesic equations')
         self.prep_arrays()
         # Surface tilt angles spanning velocity b.c. to initial surface b.c.
-        pc_progress = self.report_progress(
+        pc_progress = report_progress(
             i=0, n=self.n_rays, is_initial_step=True)
         for idx, beta0_ in enumerate(np.linspace(self.beta_velocity_corner,
                                                  self.beta_surface_corner,
@@ -221,12 +226,14 @@ class InitialCornerSolution(BaseSolution):
             # print(list(zip(rpt_arrays['rx'])))
             self.save(rpt_arrays, idx)
             pc_progress \
-                = self.report_progress(i=idx,
-                                       n=self.n_rays,
-                                       pc_step=report_pc_step,
-                                       progress_was=pc_progress)
-        self.report_progress(i=idx, n=self.n_rays,
-                             pc_step=report_pc_step, progress_was=pc_progress)
+                = report_progress(i=idx,
+                                  n=self.n_rays,
+                                  pc_step=report_pc_step,
+                                  progress_was=pc_progress)
+        report_progress(i=idx,
+                        n=self.n_rays,
+                        pc_step=report_pc_step,
+                        progress_was=pc_progress)
 
 
 class CompositeSolution(BaseSolution):

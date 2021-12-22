@@ -17,12 +17,13 @@ Requires Python packages/modules:
 .. _Matrix:
     https://docs.sympy.org/latest/modules/matrices/immutablematrices.html
 .. _Cycler: https://matplotlib.org/cycler/
----------------------------------------------------------------------
 
+---------------------------------------------------------------------
 """
 # Library
 import warnings
-from typing import Tuple, Dict, Optional, Callable, Union
+# import logging
+from typing import Tuple, Dict, Optional, Callable, Union  # , List
 
 # Cycler
 from cycler import cycler
@@ -58,6 +59,13 @@ class RayAngles(Graphing):
 
     Extends :class:`gme.plot.base.Graphing`.
     """
+
+    # def demo(
+    #     self,
+    #     var_types: List,
+    # ) -> None:
+    #     for var_type in var_types:
+    #         logging.info(var_type)
 
     def alpha_beta(
         self,

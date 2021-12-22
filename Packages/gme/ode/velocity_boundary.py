@@ -30,7 +30,8 @@ import numpy as np
 # GME
 from gme.core.symbols import xiv_0, xih_0, Lc
 from gme.ode.extended import ExtendedSolution
-from gme.ode.solve import solve_Hamiltons_equations, report_progress
+from gme.ode.solve import solve_Hamiltons_equations
+from gme.ode.utils import report_progress
 
 warnings.filterwarnings("ignore")
 
@@ -46,8 +47,11 @@ class VelocityBoundarySolution(ExtendedSolution):
     left domain edge and to be vertical.
     """
 
-    def initial_conditions(self, t_lag, xiv_0_) \
-            -> Tuple[float, float, float, float]:
+    def initial_conditions(
+        self,
+        t_lag: float,
+        xiv_0_: float
+    ) -> Tuple[float, float, float, float]:
         """
         TBD
         """
@@ -64,7 +68,10 @@ class VelocityBoundarySolution(ExtendedSolution):
         rx0_: float = 0.0
         return (rx0_, rz0_, px0_, pz0_)
 
-    def solve(self, report_pc_step=1) -> None:
+    def solve(
+        self,
+        report_pc_step: int = 1
+    ) -> None:
         """
         TBD
         """

@@ -1,7 +1,7 @@
 """
 ---------------------------------------------------------------------
 
-Base module for performing ray tracing of Hamilton's equations.
+ODE integration functions tailored to solving Hamilton's equations.
 
 ---------------------------------------------------------------------
 
@@ -39,9 +39,7 @@ warnings.filterwarnings("ignore")
 rp_tuple: Tuple[str, str, str, str] = ('rx', 'rz', 'px', 'pz')
 rpt_tuple: Tuple[str, str, str, str, str] = rp_tuple+('t',)
 
-__all__ = ['solve_ODE_system',
-           'solve_Hamiltons_equations',
-           'report_progress']
+__all__ = ['solve_ODE_system', 'solve_Hamiltons_equations']
 
 
 def eventAttr():
@@ -175,44 +173,8 @@ def solve_Hamiltons_equations(
     for rp_idx, rp_ in enumerate(rp_tuple):
         rpt_arrays[rp_] = np.concatenate(
             (rpt_lag_arrays[rp_], rp_t_soln[rp_idx][0:i_end]))
-    # print('solve_ODE_system:', rpt_arrays['rx'])
 
-    # return (ivp_soln, rpt_arrays,
-    # (n_lag+i_end if i_end is not None else len(t_array)))
-
-    # print('solve Hamiltons equations #1:',
-    #       i_end, len(rpt_arrays['rx']), rpt_arrays['rx'])
-    # Record the ivp solutions for posterity (but don't use!)
-    # self.solns = [soln_ivp]
-    # print(f"i_end={i_end}, {len(rpt_arrays['t'])}, {len(rpt_arrays['rx'])}")
-    # if i_end is not None:
-    #     # Bug fix here - shouldn't be needed?
-    #     if len(rpt_arrays['rx']) < i_end: i_end = len(rpt_arrays['rx'])
-    #     if self.verbose:
-    #         pass
-    #     for rpt_ in rpt_tuple:
-    #         a = copy(rpt_arrays[rpt_])
-    #         rpt_arrays[rpt_] = a[:i_end]
-    # print('solve Hamiltons equations #2:', rpt_arrays['rx'])
     return (ivp_soln, rpt_arrays)
-    #           Tuple[Any, Dict[str, ndarray[Any, Any]]]
-    # expected: Tuple[Any, Dict[str, List[ndarray[Any, Any]]]]
 
 
-def report_progress(
-    i: int,
-    n: int,
-    progress_was: float = 0.0,
-    pc_step: float = 1,
-    is_initial_step: bool = False
-) -> float:
-    """
-    Print percentage estimated progress of some ongoing jobzzzsd
-    """
-    progress_now: float \
-        = 100*np.round((100/pc_step)*i/(n-1 if n > 1 else 1)) \
-        / np.round(100/pc_step)
-    if progress_now > progress_was or is_initial_step:
-        print(f'{progress_now:0.0f}% ', end='' if progress_now
-              < 100 else '\n', flush=True)
-    return progress_now
+#

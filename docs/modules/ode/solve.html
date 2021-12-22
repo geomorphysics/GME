@@ -52,7 +52,7 @@
   <div class="section" id="module-gme.ode.solve">
 <span id="solve-py"></span><h1><code class="docutils literal notranslate"><span class="pre">solve.py</span></code><a class="headerlink" href="#module-gme.ode.solve" title="Permalink to this headline">¶</a></h1>
 <hr class="docutils" />
-<p>Base module for performing ray tracing of Hamilton’s equations.</p>
+<p>ODE integration functions tailored to solving Hamilton’s equations.</p>
 <hr class="docutils" />
 <dl class="simple">
 <dt>Requires Python packages/modules:</dt><dd><ul class="simple">
@@ -63,12 +63,6 @@
 </dd>
 </dl>
 <hr class="docutils" />
-<dl class="py function">
-<dt class="sig sig-object py" id="gme.ode.solve.report_progress">
-<span class="sig-prename descclassname"><span class="pre">gme.ode.solve.</span></span><span class="sig-name descname"><span class="pre">report_progress</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress_was</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pc_step</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_initial_step</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><a class="headerlink" href="#gme.ode.solve.report_progress" title="Permalink to this definition">¶</a></dt>
-<dd><p>Print percentage estimated progress of some ongoing jobzzzsd</p>
-</dd></dl>
-
 <dl class="py function">
 <dt class="sig sig-object py" id="gme.ode.solve.solve_Hamiltons_equations">
 <span class="sig-prename descclassname"><span class="pre">gme.ode.solve.</span></span><span class="sig-name descname"><span class="pre">solve_Hamiltons_equations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Callable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_dense</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">ic</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_array</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.21)"><span class="pre">numpy.ndarray</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_stop</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_lag</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.21)"><span class="pre">numpy.ndarray</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#gme.ode.solve.solve_Hamiltons_equations" title="Permalink to this definition">¶</a></dt>
@@ -86,7 +80,7 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">---------------------------------------------------------------------</span>
 
-<span class="sd">Base module for performing ray tracing of Hamilton&#39;s equations.</span>
+<span class="sd">ODE integration functions tailored to solving Hamilton&#39;s equations.</span>
 
 <span class="sd">---------------------------------------------------------------------</span>
 
@@ -124,9 +118,7 @@
 <span class="n">rp_tuple</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;rx&#39;</span><span class="p">,</span> <span class="s1">&#39;rz&#39;</span><span class="p">,</span> <span class="s1">&#39;px&#39;</span><span class="p">,</span> <span class="s1">&#39;pz&#39;</span><span class="p">)</span>
 <span class="n">rpt_tuple</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">rp_tuple</span><span class="o">+</span><span class="p">(</span><span class="s1">&#39;t&#39;</span><span class="p">,)</span>
 
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;solve_ODE_system&#39;</span><span class="p">,</span>
-           <span class="s1">&#39;solve_Hamiltons_equations&#39;</span><span class="p">,</span>
-           <span class="s1">&#39;report_progress&#39;</span><span class="p">]</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;solve_ODE_system&#39;</span><span class="p">,</span> <span class="s1">&#39;solve_Hamiltons_equations&#39;</span><span class="p">]</span>
 
 
 <span class="k">def</span> <span class="nf">eventAttr</span><span class="p">():</span>
@@ -260,47 +252,11 @@
     <span class="k">for</span> <span class="n">rp_idx</span><span class="p">,</span> <span class="n">rp_</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">rp_tuple</span><span class="p">):</span>
         <span class="n">rpt_arrays</span><span class="p">[</span><span class="n">rp_</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span>
             <span class="p">(</span><span class="n">rpt_lag_arrays</span><span class="p">[</span><span class="n">rp_</span><span class="p">],</span> <span class="n">rp_t_soln</span><span class="p">[</span><span class="n">rp_idx</span><span class="p">][</span><span class="mi">0</span><span class="p">:</span><span class="n">i_end</span><span class="p">]))</span>
-    <span class="c1"># print(&#39;solve_ODE_system:&#39;, rpt_arrays[&#39;rx&#39;])</span>
 
-    <span class="c1"># return (ivp_soln, rpt_arrays,</span>
-    <span class="c1"># (n_lag+i_end if i_end is not None else len(t_array)))</span>
-
-    <span class="c1"># print(&#39;solve Hamiltons equations #1:&#39;,</span>
-    <span class="c1">#       i_end, len(rpt_arrays[&#39;rx&#39;]), rpt_arrays[&#39;rx&#39;])</span>
-    <span class="c1"># Record the ivp solutions for posterity (but don&#39;t use!)</span>
-    <span class="c1"># self.solns = [soln_ivp]</span>
-    <span class="c1"># print(f&quot;i_end={i_end}, {len(rpt_arrays[&#39;t&#39;])}, {len(rpt_arrays[&#39;rx&#39;])}&quot;)</span>
-    <span class="c1"># if i_end is not None:</span>
-    <span class="c1">#     # Bug fix here - shouldn&#39;t be needed?</span>
-    <span class="c1">#     if len(rpt_arrays[&#39;rx&#39;]) &lt; i_end: i_end = len(rpt_arrays[&#39;rx&#39;])</span>
-    <span class="c1">#     if self.verbose:</span>
-    <span class="c1">#         pass</span>
-    <span class="c1">#     for rpt_ in rpt_tuple:</span>
-    <span class="c1">#         a = copy(rpt_arrays[rpt_])</span>
-    <span class="c1">#         rpt_arrays[rpt_] = a[:i_end]</span>
-    <span class="c1"># print(&#39;solve Hamiltons equations #2:&#39;, rpt_arrays[&#39;rx&#39;])</span>
     <span class="k">return</span> <span class="p">(</span><span class="n">ivp_soln</span><span class="p">,</span> <span class="n">rpt_arrays</span><span class="p">)</span>
-    <span class="c1">#           Tuple[Any, Dict[str, ndarray[Any, Any]]]</span>
-    <span class="c1"># expected: Tuple[Any, Dict[str, List[ndarray[Any, Any]]]]</span>
 
 
-<span class="k">def</span> <span class="nf">report_progress</span><span class="p">(</span>
-    <span class="n">i</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-    <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-    <span class="n">progress_was</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
-    <span class="n">pc_step</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
-    <span class="n">is_initial_step</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Print percentage estimated progress of some ongoing jobzzzsd</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">progress_now</span><span class="p">:</span> <span class="nb">float</span> \
-        <span class="o">=</span> <span class="mi">100</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">((</span><span class="mi">100</span><span class="o">/</span><span class="n">pc_step</span><span class="p">)</span><span class="o">*</span><span class="n">i</span><span class="o">/</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span> <span class="k">if</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="mi">1</span><span class="p">))</span> \
-        <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">100</span><span class="o">/</span><span class="n">pc_step</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">progress_now</span> <span class="o">&gt;</span> <span class="n">progress_was</span> <span class="ow">or</span> <span class="n">is_initial_step</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">progress_now</span><span class="si">:</span><span class="s1">0.0f</span><span class="si">}</span><span class="s1">% &#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span> <span class="k">if</span> <span class="n">progress_now</span>
-              <span class="o">&lt;</span> <span class="mi">100</span> <span class="k">else</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">progress_now</span>
+<span class="c1">#</span>
 </pre></div>
 </div>
 </div>
