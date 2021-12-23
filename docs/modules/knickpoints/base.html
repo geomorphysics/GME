@@ -65,14 +65,14 @@
 <p>TODO: broken version - needs major overhaul</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="gme.knickpoints.base.CompositeSolution">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gme.knickpoints.base.</span></span><span class="sig-name descname"><span class="pre">CompositeSolution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmeq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gme.knickpoints.base.CompositeSolution" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gme.knickpoints.base.</span></span><span class="sig-name descname"><span class="pre">CompositeSolution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmeq</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="../core/equations.html#gme.core.equations.Equations" title="gme.core.equations.Equations"><span class="pre">gme.core.equations.Equations</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gme.knickpoints.base.CompositeSolution" title="Permalink to this definition">¶</a></dt>
 <dd><p>Combine rays integrations from (1) initial profile,
 (2) initial corner, and (3) velocity boundary
 to generate a ‘complete’ ray integration solution from a
 complex topographic boundary.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.knickpoints.base.CompositeSolution.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmeq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.knickpoints.base.CompositeSolution.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmeq</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="../core/equations.html#gme.core.equations.Equations" title="gme.core.equations.Equations"><span class="pre">gme.core.equations.Equations</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.knickpoints.base.CompositeSolution.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Constructor method.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -97,13 +97,13 @@ to be used for equation substitutions</p></li>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="gme.knickpoints.base.InitialCornerSolution">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gme.knickpoints.base.</span></span><span class="sig-name descname"><span class="pre">InitialCornerSolution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmeq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gme.knickpoints.base.InitialCornerSolution" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gme.knickpoints.base.</span></span><span class="sig-name descname"><span class="pre">InitialCornerSolution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmeq</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="../core/equations.html#gme.core.equations.Equations" title="gme.core.equations.Equations"><span class="pre">gme.core.equations.Equations</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gme.knickpoints.base.InitialCornerSolution" title="Permalink to this definition">¶</a></dt>
 <dd><p>Integration of Hamilton’s equations (ODEs) from a ‘corner’ point.</p>
 <p>Provides a set of ray integrations to span solutions along an initial
 profile and solutions from a slip velocity boundary.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.knickpoints.base.InitialCornerSolution.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmeq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.knickpoints.base.InitialCornerSolution.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmeq</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="../core/equations.html#gme.core.equations.Equations" title="gme.core.equations.Equations"><span class="pre">gme.core.equations.Equations</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.knickpoints.base.InitialCornerSolution.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Constructor method.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -135,12 +135,12 @@ any subclass</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="gme.knickpoints.base.InitialProfileSolution">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gme.knickpoints.base.</span></span><span class="sig-name descname"><span class="pre">InitialProfileSolution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmeq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gme.knickpoints.base.InitialProfileSolution" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gme.knickpoints.base.</span></span><span class="sig-name descname"><span class="pre">InitialProfileSolution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmeq</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="../core/equations.html#gme.core.equations.Equations" title="gme.core.equations.Equations"><span class="pre">gme.core.equations.Equations</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gme.knickpoints.base.InitialProfileSolution" title="Permalink to this definition">¶</a></dt>
 <dd><p>Integration of Hamilton’s equations (ODEs) from an initial
 topographic profile.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.knickpoints.base.InitialProfileSolution.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmeq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.knickpoints.base.InitialProfileSolution.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmeq</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="../core/equations.html#gme.core.equations.Equations" title="gme.core.equations.Equations"><span class="pre">gme.core.equations.Equations</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.knickpoints.base.InitialProfileSolution.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Constructor method.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -210,7 +210,7 @@ any subclass</p>
 <span class="kn">from</span> <span class="nn">gme.ode.velocity_boundary</span> <span class="kn">import</span> <span class="n">VelocityBoundarySolution</span>
 <span class="kn">from</span> <span class="nn">gme.core.symbols</span> <span class="kn">import</span> <span class="n">x</span><span class="p">,</span> <span class="n">rx</span><span class="p">,</span> <span class="n">Lc</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">px</span><span class="p">,</span> <span class="n">pz</span>
 <span class="kn">from</span> <span class="nn">gme.ode.base</span> <span class="kn">import</span> <span class="n">rpt_tuple</span>
-<span class="c1"># from gme.ode.solve import solve_Hamiltons_equations</span>
+<span class="kn">from</span> <span class="nn">gme.core.equations</span> <span class="kn">import</span> <span class="n">Equations</span>
 <span class="kn">from</span> <span class="nn">gme.ode.utils</span> <span class="kn">import</span> <span class="n">report_progress</span>
 
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
@@ -247,7 +247,12 @@ any subclass</p>
     <span class="n">model_dXdt_lambda</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">]</span>
     <span class="n">rpt_arrays</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">]</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gmeq</span><span class="p">,</span> <span class="n">parameters</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">gmeq</span><span class="p">:</span> <span class="n">Equations</span><span class="p">,</span>
+        <span class="n">parameters</span><span class="p">:</span> <span class="n">Dict</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Constructor method.</span>
 
@@ -315,7 +320,12 @@ any subclass</p>
     <span class="n">model_dXdt_lambda</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">]</span>
     <span class="n">rpt_arrays</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">]</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gmeq</span><span class="p">,</span> <span class="n">parameters</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">gmeq</span><span class="p">:</span> <span class="n">Equations</span><span class="p">,</span>
+        <span class="n">parameters</span><span class="p">:</span> <span class="n">Dict</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Constructor method.</span>
 
@@ -422,7 +432,12 @@ any subclass</p>
     <span class="n">model_dXdt_lambda</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">]</span>
     <span class="n">rpt_arrays</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">]</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gmeq</span><span class="p">,</span> <span class="n">parameters</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">gmeq</span><span class="p">:</span> <span class="n">Equations</span><span class="p">,</span>
+        <span class="n">parameters</span><span class="p">:</span> <span class="n">Dict</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Constructor method.</span>
 

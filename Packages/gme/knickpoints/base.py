@@ -36,7 +36,7 @@ from gme.ode.base import BaseSolution
 from gme.ode.velocity_boundary import VelocityBoundarySolution
 from gme.core.symbols import x, rx, Lc, beta, px, pz
 from gme.ode.base import rpt_tuple
-# from gme.ode.solve import solve_Hamiltons_equations
+from gme.core.equations import Equations
 from gme.ode.utils import report_progress
 
 warnings.filterwarnings("ignore")
@@ -73,7 +73,12 @@ class InitialProfileSolution(BaseSolution):
     model_dXdt_lambda: Optional[Callable]
     rpt_arrays: Optional[Dict]
 
-    def __init__(self, gmeq, parameters, **kwargs) -> None:
+    def __init__(
+        self,
+        gmeq: Equations,
+        parameters: Dict,
+        **kwargs
+    ) -> None:
         """
         Constructor method.
 
@@ -141,7 +146,12 @@ class InitialCornerSolution(BaseSolution):
     model_dXdt_lambda: Optional[Callable]
     rpt_arrays: Optional[Dict]
 
-    def __init__(self, gmeq, parameters, **kwargs) -> None:
+    def __init__(
+        self,
+        gmeq: Equations,
+        parameters: Dict,
+        **kwargs
+    ) -> None:
         """
         Constructor method.
 
@@ -248,7 +258,12 @@ class CompositeSolution(BaseSolution):
     model_dXdt_lambda: Optional[Callable]
     rpt_arrays: Optional[Dict]
 
-    def __init__(self, gmeq, parameters, **kwargs) -> None:
+    def __init__(
+        self,
+        gmeq: Equations,
+        parameters: Dict,
+        **kwargs
+    ) -> None:
         """
         Constructor method.
 

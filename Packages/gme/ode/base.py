@@ -37,10 +37,11 @@ from scipy.interpolate import interp1d
 from scipy.optimize import fsolve
 
 # SymPy
-from sympy import Matrix, lambdify, simplify, Eq
+from sympy import Matrix, lambdify, simplify
 
 # GME
 from gme.core.symbols import px, pz, rx, rdotx, rdotz, Lc
+from gme.core.equations import Equations
 
 warnings.filterwarnings("ignore")
 
@@ -66,7 +67,7 @@ class BaseSolution(ABC):
 
     def __init__(
         self,
-        gmeq: Eq,
+        gmeq: Equations,
         parameters: Dict,
         choice: str = 'Hamilton',
         method: str = 'Radau',
@@ -92,7 +93,7 @@ class BaseSolution(ABC):
                 equation substitutions
         """
         # Container for GME equations
-        self.gmeq: Eq = gmeq
+        self.gmeq: Equations = gmeq
 
         # Model/equation parameters
         self.parameters: Dict = parameters
