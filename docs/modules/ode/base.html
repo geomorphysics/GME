@@ -262,11 +262,10 @@ ray at a cusp.</p></li>
         <span class="bp">self</span><span class="o">.</span><span class="n">choice</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">choice</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">method</span>
         <span class="n">report</span> <span class="o">=</span> <span class="s1">&#39;ode.base.BaseSolution.init: &#39;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">choice</span> <span class="o">==</span> <span class="s1">&#39;Hamilton&#39;</span><span class="p">:</span>
-            <span class="n">report</span> <span class="o">+=</span> <span class="s1">&#39;Solve Hamilton</span><span class="se">\&#39;</span><span class="s1">s ODEs&#39;</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">report</span> <span class="o">+=</span> <span class="s1">&#39;Solve geodesic ODEs&#39;</span>
-        <span class="n">report</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39; using </span><span class="si">{</span><span class="n">method</span><span class="si">}</span><span class="s1"> method of integration&#39;</span>
+        <span class="n">task</span> <span class="o">=</span> <span class="s1">&#39;Solve Hamilton</span><span class="se">\&#39;</span><span class="s1">s ODEs&#39;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">choice</span> <span class="o">==</span> <span class="s1">&#39;Hamilton&#39;</span> \
+            <span class="k">else</span> <span class="s1">&#39;Solve geodesic ODEs&#39;</span>
+        <span class="n">report</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;ode.base.BaseSolution.init: </span><span class="si">{</span><span class="n">task</span><span class="si">}</span><span class="s1"> &#39;</span>\
+            <span class="o">+</span> <span class="sa">f</span><span class="s1">&#39;using </span><span class="si">{</span><span class="n">method</span><span class="si">}</span><span class="s1"> method of integration&#39;</span>
         <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">report</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">do_dense</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">do_dense</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">x_stop</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">x_stop</span>

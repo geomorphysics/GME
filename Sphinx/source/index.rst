@@ -12,7 +12,7 @@ and differential geometry*
 
 
 The goal of the GME project is to develop geometric mechanics software
-tailored to the study erosional processes,
+tailored to the study of erosional processes,
 and to make this platform-independent software freely available.
 
 

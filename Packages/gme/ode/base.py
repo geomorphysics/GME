@@ -102,11 +102,10 @@ class BaseSolution(ABC):
         self.choice: str = choice
         self.method: str = method
         report = 'ode.base.BaseSolution.init: '
-        if self.choice == 'Hamilton':
-            report += 'Solve Hamilton\'s ODEs'
-        else:
-            report += 'Solve geodesic ODEs'
-        report += f' using {method} method of integration'
+        task = 'Solve Hamilton\'s ODEs' if self.choice == 'Hamilton' \
+            else 'Solve geodesic ODEs'
+        report = f'ode.base.BaseSolution.init: {task} '\
+            + f'using {method} method of integration'
         logging.info(report)
         self.do_dense: bool = do_dense
         self.x_stop: float = x_stop
