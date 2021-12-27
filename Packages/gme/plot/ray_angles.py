@@ -23,7 +23,7 @@ Requires Python packages/modules:
 # Library
 import warnings
 # import logging
-from typing import Tuple, Dict, Optional, Callable, Union  # , List
+from typing import Tuple, Dict, Optional, Callable, Union, List
 
 # Cycler
 from cycler import cycler
@@ -481,27 +481,44 @@ class RayAngles(Graphing):
         plt.xlim(0, 2)
         y_limits = (0, 90)
 
+        from sympy import solve, lambdify
+        from gme.core.symbols import alpha_ext, beta_crit, alpha, beta, eta
+
+        alpha_ext_ = solve(gmeq.tanalpha_ext_eqn, alpha_ext)[0]
+        beta_crit_ = solve(gmeq.tanbeta_crit_eqn, beta_crit)[0]
+        eta_solns_ = solve(gmeq.tanalpha_ext_eqn, eta)
+        eta_gt1_lambda = lambdify(alpha_ext, eta_solns_[1])
+        eta_lt1_lambda = lambdify(alpha_ext, eta_solns_[0])
+        psi_crit_eqn = gmeq.psi_alpha_beta_eqn \
+            .subs({alpha: alpha_ext_, beta: beta_crit_})
+        psi_crit_lambda = lambdify(eta, psi_crit_eqn.rhs)
+        alpha_list: List[float] = [0.1, 2.0, 6.4, 11.55, 19.45]
+
         def plot_partial(
             eta_range_: Tuple[float, float],
             axes_: Axes,
             dashes_: Tuple[float, float],
+            alpha_list_: List[float],
             alpha_sign_: float,
             y_limits_: Tuple[float, float],
             loc_: Tuple[float, float]
         ) -> None:
-            eta_array_: np.ndarray = np.linspace(*eta_range_, n_points)
-            rd: Callable = np.deg2rad
+            d2r: Callable = np.deg2rad
+            r2d: Callable = np.rad2deg
             axes_.set_prop_cycle(default_cycler)
-            for alpha_ in (1, 5, 10, 15):
+            eta_array_: np.ndarray = np.linspace(*eta_range_, n_points)
+            for alpha_ in alpha_list_:
                 psi_array_ = np.concatenate([
-                    [gmeq.psi_eta_beta_lambdas[0](eta_, rd(alpha_*alpha_sign_))
+                    [gmeq.psi_eta_beta_lambdas[0](eta_,
+                                                  d2r(alpha_*alpha_sign_))
                      for eta_ in (eta_array_
-                     if alpha_sign_ == -1
-                     else np.flip(eta_array_))],
-                    [gmeq.psi_eta_beta_lambdas[1](eta_, rd(alpha_*alpha_sign_))
+                                  if alpha_sign_ == -1
+                                  else np.flip(eta_array_))],
+                    [gmeq.psi_eta_beta_lambdas[1](eta_,
+                                                  d2r(alpha_*alpha_sign_))
                      for eta_ in (np.flip(eta_array_)
-                     if alpha_sign_ == -1
-                     else eta_array_)]
+                                  if alpha_sign_ == -1
+                                  else eta_array_)]
                 ])
                 eta_rept_array_ = np.concatenate(
                     [eta_array_, np.flip(eta_array_)]
@@ -515,6 +532,27 @@ class RayAngles(Graphing):
                     dashes=dashes_,
                     label=rf'$\alpha={alpha_*alpha_sign_}\degree$'
                 )
+            psi_crit_array: np.ndarray = r2d(psi_crit_lambda(eta_array_))
+            axes_.plot(eta_array_,
+                       psi_crit_array,
+                       color='k',
+                       label=r'$\psi_c(\eta)$' if alpha_sign_ == 1
+                       else '')
+            axes_.set_prop_cycle(default_cycler)
+            if alpha_sign_ == 1:
+                eta_array_: np.ndarray \
+                    = eta_gt1_lambda(d2r(np.array(alpha_list_)))
+                psi_crit_array: np.ndarray \
+                    = r2d(psi_crit_lambda(eta_array_))
+                for (eta_, psi_crit_) in zip(eta_array_, psi_crit_array):
+                    axes_.plot(eta_, psi_crit_, 'o')
+            else:
+                eta_array_: np.ndarray \
+                    = eta_lt1_lambda(d2r(np.array(alpha_list_)))
+                psi_crit_array: np.ndarray \
+                    = r2d(psi_crit_lambda(eta_array_))
+                for (eta_, psi_crit_) in zip(eta_array_, psi_crit_array):
+                    axes_.plot(eta_, psi_crit_, 'o')
             axes_.set_ylim(*y_limits_)
             axes_.legend(loc=loc_)
 
@@ -522,17 +560,22 @@ class RayAngles(Graphing):
             eta_range_=(0, 1),
             axes_=axes,
             dashes_=(10, 2),
+            alpha_list_=alpha_list,
             alpha_sign_=-1,
             y_limits_=y_limits,
-            loc_=(0.028, 0.27)
+            loc_=(1.06, 0.1)
+            # loc_=(0.008, 0.46)
         )
         plot_partial(
             eta_range_=(1, 2),
             axes_=axes.twinx(),
             dashes_=(1, 0),
+            alpha_list_=alpha_list[:-1],
             alpha_sign_=+1,
             y_limits_=y_limits,
-            loc_=(1.07, 0.35)
+            loc_=(1.06, 0.6)
+            # loc_=(1.06, 0.35)
         )
 
+#
 #
