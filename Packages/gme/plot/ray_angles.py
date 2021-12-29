@@ -492,7 +492,7 @@ class RayAngles(Graphing):
         psi_crit_eqn = gmeq.psi_alpha_beta_eqn \
             .subs({alpha: alpha_ext_, beta: beta_crit_})
         psi_crit_lambda = lambdify(eta, psi_crit_eqn.rhs)
-        alpha_list: List[float] = [0.1, 2.0, 6.4, 11.55, 19.45]
+        alpha_list: List[float] = [0.1, 2.0, 6.4, 11.5, 19.3]
 
         def plot_partial(
             eta_range_: Tuple[float, float],
@@ -511,20 +511,16 @@ class RayAngles(Graphing):
                 psi_array_ = np.concatenate([
                     [gmeq.psi_eta_beta_lambdas[0](eta_,
                                                   d2r(alpha_*alpha_sign_))
-                     for eta_ in (eta_array_
-                                  if alpha_sign_ == -1
+                     for eta_ in (eta_array_ if alpha_sign_ == -1
                                   else np.flip(eta_array_))],
                     [gmeq.psi_eta_beta_lambdas[1](eta_,
                                                   d2r(alpha_*alpha_sign_))
-                     for eta_ in (np.flip(eta_array_)
-                                  if alpha_sign_ == -1
+                     for eta_ in (np.flip(eta_array_) if alpha_sign_ == -1
                                   else eta_array_)]
                 ])
                 eta_rept_array_ = np.concatenate(
-                    [eta_array_, np.flip(eta_array_)]
-                    if alpha_sign_ == -1
-                    else [np.flip(eta_array_),
-                          eta_array_]
+                    [eta_array_, np.flip(eta_array_)] if alpha_sign_ == -1
+                    else [np.flip(eta_array_), eta_array_]
                 )
                 axes_.plot(
                     eta_rept_array_[np.isfinite(psi_array_)],
