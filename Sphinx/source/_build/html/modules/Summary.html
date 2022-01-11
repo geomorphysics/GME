@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Geometric Mechanics of Erosion (GME) &#8212; GME 1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pydoctheme.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
+    
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    
+    <script src="../_static/sidebar.js"></script>
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Presentations" href="Presentations.html" />
+    <link rel="prev" title="The Geometric Mechanics of Erosion (GME)" href="../index.html" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <link rel="shortcut icon" type="image/png" href="../_static/favicon.png" />
+    <meta name="viewport" content="width=device-width,initial-scale=0.8">
+    
+    
+
+  </head><body>
+    <!-- <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="responsive-menu"><a href="#sidebar-anchor" title="Navigation">&#9776;</a></li>
+        <li><a href="../index.html">GME 1.0 documentation</a> &#187;</li> 
+      </ul>
+    </div> -->
+    <!-- 
+        <div class="badge">
+            <a href="https://github.com/geomorphysics/GME/">Fork me on GitHub</a>
+            <img src="../_static/right-red@2x.png">
+        </div>
+     -->
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="the-geometric-mechanics-of-erosion-gme">
+<h1>The Geometric Mechanics of Erosion (GME)<a class="headerlink" href="#the-geometric-mechanics-of-erosion-gme" title="Permalink to this headline">¶</a></h1>
+<p><img alt="tis" src="../_images/sch_tis_cross_section.png" /></p>
+<p>Surface motion driven by geomorphic erosion shares some key features of light propagation in geometric optics and wave propagation in seismology.  Here we adapt methods developed in these fields, in particular their use of classical mechanics and differential geometry, to build a Hamiltonian theory of erosion morphodynamics. This analysis reveals some fundamental properties of landscape evolution, notably: (i) the principle of least “action” that governs the geometry of erosion; (ii) the dynamical system describing its evolution; (iii) its inherent anisotropy; (iv) the two-fold direction of erosion; (v) the way in which information about boundary conditions propagates upstream.</p>
+<p><img alt="tis" src="../_images/sch_point_pairing.png" /></p>
+<p>In optics and seismology, wave propagation is associated with a moving wavefront tied to a set of rays tracing the motion of points along it; in geomorphology, the whole landscape is a moving erosion front and the “rays” are trajectories of points tagged on the eroding landscape.</p>
+<!-- <img src="https://github.com/geomorphysics/GME/blob/main/Plots/OneRaySolutions/oneray_eta0p5_Ci4p0_ray_h_x.png?raw=true" width=130% height=130%> --><p><img alt="ray" src="../_images/oneray_eta0p5_Ci4p0_ray_h_x.jpg" /></p>
+<p>It is known from classical mechanics that a front <em>always</em> moves in its surface-normal direction, but that the corresponding direction of ray motion depends on the anisotropy of the propagation process.
+The process of erosion is inherently anisotropic, even if the substrate itself is homogeneous and isotropic, because it is mediated by the component of gravitational acceleration resolved along the surface.
+Erosion rate is therefore a function of orientation of the front, and erosional anisotropy is captured by a Finsler metric tensor field. This metric tensor measures the non-Euclidean distance from the front into the substrate, as “seen” by the erosion process, where its yardstick is the time it takes to erode in a given direction.</p>
+<p><img alt="conjugacy" src="../_images/tis_tanbeta_rampflat_eta1p0_xiv30_xh0p9_ray_conjugacy.png" /></p>
+<p>Since the tensor field is strongly anisotropic, the rays move in a direction sharply different to front motion. The angular disparity satisfies Huygens’ principle and can be visualized using an indicatrix, a geometrical construct commonly used in mineralogy, along with its dual (a figuratrix).</p>
+<p><img alt="wavelets" src="../_images/tis_tanbeta_rampflat_eta1p0_xiv30_xh0p9_huygens_wavelets.png" /></p>
+<p>In geometric optics and seismology it is well known that rays follow the shortest-time paths, or geodesics, across the metric tensor field. Erosion is therefore controlled by the Fermat variational principle of least erosion time. This is encapsulated in an erosion-front Hamiltonian, which formally defines the dynamical system that determines topographic surface evolution, and in its equivalent Lagrangian. The Hamiltonian is static if external forcing varies over time only at the boundaries and if drainage divides are fixed.</p>
+<p>In this context, erosion can be thought of as acting in <em>two different directions at the same time</em>: first, the true motion of the front, which is orthogonal to the surface and broadly downwards; second, the “information-carrying” motion, which acts laterally into the substrate and broadly upstream, but with either a positive or negative vertical component set by the gradient dependence of the erosion function.</p>
+<p><img alt="anisotropy" src="../_images/tis_eta0p5_Ci4p0_aniso.jpg" /></p>
+<p>The erosion-front Hamiltonian reveals a fundamental problem with the concept of landscape steady-state. The term “steady state” describes the stable outcome of a dynamical system. In the dynamical system defined by the Hamiltonian, a point on the topographic surface is set in motion at the boundary and continues to move until it is destroyed at the first drainage divide it encounters, or when overtaken by a faster ray at, for example, a major knickpoint: at no point does it converge in phase space to a stable point or a limit cycle. A time-invariant landscape may arise, but it is the result of an ensemble of successive erosion rays following trajectories of identical shape from a boundary with a constant velocity condition.</p>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+    <a id="sidebar-anchor"></a>
+    
+
+<div id="searchbox" style="display: none" role="search">
+    <a class="biglink" href="../index.html">
+        <img src="../_static/gme_icon_varphi_rx.png" />
+    </a>
+  <h3></h3>
+    <form class="search" action="../search.html" method="get">
+      <div class="ui action left icon input">
+        <i class="search icon"></i>
+        <input type="text" name="q" placeholder="Search...">
+        <div class="ui teal button"></div>
+      </div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<!-- <br> -->
+<script type="text/javascript">$('#searchbox').show(0);</script><h3><a href="../index.html">Contents</a></h3>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">  Summary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Presentations.html">  Presentations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Publications.html">  Publications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Design.html">  Software design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Dependencies.html">  Dependencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Installation.html">  Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Running.html">  Running</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Notebooks.html">  Notebooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Python.html">  Python package</a></li>
+</ul>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="Presentations.html" title="Presentations"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../index.html" title="The Geometric Mechanics of Erosion (GME)"
+             accesskey="P">previous</a> |</li>
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, CPS.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.3.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>pxpoly.py &#8212; GME 1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pydoctheme.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+    
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <script src="../../_static/sidebar.js"></script>
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="ibc.py" href="ibc.html" />
+    <link rel="prev" title="geodesic.py" href="geodesic.html" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <link rel="shortcut icon" type="image/png" href="../../_static/favicon.png" />
+    <meta name="viewport" content="width=device-width,initial-scale=0.8">
+    
+    
+
+  </head><body>
+    <!-- <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="responsive-menu"><a href="#sidebar-anchor" title="Navigation">&#9776;</a></li>
+        <li><a href="../../index.html">GME 1.0 documentation</a> &#187;</li>
+          <li><a href="../Python.html" >Python package <cite>gme</cite></a> &#187;</li>
+          <li><a href="index.html" accesskey="U"><cite>gme.core</cite></a> &#187;</li> 
+      </ul>
+    </div> -->
+    <!-- 
+        <div class="badge">
+            <a href="https://github.com/geomorphysics/GME/">Fork me on GitHub</a>
+            <img src="../../_static/right-red@2x.png">
+        </div>
+     -->
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-gme.core.pxpoly">
+<span id="pxpoly-py"></span><h1><code class="docutils literal notranslate"><span class="pre">pxpoly.py</span></code><a class="headerlink" href="#module-gme.core.pxpoly" title="Permalink to this headline">¶</a></h1>
+<hr class="docutils" />
+<p>Equation definitions and derivations using <a class="reference external" href="https://docs.sympy.org/latest/modules/index.html#module-sympy" title="(in SymPy v1.9)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">SymPy</span></code></a>.</p>
+<hr class="docutils" />
+<dl class="simple">
+<dt>Requires Python packages/modules:</dt><dd><ul class="simple">
+<li><p><a class="reference external" href="https://docs.sympy.org/latest/modules/index.html#module-sympy" title="(in SymPy v1.9)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">SymPy</span></code></a></p></li>
+<li><p><a class="reference external" href="https://github.com/geomorphysics/GMPLib">GMPLib</a></p></li>
+<li><p><a class="reference external" href="https://github.com/geomorphysics/GME">GME</a></p></li>
+</ul>
+</dd>
+</dl>
+<hr class="docutils" />
+<dl class="py class">
+<dt class="sig sig-object py" id="gme.core.pxpoly.PxpolyMixin">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gme.core.pxpoly.</span></span><span class="sig-name descname"><span class="pre">PxpolyMixin</span></span><a class="headerlink" href="#gme.core.pxpoly.PxpolyMixin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Polynomial <span class="math notranslate nohighlight">\(p_x\)</span> equations supplement to equation definition class.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="gme.core.pxpoly.PxpolyMixin.define_px_poly_eqn">
+<span class="sig-name descname"><span class="pre">define_px_poly_eqn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">eta_choice</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.sympy.org/latest/modules/core.html#sympy.core.numbers.Rational" title="(in SymPy v1.9)"><span class="pre">sympy.core.numbers.Rational</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_ndim</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.core.pxpoly.PxpolyMixin.define_px_poly_eqn" title="Permalink to this definition">¶</a></dt>
+<dd><p>TODO: remove ref to xiv_0</p>
+<p>Define polynomial form of function combining normal-slowness
+covector components <span class="math notranslate nohighlight">\((p_x,p_z)\)</span>
+(where the latter is given in terms of the vertical erosion rate
+<span class="math notranslate nohighlight">\(\xi^{\downarrow} = -\dfrac{1}{p_z}\)</span>)
+and the erosion model flow component <span class="math notranslate nohighlight">\(\varphi(\mathbf{r})\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>eta_choice</strong> (<a class="reference external" href="https://docs.sympy.org/latest/modules/core.html#sympy.core.numbers.Rational" title="(in SymPy v1.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Rational</span></code></a>) – value of <span class="math notranslate nohighlight">\(\eta\)</span> to use instead value given at
+instantiation; otherwise the latter value is used</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gme.core.pxpoly.PxpolyMixin.poly_px_xiv_varphi_eqn">
+<span class="sig-name descname"><span class="pre">poly_px_xiv_varphi_eqn</span></span><a class="headerlink" href="#gme.core.pxpoly.PxpolyMixin.poly_px_xiv_varphi_eqn" title="Permalink to this definition">¶</a></dt>
+<dd><p><span class="math notranslate nohighlight">\(\operatorname{Poly}{\left(
+\left(\xi^{\downarrow}\right)^{4}
+\varphi^{4}{\left(\mathbf{r} \right)} p_{x}^{6}
+-  \left(\xi^{\downarrow}\right)^{4} p_{x}^{2}
+-  \left(\xi^{\downarrow}\right)^{2}, p_{x},
+domain=\mathbb{Z}\left[\varphi{\left(\mathbf{r} \right)},
+\xi^{\downarrow}\right] \right)}\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.sympy.org/latest/modules/polys/reference.html#sympy.polys.polytools.Poly" title="(in SymPy v1.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Poly</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gme.core.pxpoly.PxpolyMixin.poly_px_xiv_eqn">
+<span class="sig-name descname"><span class="pre">poly_px_xiv_eqn</span></span><a class="headerlink" href="#gme.core.pxpoly.PxpolyMixin.poly_px_xiv_eqn" title="Permalink to this definition">¶</a></dt>
+<dd><p><span class="math notranslate nohighlight">\(\varphi_0^{4}
+\left(\xi^{\downarrow{0}}\right)^{4} p_{x}^{6}
+\left(\varepsilon
++ \left(\frac{x_{1} - {r}^x}{x_{1}}\right)^{2 \mu}\right)^{4}
+- \left(\xi^{\downarrow{0}}\right)^{4} p_{x}^{2}
+- \left(\xi^{\downarrow{0}}\right)^{2} = 0\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.sympy.org/latest/modules/core.html#sympy.core.relational.Equality" title="(in SymPy v1.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Equality</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+<div class="section" id="code">
+<h2>Code<a class="headerlink" href="#code" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">---------------------------------------------------------------------</span>
+
+<span class="sd">Equation definitions and derivations using :mod:`SymPy &lt;sympy&gt;`.</span>
+
+<span class="sd">---------------------------------------------------------------------</span>
+
+<span class="sd">Requires Python packages/modules:</span>
+<span class="sd">  -  :mod:`SymPy &lt;sympy&gt;`</span>
+<span class="sd">  -  `GMPLib`_</span>
+<span class="sd">  -  `GME`_</span>
+
+<span class="sd">.. _GMPLib: https://github.com/geomorphysics/GMPLib</span>
+<span class="sd">.. _GME: https://github.com/geomorphysics/GME</span>
+<span class="sd">.. _Matrix:</span>
+<span class="sd">    https://docs.sympy.org/latest/modules/matrices/immutablematrices.html</span>
+
+<span class="sd">---------------------------------------------------------------------</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="c1"># Disable these pylint errors because it doesn&#39;t understand SymPy syntax</span>
+<span class="c1">#   - notably minus signs in equations flag an error</span>
+<span class="c1"># pylint: disable=invalid-unary-operand-type, not-callable</span>
+
+<span class="c1"># Library</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="c1"># from typing import Dict, Type, Optional  # , Tuple, Any, List</span>
+
+<span class="c1"># SymPy</span>
+<span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">Eq</span><span class="p">,</span> <span class="n">Rational</span><span class="p">,</span> <span class="n">simplify</span><span class="p">,</span> <span class="n">solve</span><span class="p">,</span> <span class="n">numer</span><span class="p">,</span> <span class="n">denom</span><span class="p">,</span> \
+                  <span class="n">separatevars</span><span class="p">,</span> <span class="n">poly</span>
+
+<span class="c1"># GMPLib</span>
+<span class="kn">from</span> <span class="nn">gmplib.utils</span> <span class="kn">import</span> <span class="n">e2d</span>
+
+<span class="c1"># GME</span>
+<span class="kn">from</span> <span class="nn">gme.core.symbols</span> <span class="kn">import</span> \
+    <span class="n">px</span><span class="p">,</span> <span class="n">eta</span><span class="p">,</span> <span class="n">varphi_0</span><span class="p">,</span> <span class="n">varphi_r</span><span class="p">,</span> <span class="n">rvec</span><span class="p">,</span> <span class="n">xiv</span><span class="p">,</span> <span class="n">xiv_0</span><span class="p">,</span> <span class="n">xih_0</span>
+
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;PxpolyMixin&#39;</span><span class="p">]</span>
+
+
+<span class="k">class</span> <span class="nc">PxpolyMixin</span><span class="p">:</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Polynomial :math:`p_x` equations supplement to equation definition class.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Prerequisites</span>
+    <span class="n">sinCi_xih0_eqn</span><span class="p">:</span> <span class="n">Eq</span>
+    <span class="n">px_xiv_varphi_eqn</span><span class="p">:</span> <span class="n">Eq</span>
+    <span class="n">varphi_rxhat_eqn</span><span class="p">:</span> <span class="n">Eq</span>
+    <span class="n">px_pxhat_eqn</span><span class="p">:</span> <span class="n">Eq</span>
+    <span class="n">xiv0_xih0_Ci_eqn</span><span class="p">:</span> <span class="n">Eq</span>
+    <span class="n">varphi_rx_eqn</span><span class="p">:</span> <span class="n">Eq</span>
+
+    <span class="k">def</span> <span class="nf">define_px_poly_eqn</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">eta_choice</span><span class="p">:</span> <span class="n">Rational</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">do_ndim</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        TODO: remove ref to xiv_0</span>
+
+<span class="sd">        Define polynomial form of function combining normal-slowness</span>
+<span class="sd">        covector components :math:`(p_x,p_z)`</span>
+<span class="sd">        (where the latter is given in terms of the vertical erosion rate</span>
+<span class="sd">        :math:`\xi^{\downarrow} = -\dfrac{1}{p_z}`)</span>
+<span class="sd">        and the erosion model flow component :math:`\varphi(\mathbf{r})`</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            eta_choice (:class:`~sympy.core.numbers.Rational`):</span>
+<span class="sd">                value of :math:`\eta` to use instead value given at</span>
+<span class="sd">                instantiation; otherwise the latter value is used</span>
+
+<span class="sd">        Attributes:</span>
+
+<span class="sd">            poly_px_xiv_varphi_eqn (:class:`~sympy.polys.polytools.Poly`):</span>
+<span class="sd">                :math:`\operatorname{Poly}{\left(</span>
+<span class="sd">                \left(\xi^{\downarrow}\right)^{4}</span>
+<span class="sd">                \varphi^{4}{\left(\mathbf{r} \right)} p_{x}^{6}</span>
+<span class="sd">                -  \left(\xi^{\downarrow}\right)^{4} p_{x}^{2}</span>
+<span class="sd">                -  \left(\xi^{\downarrow}\right)^{2}, p_{x},</span>
+<span class="sd">                domain=\mathbb{Z}\left[\varphi{\left(\mathbf{r} \right)},</span>
+<span class="sd">                \xi^{\downarrow}\right] \right)}`</span>
+
+<span class="sd">            poly_px_xiv_eqn (:class:`~sympy.core.relational.Equality`):</span>
+<span class="sd">                :math:`\varphi_0^{4}</span>
+<span class="sd">                \left(\xi^{\downarrow{0}}\right)^{4} p_{x}^{6}</span>
+<span class="sd">                \left(\varepsilon</span>
+<span class="sd">                + \left(\frac{x_{1} - {r}^x}{x_{1}}\right)^{2 \mu}\right)^{4}</span>
+<span class="sd">                - \left(\xi^{\downarrow{0}}\right)^{4} p_{x}^{2}</span>
+<span class="sd">                - \left(\xi^{\downarrow{0}}\right)^{2} = 0`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;core.pxpoly.define_px_poly_eqn (ndim=</span><span class="si">{</span><span class="n">do_ndim</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">do_ndim</span><span class="p">:</span>
+            <span class="c1"># Non-dimensionalized version</span>
+            <span class="n">varphi0_solns</span> <span class="o">=</span> <span class="n">solve</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">sinCi_xih0_eqn</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">eta</span><span class="p">:</span> <span class="n">eta_choice</span><span class="p">}),</span> <span class="n">varphi_0</span><span class="p">)</span>
+            <span class="n">varphi0_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">varphi_0</span><span class="p">,</span> <span class="n">varphi0_solns</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="k">if</span> <span class="n">eta_choice</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">eta_choice</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">tmp_eqn</span> <span class="o">=</span> <span class="n">separatevars</span><span class="p">(</span><span class="n">simplify</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">px_xiv_varphi_eqn</span>
+                    <span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">eta</span><span class="p">:</span> <span class="n">eta_choice</span><span class="p">})</span>
+                    <span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">varphi_r</span><span class="p">(</span><span class="n">rvec</span><span class="p">):</span> <span class="bp">self</span><span class="o">.</span><span class="n">varphi_rxhat_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">})</span>
+                    <span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">px_pxhat_eqn</span><span class="p">))</span>
+                    <span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="n">varphi0_eqn</span><span class="p">)))</span>
+                <span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">poly_pxhat_xiv_eqn</span> <span class="o">=</span> <span class="n">simplify</span><span class="p">(</span>
+                    <span class="n">Eq</span><span class="p">((</span><span class="n">numer</span><span class="p">(</span><span class="n">tmp_eqn</span><span class="o">.</span><span class="n">lhs</span><span class="p">)</span>
+                        <span class="o">-</span> <span class="n">denom</span><span class="p">(</span><span class="n">tmp_eqn</span><span class="o">.</span><span class="n">lhs</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">tmp_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">))</span><span class="o">/</span><span class="n">xiv</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+                <span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">poly_pxhat_xiv0_eqn</span> \
+                    <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">poly_pxhat_xiv_eqn</span>\
+                    <span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">xiv</span><span class="p">:</span> <span class="n">xiv_0</span><span class="p">})</span>\
+                    <span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xiv0_xih0_Ci_eqn</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">tmp_eqn</span> <span class="o">=</span> <span class="n">separatevars</span><span class="p">(</span><span class="n">simplify</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">px_xiv_varphi_eqn</span>
+                    <span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">eta</span><span class="p">:</span> <span class="n">eta_choice</span><span class="p">})</span>
+                    <span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">varphi_r</span><span class="p">(</span><span class="n">rvec</span><span class="p">):</span> <span class="bp">self</span><span class="o">.</span><span class="n">varphi_rxhat_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">})</span>
+                    <span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">px_pxhat_eqn</span><span class="p">))</span>
+                    <span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="n">varphi0_eqn</span><span class="p">))</span>
+                <span class="p">))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">poly_pxhat_xiv_eqn</span> <span class="o">=</span> <span class="n">simplify</span><span class="p">(</span>
+                    <span class="n">Eq</span><span class="p">((</span><span class="n">numer</span><span class="p">(</span><span class="n">tmp_eqn</span><span class="o">.</span><span class="n">lhs</span><span class="p">)</span>
+                        <span class="o">-</span> <span class="n">denom</span><span class="p">(</span><span class="n">tmp_eqn</span><span class="o">.</span><span class="n">lhs</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">tmp_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">))</span><span class="o">/</span><span class="n">xiv</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+                <span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">poly_pxhat_xiv0_eqn</span> <span class="o">=</span> <span class="n">simplify</span><span class="p">(</span>
+                    <span class="n">Eq</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">poly_pxhat_xiv_eqn</span><span class="o">.</span><span class="n">lhs</span>
+                        <span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">xiv</span><span class="p">:</span> <span class="n">xiv_0</span><span class="p">})</span>
+                        <span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xiv0_xih0_Ci_eqn</span><span class="p">))</span><span class="o">/</span><span class="n">xih_0</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+                <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Dimensioned version</span>
+            <span class="n">tmp_eqn</span> <span class="o">=</span> <span class="n">simplify</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">px_xiv_varphi_eqn</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">eta</span><span class="p">:</span> <span class="n">eta_choice</span><span class="p">}))</span>
+            <span class="k">if</span> <span class="n">eta_choice</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">eta_choice</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">poly_px_xiv_varphi_eqn</span> <span class="o">=</span> <span class="n">poly</span><span class="p">(</span><span class="n">tmp_eqn</span><span class="o">.</span><span class="n">lhs</span><span class="p">,</span> <span class="n">px</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">poly_px_xiv_varphi_eqn</span> \
+                    <span class="o">=</span> <span class="n">poly</span><span class="p">(</span><span class="n">numer</span><span class="p">(</span><span class="n">tmp_eqn</span><span class="o">.</span><span class="n">lhs</span><span class="p">)</span>
+                           <span class="o">-</span> <span class="n">denom</span><span class="p">(</span><span class="n">tmp_eqn</span><span class="o">.</span><span class="n">lhs</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">tmp_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">),</span> <span class="n">px</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">poly_px_xiv_eqn</span> \
+                <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">poly_px_xiv_varphi_eqn</span>
+                     <span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">varphi_rx_eqn</span><span class="p">)),</span> <span class="mi">0</span><span class="p">)</span>
+
+
+<span class="c1">#</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+    <a id="sidebar-anchor"></a>
+    
+
+<div id="searchbox" style="display: none" role="search">
+    <a class="biglink" href="../../index.html">
+        <img src="../../_static/gme_icon_varphi_rx.png" />
+    </a>
+  <h3></h3>
+    <form class="search" action="../../search.html" method="get">
+      <div class="ui action left icon input">
+        <i class="search icon"></i>
+        <input type="text" name="q" placeholder="Search...">
+        <div class="ui teal button"></div>
+      </div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<!-- <br> -->
+<script type="text/javascript">$('#searchbox').show(0);</script><h3><a href="../../index.html">Contents</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../Summary.html">  Summary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Presentations.html">  Presentations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Publications.html">  Publications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Design.html">  Software design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Dependencies.html">  Dependencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Installation.html">  Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Running.html">  Running</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Notebooks.html">  Notebooks</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../Python.html">  Python package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Core</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ode/index.html">ODE integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plot/index.html">Plotting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../knickpoints/index.html">Knickpoint detection and tracking [in development]</a></li>
+</ul>
+</li>
+</ul>
+
+    <!-- <h3><a href="../../index.html">This page</a></h3> -->
+    <!-- <ul>
+<li><a class="reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">pxpoly.py</span></code></a><ul>
+<li><a class="reference internal" href="#code">Code</a></li>
+</ul>
+</li>
+</ul>
+ -->
+    <p class="biglink">
+        <h3><a href="../../genindex.html"> Index</a></h3>
+    </p>
+  <br>
+  <!-- <p class="biglink"><a class="biglink" href="../../py-modindex.html">
+         Module index</a>
+  <br><br> -->
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="ibc.html" title="ibc.py"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="geodesic.html" title="geodesic.py"
+             accesskey="P">previous</a> |</li>
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, CPS.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.3.
+    </div>
+  </body>
+</html>

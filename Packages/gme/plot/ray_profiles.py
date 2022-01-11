@@ -334,7 +334,7 @@ class RayProfiles(Graphing):
         plt.ylabel(r'Elevation, $z/L_{\mathrm{c}}$  [-]',
                    fontsize=13 if do_schematic else 16)
         if not do_schematic and not do_one_ray and do_legend:
-            plt.legend(loc='upper right' if do_schematic else (0.065, 0.45),
+            plt.legend(loc='upper right' if do_schematic else 'upper left',
                        fontsize=9 if do_schematic else 11,
                        framealpha=0.95)
         if not do_schematic:

@@ -1,0 +1,18 @@
+{
+    "restructuredtext.confPath": "${workspaceFolder}/Sphinx/source",
+    "workbench.tree.indent": 14,
+    "editor.guides.indentation": false,
+    "[git-commit]": {"editor.rulers": [50]},
+    "[rst]": {"editor.rulers": [80]},
+    "[python]": {"editor.rulers": [
+        {
+          "column": 80,
+          "color": "#cebcce"
+        }
+      ]
+    },
+    "python.linting.enabled": true,
+    "python.linting.mypyEnabled": false,
+    "python.linting.flake8Enabled": true
+}
+

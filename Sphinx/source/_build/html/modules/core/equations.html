@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>equations.py &#8212; GME 1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pydoctheme.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+    
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <script src="../../_static/sidebar.js"></script>
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="symbols.py" href="symbols.html" />
+    <link rel="prev" title="gme.core" href="index.html" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <link rel="shortcut icon" type="image/png" href="../../_static/favicon.png" />
+    <meta name="viewport" content="width=device-width,initial-scale=0.8">
+    
+    
+
+  </head><body>
+    <!-- <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="responsive-menu"><a href="#sidebar-anchor" title="Navigation">&#9776;</a></li>
+        <li><a href="../../index.html">GME 1.0 documentation</a> &#187;</li>
+          <li><a href="../Python.html" >Python package <cite>gme</cite></a> &#187;</li>
+          <li><a href="index.html" accesskey="U"><cite>gme.core</cite></a> &#187;</li> 
+      </ul>
+    </div> -->
+    <!-- 
+        <div class="badge">
+            <a href="https://github.com/geomorphysics/GME/">Fork me on GitHub</a>
+            <img src="../../_static/right-red@2x.png">
+        </div>
+     -->
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-gme.core.equations">
+<span id="equations-py"></span><h1><code class="docutils literal notranslate"><span class="pre">equations.py</span></code><a class="headerlink" href="#module-gme.core.equations" title="Permalink to this headline">¶</a></h1>
+<hr class="docutils" />
+<p>Derive an ensemble of GME equations using <a class="reference external" href="https://docs.sympy.org/latest/modules/index.html#module-sympy" title="(in SymPy v1.9)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">SymPy</span></code></a>.</p>
+<hr class="docutils" />
+<p>This module provides a derivation of GME theory using <a class="reference external" href="https://docs.sympy.org/latest/modules/index.html#module-sympy" title="(in SymPy v1.9)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">SymPy</span></code></a>
+for a 2D slice of a 3D landscape along a channel transect.</p>
+<p>Starting from a model equation for the surface-normal erosion rate in terms of
+the tilt angle of the topographic surface and the distance downstream
+(used to infer the flow component of the model erosion process), we derive
+the fundamental function (of a co-Finsler metric space), the corresponding
+Hamiltonian,
+and the equivalent metric tensor.
+The rest of the equations are derived from these core results.</p>
+<hr class="docutils" />
+<dl class="simple">
+<dt>Requires Python packages/modules:</dt><dd><ul class="simple">
+<li><p><a class="reference external" href="https://docs.sympy.org/latest/modules/index.html#module-sympy" title="(in SymPy v1.9)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">SymPy</span></code></a></p></li>
+<li><p><a class="reference external" href="https://github.com/geomorphysics/GME">GME</a></p></li>
+</ul>
+</dd>
+</dl>
+<hr class="docutils" />
+<dl class="py class">
+<dt class="sig sig-object py" id="gme.core.equations.Equations">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gme.core.equations.</span></span><span class="sig-name descname"><span class="pre">Equations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_new_varphi_model</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gme.core.equations.Equations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class to solve the set of GME equations(using: mod: <cite>SymPy &lt; sympy &gt;</cite>)
+and to provide them in a form(sometimes lambdified) that can be used for
+numerical evaluation.</p>
+<p>Much of the derivation sequence here keeps <span class="math notranslate nohighlight">\(\eta\)</span> and <span class="math notranslate nohighlight">\(\mu\)</span>
+unspecified, up until the Hamiltonian is defined, but eventually values
+for these parameters need to be substituted in order to make further
+progress. In this documentation, we set <span class="math notranslate nohighlight">\(\eta = 3/2\)</span>, for now.</p>
+<dl class="simple">
+<dt>TODO: provide solutions for both <span class="math notranslate nohighlight">\(\eta = 1/2\)</span> and</dt><dd><p><span class="math notranslate nohighlight">\(\eta = 3/2\)</span> where appropriate.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>parameters</strong> – dictionary of model parameter values to be
+used for equation substitutions
+(used when defining geodesic equations)</p></li>
+<li><p><strong>eta_</strong> – exponent <span class="math notranslate nohighlight">\(\eta \)</span> in SPIM)</p></li>
+<li><p><strong>mu_</strong> – exponent <span class="math notranslate nohighlight">\(\mu\)</span> in flow component of erosion model
+(equivalent of area exponent <span class="math notranslate nohighlight">\(m\)</span> in SPIM)</p></li>
+<li><p><strong>beta_type</strong> – choice of slope component of erosion model
+(<cite>‘sin’</cite> or <cite>‘tan’</cite>)</p></li>
+<li><p><strong>varphi_type</strong> – choice of flow component of erosion model
+(<cite>‘ramp’</cite> or <cite>‘ramp-flat’</cite>)</p></li>
+<li><p><strong>ibc_type</strong> – choice of initial boundary shape
+(<cite>‘convex-up’</cite> or <cite>‘concave-up’</cite>,
+i.e., concave vs convex in mathematical parlance)</p></li>
+<li><p><strong>do_raw</strong> – suppress substitution of <span class="math notranslate nohighlight">\(eta\)</span> value
+when defining <cite>xi_varphi_beta_eqn</cite>?</p></li>
+<li><p><strong>do_idtx</strong> – generate indicatrix and figuratrix equations?</p></li>
+<li><p><strong>do_geodesic</strong> – generate geodesic equations?</p></li>
+<li><p><strong>do_nothing</strong> – <dl class="simple">
+<dt>just create the class instance and set its data,</dt><dd><p>but don’t run any of the equation definition methods</p>
+</dd>
+</dl>
+</p></li>
+<li><p><strong>do_new_varphi_model</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – use new form of varphi model?</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">GME</span> <span class="pre">equations(</span></span></dt>
+<dd><p>class: <cite>~sympy.core.relational.Equality</cite> etc):
+See below</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gme.core.equations.Equations.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_new_varphi_model</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.core.equations.Equations.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructor method.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="gme.core.equations.EquationsBase">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gme.core.equations.</span></span><span class="sig-name descname"><span class="pre">EquationsBase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eta_</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.sympy.org/latest/modules/core.html#sympy.core.numbers.Rational" title="(in SymPy v1.9)"><span class="pre">sympy.core.numbers.Rational</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">3</span> <span class="pre">/</span> <span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mu_</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.sympy.org/latest/modules/core.html#sympy.core.numbers.Rational" title="(in SymPy v1.9)"><span class="pre">sympy.core.numbers.Rational</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">3</span> <span class="pre">/</span> <span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta_type</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'sin'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">varphi_type</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'ramp'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_raw</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_new_varphi_model</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gme.core.equations.EquationsBase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bare-bones base class for equation definitions.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="gme.core.equations.EquationsBase.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eta_</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.sympy.org/latest/modules/core.html#sympy.core.numbers.Rational" title="(in SymPy v1.9)"><span class="pre">sympy.core.numbers.Rational</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">3</span> <span class="pre">/</span> <span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mu_</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.sympy.org/latest/modules/core.html#sympy.core.numbers.Rational" title="(in SymPy v1.9)"><span class="pre">sympy.core.numbers.Rational</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">3</span> <span class="pre">/</span> <span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta_type</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'sin'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">varphi_type</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'ramp'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_raw</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_new_varphi_model</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gme.core.equations.EquationsBase.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructor method.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="gme.core.equations.EquationsMixedIn">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gme.core.equations.</span></span><span class="sig-name descname"><span class="pre">EquationsMixedIn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gme.core.equations.EquationsMixedIn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extended base class that’s furnished with
+mixins providing all the basic equation definitions, but none of
+which are automatically acted upon.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="gme.core.equations.EquationsMixedIn.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.core.equations.EquationsMixedIn.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructor method.</p>
+</dd></dl>
+
+</dd></dl>
+
+<div class="section" id="code">
+<h2>Code<a class="headerlink" href="#code" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">---------------------------------------------------------------------</span>
+
+<span class="sd">Derive an ensemble of GME equations using :mod:`SymPy &lt;sympy&gt;`.</span>
+
+<span class="sd">---------------------------------------------------------------------</span>
+
+<span class="sd">This module provides a derivation of GME theory using :mod:`SymPy &lt;sympy&gt;`</span>
+<span class="sd">for a 2D slice of a 3D landscape along a channel transect.</span>
+
+<span class="sd">Starting from a model equation for the surface-normal erosion rate in terms of</span>
+<span class="sd">the tilt angle of the topographic surface and the distance downstream</span>
+<span class="sd">(used to infer the flow component of the model erosion process), we derive</span>
+<span class="sd">the fundamental function (of a co-Finsler metric space), the corresponding</span>
+<span class="sd">Hamiltonian,</span>
+<span class="sd">and the equivalent metric tensor.</span>
+<span class="sd">The rest of the equations are derived from these core results.</span>
+
+<span class="sd">---------------------------------------------------------------------</span>
+
+<span class="sd">Requires Python packages/modules:</span>
+<span class="sd">  -  :mod:`SymPy &lt;sympy&gt;`</span>
+<span class="sd">  -  `GME`_</span>
+
+<span class="sd">.. _GMPLib: https://github.com/geomorphysics/GMPLib</span>
+<span class="sd">.. _GME: https://github.com/geomorphysics/GME</span>
+<span class="sd">.. _Matrix:</span>
+<span class="sd">    https://docs.sympy.org/latest/modules/matrices/immutablematrices.html</span>
+
+<span class="sd">---------------------------------------------------------------------</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="c1"># Disable these pylint errors because it doesn&#39;t understand SymPy syntax</span>
+<span class="c1">#   - notably minus signs in equations flag an error</span>
+<span class="c1"># pylint: disable=invalid-unary-operand-type, not-callable</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="c1"># Typing</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Optional</span>
+
+<span class="c1"># SymPy</span>
+<span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">Rational</span>
+
+<span class="c1"># GME</span>
+<span class="kn">from</span> <span class="nn">gme.core.rp</span> <span class="kn">import</span> <span class="n">RpMixin</span>
+<span class="kn">from</span> <span class="nn">gme.core.xi</span> <span class="kn">import</span> <span class="n">XiMixin</span>
+<span class="kn">from</span> <span class="nn">gme.core.varphi</span> <span class="kn">import</span> <span class="n">VarphiMixin</span>
+<span class="kn">from</span> <span class="nn">gme.core.fundamental</span> <span class="kn">import</span> <span class="n">FundamentalMixin</span>
+<span class="kn">from</span> <span class="nn">gme.core.hamiltons</span> <span class="kn">import</span> <span class="n">HamiltonsMixin</span>
+<span class="kn">from</span> <span class="nn">gme.core.ndim</span> <span class="kn">import</span> <span class="n">NdimMixin</span>
+<span class="kn">from</span> <span class="nn">gme.core.angles</span> <span class="kn">import</span> <span class="n">AnglesMixin</span>
+<span class="kn">from</span> <span class="nn">gme.core.metrictensor</span> <span class="kn">import</span> <span class="n">MetricTensorMixin</span>
+<span class="kn">from</span> <span class="nn">gme.core.pxpoly</span> <span class="kn">import</span> <span class="n">PxpolyMixin</span>
+<span class="c1"># from gme.core.idtx import IdtxMixin</span>
+<span class="c1"># from gme.core.geodesic import GeodesicMixin</span>
+<span class="c1"># from gme.core.ibc import IbcMixin</span>
+
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;EquationsBase&#39;</span><span class="p">,</span> <span class="s1">&#39;EquationsMixedIn&#39;</span><span class="p">,</span> <span class="s1">&#39;Equations&#39;</span><span class="p">]</span>
+
+
+<span class="k">class</span> <span class="nc">EquationsBase</span><span class="p">:</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Bare-bones base class for equation definitions.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">parameters</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">eta_</span><span class="p">:</span> <span class="n">Rational</span> <span class="o">=</span> <span class="n">Rational</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+        <span class="n">mu_</span><span class="p">:</span> <span class="n">Rational</span> <span class="o">=</span> <span class="n">Rational</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
+        <span class="n">beta_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;sin&#39;</span><span class="p">,</span>
+        <span class="n">varphi_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;ramp&#39;</span><span class="p">,</span>
+        <span class="c1"># ibc_type: str = &#39;convex-up&#39;,</span>
+        <span class="n">do_raw</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">do_new_varphi_model</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Constructor method.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;core.equations.EquationsBase&#39;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">eta_</span> <span class="o">=</span> <span class="n">eta_</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mu_</span> <span class="o">=</span> <span class="n">mu_</span>
+        <span class="c1"># self.ibc_type = ibc_type</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">beta_type</span> <span class="o">=</span> <span class="n">beta_type</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">varphi_type</span> <span class="o">=</span> <span class="n">varphi_type</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">do_raw</span> <span class="o">=</span> <span class="n">do_raw</span>
+
+
+<span class="k">class</span> <span class="nc">EquationsMixedIn</span><span class="p">(</span>
+            <span class="n">EquationsBase</span><span class="p">,</span>
+            <span class="n">RpMixin</span><span class="p">,</span>
+            <span class="n">XiMixin</span><span class="p">,</span>
+            <span class="n">VarphiMixin</span><span class="p">,</span>
+            <span class="n">FundamentalMixin</span><span class="p">,</span>
+            <span class="n">HamiltonsMixin</span><span class="p">,</span>
+            <span class="n">NdimMixin</span><span class="p">,</span>
+            <span class="n">AnglesMixin</span><span class="p">,</span>
+            <span class="n">MetricTensorMixin</span><span class="p">,</span>
+            <span class="n">PxpolyMixin</span><span class="p">,</span>
+        <span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Extended base class that&#39;s furnished with</span>
+<span class="sd">    mixins providing all the basic equation definitions, but none of</span>
+<span class="sd">    which are automatically acted upon.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Constructor method.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;core.equations.EquationsMixedIn&#39;</span><span class="p">)</span>
+
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">Equations</span><span class="p">(</span><span class="n">EquationsMixedIn</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Class to solve the set of GME equations(using: mod: `SymPy &lt; sympy &gt;`)</span>
+<span class="sd">    and to provide them in a form(sometimes lambdified) that can be used for</span>
+<span class="sd">    numerical evaluation.</span>
+
+<span class="sd">    Much of the derivation sequence here keeps :math:`\eta` and :math:`\mu`</span>
+<span class="sd">    unspecified, up until the Hamiltonian is defined, but eventually values</span>
+<span class="sd">    for these parameters need to be substituted in order to make further</span>
+<span class="sd">    progress. In this documentation, we set :math:`\eta = 3/2`, for now.</span>
+
+<span class="sd">    TODO: provide solutions for both :math:`\eta = 1/2` and</span>
+<span class="sd">           :math:`\eta = 3/2` where appropriate.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        parameters: dictionary of model parameter values to be</span>
+<span class="sd">                           used for equation substitutions</span>
+<span class="sd">                           (used when defining geodesic equations)</span>
+<span class="sd">        eta\_:</span>
+<span class="sd">            exponent :math:`\eta ` in slope component of erosion</span>
+<span class="sd">            model (equivalent of</span>
+<span class="sd">            gradient exponent :math:`n` in SPIM)</span>
+<span class="sd">        mu\_:</span>
+<span class="sd">            exponent :math:`\mu` in flow component of erosion model</span>
+<span class="sd">            (equivalent of area exponent :math:`m` in SPIM)</span>
+<span class="sd">        beta_type: choice of slope component of erosion model</span>
+<span class="sd">                         (`&#39;sin&#39;` or `&#39;tan&#39;`)</span>
+<span class="sd">        varphi_type: choice of flow component of erosion model</span>
+<span class="sd">                           (`&#39;ramp&#39;` or `&#39;ramp-flat&#39;`)</span>
+<span class="sd">        ibc_type: choice of initial boundary shape</span>
+<span class="sd">                        (`&#39;convex-up&#39;` or `&#39;concave-up&#39;`,</span>
+<span class="sd">                        i.e., concave vs convex in mathematical parlance)</span>
+<span class="sd">        do_raw: suppress substitution of :math:`eta` value</span>
+<span class="sd">                        when defining `xi_varphi_beta_eqn`?</span>
+<span class="sd">        do_idtx: generate indicatrix and figuratrix equations?</span>
+<span class="sd">        do_geodesic: generate geodesic equations?</span>
+<span class="sd">        do_nothing:</span>
+<span class="sd">            just create the class instance and set its data,</span>
+<span class="sd">             but don&#39;t run any of the equation definition methods</span>
+<span class="sd">        do_new_varphi_model(bool): use new form of varphi model?</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        GME equations(: class: `~sympy.core.relational.Equality` etc):</span>
+<span class="sd">            See below</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">parameters</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">do_new_varphi_model</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Constructor method.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;core.equations.Equations&#39;</span><span class="p">)</span>
+
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">parameters</span><span class="o">=</span><span class="n">parameters</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">define_p_eqns</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">define_r_eqns</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">define_xi_eqns</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">define_xi_model_eqn</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">define_xi_related_eqns</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">define_varphi_model_eqns</span><span class="p">(</span><span class="n">do_new</span><span class="o">=</span><span class="n">do_new_varphi_model</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">define_varphi_related_eqns</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">define_Fstar_eqns</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">define_H_eqns</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">define_rdot_eqns</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">define_pdot_eqns</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">define_Hamiltons_eqns</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nondimensionalize</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">define_nodimensionalized_Hamiltons_eqns</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">define_tanalpha_eqns</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">define_tanbeta_eqns</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">define_psi_eqns</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">define_g_eqns</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">define_px_poly_eqn</span><span class="p">(</span><span class="n">eta_choice</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">eta_</span><span class="p">,</span> <span class="n">do_ndim</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">define_px_poly_eqn</span><span class="p">(</span><span class="n">eta_choice</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">eta_</span><span class="p">,</span> <span class="n">do_ndim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+
+<span class="c1">#</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+    <a id="sidebar-anchor"></a>
+    
+
+<div id="searchbox" style="display: none" role="search">
+    <a class="biglink" href="../../index.html">
+        <img src="../../_static/gme_icon_varphi_rx.png" />
+    </a>
+  <h3></h3>
+    <form class="search" action="../../search.html" method="get">
+      <div class="ui action left icon input">
+        <i class="search icon"></i>
+        <input type="text" name="q" placeholder="Search...">
+        <div class="ui teal button"></div>
+      </div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<!-- <br> -->
+<script type="text/javascript">$('#searchbox').show(0);</script><h3><a href="../../index.html">Contents</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../Summary.html">  Summary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Presentations.html">  Presentations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Publications.html">  Publications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Design.html">  Software design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Dependencies.html">  Dependencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Installation.html">  Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Running.html">  Running</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Notebooks.html">  Notebooks</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../Python.html">  Python package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Core</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ode/index.html">ODE integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plot/index.html">Plotting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../knickpoints/index.html">Knickpoint detection and tracking [in development]</a></li>
+</ul>
+</li>
+</ul>
+
+    <!-- <h3><a href="../../index.html">This page</a></h3> -->
+    <!-- <ul>
+<li><a class="reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">equations.py</span></code></a><ul>
+<li><a class="reference internal" href="#code">Code</a></li>
+</ul>
+</li>
+</ul>
+ -->
+    <p class="biglink">
+        <h3><a href="../../genindex.html"> Index</a></h3>
+    </p>
+  <br>
+  <!-- <p class="biglink"><a class="biglink" href="../../py-modindex.html">
+         Module index</a>
+  <br><br> -->
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="symbols.html" title="symbols.py"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="gme.core"
+             accesskey="P">previous</a> |</li>
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, CPS.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.3.
+    </div>
+  </body>
+</html>

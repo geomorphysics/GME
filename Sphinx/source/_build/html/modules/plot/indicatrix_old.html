@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>indicatrix_old.py &#8212; GME 1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pydoctheme.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+    
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <script src="../../_static/sidebar.js"></script>
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="indicatrix_new.py" href="indicatrix_new.html" />
+    <link rel="prev" title="alphabeta.py" href="alphabeta.html" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <link rel="shortcut icon" type="image/png" href="../../_static/favicon.png" />
+    <meta name="viewport" content="width=device-width,initial-scale=0.8">
+    
+    
+
+  </head><body>
+    <!-- <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="responsive-menu"><a href="#sidebar-anchor" title="Navigation">&#9776;</a></li>
+        <li><a href="../../index.html">GME 1.0 documentation</a> &#187;</li>
+          <li><a href="../Python.html" >Python package <cite>gme</cite></a> &#187;</li>
+          <li><a href="index.html" accesskey="U"><cite>gme.plot</cite></a> &#187;</li> 
+      </ul>
+    </div> -->
+    <!-- 
+        <div class="badge">
+            <a href="https://github.com/geomorphysics/GME/">Fork me on GitHub</a>
+            <img src="../../_static/right-red@2x.png">
+        </div>
+     -->
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-gme.plot.indicatrix_old">
+<span id="indicatrix-old-py"></span><h1><code class="docutils literal notranslate"><span class="pre">indicatrix_old.py</span></code><a class="headerlink" href="#module-gme.plot.indicatrix_old" title="Permalink to this headline">¶</a></h1>
+<hr class="docutils" />
+<p>Old way of visualizing indicatrix &amp; figuratrix</p>
+<hr class="docutils" />
+<dl class="simple">
+<dt>Requires Python packages/modules:</dt><dd><ul class="simple">
+<li><p><a class="reference external" href="https://numpy.org/doc/stable/reference/index.html#module-numpy" title="(in NumPy v1.22)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">NumPy</span></code></a></p></li>
+<li><p><a class="reference external" href="https://docs.sympy.org/latest/modules/index.html#module-sympy" title="(in SymPy v1.9)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">SymPy</span></code></a></p></li>
+<li><p><a class="reference external" href="https://matplotlib.org/stable/index.html#module-matplotlib" title="(in Matplotlib v3.5.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">MatPlotLib</span></code></a></p></li>
+<li><p><a class="reference external" href="https://github.com/geomorphysics/GME">GME</a></p></li>
+</ul>
+</dd>
+</dl>
+<hr class="docutils" />
+<dl class="py class">
+<dt class="sig sig-object py" id="gme.plot.indicatrix_old.IndicatrixOld">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gme.plot.indicatrix_old.</span></span><span class="sig-name descname"><span class="pre">IndicatrixOld</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dpi</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">font_size</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">11</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gme.plot.indicatrix_old.IndicatrixOld" title="Permalink to this definition">¶</a></dt>
+<dd><p>Old way of visualizing indicatrix &amp; figuratrix.</p>
+<p>Extends <a class="reference internal" href="base.html#gme.plot.base.Graphing" title="gme.plot.base.Graphing"><code class="xref py py-class docutils literal notranslate"><span class="pre">gme.plot.base.Graphing</span></code></a>.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="gme.plot.indicatrix_old.IndicatrixOld.annotations">
+<span class="sig-name descname"><span class="pre">annotations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">axes</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://matplotlib.org/stable/api/axes_api.html#matplotlib.axes.Axes" title="(in Matplotlib v3.5.1)"><span class="pre">matplotlib.axes._axes.Axes</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta_</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">tanalpha_</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.plot.indicatrix_old.IndicatrixOld.annotations" title="Permalink to this definition">¶</a></dt>
+<dd><p>TBD</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gme.plot.indicatrix_old.IndicatrixOld.arrows">
+<span class="sig-name descname"><span class="pre">arrows</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">px_</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">pz_</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">rdotx_</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">rdotz_</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.plot.indicatrix_old.IndicatrixOld.arrows" title="Permalink to this definition">¶</a></dt>
+<dd><p>TBD</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gme.plot.indicatrix_old.IndicatrixOld.comparison_logpolar">
+<span class="sig-name descname"><span class="pre">comparison_logpolar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmeq</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.sympy.org/latest/modules/core.html#sympy.core.relational.Equality" title="(in SymPy v1.9)"><span class="pre">sympy.core.relational.Equality</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">fig_size</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dpi</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">varphi_</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_points</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idtx_pz_min</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0.001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idtx_pz_max</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fgtx_pz_min</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0.001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fgtx_pz_max</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_limits</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.plot.indicatrix_old.IndicatrixOld.comparison_logpolar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot both indicatrix and figuratrix on one log-polar graph.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gme.plot.indicatrix_old.IndicatrixOld.figuratrix">
+<span class="sig-name descname"><span class="pre">figuratrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmeq</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.sympy.org/latest/modules/core.html#sympy.core.relational.Equality" title="(in SymPy v1.9)"><span class="pre">sympy.core.relational.Equality</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">varphi_</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_points</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">pz_min_</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">1e-05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pz_max_</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">50</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.22)"><span class="pre">numpy.ndarray</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.22)"><span class="pre">numpy.ndarray</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.sympy.org/latest/modules/core.html#sympy.core.relational.Equality" title="(in SymPy v1.9)"><span class="pre">sympy.core.relational.Equality</span></a><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#gme.plot.indicatrix_old.IndicatrixOld.figuratrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>TBD</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gme.plot.indicatrix_old.IndicatrixOld.indicatrix">
+<span class="sig-name descname"><span class="pre">indicatrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmeq</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.sympy.org/latest/modules/core.html#sympy.core.relational.Equality" title="(in SymPy v1.9)"><span class="pre">sympy.core.relational.Equality</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">varphi_</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_points</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">pz_min_</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">1e-05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pz_max_</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">300</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.22)"><span class="pre">numpy.ndarray</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.22)"><span class="pre">numpy.ndarray</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.sympy.org/latest/modules/core.html#sympy.core.relational.Equality" title="(in SymPy v1.9)"><span class="pre">sympy.core.relational.Equality</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.sympy.org/latest/modules/core.html#sympy.core.relational.Equality" title="(in SymPy v1.9)"><span class="pre">sympy.core.relational.Equality</span></a><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#gme.plot.indicatrix_old.IndicatrixOld.indicatrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>TBD</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gme.plot.indicatrix_old.IndicatrixOld.legend">
+<span class="sig-name descname"><span class="pre">legend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmeq</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.sympy.org/latest/modules/core.html#sympy.core.relational.Equality" title="(in SymPy v1.9)"><span class="pre">sympy.core.relational.Equality</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">axes</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://matplotlib.org/stable/api/axes_api.html#matplotlib.axes.Axes" title="(in Matplotlib v3.5.1)"><span class="pre">matplotlib.axes._axes.Axes</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_legend</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_half</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_ray_slowness</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.plot.indicatrix_old.IndicatrixOld.legend" title="Permalink to this definition">¶</a></dt>
+<dd><p>TBD</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gme.plot.indicatrix_old.IndicatrixOld.lines_and_points">
+<span class="sig-name descname"><span class="pre">lines_and_points</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pd</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axes</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://matplotlib.org/stable/api/axes_api.html#matplotlib.axes.Axes" title="(in Matplotlib v3.5.1)"><span class="pre">matplotlib.axes._axes.Axes</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">zoomx</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.22)"><span class="pre">numpy.ndarray</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_pz</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_shapes</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.plot.indicatrix_old.IndicatrixOld.lines_and_points" title="Permalink to this definition">¶</a></dt>
+<dd><p>TBD</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gme.plot.indicatrix_old.IndicatrixOld.plot_figuratrix">
+<span class="sig-name descname"><span class="pre">plot_figuratrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fgtx_px_array</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.22)"><span class="pre">numpy.ndarray</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">fgtx_pz_array</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.22)"><span class="pre">numpy.ndarray</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">maybe_recip_fn</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Callable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_ray_slowness</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.plot.indicatrix_old.IndicatrixOld.plot_figuratrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>TBD</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gme.plot.indicatrix_old.IndicatrixOld.plot_indicatrix">
+<span class="sig-name descname"><span class="pre">plot_indicatrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idtx_rdotx_array</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.22)"><span class="pre">numpy.ndarray</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">idtx_rdotz_array</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.22)"><span class="pre">numpy.ndarray</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">maybe_recip_fn</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Callable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_ray_slowness</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.plot.indicatrix_old.IndicatrixOld.plot_indicatrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>TBD</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gme.plot.indicatrix_old.IndicatrixOld.plot_unit_circle">
+<span class="sig-name descname"><span class="pre">plot_unit_circle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">varphi_</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_varphi_circle</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.plot.indicatrix_old.IndicatrixOld.plot_unit_circle" title="Permalink to this definition">¶</a></dt>
+<dd><p>TBD</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gme.plot.indicatrix_old.IndicatrixOld.relative_geometry">
+<span class="sig-name descname"><span class="pre">relative_geometry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmeq</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.sympy.org/latest/modules/core.html#sympy.core.relational.Equality" title="(in SymPy v1.9)"><span class="pre">sympy.core.relational.Equality</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">fig_size</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dpi</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">varphi_</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zoom_factor</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_half</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_legend</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_text_labels</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_arrows</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_lines_points</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_shapes</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_varphi_circle</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_pz</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_ray_slowness</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_max</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">3.4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_points</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pz_min_</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0.1</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.plot.indicatrix_old.IndicatrixOld.relative_geometry" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot the loci of <span class="math notranslate nohighlight">\(\mathbf{\widetilde{p}}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{r}\)</span>
+and their behavior defined by <span class="math notranslate nohighlight">\(F\)</span> relative to the
+<span class="math notranslate nohighlight">\(\xi\)</span> circle.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>gmeq</strong> – GME model equations class instance defined in
+<a class="reference internal" href="../core/equations.html#module-gme.core.equations" title="gme.core.equations"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gme.core.equations</span></code></a></p></li>
+<li><p><strong>varphi_choice</strong> – the value of <span class="math notranslate nohighlight">\(\varphi\)</span> to use</p></li>
+<li><p><strong>zoom_factor</strong> – fractional zoom factor relative to preassigned graph limits</p></li>
+<li><p><strong>do_half</strong> – plot only for <span class="math notranslate nohighlight">\(x\geq0\)</span>?</p></li>
+<li><p><strong>do_annotations</strong> – plot annotated arcs, faster/slower arrows?</p></li>
+<li><p><strong>do_legend</strong> – display the legend?</p></li>
+<li><p><strong>do_text_labels</strong> – display text annotations?</p></li>
+<li><p><strong>do_arrows</strong> – display vector/covector arrows?</p></li>
+<li><p><strong>do_lines_points</strong> – display dashed/dotted tangent lines etc?</p></li>
+<li><p><strong>do_shapes</strong> – plot key points using polygon symbols
+rather than simple circles</p></li>
+<li><p><strong>do_varphi_circle</strong> – plot the <span class="math notranslate nohighlight">\(\xi\)</span> (typically unit) circle?</p></li>
+<li><p><strong>do_pz</strong> – plot horizontal dotted line indicating magnitude of <span class="math notranslate nohighlight">\(p_z\)</span></p></li>
+<li><p><strong>do_ray_slowness</strong> – invert ray speed (but keep ray direction) in indicatrix?</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gme.plot.indicatrix_old.IndicatrixOld.text_labels">
+<span class="sig-name descname"><span class="pre">text_labels</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmeq</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.sympy.org/latest/modules/core.html#sympy.core.relational.Equality" title="(in SymPy v1.9)"><span class="pre">sympy.core.relational.Equality</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">varphi_</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">px_</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">pz_</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">rdotx_</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">rdotz_</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">zoom_factor</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_text_labels</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.plot.indicatrix_old.IndicatrixOld.text_labels" title="Permalink to this definition">¶</a></dt>
+<dd><p>TBD</p>
+</dd></dl>
+
+</dd></dl>
+
+<div class="section" id="code">
+<h2>Code<a class="headerlink" href="#code" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">---------------------------------------------------------------------</span>
+
+<span class="sd">Old way of visualizing indicatrix &amp; figuratrix</span>
+
+<span class="sd">---------------------------------------------------------------------</span>
+
+<span class="sd">Requires Python packages/modules:</span>
+<span class="sd">  -  :mod:`NumPy &lt;numpy&gt;`</span>
+<span class="sd">  -  :mod:`SymPy &lt;sympy&gt;`</span>
+<span class="sd">  -  :mod:`MatPlotLib &lt;matplotlib&gt;`</span>
+<span class="sd">  -  `GME`_</span>
+
+<span class="sd">.. _GMPLib: https://github.com/geomorphysics/GMPLib</span>
+<span class="sd">.. _GME: https://github.com/geomorphysics/GME</span>
+<span class="sd">.. _Matrix:</span>
+<span class="sd">    https://docs.sympy.org/latest/modules/matrices/immutablematrices.html</span>
+
+<span class="sd">---------------------------------------------------------------------</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="c1"># Library</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Dict</span>
+
+<span class="c1"># NumPy</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1"># SymPy</span>
+<span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">Eq</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">re</span><span class="p">,</span> <span class="n">factor</span><span class="p">,</span> <span class="n">lambdify</span>
+
+<span class="c1"># MatPlotLib</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">import</span> <span class="n">Axes</span>
+<span class="kn">import</span> <span class="nn">matplotlib.patches</span> <span class="k">as</span> <span class="nn">mpatches</span>
+<span class="kn">from</span> <span class="nn">matplotlib.patches</span> <span class="kn">import</span> <span class="n">Circle</span><span class="p">,</span> <span class="n">RegularPolygon</span>
+
+<span class="c1"># GME</span>
+<span class="kn">from</span> <span class="nn">gme.core.symbols</span> <span class="kn">import</span> <span class="n">px</span><span class="p">,</span> <span class="n">pz</span><span class="p">,</span> <span class="n">varphi</span><span class="p">,</span> <span class="n">pz_min</span>
+<span class="kn">from</span> <span class="nn">gme.plot.base</span> <span class="kn">import</span> <span class="n">Graphing</span>
+
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;IndicatrixOld&#39;</span><span class="p">]</span>
+
+
+<span class="k">class</span> <span class="nc">IndicatrixOld</span><span class="p">(</span><span class="n">Graphing</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Old way of visualizing indicatrix &amp; figuratrix.</span>
+
+<span class="sd">    Extends :class:`gme.plot.base.Graphing`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">comparison_logpolar</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">gmeq</span><span class="p">:</span> <span class="n">Eq</span><span class="p">,</span>
+        <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">fig_size</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">dpi</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">varphi_</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="n">n_points</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span>
+        <span class="n">idtx_pz_min</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-3</span><span class="p">,</span>
+        <span class="n">idtx_pz_max</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">,</span>
+        <span class="n">fgtx_pz_min</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-3</span><span class="p">,</span>
+        <span class="n">fgtx_pz_max</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">,</span>
+        <span class="n">y_limits</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Plot both indicatrix and figuratrix on one log-polar graph.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_figure</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">fig_size</span><span class="o">=</span><span class="n">fig_size</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="n">dpi</span><span class="p">)</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Erosion indicatrix &amp; figuratrix&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;bottom&#39;</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
+
+<span class="c1"># px_pz_lambda \</span>
+<span class="c1"># = lambdify( [pz], gmeq.fgtx_px_pz_varphi_eqn.rhs.subs({varphi:varphi_}) )</span>
+<span class="c1"># fgtx_pz_array \</span>
+<span class="c1"># = -np.power(10,np.linspace(np.log10(1000),np.log10(1e-6),n_points))</span>
+<span class="c1"># fgtx_px_array</span>
+<span class="c1"># = np.array([float(re(N(px_pz_lambda(pz_)))) for pz_ in fgtx_pz_array])</span>
+
+        <span class="c1"># Compute figuratrix</span>
+        <span class="n">fgtx_px_array</span><span class="p">,</span> <span class="n">fgtx_pz_array</span><span class="p">,</span> <span class="n">_</span> \
+            <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">figuratrix</span><span class="p">(</span><span class="n">gmeq</span><span class="p">,</span> <span class="n">varphi_</span><span class="p">,</span> <span class="n">n_points</span><span class="p">,</span>
+                              <span class="n">fgtx_pz_min</span><span class="p">,</span> <span class="n">fgtx_pz_max</span><span class="p">)</span>
+        <span class="n">fgtx_p_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">fgtx_px_array</span><span class="o">**</span><span class="mi">2</span><span class="o">+</span><span class="n">fgtx_pz_array</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+        <span class="n">fgtx_tanbeta_array</span> <span class="o">=</span> <span class="o">-</span><span class="n">fgtx_px_array</span><span class="o">/</span><span class="n">fgtx_pz_array</span>
+        <span class="n">fgtx_beta_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arctan</span><span class="p">(</span><span class="n">fgtx_tanbeta_array</span><span class="p">)</span>
+        <span class="n">fgtx_theta_array</span> \
+            <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">fgtx_beta_array</span><span class="p">,</span>
+                              <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">-</span><span class="n">fgtx_beta_array</span><span class="p">)[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]])</span>
+        <span class="n">fgtx_p_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">fgtx_p_array</span><span class="p">,</span> <span class="n">fgtx_p_array</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]])</span>
+
+        <span class="c1"># Compute indicatrix</span>
+        <span class="n">idtx_rdotx_array</span><span class="p">,</span> <span class="n">idtx_rdotz_array</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> \
+            <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">indicatrix</span><span class="p">(</span><span class="n">gmeq</span><span class="p">,</span> <span class="n">varphi_</span><span class="p">,</span> <span class="n">n_points</span><span class="p">,</span>
+                              <span class="n">idtx_pz_min</span><span class="p">,</span> <span class="n">idtx_pz_max</span><span class="p">)</span>
+        <span class="n">idtx_rdot_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">idtx_rdotx_array</span><span class="o">**</span><span class="mi">2</span><span class="o">+</span><span class="n">idtx_rdotz_array</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+        <span class="n">idtx_alpha_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arctan</span><span class="p">(</span><span class="o">-</span><span class="n">idtx_rdotx_array</span><span class="o">/</span><span class="n">idtx_rdotz_array</span><span class="p">)</span>
+        <span class="n">idtx_theta_negrdot_array</span> <span class="o">=</span> <span class="n">idtx_alpha_array</span><span class="p">[</span><span class="n">idtx_rdotz_array</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="n">idtx_rdot_negrdot_array</span> <span class="o">=</span> <span class="n">idtx_rdot_array</span><span class="p">[</span><span class="n">idtx_rdotz_array</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="n">idtx_theta_posrdot_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">+</span><span class="n">idtx_alpha_array</span><span class="p">[</span><span class="n">idtx_rdotz_array</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="n">idtx_rdot_posrdot_array</span> <span class="o">=</span> <span class="n">idtx_rdot_array</span><span class="p">[</span><span class="n">idtx_rdotz_array</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="n">idtx_theta_array</span> \
+            <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">idtx_theta_negrdot_array</span><span class="p">,</span>
+                              <span class="n">idtx_theta_posrdot_array</span><span class="p">])</span>
+        <span class="n">idtx_rdot_array</span> \
+            <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">idtx_rdot_negrdot_array</span><span class="p">,</span>
+                              <span class="n">idtx_rdot_posrdot_array</span><span class="p">])</span>
+
+        <span class="c1"># Compute reference unit circle</span>
+        <span class="n">unit_circle_beta_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+
+        <span class="c1"># Do the basic plotting</span>
+        <span class="c1"># idtx_label = r&#39;indicatrix $F(\mathbf{v},\alpha)$&#39;</span>
+        <span class="c1"># fgtx_label = r&#39;figuratrix $F^*(\mathbf{\widetilde{p}},\beta)$&#39;</span>
+        <span class="n">idtx_label</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;ray velocity&#39;</span>
+        <span class="n">fgtx_label</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;normal slowness&#39;</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">polar</span><span class="p">(</span><span class="n">fgtx_theta_array</span><span class="p">,</span>
+                  <span class="n">fgtx_p_array</span><span class="p">,</span>
+                  <span class="s1">&#39;DarkBlue&#39;</span><span class="p">,</span>
+                  <span class="s1">&#39;-&#39;</span><span class="p">,</span>
+                  <span class="n">lw</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span>
+                  <span class="n">label</span><span class="o">=</span><span class="n">fgtx_label</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">polar</span><span class="p">(</span><span class="n">idtx_theta_array</span><span class="p">,</span>
+                  <span class="n">idtx_rdot_array</span><span class="p">,</span>
+                  <span class="s1">&#39;DarkRed&#39;</span><span class="p">,</span>
+                  <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span>
+                  <span class="n">lw</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span>
+                  <span class="n">label</span><span class="o">=</span><span class="n">idtx_label</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">polar</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">-</span><span class="n">idtx_theta_array</span><span class="p">,</span>
+                  <span class="n">idtx_rdot_array</span><span class="p">,</span>
+                  <span class="s1">&#39;DarkRed&#39;</span><span class="p">,</span>
+                  <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span>
+                  <span class="n">lw</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
+        <span class="c1"># plt.polar( idtx_theta_posrdot_array, idtx_rdot_posrdot_array,</span>
+        <span class="c1"># &#39;magenta&#39;, ls=&#39;-&#39;, lw=3)</span>
+        <span class="c1"># plt.polar( idtx_theta_negrdot_array, idtx_rdot_negrdot_array,</span>
+        <span class="c1"># &#39;k&#39;, ls=&#39;-&#39;, lw=3)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">polar</span><span class="p">(</span><span class="n">unit_circle_beta_array</span><span class="p">,</span>
+                  <span class="n">unit_circle_beta_array</span><span class="o">*</span><span class="mi">0</span><span class="p">,</span>
+                  <span class="s1">&#39;g&#39;</span><span class="p">,</span>
+                  <span class="s1">&#39;:&#39;</span><span class="p">,</span>
+                  <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                  <span class="n">label</span><span class="o">=</span><span class="s1">&#39;unit circle&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Critical angles</span>
+        <span class="n">beta_crit</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arctan</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">gmeq</span><span class="o">.</span><span class="n">tanbeta_crit</span><span class="p">))</span>
+        <span class="n">alpha_crit</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">arctan</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">gmeq</span><span class="o">.</span><span class="n">tanalpha_crit</span><span class="p">))</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">polar</span><span class="p">([</span><span class="n">beta_crit</span><span class="p">,</span> <span class="n">beta_crit</span><span class="p">],</span>
+                  <span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+                  <span class="s1">&#39;:&#39;</span><span class="p">,</span>
+                  <span class="n">color</span><span class="o">=</span><span class="s1">&#39;DarkBlue&#39;</span><span class="p">,</span>
+                  <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$\beta=\beta_c$&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">polar</span><span class="p">([</span><span class="n">alpha_crit</span><span class="p">,</span> <span class="n">alpha_crit</span><span class="p">],</span>
+                  <span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+                  <span class="s1">&#39;:&#39;</span><span class="p">,</span>
+                  <span class="n">color</span><span class="o">=</span><span class="s1">&#39;DarkRed&#39;</span><span class="p">,</span>
+                  <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$\alpha=\alpha_{\mathrm</span><span class="si">{ext}</span><span class="s1">}$&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Labelling etc</span>
+        <span class="n">posn_list</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">1.25</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="mf">1.75</span><span class="p">)</span>
+        <span class="n">xtick_posns</span> <span class="o">=</span> <span class="p">[(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="n">i_</span> <span class="k">if</span> <span class="n">i_</span> <span class="o">!=</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span> <span class="k">for</span> <span class="n">i_</span> <span class="ow">in</span> <span class="n">posn_list</span><span class="p">]</span>
+        <span class="n">xtick_posns</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">xtick_labels</span> \
+            <span class="o">=</span> <span class="p">[(</span><span class="sa">r</span><span class="s1">&#39;$\frac{\pi}{&#39;</span> <span class="o">+</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">x_</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="s1">&#39;}$&#39;</span> <span class="k">if</span> <span class="n">x_</span> <span class="o">&gt;</span> <span class="mi">0</span>
+                <span class="k">else</span> <span class="sa">r</span><span class="s1">&#39;$-\frac{\pi}{&#39;</span> <span class="o">+</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="o">-</span><span class="n">x_</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="s1">&#39;}$&#39;</span> <span class="k">if</span> <span class="n">x_</span> <span class="o">!=</span> <span class="mi">0</span>
+                <span class="k">else</span> <span class="sa">r</span><span class="s1">&#39;$0$&#39;</span><span class="p">)</span>
+               <span class="k">for</span> <span class="n">x_</span> <span class="ow">in</span> <span class="n">posn_list</span><span class="p">]</span>
+        <span class="n">xtick_labels</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="sa">r</span><span class="s1">&#39;$\beta=0$&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;$\beta=\frac{\pi}</span><span class="si">{4}</span><span class="s1">$&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;$\qquad\alpha=0,\beta=\frac{\pi}</span><span class="si">{2}</span><span class="s1">$&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;$\alpha=\frac{\pi}</span><span class="si">{4}</span><span class="s1">$&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;$\alpha=\pm\frac{\pi}</span><span class="si">{2}</span><span class="s1">$&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;$\alpha=-\frac{\pi}</span><span class="si">{4}</span><span class="s1">$&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;$\alpha=0,\beta=-\frac{\pi}</span><span class="si">{2}</span><span class="s1">\quad$&#39;</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s1">&#39;$\beta=-\frac{\pi}</span><span class="si">{4}</span><span class="s1">$&#39;</span>
+        <span class="p">]</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">xtick_posns</span><span class="p">,</span> <span class="n">xtick_labels</span><span class="p">)</span>
+
+        <span class="n">y_limits_</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">y_limits</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">y_limits_</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+            <span class="n">ytick_posns</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">y_limits_</span> <span class="o">=</span> <span class="n">y_limits</span>
+            <span class="n">ytick_posns</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">y_limits_</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="nb">int</span><span class="p">(</span><span class="n">y_limits_</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">+</span><span class="mi">2</span><span class="p">))</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">*</span><span class="n">y_limits_</span><span class="p">)</span>
+        <span class="n">ytick_labels</span> <span class="o">=</span> <span class="p">[</span><span class="sa">rf</span><span class="s1">&#39;$10^</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">y_</span><span class="p">)</span><span class="si">}</span><span class="s1">$&#39;</span> <span class="k">for</span> <span class="n">y_</span> <span class="ow">in</span> <span class="n">ytick_posns</span><span class="p">]</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">ytick_posns</span><span class="p">,</span> <span class="n">ytick_labels</span><span class="p">)</span>
+
+        <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mf">1.1</span><span class="p">,</span>
+                 <span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">y_limits_</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">y_limits_</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">*</span><span class="mi">2</span><span class="o">/</span><span class="mi">3</span><span class="o">+</span><span class="n">y_limits_</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                 <span class="sa">rf</span><span class="s1">&#39;$\eta=</span><span class="si">{</span><span class="n">gmeq</span><span class="o">.</span><span class="n">eta_</span><span class="si">}</span><span class="s1">$&#39;</span><span class="p">,</span>
+                 <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+
+        <span class="n">axes</span><span class="o">.</span><span class="n">set_theta_zero_location</span><span class="p">(</span><span class="s2">&quot;S&quot;</span><span class="p">)</span>
+
+        <span class="n">handles</span><span class="p">,</span> <span class="n">labels</span> <span class="o">=</span> <span class="n">axes</span><span class="o">.</span><span class="n">get_legend_handles_labels</span><span class="p">()</span>
+        <span class="n">subset</span> <span class="o">=</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+        <span class="n">handles</span> <span class="o">=</span> <span class="p">[</span><span class="n">handles</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="n">subset</span><span class="p">]</span>
+        <span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="n">labels</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="n">subset</span><span class="p">]</span>
+        <span class="c1"># Hacked fix to bug in Matplotlib that adds a bogus entry here</span>
+        <span class="n">axes</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">handles</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper left&#39;</span><span class="p">,</span> <span class="n">framealpha</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">text_labels</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">gmeq</span><span class="p">:</span> <span class="n">Eq</span><span class="p">,</span>
+        <span class="n">varphi_</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="n">px_</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="n">pz_</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="n">rdotx_</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="n">rdotz_</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="n">zoom_factor</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="n">do_text_labels</span><span class="p">:</span> <span class="nb">bool</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        TBD</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">xy_</span> <span class="o">=</span> <span class="p">(</span><span class="mf">2.5</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">)</span> <span class="k">if</span> <span class="n">zoom_factor</span> <span class="o">&gt;=</span> <span class="mi">1</span> \
+            <span class="k">else</span> <span class="p">(</span><span class="mf">1.25</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">*</span><span class="n">xy_</span><span class="p">,</span>
+                 <span class="sa">rf</span><span class="s1">&#39;$\varphi=</span><span class="si">{</span><span class="n">varphi_</span><span class="si">}</span><span class="s1">\quad\eta=</span><span class="si">{</span><span class="n">gmeq</span><span class="o">.</span><span class="n">eta_</span><span class="si">}</span><span class="s1">$&#39;</span><span class="p">,</span>
+                 <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+                 <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+                 <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span>
+                 <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">do_text_labels</span><span class="p">:</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">rdotx_</span><span class="o">*</span><span class="mf">0.97</span><span class="p">,</span>
+                     <span class="n">rdotz_</span><span class="o">+</span><span class="mf">0.2</span><span class="p">,</span>
+                     <span class="sa">r</span><span class="s1">&#39;$\mathbf</span><span class="si">{v}</span><span class="s1">$&#39;</span><span class="p">,</span>
+                     <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+                     <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+                     <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
+                     <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+            <span class="n">sf</span> <span class="o">=</span> <span class="mf">1.2</span> <span class="k">if</span> <span class="n">varphi_</span> <span class="o">&gt;=</span> <span class="mf">0.5</span> <span class="k">else</span> <span class="mf">0.85</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">px_</span><span class="o">+</span><span class="mf">0.25</span><span class="p">,</span>
+                     <span class="n">pz_</span><span class="o">*</span><span class="n">sf</span><span class="p">,</span>
+                     <span class="sa">r</span><span class="s1">&#39;$\mathbf{\widetilde</span><span class="si">{p}</span><span class="s1">}$&#39;</span><span class="p">,</span>
+                     <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+                     <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+                     <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
+                     <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">arrows</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">px_</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="n">pz_</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="n">rdotx_</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="n">rdotz_</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        TBD</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">p_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">px_</span><span class="o">**</span><span class="mi">2</span><span class="o">+</span><span class="n">pz_</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+        <span class="c1"># Arrow for rdot direction</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">arrow</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span>
+                  <span class="mi">0</span><span class="p">,</span>
+                  <span class="n">rdotx_</span><span class="p">,</span>
+                  <span class="n">rdotz_</span><span class="p">,</span>
+                  <span class="n">head_width</span><span class="o">=</span><span class="mf">0.08</span><span class="p">,</span>
+                  <span class="n">head_length</span><span class="o">=</span><span class="mf">0.16</span><span class="p">,</span>
+                  <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                  <span class="n">length_includes_head</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                  <span class="n">ec</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span>
+                  <span class="n">fc</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+        <span class="c1"># Fishbone for p direction</span>
+        <span class="n">np_</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mf">0.5</span><span class="o">+</span><span class="p">((</span><span class="n">p_</span><span class="p">)</span><span class="o">*</span><span class="mi">5</span><span class="p">))</span> <span class="k">if</span> <span class="n">p_</span> <span class="o">&gt;=</span> <span class="mf">0.2</span> <span class="k">else</span> <span class="mi">1</span>
+        <span class="n">hw_</span> <span class="o">=</span> <span class="mf">0.2</span>  <span class="c1"># if do_half else 0.2</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">arrow</span><span class="p">(</span><span class="n">px_</span><span class="p">,</span>
+                  <span class="n">pz_</span><span class="p">,</span>
+                  <span class="o">-</span><span class="n">px_</span><span class="p">,</span>
+                  <span class="o">-</span><span class="n">pz_</span><span class="p">,</span>
+                  <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span>
+                  <span class="n">head_width</span><span class="o">=</span><span class="n">hw_</span><span class="p">,</span>
+                  <span class="n">head_length</span><span class="o">=-</span><span class="mf">0.1</span><span class="p">,</span>
+                  <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                  <span class="n">shape</span><span class="o">=</span><span class="s1">&#39;full&#39;</span><span class="p">,</span>
+                  <span class="n">overhang</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                  <span class="n">length_includes_head</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                  <span class="n">head_starts_at_zero</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                  <span class="n">ec</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i_head</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">np_</span><span class="p">)):</span>
+            <span class="n">len_head</span> <span class="o">=</span> <span class="n">i_head</span><span class="o">/</span><span class="p">(</span><span class="n">np_</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">arrow</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span>
+                      <span class="n">px_</span><span class="o">*</span><span class="n">len_head</span><span class="p">,</span>
+                      <span class="n">pz_</span><span class="o">*</span><span class="n">len_head</span><span class="p">,</span>
+                      <span class="n">head_width</span><span class="o">=</span><span class="n">hw_</span><span class="p">,</span>
+                      <span class="n">head_length</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                      <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                      <span class="n">shape</span><span class="o">=</span><span class="s1">&#39;full&#39;</span><span class="p">,</span>
+                      <span class="n">overhang</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                      <span class="n">length_includes_head</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                      <span class="n">ec</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>
+        <span class="n">len_head</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">arrow</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span>
+                  <span class="mi">0</span><span class="p">,</span>
+                  <span class="n">px_</span><span class="o">*</span><span class="n">len_head</span><span class="p">,</span>
+                  <span class="n">pz_</span><span class="o">*</span><span class="n">len_head</span><span class="p">,</span>
+                  <span class="n">head_width</span><span class="o">=</span><span class="n">hw_</span><span class="o">*</span><span class="mf">2.5</span><span class="p">,</span>
+                  <span class="n">head_length</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                  <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                  <span class="n">shape</span><span class="o">=</span><span class="s1">&#39;full&#39;</span><span class="p">,</span>
+                  <span class="n">overhang</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                  <span class="n">length_includes_head</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                  <span class="n">ec</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">lines_and_points</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                         <span class="n">pd</span><span class="p">:</span> <span class="n">Dict</span><span class="p">,</span>
+                         <span class="n">axes</span><span class="p">:</span> <span class="n">Axes</span><span class="p">,</span>
+                         <span class="n">zoomx</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+                         <span class="n">do_pz</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+                         <span class="n">do_shapes</span><span class="p">:</span> <span class="nb">bool</span>
+                         <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        TBD</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Unpack</span>
+        <span class="p">(</span><span class="n">n_vertices_</span><span class="p">,</span> <span class="n">ls_</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span><span class="n">pd</span><span class="p">[</span><span class="s1">&#39;n_vertices&#39;</span><span class="p">],</span> <span class="n">pd</span><span class="p">[</span><span class="s1">&#39;ls&#39;</span><span class="p">])</span>
+        <span class="p">(</span><span class="n">px_</span><span class="p">,</span> <span class="n">pz_</span><span class="p">,</span> <span class="n">rdotx_</span><span class="p">,</span> <span class="n">rdotz_</span><span class="p">)</span> \
+            <span class="o">=</span> <span class="p">(</span><span class="n">pd</span><span class="p">[</span><span class="s1">&#39;px&#39;</span><span class="p">],</span> <span class="n">pd</span><span class="p">[</span><span class="s1">&#39;pz&#39;</span><span class="p">],</span> <span class="n">pd</span><span class="p">[</span><span class="s1">&#39;rdotx&#39;</span><span class="p">],</span> <span class="n">pd</span><span class="p">[</span><span class="s1">&#39;rdotz&#39;</span><span class="p">])</span>
+        <span class="n">psqrd_</span> <span class="o">=</span> <span class="p">(</span><span class="n">px_</span><span class="o">**</span><span class="mi">2</span><span class="o">+</span><span class="n">pz_</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">((</span><span class="n">px_</span><span class="o">/</span><span class="n">psqrd_</span><span class="p">,</span> <span class="n">rdotx_</span><span class="p">),</span>
+                 <span class="p">(</span><span class="n">pz_</span><span class="o">/</span><span class="n">psqrd_</span><span class="p">,</span> <span class="n">rdotz_</span><span class="p">),</span>
+                 <span class="n">c</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span>
+                 <span class="n">ls</span><span class="o">=</span><span class="n">ls_</span><span class="p">,</span>
+                 <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="n">px_</span><span class="p">),</span>
+                 <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">pz_</span><span class="p">),</span>
+                 <span class="n">c</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span>
+                 <span class="n">ls</span><span class="o">=</span><span class="n">ls_</span><span class="p">,</span>
+                 <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">do_pz</span><span class="p">:</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">((</span><span class="n">zoomx</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">zoomx</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span>
+                     <span class="p">(</span><span class="n">pz_</span><span class="p">,</span> <span class="n">pz_</span><span class="p">),</span>
+                     <span class="n">c</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span>
+                     <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">,</span>
+                     <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">psqrd_</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">((</span><span class="n">px_</span><span class="p">,</span> <span class="n">px_</span><span class="o">/</span><span class="n">psqrd_</span><span class="p">),</span>
+                     <span class="p">(</span><span class="n">pz_</span><span class="p">,</span> <span class="n">pz_</span><span class="o">/</span><span class="n">psqrd_</span><span class="p">),</span>
+                     <span class="n">c</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span>
+                     <span class="n">ls</span><span class="o">=</span><span class="n">ls_</span><span class="p">,</span>
+                     <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">do_shapes</span><span class="p">:</span>
+            <span class="n">axes</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">RegularPolygon</span><span class="p">((</span><span class="n">px_</span><span class="p">,</span> <span class="n">pz_</span><span class="p">),</span>
+                                          <span class="n">n_vertices_</span><span class="p">,</span>
+                                          <span class="n">radius</span><span class="o">=</span><span class="mf">0.08</span><span class="p">,</span>
+                                          <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                                          <span class="n">ec</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span>
+                                          <span class="n">fc</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">))</span>
+            <span class="n">axes</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">RegularPolygon</span><span class="p">((</span><span class="n">rdotx_</span><span class="p">,</span> <span class="n">rdotz_</span><span class="p">),</span>
+                                          <span class="n">n_vertices_</span><span class="p">,</span>
+                                          <span class="n">radius</span><span class="o">=</span><span class="mf">0.08</span><span class="p">,</span>
+                                          <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                                          <span class="n">ec</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span>
+                                          <span class="n">fc</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">axes</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span>
+                <span class="n">Circle</span><span class="p">((</span><span class="n">px_</span><span class="p">,</span> <span class="n">pz_</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">0.04</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ec</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">fc</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">))</span>
+            <span class="n">axes</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span>
+                <span class="n">Circle</span><span class="p">((</span><span class="n">rdotx_</span><span class="p">,</span> <span class="n">rdotz_</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">0.04</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ec</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">fc</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">annotations</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">axes</span><span class="p">:</span> <span class="n">Axes</span><span class="p">,</span>
+        <span class="n">beta_</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="n">tanalpha_</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        TBD</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># alpha arc</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.45</span><span class="p">,</span>
+                 <span class="o">-</span><span class="mf">0.05</span><span class="p">,</span>
+                 <span class="sa">r</span><span class="s1">&#39;$\alpha$&#39;</span><span class="p">,</span>
+                 <span class="n">color</span><span class="o">=</span><span class="s1">&#39;DarkRed&#39;</span><span class="p">,</span>
+                 <span class="c1"># transform=axes.transAxes,</span>
+                 <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span>
+                 <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+                 <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">)</span>
+        <span class="n">axes</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span>
+            <span class="n">mpatches</span><span class="o">.</span><span class="n">Arc</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+                         <span class="mf">1.2</span><span class="p">,</span>
+                         <span class="mf">1.2</span><span class="p">,</span>
+                         <span class="n">color</span><span class="o">=</span><span class="s1">&#39;DarkRed&#39;</span><span class="p">,</span>
+                         <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+                         <span class="n">fill</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                         <span class="n">zorder</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                         <span class="n">theta1</span><span class="o">=</span><span class="mi">270</span><span class="p">,</span>
+                         <span class="n">theta2</span><span class="o">=</span><span class="mi">90</span><span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">rad2deg</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arctan</span><span class="p">(</span><span class="n">tanalpha_</span><span class="p">)))</span>
+            <span class="p">)</span>
+        <span class="c1"># beta arc</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.08</span><span class="p">,</span>
+                 <span class="o">-</span><span class="mf">0.30</span><span class="p">,</span>
+                 <span class="sa">r</span><span class="s1">&#39;$\beta$&#39;</span><span class="p">,</span>
+                 <span class="n">color</span><span class="o">=</span><span class="s1">&#39;DarkBlue&#39;</span><span class="p">,</span>
+                 <span class="c1"># transform=axes.transAxes,</span>
+                 <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+                 <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+                 <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">)</span>
+        <span class="n">axes</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span>
+            <span class="n">mpatches</span><span class="o">.</span><span class="n">Arc</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+                         <span class="mf">0.9</span><span class="p">,</span>
+                         <span class="mf">0.9</span><span class="p">,</span>
+                         <span class="n">color</span><span class="o">=</span><span class="s1">&#39;DarkBlue&#39;</span><span class="p">,</span>
+                         <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+                         <span class="n">fill</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                         <span class="n">theta1</span><span class="o">=</span><span class="mi">270</span><span class="p">,</span>
+                         <span class="n">theta2</span><span class="o">=</span><span class="mi">270</span><span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">rad2deg</span><span class="p">(</span><span class="n">beta_</span><span class="p">))</span>
+            <span class="p">)</span>
+        <span class="c1"># &quot;faster&quot; direction</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">3.05</span><span class="p">,</span>
+                 <span class="mf">1.6</span><span class="p">,</span>
+                 <span class="s1">&#39;faster&#39;</span><span class="p">,</span>
+                 <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span>  <span class="c1"># transform=axes.transAxes,</span>
+                 <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span>
+                 <span class="n">rotation</span><span class="o">=</span><span class="mi">55</span><span class="p">,</span>
+                 <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+                 <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">)</span>
+        <span class="c1"># &quot;faster&quot; direction</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">1.03</span><span class="p">,</span>
+                 <span class="o">-</span><span class="mi">2</span><span class="p">,</span>
+                 <span class="s1">&#39;slower&#39;</span><span class="p">,</span>
+                 <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span>  <span class="c1"># transform=axes.transAxes,</span>
+                 <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span>
+                 <span class="n">rotation</span><span class="o">=-</span><span class="mi">85</span><span class="p">,</span>
+                 <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+                 <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">legend</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">gmeq</span><span class="p">:</span> <span class="n">Eq</span><span class="p">,</span>
+        <span class="n">axes</span><span class="p">:</span> <span class="n">Axes</span><span class="p">,</span>
+        <span class="n">do_legend</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+        <span class="n">do_half</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+        <span class="n">do_ray_slowness</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        TBD</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">do_legend</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="n">handles</span><span class="p">,</span> <span class="n">labels</span> <span class="o">=</span> <span class="n">axes</span><span class="o">.</span><span class="n">get_legend_handles_labels</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">gmeq</span><span class="o">.</span><span class="n">eta_</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">loc_</span> <span class="o">=</span> <span class="s1">&#39;center right&#39;</span> <span class="k">if</span> <span class="n">do_half</span> <span class="k">else</span> \
+                 <span class="s1">&#39;upper left&#39;</span> <span class="k">if</span> <span class="n">do_ray_slowness</span> <span class="k">else</span> \
+                 <span class="s1">&#39;lower left&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">loc_</span> <span class="o">=</span> <span class="s1">&#39;upper right&#39;</span> <span class="k">if</span> <span class="n">do_half</span> <span class="k">else</span> \
+                 <span class="s1">&#39;upper left&#39;</span> <span class="k">if</span> <span class="n">do_ray_slowness</span> <span class="k">else</span> \
+                 <span class="s1">&#39;lower left&#39;</span>
+        <span class="n">axes</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">handles</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">labels</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">loc</span><span class="o">=</span><span class="n">loc_</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">figuratrix</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">gmeq</span><span class="p">:</span> <span class="n">Eq</span><span class="p">,</span>
+        <span class="n">varphi_</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="n">n_points</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">pz_min_</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-5</span><span class="p">,</span>
+        <span class="n">pz_max_</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">50</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">Eq</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        TBD</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">px_pz_eqn</span> \
+            <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">px</span><span class="p">,</span>
+                 <span class="n">factor</span><span class="p">(</span><span class="n">gmeq</span><span class="o">.</span><span class="n">fgtx_px_pz_varphi_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">varphi</span><span class="p">:</span> <span class="n">varphi_</span><span class="p">}))</span>
+                 <span class="p">)</span>
+        <span class="n">px_pz_lambda</span> <span class="o">=</span> <span class="n">lambdify</span><span class="p">([</span><span class="n">pz</span><span class="p">],</span> <span class="n">re</span><span class="p">(</span><span class="n">N</span><span class="p">(</span><span class="n">px_pz_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">)))</span>
+        <span class="n">fgtx_pz_array</span> \
+            <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">pz_max_</span><span class="p">),</span>
+                                        <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">pz_min_</span><span class="p">),</span> <span class="n">n_points</span><span class="p">))</span>
+        <span class="c1"># fgtx_px_array = np.array([float(re(N(px_pz_eqn.rhs.subs({pz:pz_}))))</span>
+        <span class="c1">#          for pz_ in fgtx_pz_array])</span>
+        <span class="n">fgtx_px_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="nb">float</span><span class="p">(</span><span class="n">px_pz_lambda</span><span class="p">(</span><span class="n">pz_</span><span class="p">))</span>
+                                 <span class="k">for</span> <span class="n">pz_</span> <span class="ow">in</span> <span class="n">fgtx_pz_array</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">fgtx_px_array</span><span class="p">,</span> <span class="n">fgtx_pz_array</span><span class="p">,</span> <span class="n">px_pz_eqn</span>
+
+    <span class="k">def</span> <span class="nf">indicatrix</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">gmeq</span><span class="p">:</span> <span class="n">Eq</span><span class="p">,</span>
+        <span class="n">varphi_</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="n">n_points</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">pz_min_</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-5</span><span class="p">,</span>
+        <span class="n">pz_max_</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">300</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">Eq</span><span class="p">,</span> <span class="n">Eq</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        TBD</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">rdotx_pz_eqn</span> <span class="o">=</span> <span class="n">gmeq</span><span class="o">.</span><span class="n">idtx_rdotx_pz_varphi_eqn</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">varphi</span><span class="p">:</span> <span class="n">varphi_</span><span class="p">})</span>
+        <span class="n">rdotz_pz_eqn</span> <span class="o">=</span> <span class="n">gmeq</span><span class="o">.</span><span class="n">idtx_rdotz_pz_varphi_eqn</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">varphi</span><span class="p">:</span> <span class="n">varphi_</span><span class="p">})</span>
+        <span class="n">rdotx_pz_lambda</span> <span class="o">=</span> <span class="n">lambdify</span><span class="p">([</span><span class="n">pz</span><span class="p">],</span> <span class="n">re</span><span class="p">(</span><span class="n">N</span><span class="p">(</span><span class="n">rdotx_pz_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">)))</span>
+        <span class="n">rdotz_pz_lambda</span> <span class="o">=</span> <span class="n">lambdify</span><span class="p">([</span><span class="n">pz</span><span class="p">],</span> <span class="n">re</span><span class="p">(</span><span class="n">N</span><span class="p">(</span><span class="n">rdotz_pz_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">)))</span>
+        <span class="n">fgtx_pz_array</span> \
+            <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">pz_max_</span><span class="p">),</span>
+                                        <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">pz_min_</span><span class="p">),</span> <span class="n">n_points</span><span class="p">))</span>
+        <span class="c1"># idtx_rdotx_array \</span>
+<span class="c1"># = np.array([float(re(N(rdotx_pz_eqn.rhs.subs({pz:pz_}))))</span>
+        <span class="c1">#                                 for pz_ in fgtx_pz_array])</span>
+        <span class="c1"># idtx_rdotz_array \</span>
+<span class="c1"># = np.array([float(re(N(rdotz_pz_eqn.rhs.subs({pz:pz_}))))</span>
+        <span class="c1">#                                 for pz_ in fgtx_pz_array])</span>
+        <span class="n">idtx_rdotx_array</span> \
+            <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="nb">float</span><span class="p">(</span><span class="n">rdotx_pz_lambda</span><span class="p">(</span><span class="n">pz_</span><span class="p">))</span> <span class="k">for</span> <span class="n">pz_</span> <span class="ow">in</span> <span class="n">fgtx_pz_array</span><span class="p">])</span>
+        <span class="n">idtx_rdotz_array</span> \
+            <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="nb">float</span><span class="p">(</span><span class="n">rdotz_pz_lambda</span><span class="p">(</span><span class="n">pz_</span><span class="p">))</span> <span class="k">for</span> <span class="n">pz_</span> <span class="ow">in</span> <span class="n">fgtx_pz_array</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">idtx_rdotx_array</span><span class="p">,</span> <span class="n">idtx_rdotz_array</span><span class="p">,</span> <span class="n">rdotx_pz_eqn</span><span class="p">,</span> <span class="n">rdotz_pz_eqn</span>
+
+    <span class="k">def</span> <span class="nf">plot_figuratrix</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">fgtx_px_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+        <span class="n">fgtx_pz_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+        <span class="n">maybe_recip_fn</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span>
+        <span class="n">do_ray_slowness</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        TBD</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># label = r&#39;normal speed&#39; if do_ray_slowness else r&#39;figuratrix $F^*$&#39;</span>
+        <span class="n">label</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;normal velocity&#39;</span> <span class="k">if</span> <span class="n">do_ray_slowness</span> <span class="k">else</span> <span class="sa">r</span><span class="s1">&#39;normal slowness&#39;</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="o">*</span><span class="n">maybe_recip_fn</span><span class="p">(</span><span class="o">-</span><span class="n">fgtx_px_array</span><span class="p">,</span> <span class="n">fgtx_pz_array</span><span class="p">),</span>
+                 <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                 <span class="n">c</span><span class="o">=</span><span class="s1">&#39;DarkBlue&#39;</span><span class="p">,</span>
+                 <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span>
+                 <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="o">*</span><span class="n">maybe_recip_fn</span><span class="p">(</span><span class="n">fgtx_px_array</span><span class="p">,</span> <span class="n">fgtx_pz_array</span><span class="p">),</span>
+                 <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                 <span class="n">c</span><span class="o">=</span><span class="s1">&#39;DarkBlue&#39;</span><span class="p">,</span>
+                 <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">plot_indicatrix</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">idtx_rdotx_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+        <span class="n">idtx_rdotz_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+        <span class="n">maybe_recip_fn</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span>
+        <span class="n">do_ray_slowness</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        TBD</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># label = r&#39;ray slowness&#39; if do_ray_slowness else r&#39;indicatrix $F$&#39;</span>
+        <span class="n">label</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;ray slowness&#39;</span> <span class="k">if</span> <span class="n">do_ray_slowness</span> <span class="k">else</span> <span class="sa">r</span><span class="s1">&#39;ray velocity&#39;</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="o">*</span><span class="n">maybe_recip_fn</span><span class="p">(</span><span class="n">idtx_rdotx_array</span><span class="p">,</span> <span class="n">idtx_rdotz_array</span><span class="p">),</span>
+                 <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                 <span class="n">c</span><span class="o">=</span><span class="s1">&#39;DarkRed&#39;</span><span class="p">,</span>
+                 <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span>
+                 <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="o">*</span><span class="n">maybe_recip_fn</span><span class="p">(</span><span class="o">-</span><span class="n">idtx_rdotx_array</span><span class="p">,</span> <span class="n">idtx_rdotz_array</span><span class="p">),</span>
+                 <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                 <span class="n">c</span><span class="o">=</span><span class="s1">&#39;DarkRed&#39;</span><span class="p">,</span>
+                 <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">plot_unit_circle</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">varphi_</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="n">do_varphi_circle</span><span class="p">:</span> <span class="nb">bool</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        TBD</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">unit_circle_beta_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">unit_circle_beta_array</span><span class="o">*</span><span class="mi">2</span><span class="p">),</span>
+                 <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">unit_circle_beta_array</span><span class="o">*</span><span class="mi">2</span><span class="p">),</span>
+                 <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">,</span>
+                 <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span>
+                 <span class="n">label</span><span class="o">=</span><span class="s1">&#39;unit circle&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">do_varphi_circle</span><span class="p">:</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">varphi_</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">unit_circle_beta_array</span><span class="o">*</span><span class="mi">2</span><span class="p">),</span>
+                     <span class="n">varphi_</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">unit_circle_beta_array</span><span class="o">*</span><span class="mi">2</span><span class="p">),</span>
+                     <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                     <span class="n">c</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">,</span>
+                     <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">,</span>
+                     <span class="n">label</span><span class="o">=</span><span class="sa">rf</span><span class="s1">&#39;$\varphi=</span><span class="si">{</span><span class="n">varphi_</span><span class="si">}</span><span class="s1">$&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">relative_geometry</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">gmeq</span><span class="p">:</span> <span class="n">Eq</span><span class="p">,</span>
+        <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">fig_size</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">dpi</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">varphi_</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="n">zoom_factor</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="n">do_half</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">do_legend</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">do_text_labels</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">do_arrows</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">do_lines_points</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">do_shapes</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">do_varphi_circle</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">do_pz</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">do_ray_slowness</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">x_max</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">3.4</span><span class="p">,</span>
+        <span class="n">n_points</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span>
+        <span class="n">pz_min_</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-1</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Plot the loci of :math:`\mathbf{\widetilde{p}}` and :math:`\mathbf{r}`</span>
+<span class="sd">        and their behavior defined by :math:`F` relative to the</span>
+<span class="sd">        :math:`\xi` circle.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            gmeq:</span>
+<span class="sd">                GME model equations class instance defined in</span>
+<span class="sd">                :mod:`gme.core.equations`</span>
+<span class="sd">            varphi_choice:</span>
+<span class="sd">                the value of :math:`\varphi` to use</span>
+<span class="sd">            zoom_factor:</span>
+<span class="sd">                fractional zoom factor relative to preassigned graph limits</span>
+<span class="sd">            do_half:</span>
+<span class="sd">                plot only for :math:`x\geq0`?</span>
+<span class="sd">            do_annotations:</span>
+<span class="sd">                plot annotated arcs, faster/slower arrows?</span>
+<span class="sd">            do_legend:</span>
+<span class="sd">                display the legend?</span>
+<span class="sd">            do_text_labels:</span>
+<span class="sd">                display text annotations?</span>
+<span class="sd">            do_arrows:</span>
+<span class="sd">                display vector/covector arrows?</span>
+<span class="sd">            do_lines_points:</span>
+<span class="sd">                display dashed/dotted tangent lines etc?</span>
+<span class="sd">            do_shapes:</span>
+<span class="sd">                plot key points using polygon symbols</span>
+<span class="sd">                rather than simple circles</span>
+<span class="sd">            do_varphi_circle :</span>
+<span class="sd">                plot the :math:`\xi` (typically unit) circle?</span>
+<span class="sd">            do_pz:</span>
+<span class="sd">                plot horizontal dotted line indicating magnitude of :math:`p_z`</span>
+<span class="sd">            do_ray_slowness:</span>
+<span class="sd">                invert ray speed (but keep ray direction) in indicatrix?</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># Create figure</span>
+        <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_figure</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">fig_size</span><span class="o">=</span><span class="n">fig_size</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="n">dpi</span><span class="p">)</span>
+
+        <span class="c1"># Adjust plot scale, limits</span>
+        <span class="n">axes</span><span class="p">:</span> <span class="n">Axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
+        <span class="n">axes</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
+        <span class="n">x_min</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.1</span> <span class="k">if</span> <span class="n">do_half</span> <span class="k">else</span> <span class="o">-</span><span class="n">x_max</span>
+        <span class="n">y_minmax</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">2.4</span> <span class="k">if</span> <span class="n">gmeq</span><span class="o">.</span><span class="n">eta_</span> <span class="o">&gt;=</span> <span class="mi">1</span> <span class="k">else</span> <span class="mf">2.4</span>
+        <span class="n">zoomx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span><span class="p">])</span> <span class="o">*</span> <span class="n">zoom_factor</span>
+        <span class="n">zoomz</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="n">y_minmax</span><span class="p">,</span> <span class="n">y_minmax</span><span class="p">])</span> <span class="o">*</span> <span class="n">zoom_factor</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="n">zoomx</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="n">zoomz</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Horizontal component&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Vertical component&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Prep</span>
+        <span class="k">def</span> <span class="nf">recip_fn</span><span class="p">(</span><span class="n">x_</span><span class="p">,</span> <span class="n">z_</span><span class="p">):</span> <span class="k">return</span> <span class="p">[</span><span class="n">x_</span><span class="o">/</span><span class="p">(</span><span class="n">x_</span><span class="o">**</span><span class="mi">2</span><span class="o">+</span><span class="n">z_</span><span class="o">**</span><span class="mi">2</span><span class="p">),</span> <span class="n">z_</span><span class="o">/</span><span class="p">(</span><span class="n">x_</span><span class="o">**</span><span class="mi">2</span><span class="o">+</span><span class="n">z_</span><span class="o">**</span><span class="mi">2</span><span class="p">)]</span>
+        <span class="k">def</span> <span class="nf">null_fn</span><span class="p">(</span><span class="n">x_</span><span class="p">,</span> <span class="n">z_</span><span class="p">):</span> <span class="k">return</span> <span class="p">[</span><span class="n">x_</span><span class="p">,</span> <span class="n">z_</span><span class="p">]</span>
+        <span class="n">maybe_recip_fn</span> <span class="o">=</span> <span class="n">recip_fn</span> <span class="k">if</span> <span class="n">do_ray_slowness</span> <span class="k">else</span> <span class="n">null_fn</span>
+        <span class="n">points_tangents_dicts</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="mf">0.1</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;n_vertices&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;ls&#39;</span><span class="p">:</span> <span class="s1">&#39;:&#39;</span><span class="p">,</span>
+                  <span class="s1">&#39;pz_min&#39;</span><span class="p">:</span> <span class="n">pz_min</span><span class="p">,</span> <span class="s1">&#39;pz_max&#39;</span><span class="p">:</span> <span class="mi">1000</span><span class="p">},</span>
+            <span class="mf">0.15</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;n_vertices&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;ls&#39;</span><span class="p">:</span> <span class="s1">&#39;:&#39;</span><span class="p">,</span>
+                   <span class="s1">&#39;pz_min&#39;</span><span class="p">:</span> <span class="n">pz_min_</span><span class="p">,</span> <span class="s1">&#39;pz_max&#39;</span><span class="p">:</span> <span class="mi">1000</span><span class="p">},</span>
+            <span class="mf">0.5</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;n_vertices&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;ls&#39;</span><span class="p">:</span> <span class="s1">&#39;--&#39;</span><span class="p">,</span>
+                  <span class="s1">&#39;pz_min&#39;</span><span class="p">:</span> <span class="n">pz_min_</span><span class="p">,</span> <span class="s1">&#39;pz_max&#39;</span><span class="p">:</span> <span class="mi">100</span><span class="p">},</span>
+            <span class="mi">1</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;n_vertices&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;ls&#39;</span><span class="p">:</span> <span class="s1">&#39;--&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;pz_min&#39;</span><span class="p">:</span> <span class="n">pz_min_</span><span class="p">,</span> <span class="s1">&#39;pz_max&#39;</span><span class="p">:</span> <span class="mi">100</span><span class="p">},</span>
+            <span class="mf">1.3</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;n_vertices&#39;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span> <span class="s1">&#39;ls&#39;</span><span class="p">:</span> <span class="s1">&#39;-.&#39;</span><span class="p">,</span>
+                  <span class="s1">&#39;pz_min&#39;</span><span class="p">:</span> <span class="n">pz_min_</span><span class="p">,</span> <span class="s1">&#39;pz_max&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">},</span>
+            <span class="mi">2</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;n_vertices&#39;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span> <span class="s1">&#39;ls&#39;</span><span class="p">:</span> <span class="s1">&#39;-.&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;pz_min&#39;</span><span class="p">:</span> <span class="n">pz_min_</span><span class="p">,</span> <span class="s1">&#39;pz_max&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">},</span>
+            <span class="mi">3</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;n_vertices&#39;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span> <span class="s1">&#39;ls&#39;</span><span class="p">:</span> <span class="s1">&#39;-.&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;pz_min&#39;</span><span class="p">:</span> <span class="n">pz_min_</span><span class="p">,</span> <span class="s1">&#39;pz_max&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="c1"># Compute some stuff</span>
+        <span class="n">pdict</span> <span class="o">=</span> <span class="n">points_tangents_dicts</span><span class="p">[</span><span class="n">varphi_</span><span class="p">]</span>
+        <span class="n">fgtx_px_array</span><span class="p">,</span> <span class="n">fgtx_pz_array</span><span class="p">,</span> <span class="n">px_pz_eqn</span> \
+            <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">figuratrix</span><span class="p">(</span><span class="n">gmeq</span><span class="p">,</span>
+                              <span class="n">varphi_</span><span class="p">,</span>
+                              <span class="n">n_points</span><span class="p">)</span>
+        <span class="n">idtx_rdotx_array</span><span class="p">,</span> <span class="n">idtx_rdotz_array</span><span class="p">,</span> <span class="n">rdotx_pz_eqn</span><span class="p">,</span> <span class="n">rdotz_pz_eqn</span> \
+            <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">indicatrix</span><span class="p">(</span><span class="n">gmeq</span><span class="p">,</span>
+                              <span class="n">varphi_</span><span class="p">,</span>
+                              <span class="n">n_points</span><span class="p">,</span>
+                              <span class="n">pz_min_</span><span class="o">=</span><span class="n">pdict</span><span class="p">[</span><span class="s1">&#39;pz_min&#39;</span><span class="p">],</span>
+                              <span class="n">pz_max_</span><span class="o">=</span><span class="n">pdict</span><span class="p">[</span><span class="s1">&#39;pz_max&#39;</span><span class="p">])</span>
+        <span class="n">pz_</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span>
+        <span class="n">px_</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">N</span><span class="p">(</span><span class="n">re</span><span class="p">(</span><span class="n">px_pz_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">pz</span><span class="p">:</span> <span class="n">pz_</span><span class="p">}))))</span>
+        <span class="n">rdotx_</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">re</span><span class="p">(</span><span class="n">rdotx_pz_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">pz</span><span class="p">:</span> <span class="n">pz_</span><span class="p">})))</span>
+        <span class="n">rdotz_</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">re</span><span class="p">(</span><span class="n">rdotz_pz_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">pz</span><span class="p">:</span> <span class="n">pz_</span><span class="p">})))</span>
+        <span class="c1"># tanalpha_ = (-rdotx_/rdotz_)</span>
+        <span class="n">pdict</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;varphi&#39;</span><span class="p">:</span> <span class="n">varphi_</span><span class="p">,</span> <span class="s1">&#39;px&#39;</span><span class="p">:</span> <span class="n">px_</span><span class="p">,</span> <span class="s1">&#39;pz&#39;</span><span class="p">:</span> <span class="n">pz_</span><span class="p">,</span>
+                      <span class="s1">&#39;rdotx&#39;</span><span class="p">:</span> <span class="n">rdotx_</span><span class="p">,</span> <span class="s1">&#39;rdotz&#39;</span><span class="p">:</span> <span class="n">rdotz_</span><span class="p">})</span>
+
+        <span class="c1"># Do the plotting</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">plot_indicatrix</span><span class="p">(</span><span class="n">idtx_rdotx_array</span><span class="p">,</span>
+                             <span class="n">idtx_rdotz_array</span><span class="p">,</span>
+                             <span class="n">maybe_recip_fn</span><span class="p">,</span>
+                             <span class="n">do_ray_slowness</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">plot_figuratrix</span><span class="p">(</span><span class="n">fgtx_px_array</span><span class="p">,</span>
+                             <span class="n">fgtx_pz_array</span><span class="p">,</span>
+                             <span class="n">maybe_recip_fn</span><span class="p">,</span>
+                             <span class="n">do_ray_slowness</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">plot_unit_circle</span><span class="p">(</span><span class="n">varphi_</span><span class="p">,</span> <span class="n">do_varphi_circle</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">do_lines_points</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">lines_and_points</span><span class="p">(</span><span class="n">pdict</span><span class="p">,</span> <span class="n">axes</span><span class="p">,</span> <span class="n">zoomx</span><span class="p">,</span> <span class="n">do_pz</span><span class="p">,</span> <span class="n">do_shapes</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">text_labels</span><span class="p">(</span><span class="n">gmeq</span><span class="p">,</span>
+                         <span class="n">varphi_</span><span class="p">,</span>
+                         <span class="n">px_</span><span class="p">,</span>
+                         <span class="n">pz_</span><span class="p">,</span>
+                         <span class="n">rdotx_</span><span class="p">,</span>
+                         <span class="n">rdotz_</span><span class="p">,</span>
+                         <span class="n">zoom_factor</span><span class="p">,</span>
+                         <span class="n">do_text_labels</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">do_arrows</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">arrows</span><span class="p">(</span><span class="n">px_</span><span class="p">,</span> <span class="n">pz_</span><span class="p">,</span> <span class="n">rdotx_</span><span class="p">,</span> <span class="n">rdotz_</span><span class="p">)</span>
+        <span class="c1"># if do_annotations: self.annotations(axes, beta_, tanalpha_)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">gmeq</span><span class="p">,</span> <span class="n">axes</span><span class="p">,</span> <span class="n">do_legend</span><span class="p">,</span> <span class="n">do_half</span><span class="p">,</span> <span class="n">do_ray_slowness</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+    <a id="sidebar-anchor"></a>
+    
+
+<div id="searchbox" style="display: none" role="search">
+    <a class="biglink" href="../../index.html">
+        <img src="../../_static/gme_icon_varphi_rx.png" />
+    </a>
+  <h3></h3>
+    <form class="search" action="../../search.html" method="get">
+      <div class="ui action left icon input">
+        <i class="search icon"></i>
+        <input type="text" name="q" placeholder="Search...">
+        <div class="ui teal button"></div>
+      </div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<!-- <br> -->
+<script type="text/javascript">$('#searchbox').show(0);</script><h3><a href="../../index.html">Contents</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../Summary.html">  Summary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Presentations.html">  Presentations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Publications.html">  Publications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Design.html">  Software design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Dependencies.html">  Dependencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Installation.html">  Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Running.html">  Running</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Notebooks.html">  Notebooks</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../Python.html">  Python package</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../core/index.html">Core</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ode/index.html">ODE integration</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Plotting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../knickpoints/index.html">Knickpoint detection and tracking [in development]</a></li>
+</ul>
+</li>
+</ul>
+
+    <!-- <h3><a href="../../index.html">This page</a></h3> -->
+    <!-- <ul>
+<li><a class="reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">indicatrix_old.py</span></code></a><ul>
+<li><a class="reference internal" href="#code">Code</a></li>
+</ul>
+</li>
+</ul>
+ -->
+    <p class="biglink">
+        <h3><a href="../../genindex.html"> Index</a></h3>
+    </p>
+  <br>
+  <!-- <p class="biglink"><a class="biglink" href="../../py-modindex.html">
+         Module index</a>
+  <br><br> -->
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="indicatrix_new.html" title="indicatrix_new.py"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="alphabeta.html" title="alphabeta.py"
+             accesskey="P">previous</a> |</li>
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, CPS.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.3.
+    </div>
+  </body>
+</html>

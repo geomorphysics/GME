@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ray_geodesics.py &#8212; GME 1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pydoctheme.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+    
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <script src="../../_static/sidebar.js"></script>
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="ray_profiles.py" href="ray_profiles.html" />
+    <link rel="prev" title="ray_angles.py" href="ray_angles.html" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <link rel="shortcut icon" type="image/png" href="../../_static/favicon.png" />
+    <meta name="viewport" content="width=device-width,initial-scale=0.8">
+    
+    
+
+  </head><body>
+    <!-- <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="responsive-menu"><a href="#sidebar-anchor" title="Navigation">&#9776;</a></li>
+        <li><a href="../../index.html">GME 1.0 documentation</a> &#187;</li>
+          <li><a href="../Python.html" >Python package <cite>gme</cite></a> &#187;</li>
+          <li><a href="index.html" accesskey="U"><cite>gme.plot</cite></a> &#187;</li> 
+      </ul>
+    </div> -->
+    <!-- 
+        <div class="badge">
+            <a href="https://github.com/geomorphysics/GME/">Fork me on GitHub</a>
+            <img src="../../_static/right-red@2x.png">
+        </div>
+     -->
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-gme.plot.ray_geodesics">
+<span id="ray-geodesics-py"></span><h1><code class="docutils literal notranslate"><span class="pre">ray_geodesics.py</span></code><a class="headerlink" href="#module-gme.plot.ray_geodesics" title="Permalink to this headline">¶</a></h1>
+<hr class="docutils" />
+<p>Visualization of geodesics.</p>
+<hr class="docutils" />
+<dl class="simple">
+<dt>Requires Python packages/modules:</dt><dd><ul class="simple">
+<li><p><a class="reference external" href="https://numpy.org/doc/stable/reference/index.html#module-numpy" title="(in NumPy v1.22)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">NumPy</span></code></a></p></li>
+<li><p><a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/index.html#module-scipy" title="(in SciPy v1.7.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">SciPy</span></code></a></p></li>
+<li><p><a class="reference external" href="https://docs.sympy.org/latest/modules/index.html#module-sympy" title="(in SymPy v1.9)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">SymPy</span></code></a></p></li>
+<li><p><a class="reference external" href="https://matplotlib.org/stable/index.html#module-matplotlib" title="(in Matplotlib v3.5.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">MatPlotLib</span></code></a></p></li>
+<li><p><a class="reference external" href="https://github.com/geomorphysics/GME">GME</a></p></li>
+</ul>
+</dd>
+</dl>
+<hr class="docutils" />
+<dl class="py class">
+<dt class="sig sig-object py" id="gme.plot.ray_geodesics.RayGeodesics">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gme.plot.ray_geodesics.</span></span><span class="sig-name descname"><span class="pre">RayGeodesics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmes</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="../ode/time_invariant.html#gme.ode.time_invariant.TimeInvariantSolution" title="gme.ode.time_invariant.TimeInvariantSolution"><span class="pre">gme.ode.time_invariant.TimeInvariantSolution</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">gmeq</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="../core/equations_extended.html#gme.core.equations_extended.EquationsGeodesic" title="gme.core.equations_extended.EquationsGeodesic"><span class="pre">gme.core.equations_extended.EquationsGeodesic</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_points</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_recompute</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gme.plot.ray_geodesics.RayGeodesics" title="Permalink to this definition">¶</a></dt>
+<dd><p>Visualization of geodesics.</p>
+<p>Extends <a class="reference internal" href="base.html#gme.plot.base.Graphing" title="gme.plot.base.Graphing"><code class="xref py py-class docutils literal notranslate"><span class="pre">gme.plot.base.Graphing</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>gmes</strong> – instance of single-ray solution class
+defined in <a class="reference internal" href="../ode/single_ray.html#module-gme.ode.single_ray" title="gme.ode.single_ray"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gme.ode.single_ray</span></code></a></p></li>
+<li><p><strong>gmeq</strong> – <dl class="simple">
+<dt>GME model equations class instance defined in</dt><dd><p><a class="reference internal" href="../core/equations.html#module-gme.core.equations" title="gme.core.equations"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gme.core.equations</span></code></a> or similar</p>
+</dd>
+</dl>
+</p></li>
+<li><p><strong>n_points</strong> – optional sample rate along each curve</p></li>
+<li><p><strong>do_recompute</strong> – optionally redo (slow) computation of metric tensors?</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="gme.plot.ray_geodesics.RayGeodesics.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmes</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="../ode/time_invariant.html#gme.ode.time_invariant.TimeInvariantSolution" title="gme.ode.time_invariant.TimeInvariantSolution"><span class="pre">gme.ode.time_invariant.TimeInvariantSolution</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">gmeq</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="../core/equations_extended.html#gme.core.equations_extended.EquationsGeodesic" title="gme.core.equations_extended.EquationsGeodesic"><span class="pre">gme.core.equations_extended.EquationsGeodesic</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_points</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_recompute</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.plot.ray_geodesics.RayGeodesics.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructor method</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gme.plot.ray_geodesics.RayGeodesics.profile_g_properties">
+<span class="sig-name descname"><span class="pre">profile_g_properties</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmes</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="../ode/time_invariant.html#gme.ode.time_invariant.TimeInvariantSolution" title="gme.ode.time_invariant.TimeInvariantSolution"><span class="pre">gme.ode.time_invariant.TimeInvariantSolution</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">gmeq</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="../core/equations_extended.html#gme.core.equations_extended.EquationsGeodesic" title="gme.core.equations_extended.EquationsGeodesic"><span class="pre">gme.core.equations_extended.EquationsGeodesic</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">sub</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">fig_size</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dpi</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_limits</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_gstar</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_det</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_eigenvectors</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eta_label_xy</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_etaxi_label</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend_loc</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'lower</span> <span class="pre">left'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_pv</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.plot.ray_geodesics.RayGeodesics.profile_g_properties" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot velocity <span class="math notranslate nohighlight">\(\dot{r}\)</span> along a ray.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>gmes</strong> – instance of single ray solution class defined in
+<a class="reference internal" href="../ode/single_ray.html#module-gme.ode.single_ray" title="gme.ode.single_ray"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gme.ode.single_ray</span></code></a></p></li>
+<li><p><strong>gmeq</strong> – GME model equations class instance defined in
+<a class="reference internal" href="../core/equations.html#module-gme.core.equations" title="gme.core.equations"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gme.core.equations</span></code></a></p></li>
+<li><p><strong>n_points</strong> – sample rate along each curve</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<div class="section" id="code">
+<h2>Code<a class="headerlink" href="#code" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">---------------------------------------------------------------------</span>
+
+<span class="sd">Visualization of geodesics.</span>
+
+<span class="sd">---------------------------------------------------------------------</span>
+
+<span class="sd">Requires Python packages/modules:</span>
+<span class="sd">  -  :mod:`NumPy &lt;numpy&gt;`</span>
+<span class="sd">  -  :mod:`SciPy &lt;scipy&gt;`</span>
+<span class="sd">  -  :mod:`SymPy &lt;sympy&gt;`</span>
+<span class="sd">  -  :mod:`MatPlotLib &lt;matplotlib&gt;`</span>
+<span class="sd">  -  `GME`_</span>
+
+<span class="sd">.. _GMPLib: https://github.com/geomorphysics/GMPLib</span>
+<span class="sd">.. _GME: https://github.com/geomorphysics/GME</span>
+<span class="sd">.. _Matrix:</span>
+<span class="sd">    https://docs.sympy.org/latest/modules/matrices/immutablematrices.html</span>
+
+<span class="sd">---------------------------------------------------------------------</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="c1"># Library</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
+
+<span class="c1"># NumPy</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1"># Scipy utils</span>
+<span class="kn">from</span> <span class="nn">scipy.linalg</span> <span class="kn">import</span> <span class="n">eigh</span><span class="p">,</span> <span class="n">det</span>
+
+<span class="c1"># SymPy</span>
+<span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">deg</span><span class="p">,</span> <span class="n">re</span><span class="p">,</span> <span class="n">Matrix</span>
+
+<span class="c1"># MatPlotLib</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">matplotlib.patches</span> <span class="k">as</span> <span class="nn">mpatches</span>
+
+<span class="c1"># GME</span>
+<span class="kn">from</span> <span class="nn">gme.core.symbols</span> <span class="kn">import</span> <span class="n">Ci</span><span class="p">,</span> <span class="n">rx</span><span class="p">,</span> <span class="n">rdotx</span><span class="p">,</span> <span class="n">rdotz</span>
+<span class="kn">from</span> <span class="nn">gme.core.equations_extended</span> <span class="kn">import</span> <span class="n">EquationsGeodesic</span>
+<span class="kn">from</span> <span class="nn">gme.ode.time_invariant</span> <span class="kn">import</span> <span class="n">TimeInvariantSolution</span>
+<span class="kn">from</span> <span class="nn">gme.plot.base</span> <span class="kn">import</span> <span class="n">Graphing</span>
+
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;RayGeodesics&#39;</span><span class="p">]</span>
+
+
+<span class="k">class</span> <span class="nc">RayGeodesics</span><span class="p">(</span><span class="n">Graphing</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Visualization of geodesics.</span>
+
+<span class="sd">    Extends :class:`gme.plot.base.Graphing`.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        gmes:</span>
+<span class="sd">            instance of single-ray solution class</span>
+<span class="sd">            defined in :mod:`gme.ode.single_ray`</span>
+<span class="sd">        gmeq:</span>
+<span class="sd">            GME model equations class instance defined in</span>
+<span class="sd">                :mod:`gme.core.equations` or similar</span>
+<span class="sd">        n_points:</span>
+<span class="sd">            optional sample rate along each curve</span>
+<span class="sd">        do_recompute:</span>
+<span class="sd">            optionally redo (slow) computation of metric tensors?</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">gmes</span><span class="p">:</span> <span class="n">TimeInvariantSolution</span><span class="p">,</span>
+        <span class="n">gmeq</span><span class="p">:</span> <span class="n">EquationsGeodesic</span><span class="p">,</span>
+        <span class="n">n_points</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">do_recompute</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Constructor method</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="c1"># if not hasattr(self,&#39;x_array&#39;) or n_points!=len(self.x_array):</span>
+        <span class="c1"># HACK!!!</span>
+        <span class="n">do_recompute</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;(Re)computing g matrices&#39;</span><span class="p">)</span>
+
+        <span class="n">rx_array</span> <span class="o">=</span> <span class="n">gmes</span><span class="o">.</span><span class="n">rx_array</span>
+        <span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span> <span class="o">=</span> <span class="n">rx_array</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">rx_array</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="c1"># HACK!!!</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span><span class="p">,</span> <span class="n">n_points</span><span class="p">)</span>  <span class="c1"># \</span>
+        <span class="c1"># if do_recompute or not hasattr(self,&#39;x_array&#39;) else self.x_array</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">t_array</span> <span class="o">=</span> <span class="n">gmes</span><span class="o">.</span><span class="n">t_interp_x</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x_array</span><span class="p">)</span>  <span class="c1"># \</span>
+        <span class="c1"># if do_recompute or not hasattr(self,&#39;t_array&#39;) else self.t_array</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rz_array</span> <span class="o">=</span> <span class="n">gmes</span><span class="o">.</span><span class="n">rz_interp</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x_array</span><span class="p">)</span>  <span class="c1"># \</span>
+        <span class="c1"># if do_recompute or not hasattr(self,&#39;rz_array&#39;) else self.rz_array</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vx_array</span> <span class="o">=</span> <span class="n">gmes</span><span class="o">.</span><span class="n">rdotx_interp</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x_array</span><span class="p">)</span>  <span class="c1"># \</span>
+        <span class="c1"># if do_recompute or not hasattr(self,&#39;vx_array&#39;) else self.vx_array</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vz_array</span> <span class="o">=</span> <span class="n">gmes</span><span class="o">.</span><span class="n">rdotz_interp</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x_array</span><span class="p">)</span>  <span class="c1"># \</span>
+        <span class="c1"># if do_recompute or not hasattr(self,&#39;vz_array&#39;) else self.vz_array</span>
+        <span class="n">x_array</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_array</span>
+        <span class="c1"># t_array  = self.t_array</span>
+        <span class="c1"># rz_array = self.rz_array</span>
+        <span class="n">vx_array</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">vx_array</span>
+        <span class="n">vz_array</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">vz_array</span>
+
+        <span class="k">if</span> <span class="n">do_recompute</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">gstar_matrices_list</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Matrix</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">gstar_matrices_array</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">g_matrices_list</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Matrix</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">g_matrices_array</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">gmeq</span><span class="p">,</span> <span class="s1">&#39;gstar_ij_mat&#39;</span><span class="p">):</span>
+            <span class="k">return</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">gstar_matrices_list</span> \
+                <span class="o">=</span> <span class="p">[</span><span class="n">gmeq</span><span class="o">.</span><span class="n">gstar_ij_mat</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">rx</span><span class="p">:</span> <span class="n">x_</span><span class="p">,</span> <span class="n">rdotx</span><span class="p">:</span> <span class="n">vx_</span><span class="p">,</span> <span class="n">rdotz</span><span class="p">:</span> <span class="n">vz_</span><span class="p">})</span>
+                    <span class="k">for</span> <span class="n">x_</span><span class="p">,</span> <span class="n">vx_</span><span class="p">,</span> <span class="n">vz_</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">x_array</span><span class="p">,</span> <span class="n">vx_array</span><span class="p">,</span> <span class="n">vz_array</span><span class="p">)]</span>
+        <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Failed to (re)generate gstar_matrices_list: &quot;</span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s1">&quot;&#39;</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">gstar_matrices_array</span> \
+                <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="nb">float</span><span class="p">(</span><span class="n">re</span><span class="p">(</span><span class="n">elem_</span><span class="p">))</span> <span class="k">for</span> <span class="n">elem_</span> <span class="ow">in</span> <span class="n">g_</span><span class="p">])</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+                    <span class="k">for</span> <span class="n">g_</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">gstar_matrices_list</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Failed to (re)generate gstar_matrices_array: &quot;</span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s1">&quot;&#39;</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">g_matrices_list</span> \
+                <span class="o">=</span> <span class="p">[</span><span class="n">gmeq</span><span class="o">.</span><span class="n">g_ij_mat</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">rx</span><span class="p">:</span> <span class="n">x_</span><span class="p">,</span> <span class="n">rdotx</span><span class="p">:</span> <span class="n">vx_</span><span class="p">,</span> <span class="n">rdotz</span><span class="p">:</span> <span class="n">vz_</span><span class="p">})</span>
+                    <span class="k">for</span> <span class="n">x_</span><span class="p">,</span> <span class="n">vx_</span><span class="p">,</span> <span class="n">vz_</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">x_array</span><span class="p">,</span> <span class="n">vx_array</span><span class="p">,</span> <span class="n">vz_array</span><span class="p">)]</span>
+        <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Failed to (re)generate g_matrices_list: &quot;</span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s1">&quot;&#39;</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">g_matrices_array</span> \
+                <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="nb">float</span><span class="p">(</span><span class="n">re</span><span class="p">(</span><span class="n">elem_</span><span class="p">))</span> <span class="k">for</span> <span class="n">elem_</span> <span class="ow">in</span> <span class="n">g_</span><span class="p">])</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+                    <span class="k">for</span> <span class="n">g_</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">g_matrices_list</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Failed to (re)generate g_matrices_array: &quot;</span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s1">&quot;&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">profile_g_properties</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">gmes</span><span class="p">:</span> <span class="n">TimeInvariantSolution</span><span class="p">,</span>
+        <span class="n">gmeq</span><span class="p">:</span> <span class="n">EquationsGeodesic</span><span class="p">,</span>
+        <span class="n">sub</span><span class="p">:</span> <span class="n">Dict</span><span class="p">,</span>
+        <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">fig_size</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">dpi</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">y_limits</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="c1"># n_points=121,</span>
+        <span class="c1"># do_pub_label=False, pub_label=&#39;&#39;,</span>
+        <span class="n">do_gstar</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">do_det</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">do_eigenvectors</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">eta_label_xy</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">do_etaxi_label</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">legend_loc</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;lower left&#39;</span><span class="p">,</span>
+        <span class="c1"># do_mod_v=False,</span>
+        <span class="c1"># do_recompute=False</span>
+        <span class="n">do_pv</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Plot velocity :math:`\dot{r}` along a ray.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            gmes:</span>
+<span class="sd">                instance of single ray solution class defined in</span>
+<span class="sd">                :mod:`gme.ode.single_ray`</span>
+<span class="sd">            gmeq:</span>
+<span class="sd">                GME model equations class instance defined in</span>
+<span class="sd">                :mod:`gme.core.equations`</span>
+<span class="sd">            n_points: sample rate along each curve</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_figure</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">fig_size</span><span class="o">=</span><span class="n">fig_size</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="n">dpi</span><span class="p">)</span>
+        <span class="n">y_limits_</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]]</span> \
+            <span class="o">=</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="k">if</span> <span class="n">y_limits</span> <span class="ow">is</span> <span class="kc">None</span> \
+            <span class="k">else</span> <span class="n">y_limits</span>
+        <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
+
+        <span class="c1"># HACK</span>
+        <span class="c1"># self.prep_g_arrays(gmes, gmeq, n_points, do_recompute)</span>
+
+        <span class="k">if</span> <span class="n">do_gstar</span><span class="p">:</span>
+            <span class="n">g_matrices_array</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">gstar_matrices_array</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">g_matrices_array</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">g_matrices_array</span>
+        <span class="n">x_array</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_array</span>
+        <span class="c1"># t_array  = self.t_array</span>
+        <span class="n">rz_array</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rz_array</span>
+        <span class="n">vx_array</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">vx_array</span>
+        <span class="n">vz_array</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">vz_array</span>
+
+        <span class="k">if</span> <span class="n">do_gstar</span><span class="p">:</span>
+            <span class="c1"># Use of lambdified g matrix here fails for eta=1/4, sin(beta)</span>
+            <span class="c1">#    for some reason</span>
+            <span class="c1"># g_matrices_list = [gmeq.gstar_ij_mat_lambdified(x_,vx_,vz_)</span>
+            <span class="c1">#                for x_,vx_,vz_ in zip(x_array,vx_array,vz_array)]</span>
+            <span class="n">g_label</span> <span class="o">=</span> <span class="s1">&#39;{g^*}&#39;</span>
+            <span class="n">m_label</span> <span class="o">=</span> <span class="s1">&#39;co-metric&#39;</span>
+            <span class="n">h_label</span> <span class="o">=</span> <span class="s1">&#39;H&#39;</span>
+            <span class="n">eta_label_xy_</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> \
+                <span class="o">=</span> <span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">)</span> <span class="k">if</span> <span class="n">eta_label_xy</span> <span class="ow">is</span> <span class="kc">None</span> \
+                <span class="k">else</span> <span class="n">eta_label_xy</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Use of lambdified g* matrix here fails for eta=1/4, sin(beta)</span>
+            <span class="c1">#   for some reason</span>
+            <span class="c1"># g_matrices_list = [gmeq.g_ij_mat_lambdified(x_,vx_,vz_)</span>
+            <span class="c1">#               for x_,vx_,vz_ in zip(x_array,vx_array,vz_array)]</span>
+            <span class="n">g_label</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{g}</span><span class="s1">&#39;</span>
+            <span class="n">m_label</span> <span class="o">=</span> <span class="s1">&#39;metric&#39;</span>
+            <span class="n">h_label</span> <span class="o">=</span> <span class="s1">&#39;L&#39;</span>
+            <span class="n">eta_label_xy_</span> \
+                <span class="o">=</span> <span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.85</span><span class="p">)</span> <span class="k">if</span> <span class="n">eta_label_xy</span> <span class="ow">is</span> <span class="kc">None</span> \
+                <span class="k">else</span> <span class="n">eta_label_xy</span>
+        <span class="c1"># g_eigenvalues_array</span>
+        <span class="c1">#  = np.array([np.real(eig(g_)[0]) for g_ in g_matrices_array])</span>
+        <span class="c1"># The metric tensor matrices are symmetric therefore Hermitian</span>
+        <span class="c1">#  so we can use &#39;eigh&#39;</span>
+        <span class="c1"># print(f&#39;g_matrices_array = {g_matrices_array}&#39;)</span>
+        <span class="k">if</span> <span class="n">g_matrices_array</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">g_eigh_array</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">]</span> \
+                <span class="o">=</span> <span class="p">[</span><span class="n">eigh</span><span class="p">(</span><span class="n">g_</span><span class="p">)</span> <span class="k">for</span> <span class="n">g_</span> <span class="ow">in</span> <span class="n">g_matrices_array</span><span class="p">]</span>
+            <span class="n">g_det_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">det</span><span class="p">(</span><span class="n">g_</span><span class="p">)</span> <span class="k">for</span> <span class="n">g_</span> <span class="ow">in</span> <span class="n">g_matrices_array</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">g_eigh_array</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">g_det_array</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">g_eigh_array</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">g_eigenvalues_array</span> \
+                <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">g_eigh_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">g_eigh_</span> <span class="ow">in</span> <span class="n">g_eigh_array</span><span class="p">]))</span>
+            <span class="n">g_eigenvectors_array</span> \
+                <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">g_eigh_</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">g_eigh_</span> <span class="ow">in</span> <span class="n">g_eigh_array</span><span class="p">]))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">g_eigenvalues_array</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">g_eigenvectors_array</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">do_eigenvectors</span> <span class="ow">and</span> <span class="n">g_eigenvectors_array</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_array</span><span class="p">,</span> <span class="n">rz_array</span><span class="p">,</span> <span class="s1">&#39;0.6&#39;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;ray&#39;</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Eigenvectors of $&#39;</span><span class="o">+</span><span class="n">g_label</span><span class="o">+</span><span class="s1">&#39;$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+            <span class="n">arrow_sf</span> <span class="o">=</span> <span class="mf">0.5</span>
+            <span class="n">my_arrow_style</span> \
+                <span class="o">=</span> <span class="n">mpatches</span><span class="o">.</span><span class="n">ArrowStyle</span><span class="o">.</span><span class="n">Fancy</span><span class="p">(</span><span class="n">head_length</span><span class="o">=</span><span class="mf">0.99</span><span class="o">*</span><span class="n">arrow_sf</span><span class="p">,</span>
+                                            <span class="n">head_width</span><span class="o">=</span><span class="mf">0.6</span><span class="o">*</span><span class="n">arrow_sf</span><span class="p">,</span>
+                                            <span class="n">tail_width</span><span class="o">=</span><span class="mf">0.01</span><span class="o">*</span><span class="n">arrow_sf</span><span class="p">)</span>
+            <span class="n">step</span> <span class="o">=</span> <span class="mi">8</span>
+            <span class="n">off</span> <span class="o">=</span> <span class="mi">0</span><span class="o">*</span><span class="n">step</span><span class="o">//</span><span class="mi">2</span>
+            <span class="n">ev_sf</span> <span class="o">=</span> <span class="mf">0.04</span>
+            <span class="n">zipped_arrays</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="n">x_array</span><span class="p">[</span><span class="n">off</span><span class="p">::</span><span class="n">step</span><span class="p">],</span>
+                                <span class="n">rz_array</span><span class="p">[</span><span class="n">off</span><span class="p">::</span><span class="n">step</span><span class="p">],</span>
+                                <span class="n">g_eigenvectors_array</span><span class="p">[</span><span class="n">off</span><span class="p">::</span><span class="n">step</span><span class="p">])</span>
+            <span class="k">for</span> <span class="n">x_</span><span class="p">,</span> <span class="n">rz_</span><span class="p">,</span> <span class="n">evs_</span> <span class="ow">in</span> <span class="n">zipped_arrays</span><span class="p">:</span>
+                <span class="n">xy_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">x_</span><span class="p">,</span> <span class="n">rz_</span><span class="p">])</span>
+                <span class="k">for</span> <span class="n">pm</span> <span class="ow">in</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+                    <span class="n">axes</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="n">xy_</span><span class="o">+</span><span class="n">pm</span><span class="o">*</span><span class="n">evs_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">ev_sf</span><span class="p">,</span> <span class="n">xytext</span><span class="o">=</span><span class="n">xy_</span><span class="p">,</span>
+                                  <span class="n">arrowprops</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;arrowstyle&#39;</span><span class="p">:</span> <span class="n">my_arrow_style</span><span class="p">,</span>
+                                              <span class="s1">&#39;color&#39;</span><span class="p">:</span> <span class="s1">&#39;magenta&#39;</span><span class="p">})</span>
+                    <span class="n">axes</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="n">xy_</span><span class="o">+</span><span class="n">pm</span><span class="o">*</span><span class="n">evs_</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">ev_sf</span><span class="p">,</span> <span class="n">xytext</span><span class="o">=</span><span class="n">xy_</span><span class="p">,</span>
+                                  <span class="n">arrowprops</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;arrowstyle&#39;</span><span class="p">:</span> <span class="n">my_arrow_style</span><span class="p">,</span>
+                                              <span class="s1">&#39;color&#39;</span><span class="p">:</span> <span class="s1">&#39;DarkGreen&#39;</span><span class="p">})</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;DarkGreen&#39;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;eigenvector 0&#39;</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;magenta&#39;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;eigenvector 1&#39;</span><span class="p">)</span>
+            <span class="n">axes</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">do_det</span> <span class="ow">and</span> <span class="n">g_det_array</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_array</span><span class="p">,</span> <span class="n">g_det_array</span><span class="p">,</span>
+                     <span class="s1">&#39;DarkBlue&#39;</span><span class="p">,</span>
+                     <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span>
+                     <span class="n">lw</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span>
+                     <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$\det(&#39;</span><span class="o">+</span><span class="n">g_label</span><span class="o">+</span><span class="s1">&#39;)$&#39;</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Det of $&#39;</span><span class="o">+</span><span class="n">g_label</span>
+                       <span class="o">+</span> <span class="s1">&#39;$ (Hessian of $&#39;</span><span class="o">+</span><span class="n">h_label</span><span class="o">+</span><span class="s1">&#39;$)&#39;</span><span class="p">,</span>
+                       <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">do_pv</span><span class="p">:</span>
+            <span class="n">px_array</span> <span class="o">=</span> <span class="n">gmes</span><span class="o">.</span><span class="n">px_interp</span><span class="p">(</span><span class="n">x_array</span><span class="p">)</span>
+            <span class="n">pz_array</span> <span class="o">=</span> <span class="n">gmes</span><span class="o">.</span><span class="n">pz_interp</span><span class="p">(</span><span class="n">x_array</span><span class="p">)</span>
+            <span class="n">pv_array</span> <span class="o">=</span> <span class="n">px_array</span><span class="o">*</span><span class="n">vx_array</span> <span class="o">+</span> <span class="n">pz_array</span><span class="o">*</span><span class="n">vz_array</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_array</span><span class="p">,</span>
+                     <span class="n">pv_array</span><span class="p">,</span>
+                     <span class="s1">&#39;r&#39;</span><span class="p">,</span>
+                     <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span>
+                     <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                     <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$p_i v^i$&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">gstar_matrices_array</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">gstarpp_array</span> \
+                    <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span>
+                            <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">gstar_</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">px_</span><span class="p">,</span> <span class="n">pz_</span><span class="p">])),</span>
+                            <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">px_</span><span class="p">,</span> <span class="n">pz_</span><span class="p">])</span>
+                        <span class="p">)</span>
+                        <span class="k">for</span> <span class="n">gstar_</span><span class="p">,</span> <span class="n">px_</span><span class="p">,</span> <span class="n">pz_</span>
+                        <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">gstar_matrices_array</span><span class="p">,</span> <span class="n">px_array</span><span class="p">,</span> <span class="n">pz_array</span><span class="p">)]</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_array</span><span class="p">,</span>
+                         <span class="n">gstarpp_array</span><span class="p">,</span>
+                         <span class="s1">&#39;0.5&#39;</span><span class="p">,</span>
+                         <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span>
+                         <span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+                         <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$g^j p_j p_j$&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">g_matrices_array</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">gvv_array</span> \
+                    <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span>
+                        <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">g_</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">vx_</span><span class="p">,</span> <span class="n">vz_</span><span class="p">])),</span>
+                        <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">vx_</span><span class="p">,</span> <span class="n">vz_</span><span class="p">])</span>
+                        <span class="p">)</span>
+                       <span class="k">for</span> <span class="n">g_</span><span class="p">,</span> <span class="n">vx_</span><span class="p">,</span> <span class="n">vz_</span>
+                       <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">g_matrices_array</span><span class="p">,</span> <span class="n">vx_array</span><span class="p">,</span> <span class="n">vz_array</span><span class="p">)]</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_array</span><span class="p">,</span>
+                         <span class="n">gvv_array</span><span class="p">,</span>
+                         <span class="s1">&#39;k&#39;</span><span class="p">,</span>
+                         <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">,</span>
+                         <span class="n">lw</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+                         <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$g_i v^iv^i$&#39;</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Inner product of $\mathbf{\widetilde</span><span class="si">{p}</span><span class="s1">}$&#39;</span>
+                       <span class="o">+</span> <span class="sa">r</span><span class="s1">&#39; and $\mathbf{{v}}$&#39;</span><span class="p">,</span>
+                       <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+            <span class="n">legend_loc</span> <span class="o">=</span> <span class="s1">&#39;upper left&#39;</span>
+        <span class="k">elif</span> <span class="n">g_eigenvalues_array</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="p">(</span><span class="n">sign_ev0</span><span class="p">,</span> <span class="n">label_ev0</span><span class="p">)</span> \
+                <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;negative  &#39;</span><span class="p">)</span> <span class="k">if</span> <span class="n">g_eigenvalues_array</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span> \
+                <span class="k">else</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;positive  &#39;</span><span class="p">)</span>
+            <span class="p">(</span><span class="n">sign_ev1</span><span class="p">,</span> <span class="n">label_ev1</span><span class="p">)</span> \
+                <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;negative  &#39;</span><span class="p">)</span> <span class="k">if</span> <span class="n">g_eigenvalues_array</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span> \
+                <span class="k">else</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;positive  &#39;</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">yscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_array</span><span class="p">,</span>
+                     <span class="n">sign_ev1</span><span class="o">*</span><span class="p">(</span><span class="n">g_eigenvalues_array</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]),</span>
+                     <span class="s1">&#39;DarkGreen&#39;</span><span class="p">,</span>
+                     <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span>
+                     <span class="n">lw</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span>
+                     <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">label_ev1</span><span class="si">}</span><span class="s1">&#39;</span><span class="o">+</span><span class="sa">rf</span><span class="s1">&#39;$\lambda_</span><span class="si">{</span><span class="n">g_label</span><span class="si">}</span><span class="s1">(1)$&#39;</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_array</span><span class="p">,</span>
+                     <span class="n">sign_ev0</span><span class="o">*</span><span class="p">(</span><span class="n">g_eigenvalues_array</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]),</span>
+                     <span class="s1">&#39;magenta&#39;</span><span class="p">,</span>
+                     <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span>
+                     <span class="n">lw</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span>
+                     <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">label_ev0</span><span class="si">}</span><span class="s1">&#39;</span><span class="o">+</span><span class="sa">rf</span><span class="s1">&#39;$\lambda_</span><span class="si">{</span><span class="n">g_label</span><span class="si">}</span><span class="s1">(0)$&#39;</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Eigenvalues of </span><span class="si">{</span><span class="n">m_label</span><span class="si">}</span><span class="s1"> tensor &#39;</span><span class="o">+</span><span class="sa">rf</span><span class="s1">&#39;$</span><span class="si">{</span><span class="n">g_label</span><span class="si">}</span><span class="s1">$&#39;</span><span class="p">,</span>
+                       <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="k">if</span> <span class="n">do_eigenvectors</span><span class="p">:</span>
+            <span class="n">axes</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">*</span><span class="n">y_limits_</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">do_det</span><span class="p">:</span>
+            <span class="n">ylim</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">ylim</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">axes</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">ylim</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">ylim</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">axes</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">ylim</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="c1"># axes.set_ylim( -(ylim[1]-ylim[0])/20,ylim[1] )</span>
+        <span class="k">elif</span> <span class="n">do_pv</span><span class="p">:</span>
+            <span class="n">axes</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Distance, $x/L_{\mathrm</span><span class="si">{c}</span><span class="s1">}$  [-]&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+        <span class="c1"># axes.set_ylim(ylim[0]*1.1,-0)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="n">legend_loc</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">framealpha</span><span class="o">=</span><span class="mf">0.95</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">do_etaxi_label</span><span class="p">:</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">*</span><span class="n">eta_label_xy_</span><span class="p">,</span>
+                     <span class="sa">rf</span><span class="s1">&#39;$\eta=</span><span class="si">{</span><span class="n">gmeq</span><span class="o">.</span><span class="n">eta_</span><span class="si">}</span><span class="s1">$&#39;</span>
+                     <span class="o">+</span> <span class="sa">r</span><span class="s1">&#39;$\quad\mathsf</span><span class="si">{Ci}</span><span class="s1">=$&#39;</span>
+                     <span class="o">+</span> <span class="sa">rf</span><span class="s1">&#39;$</span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">deg</span><span class="p">(</span><span class="n">Ci</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">sub</span><span class="p">))))</span><span class="si">}</span><span class="s1">\degree$&#39;</span><span class="p">,</span>
+                     <span class="n">transform</span><span class="o">=</span><span class="n">axes</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span>
+                     <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+                     <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+                     <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span>
+                     <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+
+
+<span class="c1">#</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+    <a id="sidebar-anchor"></a>
+    
+
+<div id="searchbox" style="display: none" role="search">
+    <a class="biglink" href="../../index.html">
+        <img src="../../_static/gme_icon_varphi_rx.png" />
+    </a>
+  <h3></h3>
+    <form class="search" action="../../search.html" method="get">
+      <div class="ui action left icon input">
+        <i class="search icon"></i>
+        <input type="text" name="q" placeholder="Search...">
+        <div class="ui teal button"></div>
+      </div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<!-- <br> -->
+<script type="text/javascript">$('#searchbox').show(0);</script><h3><a href="../../index.html">Contents</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../Summary.html">  Summary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Presentations.html">  Presentations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Publications.html">  Publications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Design.html">  Software design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Dependencies.html">  Dependencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Installation.html">  Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Running.html">  Running</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Notebooks.html">  Notebooks</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../Python.html">  Python package</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../core/index.html">Core</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ode/index.html">ODE integration</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Plotting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../knickpoints/index.html">Knickpoint detection and tracking [in development]</a></li>
+</ul>
+</li>
+</ul>
+
+    <!-- <h3><a href="../../index.html">This page</a></h3> -->
+    <!-- <ul>
+<li><a class="reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">ray_geodesics.py</span></code></a><ul>
+<li><a class="reference internal" href="#code">Code</a></li>
+</ul>
+</li>
+</ul>
+ -->
+    <p class="biglink">
+        <h3><a href="../../genindex.html"> Index</a></h3>
+    </p>
+  <br>
+  <!-- <p class="biglink"><a class="biglink" href="../../py-modindex.html">
+         Module index</a>
+  <br><br> -->
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="ray_profiles.html" title="ray_profiles.py"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="ray_angles.html" title="ray_angles.py"
+             accesskey="P">previous</a> |</li>
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, CPS.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.3.
+    </div>
+  </body>
+</html>

@@ -536,16 +536,16 @@ class RayAngles(Graphing):
                        else '')
             axes_.set_prop_cycle(default_cycler)
             if alpha_sign_ == 1:
-                eta_array_: np.ndarray \
+                eta_array_ \
                     = eta_gt1_lambda(d2r(np.array(alpha_list_)))
-                psi_crit_array: np.ndarray \
+                psi_crit_array \
                     = r2d(psi_crit_lambda(eta_array_))
                 for (eta_, psi_crit_) in zip(eta_array_, psi_crit_array):
                     axes_.plot(eta_, psi_crit_, 'o')
             else:
-                eta_array_: np.ndarray \
+                eta_array_ \
                     = eta_lt1_lambda(d2r(np.array(alpha_list_)))
-                psi_crit_array: np.ndarray \
+                psi_crit_array \
                     = r2d(psi_crit_lambda(eta_array_))
                 for (eta_, psi_crit_) in zip(eta_array_, psi_crit_array):
                     axes_.plot(eta_, psi_crit_, 'o')

@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>defaults.json &#8212; GME 1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pydoctheme.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
+    
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    
+    <script src="../_static/sidebar.js"></script>
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Python package gme" href="Python.html" />
+    <link rel="prev" title="Jupyter notebooks" href="Notebooks.html" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <link rel="shortcut icon" type="image/png" href="../_static/favicon.png" />
+    <meta name="viewport" content="width=device-width,initial-scale=0.8">
+    
+    
+
+  </head><body>
+    <!-- <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="responsive-menu"><a href="#sidebar-anchor" title="Navigation">&#9776;</a></li>
+        <li><a href="../index.html">GME 1.0 documentation</a> &#187;</li>
+          <li><a href="Notebooks.html" accesskey="U">Jupyter notebooks</a> &#187;</li> 
+      </ul>
+    </div> -->
+    <!-- 
+        <div class="badge">
+            <a href="https://github.com/geomorphysics/GME/">Fork me on GitHub</a>
+            <img src="../_static/right-red@2x.png">
+        </div>
+     -->
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="defaults-json">
+<h1><code class="docutils literal notranslate"><span class="pre">defaults.json</span></code><a class="headerlink" href="#defaults-json" title="Permalink to this headline">¶</a></h1>
+<div class="highlight-JSON notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+	<span class="nt">&quot;job&quot;</span><span class="p">:</span> <span class="p">{</span>
+		<span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Unset&quot;</span><span class="p">,</span>
+		<span class="nt">&quot;subtitle&quot;</span> <span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+		<span class="nt">&quot;group_name&quot;</span><span class="p">:</span> <span class="s2">&quot;Theory&quot;</span><span class="p">,</span>
+		<span class="nt">&quot;short_name&quot;</span><span class="p">:</span> <span class="s2">&quot;unnamed&quot;</span><span class="p">,</span>
+		<span class="nt">&quot;verbose&quot;</span> <span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+		<span class="nt">&quot;very_verbose&quot;</span> <span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+		<span class="nt">&quot;debug&quot;</span> <span class="p">:</span> <span class="kc">false</span>
+	<span class="p">},</span>
+
+	<span class="nt">&quot;model&quot;</span><span class="p">:</span> <span class="p">{</span>
+		<span class="nt">&quot;eta&quot;</span> <span class="p">:</span> <span class="s2">&quot;sy.Rational(1,2)&quot;</span><span class="p">,</span>
+		<span class="nt">&quot;mu&quot;</span> <span class="p">:</span>  <span class="s2">&quot;sy.Rational(1,4)&quot;</span><span class="p">,</span>
+		<span class="nt">&quot;beta_type&quot;</span> <span class="p">:</span> <span class="s2">&quot;sin&quot;</span><span class="p">,</span>
+		<span class="nt">&quot;varphi_type&quot;</span> <span class="p">:</span> <span class="s2">&quot;ramp&quot;</span><span class="p">,</span>
+		<span class="nt">&quot;ibc_type&quot;</span> <span class="p">:</span> <span class="s2">&quot;concave-up&quot;</span><span class="p">,</span>
+		<span class="nt">&quot;Lc&quot;</span> <span class="p">:</span> <span class="mi">10000</span><span class="p">,</span>
+		<span class="nt">&quot;Ci&quot;</span> <span class="p">:</span>  <span class="s2">&quot;sy.rad(4)&quot;</span><span class="p">,</span>
+		<span class="nt">&quot;varphi_0&quot;</span> <span class="p">:</span> <span class="mf">2.641e-5</span><span class="p">,</span>
+		<span class="nt">&quot;varepsilonhat&quot;</span> <span class="p">:</span> <span class="s2">&quot;sy.Rational(1,100)&quot;</span><span class="p">,</span>
+		<span class="nt">&quot;xiv_0&quot;</span> <span class="p">:</span> <span class="s2">&quot;None&quot;</span><span class="p">,</span>
+		<span class="nt">&quot;t_xiv0_list&quot;</span> <span class="p">:</span> <span class="s2">&quot;None&quot;</span><span class="p">,</span>
+		<span class="nt">&quot;kappa_h&quot;</span> <span class="p">:</span> <span class="s2">&quot;sy.Rational(3,2)&quot;</span><span class="p">,</span>
+		<span class="nt">&quot;h_0&quot;</span> <span class="p">:</span> <span class="s2">&quot;sy.Rational(1,2)&quot;</span><span class="p">,</span>
+		<span class="nt">&quot;x_sigma&quot;</span> <span class="p">:</span> <span class="mf">0.01</span><span class="p">,</span>
+		<span class="nt">&quot;x_h&quot;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+		<span class="nt">&quot;do_geodesic&quot;</span> <span class="p">:</span> <span class="kc">false</span>
+	<span class="p">},</span>
+
+	<span class="nt">&quot;solve&quot;</span><span class="p">:</span> <span class="p">{</span>
+		<span class="nt">&quot;do_dense&quot;</span> <span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+		<span class="nt">&quot;choice&quot;</span> <span class="p">:</span> <span class="s2">&quot;Hamilton&quot;</span><span class="p">,</span>
+		<span class="nt">&quot;method&quot;</span> <span class="p">:</span> <span class="p">{</span><span class="nt">&quot;Hamilton&quot;</span><span class="p">:</span> <span class="s2">&quot;DOP853&quot;</span><span class="p">,</span> <span class="nt">&quot;geodesic&quot;</span><span class="p">:</span> <span class="s2">&quot;LSODA&quot;</span><span class="p">,</span>
+					<span class="nt">&quot;choices&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;RK45&quot;</span><span class="p">,</span> <span class="s2">&quot;RK23&quot;</span><span class="p">,</span> <span class="s2">&quot;Radau&quot;</span><span class="p">,</span> <span class="s2">&quot;DOP853&quot;</span><span class="p">,</span> <span class="s2">&quot;LSODA&quot;</span><span class="p">]},</span>
+		<span class="nt">&quot;t_end&quot;</span> <span class="p">:</span> <span class="mf">0.01</span><span class="p">,</span>
+		<span class="nt">&quot;ray_n_t&quot;</span> <span class="p">:</span> <span class="mi">301</span><span class="p">,</span>
+		<span class="nt">&quot;t_distribn&quot;</span> <span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+		<span class="nt">&quot;do_ip&quot;</span> <span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+		<span class="nt">&quot;do_ic&quot;</span> <span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+		<span class="nt">&quot;do_vb&quot;</span> <span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+		<span class="nt">&quot;ip_res&quot;</span> <span class="p">:</span> <span class="mi">101</span><span class="p">,</span>
+		<span class="nt">&quot;ic_res&quot;</span> <span class="p">:</span> <span class="mi">31</span><span class="p">,</span>
+		<span class="nt">&quot;vb_res&quot;</span> <span class="p">:</span> <span class="mi">101</span><span class="p">,</span>
+		<span class="nt">&quot;do_geodesic&quot;</span> <span class="p">:</span> <span class="kc">true</span>
+	<span class="p">},</span>
+
+	<span class="nt">&quot;resolve&quot;</span><span class="p">:</span> <span class="p">{</span>
+		<span class="nt">&quot;t_isochrone_max&quot;</span> <span class="p">:</span> <span class="mf">0.01</span><span class="p">,</span>
+		<span class="nt">&quot;tolerance&quot;</span> <span class="p">:</span> <span class="s2">&quot;None&quot;</span><span class="p">,</span>
+		<span class="nt">&quot;n_isochrones&quot;</span> <span class="p">:</span> <span class="mi">30</span><span class="p">,</span>
+		<span class="nt">&quot;do_eliminate_caustics&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+		<span class="nt">&quot;spline_order&quot;</span> <span class="p">:</span> <span class="mi">3</span>
+	<span class="p">},</span>
+
+	<span class="nt">&quot;plot&quot;</span><span class="p">:</span> <span class="p">{</span>
+		<span class="nt">&quot;do_pub_labeling&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+		<span class="nt">&quot;do_etaxi_labeling&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+		<span class="nt">&quot;pub_labels&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;(a)&quot;</span><span class="p">,</span><span class="s2">&quot;(a)&quot;</span><span class="p">,</span><span class="s2">&quot;(b)&quot;</span><span class="p">],</span>
+		<span class="nt">&quot;do_profile_schematic&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+		<span class="nt">&quot;do_profile_extra&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+		<span class="nt">&quot;do_ray_conjugacy&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+		<span class="nt">&quot;do_huygens_wavelets&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+		<span class="nt">&quot;fig_size&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="mi">8</span><span class="p">,</span><span class="mi">8</span><span class="p">],</span>
+		<span class="nt">&quot;big_fig_size&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span><span class="mi">7</span><span class="p">],</span>
+		<span class="nt">&quot;medium_fig_size&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span><span class="mi">6</span><span class="p">],</span>
+		<span class="nt">&quot;small_fig_size&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span>
+		<span class="nt">&quot;n_rays&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+		<span class="nt">&quot;profile_subsetting&quot;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
+		<span class="nt">&quot;ray_x_limits&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="mf">-0.02</span><span class="p">,</span><span class="mf">1.02</span><span class="p">],</span>
+		<span class="nt">&quot;ray_y_limits&quot;</span> <span class="p">:</span> <span class="s2">&quot;None&quot;</span><span class="p">,</span>
+		<span class="nt">&quot;aniso_y_limits&quot;</span> <span class="p">:</span> <span class="s2">&quot;None&quot;</span><span class="p">,</span>
+		<span class="nt">&quot;aniso_n_points&quot;</span> <span class="p">:</span> <span class="mi">45</span><span class="p">,</span>
+		<span class="nt">&quot;aniso_arrow_exponent&quot;</span> <span class="p">:</span> <span class="mf">0.9</span><span class="p">,</span>
+		<span class="nt">&quot;aniso_arrow_size&quot;</span> <span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span>
+		<span class="nt">&quot;ray_eta_xy&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.85</span><span class="p">,</span><span class="mf">0.15</span><span class="p">],</span>
+		<span class="nt">&quot;dimx_limits&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="mf">-0.03</span><span class="p">,</span><span class="mf">1.03</span><span class="p">],</span>
+		<span class="nt">&quot;dimz_limits&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="mf">-0.01</span><span class="p">,</span><span class="mf">0.6</span><span class="p">],</span>
+		<span class="nt">&quot;dimx_limits_zoom&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="mf">0.2</span><span class="p">,</span><span class="mf">0.3</span><span class="p">],</span>
+		<span class="nt">&quot;dimz_limits_zoom&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="mf">-0.25</span><span class="p">,</span><span class="mf">-0.23</span><span class="p">],</span>
+		<span class="nt">&quot;isochrone_subsetting&quot;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+		<span class="nt">&quot;do_extra_annotations&quot;</span> <span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+		<span class="nt">&quot;ang_x_limits&quot;</span> <span class="p">:</span> <span class="s2">&quot;None&quot;</span><span class="p">,</span>
+		<span class="nt">&quot;ang_y_limits&quot;</span> <span class="p">:</span> <span class="s2">&quot;None&quot;</span><span class="p">,</span>
+		<span class="nt">&quot;angdisp_x_limits&quot;</span> <span class="p">:</span> <span class="s2">&quot;None&quot;</span><span class="p">,</span>
+		<span class="nt">&quot;angdisp_y_limits&quot;</span> <span class="p">:</span> <span class="s2">&quot;None&quot;</span><span class="p">,</span>
+		<span class="nt">&quot;idtx_logpolar_y_limits&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="mi">-2</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span>
+		<span class="nt">&quot;idtx_pz_min&quot;</span> <span class="p">:</span> <span class="mf">1e-3</span><span class="p">,</span>
+		<span class="nt">&quot;idtx_pz_max&quot;</span> <span class="p">:</span> <span class="mf">1e5</span><span class="p">,</span>
+		<span class="nt">&quot;fgtx_pz_min&quot;</span> <span class="p">:</span> <span class="mf">1e-3</span><span class="p">,</span>
+		<span class="nt">&quot;fgtx_pz_max&quot;</span> <span class="p">:</span> <span class="mf">1e5</span><span class="p">,</span>
+		<span class="nt">&quot;idtx_n_points&quot;</span> <span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
+		<span class="nt">&quot;idtx_varphi_list&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">1.3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+		<span class="nt">&quot;ray_n_points&quot;</span> <span class="p">:</span> <span class="mi">26</span><span class="p">,</span>
+		<span class="nt">&quot;rays_n_points&quot;</span> <span class="p">:</span> <span class="mi">40</span><span class="p">,</span>
+		<span class="nt">&quot;profile_n_points&quot;</span> <span class="p">:</span> <span class="mi">101</span><span class="p">,</span>
+		<span class="nt">&quot;profile_ray_n_points&quot;</span> <span class="p">:</span> <span class="mi">121</span><span class="p">,</span>
+		<span class="nt">&quot;misc_n_points&quot;</span> <span class="p">:</span> <span class="mi">101</span><span class="p">,</span>
+		<span class="nt">&quot;ray_acceln_legend_loc&quot;</span> <span class="p">:</span> <span class="s2">&quot;lower right&quot;</span><span class="p">,</span>
+		<span class="nt">&quot;profile_evec_legend_loc&quot;</span> <span class="p">:</span> <span class="s2">&quot;upper left&quot;</span><span class="p">,</span>
+		<span class="nt">&quot;profile_det_eta_label_xy&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">0.5</span><span class="p">],</span>
+		<span class="nt">&quot;profile_evec_eta_label_xy&quot;</span> <span class="p">:</span> <span class="s2">&quot;None&quot;</span><span class="p">,</span>
+		<span class="nt">&quot;profile_eval_eta_label_xy&quot;</span> <span class="p">:</span> <span class="s2">&quot;None&quot;</span><span class="p">,</span>
+		<span class="nt">&quot;profile_cusp_speed_legend_loc&quot;</span> <span class="p">:</span> <span class="s2">&quot;None&quot;</span><span class="p">,</span>
+		<span class="nt">&quot;profile_cusp_speed_y_limits&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="mi">-10</span><span class="p">,</span><span class="mi">30</span><span class="p">],</span>
+		<span class="nt">&quot;pub_labels&quot;</span><span class="p">:</span> <span class="p">{</span>
+			<span class="nt">&quot;profile_vdot&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+			<span class="nt">&quot;profile_v&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+			<span class="nt">&quot;profile_vxz&quot;</span><span class="p">:</span> <span class="s2">&quot;(c)&quot;</span><span class="p">,</span>
+			<span class="nt">&quot;profile_xi&quot;</span><span class="p">:</span> <span class="s2">&quot;(a)&quot;</span><span class="p">,</span>
+			<span class="nt">&quot;profile_xihorizontal&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+			<span class="nt">&quot;profile_xivertical&quot;</span><span class="p">:</span> <span class="s2">&quot;(d)&quot;</span><span class="p">,</span>
+			<span class="nt">&quot;profile_aniso&quot;</span><span class="p">:</span> <span class="s2">&quot;(b)&quot;</span><span class="p">,</span>
+			<span class="nt">&quot;profile_beta&quot;</span><span class="p">:</span> <span class="s2">&quot;(b)&quot;</span><span class="p">,</span>
+			<span class="nt">&quot;profile_h_rays&quot;</span><span class="p">:</span> <span class="s2">&quot;(b)&quot;</span><span class="p">,</span>
+			<span class="nt">&quot;profile_h_ray&quot;</span><span class="p">:</span> <span class="s2">&quot;(c)&quot;</span><span class="p">,</span>
+			<span class="nt">&quot;alpha_beta&quot;</span><span class="p">:</span> <span class="s2">&quot;(b)&quot;</span><span class="p">,</span>
+			<span class="nt">&quot;angular_disparity&quot;</span><span class="p">:</span> <span class="s2">&quot;(b)&quot;</span><span class="p">,</span>
+			<span class="nt">&quot;profile_angular_disparity&quot;</span><span class="p">:</span> <span class="s2">&quot;(b)&quot;</span>
+		<span class="p">},</span>
+		<span class="nt">&quot;pub_label_posns&quot;</span><span class="p">:</span> <span class="p">{</span>
+			<span class="nt">&quot;profile_vdot&quot;</span><span class="p">:</span> <span class="s2">&quot;None&quot;</span><span class="p">,</span>
+			<span class="nt">&quot;profile_v&quot;</span><span class="p">:</span> <span class="s2">&quot;None&quot;</span><span class="p">,</span>
+			<span class="nt">&quot;profile_vxz&quot;</span><span class="p">:</span> <span class="s2">&quot;None&quot;</span><span class="p">,</span>
+			<span class="nt">&quot;profile_xi&quot;</span><span class="p">:</span> <span class="s2">&quot;None&quot;</span><span class="p">,</span>
+			<span class="nt">&quot;profile_xihorizontal&quot;</span><span class="p">:</span> <span class="s2">&quot;None&quot;</span><span class="p">,</span>
+			<span class="nt">&quot;profile_xivertical&quot;</span><span class="p">:</span> <span class="s2">&quot;None&quot;</span><span class="p">,</span>
+			<span class="nt">&quot;profile_aniso&quot;</span><span class="p">:</span> <span class="s2">&quot;None&quot;</span><span class="p">,</span>
+			<span class="nt">&quot;profile_beta&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.93</span><span class="p">,</span><span class="mf">0.2</span><span class="p">],</span>
+			<span class="nt">&quot;profile_h_rays&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.93</span><span class="p">,</span><span class="mf">0.35</span><span class="p">],</span>
+			<span class="nt">&quot;profile_h_ray&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.85</span><span class="p">,</span><span class="mf">0.7</span><span class="p">],</span>
+			<span class="nt">&quot;alpha_beta&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.88</span><span class="p">,</span><span class="mf">0.3</span><span class="p">],</span>
+			<span class="nt">&quot;angular_disparity&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.15</span><span class="p">,</span><span class="mf">0.15</span><span class="p">],</span>
+			<span class="nt">&quot;profile_angular_disparity&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.6</span><span class="p">,</span><span class="mf">0.35</span><span class="p">],</span>
+			<span class="nt">&quot;etaxi_label&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.65</span><span class="p">,</span><span class="mf">0.85</span><span class="p">]</span>
+		<span class="p">}</span>
+	<span class="p">},</span>
+
+	<span class="nt">&quot;save&quot;</span><span class="p">:</span> <span class="p">{</span>
+		<span class="nt">&quot;figs_path&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="s2">&quot;..&quot;</span><span class="p">,</span><span class="s2">&quot;..&quot;</span><span class="p">,</span><span class="s2">&quot;Plots&quot;</span><span class="p">],</span>
+		<span class="nt">&quot;figs_format&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="s2">&quot;jpg&quot;</span><span class="p">,</span> <span class="s2">&quot;pdf&quot;</span><span class="p">],</span>
+		<span class="nt">&quot;figs_options&quot;</span> <span class="p">:</span> <span class="p">{</span>
+			<span class="nt">&quot;dpi&quot;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
+			<span class="nt">&quot;bbox_inches&quot;</span><span class="p">:</span> <span class="s2">&quot;tight&quot;</span>
+			<span class="p">}</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+    <a id="sidebar-anchor"></a>
+    
+
+<div id="searchbox" style="display: none" role="search">
+    <a class="biglink" href="../index.html">
+        <img src="../_static/gme_icon_varphi_rx.png" />
+    </a>
+  <h3></h3>
+    <form class="search" action="../search.html" method="get">
+      <div class="ui action left icon input">
+        <i class="search icon"></i>
+        <input type="text" name="q" placeholder="Search...">
+        <div class="ui teal button"></div>
+      </div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<!-- <br> -->
+<script type="text/javascript">$('#searchbox').show(0);</script><h3><a href="../index.html">Contents</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Summary.html">  Summary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Presentations.html">  Presentations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Publications.html">  Publications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Design.html">  Software design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Dependencies.html">  Dependencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Installation.html">  Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Running.html">  Running</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="Notebooks.html">  Notebooks</a><ul class="current">
+<li class="toctree-l2"><a class="reference external" href="https://github.com/geomorphysics/GME/tree/main/Notebooks/Theory"> Theory</a></li>
+<li class="toctree-l2"><a class="reference external" href="https://github.com/geomorphysics/GME/tree/main/Notebooks/RayTracing"> Ray tracing</a></li>
+<li class="toctree-l2"><a class="reference external" href="https://github.com/geomorphysics/GME/tree/main/Notebooks/Knickpoints"> Knickpoint notebooks</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#"> Default parameters</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Python.html">  Python package</a></li>
+</ul>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="Python.html" title="Python package gme"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="Notebooks.html" title="Jupyter notebooks"
+             accesskey="P">previous</a> |</li>
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, CPS.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.3.
+    </div>
+  </body>
+</html>

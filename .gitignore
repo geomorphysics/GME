@@ -65,3 +65,8 @@ build/
 # Ignore big GeoTIFFs
 *.tif
 *.tiff
+
+
+# MyPy #
+######################
+# .mypy.ini

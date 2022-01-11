@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>velocity_boundary.py &#8212; GME 1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pydoctheme.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+    
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    
+    <script src="../../_static/sidebar.js"></script>
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="utils.py" href="utils.html" />
+    <link rel="prev" title="time_invariant.py" href="time_invariant.html" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <link rel="shortcut icon" type="image/png" href="../../_static/favicon.png" />
+    <meta name="viewport" content="width=device-width,initial-scale=0.8">
+    
+    
+
+  </head><body>
+    <!-- <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="responsive-menu"><a href="#sidebar-anchor" title="Navigation">&#9776;</a></li>
+        <li><a href="../../index.html">GME 1.0 documentation</a> &#187;</li>
+          <li><a href="../Python.html" >Python package <cite>gme</cite></a> &#187;</li>
+          <li><a href="index.html" accesskey="U"><cite>gme.ode</cite></a> &#187;</li> 
+      </ul>
+    </div> -->
+    <!-- 
+        <div class="badge">
+            <a href="https://github.com/geomorphysics/GME/">Fork me on GitHub</a>
+            <img src="../../_static/right-red@2x.png">
+        </div>
+     -->
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-gme.ode.velocity_boundary">
+<span id="velocity-boundary-py"></span><h1><code class="docutils literal notranslate"><span class="pre">velocity_boundary.py</span></code><a class="headerlink" href="#module-gme.ode.velocity_boundary" title="Permalink to this headline">¶</a></h1>
+<hr class="docutils" />
+<p>Generate a sequence of topographic profiles, using ray tracing
+aka ODE integration of Hamilton’s equations, for a velocity-boundary condition.</p>
+<hr class="docutils" />
+<dl class="simple">
+<dt>Requires Python packages/modules:</dt><dd><ul class="simple">
+<li><p><a class="reference external" href="https://numpy.org/doc/stable/reference/index.html#module-numpy" title="(in NumPy v1.22)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">NumPy</span></code></a></p></li>
+<li><p><a class="reference external" href="https://github.com/geomorphysics/GME">GME</a></p></li>
+</ul>
+</dd>
+</dl>
+<hr class="docutils" />
+<dl class="py class">
+<dt class="sig sig-object py" id="gme.ode.velocity_boundary.VelocityBoundarySolution">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gme.ode.velocity_boundary.</span></span><span class="sig-name descname"><span class="pre">VelocityBoundarySolution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmeq</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="../core/equations.html#gme.core.equations.Equations" title="gme.core.equations.Equations"><span class="pre">gme.core.equations.Equations</span></a><span class="p"><span class="pre">,</span> </span><a class="reference internal" href="../core/equations_extended.html#gme.core.equations_extended.EquationsGeodesic" title="gme.core.equations_extended.EquationsGeodesic"><span class="pre">gme.core.equations_extended.EquationsGeodesic</span></a><span class="p"><span class="pre">,</span> </span><a class="reference internal" href="../core/equations_extended.html#gme.core.equations_extended.EquationsIdtx" title="gme.core.equations_extended.EquationsIdtx"><span class="pre">gme.core.equations_extended.EquationsIdtx</span></a><span class="p"><span class="pre">,</span> </span><a class="reference internal" href="../core/equations_extended.html#gme.core.equations_extended.EquationsIbc" title="gme.core.equations_extended.EquationsIbc"><span class="pre">gme.core.equations_extended.EquationsIbc</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gme.ode.velocity_boundary.VelocityBoundarySolution" title="Permalink to this definition">¶</a></dt>
+<dd><p>Integration of Hamilton’s equations (ODEs) from a ‘fault slip’
+velocity boundary.</p>
+<p>Currently the velocity boundary is required to lie along the
+left domain edge and to be vertical.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="gme.ode.velocity_boundary.VelocityBoundarySolution.initial_conditions">
+<span class="sig-name descname"><span class="pre">initial_conditions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t_lag</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">xiv_0_</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#gme.ode.velocity_boundary.VelocityBoundarySolution.initial_conditions" title="Permalink to this definition">¶</a></dt>
+<dd><p>TBD</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gme.ode.velocity_boundary.VelocityBoundarySolution.solve">
+<span class="sig-name descname"><span class="pre">solve</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">report_pc_step</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.ode.velocity_boundary.VelocityBoundarySolution.solve" title="Permalink to this definition">¶</a></dt>
+<dd><p>TBD</p>
+</dd></dl>
+
+</dd></dl>
+
+<div class="section" id="code">
+<h2>Code<a class="headerlink" href="#code" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">---------------------------------------------------------------------</span>
+
+<span class="sd">Generate a sequence of topographic profiles, using ray tracing</span>
+<span class="sd">aka ODE integration of Hamilton&#39;s equations, for a velocity-boundary condition.</span>
+
+<span class="sd">---------------------------------------------------------------------</span>
+
+<span class="sd">Requires Python packages/modules:</span>
+<span class="sd">  -  :mod:`NumPy &lt;numpy&gt;`</span>
+<span class="sd">  -  `GME`_</span>
+
+<span class="sd">.. _GMPLib: https://github.com/geomorphysics/GMPLib</span>
+<span class="sd">.. _GME: https://github.com/geomorphysics/GME</span>
+<span class="sd">.. _Matrix:</span>
+<span class="sd">    https://docs.sympy.org/latest/modules/matrices/immutablematrices.html</span>
+
+<span class="sd">---------------------------------------------------------------------</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="c1"># Library</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
+
+<span class="c1"># NumPy</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1"># GME</span>
+<span class="kn">from</span> <span class="nn">gme.core.symbols</span> <span class="kn">import</span> <span class="n">xiv_0</span><span class="p">,</span> <span class="n">xih_0</span><span class="p">,</span> <span class="n">Lc</span>
+<span class="kn">from</span> <span class="nn">gme.ode.extended</span> <span class="kn">import</span> <span class="n">ExtendedSolution</span>
+<span class="kn">from</span> <span class="nn">gme.ode.solve</span> <span class="kn">import</span> <span class="n">solve_Hamiltons_equations</span>
+<span class="kn">from</span> <span class="nn">gme.ode.utils</span> <span class="kn">import</span> <span class="n">report_progress</span>
+
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;VelocityBoundarySolution&#39;</span><span class="p">]</span>
+
+
+<span class="k">class</span> <span class="nc">VelocityBoundarySolution</span><span class="p">(</span><span class="n">ExtendedSolution</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Integration of Hamilton&#39;s equations (ODEs) from a &#39;fault slip&#39;</span>
+<span class="sd">    velocity boundary.</span>
+
+<span class="sd">    Currently the velocity boundary is required to lie along the</span>
+<span class="sd">    left domain edge and to be vertical.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">initial_conditions</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">t_lag</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="n">xiv_0_</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        TBD</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># self.parameters[xiv_0] = xiv_0_</span>
+        <span class="c1"># px0_, pz0_ = pxpz0_from_xiv0( self.parameters,</span>
+        <span class="c1">#                               #xiv_0_, self.parameters[xih_0],</span>
+        <span class="c1">#                               self.gmeq.pz_xiv_eqn,</span>
+        <span class="c1">#                               self.gmeq.poly_px_xiv0_eqn )</span>
+        <span class="n">pz0_</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="o">/</span><span class="n">xiv_0_</span><span class="p">)</span>
+        <span class="n">px0_</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="p">((</span><span class="n">xiv_0</span><span class="o">/</span><span class="n">xih_0</span><span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">))</span><span class="o">/</span><span class="n">xiv_0_</span>
+        <span class="c1"># print(pz0_,px0_)</span>
+        <span class="n">cosbeta_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">px0_</span><span class="o">/-</span><span class="n">pz0_</span><span class="p">))</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+        <span class="n">rz0_</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">t_lag</span><span class="o">/</span><span class="p">(</span><span class="n">pz0_</span><span class="o">*</span><span class="n">cosbeta_</span><span class="p">)</span>
+        <span class="n">rx0_</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">rx0_</span><span class="p">,</span> <span class="n">rz0_</span><span class="p">,</span> <span class="n">px0_</span><span class="p">,</span> <span class="n">pz0_</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">solve</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">report_pc_step</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        TBD</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># self.prep_arrays()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">t_ensemble_max</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+        <span class="c1"># Construct a list of % durations and vertical velocities</span>
+        <span class="c1">#   if only xiv_0 given</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tp_xiv0_list</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]]</span> \
+            <span class="o">=</span> <span class="p">[(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">xiv_0</span><span class="p">])]</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">tp_xiv0_list</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> \
+            <span class="bp">self</span><span class="o">.</span><span class="n">tp_xiv0_list</span>
+
+        <span class="c1"># Calculate vertical distances spanned by each tp, uv0</span>
+        <span class="n">rz0_array</span> \
+            <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">initial_conditions</span><span class="p">(</span><span class="n">tp_</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">t_slip_end</span><span class="p">,</span> <span class="n">xiv0_</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+                        <span class="k">for</span> <span class="p">(</span><span class="n">tp_</span><span class="p">,</span> <span class="n">xiv0_</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">tp_xiv0_list</span><span class="p">])</span>
+        <span class="n">rz0_cumsum_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">rz0_array</span><span class="p">)</span>
+        <span class="n">offset_rz0_cumsum_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span>
+            <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">]),</span> <span class="n">rz0_cumsum_array</span><span class="p">])[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="c1"># The total vertical distance spanned by all initial rays</span>
+        <span class="c1">#   is rz0_cumsum_array[-1]</span>
+        <span class="n">rz0_total</span> <span class="o">=</span> <span class="n">rz0_cumsum_array</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="c1"># Apportion numbers of rays based on rz0 proportions</span>
+        <span class="n">n_block_rays_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_rays</span><span class="o">*</span><span class="p">(</span><span class="n">rz0_</span><span class="o">/</span><span class="n">rz0_total</span><span class="p">)))</span>
+                                       <span class="k">for</span> <span class="n">rz0_</span> <span class="ow">in</span> <span class="n">rz0_array</span><span class="p">])</span>
+        <span class="n">offset_n_block_rays_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span>
+            <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">]),</span> <span class="n">n_block_rays_array</span><span class="p">])[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_rays</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">n_block_rays_array</span><span class="p">)</span>
+        <span class="n">n_rays</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_rays</span>
+        <span class="c1"># assert(len(self.tp_xiv0_list)==len(n_block_rays_array))</span>
+
+        <span class="c1"># Step through each &quot;block&quot; of rays tied to a different</span>
+        <span class="c1">#   boundary velocity and generate an initial condition for each ray</span>
+        <span class="n">t_lag_list</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">]</span><span class="o">*</span><span class="n">n_rays</span>
+        <span class="n">xiv0_list</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">]</span><span class="o">*</span><span class="n">n_rays</span>
+        <span class="n">ic_list</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)]</span><span class="o">*</span><span class="n">n_rays</span>
+        <span class="n">prev_t_lag</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">n_block_rays</span><span class="p">,</span> <span class="p">(</span><span class="n">tp_</span><span class="p">,</span> <span class="n">xiv0_</span><span class="p">),</span> <span class="n">prev_rz0</span><span class="p">,</span> <span class="n">prev_n_block_rays</span><span class="p">)</span> \
+                <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">n_block_rays_array</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tp_xiv0_list</span><span class="p">,</span>
+                       <span class="n">offset_rz0_cumsum_array</span><span class="p">,</span> <span class="n">offset_n_block_rays_array</span><span class="p">):</span>
+            <span class="c1"># Generate initial conditions for all the rays in this block</span>
+            <span class="k">for</span> <span class="n">i_ray</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n_block_rays</span><span class="p">)):</span>
+                <span class="n">t_lag</span> <span class="o">=</span> <span class="p">(</span><span class="n">i_ray</span><span class="o">/</span><span class="p">(</span><span class="n">n_block_rays</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">t_slip_end</span><span class="o">*</span><span class="n">tp_</span>
+                <span class="n">rx0_</span><span class="p">,</span> <span class="n">rz0_</span><span class="p">,</span> <span class="n">px0_</span><span class="p">,</span> <span class="n">pz0_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">initial_conditions</span><span class="p">(</span><span class="n">t_lag</span><span class="p">,</span> <span class="n">xiv0_</span><span class="p">)</span>
+                <span class="n">t_lag_list</span><span class="p">[</span><span class="n">i_ray</span><span class="o">+</span><span class="n">prev_n_block_rays</span><span class="p">]</span> <span class="o">=</span> <span class="n">prev_t_lag</span><span class="o">+</span><span class="n">t_lag</span>
+                <span class="n">xiv0_list</span><span class="p">[</span><span class="n">i_ray</span><span class="o">+</span><span class="n">prev_n_block_rays</span><span class="p">]</span> <span class="o">=</span> <span class="n">xiv0_</span>
+                <span class="n">ic_list</span><span class="p">[</span><span class="n">i_ray</span> <span class="o">+</span> <span class="n">prev_n_block_rays</span><span class="p">]</span> \
+                    <span class="o">=</span> <span class="p">(</span><span class="n">rx0_</span><span class="p">,</span> <span class="n">rz0_</span><span class="o">+</span><span class="n">prev_rz0</span><span class="p">,</span> <span class="n">px0_</span><span class="p">,</span> <span class="n">pz0_</span><span class="p">)</span>
+            <span class="n">prev_t_lag</span> <span class="o">+=</span> <span class="n">t_lag</span>
+        <span class="k">for</span> <span class="n">ic_</span> <span class="ow">in</span> <span class="n">ic_list</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;ode.vb.solve: </span><span class="si">{</span><span class="n">ic_</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Generate rays in reverse order so that the first ray is</span>
+        <span class="c1">#     topographically the lowest</span>
+        <span class="n">pc_progress</span> <span class="o">=</span> <span class="n">report_progress</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">n_rays</span><span class="p">,</span> <span class="n">is_initial_step</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ic_list</span> <span class="o">=</span> <span class="p">[(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)]</span><span class="o">*</span><span class="n">n_rays</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ivp_solns_list</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span><span class="o">*</span><span class="n">n_rays</span>
+        <span class="n">xiv0_prev</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="n">model_dXdt_lambda_prev</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">for</span> <span class="n">i_ray</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n_rays</span><span class="p">)):</span>
+            <span class="n">t_lag</span> <span class="o">=</span> <span class="n">t_lag_list</span><span class="p">[</span><span class="n">n_rays</span><span class="o">-</span><span class="mi">1</span><span class="o">-</span><span class="n">i_ray</span><span class="p">]</span>
+            <span class="n">xiv0_</span> <span class="o">=</span> <span class="n">xiv0_list</span><span class="p">[</span><span class="n">n_rays</span><span class="o">-</span><span class="mi">1</span><span class="o">-</span><span class="n">i_ray</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ic_list</span><span class="p">[</span><span class="n">i_ray</span><span class="p">]</span> <span class="o">=</span> <span class="n">ic_list</span><span class="p">[</span><span class="n">n_rays</span><span class="o">-</span><span class="mi">1</span><span class="o">-</span><span class="n">i_ray</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">xiv_0</span><span class="p">]</span> <span class="o">=</span> <span class="n">xiv0_</span>
+            <span class="n">model_dXdt_lambda</span> \
+                <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_model</span><span class="p">()</span> \
+                <span class="k">if</span> <span class="n">model_dXdt_lambda_prev</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">xiv0_prev</span> <span class="o">!=</span> <span class="n">xiv0_</span>\
+                <span class="k">else</span> <span class="n">model_dXdt_lambda_prev</span>
+            <span class="c1"># print(f&#39;i_ray={i_ray}  t_lag={t_lag}  xiv0_={xiv0_}  \</span>
+            <span class="c1">#      {bool(xiv0_==xiv0_prev)}</span>
+            <span class="c1">#          {bool(model_dXdt_lambda==model_dXdt_lambda_prev)}&#39;,</span>
+            <span class="c1">#            flush=True)</span>
+            <span class="c1"># Start rays from the bottom of the velocity boundary and work</span>
+            <span class="c1">#   upwards so that their x,z,t disposition is consistent with</span>
+            <span class="c1">#         initial profile, initial corner</span>
+            <span class="c1"># if self.choice==&#39;Hamilton&#39;:</span>
+            <span class="n">parameters_</span> <span class="o">=</span> <span class="p">{</span><span class="n">Lc</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">Lc</span><span class="p">]}</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;ode.vb.solve: calling solver: t_lag=</span><span class="si">{</span><span class="n">t_lag</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">ivp_soln</span><span class="p">,</span> <span class="n">rpt_arrays</span> \
+                <span class="o">=</span> <span class="n">solve_Hamiltons_equations</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">model_dXdt_lambda</span><span class="p">,</span>
+                                            <span class="n">method</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="p">,</span>
+                                            <span class="n">do_dense</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">do_dense</span><span class="p">,</span>
+                                            <span class="n">ic</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ic_list</span><span class="p">[</span><span class="n">i_ray</span><span class="p">],</span>
+                                            <span class="n">parameters</span><span class="o">=</span><span class="n">parameters_</span><span class="p">,</span>
+                                            <span class="n">t_array</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ref_t_array</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span>
+                                            <span class="n">x_stop</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">x_stop</span><span class="p">,</span>
+                                            <span class="n">t_lag</span><span class="o">=</span><span class="n">t_lag</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ivp_solns_list</span><span class="p">[</span><span class="n">i_ray</span><span class="p">]</span> <span class="o">=</span> <span class="n">ivp_soln</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">t_ensemble_max</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">t_ensemble_max</span><span class="p">,</span> <span class="n">rpt_arrays</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">rpt_arrays</span><span class="p">,</span> <span class="n">i_ray</span><span class="p">)</span>
+            <span class="c1"># logging.debug(f&quot;ode.velocity_boundary.solve: {rpt_arrays[&#39;rx&#39;]}&quot;)</span>
+            <span class="n">pc_progress</span> \
+                <span class="o">=</span> <span class="n">report_progress</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="n">i_ray</span><span class="p">,</span>
+                                  <span class="n">n</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">n_rays</span><span class="p">,</span>
+                                  <span class="n">pc_step</span><span class="o">=</span><span class="n">report_pc_step</span><span class="p">,</span>
+                                  <span class="n">progress_was</span><span class="o">=</span><span class="n">pc_progress</span><span class="p">)</span>
+            <span class="n">xiv0_prev</span><span class="p">,</span> <span class="n">model_dXdt_lambda_prev</span> <span class="o">=</span> <span class="n">xiv0_</span><span class="p">,</span> <span class="n">model_dXdt_lambda</span>
+            <span class="c1"># self.report_progress(i=n_rays, n=n_rays,</span>
+            <span class="c1"># pc_step=report_pc_step,progress_was=pc_progress)</span>
+
+
+<span class="c1">#</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+    <a id="sidebar-anchor"></a>
+    
+
+<div id="searchbox" style="display: none" role="search">
+    <a class="biglink" href="../../index.html">
+        <img src="../../_static/gme_icon_varphi_rx.png" />
+    </a>
+  <h3></h3>
+    <form class="search" action="../../search.html" method="get">
+      <div class="ui action left icon input">
+        <i class="search icon"></i>
+        <input type="text" name="q" placeholder="Search...">
+        <div class="ui teal button"></div>
+      </div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<!-- <br> -->
+<script type="text/javascript">$('#searchbox').show(0);</script><h3><a href="../../index.html">Contents</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../Summary.html">  Summary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Presentations.html">  Presentations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Publications.html">  Publications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Design.html">  Software design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Dependencies.html">  Dependencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Installation.html">  Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Running.html">  Running</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Notebooks.html">  Notebooks</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../Python.html">  Python package</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../core/index.html">Core</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">ODE integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plot/index.html">Plotting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../knickpoints/index.html">Knickpoint detection and tracking [in development]</a></li>
+</ul>
+</li>
+</ul>
+
+    <!-- <h3><a href="../../index.html">This page</a></h3> -->
+    <!-- <ul>
+<li><a class="reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">velocity_boundary.py</span></code></a><ul>
+<li><a class="reference internal" href="#code">Code</a></li>
+</ul>
+</li>
+</ul>
+ -->
+    <p class="biglink">
+        <h3><a href="../../genindex.html"> Index</a></h3>
+    </p>
+  <br>
+  <!-- <p class="biglink"><a class="biglink" href="../../py-modindex.html">
+         Module index</a>
+  <br><br> -->
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="utils.html" title="utils.py"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="time_invariant.html" title="time_invariant.py"
+             accesskey="P">previous</a> |</li>
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, CPS.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.3.
+    </div>
+  </body>
+</html>
