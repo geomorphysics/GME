@@ -1,6 +1,6 @@
 {
     "restructuredtext.confPath": "${workspaceFolder}/Sphinx/source",
-    "workbench.tree.indent": 14,
+    "workbench.tree.indent": 16,
     "editor.guides.indentation": false,
     "[git-commit]": {"editor.rulers": [50]},
     "[rst]": {"editor.rulers": [80]},
@@ -14,6 +14,7 @@
     "python.linting.enabled": true,
     "python.linting.mypyEnabled": false,
     "python.linting.flake8Enabled": false,
-    "python.linting.pylintEnabled": true
-}
+    "python.linting.pylintEnabled": true,
+    "python.formatting.provider": "autopep8",
+    "python.formatting.autopep8Args": ["--max-line-length=80"]}
 

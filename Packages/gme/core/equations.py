@@ -30,13 +30,9 @@ Requires Python packages/modules:
 ---------------------------------------------------------------------
 
 """
-# Disable these pylint errors because it doesn't understand SymPy syntax
-#   - notably minus signs in equations flag an error
-# pylint: disable=invalid-unary-operand-type, not-callable
+# Library
 import warnings
 import logging
-
-# Typing
 from typing import Dict, Optional
 
 # SymPy
@@ -127,7 +123,6 @@ class Equations(EquationsMixedIn):
     and to provide them in a form(sometimes lambdified) that can be used for
     numerical evaluation.
 
-    Much of the derivation sequence here keeps :math:`\eta` and :math:`\mu`
     unspecified, up until the Hamiltonian is defined, but eventually values
     for these parameters need to be substituted in order to make further
     progress. In this documentation, we set :math:`\eta = 3/2`, for now.
