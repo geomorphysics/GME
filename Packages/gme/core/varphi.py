@@ -67,6 +67,9 @@ class VarphiMixin:
         r"""
         Define flow component of erosion model function
 
+        Args:
+            do_new: use new form of flow model
+
         Attributes:
             varphi_model_ramp_eqn (`Equality`_):
                 :math:`\varphi{\left(\mathbf{r} \right)}
