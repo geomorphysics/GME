@@ -71,8 +71,13 @@
 to equation definition class.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.core.varphi.VarphiMixin.define_varphi_model_eqns">
-<span class="sig-name descname"><span class="pre">define_varphi_model_eqns</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">do_new</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.core.varphi.VarphiMixin.define_varphi_model_eqns" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">define_varphi_model_eqns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.core.varphi.VarphiMixin.define_varphi_model_eqns" title="Permalink to this definition">¶</a></dt>
 <dd><p>Define flow component of erosion model function</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>do_new</strong> – use new form of flow model</p>
+</dd>
+</dl>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="gme.core.varphi.VarphiMixin.varphi_model_ramp_eqn">
 <span class="sig-name descname"><span class="pre">varphi_model_ramp_eqn</span></span><a class="headerlink" href="#gme.core.varphi.VarphiMixin.varphi_model_ramp_eqn" title="Permalink to this definition">¶</a></dt>
@@ -352,9 +357,12 @@ to equation definition class.</p>
     <span class="n">xi_p_eqn</span><span class="p">:</span> <span class="n">Eq</span>
     <span class="n">p_pz_cosbeta_eqn</span><span class="p">:</span> <span class="n">Eq</span>
 
-    <span class="k">def</span> <span class="nf">define_varphi_model_eqns</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">do_new</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">define_varphi_model_eqns</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Define flow component of erosion model function</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            do_new: use new form of flow model</span>
 
 <span class="sd">        Attributes:</span>
 <span class="sd">            varphi_model_ramp_eqn (`Equality`_):</span>
@@ -379,14 +387,13 @@ to equation definition class.</p>
         <span class="c1"># The implicit assumption here is that upstream area A ~ x^2,</span>
         <span class="c1">#   which will not be true for a &quot;hillslope&quot; component,</span>
         <span class="c1">#   and for which we should have a transition to A ~ x</span>
-        <span class="k">if</span> <span class="n">do_new</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">varphi_model_ramp_eqn</span> \
-                <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">varphi_r</span><span class="p">(</span><span class="n">rvec</span><span class="p">),</span>
-                     <span class="n">varphi_0</span><span class="o">*</span><span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="n">varepsilon</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="n">mu</span><span class="o">*</span><span class="mi">2</span><span class="p">))</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">x</span><span class="p">:</span> <span class="n">Lc</span><span class="o">-</span><span class="n">rx</span><span class="p">})</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">varphi_model_ramp_eqn</span> \
-                <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">varphi_r</span><span class="p">(</span><span class="n">rvec</span><span class="p">),</span>
-                     <span class="n">varphi_0</span><span class="o">*</span><span class="p">((</span><span class="n">x</span><span class="o">/</span><span class="n">Lc</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="n">mu</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="n">varepsilon</span><span class="p">))</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">x</span><span class="p">:</span> <span class="n">Lc</span><span class="o">-</span><span class="n">rx</span><span class="p">})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">varphi_model_ramp_eqn</span> \
+            <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">varphi_r</span><span class="p">(</span><span class="n">rvec</span><span class="p">),</span>
+                    <span class="n">varphi_0</span><span class="o">*</span><span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="n">varepsilon</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="n">mu</span><span class="o">*</span><span class="mi">2</span><span class="p">))</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">x</span><span class="p">:</span> <span class="n">Lc</span><span class="o">-</span><span class="n">rx</span><span class="p">})</span>
+        <span class="c1"># else:</span>
+        <span class="c1">#     self.varphi_model_ramp_eqn \</span>
+        <span class="c1">#         = Eq(varphi_r(rvec),</span>
+        <span class="c1">#              varphi_0*((x/Lc)**(mu*2)+varepsilon)).subs({x: Lc-rx})</span>
 
         <span class="c1"># self.varphi_model_rampmu_chi0_eqn \</span>
         <span class="c1"># =Eq(varphi_r, varphi_0*((x/Lc)**(mu*2) + varepsilon)).subs({x:Lc-rx})</span>
