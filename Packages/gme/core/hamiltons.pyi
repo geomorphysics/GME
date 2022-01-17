@@ -1,5 +1,5 @@
 from sympy import Eq
-from typing import Any
+from typing import Any, Callable, Optional
 
 class HamiltonsMixin:
     H_eqn: Eq
@@ -7,6 +7,8 @@ class HamiltonsMixin:
     H_varphi_rx_eqn: Eq
     varphi_rx_eqn: Eq
     tanbeta_pxpz_eqn: Eq
+    vdotx_lambdified: Optional[Callable]
+    vdotz_lambdified: Optional[Callable]
     rdotx_rdot_alpha_eqn: Any
     rdotz_rdot_alpha_eqn: Any
     rdotx_pxpz_eqn: Any

@@ -109,7 +109,7 @@ class Graphing(GraphingBase):
         rx_array: np.ndarray,
         rz_array: np.ndarray,
         v_array: Optional[np.ndarray] = None,
-        n_t: int = None,
+        n_t: Optional[int] = None,
         n_rays: int = 4,
         ls: str = '-',
         sf: float = 1,
@@ -160,7 +160,7 @@ class Graphing(GraphingBase):
                          color=color)
             # if (i+i_off)//i_step==(i+i_off)/i_step:
                 for q in range(1, i-1, 3):
-                    if do_one_ray:
+                    if do_one_ray and v_array is not None:
                         v_rel = ((v_array[q]-v_min)/(v_max-v_min))**0.5
                         rgba = color_map(v_rel*0.8)
                     else:

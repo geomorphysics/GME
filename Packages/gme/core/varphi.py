@@ -63,7 +63,7 @@ class VarphiMixin:
     xi_p_eqn: Eq
     p_pz_cosbeta_eqn: Eq
 
-    def define_varphi_model_eqns(self, do_new: bool = True) -> None:
+    def define_varphi_model_eqns(self) -> None:
         r"""
         Define flow component of erosion model function
 
@@ -93,14 +93,13 @@ class VarphiMixin:
         # The implicit assumption here is that upstream area A ~ x^2,
         #   which will not be true for a "hillslope" component,
         #   and for which we should have a transition to A ~ x
-        if do_new:
-            self.varphi_model_ramp_eqn \
-                = Eq(varphi_r(rvec),
-                     varphi_0*(x+varepsilon)**(mu*2)).subs({x: Lc-rx})
-        else:
-            self.varphi_model_ramp_eqn \
-                = Eq(varphi_r(rvec),
-                     varphi_0*((x/Lc)**(mu*2)+varepsilon)).subs({x: Lc-rx})
+        self.varphi_model_ramp_eqn \
+            = Eq(varphi_r(rvec),
+                    varphi_0*(x+varepsilon)**(mu*2)).subs({x: Lc-rx})
+        # else:
+        #     self.varphi_model_ramp_eqn \
+        #         = Eq(varphi_r(rvec),
+        #              varphi_0*((x/Lc)**(mu*2)+varepsilon)).subs({x: Lc-rx})
 
         # self.varphi_model_rampmu_chi0_eqn \
         # =Eq(varphi_r, varphi_0*((x/Lc)**(mu*2) + varepsilon)).subs({x:Lc-rx})

@@ -28,7 +28,7 @@ Requires Python packages/modules:
 # Library
 import warnings
 import logging
-# from typing import Dict, Type, Optional  # , Tuple, Any, List
+from typing import Callable, Optional
 
 # SymPy
 from sympy import Eq, simplify, Matrix, sin, cos, factor, diff, Abs
@@ -56,6 +56,9 @@ class HamiltonsMixin:
     H_varphi_rx_eqn: Eq
     varphi_rx_eqn: Eq
     tanbeta_pxpz_eqn: Eq
+
+    vdotx_lambdified: Optional[Callable]
+    vdotz_lambdified: Optional[Callable]
 
     def define_rdot_eqns(self) -> None:
         r"""
@@ -124,6 +127,9 @@ class HamiltonsMixin:
             = Eq(rdotvec,
                  Matrix([self.rdotx_pxpz_eqn.rhs, self.rdotz_pxpz_eqn.rhs]))
         self.rdot_p_unity_eqn = Eq(rdotx*px+rdotz*pz, 1)
+
+        self.vdotx_lambdified = None
+        self.vdotz_lambdified = None
 
     def define_pdot_eqns(self) -> None:
         r"""

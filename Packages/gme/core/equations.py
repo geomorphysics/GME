@@ -64,14 +64,13 @@ class EquationsBase:
 
     def __init__(
         self,
-        parameters: Optional[Dict] = None,
+        # parameters: Optional[Dict] = None,
         eta_: Rational = Rational(3, 2),
         mu_: Rational = Rational(3, 4),
         beta_type: str = 'sin',
         varphi_type: str = 'ramp',
         # ibc_type: str = 'convex-up',
-        do_raw: bool = True,
-        do_new_varphi_model: bool = True
+        do_raw: bool = True
     ):
         r"""
         Constructor method.
@@ -165,7 +164,6 @@ class Equations(EquationsMixedIn):
     def __init__(
         self,
         parameters: Optional[Dict] = None,
-        do_new_varphi_model: bool = True,
         **kwargs
     ) -> None:
         r"""
@@ -180,7 +178,7 @@ class Equations(EquationsMixedIn):
         self.define_xi_eqns()
         self.define_xi_model_eqn()
         self.define_xi_related_eqns()
-        self.define_varphi_model_eqns(do_new=do_new_varphi_model)
+        self.define_varphi_model_eqns()
         self.define_varphi_related_eqns()
         self.define_Fstar_eqns()
         self.define_H_eqns()

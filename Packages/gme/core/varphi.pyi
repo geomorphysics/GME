@@ -16,7 +16,7 @@ class VarphiMixin:
     varphi_model_sramp_eqn: Any
     varphi_model_srampmu_eqn: Any
     varphi_rx_eqn: Any
-    def define_varphi_model_eqns(self, do_new: bool = ...) -> None: ...
+    def define_varphi_model_eqns(self) -> None: ...
     p_varphi_beta_eqn: Any
     p_varphi_pxpz_eqn: Any
     p_rx_pxpz_eqn: Any
