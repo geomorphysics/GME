@@ -383,7 +383,7 @@ to equation definition class.</p>
 <span class="sd">                    if `self.varphi_type==&#39;ramp-flat&#39;`</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;core.varphi.define_varphi_model_eqns&#39;</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;gme.core.varphi.define_varphi_model_eqns&#39;</span><span class="p">)</span>
         <span class="c1"># The implicit assumption here is that upstream area A ~ x^2,</span>
         <span class="c1">#   which will not be true for a &quot;hillslope&quot; component,</span>
         <span class="c1">#   and for which we should have a transition to A ~ x</span>
@@ -496,7 +496,7 @@ to equation definition class.</p>
 <span class="sd">                {\varphi_0 \left(\varepsilon</span>
 <span class="sd">                + \left(\dfrac{x_{1} - {r}^x}{x_{1}}\right)^{2 \mu}\right)}`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;core.varphi.define_varphi_related_eqns&#39;</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;gme.core.varphi.define_varphi_related_eqns&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">p_varphi_beta_eqn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">p_xi_eqn</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span>
             <span class="n">e2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xi_varphi_beta_eqn</span><span class="p">))</span>
         <span class="c1"># Note force px &gt;= 0</span>

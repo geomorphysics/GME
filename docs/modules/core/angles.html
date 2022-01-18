@@ -327,7 +327,7 @@ and <span class="math notranslate nohighlight">\(\beta\)</span>.</p>
 <span class="sd">                = \dfrac{\left(\eta - 1\right) \tan{\left(\beta \right)}}</span>
 <span class="sd">                {\eta + \tan^{2}{\left(\beta \right)}}`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;core.angles.define_tanalpha_eqns&#39;</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;gme.core.angles.define_tanalpha_eqns&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tanalpha_rdot_eqn</span> \
             <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">simplify</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rdotz_rdot_alpha_eqn</span><span class="o">.</span><span class="n">rhs</span>
                           <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">rdotx_rdot_alpha_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">),</span>
@@ -390,7 +390,7 @@ and <span class="math notranslate nohighlight">\(\beta\)</span>.</p>
 <span class="sd">                :math:`\tan{\left(\beta \right)}</span>
 <span class="sd">                = \dfrac{\xi^{\downarrow} + v^{z}}{v^{x}}`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;core.angles.define_tanbeta_eqns&#39;</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;gme.core.angles.define_tanbeta_eqns&#39;</span><span class="p">)</span>
 
         <span class="c1"># eta_sub = {eta: self.eta_}</span>
 
@@ -461,7 +461,7 @@ and <span class="math notranslate nohighlight">\(\beta\)</span>.</p>
 <span class="sd">                :math:`\tan{\left(\beta \right)}</span>
 <span class="sd">                = \dfrac{\xi^{\downarrow} + v^{z}}{v^{x}}`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;core.angles.define_psi_eqns&#39;</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;gme.core.angles.define_psi_eqns&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">psi_alpha_beta_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">psi</span><span class="p">,</span> <span class="n">alpha</span><span class="o">-</span><span class="n">beta</span><span class="o">+</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">psi_alpha_eta_eqns</span> <span class="o">=</span> <span class="p">[</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">psi_alpha_beta_eqn</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">beta</span><span class="p">:</span> <span class="n">atan</span><span class="p">(</span><span class="n">tanbeta_alpha_eqn_</span><span class="o">.</span><span class="n">rhs</span><span class="p">)})</span>

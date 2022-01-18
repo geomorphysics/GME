@@ -57,7 +57,7 @@ aka ODE integration of Hamilton’s equations, for a velocity-boundary condition
 <hr class="docutils" />
 <dl class="simple">
 <dt>Requires Python packages/modules:</dt><dd><ul class="simple">
-<li><p><a class="reference external" href="https://numpy.org/doc/stable/reference/index.html#module-numpy" title="(in NumPy v1.21)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">NumPy</span></code></a></p></li>
+<li><p><a class="reference external" href="https://numpy.org/doc/stable/reference/index.html#module-numpy" title="(in NumPy v1.22)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">NumPy</span></code></a></p></li>
 <li><p><a class="reference external" href="https://github.com/geomorphysics/GME">GME</a></p></li>
 </ul>
 </dd>
@@ -163,7 +163,6 @@ left domain edge and to be vertical.</p>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        TBD</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-
         <span class="c1"># self.prep_arrays()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">t_ensemble_max</span> <span class="o">=</span> <span class="mf">0.0</span>
 
@@ -213,7 +212,7 @@ left domain edge and to be vertical.</p>
                     <span class="o">=</span> <span class="p">(</span><span class="n">rx0_</span><span class="p">,</span> <span class="n">rz0_</span><span class="o">+</span><span class="n">prev_rz0</span><span class="p">,</span> <span class="n">px0_</span><span class="p">,</span> <span class="n">pz0_</span><span class="p">)</span>
             <span class="n">prev_t_lag</span> <span class="o">+=</span> <span class="n">t_lag</span>
         <span class="k">for</span> <span class="n">ic_</span> <span class="ow">in</span> <span class="n">ic_list</span><span class="p">:</span>
-            <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;ode.vb.solve: </span><span class="si">{</span><span class="n">ic_</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;gme.ode.vb.solve: </span><span class="si">{</span><span class="n">ic_</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 
         <span class="c1"># Generate rays in reverse order so that the first ray is</span>
         <span class="c1">#     topographically the lowest</span>
@@ -240,7 +239,7 @@ left domain edge and to be vertical.</p>
             <span class="c1">#         initial profile, initial corner</span>
             <span class="c1"># if self.choice==&#39;Hamilton&#39;:</span>
             <span class="n">parameters_</span> <span class="o">=</span> <span class="p">{</span><span class="n">Lc</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">Lc</span><span class="p">]}</span>
-            <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;ode.vb.solve: calling solver: t_lag=</span><span class="si">{</span><span class="n">t_lag</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;gme.ode.vb.solve: calling solver: t_lag=</span><span class="si">{</span><span class="n">t_lag</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
             <span class="n">ivp_soln</span><span class="p">,</span> <span class="n">rpt_arrays</span> \
                 <span class="o">=</span> <span class="n">solve_Hamiltons_equations</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">model_dXdt_lambda</span><span class="p">,</span>
                                             <span class="n">method</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="p">,</span>

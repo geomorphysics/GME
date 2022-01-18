@@ -371,7 +371,7 @@ p_{x}^{2 \eta} x_{1}^{- 4 \mu}
 <span class="sd">            rdot_p_unity_eqn (`Equality`_):</span>
 <span class="sd">                :math:`p_{x} v^{x} + p_{z} v^{z} = 1`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;core.hamiltons.define_rdot_eqns&#39;</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;gme.core.hamiltons.define_rdot_eqns&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">rdotx_rdot_alpha_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">rdotx</span><span class="p">,</span> <span class="n">rdot</span><span class="o">*</span><span class="n">cos</span><span class="p">(</span><span class="n">alpha</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">rdotz_rdot_alpha_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">rdotz</span><span class="p">,</span> <span class="n">rdot</span><span class="o">*</span><span class="n">sin</span><span class="p">(</span><span class="n">alpha</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">rdotx_pxpz_eqn</span> <span class="o">=</span> <span class="n">factor</span><span class="p">(</span><span class="n">Eq</span><span class="p">(</span><span class="n">rdotx</span><span class="p">,</span> <span class="n">diff</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">H_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">,</span> <span class="n">px</span><span class="p">)))</span>
@@ -425,7 +425,7 @@ p_{x}^{2 \eta} x_{1}^{- 4 \mu}
 <span class="sd">                \left(\varepsilon x_{1}^{2 \mu} + \left(x_{1}</span>
 <span class="sd">                - {r}^x\right)^{2 \mu}\right) &amp; 0\end{matrix}\right]`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;core.hamiltons.define_pdot_eqns&#39;</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;gme.core.hamiltons.define_pdot_eqns&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">pdotx_pxpz_eqn</span> \
             <span class="o">=</span> <span class="n">simplify</span><span class="p">(</span><span class="n">Eq</span><span class="p">(</span><span class="n">pdotx</span><span class="p">,</span> <span class="p">(</span><span class="o">-</span><span class="n">diff</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">H_varphi_rx_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">,</span> <span class="n">rx</span><span class="p">))))</span> \
             <span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">Abs</span><span class="p">(</span><span class="n">pz</span><span class="p">):</span> <span class="o">-</span><span class="n">pz</span><span class="p">,</span>
@@ -467,7 +467,7 @@ p_{x}^{2 \eta} x_{1}^{- 4 \mu}
 <span class="sd">                \dot{p}_z = 0</span>
 <span class="sd">                \end{matrix}\right]`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;core.hamiltons.define_Hamiltons_eqns&#39;</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;gme.core.hamiltons.define_Hamiltons_eqns&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">hamiltons_eqns</span> \
             <span class="o">=</span> <span class="n">Matrix</span><span class="p">((</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">rdotx_pxpz_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">varphi_rx_eqn</span><span class="p">)),</span>

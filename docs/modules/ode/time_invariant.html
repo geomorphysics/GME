@@ -57,7 +57,7 @@ aka ODE integration of Hamilton’s equations.</p>
 <hr class="docutils" />
 <dl class="simple">
 <dt>Requires Python packages/modules:</dt><dd><ul class="simple">
-<li><p><a class="reference external" href="https://numpy.org/doc/stable/reference/index.html#module-numpy" title="(in NumPy v1.21)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">NumPy</span></code></a></p></li>
+<li><p><a class="reference external" href="https://numpy.org/doc/stable/reference/index.html#module-numpy" title="(in NumPy v1.22)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">NumPy</span></code></a></p></li>
 <li><p><a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/index.html#module-scipy" title="(in SciPy v1.7.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">SciPy</span></code></a></p></li>
 <li><p><a class="reference external" href="https://docs.sympy.org/latest/modules/index.html#module-sympy" title="(in SymPy v1.9)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">SymPy</span></code></a></p></li>
 <li><p><a class="reference external" href="https://github.com/geomorphysics/GMPLib">GMPLib</a></p></li>
@@ -136,6 +136,7 @@ at the end of the interpolation span</p></li>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="c1"># Library</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Callable</span>
 
 <span class="c1"># NumPy</span>
@@ -186,6 +187,7 @@ at the end of the interpolation span</p></li>
 <span class="sd">                optionally extrapolate (1) or don&#39;t extrapolate (1)</span>
 <span class="sd">                at the end of the interpolation span</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;gme.core.time_invariant.postprocessing&#39;</span><span class="p">)</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">postprocessing</span><span class="p">(</span><span class="n">spline_order</span><span class="o">=</span><span class="n">spline_order</span><span class="p">,</span>
                                <span class="n">extrapolation_mode</span><span class="o">=</span><span class="n">extrapolation_mode</span><span class="p">)</span>
         <span class="n">xiv0_</span> <span class="o">=</span> <span class="nb">float</span><span class="p">((</span><span class="n">xiv_0</span><span class="o">/</span><span class="n">xih_0</span><span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">gmeq</span><span class="o">.</span><span class="n">xiv0_xih0_Ci_eqn</span><span class="p">)))</span>
@@ -248,6 +250,7 @@ at the end of the interpolation span</p></li>
 <span class="sd">                optionally use Newton-Raphson method to find gradient values</span>
 <span class="sd">                (default is to find these values algebraically)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;gme.core.time_invariant.integrate_h_profile&#39;</span><span class="p">)</span>
         <span class="n">x_max_</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">Lc</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">))</span> <span class="k">if</span> <span class="n">x_max</span> <span class="ow">is</span> <span class="kc">None</span> \
             <span class="k">else</span> <span class="n">x_max</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">h_x_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">x_max_</span><span class="p">,</span> <span class="n">n_pts</span><span class="p">)</span>

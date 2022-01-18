@@ -287,7 +287,7 @@ The derivations below are for an erosion model with
 <span class="sd">            pz_xiv_eqn (:class:`~sympy.core.relational.Equality`):</span>
 <span class="sd">                :math:`{p_z} = -\dfrac{1}{\xi^{\downarrow}}`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;core.xi.define_xi_eqns&#39;</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;gme.core.xi.define_xi_eqns&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">xi_p_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">xi</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="n">p</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">xiv_pz_eqn</span> <span class="o">=</span> <span class="p">(</span><span class="n">Eq</span><span class="p">(</span><span class="n">xiv</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="o">/</span><span class="n">pz</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">p_xi_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">solve</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xi_p_eqn</span><span class="p">,</span> <span class="n">p</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
@@ -313,7 +313,7 @@ The derivations below are for an erosion model with
 <span class="sd">                :math:`\xi^{\perp}</span>
 <span class="sd">                = \varphi(\mathbf{r}) \, \left| \sin\beta \right|^\eta`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;core.xi.define_xi_model_eqn&#39;</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;gme.core.xi.define_xi_model_eqn&#39;</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">beta_type</span> <span class="o">==</span> <span class="s1">&#39;sin&#39;</span><span class="p">:</span>
             <span class="n">xi_model</span> <span class="o">=</span> <span class="n">varphi_r</span><span class="p">(</span><span class="n">rvec</span><span class="p">)</span><span class="o">*</span><span class="nb">abs</span><span class="p">(</span><span class="n">sin</span><span class="p">(</span><span class="n">beta</span><span class="p">))</span><span class="o">**</span><span class="n">eta</span>
         <span class="k">else</span><span class="p">:</span>
@@ -363,7 +363,7 @@ The derivations below are for an erosion model with
 <span class="sd">                a convenience variable, recording double the denominator of</span>
 <span class="sd">                :math:`\eta`, which must itself be a rational number</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;core.xi.define_xi_related_eqns&#39;</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;gme.core.xi.define_xi_related_eqns&#39;</span><span class="p">)</span>
         <span class="n">eta_dbldenom</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">denom</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">eta_</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">xiv_varphi_pxpz_eqn</span> <span class="o">=</span> <span class="n">simplify</span><span class="p">(</span>
             <span class="n">Eq</span><span class="p">(</span><span class="n">xiv</span><span class="p">,</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xi_varphi_beta_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="o">/</span><span class="n">cos</span><span class="p">(</span><span class="n">beta</span><span class="p">))</span>

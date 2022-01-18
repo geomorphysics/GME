@@ -186,7 +186,7 @@ and initial/boundary condition equations.</p>
 <span class="sd">        Constructor method</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">parameters</span><span class="o">=</span><span class="n">parameters</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;core.equations_extended.EquationsGeodesic&#39;</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;gme.core.equations_extended.EquationsGeodesic&#39;</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">prep_geodesic_eqns</span><span class="p">(</span><span class="n">parameters</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">do_raw</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">define_geodesic_eqns</span><span class="p">()</span>
@@ -207,7 +207,7 @@ and initial/boundary condition equations.</p>
 <span class="sd">        Constructor method</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">parameters</span><span class="o">=</span><span class="n">parameters</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;core.equations_extended.EquationsIdtx&#39;</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;gme.core.equations_extended.EquationsIdtx&#39;</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">define_idtx_fgtx_eqns</span><span class="p">()</span>
 
@@ -227,7 +227,7 @@ and initial/boundary condition equations.</p>
 <span class="sd">        Constructor method</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">parameters</span><span class="o">=</span><span class="n">parameters</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;core.equations_extended.EquationsIbc&#39;</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;gme.core.equations_extended.EquationsIbc&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ibc_type</span> <span class="o">=</span> <span class="n">ibc_type</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">prep_ibc_eqns</span><span class="p">()</span>
@@ -251,7 +251,7 @@ and initial/boundary condition equations.</p>
 <span class="sd">        Constructor method</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">parameters</span><span class="o">=</span><span class="n">parameters</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;core.equations_extended.EquationsIdtxIbc&#39;</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;gme.core.equations_extended.EquationsIdtxIbc&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ibc_type</span> <span class="o">=</span> <span class="n">ibc_type</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">prep_ibc_eqns</span><span class="p">()</span>
@@ -277,7 +277,7 @@ and initial/boundary condition equations.</p>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Constructor method.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;core.equations_extended.EquationsSetup&#39;</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;gme.core.equations_extended.EquationsSetup&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ibc_type</span> <span class="o">=</span> <span class="n">ibc_type</span>
 
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
