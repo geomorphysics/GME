@@ -93,7 +93,7 @@ class PxpolyMixin:
                 - \left(\xi^{\downarrow{0}}\right)^{4} p_{x}^{2}
                 - \left(\xi^{\downarrow{0}}\right)^{2} = 0`
         """
-        logging.info(f'core.pxpoly.define_px_poly_eqn (ndim={do_ndim})')
+        logging.info(f'gme.core.pxpoly.define_px_poly_eqn (ndim={do_ndim})')
         if do_ndim:
             # Non-dimensionalized version
             varphi0_solns = solve(

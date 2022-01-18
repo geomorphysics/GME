@@ -78,7 +78,7 @@ class AnglesMixin:
                 = \dfrac{\left(\eta - 1\right) \tan{\left(\beta \right)}}
                 {\eta + \tan^{2}{\left(\beta \right)}}`
         """
-        logging.info('core.angles.define_tanalpha_eqns')
+        logging.info('gme.core.angles.define_tanalpha_eqns')
         self.tanalpha_rdot_eqn \
             = Eq(simplify(self.rdotz_rdot_alpha_eqn.rhs
                           / self.rdotx_rdot_alpha_eqn.rhs),
@@ -141,7 +141,7 @@ class AnglesMixin:
                 :math:`\tan{\left(\beta \right)}
                 = \dfrac{\xi^{\downarrow} + v^{z}}{v^{x}}`
         """
-        logging.info('core.angles.define_tanbeta_eqns')
+        logging.info('gme.core.angles.define_tanbeta_eqns')
 
         # eta_sub = {eta: self.eta_}
 
@@ -212,7 +212,7 @@ class AnglesMixin:
                 :math:`\tan{\left(\beta \right)}
                 = \dfrac{\xi^{\downarrow} + v^{z}}{v^{x}}`
         """
-        logging.info('core.angles.define_psi_eqns')
+        logging.info('gme.core.angles.define_psi_eqns')
         self.psi_alpha_beta_eqn = Eq(psi, alpha-beta+pi/2)
         self.psi_alpha_eta_eqns = [
             self.psi_alpha_beta_eqn.subs({beta: atan(tanbeta_alpha_eqn_.rhs)})

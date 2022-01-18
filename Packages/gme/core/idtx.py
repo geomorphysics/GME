@@ -286,7 +286,7 @@ class IdtxMixin:
                 + 2 \sqrt[3]{2}\right)}`
 
         """
-        logging.info('core.idtx.define_idtx_fgtx_eqns')
+        logging.info('gme.core.idtx.define_idtx_fgtx_eqns')
         # if self.eta_ == 2:
         #     pz_tanbeta_varphi_eqn = ( self.pz_p_beta_eqn
         #      .subs({p:self.p_varphi_beta_eqn.rhs})

@@ -65,7 +65,7 @@ class NdimMixin:
 
         Attributes:
         """
-        logging.info('core.ndim.nondimensionalize')
+        logging.info('gme.core.ndim.nondimensionalize')
         varsub: Dict = {}
 
         self.rx_rxhat_eqn = Eq(rx, Lc*rxhat)
@@ -203,7 +203,7 @@ class NdimMixin:
         """
         Group Hamilton's equations into matrix form
         """
-        logging.info('core.ndim.define_nodimensionalized_Hamiltons_eqns')
+        logging.info('gme.core.ndim.define_nodimensionalized_Hamiltons_eqns')
         self.hamiltons_ndim_eqns = Matrix((
                                         self.rdotxhat_eqn.rhs,
                                         self.rdotzhat_eqn.rhs,

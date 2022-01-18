@@ -23,6 +23,7 @@ Requires Python packages/modules:
 """
 # Library
 import warnings
+import logging
 from typing import List, Callable
 
 # NumPy
@@ -73,6 +74,7 @@ class TimeInvariantSolution(SingleRaySolution):
                 optionally extrapolate (1) or don't extrapolate (1)
                 at the end of the interpolation span
         """
+        logging.info('gme.core.time_invariant.postprocessing')
         super().postprocessing(spline_order=spline_order,
                                extrapolation_mode=extrapolation_mode)
         xiv0_ = float((xiv_0/xih_0).subs(e2d(self.gmeq.xiv0_xih0_Ci_eqn)))
@@ -135,6 +137,7 @@ class TimeInvariantSolution(SingleRaySolution):
                 optionally use Newton-Raphson method to find gradient values
                 (default is to find these values algebraically)
         """
+        logging.info('gme.core.time_invariant.integrate_h_profile')
         x_max_: float = float(Lc.subs(self.parameters)) if x_max is None \
             else x_max
         self.h_x_array: np.ndarray = np.linspace(0, x_max_, n_pts)

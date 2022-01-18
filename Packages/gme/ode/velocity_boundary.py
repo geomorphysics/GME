@@ -75,7 +75,6 @@ class VelocityBoundarySolution(ExtendedSolution):
         """
         TBD
         """
-
         # self.prep_arrays()
         self.t_ensemble_max = 0.0
 
@@ -125,7 +124,7 @@ class VelocityBoundarySolution(ExtendedSolution):
                     = (rx0_, rz0_+prev_rz0, px0_, pz0_)
             prev_t_lag += t_lag
         for ic_ in ic_list:
-            logging.debug(f'ode.vb.solve: {ic_}')
+            logging.debug(f'gme.ode.vb.solve: {ic_}')
 
         # Generate rays in reverse order so that the first ray is
         #     topographically the lowest
@@ -152,7 +151,7 @@ class VelocityBoundarySolution(ExtendedSolution):
             #         initial profile, initial corner
             # if self.choice=='Hamilton':
             parameters_ = {Lc: self.parameters[Lc]}
-            logging.debug(f'ode.vb.solve: calling solver: t_lag={t_lag}')
+            logging.debug(f'gme.ode.vb.solve: calling solver: t_lag={t_lag}')
             ivp_soln, rpt_arrays \
                 = solve_Hamiltons_equations(model=model_dXdt_lambda,
                                             method=self.method,

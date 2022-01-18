@@ -74,7 +74,7 @@ class RpMixin:
             p_pz_cosbeta_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`p = -\dfrac{p_z}{\cos\beta}`
         """
-        logging.info('core.rp.define_p_eqns')
+        logging.info('gme.core.rp.define_p_eqns')
         self.p_covec_eqn = Eq(pcovec, Matrix([px, pz]).T)
         self.px_p_beta_eqn = Eq(px, p*sin(beta))
         self.pz_p_beta_eqn = Eq(pz, -p*cos(beta))
@@ -107,7 +107,7 @@ class RpMixin:
             rz_r_alpha_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`r^z = r\sin\alpha`
         """
-        logging.info('core.rp.define_r_eqns')
+        logging.info('gme.core.rp.define_r_eqns')
         self.rx_r_alpha_eqn = Eq(rx, r*cos(alpha))
         self.rz_r_alpha_eqn = Eq(rz, r*sin(alpha))
 

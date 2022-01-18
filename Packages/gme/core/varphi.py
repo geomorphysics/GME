@@ -89,7 +89,7 @@ class VarphiMixin:
                     if `self.varphi_type=='ramp-flat'`
 
         """
-        logging.info('core.varphi.define_varphi_model_eqns')
+        logging.info('gme.core.varphi.define_varphi_model_eqns')
         # The implicit assumption here is that upstream area A ~ x^2,
         #   which will not be true for a "hillslope" component,
         #   and for which we should have a transition to A ~ x
@@ -202,7 +202,7 @@ class VarphiMixin:
                 {\varphi_0 \left(\varepsilon
                 + \left(\dfrac{x_{1} - {r}^x}{x_{1}}\right)^{2 \mu}\right)}`
         """
-        logging.info('core.varphi.define_varphi_related_eqns')
+        logging.info('gme.core.varphi.define_varphi_related_eqns')
         self.p_varphi_beta_eqn = self.p_xi_eqn.subs(
             e2d(self.xi_varphi_beta_eqn))
         # Note force px >= 0

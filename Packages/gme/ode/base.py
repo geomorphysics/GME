@@ -101,10 +101,9 @@ class BaseSolution(ABC):
         # ODE solution method
         self.choice: str = choice
         self.method: str = method
-        report = 'ode.base.BaseSolution.init: '
         task = 'Solve Hamilton\'s ODEs' if self.choice == 'Hamilton' \
             else 'Solve geodesic ODEs'
-        report = f'ode.base.BaseSolution.init: {task} '\
+        report = f'gme.ode.base.BaseSolution.init:\n   {task} '\
             + f'using {method} method of integration'
         logging.info(report)
         self.do_dense: bool = do_dense
@@ -180,10 +179,10 @@ class BaseSolution(ABC):
         # constants set
         #   - generates a "matrix" of the 4 Hamilton equations with rx,rz,px,pz
         #     as variables and the rest as numbers
-        log_string = 'ode.base.BaseSolution.make_model:'
+        log_string = 'gme.ode.base.BaseSolution.make_model:\n   '
         if self.choice == 'Hamilton':
             logging.info(
-                f'{log_string} Constructing model Hamilton\'s equations')
+                f'{log_string}Constructing model Hamilton\'s equations')
             drpdt_eqn_matrix = simplify(
                 self.gmeq.hamiltons_eqns.subs(self.parameters))
             # .subs({pz:-Abs(pz)})  # HACK - may need this
@@ -191,7 +190,7 @@ class BaseSolution(ABC):
             return lambda t_, rp_: \
                 np.ndarray.flatten(drpdt_raw_lambda(rp_[0], rp_[2], rp_[3]))
 
-        logging.info(f'{log_string} Constructing model geodesic equations')
+        logging.info(f'{log_string}Constructing model geodesic equations')
         drvdt_eqn_matrix = Matrix(
             ([(eq_.rhs) for eq_ in self.gmeq.geodesic_eqns]))
         drvdt_raw_lambda = lambdify([rx, rdotx, rdotz], drvdt_eqn_matrix)

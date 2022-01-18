@@ -68,7 +68,7 @@ class FundamentalMixin:
                 \left(p_{x}^{2} + p_{z}^{2}\right)^{\frac{1}{2}-\frac{\eta}{2}}
                 \varphi{\left(\mathbf{r} \right)}`
         """
-        logging.info('core.fundamental.define_Fstar_eqns')
+        logging.info('gme.core.fundamental.define_Fstar_eqns')
         # Note force px >= 0
         self.Okubo_Fstar_eqn: Eq \
             = simplify(
@@ -100,7 +100,7 @@ class FundamentalMixin:
                 \left(\varepsilon x_{1}^{2 \mu} +
                 \left(x_{1} - {r}^x\right)^{2 \mu}\right)^{2}}{2}`
         """
-        logging.info('core.fundamental.define_H_eqns')
+        logging.info('gme.core.fundamental.define_H_eqns')
         self.H_eqn: Eq \
             = Eq(H, simplify(self.Fstar_eqn.rhs**2/2))
 

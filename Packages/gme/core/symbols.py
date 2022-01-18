@@ -18,7 +18,7 @@ from sympy.physics.units import length, time
 from sympy import symbols, MatrixSymbol, Function
 
 # import logging
-# logging.info('core.symbols')
+# logging.info('gme.core.symbols')
 
 
 i, j, k, l, m = symbols(r'i j k, l, m',  real=True)

@@ -71,7 +71,7 @@ class SingleRaySolution(ExtendedSolution):
             = [self.initial_conditions()]
         self.model_dXdt_lambda = self.make_model()
         parameters_ = {Lc: self.parameters[Lc]}
-        logging.debug('ode.single_ray.solve: calling solver')
+        logging.debug('gme.ode.single_ray.solve: calling solver')
         (ivp_soln, rpt_arrays) \
             = solve_Hamiltons_equations(
                 model=self.model_dXdt_lambda,

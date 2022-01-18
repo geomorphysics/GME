@@ -64,7 +64,7 @@ class EquationsBase:
 
     def __init__(
         self,
-        # parameters: Optional[Dict] = None,
+        parameters: Optional[Dict] = None,
         eta_: Rational = Rational(3, 2),
         mu_: Rational = Rational(3, 4),
         beta_type: str = 'sin',
@@ -76,7 +76,7 @@ class EquationsBase:
         Constructor method.
         """
 
-        logging.info('core.equations.EquationsBase')
+        logging.info('gme.core.equations.EquationsBase')
 
         self.eta_ = eta_
         self.mu_ = mu_
@@ -111,7 +111,7 @@ class EquationsMixedIn(
         r"""
         Constructor method.
         """
-        logging.info('core.equations.EquationsMixedIn')
+        logging.info('gme.core.equations.EquationsMixedIn')
 
         super().__init__(**kwargs)
 
@@ -169,7 +169,7 @@ class Equations(EquationsMixedIn):
         r"""
         Constructor method.
         """
-        logging.info('core.equations.Equations')
+        logging.info('gme.core.equations.Equations')
 
         super().__init__(parameters=parameters, **kwargs)
 

@@ -63,7 +63,7 @@ class EquationSubset:
         """
         TBD
         """
-        logging.info('core.equations_subset.EquationSubset')
+        logging.info('gme.core.equations_subset.EquationSubset')
         sub = parameters.copy()
         if do_revert and do_ndim:
             undimsub = {pxhat: px, pzhat: pz, rxhat: rx, xivhat: xiv,
