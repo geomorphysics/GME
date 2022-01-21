@@ -41,18 +41,13 @@ from sympy import (
     Abs,
     Symbol,
     Poly,
-    Rational,
     N,
 )
 
 # GME
 from gme.core.symbols import (
-    eta,
-    mu,
-    Ci,
     xiv,
     xiv_0,
-    varepsilonhat,
     xhat,
     dzdx,
     xivhat_0,
@@ -188,7 +183,17 @@ def px_value(
     return solve(Eq(px_poly_eqn_.gens[0], pxgen), px_var_)[0]
 
 
-def find_dzdx_poly_root(dzdx_poly_: Poly, xhat_: float, xivhat0_: float) -> Any:
+def find_dzdx_poly_root(
+    dzdx_poly_: Poly,
+    xhat_: float,
+    xivhat0_: float,
+) -> Any:
+    """
+    TODO.
+
+    Args:
+        TODO
+    """
     dzdx_poly_roots = nroots(dzdx_poly_.subs({xhat: xhat_, xivhat_0: xivhat0_}))
     dzdx_poly_root = [
         root_
@@ -200,24 +205,15 @@ def find_dzdx_poly_root(dzdx_poly_: Poly, xhat_: float, xivhat0_: float) -> Any:
 
 def make_dzdx_poly(
     dzdx_Ci_polylike_eqn_: Eq,
-    eta_: Rational,
-    mu_: Rational,
-    Ci_: Rational,
-    varepsilonhat_: float,
-    xivhat0_: float,
     sub_: Dict,
 ) -> Poly:
-    dzdx_eqn_ = N(
-        dzdx_Ci_polylike_eqn_.subs(
-            {
-                eta: eta_,
-                mu: mu_,
-                Ci: Ci_,
-                varepsilonhat: varepsilonhat_,
-                xivhat_0: xivhat0_,
-            }
-        ).subs(sub_)
-    )
+    """
+    TODO.
+
+    Args:
+        TODO
+    """
+    dzdx_eqn_ = N(dzdx_Ci_polylike_eqn_.subs(sub_))
     return poly(dzdx_eqn_.lhs, dzdx)
 
     #
