@@ -26,7 +26,7 @@ Requires Python packages/modules:
 # Library
 import warnings
 import logging
-from typing import Dict
+from typing import Dict, Optional
 
 # GME
 from gme.core.equations import EquationsMixedIn, Equations
@@ -50,7 +50,7 @@ class EquationsGeodesic(Equations, GeodesicMixin):
 
     def __init__(
         self,
-        parameters: Dict,
+        parameters: Optional[Dict] = None,
         **kwargs
     ) -> None:
         r"""
@@ -71,7 +71,7 @@ class EquationsIdtx(Equations, IdtxMixin):
 
     def __init__(
         self,
-        parameters: Dict,
+        parameters: Optional[Dict] = None,
         **kwargs
     ) -> None:
         r"""
@@ -90,7 +90,7 @@ class EquationsIbc(Equations, IbcMixin):
 
     def __init__(
         self,
-        parameters: Dict,
+        parameters: Optional[Dict] = None,
         ibc_type: str = 'convex-up',
         **kwargs
     ) -> None:
@@ -114,7 +114,7 @@ class EquationsIdtxIbc(EquationsIdtx, IbcMixin):
 
     def __init__(
         self,
-        parameters: Dict,
+        parameters: Optional[Dict] = None,
         ibc_type: str = 'convex-up',
         **kwargs
     ) -> None:

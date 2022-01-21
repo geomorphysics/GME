@@ -45,16 +45,18 @@ from gme.core.varphi import VarphiMixin
 from gme.core.fundamental import FundamentalMixin
 from gme.core.hamiltons import HamiltonsMixin
 from gme.core.ndim import NdimMixin
+from gme.core.profile import ProfileMixin
 from gme.core.angles import AnglesMixin
 from gme.core.metrictensor import MetricTensorMixin
 from gme.core.pxpoly import PxpolyMixin
+
 # from gme.core.idtx import IdtxMixin
 # from gme.core.geodesic import GeodesicMixin
 # from gme.core.ibc import IbcMixin
 
 warnings.filterwarnings("ignore")
 
-__all__ = ['EquationsBase', 'EquationsMixedIn', 'Equations']
+__all__ = ["EquationsBase", "EquationsMixedIn", "Equations"]
 
 
 class EquationsBase:
@@ -67,16 +69,16 @@ class EquationsBase:
         parameters: Optional[Dict] = None,
         eta_: Rational = Rational(3, 2),
         mu_: Rational = Rational(3, 4),
-        beta_type: str = 'sin',
-        varphi_type: str = 'ramp',
+        beta_type: str = "sin",
+        varphi_type: str = "ramp",
         # ibc_type: str = 'convex-up',
-        do_raw: bool = True
+        do_raw: bool = True,
     ):
         r"""
         Constructor method.
         """
 
-        logging.info('gme.core.equations.EquationsBase')
+        logging.info("gme.core.equations.EquationsBase")
 
         self.eta_ = eta_
         self.mu_ = mu_
@@ -87,31 +89,29 @@ class EquationsBase:
 
 
 class EquationsMixedIn(
-            EquationsBase,
-            RpMixin,
-            XiMixin,
-            VarphiMixin,
-            FundamentalMixin,
-            HamiltonsMixin,
-            NdimMixin,
-            AnglesMixin,
-            MetricTensorMixin,
-            PxpolyMixin,
-        ):
+    EquationsBase,
+    RpMixin,
+    XiMixin,
+    VarphiMixin,
+    FundamentalMixin,
+    HamiltonsMixin,
+    NdimMixin,
+    ProfileMixin,
+    AnglesMixin,
+    MetricTensorMixin,
+    PxpolyMixin,
+):
     r"""
     Extended base class that's furnished with
     mixins providing all the basic equation definitions, but none of
     which are automatically acted upon.
     """
 
-    def __init__(
-        self,
-        **kwargs
-    ) -> None:
+    def __init__(self, **kwargs) -> None:
         r"""
         Constructor method.
         """
-        logging.info('gme.core.equations.EquationsMixedIn')
+        logging.info("gme.core.equations.EquationsMixedIn")
 
         super().__init__(**kwargs)
 
@@ -161,15 +161,11 @@ class Equations(EquationsMixedIn):
             See below
     """
 
-    def __init__(
-        self,
-        parameters: Optional[Dict] = None,
-        **kwargs
-    ) -> None:
+    def __init__(self, parameters: Optional[Dict] = None, **kwargs) -> None:
         r"""
         Constructor method.
         """
-        logging.info('gme.core.equations.Equations')
+        logging.info("gme.core.equations.Equations")
 
         super().__init__(parameters=parameters, **kwargs)
 
@@ -187,6 +183,7 @@ class Equations(EquationsMixedIn):
         self.define_Hamiltons_eqns()
         self.nondimensionalize()
         self.define_nodimensionalized_Hamiltons_eqns()
+        self.define_z_eqns()
         self.define_tanalpha_eqns()
         self.define_tanbeta_eqns()
         self.define_psi_eqns()
