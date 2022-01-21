@@ -66,8 +66,10 @@ def integrate_dzdx(
     xivhat0_: float = 1,
     x_end: float = 0.999,
 ) -> Tuple[np.ndarray, np.ndarray]:
-    """
-    TODO
+    r"""
+    Numerically integrate a sequence of $\mathrm{d}z/\mathrm{d}x$ values,
+    computed at regular $x$ values, to generate a topographic profile
+    $h(x)$.
     """
     sub_copy = sub_.copy()
     sub_copy[xivhat_0] = xivhat0_
