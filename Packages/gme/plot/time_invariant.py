@@ -1191,6 +1191,7 @@ class TimeInvariant(Graphing):
         name: str,
         fig_size: Optional[Tuple[float, float]] = None,
         dpi: Optional[int] = None,
+        aspect: Optional[float] = None,
         do_direct: bool = False,
     ) -> None:
         r"""
@@ -1239,24 +1240,28 @@ class TimeInvariant(Graphing):
                 + r"$\degree$",
             )
 
-        def make_eta_Ci_list(Ci_choice):
+        def make_eta_Ci_list(eta_choice):
             eta_Ci_list = [
-                (eta_, Ci_) for (eta_, Ci_) in gmes if eta_ == Ci_choice
+                (eta_, Ci_) for (eta_, Ci_) in gmes if eta_ == eta_choice
             ]
-            return sorted(eta_Ci_list, key=lambda Ci_: Ci_[1], reverse=True)
+            return sorted(
+                eta_Ci_list, key=lambda eta_Ci_: eta_Ci_[1], reverse=True
+            )
 
         eta_Ci_list_1p5 = make_eta_Ci_list(Rational(3, 2))
         eta_Ci_list_0p5 = make_eta_Ci_list(Rational(1, 2))
+        eta_Ci_list_0p25 = make_eta_Ci_list(Rational(1, 4))
 
         for (eta_Ci_list_, dashing_, lw_) in [
             (eta_Ci_list_1p5, "-", 2),
             (eta_Ci_list_0p5, ":", 3),
+            (eta_Ci_list_0p25, "-", 2),
         ]:
             n_ = len(eta_Ci_list_)
             for i_, (eta_, Ci_) in enumerate(eta_Ci_list_):
                 plot_h_profile(eta_, Ci_, i_, n_, lw=lw_, dashing=dashing_)
 
-        axes.set_aspect(1)
+        axes.set_aspect(1 if aspect is None else aspect)
         plt.grid(True, ls=":")
         plt.xlim(-0.02, 1.02)
         plt.xlabel(r"Distance, $x/L_{\mathrm{c}}$  [-]", fontsize=16)

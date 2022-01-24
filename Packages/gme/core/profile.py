@@ -39,13 +39,6 @@ from sympy import (
     tan,
     sin,
     cos,
-    poly,
-    Poly,
-    nroots,
-    im,
-    re,
-    Rational,
-    N,
 )
 
 # GMPLib
@@ -54,8 +47,6 @@ from gmplib.utils import e2d
 # GME
 from gme.core.symbols import (
     eta,
-    mu,
-    Ci,
     beta,
     xiv,
     varphi_r,

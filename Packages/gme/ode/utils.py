@@ -26,9 +26,7 @@ from sympy import Eq
 
 # GME
 from gme.core.utils import find_dzdx_poly_root, make_dzdx_poly
-from gme.core.symbols import (
-    xivhat_0,
-)
+from gme.core.symbols import xivhat_0, eta
 
 warnings.filterwarnings("ignore")
 
@@ -73,10 +71,12 @@ def integrate_dzdx(
     """
     sub_copy = sub_.copy()
     sub_copy[xivhat_0] = xivhat0_
+    eta_ = eta.subs(sub_)
     dzdx_poly_ = make_dzdx_poly(gmeq.dzdx_Ci_polylike_eqn, sub_copy)
     xhat_array = np.linspace(0, x_end, n_pts, endpoint=True)
     dzdxhat_array = [
-        find_dzdx_poly_root(dzdx_poly_, xhat_, xivhat0_) for xhat_ in xhat_array
+        find_dzdx_poly_root(dzdx_poly_, xhat_, xivhat0_, eta_=eta_)
+        for xhat_ in xhat_array
     ]
     zhat_array = cumtrapz(dzdxhat_array, xhat_array, initial=0)
     return (xhat_array, zhat_array)

@@ -42,10 +42,13 @@ from sympy import (
     Symbol,
     Poly,
     N,
+    Rational,
 )
 
 # GME
 from gme.core.symbols import (
+    eta,
+    Ci,
     xiv,
     xiv_0,
     xhat,
@@ -187,6 +190,10 @@ def find_dzdx_poly_root(
     dzdx_poly_: Poly,
     xhat_: float,
     xivhat0_: float,
+    guess: float = 0.1,
+    eta_: Optional[Rational] = None,
+    method: str = "brentq",
+    bracket: Tuple[float, float] = (0, 1e3),
 ) -> Any:
     """
     TODO.
@@ -194,12 +201,37 @@ def find_dzdx_poly_root(
     Args:
         TODO
     """
-    dzdx_poly_roots = nroots(dzdx_poly_.subs({xhat: xhat_, xivhat_0: xivhat0_}))
-    dzdx_poly_root = [
-        root_
-        for root_ in dzdx_poly_roots
-        if Abs(im(root_)) < 1e-10 and re(root_) > 0
-    ][0]
+    if eta_ is not None and eta_ == Rational(1, 4):
+        poly_eqn_ = dzdx_poly_.subs({xhat: xhat_, xivhat_0: xivhat0_})
+        poly_lambda: Callable = lambdify([dzdx], poly_eqn_.as_expr())
+        # return poly_eqn_
+        dpoly_lambda: Optional[Callable] = lambdify(
+            [dzdx],
+            diff(poly_eqn_.as_expr(), dzdx) if method == "newton" else None,
+        )
+        bracket_: Optional[Tuple[float, float]] = (
+            bracket if method == "brentq" else None
+        )
+        for guess_ in [0, guess]:
+            root_search = root_scalar(
+                poly_lambda,
+                fprime=dpoly_lambda,
+                method=method,
+                bracket=bracket_,
+                x0=guess_,
+            )
+            if root_search.converged:
+                break
+        dzdx_poly_root: float = root_search.root
+    else:
+        dzdx_poly_roots = nroots(
+            dzdx_poly_.subs({xhat: xhat_, xivhat_0: xivhat0_})
+        )
+        dzdx_poly_root = [
+            root_
+            for root_ in dzdx_poly_roots
+            if Abs(im(root_)) < 1e-10 and re(root_) > 0
+        ][0]
     return dzdx_poly_root
 
 
@@ -213,7 +245,16 @@ def make_dzdx_poly(
     Args:
         TODO
     """
-    dzdx_eqn_ = N(dzdx_Ci_polylike_eqn_.subs(sub_))
-    return poly(dzdx_eqn_.lhs, dzdx)
+    eta_ = eta.subs(sub_)
+    # Bit of a hack - assumes the dzdx ODE has only two "arg" terms
+    #  for $\eta=1/4$
+    if eta_ == Rational(1, 4):
+        dzdx_eqn_ = dzdx_Ci_polylike_eqn_.subs({eta: Rational(1, 4)})
+        dzdx_eqn_ = Eq(
+            dzdx_eqn_.lhs.args[0] ** 2 - dzdx_eqn_.lhs.args[1] ** 2, 0
+        )
+    else:
+        dzdx_eqn_ = dzdx_Ci_polylike_eqn_
+    return poly(N(dzdx_eqn_.lhs.subs(sub_)), dzdx)
 
     #
