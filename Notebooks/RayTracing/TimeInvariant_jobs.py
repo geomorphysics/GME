@@ -1,6 +1,7 @@
-
-['TimeInvariant_sinbeta_ramp_eta1p5_ratio0p5_xiv60']
-['TimeInvariant_sinbeta_ramp_eta1p5_ratio0p5_xiv10']
-['TimeInvariant_sinbeta_ramp_eta1p5_ratio0p5_xiv8']
-['TimeInvariant_sinbeta_ramp_eta0p5_ratio0p5_xiv80']
-['TimeInvariant_sinbeta_ramp_eta1p5_ratio0p5_xiv30']
+["TimeInvariant_eta1p5_Ci0p1"]
+["TimeInvariant_eta1p5_Ci1"]
+["TimeInvariant_eta1p5_Ci4"]
+["TimeInvariant_eta0p5_Ci0p1"]
+["TimeInvariant_eta0p5_Ci1"]
+["TimeInvariant_eta0p5_Ci4"]
+["TimeInvariant_eta0p25_Ci4"]
