@@ -1,5 +1,4 @@
 from sympy import Eq
-from typing import Any
 
 class IbcMixin:
     pz0_xiv0_eqn: Eq
@@ -10,12 +9,12 @@ class IbcMixin:
     ibc_type: str
     p_varphi_beta_eqn: Eq
     varphi_rx_eqn: Eq
+    boundary_eqns: Eq
+    rz_initial_eqn: Eq
+    tanbeta_initial_eqn: Eq
+    p_initial_eqn: Eq
+    px_initial_eqn: Eq
+    pz_initial_eqn: Eq
     def prep_ibc_eqns(self) -> None: ...
-    boundary_eqns: Any
     def define_ibc_eqns(self) -> None: ...
-    rz_initial_eqn: Any
-    tanbeta_initial_eqn: Any
-    p_initial_eqn: Any
-    px_initial_eqn: Any
-    pz_initial_eqn: Any
     def set_ibc_eqns(self) -> None: ...

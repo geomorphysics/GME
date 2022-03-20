@@ -26,24 +26,52 @@ Requires Python packages/modules:
 import warnings
 import logging
 from functools import reduce
-from typing import Dict
+from typing import Dict, Optional, Callable
 
 # SymPy
-from sympy import Eq, Rational, simplify, expand_trig, sqrt, solve, \
-                  sin, cos, tan, diff, Matrix, numer, denom, lambdify, \
-                  derive_by_array
+from sympy import (
+    Eq,
+    Rational,
+    simplify,
+    expand_trig,
+    sqrt,
+    solve,
+    sin,
+    cos,
+    tan,
+    diff,
+    Matrix,
+    numer,
+    denom,
+    lambdify,
+    derive_by_array,
+)
 
 # GMPLib
 from gmplib.utils import e2d
 
 # GME
-from gme.core.symbols import \
-    rx, rz, px, pz, beta, eta, rvec, varphi, varphi_r, \
-    mu, alpha, ta, rdotx, rdotz, varepsilon
+from gme.core.symbols import (
+    rx,
+    rz,
+    px,
+    pz,
+    beta,
+    eta,
+    rvec,
+    varphi,
+    varphi_r,
+    mu,
+    alpha,
+    ta,
+    rdotx,
+    rdotz,
+    varepsilon,
+)
 
 warnings.filterwarnings("ignore")
 
-__all__ = ['GeodesicMixin']
+__all__ = ["GeodesicMixin"]
 
 
 class GeodesicMixin:
@@ -58,6 +86,24 @@ class GeodesicMixin:
     tanalpha_beta_eqn: Eq
     tanalpha_rdot_eqn: Eq
     varphi_rx_eqn: Eq
+
+    # Definitions
+    gstar_ij_tanbeta_mat: Matrix
+    g_ij_tanbeta_mat: Matrix
+    tanbeta_poly_eqn: Eq
+    tanbeta_eqn: Eq
+    gstar_ij_tanalpha_mat: Matrix
+    gstar_ij_mat: Matrix
+    g_ij_tanalpha_mat: Matrix
+    g_ij_mat: Matrix
+    g_ij_mat_lambdified: Optional[Callable]
+    gstar_ij_mat_lambdified: Optional[Callable]
+    dg_rk_ij_mat: Matrix
+    christoffel_ij_k_rx_rdot_lambda: Optional[Callable]
+    christoffel_ij_k_lambda: Optional[Callable]
+    geodesic_eqns: Matrix
+    vdotx_lambdified: Optional[Callable]
+    vdotz_lambdified: Optional[Callable]
 
     def prep_geodesic_eqns(self, parameters: Dict = None):
         r"""
@@ -130,7 +176,7 @@ class GeodesicMixin:
             gstar_ij_mat_lambdified (function) :
                 lambdified version of `gstar_ij_mat`
         """
-        logging.info('gme.core.geodesic.prep_geodesic_eqns')
+        logging.info("gme.core.geodesic.prep_geodesic_eqns")
         self.gstar_ij_tanbeta_mat = None
         self.g_ij_tanbeta_mat = None
         self.tanbeta_poly_eqn = None
@@ -147,53 +193,60 @@ class GeodesicMixin:
         # if parameters is None: return
         H_ = self.H_eqn.rhs.subs(mu_eta_sub)
         # Assume indexing here ranges in [1,2]
-        def p_i_lambda(i): return [px, pz][i-1]
+        def p_i_lambda(i):
+            return [px, pz][i - 1]
+
         # r_i_lambda = lambda i: [rx, rz][i-1]
         # rdot_i_lambda = lambda i: [rdotx, rdotz][i-1]
 
-        def gstar_ij_lambda(i, j): return simplify(
-            Rational(2, 2)*diff(diff(H_, p_i_lambda(i)), p_i_lambda(j))
+        def gstar_ij_lambda(i, j):
+            return simplify(
+                Rational(2, 2) * diff(diff(H_, p_i_lambda(i)), p_i_lambda(j))
+            )
+
+        gstar_ij_mat = Matrix(
+            [
+                [gstar_ij_lambda(1, 1), gstar_ij_lambda(2, 1)],
+                [gstar_ij_lambda(1, 2), gstar_ij_lambda(2, 2)],
+            ]
         )
-        gstar_ij_mat = Matrix([[gstar_ij_lambda(1, 1), gstar_ij_lambda(2, 1)],
-                               [gstar_ij_lambda(1, 2), gstar_ij_lambda(2, 2)]])
         gstar_ij_pxpz_mat = gstar_ij_mat.subs({varphi_r(rvec): varphi})
         g_ij_pxpz_mat = gstar_ij_mat.inv().subs({varphi_r(rvec): varphi})
 
-        cosbeta_eqn = Eq(cos(beta), 1/sqrt(1+tan(beta)**2))
-        sinbeta_eqn = Eq(sin(beta), sqrt(1-1/(1+tan(beta)**2)))
-        sintwobeta_eqn = Eq(sin(2*beta), cos(beta)**2-sin(beta)**2)
+        cosbeta_eqn = Eq(cos(beta), 1 / sqrt(1 + tan(beta) ** 2))
+        sinbeta_eqn = Eq(sin(beta), sqrt(1 - 1 / (1 + tan(beta) ** 2)))
+        sintwobeta_eqn = Eq(sin(2 * beta), cos(beta) ** 2 - sin(beta) ** 2)
 
-        self.gstar_ij_tanbeta_mat = expand_trig(simplify(
-            gstar_ij_pxpz_mat.subs(e2d(self.px_pz_tanbeta_eqn))
-        )).subs(e2d(cosbeta_eqn))
-        self.g_ij_tanbeta_mat = expand_trig(simplify(
-            g_ij_pxpz_mat.subs(e2d(self.px_pz_tanbeta_eqn))
-        )).subs(e2d(cosbeta_eqn))
+        self.gstar_ij_tanbeta_mat = expand_trig(
+            simplify(gstar_ij_pxpz_mat.subs(e2d(self.px_pz_tanbeta_eqn)))
+        ).subs(e2d(cosbeta_eqn))
+        self.g_ij_tanbeta_mat = expand_trig(
+            simplify(g_ij_pxpz_mat.subs(e2d(self.px_pz_tanbeta_eqn)))
+        ).subs(e2d(cosbeta_eqn))
 
         tanalpha_beta_eqn = self.tanalpha_beta_eqn.subs(mu_eta_sub)
-        tanbeta_poly_eqn \
-            = Eq(numer(tanalpha_beta_eqn.rhs)
-                 - tanalpha_beta_eqn.lhs*denom(tanalpha_beta_eqn.rhs), 0) \
-            .subs({tan(alpha): ta})
+        tanbeta_poly_eqn = Eq(
+            numer(tanalpha_beta_eqn.rhs)
+            - tanalpha_beta_eqn.lhs * denom(tanalpha_beta_eqn.rhs),
+            0,
+        ).subs({tan(alpha): ta})
 
-        tanbeta_eqn = (Eq(tan(beta), solve(tanbeta_poly_eqn, tan(beta))[0]))
+        tanbeta_eqn = Eq(tan(beta), solve(tanbeta_poly_eqn, tan(beta))[0])
         self.tanbeta_poly_eqn = tanbeta_poly_eqn
         self.tanbeta_eqn = tanbeta_eqn
 
         # Replace all refs to beta with refs to alpha
         self.gstar_ij_tanalpha_mat = (
-            self.gstar_ij_tanbeta_mat
-                .subs(e2d(sintwobeta_eqn))
-                .subs(e2d(sinbeta_eqn))
-                .subs(e2d(cosbeta_eqn))
-                .subs(e2d(tanbeta_eqn))
+            self.gstar_ij_tanbeta_mat.subs(e2d(sintwobeta_eqn))
+            .subs(e2d(sinbeta_eqn))
+            .subs(e2d(cosbeta_eqn))
+            .subs(e2d(tanbeta_eqn))
         ).subs(mu_eta_sub)
         self.gstar_ij_mat = (
-            self.gstar_ij_tanalpha_mat
-                .subs({ta: tan(alpha)})
-                .subs(e2d(self.tanalpha_rdot_eqn))
-                .subs(e2d(self.varphi_rx_eqn.subs({varphi_r(rvec): varphi})))
-                .subs(parameters)
+            self.gstar_ij_tanalpha_mat.subs({ta: tan(alpha)})
+            .subs(e2d(self.tanalpha_rdot_eqn))
+            .subs(e2d(self.varphi_rx_eqn.subs({varphi_r(rvec): varphi})))
+            .subs(parameters)
         ).subs(mu_eta_sub)
         self.g_ij_tanalpha_mat = (
             expand_trig(self.g_ij_tanbeta_mat)
@@ -203,19 +256,16 @@ class GeodesicMixin:
             .subs(e2d(tanbeta_eqn))
         ).subs(mu_eta_sub)
         self.g_ij_mat = (
-            self.g_ij_tanalpha_mat
-                .subs({ta: rdotz/rdotx})
-                .subs(e2d(self.varphi_rx_eqn.subs({varphi_r(rvec): varphi})))
-                .subs(parameters)
+            self.g_ij_tanalpha_mat.subs({ta: rdotz / rdotx})
+            .subs(e2d(self.varphi_rx_eqn.subs({varphi_r(rvec): varphi})))
+            .subs(parameters)
         ).subs(mu_eta_sub)
-        self.g_ij_mat_lambdified \
-            = lambdify((rx, rdotx, rdotz, varepsilon),
-                       self.g_ij_mat,
-                       'numpy')
-        self.gstar_ij_mat_lambdified \
-            = lambdify((rx, rdotx, rdotz, varepsilon),
-                       self.gstar_ij_mat,
-                       'numpy')
+        self.g_ij_mat_lambdified = lambdify(
+            (rx, rdotx, rdotz, varepsilon), self.g_ij_mat, "numpy"
+        )
+        self.gstar_ij_mat_lambdified = lambdify(
+            (rx, rdotx, rdotz, varepsilon), self.gstar_ij_mat, "numpy"
+        )
 
     def define_geodesic_eqns(self):
         r"""
@@ -256,7 +306,7 @@ class GeodesicMixin:
             vdotz_lambdified (function) :
                 lambdified version of :math:`\dot{v}^z`
         """
-        logging.info('gme.core.geodesic.define_geodesic_eqns')
+        logging.info("gme.core.geodesic.define_geodesic_eqns")
         self.dg_rk_ij_mat = None
         self.christoffel_ij_k_rx_rdot_lambda = None
         self.christoffel_ij_k_lambda = None
@@ -270,10 +320,12 @@ class GeodesicMixin:
         # eta_sub = {eta: self.eta_}
 
         # Manipulate metric tensors
-        def gstar_ij_lambda(i_, j_): return self.gstar_ij_mat[i_, j_]
+        def gstar_ij_lambda(i_, j_):
+            return self.gstar_ij_mat[i_, j_]
+
         # g_ij_lambda = lambda i_,j_: self.g_ij_mat[i_,j_]
         r_k_mat = Matrix([rx, rz])
-        self.dg_rk_ij_mat = (derive_by_array(self.g_ij_mat, r_k_mat))
+        self.dg_rk_ij_mat = derive_by_array(self.g_ij_mat, r_k_mat)
 
         def dg_ij_rk_lambda(i_, j_, k_):
             return self.dg_rk_ij_mat[k_, 0, i_, j_]
@@ -281,64 +333,95 @@ class GeodesicMixin:
         # Generate Christoffel "symbols" tensor
         def christoffel_ij_k_raw(i_, j_, k_):
             return [
-                Rational(1, 2)*gstar_ij_lambda(k_, m_)*(
-                                        dg_ij_rk_lambda(m_, i_, j_)
-                                        + dg_ij_rk_lambda(m_, j_, i_)
-                                        - dg_ij_rk_lambda(i_, j_, m_)
-                                                )
+                Rational(1, 2)
+                * gstar_ij_lambda(k_, m_)
+                * (
+                    dg_ij_rk_lambda(m_, i_, j_)
+                    + dg_ij_rk_lambda(m_, j_, i_)
+                    - dg_ij_rk_lambda(i_, j_, m_)
+                )
                 for m_ in [0, 1]
             ]
+
         # Use of 'factor' here messes things up for eta<1
-        self.christoffel_ij_k_rx_rdot_lambda = lambda i_, j_, k_: \
-            (reduce(lambda a, b: a+b, christoffel_ij_k_raw(i_, j_, k_)))
+        self.christoffel_ij_k_rx_rdot_lambda = lambda i_, j_, k_: (
+            reduce(lambda a, b: a + b, christoffel_ij_k_raw(i_, j_, k_))
+        )
         christoffel_ij_k_rx_rdot_list = [
             [
                 [
-                    lambdify((rx, rdotx, rdotz, varepsilon),
-                             self.christoffel_ij_k_rx_rdot_lambda(i_, j_, k_))
-                    for i_ in [0, 1]]
-                for j_ in [0, 1]]
+                    lambdify(
+                        (rx, rdotx, rdotz, varepsilon),
+                        self.christoffel_ij_k_rx_rdot_lambda(i_, j_, k_),
+                    )
+                    for i_ in [0, 1]
+                ]
+                for j_ in [0, 1]
+            ]
             for k_ in [0, 1]
         ]
-        self.christoffel_ij_k_lambda \
-            = lambda i_, j_, k_, varepsilon_: \
-            christoffel_ij_k_rx_rdot_list[i_][j_][k_]
+        self.christoffel_ij_k_lambda = (
+            lambda i_, j_, k_, varepsilon_: christoffel_ij_k_rx_rdot_list[i_][
+                j_
+            ][k_]
+        )
 
         # Obtain geodesic equations as a set of coupled 1st order ODEs
-        self.geodesic_eqns = Matrix([
-            rdotx,
-            rdotz,
-            # Use symmetry to abbreviate sum of diagonal terms
-            (-self.christoffel_ij_k_rx_rdot_lambda(0, 0, 0)*rdotx*rdotx
-             - 2*self.christoffel_ij_k_rx_rdot_lambda(0, 1, 0)*rdotx*rdotz
-             # -christoffel_ij_k_rx_rdot_lambda(1,0,0)*rdotz*rdotx
-             - self.christoffel_ij_k_rx_rdot_lambda(1, 1, 0)*rdotz*rdotz),
-            # Use symmetry to abbreviate sum of diagonal terms
-            (-self.christoffel_ij_k_rx_rdot_lambda(0, 0, 1)*rdotx*rdotx
-             - 2*self.christoffel_ij_k_rx_rdot_lambda(0, 1, 1)*rdotx*rdotz
-             # -christoffel_ij_k_rx_rdot_lambda(1,0,1)*rdotz*rdotx
-             - self.christoffel_ij_k_rx_rdot_lambda(1, 1, 1)*rdotz*rdotz)
-        ])
-# self.geodesic_eqns = Matrix([
-#     Eq(rdotx_true, rdotx),
-#     Eq(rdotz_true, rdotz),
-#     # Use symmetry to abbreviate sum of diagonal terms
-#     Eq(vdotx, (-self.christoffel_ij_k_rx_rdot_lambda(0,0,0)*rdotx*rdotx
-#                -2*self.christoffel_ij_k_rx_rdot_lambda(0,1,0)*rdotx*rdotz
-#                #-christoffel_ij_k_rx_rdot_lambda(1,0,0)*rdotz*rdotx
-#                -self.christoffel_ij_k_rx_rdot_lambda(1,1,0)*rdotz*rdotz) ),
-#     # Use symmetry to abbreviate sum of diagonal terms
-#     Eq(vdotz, (-self.christoffel_ij_k_rx_rdot_lambda(0,0,1)*rdotx*rdotx
-#                -2*self.christoffel_ij_k_rx_rdot_lambda(0,1,1)*rdotx*rdotz
-#                #-christoffel_ij_k_rx_rdot_lambda(1,0,1)*rdotz*rdotx
-#                -self.christoffel_ij_k_rx_rdot_lambda(1,1,1)*rdotz*rdotz) )
-# ])
-# Use of 'factor' here messes things up for eta<1
-        self.vdotx_lambdified \
-            = lambdify((rx, rdotx, rdotz, varepsilon),
-                       (self.geodesic_eqns[2]), 'numpy')
-        self.vdotz_lambdified \
-            = lambdify((rx, rdotx, rdotz, varepsilon),
-                       (self.geodesic_eqns[3]), 'numpy')
+        self.geodesic_eqns = Matrix(
+            [
+                rdotx,
+                rdotz,
+                # Use symmetry to abbreviate sum of diagonal terms
+                (
+                    -self.christoffel_ij_k_rx_rdot_lambda(0, 0, 0)
+                    * rdotx
+                    * rdotx
+                    - 2
+                    * self.christoffel_ij_k_rx_rdot_lambda(0, 1, 0)
+                    * rdotx
+                    * rdotz
+                    # -christoffel_ij_k_rx_rdot_lambda(1,0,0)*rdotz*rdotx
+                    - self.christoffel_ij_k_rx_rdot_lambda(1, 1, 0)
+                    * rdotz
+                    * rdotz
+                ),
+                # Use symmetry to abbreviate sum of diagonal terms
+                (
+                    -self.christoffel_ij_k_rx_rdot_lambda(0, 0, 1)
+                    * rdotx
+                    * rdotx
+                    - 2
+                    * self.christoffel_ij_k_rx_rdot_lambda(0, 1, 1)
+                    * rdotx
+                    * rdotz
+                    # -christoffel_ij_k_rx_rdot_lambda(1,0,1)*rdotz*rdotx
+                    - self.christoffel_ij_k_rx_rdot_lambda(1, 1, 1)
+                    * rdotz
+                    * rdotz
+                ),
+            ]
+        )
+        # self.geodesic_eqns = Matrix([
+        #     Eq(rdotx_true, rdotx),
+        #     Eq(rdotz_true, rdotz),
+        #     # Use symmetry to abbreviate sum of diagonal terms
+        #     Eq(vdotx, (-self.christoffel_ij_k_rx_rdot_lambda(0,0,0)*rdotx*rdotx
+        #                -2*self.christoffel_ij_k_rx_rdot_lambda(0,1,0)*rdotx*rdotz
+        #                #-christoffel_ij_k_rx_rdot_lambda(1,0,0)*rdotz*rdotx
+        #                -self.christoffel_ij_k_rx_rdot_lambda(1,1,0)*rdotz*rdotz) ),
+        #     # Use symmetry to abbreviate sum of diagonal terms
+        #     Eq(vdotz, (-self.christoffel_ij_k_rx_rdot_lambda(0,0,1)*rdotx*rdotx
+        #                -2*self.christoffel_ij_k_rx_rdot_lambda(0,1,1)*rdotx*rdotz
+        #                #-christoffel_ij_k_rx_rdot_lambda(1,0,1)*rdotz*rdotx
+        #                -self.christoffel_ij_k_rx_rdot_lambda(1,1,1)*rdotz*rdotz) )
+        # ])
+        # Use of 'factor' here messes things up for eta<1
+        self.vdotx_lambdified = lambdify(
+            (rx, rdotx, rdotz, varepsilon), (self.geodesic_eqns[2]), "numpy"
+        )
+        self.vdotz_lambdified = lambdify(
+            (rx, rdotx, rdotz, varepsilon), (self.geodesic_eqns[3]), "numpy"
+        )
+
 
 #

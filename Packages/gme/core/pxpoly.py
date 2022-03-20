@@ -25,22 +25,39 @@ Requires Python packages/modules:
 # Library
 import warnings
 import logging
-# from typing import Dict, Type, Optional  # , Tuple, Any, List
+
+# from typing import Dict, Type, Optional  # , Tuple, Eq, List
 
 # SymPy
-from sympy import Eq, Rational, simplify, solve, numer, denom, \
-                  separatevars, poly
+from sympy import (
+    Eq,
+    Rational,
+    simplify,
+    solve,
+    numer,
+    denom,
+    separatevars,
+    poly,
+)
 
 # GMPLib
 from gmplib.utils import e2d
 
 # GME
-from gme.core.symbols import \
-    px, eta, varphi_0, varphi_r, rvec, xiv, xiv_0, xih_0
+from gme.core.symbols import (
+    px,
+    eta,
+    varphi_0,
+    varphi_r,
+    rvec,
+    xiv,
+    xiv_0,
+    xih_0,
+)
 
 warnings.filterwarnings("ignore")
 
-__all__ = ['PxpolyMixin']
+__all__ = ["PxpolyMixin"]
 
 
 class PxpolyMixin:
@@ -55,10 +72,15 @@ class PxpolyMixin:
     xiv0_xih0_Ci_eqn: Eq
     varphi_rx_eqn: Eq
 
+    # Definitions
+    poly_pxhat_xiv_eqn: Eq
+    poly_pxhat_xiv0_eqn: Eq
+    poly_px_xiv_varphi_eqn: Eq
+    poly_px_xiv_eqn: Eq
+    poly_px_xiv0_eqn: Eq  # HACK
+
     def define_px_poly_eqn(
-        self,
-        eta_choice: Rational = None,
-        do_ndim: bool = False
+        self, eta_choice: Rational = None, do_ndim: bool = False
     ) -> None:
         r"""
         TODO: remove ref to xiv_0
@@ -93,44 +115,62 @@ class PxpolyMixin:
                 - \left(\xi^{\downarrow{0}}\right)^{4} p_{x}^{2}
                 - \left(\xi^{\downarrow{0}}\right)^{2} = 0`
         """
-        logging.info(f'gme.core.pxpoly.define_px_poly_eqn (ndim={do_ndim})')
+        logging.info(f"gme.core.pxpoly.define_px_poly_eqn (ndim={do_ndim})")
         if do_ndim:
             # Non-dimensionalized version
             varphi0_solns = solve(
-                self.sinCi_xih0_eqn.subs({eta: eta_choice}), varphi_0)
+                self.sinCi_xih0_eqn.subs({eta: eta_choice}), varphi_0
+            )
             varphi0_eqn = Eq(varphi_0, varphi0_solns[0])
             if eta_choice is not None and eta_choice <= 1:
-                tmp_eqn = separatevars(simplify(
-                    self.px_xiv_varphi_eqn
-                    .subs({eta: eta_choice})
-                    .subs({varphi_r(rvec): self.varphi_rxhat_eqn.rhs})
-                    .subs(e2d(self.px_pxhat_eqn))
-                    .subs(e2d(varphi0_eqn)))
+                tmp_eqn = separatevars(
+                    simplify(
+                        self.px_xiv_varphi_eqn.subs({eta: eta_choice})
+                        .subs({varphi_r(rvec): self.varphi_rxhat_eqn.rhs})
+                        .subs(e2d(self.px_pxhat_eqn))
+                        .subs(e2d(varphi0_eqn))
+                    )
                 )
                 self.poly_pxhat_xiv_eqn = simplify(
-                    Eq((numer(tmp_eqn.lhs)
-                        - denom(tmp_eqn.lhs)*(tmp_eqn.rhs))/xiv**2, 0)
+                    Eq(
+                        (
+                            numer(tmp_eqn.lhs)
+                            - denom(tmp_eqn.lhs) * (tmp_eqn.rhs)
+                        )
+                        / xiv ** 2,
+                        0,
+                    )
                 )
-                self.poly_pxhat_xiv0_eqn \
-                    = self.poly_pxhat_xiv_eqn\
-                    .subs({xiv: xiv_0})\
-                    .subs(e2d(self.xiv0_xih0_Ci_eqn))
+                self.poly_pxhat_xiv0_eqn = self.poly_pxhat_xiv_eqn.subs(
+                    {xiv: xiv_0}
+                ).subs(e2d(self.xiv0_xih0_Ci_eqn))
             else:
-                tmp_eqn = separatevars(simplify(
-                    self.px_xiv_varphi_eqn
-                    .subs({eta: eta_choice})
-                    .subs({varphi_r(rvec): self.varphi_rxhat_eqn.rhs})
-                    .subs(e2d(self.px_pxhat_eqn))
-                    .subs(e2d(varphi0_eqn))
-                ))
+                tmp_eqn = separatevars(
+                    simplify(
+                        self.px_xiv_varphi_eqn.subs({eta: eta_choice})
+                        .subs({varphi_r(rvec): self.varphi_rxhat_eqn.rhs})
+                        .subs(e2d(self.px_pxhat_eqn))
+                        .subs(e2d(varphi0_eqn))
+                    )
+                )
                 self.poly_pxhat_xiv_eqn = simplify(
-                    Eq((numer(tmp_eqn.lhs)
-                        - denom(tmp_eqn.lhs)*(tmp_eqn.rhs))/xiv**2, 0)
+                    Eq(
+                        (
+                            numer(tmp_eqn.lhs)
+                            - denom(tmp_eqn.lhs) * (tmp_eqn.rhs)
+                        )
+                        / xiv ** 2,
+                        0,
+                    )
                 )
                 self.poly_pxhat_xiv0_eqn = simplify(
-                    Eq(self.poly_pxhat_xiv_eqn.lhs
-                        .subs({xiv: xiv_0})
-                        .subs(e2d(self.xiv0_xih0_Ci_eqn))/xih_0**2, 0)
+                    Eq(
+                        self.poly_pxhat_xiv_eqn.lhs.subs({xiv: xiv_0}).subs(
+                            e2d(self.xiv0_xih0_Ci_eqn)
+                        )
+                        / xih_0 ** 2,
+                        0,
+                    )
                 )
         else:
             # Dimensioned version
@@ -138,12 +178,12 @@ class PxpolyMixin:
             if eta_choice is not None and eta_choice <= 1:
                 self.poly_px_xiv_varphi_eqn = poly(tmp_eqn.lhs, px)
             else:
-                self.poly_px_xiv_varphi_eqn \
-                    = poly(numer(tmp_eqn.lhs)
-                           - denom(tmp_eqn.lhs)*(tmp_eqn.rhs), px)
-            self.poly_px_xiv_eqn \
-                = Eq(self.poly_px_xiv_varphi_eqn
-                     .subs(e2d(self.varphi_rx_eqn)), 0)
+                self.poly_px_xiv_varphi_eqn = poly(
+                    numer(tmp_eqn.lhs) - denom(tmp_eqn.lhs) * (tmp_eqn.rhs), px
+                )
+            self.poly_px_xiv_eqn = Eq(
+                self.poly_px_xiv_varphi_eqn.subs(e2d(self.varphi_rx_eqn)), 0
+            )
 
 
 #

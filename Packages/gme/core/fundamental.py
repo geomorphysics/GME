@@ -27,18 +27,18 @@ Requires Python packages/modules:
 # Library
 import warnings
 import logging
+
 # from typing import Dict, Type, Optional  # , Tuple, Any, List
 
 # SymPy
 from sympy import Eq, simplify, solve, Abs, sign
 
 # GME
-from gme.core.symbols import \
-    Fstar, H, px, varphi, varphi_r, varphi_rx, rx, rvec
+from gme.core.symbols import Fstar, H, px, varphi, varphi_r, varphi_rx, rx, rvec
 
 warnings.filterwarnings("ignore")
 
-__all__ = ['FundamentalMixin']
+__all__ = ["FundamentalMixin"]
 
 
 class FundamentalMixin:
@@ -50,6 +50,12 @@ class FundamentalMixin:
     p_norm_pxpz_eqn: Eq
     p_varphi_pxpz_eqn: Eq
     varphi_rx_eqn: Eq
+
+    # Definitions
+    Okubo_Fstar_eqn: Eq
+    Fstar_eqn: Eq
+    H_eqn: Eq
+    H_varphi_rx_eqn: Eq
 
     def define_Fstar_eqns(self) -> None:
         r"""
@@ -68,18 +74,19 @@ class FundamentalMixin:
                 \left(p_{x}^{2} + p_{z}^{2}\right)^{\frac{1}{2}-\frac{\eta}{2}}
                 \varphi{\left(\mathbf{r} \right)}`
         """
-        logging.info('gme.core.fundamental.define_Fstar_eqns')
+        logging.info("gme.core.fundamental.define_Fstar_eqns")
         # Note force px >= 0
-        self.Okubo_Fstar_eqn: Eq \
-            = simplify(
-                Eq(self.p_norm_pxpz_eqn.rhs/Fstar, self.p_varphi_pxpz_eqn.rhs)
-                .subs({Abs(px): px, sign(px): 1})
-            )
-        self.Fstar_eqn: Eq \
-            = Eq(Fstar,
-                 (solve(self.Okubo_Fstar_eqn, Fstar)[0])
-                 .subs({varphi_rx(rx): varphi})
-                 ).subs({Abs(px): px, sign(px): 1})
+        self.Okubo_Fstar_eqn: Eq = simplify(
+            Eq(
+                self.p_norm_pxpz_eqn.rhs / Fstar, self.p_varphi_pxpz_eqn.rhs
+            ).subs({Abs(px): px, sign(px): 1})
+        )
+        self.Fstar_eqn: Eq = Eq(
+            Fstar,
+            (solve(self.Okubo_Fstar_eqn, Fstar)[0]).subs(
+                {varphi_rx(rx): varphi}
+            ),
+        ).subs({Abs(px): px, sign(px): 1})
 
     def define_H_eqns(self) -> None:
         r"""
@@ -100,12 +107,12 @@ class FundamentalMixin:
                 \left(\varepsilon x_{1}^{2 \mu} +
                 \left(x_{1} - {r}^x\right)^{2 \mu}\right)^{2}}{2}`
         """
-        logging.info('gme.core.fundamental.define_H_eqns')
-        self.H_eqn: Eq \
-            = Eq(H, simplify(self.Fstar_eqn.rhs**2/2))
+        logging.info("gme.core.fundamental.define_H_eqns")
+        self.H_eqn: Eq = Eq(H, simplify(self.Fstar_eqn.rhs ** 2 / 2))
 
-        self.H_varphi_rx_eqn: Eq \
-            = simplify(self.H_eqn.subs(varphi_r(rvec), self.varphi_rx_eqn.rhs))
+        self.H_varphi_rx_eqn: Eq = simplify(
+            self.H_eqn.subs(varphi_r(rvec), self.varphi_rx_eqn.rhs)
+        )
 
 
 #

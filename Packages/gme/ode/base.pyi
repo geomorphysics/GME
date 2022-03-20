@@ -4,24 +4,27 @@ from abc import ABC, abstractmethod
 from gme.core.equations import Equations
 from typing import Any, Callable, Dict, List, Optional, Tuple
 
+rp_tuple: Tuple[str, str, str, str]
+rpt_tuple: Tuple[str, str, str, str, str]
+
 class BaseSolution(ABC, metaclass=abc.ABCMeta):
-    gmeq: Any
-    parameters: Any
-    choice: Any
-    method: Any
-    do_dense: Any
-    x_stop: Any
-    tp_xiv0_list: Any
-    n_rays: Any
-    t_end: Any
-    t_distribn: Any
-    t_slip_end: Any
-    n_t: Any
+    gmeq: Equations
+    parameters: Dict
+    choice: str
+    method: str
+    do_dense: bool
+    x_stop: float
+    tp_xiv0_list: Optional[List[Tuple[float, float]]]
+    n_rays: int
+    t_end: float
+    t_distribn: float
+    t_slip_end: float
+    n_t: int
     t_ensemble_max: Any
     interp1d_kind: str
     pz_velocity_boundary_eqn: Any
     model_dXdt_lambda: Any
-    customize_t_fn: Any
+    customize_t_fn: Optional[Callable]
     ic_list: Any
     ref_t_array: Any
     rpt_arrays: Any
@@ -41,7 +44,7 @@ class BaseSolution(ABC, metaclass=abc.ABCMeta):
     vx_interp_slow: Any
     def __init__(self, gmeq: Equations, parameters: Dict, choice: str = ..., method: str = ..., do_dense: bool = ..., x_stop: float = ..., t_end: float = ..., t_slip_end: float = ..., t_distribn: float = ..., n_rays: int = ..., n_t: int = ..., tp_xiv0_list: Optional[List[Tuple[float, float]]] = ..., customize_t_fn: Optional[Callable] = ...): ...
     @abstractmethod
-    def initial_conditions(self) -> Tuple[float, float, float, float]: ...
+    def initial_conditions(self, t_lag: float = ..., xiv_0_: float = ...) -> Tuple[float, float, float, float]: ...
     @abstractmethod
     def solve(self) -> None: ...
     def make_model(self) -> Callable[[float, Tuple[Any, Any, Any, Any]], np.ndarray]: ...

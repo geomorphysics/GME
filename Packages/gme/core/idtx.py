@@ -26,30 +26,62 @@ Requires Python packages/modules:
 # Library
 import warnings
 import logging
-# from typing import Dict, Type, Optional  # , Tuple, Any, List
+
+# from typing import Dict, Type, Optional  # , Tuple, Eq, List
 
 # SymPy
-from sympy import Eq, Rational, factor, N, re, im, sqrt, solve, \
-                  sin, cos, tan, Abs
+from sympy import (
+    Eq,
+    Rational,
+    factor,
+    N,
+    re,
+    im,
+    sqrt,
+    solve,
+    sin,
+    cos,
+    tan,
+    Abs,
+)
 
 # GME
-from gme.core.symbols import \
-    p, rx, rz, px, pz, beta, eta, rvec, varphi, varphi_r
+from gme.core.symbols import (
+    p,
+    rx,
+    rz,
+    px,
+    pz,
+    beta,
+    eta,
+    rvec,
+    varphi,
+    varphi_r,
+)
 
 warnings.filterwarnings("ignore")
 
-__all__ = ['IdtxMixin']
+__all__ = ["IdtxMixin"]
 
 
 class IdtxMixin:
-    r"""
-    """
+    r""" """
     # Prerequisites
     eta_: float
     beta_type: str
     pz_p_beta_eqn: Eq
     p_varphi_beta_eqn: Eq
     gstar_varphi_pxpz_eqn: Eq
+
+    # Definitions
+    pz_cosbeta_varphi_eqn: Eq
+    cosbeta_pz_varphi_solns: Eq
+    cosbeta_pz_varphi_soln: Eq
+    fgtx_cosbeta_pz_varphi_eqn: Eq
+    fgtx_tanbeta_pz_varphi_eqn: Eq
+    fgtx_px_pz_varphi_eqn: Eq
+    idtx_rdotx_pz_varphi_eqn: Eq
+    idtx_rdotz_pz_varphi_eqn: Eq
 
     def define_idtx_fgtx_eqns(self) -> None:
         r"""
@@ -286,7 +318,7 @@ class IdtxMixin:
                 + 2 \sqrt[3]{2}\right)}`
 
         """
-        logging.info('gme.core.idtx.define_idtx_fgtx_eqns')
+        logging.info("gme.core.idtx.define_idtx_fgtx_eqns")
         # if self.eta_ == 2:
         #     pz_tanbeta_varphi_eqn = ( self.pz_p_beta_eqn
         #      .subs({p:self.p_varphi_beta_eqn.rhs})
@@ -303,18 +335,19 @@ class IdtxMixin:
         #         = Eq(cos(beta)**2, 1/(1+tanbeta_pz_varphi_eqn.rhs**2))
         # else:
         eta_sub = {eta: self.eta_}
-        pz_cosbeta_varphi_tmp_eqn \
-            = self.pz_p_beta_eqn \
-            .subs({p: self.p_varphi_beta_eqn.rhs}) \
-            .subs({varphi_r(rvec): varphi}) \
-            .subs(eta_sub) \
-            .subs({Abs(tan(beta)): Abs(sin(beta))/Abs(cos(beta))}) \
-            .subs({Abs(cos(beta)): cos(beta), Abs(sin(beta)): sin(beta)}) \
-            .subs({sin(beta): sqrt(1-cos(beta)**2)})
+        pz_cosbeta_varphi_tmp_eqn = (
+            self.pz_p_beta_eqn.subs({p: self.p_varphi_beta_eqn.rhs})
+            .subs({varphi_r(rvec): varphi})
+            .subs(eta_sub)
+            .subs({Abs(tan(beta)): Abs(sin(beta)) / Abs(cos(beta))})
+            .subs({Abs(cos(beta)): cos(beta), Abs(sin(beta)): sin(beta)})
+            .subs({sin(beta): sqrt(1 - cos(beta) ** 2)})
+        )
 
-        pz_cosbeta_varphi_eqn \
-            = Eq(pz_cosbeta_varphi_tmp_eqn.lhs**self.eta_,  # __dbldenom
-                 pz_cosbeta_varphi_tmp_eqn.rhs**self.eta_)  # __dbldenom
+        pz_cosbeta_varphi_eqn = Eq(
+            pz_cosbeta_varphi_tmp_eqn.lhs ** self.eta_,  # __dbldenom
+            pz_cosbeta_varphi_tmp_eqn.rhs ** self.eta_,
+        )  # __dbldenom
 
         # New
         # pz_cosbeta_varphi_eqn \
@@ -333,14 +366,18 @@ class IdtxMixin:
         self.fgtx_px_pz_varphi_eqn = None
         self.idtx_rdotx_pz_varphi_eqn = None
         self.idtx_rdotz_pz_varphi_eqn = None
-        self.cosbeta_pz_varphi_solns \
-            = solve(self.pz_cosbeta_varphi_eqn, cos(beta))
+        self.cosbeta_pz_varphi_solns = solve(
+            self.pz_cosbeta_varphi_eqn, cos(beta)
+        )
         # self.cosbetasqrd_pz_varphi_solns \
         #     = solve(self.pz_cosbeta_varphi_eqn, cos(beta)**2)
-        if (self.eta_ == Rational(1, 4) or self.eta_ == Rational(3, 2)) \
-                and self.beta_type == 'tan':
-            print('Cannot compute all indicatrix equations for '
-                  + rf'$\tan\beta$ model and $\eta={self.eta_}$')
+        if (
+            self.eta_ == Rational(1, 4) or self.eta_ == Rational(3, 2)
+        ) and self.beta_type == "tan":
+            print(
+                "Cannot compute all indicatrix equations for "
+                + rf"$\tan\beta$ model and $\eta={self.eta_}$"
+            )
             return
 
         def find_cosbeta_root(sub):
@@ -348,40 +385,53 @@ class IdtxMixin:
             #     soln.subs(sub) for soln in self.cosbeta_pz_varphi_solns
             #     ])
             rtn = [
-                soln for soln in self.cosbeta_pz_varphi_solns
+                soln
+                for soln in self.cosbeta_pz_varphi_solns
                 if Abs(im(N(soln.subs(sub)))) < 1e-20
                 and (re(N(soln.subs(sub)))) >= 0
-                ]
+            ]
             # logging.info(rtn)
             return rtn
 
-        self.cosbeta_pz_varphi_soln = find_cosbeta_root(
-            {varphi: 1, pz: -0.01})
+        self.cosbeta_pz_varphi_soln = find_cosbeta_root({varphi: 1, pz: -0.01})
         if self.cosbeta_pz_varphi_soln == []:
             self.cosbeta_pz_varphi_soln = find_cosbeta_root(
-                {varphi: 10, pz: -0.5})
-        self.fgtx_cosbeta_pz_varphi_eqn \
-            = Eq(cos(beta),
-                 self.cosbeta_pz_varphi_soln[0])
-        self.fgtx_tanbeta_pz_varphi_eqn \
-            = Eq(tan(beta),
-                 (1/(self.fgtx_cosbeta_pz_varphi_eqn.rhs)-1))
-        self.fgtx_px_pz_varphi_eqn \
-            = factor(Eq(px, -pz*self.fgtx_tanbeta_pz_varphi_eqn.rhs))
+                {varphi: 10, pz: -0.5}
+            )
+        self.fgtx_cosbeta_pz_varphi_eqn = Eq(
+            cos(beta), self.cosbeta_pz_varphi_soln[0]
+        )
+        self.fgtx_tanbeta_pz_varphi_eqn = Eq(
+            tan(beta), (1 / (self.fgtx_cosbeta_pz_varphi_eqn.rhs) - 1)
+        )
+        self.fgtx_px_pz_varphi_eqn = factor(
+            Eq(px, -pz * self.fgtx_tanbeta_pz_varphi_eqn.rhs)
+        )
         g_xx = self.gstar_varphi_pxpz_eqn.rhs[0, 0]
         g_zx = self.gstar_varphi_pxpz_eqn.rhs[1, 0]
         g_xz = self.gstar_varphi_pxpz_eqn.rhs[0, 1]
         g_zz = self.gstar_varphi_pxpz_eqn.rhs[1, 1]
         self.idtx_rdotx_pz_varphi_eqn = factor(
-            Eq(rx, (g_xx*px+g_xz*pz)
-               .subs({px: self.fgtx_px_pz_varphi_eqn.rhs,
-                      varphi_r(rvec): varphi}))
+            Eq(
+                rx,
+                (g_xx * px + g_xz * pz).subs(
+                    {px: self.fgtx_px_pz_varphi_eqn.rhs, varphi_r(rvec): varphi}
+                ),
+            )
         )
-        self.idtx_rdotz_pz_varphi_eqn = factor(factor(
-            Eq(rz, (g_zx*px+g_zz*pz)
-               .subs({px: self.fgtx_px_pz_varphi_eqn.rhs,
-                      varphi_r(rvec): varphi}))
-        ))
+        self.idtx_rdotz_pz_varphi_eqn = factor(
+            factor(
+                Eq(
+                    rz,
+                    (g_zx * px + g_zz * pz).subs(
+                        {
+                            px: self.fgtx_px_pz_varphi_eqn.rhs,
+                            varphi_r(rvec): varphi,
+                        }
+                    ),
+                )
+            )
+        )
 
 
 #

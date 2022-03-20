@@ -36,11 +36,13 @@ from gme.core.ibc import IbcMixin
 
 warnings.filterwarnings("ignore")
 
-__all__ = ['EquationsGeodesic',
-           'EquationsIdtx',
-           'EquationsIbc',
-           'EquationsIdtxIbc',
-           'EquationsSetupOnly']
+__all__ = [
+    "EquationsGeodesic",
+    "EquationsIdtx",
+    "EquationsIbc",
+    "EquationsIdtxIbc",
+    "EquationsSetupOnly",
+]
 
 
 class EquationsGeodesic(Equations, GeodesicMixin):
@@ -48,16 +50,15 @@ class EquationsGeodesic(Equations, GeodesicMixin):
     Generate set of equations including geodesic equations.
     """
 
-    def __init__(
-        self,
-        parameters: Optional[Dict] = None,
-        **kwargs
-    ) -> None:
+    # Definitions
+    ibc_type: str
+
+    def __init__(self, parameters: Optional[Dict] = None, **kwargs) -> None:
         r"""
         Constructor method
         """
         super().__init__(parameters=parameters, **kwargs)
-        logging.info('gme.core.equations_extended.EquationsGeodesic')
+        logging.info("gme.core.equations_extended.EquationsGeodesic")
 
         self.prep_geodesic_eqns(parameters if self.do_raw else None)
         self.define_geodesic_eqns()
@@ -69,16 +70,12 @@ class EquationsIdtx(Equations, IdtxMixin):
     Generate set of equations including indicatrix/figuratrix equations.
     """
 
-    def __init__(
-        self,
-        parameters: Optional[Dict] = None,
-        **kwargs
-    ) -> None:
+    def __init__(self, parameters: Optional[Dict] = None, **kwargs) -> None:
         r"""
         Constructor method
         """
         super().__init__(parameters=parameters, **kwargs)
-        logging.info('gme.core.equations_extended.EquationsIdtx')
+        logging.info("gme.core.equations_extended.EquationsIdtx")
 
         self.define_idtx_fgtx_eqns()
 
@@ -88,18 +85,21 @@ class EquationsIbc(Equations, IbcMixin):
     Generate set of equations including initial/boundary condition equations.
     """
 
+    # Definitions
+    ibc_type: str
+
     def __init__(
         self,
         parameters: Optional[Dict] = None,
-        ibc_type: str = 'convex-up',
+        ibc_type: str = "convex-up",
         **kwargs
     ) -> None:
         r"""
         Constructor method
         """
         super().__init__(parameters=parameters, **kwargs)
-        logging.info('gme.core.equations_extended.EquationsIbc')
-        self.ibc_type = ibc_type
+        logging.info("gme.core.equations_extended.EquationsIbc")
+        self.ibc_type: str = ibc_type
 
         self.prep_ibc_eqns()
         self.define_ibc_eqns()
@@ -112,17 +112,20 @@ class EquationsIdtxIbc(EquationsIdtx, IbcMixin):
     and initial/boundary condition equations.
     """
 
+    # Definitions
+    ibc_type: str
+
     def __init__(
         self,
         parameters: Optional[Dict] = None,
-        ibc_type: str = 'convex-up',
+        ibc_type: str = "convex-up",
         **kwargs
     ) -> None:
         r"""
         Constructor method
         """
         super().__init__(parameters=parameters, **kwargs)
-        logging.info('gme.core.equations_extended.EquationsIdtxIbc')
+        logging.info("gme.core.equations_extended.EquationsIdtxIbc")
         self.ibc_type = ibc_type
 
         self.prep_ibc_eqns()
@@ -130,25 +133,19 @@ class EquationsIdtxIbc(EquationsIdtx, IbcMixin):
         self.set_ibc_eqns()
 
 
-class EquationsSetupOnly(
-    EquationsMixedIn,
-    GeodesicMixin,
-    IdtxMixin,
-    IbcMixin
-):
+class EquationsSetupOnly(EquationsMixedIn, GeodesicMixin, IdtxMixin, IbcMixin):
     r"""
     Generate methods to perform equation definitions but don't act on them.
     """
 
-    def __init__(
-        self,
-        ibc_type: str = 'convex-up',
-        **kwargs
-    ) -> None:
+    # Definitions
+    ibc_type: str
+
+    def __init__(self, ibc_type: str = "convex-up", **kwargs) -> None:
         r"""
         Constructor method.
         """
-        logging.info('gme.core.equations_extended.EquationsSetup')
+        logging.info("gme.core.equations_extended.EquationsSetup")
         self.ibc_type = ibc_type
 
         super().__init__(**kwargs)

@@ -1,12 +1,13 @@
+import numpy as np
 from gme.core.equations import Equations
 from gme.plot.base import Graphing
 from sympy import Eq, Symbol
 from typing import Any, Dict, List, Optional, Tuple, Union
 
 class SlicingMath:
-    H_Ci_eqn: Any
-    Ci_H0p5_eqn: Any
-    gstarhat_eqn: Any
+    H_Ci_eqn: Eq
+    degCi_H0p5_eqn: Eq
+    gstarhat_eqn: Eq
     pxhat_lambda: Any
     pzhat_lambda: Any
     def __init__(self, gmeq: Equations, sub_: Dict, var_list: List[Symbol], do_modv: bool = ...): ...
@@ -32,12 +33,12 @@ class SlicingMath:
     def get_rxhat_pzhat(self, sub_: Dict[Any, Any]) -> List[float]: ...
 
 class SlicingPlots(Graphing):
-    H_Ci_eqn: Any
-    Ci_H0p5_eqn: Any
-    gstarhat_eqn: Any
-    grid_array: Any
-    pxpzhat_grids: Any
-    rxpxhat_grids: Any
+    H_Ci_eqn: Eq
+    Ci_H0p5_eqn: Eq
+    gstarhat_eqn: Eq
+    grid_array: np.ndarray
+    pxpzhat_grids: List[np.ndarray]
+    rxpxhat_grids: List[np.ndarray]
     def __init__(self, gmeq: Equations, grid_res: int = ..., dpi: int = ..., font_size: int = ...) -> None: ...
     def plot_dHdp_slice(self, sm: SlicingMath, sub_: Dict, psub_: Dict, pxhat_: float, do_detHessian: bool = ..., do_at_rxcrit: bool = ...) -> str: ...
     def plot_modv_slice(self, sm: SlicingMath, sub_: Dict, psub_: Dict, do_at_rxcrit: bool = ...) -> str: ...

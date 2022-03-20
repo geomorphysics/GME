@@ -25,22 +25,21 @@ Requires Python packages/modules:
 # Library
 import warnings
 import logging
-# from typing import Dict, Type, Optional  # , Tuple, Any, List
+
+# from typing import Dict, Type, Optional  # , Tuple, Eq, List
 
 # SymPy
-from sympy import Eq, simplify, factor, solve, denom, \
-                  sin, cos, tan, Abs
+from sympy import Eq, simplify, factor, solve, denom, sin, cos, tan, Abs
 
 # GMPLib
 from gmplib.utils import e2d
 
 # GME
-from gme.core.symbols import \
-    p, px, pz, beta, xi, xiv, rvec, varphi_r, eta
+from gme.core.symbols import p, px, pz, beta, xi, xiv, rvec, varphi_r, eta
 
 warnings.filterwarnings("ignore")
 
-__all__ = ['XiMixin']
+__all__ = ["XiMixin"]
 
 
 class XiMixin:
@@ -55,6 +54,17 @@ class XiMixin:
     tanbeta_pxpz_eqn: Eq
     cosbeta_pxpz_eqn: Eq
     sinbeta_pxpz_eqn: Eq
+
+    # Definitions
+    xi_p_eqn: Eq
+    xiv_pz_eqn: Eq
+    p_xi_eqn: Eq
+    pz_xiv_eqn: Eq
+    xi_varphi_beta_raw_eqn: Eq
+    xi_varphi_beta_eqn: Eq
+    xiv_varphi_pxpz_eqn: Eq
+    px_xiv_varphi_eqn: Eq
+    eta__dbldenom: Eq
 
     def define_xi_eqns(self) -> None:
         r"""
@@ -71,9 +81,9 @@ class XiMixin:
             pz_xiv_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`{p_z} = -\dfrac{1}{\xi^{\downarrow}}`
         """
-        logging.info('gme.core.xi.define_xi_eqns')
-        self.xi_p_eqn = Eq(xi, 1/p)
-        self.xiv_pz_eqn = (Eq(xiv, -1/pz))
+        logging.info("gme.core.xi.define_xi_eqns")
+        self.xi_p_eqn = Eq(xi, 1 / p)
+        self.xiv_pz_eqn = Eq(xiv, -1 / pz)
         self.p_xi_eqn = Eq(p, solve(self.xi_p_eqn, p)[0])
         self.pz_xiv_eqn = Eq(pz, solve(self.xiv_pz_eqn, pz)[0])
 
@@ -97,19 +107,20 @@ class XiMixin:
                 :math:`\xi^{\perp}
                 = \varphi(\mathbf{r}) \, \left| \sin\beta \right|^\eta`
         """
-        logging.info('gme.core.xi.define_xi_model_eqn')
-        if self.beta_type == 'sin':
-            xi_model = varphi_r(rvec)*abs(sin(beta))**eta
+        logging.info("gme.core.xi.define_xi_model_eqn")
+        if self.beta_type == "sin":
+            xi_model = varphi_r(rvec) * abs(sin(beta)) ** eta
         else:
-            xi_model = varphi_r(rvec)*abs(tan(beta))**eta
+            xi_model = varphi_r(rvec) * abs(tan(beta)) ** eta
         self.xi_varphi_beta_raw_eqn = Eq(xi, xi_model)
         # self.xi_varphi_beta_eqn = Eq(xi, xi_model)
         if self.do_raw:
             self.xi_varphi_beta_eqn = self.xi_varphi_beta_raw_eqn
         else:
-            self.xi_varphi_beta_eqn \
-                = Eq(self.xi_varphi_beta_raw_eqn.lhs,
-                     self.xi_varphi_beta_raw_eqn.rhs.subs({eta: self.eta_}))
+            self.xi_varphi_beta_eqn = Eq(
+                self.xi_varphi_beta_raw_eqn.lhs,
+                self.xi_varphi_beta_raw_eqn.rhs.subs({eta: self.eta_}),
+            )
 
     def define_xi_related_eqns(self) -> None:
         r"""
@@ -147,25 +158,30 @@ class XiMixin:
                 a convenience variable, recording double the denominator of
                 :math:`\eta`, which must itself be a rational number
         """
-        logging.info('gme.core.xi.define_xi_related_eqns')
-        eta_dbldenom = 2*denom(self.eta_)
+        logging.info("gme.core.xi.define_xi_related_eqns")
+        eta_dbldenom = 2 * denom(self.eta_)
         self.xiv_varphi_pxpz_eqn = simplify(
-            Eq(xiv, (self.xi_varphi_beta_eqn.rhs/cos(beta))
+            Eq(
+                xiv,
+                (self.xi_varphi_beta_eqn.rhs / cos(beta))
                 .subs(e2d(self.tanbeta_pxpz_eqn))
                 .subs(e2d(self.cosbeta_pxpz_eqn))
                 .subs(e2d(self.sinbeta_pxpz_eqn))
-                .subs({Abs(px): px}))
+                .subs({Abs(px): px}),
+            )
         )
         xiv_eqn = self.xiv_varphi_pxpz_eqn
         px_xiv_varphi_eqn = simplify(
-            Eq((xiv_eqn.subs({Abs(px): px})).rhs**eta_dbldenom
-                - xiv_eqn.lhs**eta_dbldenom, 0)
-            .subs(e2d(self.pz_xiv_eqn))
+            Eq(
+                (xiv_eqn.subs({Abs(px): px})).rhs ** eta_dbldenom
+                - xiv_eqn.lhs ** eta_dbldenom,
+                0,
+            ).subs(e2d(self.pz_xiv_eqn))
         )
         # HACK!!
         # Get rid of xiv**2 multiplier...
         #    should be a cleaner way of doing this
-        self.px_xiv_varphi_eqn = factor(Eq(px_xiv_varphi_eqn.lhs/xiv**2, 0))
+        self.px_xiv_varphi_eqn = factor(Eq(px_xiv_varphi_eqn.lhs / xiv ** 2, 0))
         self.eta__dbldenom = eta_dbldenom
 
 

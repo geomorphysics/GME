@@ -36,7 +36,7 @@ import logging
 from typing import Dict, Optional
 
 # SymPy
-from sympy import Rational
+from sympy import Eq, Rational
 
 # GME
 from gme.core.rp import RpMixin
@@ -63,6 +63,13 @@ class EquationsBase:
     r"""
     Bare-bones base class for equation definitions.
     """
+
+    # Definitions
+    eta_: Eq
+    mu_: Eq
+    beta_type: Eq
+    varphi_type: Eq
+    do_raw: Eq
 
     def __init__(
         self,
@@ -153,7 +160,7 @@ class Equations(EquationsMixedIn):
         do_geodesic: generate geodesic equations?
         do_nothing:
             just create the class instance and set its data,
-             but don't run any of the equation definition methods
+             but don't run Eq of the equation definition methods
         do_new_varphi_model(bool): use new form of varphi model?
 
     Attributes:

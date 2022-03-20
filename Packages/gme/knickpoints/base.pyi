@@ -1,44 +1,45 @@
 import abc
 from gme.core.equations import Equations
 from gme.ode.base import BaseSolution
+from sympy import Eq, Matrix
 from typing import Any, Callable, Dict, Optional, Tuple
 
 class InitialProfileSolution(BaseSolution):
     t_ensemble_max: float
     model_dXdt_lambda: Optional[Callable]
     rpt_arrays: Optional[Dict]
-    rz_initial_surface_eqn: Any
+    rz_initial_surface_eqn: Eq
+    ic: Tuple[float, float, float, float]
     def __init__(self, gmeq: Equations, parameters: Dict, **kwargs) -> None: ...
-    def initial_conditions(self, x_) -> Tuple[float, float, float, float]: ...
-    ic: Any
+    def initial_conditions(self, x_: float) -> Tuple[float, float, float, float]: ...
     def solve(self, report_pc_step: int = ...) -> None: ...
 
 class InitialCornerSolution(BaseSolution):
     t_ensemble_max: float
     model_dXdt_lambda: Optional[Callable]
     rpt_arrays: Optional[Dict]
-    px_initial_corner_eqn: Any
-    pz_initial_corner_eqn: Any
-    beta_surface_corner: Any
-    beta_velocity_corner: Any
-    rdot: Any
+    px_initial_corner_eqn: Eq
+    pz_initial_corner_eqn: Eq
+    beta_surface_corner: Eq
+    beta_velocity_corner: Eq
+    rdot: Matrix
+    ic: Tuple[float, float, float, float]
     def __init__(self, gmeq: Equations, parameters: Dict, **kwargs) -> None: ...
-    def initial_conditions(self, beta0_) -> Tuple: ...
-    ic: Any
+    def initial_conditions(self, beta0_) -> Tuple[float, float, float, float]: ...
     def solve(self, report_pc_step: int = ..., verbose: bool = ...) -> None: ...
 
 class CompositeSolution(BaseSolution, metaclass=abc.ABCMeta):
     t_ensemble_max: float
     model_dXdt_lambda: Optional[Callable]
     rpt_arrays: Optional[Dict]
-    def __init__(self, gmeq: Equations, parameters: Dict, **kwargs) -> None: ...
-    do_solns: Any
-    t_end: Any
-    t_slip_end: Any
+    do_solns: bool
+    t_end: float
+    t_slip_end: float
     ips: Any
     ics: Any
     vbs: Any
-    def create_solutions(self, t_end: float = ..., t_slip_end: float = ..., do_solns=..., n_rays=..., n_t=...) -> None: ...
+    n_rays: int
+    def __init__(self, gmeq: Equations, parameters: Dict, **kwargs) -> None: ...
+    def create_solutions(self, t_end: float = ..., t_slip_end: float = ..., do_solns: Dict = ..., n_rays: Dict = ..., n_t: Dict = ...) -> None: ...
     def solve(self) -> None: ...
-    n_rays: Any
     def merge_rays(self) -> None: ...

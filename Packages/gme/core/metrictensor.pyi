@@ -1,5 +1,4 @@
 from sympy import Eq
-from typing import Any
 
 class MetricTensorMixin:
     eta_: float
@@ -7,10 +6,11 @@ class MetricTensorMixin:
     rdot_vec_eqn: Eq
     p_covec_eqn: Eq
     varphi_rx_eqn: Eq
-    gstar_varphi_pxpz_eqn: Any
-    det_gstar_varphi_pxpz_eqn: Any
-    g_varphi_pxpz_eqn: Any
-    gstar_eigen_varphi_pxpz: Any
-    gstar_eigenvalues: Any
-    gstar_eigenvectors: Any
+    gstar_varphi_pxpz_eqn: Eq
+    det_gstar_varphi_pxpz_eqn: Eq
+    g_varphi_pxpz_eqn: Eq
+    gstar_eigen_varphi_pxpz: Eq
+    gstar_eigenvalues: Eq
+    gstar_eigenvectors: Eq
+    gstarhat_eqn: Eq
     def define_g_eqns(self) -> None: ...

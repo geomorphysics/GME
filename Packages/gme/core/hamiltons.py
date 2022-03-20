@@ -37,13 +37,25 @@ from sympy import Eq, simplify, Matrix, sin, cos, factor, diff, Abs
 from gmplib.utils import e2d
 
 # GME
-from gme.core.symbols import \
-    rx, px, pz, alpha, rdot, rdotx, rdotz, pdotx, pdotz, \
-    rvec, rdotvec, varphi_r, pdotcovec
+from gme.core.symbols import (
+    rx,
+    px,
+    pz,
+    alpha,
+    rdot,
+    rdotx,
+    rdotz,
+    pdotx,
+    pdotz,
+    rvec,
+    rdotvec,
+    varphi_r,
+    pdotcovec,
+)
 
 warnings.filterwarnings("ignore")
 
-__all__ = ['HamiltonsMixin']
+__all__ = ["HamiltonsMixin"]
 
 
 class HamiltonsMixin:
@@ -56,9 +68,23 @@ class HamiltonsMixin:
     H_varphi_rx_eqn: Eq
     varphi_rx_eqn: Eq
     tanbeta_pxpz_eqn: Eq
-
     vdotx_lambdified: Optional[Callable]
     vdotz_lambdified: Optional[Callable]
+
+    # Definitions
+    rdotx_rdot_alpha_eqn: Eq
+    rdotz_rdot_alpha_eqn: Eq
+    rdotx_pxpz_eqn: Eq
+    rdotz_pxpz_eqn: Eq
+    rdotz_on_rdotx_eqn: Eq
+    rdotz_on_rdotx_tanbeta_eqn: Eq
+    rdot_vec_eqn: Eq
+    rdot_p_unity_eqn: Eq
+    pdotx_pxpz_eqn: Eq
+    pdotz_pxpz_eqn: Eq
+    pdot_covec_eqn: Eq
+    hamiltons_eqns: Matrix
+    geodesic_eqns: Matrix  # dummy
 
     def define_rdot_eqns(self) -> None:
         r"""
@@ -104,9 +130,9 @@ class HamiltonsMixin:
             rdot_p_unity_eqn (`Equality`_):
                 :math:`p_{x} v^{x} + p_{z} v^{z} = 1`
         """
-        logging.info('gme.core.hamiltons.define_rdot_eqns')
-        self.rdotx_rdot_alpha_eqn = Eq(rdotx, rdot*cos(alpha))
-        self.rdotz_rdot_alpha_eqn = Eq(rdotz, rdot*sin(alpha))
+        logging.info("gme.core.hamiltons.define_rdot_eqns")
+        self.rdotx_rdot_alpha_eqn = Eq(rdotx, rdot * cos(alpha))
+        self.rdotz_rdot_alpha_eqn = Eq(rdotz, rdot * sin(alpha))
         self.rdotx_pxpz_eqn = factor(Eq(rdotx, diff(self.H_eqn.rhs, px)))
         # simplify(diff(self.H_eqn.rhs,px)).subs({Abs(px):px,sign(px):1}) ) )
         self.rdotz_pxpz_eqn = factor(Eq(rdotz, diff(self.H_eqn.rhs, pz)))
@@ -115,18 +141,19 @@ class HamiltonsMixin:
         #                                 .subs({Abs(px):px,sign(px):1}) ) )
         #                                     .subs({px:pxp}) ) \
         #                                         .subs({pxp:px})
-        self.rdotz_on_rdotx_eqn \
-            = factor(Eq(rdotz/rdotx,
-                        simplify((self.rdotz_pxpz_eqn.rhs
-                                  / self.rdotx_pxpz_eqn.rhs)))
-                     .subs({Abs(px): px}))
-        self.rdotz_on_rdotx_tanbeta_eqn \
-            = factor(self.rdotz_on_rdotx_eqn
-                     .subs({px: self.px_pz_tanbeta_eqn.rhs}))
-        self.rdot_vec_eqn \
-            = Eq(rdotvec,
-                 Matrix([self.rdotx_pxpz_eqn.rhs, self.rdotz_pxpz_eqn.rhs]))
-        self.rdot_p_unity_eqn = Eq(rdotx*px+rdotz*pz, 1)
+        self.rdotz_on_rdotx_eqn = factor(
+            Eq(
+                rdotz / rdotx,
+                simplify((self.rdotz_pxpz_eqn.rhs / self.rdotx_pxpz_eqn.rhs)),
+            ).subs({Abs(px): px})
+        )
+        self.rdotz_on_rdotx_tanbeta_eqn = factor(
+            self.rdotz_on_rdotx_eqn.subs({px: self.px_pz_tanbeta_eqn.rhs})
+        )
+        self.rdot_vec_eqn = Eq(
+            rdotvec, Matrix([self.rdotx_pxpz_eqn.rhs, self.rdotz_pxpz_eqn.rhs])
+        )
+        self.rdot_p_unity_eqn = Eq(rdotx * px + rdotz * pz, 1)
 
         self.vdotx_lambdified = None
         self.vdotz_lambdified = None
@@ -158,21 +185,33 @@ class HamiltonsMixin:
                 \left(\varepsilon x_{1}^{2 \mu} + \left(x_{1}
                 - {r}^x\right)^{2 \mu}\right) & 0\end{matrix}\right]`
         """
-        logging.info('gme.core.hamiltons.define_pdot_eqns')
-        self.pdotx_pxpz_eqn \
-            = simplify(Eq(pdotx, (-diff(self.H_varphi_rx_eqn.rhs, rx)))) \
-            .subs({Abs(pz): -pz,
-                   Abs(px): px,
-                   Abs(px*pz): -px*pz,
-                   Abs(px/pz): -px/pz})
-        self.pdotz_pxpz_eqn = simplify(
-            Eq(pdotz, (0*diff(self.varphi_rx_eqn.rhs, rx)
-                       * (-self.tanbeta_pxpz_eqn.rhs)
-                       * self.H_eqn.rhs/varphi_r(rvec)))
+        logging.info("gme.core.hamiltons.define_pdot_eqns")
+        self.pdotx_pxpz_eqn = simplify(
+            Eq(pdotx, (-diff(self.H_varphi_rx_eqn.rhs, rx)))
+        ).subs(
+            {
+                Abs(pz): -pz,
+                Abs(px): px,
+                Abs(px * pz): -px * pz,
+                Abs(px / pz): -px / pz,
+            }
         )
-        self.pdot_covec_eqn \
-            = Eq(pdotcovec, Matrix([[self.pdotx_pxpz_eqn.rhs],
-                                    [self.pdotz_pxpz_eqn.rhs]]).T)
+        self.pdotz_pxpz_eqn = simplify(
+            Eq(
+                pdotz,
+                (
+                    0
+                    * diff(self.varphi_rx_eqn.rhs, rx)
+                    * (-self.tanbeta_pxpz_eqn.rhs)
+                    * self.H_eqn.rhs
+                    / varphi_r(rvec)
+                ),
+            )
+        )
+        self.pdot_covec_eqn = Eq(
+            pdotcovec,
+            Matrix([[self.pdotx_pxpz_eqn.rhs], [self.pdotz_pxpz_eqn.rhs]]).T,
+        )
 
     def define_Hamiltons_eqns(self) -> None:
         r"""
@@ -200,15 +239,16 @@ class HamiltonsMixin:
                 \dot{p}_z = 0
                 \end{matrix}\right]`
         """
-        logging.info('gme.core.hamiltons.define_Hamiltons_eqns')
-        self.hamiltons_eqns \
-            = Matrix((
+        logging.info("gme.core.hamiltons.define_Hamiltons_eqns")
+        self.hamiltons_eqns = Matrix(
+            (
                 self.rdotx_pxpz_eqn.rhs.subs(e2d(self.varphi_rx_eqn)),
                 self.rdotz_pxpz_eqn.rhs.subs(e2d(self.varphi_rx_eqn)),
                 self.pdotx_pxpz_eqn.rhs.subs(e2d(self.varphi_rx_eqn)),
                 self.pdotz_pxpz_eqn.rhs.subs(e2d(self.varphi_rx_eqn))
                 # .subs({pdotz:pdotz_tfn})
-            ))
+            )
+        )
 
 
 #

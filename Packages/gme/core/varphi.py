@@ -27,23 +27,50 @@ Requires Python packages/modules:
 # Library
 import warnings
 import logging
-# from typing import Dict, Type, Optional  # , Tuple, Any, List
+
+# from typing import Dict, Type, Optional  # , Tuple, Eq, List
 
 # SymPy
-from sympy import Eq, Rational, sqrt, simplify, solve, integrate, \
-                  sin, cos, tan, exp, Abs
+from sympy import (
+    Eq,
+    Rational,
+    sqrt,
+    simplify,
+    solve,
+    integrate,
+    sin,
+    cos,
+    tan,
+    exp,
+    Abs,
+)
 
 # GMPLib
 from gmplib.utils import e2d
 
 # GME
-from gme.core.symbols import \
-    p, rx, px, pz, beta, varphi_r, varphi_0, rvec, x, varepsilon, mu, Lc, \
-    chi, x_h, xiv, x_sigma
+from gme.core.symbols import (
+    p,
+    rx,
+    px,
+    pz,
+    beta,
+    varphi_r,
+    varphi_0,
+    rvec,
+    x,
+    varepsilon,
+    mu,
+    Lc,
+    chi,
+    x_h,
+    xiv,
+    x_sigma,
+)
 
 warnings.filterwarnings("ignore")
 
-__all__ = ['VarphiMixin']
+__all__ = ["VarphiMixin"]
 
 
 class VarphiMixin:
@@ -62,6 +89,23 @@ class VarphiMixin:
     pz_px_tanbeta_eqn: Eq
     xi_p_eqn: Eq
     p_pz_cosbeta_eqn: Eq
+
+    # Definitions
+    varphi_model_ramp_eqn: Eq
+    varphi_model_sramp_eqn: Eq
+    varphi_model_srampmu_eqn: Eq
+    varphi_rx_eqn: Eq
+    p_varphi_beta_eqn: Eq
+    p_varphi_pxpz_eqn: Eq
+    p_rx_pxpz_eqn: Eq
+    p_rx_tanbeta_eqn: Eq
+    px_beta_eqn: Eq
+    pz_beta_eqn: Eq
+    xiv_pxpz_eqn: Eq
+    pz_varphi_beta_eqn: Eq
+    px_varphi_beta_eqn: Eq
+    pz_varphi_rx_beta_eqn: Eq
+    px_varphi_rx_beta_eqn: Eq
 
     def define_varphi_model_eqns(self) -> None:
         r"""
@@ -89,13 +133,13 @@ class VarphiMixin:
                     if `self.varphi_type=='ramp-flat'`
 
         """
-        logging.info('gme.core.varphi.define_varphi_model_eqns')
+        logging.info("gme.core.varphi.define_varphi_model_eqns")
         # The implicit assumption here is that upstream area A ~ x^2,
         #   which will not be true for a "hillslope" component,
         #   and for which we should have a transition to A ~ x
-        self.varphi_model_ramp_eqn \
-            = Eq(varphi_r(rvec),
-                    varphi_0*(x+varepsilon)**(mu*2)).subs({x: Lc-rx})
+        self.varphi_model_ramp_eqn = Eq(
+            varphi_r(rvec), varphi_0 * (x + varepsilon) ** (mu * 2)
+        ).subs({x: Lc - rx})
         # else:
         #     self.varphi_model_ramp_eqn \
         #         = Eq(varphi_r(rvec),
@@ -103,30 +147,41 @@ class VarphiMixin:
 
         # self.varphi_model_rampmu_chi0_eqn \
         # =Eq(varphi_r, varphi_0*((x/Lc)**(mu*2) + varepsilon)).subs({x:Lc-rx})
-        self.varphi_model_sramp_eqn = Eq(varphi_r(rvec), simplify(
-            varphi_0*((chi/(Lc))*integrate(1/(1+exp(-x/x_sigma)), x) + 1)
-            .subs({x: -rx+Lc})))
-        smooth_step_fn = 1/(1+exp(((Lc-x_h)-x)/x_sigma))
+        self.varphi_model_sramp_eqn = Eq(
+            varphi_r(rvec),
+            simplify(
+                varphi_0
+                * (
+                    (chi / (Lc)) * integrate(1 / (1 + exp(-x / x_sigma)), x) + 1
+                ).subs({x: -rx + Lc})
+            ),
+        )
+        smooth_step_fn = 1 / (1 + exp(((Lc - x_h) - x) / x_sigma))
         # smooth_break_fn = (1+(chi/(Lc))**mu*integrate(smooth_step_fn,x))
         # TODO: fix deprecated chi usage
-        smooth_break_fn \
-            = simplify(
-                ((chi/Lc)*(integrate(smooth_step_fn, x))-chi*(1-x_h/Lc)+1)
-                ** (mu*2)
+        smooth_break_fn = simplify(
+            (
+                (chi / Lc) * (integrate(smooth_step_fn, x))
+                - chi * (1 - x_h / Lc)
+                + 1
             )
-        self.varphi_model_srampmu_eqn \
-            = Eq(varphi_r(rvec), simplify(
-                    varphi_0*smooth_break_fn.subs({x: Lc-x}).subs({x: rx}))
-                 )
-        if self.varphi_type == 'ramp':
+            ** (mu * 2)
+        )
+        self.varphi_model_srampmu_eqn = Eq(
+            varphi_r(rvec),
+            simplify(
+                varphi_0 * smooth_break_fn.subs({x: Lc - x}).subs({x: rx})
+            ),
+        )
+        if self.varphi_type == "ramp":
             varphi_model_eqn = self.varphi_model_ramp_eqn
-        elif self.varphi_type == 'ramp-flat':
+        elif self.varphi_type == "ramp-flat":
             if self.mu_ == Rational(1, 2):
                 varphi_model_eqn = self.varphi_model_sramp_eqn
             else:
                 varphi_model_eqn = self.varphi_model_srampmu_eqn
         else:
-            raise ValueError('Unknown flow model')
+            raise ValueError("Unknown flow model")
         # self.varphi_rx_eqn =varphi_model_eqn.subs({varphi_r(rvec):varphi_rx})
         self.varphi_rx_eqn = varphi_model_eqn
 
@@ -202,13 +257,13 @@ class VarphiMixin:
                 {\varphi_0 \left(\varepsilon
                 + \left(\dfrac{x_{1} - {r}^x}{x_{1}}\right)^{2 \mu}\right)}`
         """
-        logging.info('gme.core.varphi.define_varphi_related_eqns')
+        logging.info("gme.core.varphi.define_varphi_related_eqns")
         self.p_varphi_beta_eqn = self.p_xi_eqn.subs(
-            e2d(self.xi_varphi_beta_eqn))
+            e2d(self.xi_varphi_beta_eqn)
+        )
         # Note force px >= 0
         self.p_varphi_pxpz_eqn = (
-            self.p_varphi_beta_eqn
-            .subs(e2d(self.tanbeta_pxpz_eqn))
+            self.p_varphi_beta_eqn.subs(e2d(self.tanbeta_pxpz_eqn))
             .subs(e2d(self.sinbeta_pxpz_eqn))
             .subs(e2d(self.p_norm_pxpz_eqn))
             .subs({Abs(px): px})
@@ -221,30 +276,34 @@ class VarphiMixin:
         #           self.p_varphi_pxpz_eqn.rhs/sqrt(px**2+pz**2)))
 
         self.p_rx_pxpz_eqn = simplify(
-                self.p_varphi_pxpz_eqn.subs(
-                    {varphi_r(rvec): self.varphi_rx_eqn.rhs})
+            self.p_varphi_pxpz_eqn.subs(
+                {varphi_r(rvec): self.varphi_rx_eqn.rhs}
+            )
         )
         self.p_rx_tanbeta_eqn = self.p_rx_pxpz_eqn.subs(
-            {pz: self.pz_px_tanbeta_eqn.rhs})
+            {pz: self.pz_px_tanbeta_eqn.rhs}
+        )
         self.px_beta_eqn = Eq(px, self.p_rx_tanbeta_eqn.rhs * sin(beta))
         self.pz_beta_eqn = Eq(pz, -self.p_rx_tanbeta_eqn.rhs * cos(beta))
-        self.xiv_pxpz_eqn \
-            = simplify(
-                Eq(xiv, -cos(beta)/p)
-                .subs({cos(beta): 1/sqrt(1+tan(beta)**2)})
-                .subs({self.tanbeta_pxpz_eqn.lhs: self.tanbeta_pxpz_eqn.rhs})
-                .subs({self.p_norm_pxpz_eqn.lhs: self.p_norm_pxpz_eqn.rhs})
-                )
+        self.xiv_pxpz_eqn = simplify(
+            Eq(xiv, -cos(beta) / p)
+            .subs({cos(beta): 1 / sqrt(1 + tan(beta) ** 2)})
+            .subs({self.tanbeta_pxpz_eqn.lhs: self.tanbeta_pxpz_eqn.rhs})
+            .subs({self.p_norm_pxpz_eqn.lhs: self.p_norm_pxpz_eqn.rhs})
+        )
 
-        tmp = self.xi_varphi_beta_eqn.subs(e2d(self.xi_p_eqn))\
-                                     .subs(e2d(self.p_pz_cosbeta_eqn))
+        tmp = self.xi_varphi_beta_eqn.subs(e2d(self.xi_p_eqn)).subs(
+            e2d(self.p_pz_cosbeta_eqn)
+        )
         self.pz_varphi_beta_eqn = Eq(pz, solve(tmp, pz)[0])
         tmp = self.pz_varphi_beta_eqn.subs(e2d(self.pz_px_tanbeta_eqn))
         self.px_varphi_beta_eqn = Eq(px, solve(tmp, px)[0])
         self.pz_varphi_rx_beta_eqn = self.pz_varphi_beta_eqn.subs(
-            e2d(self.varphi_rx_eqn))
+            e2d(self.varphi_rx_eqn)
+        )
         self.px_varphi_rx_beta_eqn = self.px_varphi_beta_eqn.subs(
-            e2d(self.varphi_rx_eqn))
+            e2d(self.varphi_rx_eqn)
+        )
 
 
 #

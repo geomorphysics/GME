@@ -25,7 +25,8 @@ Requires Python packages/modules:
 # Library
 import warnings
 import logging
-from typing import Dict, Any
+
+# from typing import Dict
 
 # SymPy
 from sympy import (
@@ -72,9 +73,12 @@ class ProfileMixin:
     Generate differential equation(s) for time-invariant topographic profile.
     """
 
+    # Definitions
     xiv_eqn: Eq
     xvi_abs_eqn: Eq
     dzdx_Ci_polylike_eqn: Eq
+    dzdx_polylike_eqn: Eq
+    dzdx_Ci_polylike_prelim_eqn: Eq
 
     def define_z_eqns(self) -> None:
         r"""

@@ -22,6 +22,7 @@ Requires Python packages/modules:
 # Library
 import warnings
 import logging
+
 # from functools import lru_cache
 # from enum import Enum, auto
 from typing import List, Dict, Any, Tuple, Callable, Optional
@@ -45,10 +46,10 @@ from gme.core.equations import Equations
 
 warnings.filterwarnings("ignore")
 
-rp_tuple: Tuple[str, str, str, str] = ('rx', 'rz', 'px', 'pz')
-rpt_tuple: Tuple[str, str, str, str, str] = rp_tuple+('t',)
+__all__ = ["BaseSolution", "rp_tuple", "rpt_tuple"]
 
-__all__ = ['BaseSolution']
+rp_tuple: Tuple[str, str, str, str] = ("rx", "rz", "px", "pz")
+rpt_tuple: Tuple[str, str, str, str, str] = rp_tuple + ("t",)
 
 
 # class Choice(Enum):
@@ -65,12 +66,48 @@ class BaseSolution(ABC):
     Hamilton's equations (ODEs).
     """
 
+    # Definitions
+    gmeq: Equations
+    parameters: Dict
+    choice: str
+    method: str
+    do_dense: bool
+    x_stop: float
+    tp_xiv0_list: Optional[List[Tuple[float, float]]]
+    n_rays: int
+    t_end: float
+    t_distribn: float
+    t_slip_end: float
+    n_t: int
+    t_ensemble_max: Any
+    interp1d_kind: str
+    pz_velocity_boundary_eqn: Any
+    model_dXdt_lambda: Any
+    customize_t_fn: Optional[Callable]
+    ic_list: Any
+    ref_t_array: Any
+    rpt_arrays: Any
+    ivp_solns_list: Any
+    rp_t_interp_fns: Any
+    t_isochrone_max: float
+    n_isochrones: int
+    x_subset: int
+    tolerance: float
+    rpt_isochrones: Any
+    trxz_cusps: Any
+    cusps: Any
+    cx_pz_tanbeta_lambda: Any
+    cx_pz_lambda: Any
+    cx_v_lambda: Any
+    vx_interp_fast: Any
+    vx_interp_slow: Any
+
     def __init__(
         self,
         gmeq: Equations,
         parameters: Dict,
-        choice: str = 'Hamilton',
-        method: str = 'Radau',
+        choice: str = "Hamilton",
+        method: str = "Radau",
         do_dense: bool = True,
         x_stop: float = 0.999,
         t_end: float = 0.04,
@@ -79,7 +116,7 @@ class BaseSolution(ABC):
         n_rays: int = 20,
         n_t: int = 101,
         tp_xiv0_list: Optional[List[Tuple[float, float]]] = None,
-        customize_t_fn: Optional[Callable] = None
+        customize_t_fn: Optional[Callable] = None,
     ) -> None:
         """
         Initialize class instance.
@@ -101,10 +138,15 @@ class BaseSolution(ABC):
         # ODE solution method
         self.choice: str = choice
         self.method: str = method
-        task = 'Solve Hamilton\'s ODEs' if self.choice == 'Hamilton' \
-            else 'Solve geodesic ODEs'
-        report = f'gme.ode.base.BaseSolution.init:\n   {task} '\
-            + f'using {method} method of integration'
+        task = (
+            "Solve Hamilton's ODEs"
+            if self.choice == "Hamilton"
+            else "Solve geodesic ODEs"
+        )
+        report = (
+            f"gme.ode.base.BaseSolution.init:\n   {task} "
+            + f"using {method} method of integration"
+        )
         logging.info(report)
         self.do_dense: bool = do_dense
         self.x_stop: float = x_stop
@@ -119,26 +161,25 @@ class BaseSolution(ABC):
         # To record the longest ray time
         self.t_ensemble_max: float
         # Ray interpolation
-        self.interp1d_kind: str = 'linear'
+        self.interp1d_kind: str = "linear"
 
         # ODEs & related
         self.pz_velocity_boundary_eqn = gmeq.pz_xiv_eqn.subs(self.parameters)
 
         # Misc
-        self.model_dXdt_lambda: \
-            Callable[[float, Tuple[Any, Any, Any, Any]],
-                     float] = lambda a, b: 0.0
+        self.model_dXdt_lambda: Callable[
+            [float, Tuple[Any, Any, Any, Any]], float
+        ] = lambda a, b: 0.0
         self.customize_t_fn: Optional[Callable] = customize_t_fn
 
         # Preliminary definitions and type annotations
         self.ic_list: List[Tuple[float, float, float, float]]
-        self.ref_t_array \
-            = np.linspace(0, 1, self.n_t)**self.t_distribn * self.t_end
+        self.ref_t_array = (
+            np.linspace(0, 1, self.n_t) ** self.t_distribn * self.t_end
+        )
         self.rpt_arrays: Dict[str, List[np.ndarray]] = {}
         for rp_ in rpt_tuple:
-            self.rpt_arrays.update({
-                rp_: [np.array([0])]*self.n_rays
-            })
+            self.rpt_arrays.update({rp_: [np.array([0])] * self.n_rays})
         # logging.info(type(self.rpt_arrays['rx']))
         self.ivp_solns_list: List[Any] = []
         self.rp_t_interp_fns: Dict[str, List[Optional[Callable]]] = {}
@@ -156,7 +197,10 @@ class BaseSolution(ABC):
         self.vx_interp_slow: Optional[Callable[[float], float]] = None
 
     @abstractmethod
-    def initial_conditions(self) -> Tuple[float, float, float, float]:
+    def initial_conditions(self,
+        t_lag: float = 0, 
+        xiv_0_: float = 0,
+    ) -> Tuple[float, float, float, float]:
         """
         Dummy method of generating initial conditions that must be defined by
         any subclass
@@ -168,8 +212,9 @@ class BaseSolution(ABC):
         Dummy method of solution that must be defined by any subclass
         """
 
-    def make_model(self) \
-            -> Callable[[float, Tuple[Any, Any, Any, Any]], np.ndarray]:
+    def make_model(
+        self,
+    ) -> Callable[[float, Tuple[Any, Any, Any, Any]], np.ndarray]:
         """
         Generate a lambda for Hamilton's equations (or the geodesic equations)
            that returns a matrix of dr/dt and dp/dt (resp. dr/dt and dv/dt)
@@ -179,28 +224,29 @@ class BaseSolution(ABC):
         # constants set
         #   - generates a "matrix" of the 4 Hamilton equations with rx,rz,px,pz
         #     as variables and the rest as numbers
-        log_string = 'gme.ode.base.BaseSolution.make_model:\n   '
-        if self.choice == 'Hamilton':
-            logging.info(
-                f'{log_string}Constructing model Hamilton\'s equations')
+        log_string = "gme.ode.base.BaseSolution.make_model:\n   "
+        if self.choice == "Hamilton":
+            logging.info(f"{log_string}Constructing model Hamilton's equations")
             drpdt_eqn_matrix = simplify(
-                self.gmeq.hamiltons_eqns.subs(self.parameters))
+                self.gmeq.hamiltons_eqns.subs(self.parameters)
+            )
             # .subs({pz:-Abs(pz)})  # HACK - may need this
             drpdt_raw_lambda = lambdify([rx, px, pz], drpdt_eqn_matrix)
-            return lambda t_, rp_: \
-                np.ndarray.flatten(drpdt_raw_lambda(rp_[0], rp_[2], rp_[3]))
+            return lambda t_, rp_: np.ndarray.flatten(
+                drpdt_raw_lambda(rp_[0], rp_[2], rp_[3])
+            )
 
-        logging.info(f'{log_string}Constructing model geodesic equations')
+        logging.info(f"{log_string}Constructing model geodesic equations")
         drvdt_eqn_matrix = Matrix(
-            ([(eq_.rhs) for eq_ in self.gmeq.geodesic_eqns]))
+            ([(eq_.rhs) for eq_ in self.gmeq.geodesic_eqns])
+        )
         drvdt_raw_lambda = lambdify([rx, rdotx, rdotz], drvdt_eqn_matrix)
-        return lambda t_, rv_: \
-            np.ndarray.flatten(drvdt_raw_lambda(rv_[0], rv_[2], rv_[3]))
+        return lambda t_, rv_: np.ndarray.flatten(
+            drvdt_raw_lambda(rv_[0], rv_[2], rv_[3])
+        )
 
     def postprocessing(
-        self,
-        spline_order: int = 2,
-        extrapolation_mode: int = 0
+        self, spline_order: int = 2, extrapolation_mode: int = 0
     ) -> None:
         """
         Generate interpolating functions for (r,p)[t] using ray samples
@@ -209,20 +255,21 @@ class BaseSolution(ABC):
         #  that override this method
         _ = (spline_order, extrapolation_mode)
         for rp_ in rp_tuple:
-            self.rp_t_interp_fns.update({rp_: [None]*self.n_rays})
-        fill_value_ = 'extrapolate'
-        for (i_ray, t_array) in enumerate(self.rpt_arrays['t']):
+            self.rp_t_interp_fns.update({rp_: [None] * self.n_rays})
+        fill_value_ = "extrapolate"
+        for (i_ray, t_array) in enumerate(self.rpt_arrays["t"]):
             if t_array.size > 1:
                 # Generate interpolation functions for each component
                 #   rx[t], rz[t], px[t], pz[t]
                 for rp_ in rp_tuple:
                     # logging.info((i_ray, rp_))
-                    self.rp_t_interp_fns[rp_][i_ray] \
-                        = interp1d(t_array,
-                                   self.rpt_arrays[rp_][i_ray],
-                                   kind=self.interp1d_kind,
-                                   fill_value=fill_value_,
-                                   assume_sorted=True)
+                    self.rp_t_interp_fns[rp_][i_ray] = interp1d(
+                        t_array,
+                        self.rpt_arrays[rp_][i_ray],
+                        kind=self.interp1d_kind,
+                        fill_value=fill_value_,
+                        assume_sorted=True,
+                    )
 
     def resolve_isochrones(
         self,
@@ -232,7 +279,7 @@ class BaseSolution(ABC):
         n_resample_pts: int = 301,
         tolerance: float = 1e-3,
         do_eliminate_caustics: bool = True,
-        dont_crop_cusps: bool = False
+        dont_crop_cusps: bool = False,
     ) -> None:
         r"""
         Resample the ensemble of rays at selected time slices to generate
@@ -282,14 +329,14 @@ class BaseSolution(ABC):
             # Prepare array dictionaries etc
             # self.rpt_isochrones: Dict[str,List] = {}
             for rpt_ in rpt_tuple:
-                self.rpt_isochrones.update({rpt_: [None]*n_isochrones})
+                self.rpt_isochrones.update({rpt_: [None] * n_isochrones})
             # self.rpt_isochrones_lowres = self.rpt_isochrones.copy()
             # self.trxz_cusps: List[Tuple[np.ndarray,Any,Any]] = []
 
         def truncate_isochrone(
             rpt_isochrone: Dict[str, np.ndarray],
             i_from: Optional[int] = None,
-            i_to: Optional[int] = None
+            i_to: Optional[int] = None,
         ) -> Dict[str, np.ndarray]:
             """
             TBD
@@ -299,21 +346,19 @@ class BaseSolution(ABC):
             return rpt_isochrone
 
         def find_intercept(
-            rpt_isochrone,
-            slice1,
-            slice2
+            rpt_isochrone, slice1, slice2
         ) -> Tuple[Any, Any, Any, Any]:
             """
             TBD
             """
-            x1_array = rpt_isochrone['rx'][slice1]
-            x2_array = rpt_isochrone['rx'][slice2]
-            z1_array = rpt_isochrone['rz'][slice1]
-            z2_array = rpt_isochrone['rz'][slice2]
-            px1_array = rpt_isochrone['px'][slice1]
-            px2_array = rpt_isochrone['px'][slice2]
-            pz1_array = rpt_isochrone['pz'][slice1]
-            pz2_array = rpt_isochrone['pz'][slice2]
+            x1_array = rpt_isochrone["rx"][slice1]
+            x2_array = rpt_isochrone["rx"][slice2]
+            z1_array = rpt_isochrone["rz"][slice1]
+            z2_array = rpt_isochrone["rz"][slice2]
+            px1_array = rpt_isochrone["px"][slice1]
+            px2_array = rpt_isochrone["px"][slice2]
+            pz1_array = rpt_isochrone["pz"][slice1]
+            pz2_array = rpt_isochrone["pz"][slice2]
             s1_array = np.linspace(0, 1, num=len(x1_array))
             s2_array = np.linspace(0, 1, num=len(x2_array))
 
@@ -324,39 +369,48 @@ class BaseSolution(ABC):
             #  - assume_sorted: because s_array ('x') increases monotonically
             #    across [0,1]
 
-            kwargs_ = dict(fill_value='extrapolate',
-                           copy=False, assume_sorted=True)
+            kwargs_ = dict(
+                fill_value="extrapolate", copy=False, assume_sorted=True
+            )
             slice_ = np.s_[::1]
             x1_interp = interp1d(s1_array[slice_], x1_array[slice_], **kwargs_)
             x2_interp = interp1d(s2_array[slice_], x2_array[slice_], **kwargs_)
             z1_interp = interp1d(s1_array[slice_], z1_array[slice_], **kwargs_)
             z2_interp = interp1d(s2_array[slice_], z2_array[slice_], **kwargs_)
             px1_interp = interp1d(
-                s1_array[slice_], px1_array[slice_], **kwargs_)
+                s1_array[slice_], px1_array[slice_], **kwargs_
+            )
             px2_interp = interp1d(
-                s2_array[slice_], px2_array[slice_], **kwargs_)
+                s2_array[slice_], px2_array[slice_], **kwargs_
+            )
             pz1_interp = interp1d(
-                s1_array[slice_], pz1_array[slice_], **kwargs_)
+                s1_array[slice_], pz1_array[slice_], **kwargs_
+            )
             pz2_interp = interp1d(
-                s2_array[slice_], pz2_array[slice_], **kwargs_)
+                s2_array[slice_], pz2_array[slice_], **kwargs_
+            )
 
-            def xydiff_lambda(s12): \
-                return ((np.abs(x1_interp(s12[0])-x2_interp(s12[1]))),
-                        (np.abs(z1_interp(s12[0])-z2_interp(s12[1]))))
+            def xydiff_lambda(s12):
+                return (
+                    (np.abs(x1_interp(s12[0]) - x2_interp(s12[1]))),
+                    (np.abs(z1_interp(s12[0]) - z2_interp(s12[1]))),
+                )
 
-            s12_intercept, _, _, _ \
-                = fsolve(xydiff_lambda,
-                         [0.99, 0.01],
-                         factor=0.1,
-                         full_output=True)  # , factor=0.1,
-            xz1_intercept = x1_interp(
-                s12_intercept[0]), z1_interp(s12_intercept[0])
-            xz2_intercept = x2_interp(
-                s12_intercept[1]), z2_interp(s12_intercept[1])
-            pxz1_intercept = px1_interp(
-                s12_intercept[0]), pz1_interp(s12_intercept[0])
-            pxz2_intercept = px2_interp(
-                s12_intercept[1]), pz2_interp(s12_intercept[1])
+            s12_intercept, _, _, _ = fsolve(
+                xydiff_lambda, [0.99, 0.01], factor=0.1, full_output=True
+            )  # , factor=0.1,
+            xz1_intercept = x1_interp(s12_intercept[0]), z1_interp(
+                s12_intercept[0]
+            )
+            xz2_intercept = x2_interp(s12_intercept[1]), z2_interp(
+                s12_intercept[1]
+            )
+            pxz1_intercept = px1_interp(s12_intercept[0]), pz1_interp(
+                s12_intercept[0]
+            )
+            pxz2_intercept = px2_interp(s12_intercept[1]), pz2_interp(
+                s12_intercept[1]
+            )
             # print(ier, mesg, s12_intercept, s12_intercept)
             # self.x1_interp = x1_interp
             # self.x2_interp = x2_interp
@@ -364,18 +418,21 @@ class BaseSolution(ABC):
             # self.z2_interp = z2_interp
             # self.xydiff_lambda = xydiff_lambda
 
-            return \
-                (xz1_intercept, xz2_intercept, pxz1_intercept, pxz2_intercept)
+            return (
+                xz1_intercept,
+                xz2_intercept,
+                pxz1_intercept,
+                pxz2_intercept,
+            )
 
         def eliminate_caustic(
-            is_good_pt_array: np.ndarray,
-            rpt_isochrone
+            is_good_pt_array: np.ndarray, rpt_isochrone
         ) -> Tuple[
-                Dict[str, np.ndarray],
-                Tuple[Optional[np.ndarray],
-                      Optional[np.ndarray],
-                      Optional[np.ndarray]]
-                ]:
+            Dict[str, np.ndarray],
+            Tuple[
+                Optional[np.ndarray], Optional[np.ndarray], Optional[np.ndarray]
+            ],
+        ]:
             """
             TBD
             """
@@ -384,18 +441,19 @@ class BaseSolution(ABC):
 
             # Check if there are any false points
             #    - if not, just return the whole curve
-            if len(rpt_isochrone['rx'][is_good_pt_array]) \
-                    == len(rpt_isochrone['rx']):
+            if len(rpt_isochrone["rx"][is_good_pt_array]) == len(
+                rpt_isochrone["rx"]
+            ):
                 # print('whole curve')
                 return rpt_isochrone, (None, None, None)
 
             # Check if there are ONLY false points, in which case return an
             #    empty curve
-            if len(rpt_isochrone['rx'][is_good_pt_array]) == 0:
+            if len(rpt_isochrone["rx"][is_good_pt_array]) == 0:
                 # print('empty curve')
                 return (
                     truncate_isochrone(rpt_isochrone, -1, -1),
-                    (None, None, None)
+                    (None, None, None),
                 )
 
             # Find false indexes
@@ -411,43 +469,53 @@ class BaseSolution(ABC):
                 # print('right half')
                 return (
                     truncate_isochrone(rpt_isochrone, false_indexes[-1], None),
-                    (None, None, None)
+                    (None, None, None),
                 )
 
             if len(false_indexes) > 1:
-                last_false_index \
-                    = [idx for idx, fi
-                       in enumerate(zip(false_indexes[:-1], false_indexes[1:]))
-                       if fi[1]-fi[0] > 1]
+                last_false_index = [
+                    idx
+                    for idx, fi in enumerate(
+                        zip(false_indexes[:-1], false_indexes[1:])
+                    )
+                    if fi[1] - fi[0] > 1
+                ]
                 # print('last:', last_false_index)
                 if len(last_false_index) > 0:
-                    false_indexes = false_indexes[0:(last_false_index[0]+1)]
+                    false_indexes = false_indexes[0 : (last_false_index[0] + 1)]
 
             # Otherwise, generate interpolations of x and y points
             #    for both left and right curves
-            slice1 = np.s_[:(false_indexes[0]+1)]
-            slice2 = np.s_[(false_indexes[-1]+1):]
+            slice1 = np.s_[: (false_indexes[0] + 1)]
+            slice2 = np.s_[(false_indexes[-1] + 1) :]
 
             # If false_indexes[-1]==len(false_indexes)-1,
             #        use only left half (won't happen?)
             #   (assumes pattern is TTFFFFTT or TTTTFFFF etc)
-            if false_indexes[-1] == len(is_good_pt_array)-1 \
-                    or len(is_good_pt_array[slice2]) == 1:
+            if (
+                false_indexes[-1] == len(is_good_pt_array) - 1
+                or len(is_good_pt_array[slice2]) == 1
+            ):
                 # print('left half')
-                return (truncate_isochrone(rpt_isochrone, 0, false_indexes[0]),
-                        (None, None, None))
+                return (
+                    truncate_isochrone(rpt_isochrone, 0, false_indexes[0]),
+                    (None, None, None),
+                )
 
             # At this point, we presumably have a caustic,
             #    so find the cusp intercept
-            rxz1_intercept, _, pxz1_intercept, pxz2_intercept \
-                = find_intercept(rpt_isochrone, slice1, slice2)
+            rxz1_intercept, _, pxz1_intercept, pxz2_intercept = find_intercept(
+                rpt_isochrone, slice1, slice2
+            )
             # print('Intercept @ ', rxz1_intercept,rxz2_intercept)
 
             # Delimit the portions to the left and to the right of the cusp
             i1_array = np.where(
-                rpt_isochrone['rx'][slice1] <= rxz1_intercept[0])[0]
+                rpt_isochrone["rx"][slice1] <= rxz1_intercept[0]
+            )[0]
             i2_array = np.where(
-                rpt_isochrone['rx'][slice2] >= rxz1_intercept[0])[0]
+                rpt_isochrone["rx"][slice2] >= rxz1_intercept[0]
+            )[0]
             # print('i1,i2 arrays', i1_array,i2_array)
 
             # Rebuild the isochrone dictionary
@@ -455,22 +523,23 @@ class BaseSolution(ABC):
             for rp_ in rp_tuple:
                 isochrone_left = rpt_isochrone[rp_][slice1]
                 isochrone_right = rpt_isochrone[rp_][slice2]
-                isochrone_ = np.concatenate([isochrone_left[i1_array],
-                                             isochrone_right[i2_array]])
+                isochrone_ = np.concatenate(
+                    [isochrone_left[i1_array], isochrone_right[i2_array]]
+                )
                 rpt_isochrone_rtn.update({rp_: isochrone_})
-            rpt_isochrone_rtn.update({'t': rpt_isochrone['t']})
+            rpt_isochrone_rtn.update({"t": rpt_isochrone["t"]})
 
-            intercept: Tuple[Optional[np.ndarray],
-                             Optional[np.ndarray],
-                             Optional[np.ndarray]]
-            if rxz1_intercept[0] > 0 \
-                and (dont_crop_cusps
-                     or rxz1_intercept[0] <= self.parameters[Lc]):
+            intercept: Tuple[
+                Optional[np.ndarray], Optional[np.ndarray], Optional[np.ndarray]
+            ]
+            if rxz1_intercept[0] > 0 and (
+                dont_crop_cusps or rxz1_intercept[0] <= self.parameters[Lc]
+            ):
                 intercept = (
                     # (rpt_isochrone['t'],
                     np.array(rxz1_intercept),
                     np.array(pxz1_intercept),
-                    np.array(pxz2_intercept)
+                    np.array(pxz2_intercept),
                 )
             else:
                 intercept = (None, None, None)
@@ -486,43 +555,55 @@ class BaseSolution(ABC):
             for rp_ in rp_tuple:
                 # Sample each ray at time t_ from each of the components
                 #    of r,p vectors using their interpolating fns
-                rp_interpolated_isochrone \
-                    = [float(interp_fn(t_))
-                        for interp_fn in self.rp_t_interp_fns[rp_]
-                       if interp_fn is not None]
-                rpt_isochrone.update(
-                    {rp_: np.array(rp_interpolated_isochrone)})
-            rpt_isochrone.update({'t': t_})
+                rp_interpolated_isochrone = [
+                    float(interp_fn(t_))
+                    for interp_fn in self.rp_t_interp_fns[rp_]
+                    if interp_fn is not None
+                ]
+                rpt_isochrone.update({rp_: np.array(rp_interpolated_isochrone)})
+            rpt_isochrone.update({"t": t_})
             return rpt_isochrone
 
         def resample_isochrone(
-            rpt_isochrone_in: Dict,
-            n_resample_pts: int
+            rpt_isochrone_in: Dict, n_resample_pts: int
         ) -> Dict[str, np.ndarray]:
             """
             TBD
             """
             n_s_pts = n_resample_pts
             rpt_isochrone_out = rpt_isochrone_in.copy()
-            s_array \
-                = np.cumsum(np.concatenate([
-                    np.array([0]),
-                    np.sqrt(
-                        (rpt_isochrone_in['rx'][1:]
-                            - rpt_isochrone_in['rx'][:-1])**2
-                        + (rpt_isochrone_in['rz'][1:]
-                           - rpt_isochrone_in['rz'][:-1])**2
-                        )
-                ]))
+            s_array = np.cumsum(
+                np.concatenate(
+                    [
+                        np.array([0]),
+                        np.sqrt(
+                            (
+                                rpt_isochrone_in["rx"][1:]
+                                - rpt_isochrone_in["rx"][:-1]
+                            )
+                            ** 2
+                            + (
+                                rpt_isochrone_in["rz"][1:]
+                                - rpt_isochrone_in["rz"][:-1]
+                            )
+                            ** 2
+                        ),
+                    ]
+                )
+            )
             rs_array = np.linspace(s_array[0], s_array[-1], num=n_s_pts)
             # HACK to avoid interpolating a crap isochrone sampled
             #   only at one point
             if s_array[-1] < 1e-10:
                 return rpt_isochrone_out
             for rp_ in rp_tuple:
-                rpt_isochrone_interp_fn \
-                    = interp1d(s_array, rpt_isochrone_out[rp_], kind='linear',
-                               fill_value='extrapolate', assume_sorted=True)
+                rpt_isochrone_interp_fn = interp1d(
+                    s_array,
+                    rpt_isochrone_out[rp_],
+                    kind="linear",
+                    fill_value="extrapolate",
+                    assume_sorted=True,
+                )
                 rpt_isochrone_out[rp_] = rpt_isochrone_interp_fn(rs_array)
             return rpt_isochrone_out
 
@@ -530,11 +611,13 @@ class BaseSolution(ABC):
         #   for the current isochrone
 
         def clean_isochrone(
-            rpt_isochrone: Dict
-        ) -> Tuple[Optional[Dict[str, np.ndarray]],
-                   Tuple[Optional[np.ndarray],
-                         Optional[np.ndarray],
-                         Optional[np.ndarray]]]:
+            rpt_isochrone: Dict,
+        ) -> Tuple[
+            Optional[Dict[str, np.ndarray]],
+            Tuple[
+                Optional[np.ndarray], Optional[np.ndarray], Optional[np.ndarray]
+            ],
+        ]:
             """
             TBD
             """
@@ -542,12 +625,15 @@ class BaseSolution(ABC):
             #      whose rx sequence is negative (left-ward)
             #  - do this by creating a flag array whose elements are True
             #       if rx[i+1]>rx[i]
-            is_good_pt_array \
-                = np.concatenate((
-                    (rpt_isochrone['rx'][1:]-rpt_isochrone['rx'][:-1]
-                     >= -self.tolerance),
-                    [True]
-                ))
+            is_good_pt_array = np.concatenate(
+                (
+                    (
+                        rpt_isochrone["rx"][1:] - rpt_isochrone["rx"][:-1]
+                        >= -self.tolerance
+                    ),
+                    [True],
+                )
+            )
 
             # Replace this isochrone with one whose caustic
             #    has been removed - if it has one
@@ -555,10 +641,14 @@ class BaseSolution(ABC):
             #   (t_rxz_intercept, pxz1_intercept, pxz2_intercept) \
             #         = eliminate_caustic(is_good_pt_array, rpt_isochrone)
             #            if do_eliminate_caustics else None, (None,None,None)
-            rtn: Tuple[Optional[Dict[str, np.ndarray]],
-                       Tuple[Optional[np.ndarray],
-                             Optional[np.ndarray],
-                             Optional[np.ndarray]]]
+            rtn: Tuple[
+                Optional[Dict[str, np.ndarray]],
+                Tuple[
+                    Optional[np.ndarray],
+                    Optional[np.ndarray],
+                    Optional[np.ndarray],
+                ],
+            ]
             # (rpt_isochrone,
             #  (t_rxz_intercept, pxz1_intercept, pxz2_intercept)) \
             if do_eliminate_caustics:
@@ -570,36 +660,33 @@ class BaseSolution(ABC):
             #                          is not None else rpt_isochrone
             return rtn
 
-        def prune_isochrone(
-            rpt_isochrone_in: Dict
-        ) -> Dict[str, np.ndarray]:
+        def prune_isochrone(rpt_isochrone_in: Dict) -> Dict[str, np.ndarray]:
             """
             TBD
             """
             rpt_isochrone_out = rpt_isochrone_in.copy()
-            rx_array = rpt_isochrone_out['rx']
+            rx_array = rpt_isochrone_out["rx"]
             i_bounded_array = (rx_array >= 0) & (rx_array <= 1.0)
-            rpt_isochrone_out['rx'] = rx_array[i_bounded_array]
-            did_clip_at_x1 = len(rx_array) > len(rpt_isochrone_out['rx'])
+            rpt_isochrone_out["rx"] = rx_array[i_bounded_array]
+            did_clip_at_x1 = len(rx_array) > len(rpt_isochrone_out["rx"])
             for rp_ in rp_tuple:
                 rpt_isochrone_out[rp_] = rpt_isochrone_in[rp_][i_bounded_array]
                 # Wildly inefficient interpolation to do extrapolation here
                 if did_clip_at_x1:
-                    rpt_isochrone_interp_fn \
-                        = interp1d(rx_array[rx_array >= 0.95],
-                                   rpt_isochrone_in[rp_][rx_array >= 0.95],
-                                   kind='linear', fill_value='extrapolate',
-                                   assume_sorted=True)
+                    rpt_isochrone_interp_fn = interp1d(
+                        rx_array[rx_array >= 0.95],
+                        rpt_isochrone_in[rp_][rx_array >= 0.95],
+                        kind="linear",
+                        fill_value="extrapolate",
+                        assume_sorted=True,
+                    )
                     rpt_at_x1 = rpt_isochrone_interp_fn(1.0)
-                    rpt_isochrone_out[rp_] \
-                        = np.concatenate([rpt_isochrone_out[rp_],
-                                          np.array([rpt_at_x1])])
+                    rpt_isochrone_out[rp_] = np.concatenate(
+                        [rpt_isochrone_out[rp_], np.array([rpt_at_x1])]
+                    )
             return rpt_isochrone_out
 
-        def record_isochrone(
-            rpt_isochrone: Dict,
-            i_isochrone: int
-        ) -> None:
+        def record_isochrone(rpt_isochrone: Dict, i_isochrone: int) -> None:
             """
             TBD
             """
@@ -608,9 +695,7 @@ class BaseSolution(ABC):
                 self.rpt_isochrones[rpt_][i_isochrone] = rpt_isochrone[rpt_]
 
         def record_cusp(
-            trxz_cusp: Optional[np.ndarray],
-            pxz1_intercept,
-            pxz2_intercept
+            trxz_cusp: Optional[np.ndarray], pxz1_intercept, pxz2_intercept
         ) -> None:
             """
             TBD
@@ -618,25 +703,42 @@ class BaseSolution(ABC):
             if trxz_cusp is not None:
                 # Record this intercept
                 self.trxz_cusps.append(
-                    (trxz_cusp, pxz1_intercept, pxz2_intercept))
+                    (trxz_cusp, pxz1_intercept, pxz2_intercept)
+                )
 
         def organize_cusps() -> None:
             """
             TBD
             """
             # self.cusps: Dict[str,np.ndarray] = {}
-            self.cusps['t'] = np.array([t_ for (t_, rxz_), pxz1_, pxz2_
-                                        in self.trxz_cusps
-                                        if rxz_[0] >= 0 and rxz_[0] <= 1])
-            self.cusps['rxz'] = np.array([rxz_ for (t_, rxz_), pxz1_, pxz2_
-                                          in self.trxz_cusps
-                                          if rxz_[0] >= 0 and rxz_[0] <= 1])
-            self.cusps['pxz1'] = np.array([pxz1_ for (t_, rxz_), pxz1_, pxz2_
-                                           in self.trxz_cusps
-                                           if rxz_[0] >= 0 and rxz_[0] <= 1])
-            self.cusps['pxz2'] = np.array([pxz2_ for (t_, rxz_), pxz1_, pxz2_
-                                           in self.trxz_cusps
-                                           if rxz_[0] >= 0 and rxz_[0] <= 1])
+            self.cusps["t"] = np.array(
+                [
+                    t_
+                    for (t_, rxz_), pxz1_, pxz2_ in self.trxz_cusps
+                    if rxz_[0] >= 0 and rxz_[0] <= 1
+                ]
+            )
+            self.cusps["rxz"] = np.array(
+                [
+                    rxz_
+                    for (t_, rxz_), pxz1_, pxz2_ in self.trxz_cusps
+                    if rxz_[0] >= 0 and rxz_[0] <= 1
+                ]
+            )
+            self.cusps["pxz1"] = np.array(
+                [
+                    pxz1_
+                    for (t_, rxz_), pxz1_, pxz2_ in self.trxz_cusps
+                    if rxz_[0] >= 0 and rxz_[0] <= 1
+                ]
+            )
+            self.cusps["pxz2"] = np.array(
+                [
+                    pxz2_
+                    for (t_, rxz_), pxz1_, pxz2_ in self.trxz_cusps
+                    if rxz_[0] >= 0 and rxz_[0] <= 1
+                ]
+            )
 
         # Create isochrones of the evolving surface:
         #   (1) step through each time t_i in the global time sequence
@@ -656,11 +758,13 @@ class BaseSolution(ABC):
         t_array = np.linspace(0, t_isochrone_max, n_isochrones)
         for i_isochrone, t_ in enumerate(t_array):
             rpt_isochrone = compose_isochrone(t_)  # i_isochrone,
-            rpt_isochrone_resampled \
-                = resample_isochrone(rpt_isochrone, n_resample_pts)
-            (rpt_isochrone_clean,
-             (trxz_cusp, pxz1_intercept, pxz2_intercept)) \
-                = clean_isochrone(rpt_isochrone_resampled)
+            rpt_isochrone_resampled = resample_isochrone(
+                rpt_isochrone, n_resample_pts
+            )
+            (
+                rpt_isochrone_clean,
+                (trxz_cusp, pxz1_intercept, pxz2_intercept),
+            ) = clean_isochrone(rpt_isochrone_resampled)
             if rpt_isochrone_clean is not None:
                 rpt_isochrone_pruned = prune_isochrone(rpt_isochrone_clean)
                 record_isochrone(rpt_isochrone_pruned, i_isochrone)
@@ -671,55 +775,57 @@ class BaseSolution(ABC):
         """
         TBD
         """
-        kwargs_ = dict(kind='linear',
-                       fill_value='extrapolate',
-                       assume_sorted=True)
+        kwargs_ = dict(
+            kind="linear", fill_value="extrapolate", assume_sorted=True
+        )
 
-        if self.cusps['t'].shape[0] == 0:
+        if self.cusps["t"].shape[0] == 0:
             self.cx_pz_tanbeta_lambda = None
             self.cx_pz_lambda = None
             self.cx_v_lambda = None
             self.vx_interp_fast = None
             self.vx_interp_slow = None
             return
-        (_, rxz_array, pxz_fast_array, pxz_slow_array) \
-            = [self.cusps[key_] for key_ in ['t', 'rxz', 'pxz1', 'pxz2']]
-        (px_fast_array, pz_fast_array) \
-            = (pxz_fast_array[:, 0], pxz_fast_array[:, 1])
-        (px_slow_array, pz_slow_array) \
-            = (pxz_slow_array[:, 0], pxz_slow_array[:, 1])
-        (rx_array, rz_array) \
-            = (rxz_array[:, 0], rxz_array[:, 1])
+        (_, rxz_array, pxz_fast_array, pxz_slow_array) = [
+            self.cusps[key_] for key_ in ["t", "rxz", "pxz1", "pxz2"]
+        ]
+        (px_fast_array, pz_fast_array) = (
+            pxz_fast_array[:, 0],
+            pxz_fast_array[:, 1],
+        )
+        (px_slow_array, pz_slow_array) = (
+            pxz_slow_array[:, 0],
+            pxz_slow_array[:, 1],
+        )
+        (rx_array, rz_array) = (rxz_array[:, 0], rxz_array[:, 1])
 
         # p_fast_array = np.sqrt(px_fast_array**2+pz_fast_array**2)
-        tanbeta_fast_array = -px_fast_array/pz_fast_array
+        tanbeta_fast_array = -px_fast_array / pz_fast_array
         # sinbeta_fast_array =  px_fast_array/p_fast_array
         # cosbeta_fast_array = -pz_fast_array/p_fast_array
         # p_fast_interp       = interp1d( rxz_array[:,0], p_fast_array,
         #                       **kwargs_ )
-        px_fast_interp = interp1d(
-            rxz_array[:, 0], px_fast_array,      **kwargs_)
-        pz_fast_interp = interp1d(
-            rxz_array[:, 0], pz_fast_array,      **kwargs_)
+        px_fast_interp = interp1d(rxz_array[:, 0], px_fast_array, **kwargs_)
+        pz_fast_interp = interp1d(rxz_array[:, 0], pz_fast_array, **kwargs_)
         tanbeta_fast_interp = interp1d(
-            rxz_array[:, 0], tanbeta_fast_array, **kwargs_)
+            rxz_array[:, 0], tanbeta_fast_array, **kwargs_
+        )
         # sinbeta_fast_interp
         #     = interp1d( rxz_array[:,0], sinbeta_fast_array, **kwargs_ )
         # cosbeta_fast_interp
         #     = interp1d( rxz_array[:,0], cosbeta_fast_array, **kwargs_ )
 
         # p_slow_array = np.sqrt(px_slow_array**2+pz_slow_array**2)
-        tanbeta_slow_array = -px_slow_array/pz_slow_array
+        tanbeta_slow_array = -px_slow_array / pz_slow_array
         # sinbeta_slow_array =  px_slow_array/p_slow_array
         # cosbeta_slow_array = -pz_slow_array/p_slow_array
         # p_slow_interp
         #     = interp1d( rxz_array[:,0], p_slow_array, **kwargs_ )
-        px_slow_interp = interp1d(
-            rxz_array[:, 0], px_slow_array, **kwargs_)
-        pz_slow_interp = interp1d(
-            rxz_array[:, 0], pz_slow_array, **kwargs_)
+        px_slow_interp = interp1d(rxz_array[:, 0], px_slow_array, **kwargs_)
+        pz_slow_interp = interp1d(rxz_array[:, 0], pz_slow_array, **kwargs_)
         tanbeta_slow_interp = interp1d(
-            rxz_array[:, 0], tanbeta_slow_array, **kwargs_)
+            rxz_array[:, 0], tanbeta_slow_array, **kwargs_
+        )
         # sinbeta_slow_interp \
         #    = interp1d( rxz_array[:,0], sinbeta_slow_array, **kwargs_ )
         # cosbeta_slow_interp \
@@ -734,57 +840,58 @@ class BaseSolution(ABC):
         #                - cosbeta_fast_interp(x_)*sinbeta_slow_interp(x_)
         # tanbeta_diff_lambda \
         #   = lambda x_: tanbeta_fast_interp(x_)-tanbeta_slow_interp(x_)
-        self.cx_pz_tanbeta_lambda \
-            = lambda x_: (
-                - (1/pz_fast_interp(x_) - 1/pz_slow_interp(x_))
-                / (tanbeta_fast_interp(x_) - tanbeta_slow_interp(x_))
-                )
-        self.cx_pz_lambda \
-            = lambda x_: (
-                (pz_slow_interp(x_) - pz_fast_interp(x_))
-                / (px_fast_interp(x_)*pz_slow_interp(x_)
-                    - pz_fast_interp(x_)*px_slow_interp(x_))
-                )
-        rpdot_fast_array \
-            = np.array([self.model_dXdt_lambda(0, rp_)
-                        for rp_ in zip(rx_array,
-                                       rz_array,
-                                       px_fast_array,
-                                       pz_fast_array)])
-        rpdot_slow_array \
-            = np.array([self.model_dXdt_lambda(0, rp_)
-                        for rp_ in zip(rx_array,
-                                       rz_array,
-                                       px_slow_array,
-                                       pz_slow_array)])
+        self.cx_pz_tanbeta_lambda = lambda x_: (
+            -(1 / pz_fast_interp(x_) - 1 / pz_slow_interp(x_))
+            / (tanbeta_fast_interp(x_) - tanbeta_slow_interp(x_))
+        )
+        self.cx_pz_lambda = lambda x_: (
+            (pz_slow_interp(x_) - pz_fast_interp(x_))
+            / (
+                px_fast_interp(x_) * pz_slow_interp(x_)
+                - pz_fast_interp(x_) * px_slow_interp(x_)
+            )
+        )
+        rpdot_fast_array = np.array(
+            [
+                self.model_dXdt_lambda(0, rp_)
+                for rp_ in zip(rx_array, rz_array, px_fast_array, pz_fast_array)
+            ]
+        )
+        rpdot_slow_array = np.array(
+            [
+                self.model_dXdt_lambda(0, rp_)
+                for rp_ in zip(rx_array, rz_array, px_slow_array, pz_slow_array)
+            ]
+        )
         vx_interp_fast = interp1d(rx_array, rpdot_fast_array[:, 0], **kwargs_)
         vx_interp_slow = interp1d(rx_array, rpdot_slow_array[:, 0], **kwargs_)
         vz_interp_fast = interp1d(rx_array, rpdot_fast_array[:, 1], **kwargs_)
         vz_interp_slow = interp1d(rx_array, rpdot_slow_array[:, 1], **kwargs_)
-        self.cx_v_lambda \
-            = lambda x_: (
-                ((tanbeta_fast_interp(x_)*vx_interp_fast(x_)
-                    - vz_interp_fast(x_))
-                 - (tanbeta_slow_interp(x_)*vx_interp_slow(x_)
-                    - vz_interp_slow(x_)))
-                / (tanbeta_fast_interp(x_) - tanbeta_slow_interp(x_))
+        self.cx_v_lambda = lambda x_: (
+            (
+                (
+                    tanbeta_fast_interp(x_) * vx_interp_fast(x_)
+                    - vz_interp_fast(x_)
                 )
+                - (
+                    tanbeta_slow_interp(x_) * vx_interp_slow(x_)
+                    - vz_interp_slow(x_)
+                )
+            )
+            / (tanbeta_fast_interp(x_) - tanbeta_slow_interp(x_))
+        )
         self.vx_interp_fast = vx_interp_fast
         self.vx_interp_slow = vx_interp_slow
 
-    def save(
-        self,
-        rpt_arrays: Dict,
-        idx: int
-    ) -> None:
+    def save(self, rpt_arrays: Dict, idx: int) -> None:
         """
         TBD
         """
-        logging.debug('ode.base.BaseSolution.save')
+        logging.debug("ode.base.BaseSolution.save")
         for rpt_ in rpt_tuple:
             self.rpt_arrays[rpt_][idx] = rpt_arrays[rpt_]
-        rx_length = len(self.rpt_arrays['rx'][idx])
-        self.rpt_arrays['t'][idx] = self.rpt_arrays['t'][idx][:rx_length]
+        rx_length = len(self.rpt_arrays["rx"][idx])
+        self.rpt_arrays["t"][idx] = self.rpt_arrays["t"][idx][:rx_length]
 
 
 #

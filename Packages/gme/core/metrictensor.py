@@ -26,7 +26,8 @@ Requires Python packages/modules:
 # Library
 import warnings
 import logging
-# from typing import Dict, Type, Optional  # , Tuple, Any, List
+
+# from typing import Dict, Type, Optional  # , Tuple, Eq, List
 
 # SymPy
 from sympy import Eq, simplify, Matrix, factor, diff
@@ -36,7 +37,7 @@ from gme.core.symbols import eta, gstar, det_gstar, g, varphi_r, rvec
 
 warnings.filterwarnings("ignore")
 
-__all__ = ['MetricTensorMixin']
+__all__ = ["MetricTensorMixin"]
 
 
 class MetricTensorMixin:
@@ -49,6 +50,15 @@ class MetricTensorMixin:
     rdot_vec_eqn: Eq
     p_covec_eqn: Eq
     varphi_rx_eqn: Eq
+
+    # Definitions
+    gstar_varphi_pxpz_eqn: Eq
+    det_gstar_varphi_pxpz_eqn: Eq
+    g_varphi_pxpz_eqn: Eq
+    gstar_eigen_varphi_pxpz: Eq
+    gstar_eigenvalues: Eq
+    gstar_eigenvectors: Eq
+    gstarhat_eqn: Eq  # dummy
 
     def define_g_eqns(self) -> None:
         r"""
@@ -183,7 +193,7 @@ class MetricTensorMixin:
                 1 \
                 \end{matrix}\right]`
         """
-        logging.info('gme.core.metrictensor.define_g_eqns')
+        logging.info("gme.core.metrictensor.define_g_eqns")
         self.gstar_varphi_pxpz_eqn = None
         self.det_gstar_varphi_pxpz_eqn = None
         self.g_varphi_pxpz_eqn = None
@@ -192,34 +202,53 @@ class MetricTensorMixin:
         self.gstar_eigenvectors = None
 
         eta_sub = {eta: self.eta_}
-        self.gstar_varphi_pxpz_eqn \
-            = Eq(gstar, factor(
-                    Matrix([diff(self.rdot_vec_eqn.rhs,
-                                 self.p_covec_eqn.rhs[0]).T,
-                            diff(self.rdot_vec_eqn.rhs,
-                                 self.p_covec_eqn.rhs[1]).T])
-                )).subs(eta_sub)
-        self.det_gstar_varphi_pxpz_eqn \
-            = Eq(det_gstar, (simplify(self.gstar_varphi_pxpz_eqn.rhs
-                                      .subs(eta_sub).det())))
-        if self.eta_ == 1 and self.beta_type == 'sin':
-            print(r'Cannot compute all metric tensor $g^{ij}$ equations '
-                  + r'for $\sin\beta$ model and $\eta=1$')
+        self.gstar_varphi_pxpz_eqn = Eq(
+            gstar,
+            factor(
+                Matrix(
+                    [
+                        diff(self.rdot_vec_eqn.rhs, self.p_covec_eqn.rhs[0]).T,
+                        diff(self.rdot_vec_eqn.rhs, self.p_covec_eqn.rhs[1]).T,
+                    ]
+                )
+            ),
+        ).subs(eta_sub)
+        self.det_gstar_varphi_pxpz_eqn = Eq(
+            det_gstar,
+            (simplify(self.gstar_varphi_pxpz_eqn.rhs.subs(eta_sub).det())),
+        )
+        if self.eta_ == 1 and self.beta_type == "sin":
+            print(
+                r"Cannot compute all metric tensor $g^{ij}$ equations "
+                + r"for $\sin\beta$ model and $\eta=1$"
+            )
             return
-        self.g_varphi_pxpz_eqn \
-            = Eq(g, simplify(self.gstar_varphi_pxpz_eqn.rhs
-                             .subs(eta_sub).inverse()))
-        self.gstar_eigen_varphi_pxpz \
-            = self.gstar_varphi_pxpz_eqn.rhs.eigenvects()
+        self.g_varphi_pxpz_eqn = Eq(
+            g, simplify(self.gstar_varphi_pxpz_eqn.rhs.subs(eta_sub).inverse())
+        )
+        self.gstar_eigen_varphi_pxpz = (
+            self.gstar_varphi_pxpz_eqn.rhs.eigenvects()
+        )
         self.gstar_eigenvalues = simplify(
-            Matrix([self.gstar_eigen_varphi_pxpz[0][0],
-                    self.gstar_eigen_varphi_pxpz[1][0]])
-            .subs({varphi_r(rvec): self.varphi_rx_eqn.rhs}))
-        self.gstar_eigenvectors = (
-            [simplify(Matrix(self.gstar_eigen_varphi_pxpz[0][2][0])
-                      .subs({varphi_r(rvec): self.varphi_rx_eqn.rhs})),
-             simplify(Matrix(self.gstar_eigen_varphi_pxpz[1][2][0])
-                      .subs({varphi_r(rvec): self.varphi_rx_eqn.rhs}))])
+            Matrix(
+                [
+                    self.gstar_eigen_varphi_pxpz[0][0],
+                    self.gstar_eigen_varphi_pxpz[1][0],
+                ]
+            ).subs({varphi_r(rvec): self.varphi_rx_eqn.rhs})
+        )
+        self.gstar_eigenvectors = [
+            simplify(
+                Matrix(self.gstar_eigen_varphi_pxpz[0][2][0]).subs(
+                    {varphi_r(rvec): self.varphi_rx_eqn.rhs}
+                )
+            ),
+            simplify(
+                Matrix(self.gstar_eigen_varphi_pxpz[1][2][0]).subs(
+                    {varphi_r(rvec): self.varphi_rx_eqn.rhs}
+                )
+            ),
+        ]
 
 
 #

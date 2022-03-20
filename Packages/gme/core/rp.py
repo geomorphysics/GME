@@ -25,11 +25,11 @@ Requires Python packages/modules:
 # Library
 import warnings
 import logging
-# from typing import Dict, Type, Optional  # , Tuple, Any, List
+
+# from typing import Dict, Type, Optional  # , Tuple, Eq, List
 
 # SymPy
-from sympy import Eq, sqrt, simplify, solve, Matrix, \
-                  sin, cos, trigsimp
+from sympy import Eq, sqrt, simplify, solve, Matrix, sin, cos, trigsimp
 
 # GMPLib
 from gmplib.utils import e2d
@@ -39,7 +39,7 @@ from gme.core.symbols import p, r, rx, rz, px, pz, pcovec, alpha, beta
 
 warnings.filterwarnings("ignore")
 
-__all__ = ['RpMixin']
+__all__ = ["RpMixin"]
 
 
 class RpMixin:
@@ -47,6 +47,20 @@ class RpMixin:
     Basic :math:`\mathbf{r}` and :math:`\mathbf{\tilde{p}}`
     equations supplement to equation definition class.
     """
+
+    # Definitions
+    p_covec_eqn: Eq
+    px_p_beta_eqn: Eq
+    pz_p_beta_eqn: Eq
+    p_norm_pxpz_eqn: Eq
+    tanbeta_pxpz_eqn: Eq
+    sinbeta_pxpz_eqn: Eq
+    cosbeta_pxpz_eqn: Eq
+    pz_px_tanbeta_eqn: Eq
+    px_pz_tanbeta_eqn: Eq
+    p_pz_cosbeta_eqn: Eq
+    rx_r_alpha_eqn: Eq
+    rz_r_alpha_eqn: Eq
 
     def define_p_eqns(self) -> None:
         r"""
@@ -74,25 +88,32 @@ class RpMixin:
             p_pz_cosbeta_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`p = -\dfrac{p_z}{\cos\beta}`
         """
-        logging.info('gme.core.rp.define_p_eqns')
+        logging.info("gme.core.rp.define_p_eqns")
         self.p_covec_eqn = Eq(pcovec, Matrix([px, pz]).T)
-        self.px_p_beta_eqn = Eq(px, p*sin(beta))
-        self.pz_p_beta_eqn = Eq(pz, -p*cos(beta))
-        self.p_norm_pxpz_eqn \
-            = Eq(trigsimp(sqrt(self.px_p_beta_eqn.rhs**2
-                               + self.pz_p_beta_eqn.rhs**2)),
-                 (sqrt(self.px_p_beta_eqn.lhs**2 + self.pz_p_beta_eqn.lhs**2)))
-        self.tanbeta_pxpz_eqn \
-            = Eq(simplify(-self.px_p_beta_eqn.rhs/self.pz_p_beta_eqn.rhs),
-                 -self.px_p_beta_eqn.lhs/self.pz_p_beta_eqn.lhs)
-        self.sinbeta_pxpz_eqn \
-            = Eq(sin(beta),
-                 solve(self.px_p_beta_eqn, sin(beta))[0]
-                 .subs(e2d(self.p_norm_pxpz_eqn)))
-        self.cosbeta_pxpz_eqn \
-            = Eq(cos(beta),
-                 solve(self.pz_p_beta_eqn, cos(beta))[0]
-                 .subs(e2d(self.p_norm_pxpz_eqn)))
+        self.px_p_beta_eqn = Eq(px, p * sin(beta))
+        self.pz_p_beta_eqn = Eq(pz, -p * cos(beta))
+        self.p_norm_pxpz_eqn = Eq(
+            trigsimp(
+                sqrt(self.px_p_beta_eqn.rhs ** 2 + self.pz_p_beta_eqn.rhs ** 2)
+            ),
+            (sqrt(self.px_p_beta_eqn.lhs ** 2 + self.pz_p_beta_eqn.lhs ** 2)),
+        )
+        self.tanbeta_pxpz_eqn = Eq(
+            simplify(-self.px_p_beta_eqn.rhs / self.pz_p_beta_eqn.rhs),
+            -self.px_p_beta_eqn.lhs / self.pz_p_beta_eqn.lhs,
+        )
+        self.sinbeta_pxpz_eqn = Eq(
+            sin(beta),
+            solve(self.px_p_beta_eqn, sin(beta))[0].subs(
+                e2d(self.p_norm_pxpz_eqn)
+            ),
+        )
+        self.cosbeta_pxpz_eqn = Eq(
+            cos(beta),
+            solve(self.pz_p_beta_eqn, cos(beta))[0].subs(
+                e2d(self.p_norm_pxpz_eqn)
+            ),
+        )
         self.pz_px_tanbeta_eqn = Eq(pz, solve(self.tanbeta_pxpz_eqn, pz)[0])
         self.px_pz_tanbeta_eqn = Eq(px, solve(self.tanbeta_pxpz_eqn, px)[0])
         self.p_pz_cosbeta_eqn = Eq(p, solve(self.pz_p_beta_eqn, p)[0])
@@ -107,9 +128,9 @@ class RpMixin:
             rz_r_alpha_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`r^z = r\sin\alpha`
         """
-        logging.info('gme.core.rp.define_r_eqns')
-        self.rx_r_alpha_eqn = Eq(rx, r*cos(alpha))
-        self.rz_r_alpha_eqn = Eq(rz, r*sin(alpha))
+        logging.info("gme.core.rp.define_r_eqns")
+        self.rx_r_alpha_eqn = Eq(rx, r * cos(alpha))
+        self.rz_r_alpha_eqn = Eq(rz, r * sin(alpha))
 
 
 #

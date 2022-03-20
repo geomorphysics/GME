@@ -1,49 +1,51 @@
+import numpy as np
 from gme.ode.extended import ExtendedSolution
-from typing import Any, Tuple
+from scipy.interpolate import InterpolatedUnivariateSpline
+from typing import Any, List, Tuple
 
 class SingleRaySolution(ExtendedSolution):
-    def initial_conditions(self) -> Tuple[float, float, float, float]: ...
-    ic_list: Any
+    ic_list: List[Tuple[float, float, float, float]]
     model_dXdt_lambda: Any
-    ivp_solns_list: Any
-    def solve(self) -> None: ...
+    ivp_solns_list: List
     pz0: Any
-    p_array: Any
-    rdot_array: Any
-    pdot_array: Any
-    t_interp_x: Any
-    rx_interp_t: Any
-    rz_interp_t: Any
-    x_interp_t: Any
-    rz_interp: Any
-    p_interp: Any
-    rdot_interp: Any
-    rdotx_interp: Any
-    rdotz_interp: Any
-    pdot_interp: Any
-    px_interp: Any
-    pz_interp: Any
-    rdotx_interp_t: Any
-    rdotz_interp_t: Any
-    rddotx_interp_t: Any
-    rddotz_interp_t: Any
-    tanbeta_array: Any
-    tanalpha_array: Any
-    beta_array: Any
-    beta_p_interp: Any
-    alpha_array: Any
-    alpha_interp: Any
-    cosbeta_array: Any
-    sinbeta_array: Any
-    u_array: Any
-    xiv_p_array: Any
-    xiv_v_array: Any
-    uhorizontal_p_array: Any
-    uhorizontal_v_array: Any
-    u_interp: Any
-    u_from_rdot_interp: Any
-    xiv_p_interp: Any
-    xiv_v_interp: Any
-    uhorizontal_p_interp: Any
-    uhorizontal_v_interp: Any
+    p_array: np.ndarray
+    rdot_array: np.ndarray
+    pdot_array: np.ndarray
+    t_interp_x: InterpolatedUnivariateSpline
+    rx_interp_t: InterpolatedUnivariateSpline
+    rz_interp_t: InterpolatedUnivariateSpline
+    x_interp_t: InterpolatedUnivariateSpline
+    rz_interp: InterpolatedUnivariateSpline
+    p_interp: InterpolatedUnivariateSpline
+    rdot_interp: InterpolatedUnivariateSpline
+    rdotx_interp: InterpolatedUnivariateSpline
+    rdotz_interp: InterpolatedUnivariateSpline
+    pdot_interp: InterpolatedUnivariateSpline
+    px_interp: InterpolatedUnivariateSpline
+    pz_interp: InterpolatedUnivariateSpline
+    rdotx_interp_t: InterpolatedUnivariateSpline
+    rdotz_interp_t: InterpolatedUnivariateSpline
+    rddotx_interp_t: InterpolatedUnivariateSpline
+    rddotz_interp_t: InterpolatedUnivariateSpline
+    tanbeta_array: np.ndarray
+    tanalpha_array: np.ndarray
+    beta_array: np.ndarray
+    beta_p_interp: InterpolatedUnivariateSpline
+    alpha_array: np.ndarray
+    alpha_interp: InterpolatedUnivariateSpline
+    cosbeta_array: np.ndarray
+    sinbeta_array: np.ndarray
+    u_array: np.ndarray
+    xiv_p_array: np.ndarray
+    xiv_v_array: np.ndarray
+    uhorizontal_p_array: np.ndarray
+    uhorizontal_v_array: np.ndarray
+    u_interp: InterpolatedUnivariateSpline
+    u_from_rdot_interp: InterpolatedUnivariateSpline
+    xiv_p_interp: InterpolatedUnivariateSpline
+    xiv_v_interp: InterpolatedUnivariateSpline
+    uhorizontal_p_interp: InterpolatedUnivariateSpline
+    uhorizontal_v_interp: InterpolatedUnivariateSpline
+    def initial_conditions(self, t_lag: float = ..., xiv_0_: float = ...) -> Tuple[float, float, float, float]: ...
+    def solve(self) -> None: ...
     def postprocessing(self, spline_order: int = ..., extrapolation_mode: int = ...) -> None: ...

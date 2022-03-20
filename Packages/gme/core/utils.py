@@ -76,7 +76,7 @@ def pxpz0_from_xiv0(
     # xiv_0_, xih_0_,
     pz0_xiv0_eqn: Eq,
     poly_px_xiv0_eqn: Eq,
-) -> Tuple[float, float]:
+) -> Tuple[Any, Any]:
     """
     TBD
     """
@@ -86,7 +86,7 @@ def pxpz0_from_xiv0(
     # eta_ = eta.subs(parameters)
     # if True: #eta==Rational(1,2) or eta==Rational(3,2):
     px0sqrd_solns = solve(px0_poly_rx0_eqn, px ** 2)
-    px0_: float = sqrt(
+    px0_: Any = sqrt(
         [
             px0sqrd_
             for px0sqrd_ in px0sqrd_solns
@@ -106,7 +106,7 @@ def pxpz0_from_xiv0(
     #             break
     #     px0_ = px0_root_search.root
 
-    pz0_: float = pz0_xiv0_eqn.rhs.subs({xiv: xiv_0}).subs(parameters)
+    pz0_: Any = pz0_xiv0_eqn.rhs.subs({xiv: xiv_0}).subs(parameters)
     return (px0_, pz0_)
 
 

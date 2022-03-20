@@ -55,6 +55,9 @@ class TimeInvariant(Graphing):
     Extends :class:`gme.plot.base.Graphing`.
     """
 
+    # Definitions
+    fc: str
+
     def profile_aniso(
         self,
         gmes: TimeInvariantSolution,
