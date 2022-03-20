@@ -53,11 +53,11 @@
   <div class="section" id="module-gme.core.metrictensor">
 <span id="metrictensor-py"></span><h1><code class="docutils literal notranslate"><span class="pre">metrictensor.py</span></code><a class="headerlink" href="#module-gme.core.metrictensor" title="Permalink to this headline">¶</a></h1>
 <hr class="docutils" />
-<p>Equation definitions and derivations using <a class="reference external" href="https://docs.sympy.org/latest/modules/index.html#module-sympy" title="(in SymPy v1.9)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">SymPy</span></code></a>.</p>
+<p>Equation definitions and derivations using <a class="reference external" href="https://docs.sympy.org/latest/index.html#module-sympy" title="(in SymPy v1.10.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">SymPy</span></code></a>.</p>
 <hr class="docutils" />
 <dl class="simple">
 <dt>Requires Python packages/modules:</dt><dd><ul class="simple">
-<li><p><a class="reference external" href="https://docs.sympy.org/latest/modules/index.html#module-sympy" title="(in SymPy v1.9)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">SymPy</span></code></a></p></li>
+<li><p><a class="reference external" href="https://docs.sympy.org/latest/index.html#module-sympy" title="(in SymPy v1.10.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">SymPy</span></code></a></p></li>
 <li><p><a class="reference external" href="https://github.com/geomorphysics/GME">GME</a></p></li>
 </ul>
 </dd>
@@ -158,7 +158,7 @@ its dual  <span class="math notranslate nohighlight">\(g^*\)</span></p>
 <dd><p>eigenvalues and eigenvectors of <span class="math notranslate nohighlight">\(g^{*}\)</span> in one object</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>list of <a class="reference external" href="https://docs.sympy.org/latest/modules/core.html#sympy.core.expr.Expr" title="(in SymPy v1.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Expr</span></code></a></p>
+<dd class="field-odd"><p>list of <a class="reference external" href="https://docs.sympy.org/latest/modules/core.html#sympy.core.expr.Expr" title="(in SymPy v1.10.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Expr</span></code></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -281,7 +281,8 @@ p_{z}^{8} + 16 p_{x}^{2} p_{z}^{10} + 4 p_{z}^{12}}}\\ \
 <span class="c1"># Library</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">import</span> <span class="nn">logging</span>
-<span class="c1"># from typing import Dict, Type, Optional  # , Tuple, Any, List</span>
+
+<span class="c1"># from typing import Dict, Type, Optional  # , Tuple, Eq, List</span>
 
 <span class="c1"># SymPy</span>
 <span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">Eq</span><span class="p">,</span> <span class="n">simplify</span><span class="p">,</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">factor</span><span class="p">,</span> <span class="n">diff</span>
@@ -291,7 +292,7 @@ p_{z}^{8} + 16 p_{x}^{2} p_{z}^{10} + 4 p_{z}^{12}}}\\ \
 
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
 
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;MetricTensorMixin&#39;</span><span class="p">]</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;MetricTensorMixin&quot;</span><span class="p">]</span>
 
 
 <span class="k">class</span> <span class="nc">MetricTensorMixin</span><span class="p">:</span>
@@ -304,6 +305,15 @@ p_{z}^{8} + 16 p_{x}^{2} p_{z}^{10} + 4 p_{z}^{12}}}\\ \
     <span class="n">rdot_vec_eqn</span><span class="p">:</span> <span class="n">Eq</span>
     <span class="n">p_covec_eqn</span><span class="p">:</span> <span class="n">Eq</span>
     <span class="n">varphi_rx_eqn</span><span class="p">:</span> <span class="n">Eq</span>
+
+    <span class="c1"># Definitions</span>
+    <span class="n">gstar_varphi_pxpz_eqn</span><span class="p">:</span> <span class="n">Eq</span>
+    <span class="n">det_gstar_varphi_pxpz_eqn</span><span class="p">:</span> <span class="n">Eq</span>
+    <span class="n">g_varphi_pxpz_eqn</span><span class="p">:</span> <span class="n">Eq</span>
+    <span class="n">gstar_eigen_varphi_pxpz</span><span class="p">:</span> <span class="n">Eq</span>
+    <span class="n">gstar_eigenvalues</span><span class="p">:</span> <span class="n">Eq</span>
+    <span class="n">gstar_eigenvectors</span><span class="p">:</span> <span class="n">Eq</span>
+    <span class="n">gstarhat_eqn</span><span class="p">:</span> <span class="n">Eq</span>  <span class="c1"># dummy</span>
 
     <span class="k">def</span> <span class="nf">define_g_eqns</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
@@ -438,7 +448,7 @@ p_{z}^{8} + 16 p_{x}^{2} p_{z}^{10} + 4 p_{z}^{12}}}\\ \
 <span class="sd">                1 \</span>
 <span class="sd">                \end{matrix}\right]`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;gme.core.metrictensor.define_g_eqns&#39;</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;gme.core.metrictensor.define_g_eqns&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">gstar_varphi_pxpz_eqn</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">det_gstar_varphi_pxpz_eqn</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">g_varphi_pxpz_eqn</span> <span class="o">=</span> <span class="kc">None</span>
@@ -447,34 +457,53 @@ p_{z}^{8} + 16 p_{x}^{2} p_{z}^{10} + 4 p_{z}^{12}}}\\ \
         <span class="bp">self</span><span class="o">.</span><span class="n">gstar_eigenvectors</span> <span class="o">=</span> <span class="kc">None</span>
 
         <span class="n">eta_sub</span> <span class="o">=</span> <span class="p">{</span><span class="n">eta</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">eta_</span><span class="p">}</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">gstar_varphi_pxpz_eqn</span> \
-            <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">gstar</span><span class="p">,</span> <span class="n">factor</span><span class="p">(</span>
-                    <span class="n">Matrix</span><span class="p">([</span><span class="n">diff</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rdot_vec_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">,</span>
-                                 <span class="bp">self</span><span class="o">.</span><span class="n">p_covec_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">T</span><span class="p">,</span>
-                            <span class="n">diff</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rdot_vec_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">,</span>
-                                 <span class="bp">self</span><span class="o">.</span><span class="n">p_covec_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">T</span><span class="p">])</span>
-                <span class="p">))</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">eta_sub</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">det_gstar_varphi_pxpz_eqn</span> \
-            <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">det_gstar</span><span class="p">,</span> <span class="p">(</span><span class="n">simplify</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">gstar_varphi_pxpz_eqn</span><span class="o">.</span><span class="n">rhs</span>
-                                      <span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">eta_sub</span><span class="p">)</span><span class="o">.</span><span class="n">det</span><span class="p">())))</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eta_</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">beta_type</span> <span class="o">==</span> <span class="s1">&#39;sin&#39;</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Cannot compute all metric tensor $g^</span><span class="si">{ij}</span><span class="s1">$ equations &#39;</span>
-                  <span class="o">+</span> <span class="sa">r</span><span class="s1">&#39;for $\sin\beta$ model and $\eta=1$&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gstar_varphi_pxpz_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span>
+            <span class="n">gstar</span><span class="p">,</span>
+            <span class="n">factor</span><span class="p">(</span>
+                <span class="n">Matrix</span><span class="p">(</span>
+                    <span class="p">[</span>
+                        <span class="n">diff</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rdot_vec_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">p_covec_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">T</span><span class="p">,</span>
+                        <span class="n">diff</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rdot_vec_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">p_covec_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">T</span><span class="p">,</span>
+                    <span class="p">]</span>
+                <span class="p">)</span>
+            <span class="p">),</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">eta_sub</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">det_gstar_varphi_pxpz_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span>
+            <span class="n">det_gstar</span><span class="p">,</span>
+            <span class="p">(</span><span class="n">simplify</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">gstar_varphi_pxpz_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">eta_sub</span><span class="p">)</span><span class="o">.</span><span class="n">det</span><span class="p">())),</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eta_</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">beta_type</span> <span class="o">==</span> <span class="s2">&quot;sin&quot;</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span>
+                <span class="sa">r</span><span class="s2">&quot;Cannot compute all metric tensor $g^</span><span class="si">{ij}</span><span class="s2">$ equations &quot;</span>
+                <span class="o">+</span> <span class="sa">r</span><span class="s2">&quot;for $\sin\beta$ model and $\eta=1$&quot;</span>
+            <span class="p">)</span>
             <span class="k">return</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">g_varphi_pxpz_eqn</span> \
-            <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">simplify</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">gstar_varphi_pxpz_eqn</span><span class="o">.</span><span class="n">rhs</span>
-                             <span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">eta_sub</span><span class="p">)</span><span class="o">.</span><span class="n">inverse</span><span class="p">()))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">gstar_eigen_varphi_pxpz</span> \
-            <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">gstar_varphi_pxpz_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="o">.</span><span class="n">eigenvects</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">g_varphi_pxpz_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span>
+            <span class="n">g</span><span class="p">,</span> <span class="n">simplify</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">gstar_varphi_pxpz_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">eta_sub</span><span class="p">)</span><span class="o">.</span><span class="n">inverse</span><span class="p">())</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gstar_eigen_varphi_pxpz</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">gstar_varphi_pxpz_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="o">.</span><span class="n">eigenvects</span><span class="p">()</span>
+        <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">gstar_eigenvalues</span> <span class="o">=</span> <span class="n">simplify</span><span class="p">(</span>
-            <span class="n">Matrix</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">gstar_eigen_varphi_pxpz</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">gstar_eigen_varphi_pxpz</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]])</span>
-            <span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">varphi_r</span><span class="p">(</span><span class="n">rvec</span><span class="p">):</span> <span class="bp">self</span><span class="o">.</span><span class="n">varphi_rx_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">}))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">gstar_eigenvectors</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="p">[</span><span class="n">simplify</span><span class="p">(</span><span class="n">Matrix</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">gstar_eigen_varphi_pxpz</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">2</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
-                      <span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">varphi_r</span><span class="p">(</span><span class="n">rvec</span><span class="p">):</span> <span class="bp">self</span><span class="o">.</span><span class="n">varphi_rx_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">})),</span>
-             <span class="n">simplify</span><span class="p">(</span><span class="n">Matrix</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">gstar_eigen_varphi_pxpz</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">2</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
-                      <span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">varphi_r</span><span class="p">(</span><span class="n">rvec</span><span class="p">):</span> <span class="bp">self</span><span class="o">.</span><span class="n">varphi_rx_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">}))])</span>
+            <span class="n">Matrix</span><span class="p">(</span>
+                <span class="p">[</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">gstar_eigen_varphi_pxpz</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">gstar_eigen_varphi_pxpz</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span>
+                <span class="p">]</span>
+            <span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">varphi_r</span><span class="p">(</span><span class="n">rvec</span><span class="p">):</span> <span class="bp">self</span><span class="o">.</span><span class="n">varphi_rx_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">})</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gstar_eigenvectors</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">simplify</span><span class="p">(</span>
+                <span class="n">Matrix</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">gstar_eigen_varphi_pxpz</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">2</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span>
+                    <span class="p">{</span><span class="n">varphi_r</span><span class="p">(</span><span class="n">rvec</span><span class="p">):</span> <span class="bp">self</span><span class="o">.</span><span class="n">varphi_rx_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">}</span>
+                <span class="p">)</span>
+            <span class="p">),</span>
+            <span class="n">simplify</span><span class="p">(</span>
+                <span class="n">Matrix</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">gstar_eigen_varphi_pxpz</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">2</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span>
+                    <span class="p">{</span><span class="n">varphi_r</span><span class="p">(</span><span class="n">rvec</span><span class="p">):</span> <span class="bp">self</span><span class="o">.</span><span class="n">varphi_rx_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">}</span>
+                <span class="p">)</span>
+            <span class="p">),</span>
+        <span class="p">]</span>
 
 
 <span class="c1">#</span>

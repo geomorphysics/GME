@@ -56,7 +56,7 @@
 <hr class="docutils" />
 <dl class="simple">
 <dt>Requires Python packages/modules:</dt><dd><ul class="simple">
-<li><p><a class="reference external" href="https://numpy.org/doc/stable/reference/index.html#module-numpy" title="(in NumPy v1.21)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">NumPy</span></code></a></p></li>
+<li><p><a class="reference external" href="https://numpy.org/doc/stable/reference/index.html#module-numpy" title="(in NumPy v1.22)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">NumPy</span></code></a></p></li>
 </ul>
 </dd>
 </dl>
@@ -84,13 +84,24 @@
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="c1"># Library</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Tuple</span>
 
 <span class="c1"># NumPy</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
+<span class="c1"># Quadrature method from SciPy</span>
+<span class="kn">from</span> <span class="nn">scipy.integrate</span> <span class="kn">import</span> <span class="n">cumtrapz</span>
+
+<span class="c1"># SymPy</span>
+<span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">Eq</span>
+
+<span class="c1"># GME</span>
+<span class="kn">from</span> <span class="nn">gme.core.utils</span> <span class="kn">import</span> <span class="n">find_dzdx_poly_root</span><span class="p">,</span> <span class="n">make_dzdx_poly</span>
+<span class="kn">from</span> <span class="nn">gme.core.symbols</span> <span class="kn">import</span> <span class="n">xivhat_0</span><span class="p">,</span> <span class="n">eta</span>
+
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
 
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;report_progress&#39;</span><span class="p">]</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;report_progress&quot;</span><span class="p">]</span>
 
 
 <span class="k">def</span> <span class="nf">report_progress</span><span class="p">(</span>
@@ -98,18 +109,48 @@
     <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
     <span class="n">progress_was</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
     <span class="n">pc_step</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
-    <span class="n">is_initial_step</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">is_initial_step</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Print percentage estimated progress of some ongoing job</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">progress_now</span><span class="p">:</span> <span class="nb">float</span> \
-        <span class="o">=</span> <span class="mi">100</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">((</span><span class="mi">100</span><span class="o">/</span><span class="n">pc_step</span><span class="p">)</span><span class="o">*</span><span class="n">i</span><span class="o">/</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span> <span class="k">if</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="mi">1</span><span class="p">))</span> \
-        <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">100</span><span class="o">/</span><span class="n">pc_step</span><span class="p">)</span>
+    <span class="n">progress_now</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="mi">100</span>
+        <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">((</span><span class="mi">100</span> <span class="o">/</span> <span class="n">pc_step</span><span class="p">)</span> <span class="o">*</span> <span class="n">i</span> <span class="o">/</span> <span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">100</span> <span class="o">/</span> <span class="n">pc_step</span><span class="p">)</span>
+    <span class="p">)</span>
     <span class="k">if</span> <span class="n">progress_now</span> <span class="o">&gt;</span> <span class="n">progress_was</span> <span class="ow">or</span> <span class="n">is_initial_step</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">progress_now</span><span class="si">:</span><span class="s1">0.0f</span><span class="si">}</span><span class="s1">% &#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span> <span class="k">if</span> <span class="n">progress_now</span>
-              <span class="o">&lt;</span> <span class="mi">100</span> <span class="k">else</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">progress_now</span><span class="si">:</span><span class="s2">0.0f</span><span class="si">}</span><span class="s2">% &quot;</span><span class="p">,</span>
+            <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span> <span class="k">if</span> <span class="n">progress_now</span> <span class="o">&lt;</span> <span class="mi">100</span> <span class="k">else</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="p">)</span>
     <span class="k">return</span> <span class="n">progress_now</span>
+
+
+<span class="k">def</span> <span class="nf">integrate_dzdx</span><span class="p">(</span>
+    <span class="n">gmeq</span><span class="p">:</span> <span class="n">Eq</span><span class="p">,</span>
+    <span class="n">sub_</span><span class="p">:</span> <span class="n">Dict</span><span class="p">,</span>
+    <span class="n">n_pts</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">200</span><span class="p">,</span>
+    <span class="n">xivhat0_</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="n">x_end</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.999</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Numerically integrate a sequence of $\mathrm{d}z/\mathrm{d}x$ values,</span>
+<span class="sd">    computed at regular $x$ values, to generate a topographic profile</span>
+<span class="sd">    $h(x)$.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">sub_copy</span> <span class="o">=</span> <span class="n">sub_</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">sub_copy</span><span class="p">[</span><span class="n">xivhat_0</span><span class="p">]</span> <span class="o">=</span> <span class="n">xivhat0_</span>
+    <span class="n">eta_</span> <span class="o">=</span> <span class="n">eta</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">sub_</span><span class="p">)</span>
+    <span class="n">dzdx_poly_</span> <span class="o">=</span> <span class="n">make_dzdx_poly</span><span class="p">(</span><span class="n">gmeq</span><span class="o">.</span><span class="n">dzdx_Ci_polylike_eqn</span><span class="p">,</span> <span class="n">sub_copy</span><span class="p">)</span>
+    <span class="n">xhat_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">x_end</span><span class="p">,</span> <span class="n">n_pts</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">dzdxhat_array</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">find_dzdx_poly_root</span><span class="p">(</span><span class="n">dzdx_poly_</span><span class="p">,</span> <span class="n">xhat_</span><span class="p">,</span> <span class="n">xivhat0_</span><span class="p">,</span> <span class="n">eta_</span><span class="o">=</span><span class="n">eta_</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">xhat_</span> <span class="ow">in</span> <span class="n">xhat_array</span>
+    <span class="p">]</span>
+    <span class="n">zhat_array</span> <span class="o">=</span> <span class="n">cumtrapz</span><span class="p">(</span><span class="n">dzdxhat_array</span><span class="p">,</span> <span class="n">xhat_array</span><span class="p">,</span> <span class="n">initial</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">xhat_array</span><span class="p">,</span> <span class="n">zhat_array</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>

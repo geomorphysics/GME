@@ -53,11 +53,11 @@
   <div class="section" id="module-gme.core.geodesic">
 <span id="geodesic-py"></span><h1><code class="docutils literal notranslate"><span class="pre">geodesic.py</span></code><a class="headerlink" href="#module-gme.core.geodesic" title="Permalink to this headline">¶</a></h1>
 <hr class="docutils" />
-<p>Equation definitions and derivations using <a class="reference external" href="https://docs.sympy.org/latest/modules/index.html#module-sympy" title="(in SymPy v1.9)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">SymPy</span></code></a>.</p>
+<p>Equation definitions and derivations using <a class="reference external" href="https://docs.sympy.org/latest/index.html#module-sympy" title="(in SymPy v1.10.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">SymPy</span></code></a>.</p>
 <hr class="docutils" />
 <dl class="simple">
 <dt>Requires Python packages/modules:</dt><dd><ul class="simple">
-<li><p><a class="reference external" href="https://docs.sympy.org/latest/modules/index.html#module-sympy" title="(in SymPy v1.9)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">SymPy</span></code></a></p></li>
+<li><p><a class="reference external" href="https://docs.sympy.org/latest/index.html#module-sympy" title="(in SymPy v1.10.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">SymPy</span></code></a></p></li>
 <li><p><a class="reference external" href="https://github.com/geomorphysics/GMPLib">GMPLib</a></p></li>
 <li><p><a class="reference external" href="https://github.com/geomorphysics/GME">GME</a></p></li>
 </ul>
@@ -123,7 +123,7 @@ The 1st-order ODE form is easier to solve numerically.</p>
 <p><span class="math notranslate nohighlight">\(\dot{v}^z = \dots\)</span></p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>list of <a class="reference external" href="https://docs.sympy.org/latest/modules/core.html#sympy.core.relational.Equality" title="(in SymPy v1.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Equality</span></code></a></p>
+<dd class="field-odd"><p>list of <a class="reference external" href="https://docs.sympy.org/latest/modules/core.html#sympy.core.relational.Equality" title="(in SymPy v1.10.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Equality</span></code></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -190,7 +190,7 @@ equation substitutions</p>
 <dd><p><span class="math notranslate nohighlight">\(\dots\)</span> where <span class="math notranslate nohighlight">\(a := \tan\alpha\)</span></p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.sympy.org/latest/modules/core.html#sympy.core.relational.Equality" title="(in SymPy v1.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Equality</span></code></a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.sympy.org/latest/modules/core.html#sympy.core.relational.Equality" title="(in SymPy v1.10.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Equality</span></code></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -202,7 +202,7 @@ equation substitutions</p>
 <span class="math notranslate nohighlight">\(a := \tan\alpha\)</span></p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.sympy.org/latest/modules/core.html#sympy.core.relational.Equality" title="(in SymPy v1.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Equality</span></code></a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.sympy.org/latest/modules/core.html#sympy.core.relational.Equality" title="(in SymPy v1.10.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Equality</span></code></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -325,24 +325,52 @@ particular choice of model parameters)</p>
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">reduce</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Callable</span>
 
 <span class="c1"># SymPy</span>
-<span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">Eq</span><span class="p">,</span> <span class="n">Rational</span><span class="p">,</span> <span class="n">simplify</span><span class="p">,</span> <span class="n">expand_trig</span><span class="p">,</span> <span class="n">sqrt</span><span class="p">,</span> <span class="n">solve</span><span class="p">,</span> \
-                  <span class="n">sin</span><span class="p">,</span> <span class="n">cos</span><span class="p">,</span> <span class="n">tan</span><span class="p">,</span> <span class="n">diff</span><span class="p">,</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">numer</span><span class="p">,</span> <span class="n">denom</span><span class="p">,</span> <span class="n">lambdify</span><span class="p">,</span> \
-                  <span class="n">derive_by_array</span>
+<span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">Eq</span><span class="p">,</span>
+    <span class="n">Rational</span><span class="p">,</span>
+    <span class="n">simplify</span><span class="p">,</span>
+    <span class="n">expand_trig</span><span class="p">,</span>
+    <span class="n">sqrt</span><span class="p">,</span>
+    <span class="n">solve</span><span class="p">,</span>
+    <span class="n">sin</span><span class="p">,</span>
+    <span class="n">cos</span><span class="p">,</span>
+    <span class="n">tan</span><span class="p">,</span>
+    <span class="n">diff</span><span class="p">,</span>
+    <span class="n">Matrix</span><span class="p">,</span>
+    <span class="n">numer</span><span class="p">,</span>
+    <span class="n">denom</span><span class="p">,</span>
+    <span class="n">lambdify</span><span class="p">,</span>
+    <span class="n">derive_by_array</span><span class="p">,</span>
+<span class="p">)</span>
 
 <span class="c1"># GMPLib</span>
 <span class="kn">from</span> <span class="nn">gmplib.utils</span> <span class="kn">import</span> <span class="n">e2d</span>
 
 <span class="c1"># GME</span>
-<span class="kn">from</span> <span class="nn">gme.core.symbols</span> <span class="kn">import</span> \
-    <span class="n">rx</span><span class="p">,</span> <span class="n">rz</span><span class="p">,</span> <span class="n">px</span><span class="p">,</span> <span class="n">pz</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">eta</span><span class="p">,</span> <span class="n">rvec</span><span class="p">,</span> <span class="n">varphi</span><span class="p">,</span> <span class="n">varphi_r</span><span class="p">,</span> \
-    <span class="n">mu</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">ta</span><span class="p">,</span> <span class="n">rdotx</span><span class="p">,</span> <span class="n">rdotz</span><span class="p">,</span> <span class="n">varepsilon</span>
+<span class="kn">from</span> <span class="nn">gme.core.symbols</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">rx</span><span class="p">,</span>
+    <span class="n">rz</span><span class="p">,</span>
+    <span class="n">px</span><span class="p">,</span>
+    <span class="n">pz</span><span class="p">,</span>
+    <span class="n">beta</span><span class="p">,</span>
+    <span class="n">eta</span><span class="p">,</span>
+    <span class="n">rvec</span><span class="p">,</span>
+    <span class="n">varphi</span><span class="p">,</span>
+    <span class="n">varphi_r</span><span class="p">,</span>
+    <span class="n">mu</span><span class="p">,</span>
+    <span class="n">alpha</span><span class="p">,</span>
+    <span class="n">ta</span><span class="p">,</span>
+    <span class="n">rdotx</span><span class="p">,</span>
+    <span class="n">rdotz</span><span class="p">,</span>
+    <span class="n">varepsilon</span><span class="p">,</span>
+<span class="p">)</span>
 
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
 
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;GeodesicMixin&#39;</span><span class="p">]</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;GeodesicMixin&quot;</span><span class="p">]</span>
 
 
 <span class="k">class</span> <span class="nc">GeodesicMixin</span><span class="p">:</span>
@@ -357,6 +385,24 @@ particular choice of model parameters)</p>
     <span class="n">tanalpha_beta_eqn</span><span class="p">:</span> <span class="n">Eq</span>
     <span class="n">tanalpha_rdot_eqn</span><span class="p">:</span> <span class="n">Eq</span>
     <span class="n">varphi_rx_eqn</span><span class="p">:</span> <span class="n">Eq</span>
+
+    <span class="c1"># Definitions</span>
+    <span class="n">gstar_ij_tanbeta_mat</span><span class="p">:</span> <span class="n">Matrix</span>
+    <span class="n">g_ij_tanbeta_mat</span><span class="p">:</span> <span class="n">Matrix</span>
+    <span class="n">tanbeta_poly_eqn</span><span class="p">:</span> <span class="n">Eq</span>
+    <span class="n">tanbeta_eqn</span><span class="p">:</span> <span class="n">Eq</span>
+    <span class="n">gstar_ij_tanalpha_mat</span><span class="p">:</span> <span class="n">Matrix</span>
+    <span class="n">gstar_ij_mat</span><span class="p">:</span> <span class="n">Matrix</span>
+    <span class="n">g_ij_tanalpha_mat</span><span class="p">:</span> <span class="n">Matrix</span>
+    <span class="n">g_ij_mat</span><span class="p">:</span> <span class="n">Matrix</span>
+    <span class="n">g_ij_mat_lambdified</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">]</span>
+    <span class="n">gstar_ij_mat_lambdified</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">]</span>
+    <span class="n">dg_rk_ij_mat</span><span class="p">:</span> <span class="n">Matrix</span>
+    <span class="n">christoffel_ij_k_rx_rdot_lambda</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">]</span>
+    <span class="n">christoffel_ij_k_lambda</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">]</span>
+    <span class="n">geodesic_eqns</span><span class="p">:</span> <span class="n">Matrix</span>
+    <span class="n">vdotx_lambdified</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">]</span>
+    <span class="n">vdotz_lambdified</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="nf">prep_geodesic_eqns</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parameters</span><span class="p">:</span> <span class="n">Dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
@@ -429,7 +475,7 @@ particular choice of model parameters)</p>
 <span class="sd">            gstar_ij_mat_lambdified (function) :</span>
 <span class="sd">                lambdified version of `gstar_ij_mat`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;gme.core.geodesic.prep_geodesic_eqns&#39;</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;gme.core.geodesic.prep_geodesic_eqns&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">gstar_ij_tanbeta_mat</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">g_ij_tanbeta_mat</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tanbeta_poly_eqn</span> <span class="o">=</span> <span class="kc">None</span>
@@ -446,53 +492,60 @@ particular choice of model parameters)</p>
         <span class="c1"># if parameters is None: return</span>
         <span class="n">H_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">H_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">mu_eta_sub</span><span class="p">)</span>
         <span class="c1"># Assume indexing here ranges in [1,2]</span>
-        <span class="k">def</span> <span class="nf">p_i_lambda</span><span class="p">(</span><span class="n">i</span><span class="p">):</span> <span class="k">return</span> <span class="p">[</span><span class="n">px</span><span class="p">,</span> <span class="n">pz</span><span class="p">][</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">def</span> <span class="nf">p_i_lambda</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
+            <span class="k">return</span> <span class="p">[</span><span class="n">px</span><span class="p">,</span> <span class="n">pz</span><span class="p">][</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+
         <span class="c1"># r_i_lambda = lambda i: [rx, rz][i-1]</span>
         <span class="c1"># rdot_i_lambda = lambda i: [rdotx, rdotz][i-1]</span>
 
-        <span class="k">def</span> <span class="nf">gstar_ij_lambda</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">):</span> <span class="k">return</span> <span class="n">simplify</span><span class="p">(</span>
-            <span class="n">Rational</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="n">diff</span><span class="p">(</span><span class="n">diff</span><span class="p">(</span><span class="n">H_</span><span class="p">,</span> <span class="n">p_i_lambda</span><span class="p">(</span><span class="n">i</span><span class="p">)),</span> <span class="n">p_i_lambda</span><span class="p">(</span><span class="n">j</span><span class="p">))</span>
+        <span class="k">def</span> <span class="nf">gstar_ij_lambda</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">simplify</span><span class="p">(</span>
+                <span class="n">Rational</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">diff</span><span class="p">(</span><span class="n">diff</span><span class="p">(</span><span class="n">H_</span><span class="p">,</span> <span class="n">p_i_lambda</span><span class="p">(</span><span class="n">i</span><span class="p">)),</span> <span class="n">p_i_lambda</span><span class="p">(</span><span class="n">j</span><span class="p">))</span>
+            <span class="p">)</span>
+
+        <span class="n">gstar_ij_mat</span> <span class="o">=</span> <span class="n">Matrix</span><span class="p">(</span>
+            <span class="p">[</span>
+                <span class="p">[</span><span class="n">gstar_ij_lambda</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">gstar_ij_lambda</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)],</span>
+                <span class="p">[</span><span class="n">gstar_ij_lambda</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">gstar_ij_lambda</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)],</span>
+            <span class="p">]</span>
         <span class="p">)</span>
-        <span class="n">gstar_ij_mat</span> <span class="o">=</span> <span class="n">Matrix</span><span class="p">([[</span><span class="n">gstar_ij_lambda</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">gstar_ij_lambda</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)],</span>
-                               <span class="p">[</span><span class="n">gstar_ij_lambda</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">gstar_ij_lambda</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]])</span>
         <span class="n">gstar_ij_pxpz_mat</span> <span class="o">=</span> <span class="n">gstar_ij_mat</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">varphi_r</span><span class="p">(</span><span class="n">rvec</span><span class="p">):</span> <span class="n">varphi</span><span class="p">})</span>
         <span class="n">g_ij_pxpz_mat</span> <span class="o">=</span> <span class="n">gstar_ij_mat</span><span class="o">.</span><span class="n">inv</span><span class="p">()</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">varphi_r</span><span class="p">(</span><span class="n">rvec</span><span class="p">):</span> <span class="n">varphi</span><span class="p">})</span>
 
-        <span class="n">cosbeta_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">cos</span><span class="p">(</span><span class="n">beta</span><span class="p">),</span> <span class="mi">1</span><span class="o">/</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">tan</span><span class="p">(</span><span class="n">beta</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
-        <span class="n">sinbeta_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">sin</span><span class="p">(</span><span class="n">beta</span><span class="p">),</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">tan</span><span class="p">(</span><span class="n">beta</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)))</span>
-        <span class="n">sintwobeta_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">beta</span><span class="p">),</span> <span class="n">cos</span><span class="p">(</span><span class="n">beta</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="o">-</span><span class="n">sin</span><span class="p">(</span><span class="n">beta</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">cosbeta_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">cos</span><span class="p">(</span><span class="n">beta</span><span class="p">),</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">tan</span><span class="p">(</span><span class="n">beta</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span>
+        <span class="n">sinbeta_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">sin</span><span class="p">(</span><span class="n">beta</span><span class="p">),</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">tan</span><span class="p">(</span><span class="n">beta</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)))</span>
+        <span class="n">sintwobeta_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">beta</span><span class="p">),</span> <span class="n">cos</span><span class="p">(</span><span class="n">beta</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">-</span> <span class="n">sin</span><span class="p">(</span><span class="n">beta</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">gstar_ij_tanbeta_mat</span> <span class="o">=</span> <span class="n">expand_trig</span><span class="p">(</span><span class="n">simplify</span><span class="p">(</span>
-            <span class="n">gstar_ij_pxpz_mat</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">px_pz_tanbeta_eqn</span><span class="p">))</span>
-        <span class="p">))</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="n">cosbeta_eqn</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">g_ij_tanbeta_mat</span> <span class="o">=</span> <span class="n">expand_trig</span><span class="p">(</span><span class="n">simplify</span><span class="p">(</span>
-            <span class="n">g_ij_pxpz_mat</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">px_pz_tanbeta_eqn</span><span class="p">))</span>
-        <span class="p">))</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="n">cosbeta_eqn</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gstar_ij_tanbeta_mat</span> <span class="o">=</span> <span class="n">expand_trig</span><span class="p">(</span>
+            <span class="n">simplify</span><span class="p">(</span><span class="n">gstar_ij_pxpz_mat</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">px_pz_tanbeta_eqn</span><span class="p">)))</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="n">cosbeta_eqn</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">g_ij_tanbeta_mat</span> <span class="o">=</span> <span class="n">expand_trig</span><span class="p">(</span>
+            <span class="n">simplify</span><span class="p">(</span><span class="n">g_ij_pxpz_mat</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">px_pz_tanbeta_eqn</span><span class="p">)))</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="n">cosbeta_eqn</span><span class="p">))</span>
 
         <span class="n">tanalpha_beta_eqn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tanalpha_beta_eqn</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">mu_eta_sub</span><span class="p">)</span>
-        <span class="n">tanbeta_poly_eqn</span> \
-            <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">numer</span><span class="p">(</span><span class="n">tanalpha_beta_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">)</span>
-                 <span class="o">-</span> <span class="n">tanalpha_beta_eqn</span><span class="o">.</span><span class="n">lhs</span><span class="o">*</span><span class="n">denom</span><span class="p">(</span><span class="n">tanalpha_beta_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span> \
-            <span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">tan</span><span class="p">(</span><span class="n">alpha</span><span class="p">):</span> <span class="n">ta</span><span class="p">})</span>
+        <span class="n">tanbeta_poly_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span>
+            <span class="n">numer</span><span class="p">(</span><span class="n">tanalpha_beta_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">)</span>
+            <span class="o">-</span> <span class="n">tanalpha_beta_eqn</span><span class="o">.</span><span class="n">lhs</span> <span class="o">*</span> <span class="n">denom</span><span class="p">(</span><span class="n">tanalpha_beta_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">),</span>
+            <span class="mi">0</span><span class="p">,</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">tan</span><span class="p">(</span><span class="n">alpha</span><span class="p">):</span> <span class="n">ta</span><span class="p">})</span>
 
-        <span class="n">tanbeta_eqn</span> <span class="o">=</span> <span class="p">(</span><span class="n">Eq</span><span class="p">(</span><span class="n">tan</span><span class="p">(</span><span class="n">beta</span><span class="p">),</span> <span class="n">solve</span><span class="p">(</span><span class="n">tanbeta_poly_eqn</span><span class="p">,</span> <span class="n">tan</span><span class="p">(</span><span class="n">beta</span><span class="p">))[</span><span class="mi">0</span><span class="p">]))</span>
+        <span class="n">tanbeta_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">tan</span><span class="p">(</span><span class="n">beta</span><span class="p">),</span> <span class="n">solve</span><span class="p">(</span><span class="n">tanbeta_poly_eqn</span><span class="p">,</span> <span class="n">tan</span><span class="p">(</span><span class="n">beta</span><span class="p">))[</span><span class="mi">0</span><span class="p">])</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tanbeta_poly_eqn</span> <span class="o">=</span> <span class="n">tanbeta_poly_eqn</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tanbeta_eqn</span> <span class="o">=</span> <span class="n">tanbeta_eqn</span>
 
         <span class="c1"># Replace all refs to beta with refs to alpha</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">gstar_ij_tanalpha_mat</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">gstar_ij_tanbeta_mat</span>
-                <span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="n">sintwobeta_eqn</span><span class="p">))</span>
-                <span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="n">sinbeta_eqn</span><span class="p">))</span>
-                <span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="n">cosbeta_eqn</span><span class="p">))</span>
-                <span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="n">tanbeta_eqn</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">gstar_ij_tanbeta_mat</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="n">sintwobeta_eqn</span><span class="p">))</span>
+            <span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="n">sinbeta_eqn</span><span class="p">))</span>
+            <span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="n">cosbeta_eqn</span><span class="p">))</span>
+            <span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="n">tanbeta_eqn</span><span class="p">))</span>
         <span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">mu_eta_sub</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">gstar_ij_mat</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">gstar_ij_tanalpha_mat</span>
-                <span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">ta</span><span class="p">:</span> <span class="n">tan</span><span class="p">(</span><span class="n">alpha</span><span class="p">)})</span>
-                <span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tanalpha_rdot_eqn</span><span class="p">))</span>
-                <span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">varphi_rx_eqn</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">varphi_r</span><span class="p">(</span><span class="n">rvec</span><span class="p">):</span> <span class="n">varphi</span><span class="p">})))</span>
-                <span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">parameters</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">gstar_ij_tanalpha_mat</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">ta</span><span class="p">:</span> <span class="n">tan</span><span class="p">(</span><span class="n">alpha</span><span class="p">)})</span>
+            <span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tanalpha_rdot_eqn</span><span class="p">))</span>
+            <span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">varphi_rx_eqn</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">varphi_r</span><span class="p">(</span><span class="n">rvec</span><span class="p">):</span> <span class="n">varphi</span><span class="p">})))</span>
+            <span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">parameters</span><span class="p">)</span>
         <span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">mu_eta_sub</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">g_ij_tanalpha_mat</span> <span class="o">=</span> <span class="p">(</span>
             <span class="n">expand_trig</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">g_ij_tanbeta_mat</span><span class="p">)</span>
@@ -502,19 +555,16 @@ particular choice of model parameters)</p>
             <span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="n">tanbeta_eqn</span><span class="p">))</span>
         <span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">mu_eta_sub</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">g_ij_mat</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">g_ij_tanalpha_mat</span>
-                <span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">ta</span><span class="p">:</span> <span class="n">rdotz</span><span class="o">/</span><span class="n">rdotx</span><span class="p">})</span>
-                <span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">varphi_rx_eqn</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">varphi_r</span><span class="p">(</span><span class="n">rvec</span><span class="p">):</span> <span class="n">varphi</span><span class="p">})))</span>
-                <span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">parameters</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">g_ij_tanalpha_mat</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">ta</span><span class="p">:</span> <span class="n">rdotz</span> <span class="o">/</span> <span class="n">rdotx</span><span class="p">})</span>
+            <span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">varphi_rx_eqn</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">varphi_r</span><span class="p">(</span><span class="n">rvec</span><span class="p">):</span> <span class="n">varphi</span><span class="p">})))</span>
+            <span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">parameters</span><span class="p">)</span>
         <span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">mu_eta_sub</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">g_ij_mat_lambdified</span> \
-            <span class="o">=</span> <span class="n">lambdify</span><span class="p">((</span><span class="n">rx</span><span class="p">,</span> <span class="n">rdotx</span><span class="p">,</span> <span class="n">rdotz</span><span class="p">,</span> <span class="n">varepsilon</span><span class="p">),</span>
-                       <span class="bp">self</span><span class="o">.</span><span class="n">g_ij_mat</span><span class="p">,</span>
-                       <span class="s1">&#39;numpy&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">gstar_ij_mat_lambdified</span> \
-            <span class="o">=</span> <span class="n">lambdify</span><span class="p">((</span><span class="n">rx</span><span class="p">,</span> <span class="n">rdotx</span><span class="p">,</span> <span class="n">rdotz</span><span class="p">,</span> <span class="n">varepsilon</span><span class="p">),</span>
-                       <span class="bp">self</span><span class="o">.</span><span class="n">gstar_ij_mat</span><span class="p">,</span>
-                       <span class="s1">&#39;numpy&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">g_ij_mat_lambdified</span> <span class="o">=</span> <span class="n">lambdify</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">rx</span><span class="p">,</span> <span class="n">rdotx</span><span class="p">,</span> <span class="n">rdotz</span><span class="p">,</span> <span class="n">varepsilon</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">g_ij_mat</span><span class="p">,</span> <span class="s2">&quot;numpy&quot;</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gstar_ij_mat_lambdified</span> <span class="o">=</span> <span class="n">lambdify</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">rx</span><span class="p">,</span> <span class="n">rdotx</span><span class="p">,</span> <span class="n">rdotz</span><span class="p">,</span> <span class="n">varepsilon</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">gstar_ij_mat</span><span class="p">,</span> <span class="s2">&quot;numpy&quot;</span>
+        <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">define_geodesic_eqns</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
@@ -555,7 +605,7 @@ particular choice of model parameters)</p>
 <span class="sd">            vdotz_lambdified (function) :</span>
 <span class="sd">                lambdified version of :math:`\dot{v}^z`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;gme.core.geodesic.define_geodesic_eqns&#39;</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;gme.core.geodesic.define_geodesic_eqns&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dg_rk_ij_mat</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">christoffel_ij_k_rx_rdot_lambda</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">christoffel_ij_k_lambda</span> <span class="o">=</span> <span class="kc">None</span>
@@ -569,10 +619,12 @@ particular choice of model parameters)</p>
         <span class="c1"># eta_sub = {eta: self.eta_}</span>
 
         <span class="c1"># Manipulate metric tensors</span>
-        <span class="k">def</span> <span class="nf">gstar_ij_lambda</span><span class="p">(</span><span class="n">i_</span><span class="p">,</span> <span class="n">j_</span><span class="p">):</span> <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">gstar_ij_mat</span><span class="p">[</span><span class="n">i_</span><span class="p">,</span> <span class="n">j_</span><span class="p">]</span>
+        <span class="k">def</span> <span class="nf">gstar_ij_lambda</span><span class="p">(</span><span class="n">i_</span><span class="p">,</span> <span class="n">j_</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">gstar_ij_mat</span><span class="p">[</span><span class="n">i_</span><span class="p">,</span> <span class="n">j_</span><span class="p">]</span>
+
         <span class="c1"># g_ij_lambda = lambda i_,j_: self.g_ij_mat[i_,j_]</span>
         <span class="n">r_k_mat</span> <span class="o">=</span> <span class="n">Matrix</span><span class="p">([</span><span class="n">rx</span><span class="p">,</span> <span class="n">rz</span><span class="p">])</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">dg_rk_ij_mat</span> <span class="o">=</span> <span class="p">(</span><span class="n">derive_by_array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">g_ij_mat</span><span class="p">,</span> <span class="n">r_k_mat</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dg_rk_ij_mat</span> <span class="o">=</span> <span class="n">derive_by_array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">g_ij_mat</span><span class="p">,</span> <span class="n">r_k_mat</span><span class="p">)</span>
 
         <span class="k">def</span> <span class="nf">dg_ij_rk_lambda</span><span class="p">(</span><span class="n">i_</span><span class="p">,</span> <span class="n">j_</span><span class="p">,</span> <span class="n">k_</span><span class="p">):</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">dg_rk_ij_mat</span><span class="p">[</span><span class="n">k_</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">i_</span><span class="p">,</span> <span class="n">j_</span><span class="p">]</span>
@@ -580,65 +632,96 @@ particular choice of model parameters)</p>
         <span class="c1"># Generate Christoffel &quot;symbols&quot; tensor</span>
         <span class="k">def</span> <span class="nf">christoffel_ij_k_raw</span><span class="p">(</span><span class="n">i_</span><span class="p">,</span> <span class="n">j_</span><span class="p">,</span> <span class="n">k_</span><span class="p">):</span>
             <span class="k">return</span> <span class="p">[</span>
-                <span class="n">Rational</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="n">gstar_ij_lambda</span><span class="p">(</span><span class="n">k_</span><span class="p">,</span> <span class="n">m_</span><span class="p">)</span><span class="o">*</span><span class="p">(</span>
-                                        <span class="n">dg_ij_rk_lambda</span><span class="p">(</span><span class="n">m_</span><span class="p">,</span> <span class="n">i_</span><span class="p">,</span> <span class="n">j_</span><span class="p">)</span>
-                                        <span class="o">+</span> <span class="n">dg_ij_rk_lambda</span><span class="p">(</span><span class="n">m_</span><span class="p">,</span> <span class="n">j_</span><span class="p">,</span> <span class="n">i_</span><span class="p">)</span>
-                                        <span class="o">-</span> <span class="n">dg_ij_rk_lambda</span><span class="p">(</span><span class="n">i_</span><span class="p">,</span> <span class="n">j_</span><span class="p">,</span> <span class="n">m_</span><span class="p">)</span>
-                                                <span class="p">)</span>
+                <span class="n">Rational</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+                <span class="o">*</span> <span class="n">gstar_ij_lambda</span><span class="p">(</span><span class="n">k_</span><span class="p">,</span> <span class="n">m_</span><span class="p">)</span>
+                <span class="o">*</span> <span class="p">(</span>
+                    <span class="n">dg_ij_rk_lambda</span><span class="p">(</span><span class="n">m_</span><span class="p">,</span> <span class="n">i_</span><span class="p">,</span> <span class="n">j_</span><span class="p">)</span>
+                    <span class="o">+</span> <span class="n">dg_ij_rk_lambda</span><span class="p">(</span><span class="n">m_</span><span class="p">,</span> <span class="n">j_</span><span class="p">,</span> <span class="n">i_</span><span class="p">)</span>
+                    <span class="o">-</span> <span class="n">dg_ij_rk_lambda</span><span class="p">(</span><span class="n">i_</span><span class="p">,</span> <span class="n">j_</span><span class="p">,</span> <span class="n">m_</span><span class="p">)</span>
+                <span class="p">)</span>
                 <span class="k">for</span> <span class="n">m_</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
             <span class="p">]</span>
+
         <span class="c1"># Use of &#39;factor&#39; here messes things up for eta&lt;1</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">christoffel_ij_k_rx_rdot_lambda</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">i_</span><span class="p">,</span> <span class="n">j_</span><span class="p">,</span> <span class="n">k_</span><span class="p">:</span> \
-            <span class="p">(</span><span class="n">reduce</span><span class="p">(</span><span class="k">lambda</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="p">,</span> <span class="n">christoffel_ij_k_raw</span><span class="p">(</span><span class="n">i_</span><span class="p">,</span> <span class="n">j_</span><span class="p">,</span> <span class="n">k_</span><span class="p">)))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">christoffel_ij_k_rx_rdot_lambda</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">i_</span><span class="p">,</span> <span class="n">j_</span><span class="p">,</span> <span class="n">k_</span><span class="p">:</span> <span class="p">(</span>
+            <span class="n">reduce</span><span class="p">(</span><span class="k">lambda</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">,</span> <span class="n">christoffel_ij_k_raw</span><span class="p">(</span><span class="n">i_</span><span class="p">,</span> <span class="n">j_</span><span class="p">,</span> <span class="n">k_</span><span class="p">))</span>
+        <span class="p">)</span>
         <span class="n">christoffel_ij_k_rx_rdot_list</span> <span class="o">=</span> <span class="p">[</span>
             <span class="p">[</span>
                 <span class="p">[</span>
-                    <span class="n">lambdify</span><span class="p">((</span><span class="n">rx</span><span class="p">,</span> <span class="n">rdotx</span><span class="p">,</span> <span class="n">rdotz</span><span class="p">,</span> <span class="n">varepsilon</span><span class="p">),</span>
-                             <span class="bp">self</span><span class="o">.</span><span class="n">christoffel_ij_k_rx_rdot_lambda</span><span class="p">(</span><span class="n">i_</span><span class="p">,</span> <span class="n">j_</span><span class="p">,</span> <span class="n">k_</span><span class="p">))</span>
-                    <span class="k">for</span> <span class="n">i_</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span>
-                <span class="k">for</span> <span class="n">j_</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span>
+                    <span class="n">lambdify</span><span class="p">(</span>
+                        <span class="p">(</span><span class="n">rx</span><span class="p">,</span> <span class="n">rdotx</span><span class="p">,</span> <span class="n">rdotz</span><span class="p">,</span> <span class="n">varepsilon</span><span class="p">),</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">christoffel_ij_k_rx_rdot_lambda</span><span class="p">(</span><span class="n">i_</span><span class="p">,</span> <span class="n">j_</span><span class="p">,</span> <span class="n">k_</span><span class="p">),</span>
+                    <span class="p">)</span>
+                    <span class="k">for</span> <span class="n">i_</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+                <span class="p">]</span>
+                <span class="k">for</span> <span class="n">j_</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+            <span class="p">]</span>
             <span class="k">for</span> <span class="n">k_</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
         <span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">christoffel_ij_k_lambda</span> \
-            <span class="o">=</span> <span class="k">lambda</span> <span class="n">i_</span><span class="p">,</span> <span class="n">j_</span><span class="p">,</span> <span class="n">k_</span><span class="p">,</span> <span class="n">varepsilon_</span><span class="p">:</span> \
-            <span class="n">christoffel_ij_k_rx_rdot_list</span><span class="p">[</span><span class="n">i_</span><span class="p">][</span><span class="n">j_</span><span class="p">][</span><span class="n">k_</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">christoffel_ij_k_lambda</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="k">lambda</span> <span class="n">i_</span><span class="p">,</span> <span class="n">j_</span><span class="p">,</span> <span class="n">k_</span><span class="p">,</span> <span class="n">varepsilon_</span><span class="p">:</span> <span class="n">christoffel_ij_k_rx_rdot_list</span><span class="p">[</span><span class="n">i_</span><span class="p">][</span>
+                <span class="n">j_</span>
+            <span class="p">][</span><span class="n">k_</span><span class="p">]</span>
+        <span class="p">)</span>
 
         <span class="c1"># Obtain geodesic equations as a set of coupled 1st order ODEs</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">geodesic_eqns</span> <span class="o">=</span> <span class="n">Matrix</span><span class="p">([</span>
-            <span class="n">rdotx</span><span class="p">,</span>
-            <span class="n">rdotz</span><span class="p">,</span>
-            <span class="c1"># Use symmetry to abbreviate sum of diagonal terms</span>
-            <span class="p">(</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">christoffel_ij_k_rx_rdot_lambda</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span><span class="o">*</span><span class="n">rdotx</span><span class="o">*</span><span class="n">rdotx</span>
-             <span class="o">-</span> <span class="mi">2</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">christoffel_ij_k_rx_rdot_lambda</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span><span class="o">*</span><span class="n">rdotx</span><span class="o">*</span><span class="n">rdotz</span>
-             <span class="c1"># -christoffel_ij_k_rx_rdot_lambda(1,0,0)*rdotz*rdotx</span>
-             <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">christoffel_ij_k_rx_rdot_lambda</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span><span class="o">*</span><span class="n">rdotz</span><span class="o">*</span><span class="n">rdotz</span><span class="p">),</span>
-            <span class="c1"># Use symmetry to abbreviate sum of diagonal terms</span>
-            <span class="p">(</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">christoffel_ij_k_rx_rdot_lambda</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">rdotx</span><span class="o">*</span><span class="n">rdotx</span>
-             <span class="o">-</span> <span class="mi">2</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">christoffel_ij_k_rx_rdot_lambda</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">rdotx</span><span class="o">*</span><span class="n">rdotz</span>
-             <span class="c1"># -christoffel_ij_k_rx_rdot_lambda(1,0,1)*rdotz*rdotx</span>
-             <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">christoffel_ij_k_rx_rdot_lambda</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">rdotz</span><span class="o">*</span><span class="n">rdotz</span><span class="p">)</span>
-        <span class="p">])</span>
-<span class="c1"># self.geodesic_eqns = Matrix([</span>
-<span class="c1">#     Eq(rdotx_true, rdotx),</span>
-<span class="c1">#     Eq(rdotz_true, rdotz),</span>
-<span class="c1">#     # Use symmetry to abbreviate sum of diagonal terms</span>
-<span class="c1">#     Eq(vdotx, (-self.christoffel_ij_k_rx_rdot_lambda(0,0,0)*rdotx*rdotx</span>
-<span class="c1">#                -2*self.christoffel_ij_k_rx_rdot_lambda(0,1,0)*rdotx*rdotz</span>
-<span class="c1">#                #-christoffel_ij_k_rx_rdot_lambda(1,0,0)*rdotz*rdotx</span>
-<span class="c1">#                -self.christoffel_ij_k_rx_rdot_lambda(1,1,0)*rdotz*rdotz) ),</span>
-<span class="c1">#     # Use symmetry to abbreviate sum of diagonal terms</span>
-<span class="c1">#     Eq(vdotz, (-self.christoffel_ij_k_rx_rdot_lambda(0,0,1)*rdotx*rdotx</span>
-<span class="c1">#                -2*self.christoffel_ij_k_rx_rdot_lambda(0,1,1)*rdotx*rdotz</span>
-<span class="c1">#                #-christoffel_ij_k_rx_rdot_lambda(1,0,1)*rdotz*rdotx</span>
-<span class="c1">#                -self.christoffel_ij_k_rx_rdot_lambda(1,1,1)*rdotz*rdotz) )</span>
-<span class="c1"># ])</span>
-<span class="c1"># Use of &#39;factor&#39; here messes things up for eta&lt;1</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">vdotx_lambdified</span> \
-            <span class="o">=</span> <span class="n">lambdify</span><span class="p">((</span><span class="n">rx</span><span class="p">,</span> <span class="n">rdotx</span><span class="p">,</span> <span class="n">rdotz</span><span class="p">,</span> <span class="n">varepsilon</span><span class="p">),</span>
-                       <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">geodesic_eqns</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span> <span class="s1">&#39;numpy&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">vdotz_lambdified</span> \
-            <span class="o">=</span> <span class="n">lambdify</span><span class="p">((</span><span class="n">rx</span><span class="p">,</span> <span class="n">rdotx</span><span class="p">,</span> <span class="n">rdotz</span><span class="p">,</span> <span class="n">varepsilon</span><span class="p">),</span>
-                       <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">geodesic_eqns</span><span class="p">[</span><span class="mi">3</span><span class="p">]),</span> <span class="s1">&#39;numpy&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">geodesic_eqns</span> <span class="o">=</span> <span class="n">Matrix</span><span class="p">(</span>
+            <span class="p">[</span>
+                <span class="n">rdotx</span><span class="p">,</span>
+                <span class="n">rdotz</span><span class="p">,</span>
+                <span class="c1"># Use symmetry to abbreviate sum of diagonal terms</span>
+                <span class="p">(</span>
+                    <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">christoffel_ij_k_rx_rdot_lambda</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+                    <span class="o">*</span> <span class="n">rdotx</span>
+                    <span class="o">*</span> <span class="n">rdotx</span>
+                    <span class="o">-</span> <span class="mi">2</span>
+                    <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">christoffel_ij_k_rx_rdot_lambda</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+                    <span class="o">*</span> <span class="n">rdotx</span>
+                    <span class="o">*</span> <span class="n">rdotz</span>
+                    <span class="c1"># -christoffel_ij_k_rx_rdot_lambda(1,0,0)*rdotz*rdotx</span>
+                    <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">christoffel_ij_k_rx_rdot_lambda</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+                    <span class="o">*</span> <span class="n">rdotz</span>
+                    <span class="o">*</span> <span class="n">rdotz</span>
+                <span class="p">),</span>
+                <span class="c1"># Use symmetry to abbreviate sum of diagonal terms</span>
+                <span class="p">(</span>
+                    <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">christoffel_ij_k_rx_rdot_lambda</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+                    <span class="o">*</span> <span class="n">rdotx</span>
+                    <span class="o">*</span> <span class="n">rdotx</span>
+                    <span class="o">-</span> <span class="mi">2</span>
+                    <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">christoffel_ij_k_rx_rdot_lambda</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+                    <span class="o">*</span> <span class="n">rdotx</span>
+                    <span class="o">*</span> <span class="n">rdotz</span>
+                    <span class="c1"># -christoffel_ij_k_rx_rdot_lambda(1,0,1)*rdotz*rdotx</span>
+                    <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">christoffel_ij_k_rx_rdot_lambda</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+                    <span class="o">*</span> <span class="n">rdotz</span>
+                    <span class="o">*</span> <span class="n">rdotz</span>
+                <span class="p">),</span>
+            <span class="p">]</span>
+        <span class="p">)</span>
+        <span class="c1"># self.geodesic_eqns = Matrix([</span>
+        <span class="c1">#     Eq(rdotx_true, rdotx),</span>
+        <span class="c1">#     Eq(rdotz_true, rdotz),</span>
+        <span class="c1">#     # Use symmetry to abbreviate sum of diagonal terms</span>
+        <span class="c1">#     Eq(vdotx, (-self.christoffel_ij_k_rx_rdot_lambda(0,0,0)*rdotx*rdotx</span>
+        <span class="c1">#                -2*self.christoffel_ij_k_rx_rdot_lambda(0,1,0)*rdotx*rdotz</span>
+        <span class="c1">#                #-christoffel_ij_k_rx_rdot_lambda(1,0,0)*rdotz*rdotx</span>
+        <span class="c1">#                -self.christoffel_ij_k_rx_rdot_lambda(1,1,0)*rdotz*rdotz) ),</span>
+        <span class="c1">#     # Use symmetry to abbreviate sum of diagonal terms</span>
+        <span class="c1">#     Eq(vdotz, (-self.christoffel_ij_k_rx_rdot_lambda(0,0,1)*rdotx*rdotx</span>
+        <span class="c1">#                -2*self.christoffel_ij_k_rx_rdot_lambda(0,1,1)*rdotx*rdotz</span>
+        <span class="c1">#                #-christoffel_ij_k_rx_rdot_lambda(1,0,1)*rdotz*rdotx</span>
+        <span class="c1">#                -self.christoffel_ij_k_rx_rdot_lambda(1,1,1)*rdotz*rdotz) )</span>
+        <span class="c1"># ])</span>
+        <span class="c1"># Use of &#39;factor&#39; here messes things up for eta&lt;1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vdotx_lambdified</span> <span class="o">=</span> <span class="n">lambdify</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">rx</span><span class="p">,</span> <span class="n">rdotx</span><span class="p">,</span> <span class="n">rdotz</span><span class="p">,</span> <span class="n">varepsilon</span><span class="p">),</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">geodesic_eqns</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span> <span class="s2">&quot;numpy&quot;</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vdotz_lambdified</span> <span class="o">=</span> <span class="n">lambdify</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">rx</span><span class="p">,</span> <span class="n">rdotx</span><span class="p">,</span> <span class="n">rdotz</span><span class="p">,</span> <span class="n">varepsilon</span><span class="p">),</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">geodesic_eqns</span><span class="p">[</span><span class="mi">3</span><span class="p">]),</span> <span class="s2">&quot;numpy&quot;</span>
+        <span class="p">)</span>
+
 
 <span class="c1">#</span>
 </pre></div>

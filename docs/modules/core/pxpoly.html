@@ -53,11 +53,11 @@
   <div class="section" id="module-gme.core.pxpoly">
 <span id="pxpoly-py"></span><h1><code class="docutils literal notranslate"><span class="pre">pxpoly.py</span></code><a class="headerlink" href="#module-gme.core.pxpoly" title="Permalink to this headline">¶</a></h1>
 <hr class="docutils" />
-<p>Equation definitions and derivations using <a class="reference external" href="https://docs.sympy.org/latest/modules/index.html#module-sympy" title="(in SymPy v1.9)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">SymPy</span></code></a>.</p>
+<p>Equation definitions and derivations using <a class="reference external" href="https://docs.sympy.org/latest/index.html#module-sympy" title="(in SymPy v1.10.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">SymPy</span></code></a>.</p>
 <hr class="docutils" />
 <dl class="simple">
 <dt>Requires Python packages/modules:</dt><dd><ul class="simple">
-<li><p><a class="reference external" href="https://docs.sympy.org/latest/modules/index.html#module-sympy" title="(in SymPy v1.9)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">SymPy</span></code></a></p></li>
+<li><p><a class="reference external" href="https://docs.sympy.org/latest/index.html#module-sympy" title="(in SymPy v1.10.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">SymPy</span></code></a></p></li>
 <li><p><a class="reference external" href="https://github.com/geomorphysics/GMPLib">GMPLib</a></p></li>
 <li><p><a class="reference external" href="https://github.com/geomorphysics/GME">GME</a></p></li>
 </ul>
@@ -70,7 +70,7 @@
 <dd><p>Polynomial <span class="math notranslate nohighlight">\(p_x\)</span> equations supplement to equation definition class.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.core.pxpoly.PxpolyMixin.define_px_poly_eqn">
-<span class="sig-name descname"><span class="pre">define_px_poly_eqn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">eta_choice</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.sympy.org/latest/modules/core.html#sympy.core.numbers.Rational" title="(in SymPy v1.9)"><span class="pre">sympy.core.numbers.Rational</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_ndim</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.core.pxpoly.PxpolyMixin.define_px_poly_eqn" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">define_px_poly_eqn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">eta_choice</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.sympy.org/latest/modules/core.html#sympy.core.numbers.Rational" title="(in SymPy v1.10.1)"><span class="pre">sympy.core.numbers.Rational</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_ndim</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.core.pxpoly.PxpolyMixin.define_px_poly_eqn" title="Permalink to this definition">¶</a></dt>
 <dd><p>TODO: remove ref to xiv_0</p>
 <p>Define polynomial form of function combining normal-slowness
 covector components <span class="math notranslate nohighlight">\((p_x,p_z)\)</span>
@@ -79,7 +79,7 @@ covector components <span class="math notranslate nohighlight">\((p_x,p_z)\)</sp
 and the erosion model flow component <span class="math notranslate nohighlight">\(\varphi(\mathbf{r})\)</span></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>eta_choice</strong> (<a class="reference external" href="https://docs.sympy.org/latest/modules/core.html#sympy.core.numbers.Rational" title="(in SymPy v1.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Rational</span></code></a>) – value of <span class="math notranslate nohighlight">\(\eta\)</span> to use instead value given at
+<dd class="field-odd"><p><strong>eta_choice</strong> (<a class="reference external" href="https://docs.sympy.org/latest/modules/core.html#sympy.core.numbers.Rational" title="(in SymPy v1.10.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Rational</span></code></a>) – value of <span class="math notranslate nohighlight">\(\eta\)</span> to use instead value given at
 instantiation; otherwise the latter value is used</p>
 </dd>
 </dl>
@@ -95,7 +95,7 @@ domain=\mathbb{Z}\left[\varphi{\left(\mathbf{r} \right)},
 \xi^{\downarrow}\right] \right)}\)</span></p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.sympy.org/latest/modules/polys/reference.html#sympy.polys.polytools.Poly" title="(in SymPy v1.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Poly</span></code></a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.sympy.org/latest/modules/polys/reference.html#sympy.polys.polytools.Poly" title="(in SymPy v1.10.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Poly</span></code></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -111,7 +111,7 @@ domain=\mathbb{Z}\left[\varphi{\left(\mathbf{r} \right)},
 - \left(\xi^{\downarrow{0}}\right)^{2} = 0\)</span></p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.sympy.org/latest/modules/core.html#sympy.core.relational.Equality" title="(in SymPy v1.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Equality</span></code></a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.sympy.org/latest/modules/core.html#sympy.core.relational.Equality" title="(in SymPy v1.10.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Equality</span></code></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -149,22 +149,39 @@ domain=\mathbb{Z}\left[\varphi{\left(\mathbf{r} \right)},
 <span class="c1"># Library</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">import</span> <span class="nn">logging</span>
-<span class="c1"># from typing import Dict, Type, Optional  # , Tuple, Any, List</span>
+
+<span class="c1"># from typing import Dict, Type, Optional  # , Tuple, Eq, List</span>
 
 <span class="c1"># SymPy</span>
-<span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">Eq</span><span class="p">,</span> <span class="n">Rational</span><span class="p">,</span> <span class="n">simplify</span><span class="p">,</span> <span class="n">solve</span><span class="p">,</span> <span class="n">numer</span><span class="p">,</span> <span class="n">denom</span><span class="p">,</span> \
-                  <span class="n">separatevars</span><span class="p">,</span> <span class="n">poly</span>
+<span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">Eq</span><span class="p">,</span>
+    <span class="n">Rational</span><span class="p">,</span>
+    <span class="n">simplify</span><span class="p">,</span>
+    <span class="n">solve</span><span class="p">,</span>
+    <span class="n">numer</span><span class="p">,</span>
+    <span class="n">denom</span><span class="p">,</span>
+    <span class="n">separatevars</span><span class="p">,</span>
+    <span class="n">poly</span><span class="p">,</span>
+<span class="p">)</span>
 
 <span class="c1"># GMPLib</span>
 <span class="kn">from</span> <span class="nn">gmplib.utils</span> <span class="kn">import</span> <span class="n">e2d</span>
 
 <span class="c1"># GME</span>
-<span class="kn">from</span> <span class="nn">gme.core.symbols</span> <span class="kn">import</span> \
-    <span class="n">px</span><span class="p">,</span> <span class="n">eta</span><span class="p">,</span> <span class="n">varphi_0</span><span class="p">,</span> <span class="n">varphi_r</span><span class="p">,</span> <span class="n">rvec</span><span class="p">,</span> <span class="n">xiv</span><span class="p">,</span> <span class="n">xiv_0</span><span class="p">,</span> <span class="n">xih_0</span>
+<span class="kn">from</span> <span class="nn">gme.core.symbols</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">px</span><span class="p">,</span>
+    <span class="n">eta</span><span class="p">,</span>
+    <span class="n">varphi_0</span><span class="p">,</span>
+    <span class="n">varphi_r</span><span class="p">,</span>
+    <span class="n">rvec</span><span class="p">,</span>
+    <span class="n">xiv</span><span class="p">,</span>
+    <span class="n">xiv_0</span><span class="p">,</span>
+    <span class="n">xih_0</span><span class="p">,</span>
+<span class="p">)</span>
 
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
 
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;PxpolyMixin&#39;</span><span class="p">]</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;PxpolyMixin&quot;</span><span class="p">]</span>
 
 
 <span class="k">class</span> <span class="nc">PxpolyMixin</span><span class="p">:</span>
@@ -179,10 +196,15 @@ domain=\mathbb{Z}\left[\varphi{\left(\mathbf{r} \right)},
     <span class="n">xiv0_xih0_Ci_eqn</span><span class="p">:</span> <span class="n">Eq</span>
     <span class="n">varphi_rx_eqn</span><span class="p">:</span> <span class="n">Eq</span>
 
+    <span class="c1"># Definitions</span>
+    <span class="n">poly_pxhat_xiv_eqn</span><span class="p">:</span> <span class="n">Eq</span>
+    <span class="n">poly_pxhat_xiv0_eqn</span><span class="p">:</span> <span class="n">Eq</span>
+    <span class="n">poly_px_xiv_varphi_eqn</span><span class="p">:</span> <span class="n">Eq</span>
+    <span class="n">poly_px_xiv_eqn</span><span class="p">:</span> <span class="n">Eq</span>
+    <span class="n">poly_px_xiv0_eqn</span><span class="p">:</span> <span class="n">Eq</span>  <span class="c1"># HACK</span>
+
     <span class="k">def</span> <span class="nf">define_px_poly_eqn</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span>
-        <span class="n">eta_choice</span><span class="p">:</span> <span class="n">Rational</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">do_ndim</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">eta_choice</span><span class="p">:</span> <span class="n">Rational</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">do_ndim</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        TODO: remove ref to xiv_0</span>
@@ -217,44 +239,62 @@ domain=\mathbb{Z}\left[\varphi{\left(\mathbf{r} \right)},
 <span class="sd">                - \left(\xi^{\downarrow{0}}\right)^{4} p_{x}^{2}</span>
 <span class="sd">                - \left(\xi^{\downarrow{0}}\right)^{2} = 0`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;gme.core.pxpoly.define_px_poly_eqn (ndim=</span><span class="si">{</span><span class="n">do_ndim</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;gme.core.pxpoly.define_px_poly_eqn (ndim=</span><span class="si">{</span><span class="n">do_ndim</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">do_ndim</span><span class="p">:</span>
             <span class="c1"># Non-dimensionalized version</span>
             <span class="n">varphi0_solns</span> <span class="o">=</span> <span class="n">solve</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">sinCi_xih0_eqn</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">eta</span><span class="p">:</span> <span class="n">eta_choice</span><span class="p">}),</span> <span class="n">varphi_0</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">sinCi_xih0_eqn</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">eta</span><span class="p">:</span> <span class="n">eta_choice</span><span class="p">}),</span> <span class="n">varphi_0</span>
+            <span class="p">)</span>
             <span class="n">varphi0_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">varphi_0</span><span class="p">,</span> <span class="n">varphi0_solns</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
             <span class="k">if</span> <span class="n">eta_choice</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">eta_choice</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">:</span>
-                <span class="n">tmp_eqn</span> <span class="o">=</span> <span class="n">separatevars</span><span class="p">(</span><span class="n">simplify</span><span class="p">(</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">px_xiv_varphi_eqn</span>
-                    <span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">eta</span><span class="p">:</span> <span class="n">eta_choice</span><span class="p">})</span>
-                    <span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">varphi_r</span><span class="p">(</span><span class="n">rvec</span><span class="p">):</span> <span class="bp">self</span><span class="o">.</span><span class="n">varphi_rxhat_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">})</span>
-                    <span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">px_pxhat_eqn</span><span class="p">))</span>
-                    <span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="n">varphi0_eqn</span><span class="p">)))</span>
+                <span class="n">tmp_eqn</span> <span class="o">=</span> <span class="n">separatevars</span><span class="p">(</span>
+                    <span class="n">simplify</span><span class="p">(</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">px_xiv_varphi_eqn</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">eta</span><span class="p">:</span> <span class="n">eta_choice</span><span class="p">})</span>
+                        <span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">varphi_r</span><span class="p">(</span><span class="n">rvec</span><span class="p">):</span> <span class="bp">self</span><span class="o">.</span><span class="n">varphi_rxhat_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">})</span>
+                        <span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">px_pxhat_eqn</span><span class="p">))</span>
+                        <span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="n">varphi0_eqn</span><span class="p">))</span>
+                    <span class="p">)</span>
                 <span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">poly_pxhat_xiv_eqn</span> <span class="o">=</span> <span class="n">simplify</span><span class="p">(</span>
-                    <span class="n">Eq</span><span class="p">((</span><span class="n">numer</span><span class="p">(</span><span class="n">tmp_eqn</span><span class="o">.</span><span class="n">lhs</span><span class="p">)</span>
-                        <span class="o">-</span> <span class="n">denom</span><span class="p">(</span><span class="n">tmp_eqn</span><span class="o">.</span><span class="n">lhs</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">tmp_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">))</span><span class="o">/</span><span class="n">xiv</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+                    <span class="n">Eq</span><span class="p">(</span>
+                        <span class="p">(</span>
+                            <span class="n">numer</span><span class="p">(</span><span class="n">tmp_eqn</span><span class="o">.</span><span class="n">lhs</span><span class="p">)</span>
+                            <span class="o">-</span> <span class="n">denom</span><span class="p">(</span><span class="n">tmp_eqn</span><span class="o">.</span><span class="n">lhs</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">tmp_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">)</span>
+                        <span class="p">)</span>
+                        <span class="o">/</span> <span class="n">xiv</span> <span class="o">**</span> <span class="mi">2</span><span class="p">,</span>
+                        <span class="mi">0</span><span class="p">,</span>
+                    <span class="p">)</span>
                 <span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">poly_pxhat_xiv0_eqn</span> \
-                    <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">poly_pxhat_xiv_eqn</span>\
-                    <span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">xiv</span><span class="p">:</span> <span class="n">xiv_0</span><span class="p">})</span>\
-                    <span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xiv0_xih0_Ci_eqn</span><span class="p">))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">poly_pxhat_xiv0_eqn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">poly_pxhat_xiv_eqn</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span>
+                    <span class="p">{</span><span class="n">xiv</span><span class="p">:</span> <span class="n">xiv_0</span><span class="p">}</span>
+                <span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xiv0_xih0_Ci_eqn</span><span class="p">))</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">tmp_eqn</span> <span class="o">=</span> <span class="n">separatevars</span><span class="p">(</span><span class="n">simplify</span><span class="p">(</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">px_xiv_varphi_eqn</span>
-                    <span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">eta</span><span class="p">:</span> <span class="n">eta_choice</span><span class="p">})</span>
-                    <span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">varphi_r</span><span class="p">(</span><span class="n">rvec</span><span class="p">):</span> <span class="bp">self</span><span class="o">.</span><span class="n">varphi_rxhat_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">})</span>
-                    <span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">px_pxhat_eqn</span><span class="p">))</span>
-                    <span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="n">varphi0_eqn</span><span class="p">))</span>
-                <span class="p">))</span>
+                <span class="n">tmp_eqn</span> <span class="o">=</span> <span class="n">separatevars</span><span class="p">(</span>
+                    <span class="n">simplify</span><span class="p">(</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">px_xiv_varphi_eqn</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">eta</span><span class="p">:</span> <span class="n">eta_choice</span><span class="p">})</span>
+                        <span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">varphi_r</span><span class="p">(</span><span class="n">rvec</span><span class="p">):</span> <span class="bp">self</span><span class="o">.</span><span class="n">varphi_rxhat_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">})</span>
+                        <span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">px_pxhat_eqn</span><span class="p">))</span>
+                        <span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="n">varphi0_eqn</span><span class="p">))</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">poly_pxhat_xiv_eqn</span> <span class="o">=</span> <span class="n">simplify</span><span class="p">(</span>
-                    <span class="n">Eq</span><span class="p">((</span><span class="n">numer</span><span class="p">(</span><span class="n">tmp_eqn</span><span class="o">.</span><span class="n">lhs</span><span class="p">)</span>
-                        <span class="o">-</span> <span class="n">denom</span><span class="p">(</span><span class="n">tmp_eqn</span><span class="o">.</span><span class="n">lhs</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">tmp_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">))</span><span class="o">/</span><span class="n">xiv</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+                    <span class="n">Eq</span><span class="p">(</span>
+                        <span class="p">(</span>
+                            <span class="n">numer</span><span class="p">(</span><span class="n">tmp_eqn</span><span class="o">.</span><span class="n">lhs</span><span class="p">)</span>
+                            <span class="o">-</span> <span class="n">denom</span><span class="p">(</span><span class="n">tmp_eqn</span><span class="o">.</span><span class="n">lhs</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">tmp_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">)</span>
+                        <span class="p">)</span>
+                        <span class="o">/</span> <span class="n">xiv</span> <span class="o">**</span> <span class="mi">2</span><span class="p">,</span>
+                        <span class="mi">0</span><span class="p">,</span>
+                    <span class="p">)</span>
                 <span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">poly_pxhat_xiv0_eqn</span> <span class="o">=</span> <span class="n">simplify</span><span class="p">(</span>
-                    <span class="n">Eq</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">poly_pxhat_xiv_eqn</span><span class="o">.</span><span class="n">lhs</span>
-                        <span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">xiv</span><span class="p">:</span> <span class="n">xiv_0</span><span class="p">})</span>
-                        <span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xiv0_xih0_Ci_eqn</span><span class="p">))</span><span class="o">/</span><span class="n">xih_0</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+                    <span class="n">Eq</span><span class="p">(</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">poly_pxhat_xiv_eqn</span><span class="o">.</span><span class="n">lhs</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">xiv</span><span class="p">:</span> <span class="n">xiv_0</span><span class="p">})</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span>
+                            <span class="n">e2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xiv0_xih0_Ci_eqn</span><span class="p">)</span>
+                        <span class="p">)</span>
+                        <span class="o">/</span> <span class="n">xih_0</span> <span class="o">**</span> <span class="mi">2</span><span class="p">,</span>
+                        <span class="mi">0</span><span class="p">,</span>
+                    <span class="p">)</span>
                 <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="c1"># Dimensioned version</span>
@@ -262,12 +302,12 @@ domain=\mathbb{Z}\left[\varphi{\left(\mathbf{r} \right)},
             <span class="k">if</span> <span class="n">eta_choice</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">eta_choice</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">poly_px_xiv_varphi_eqn</span> <span class="o">=</span> <span class="n">poly</span><span class="p">(</span><span class="n">tmp_eqn</span><span class="o">.</span><span class="n">lhs</span><span class="p">,</span> <span class="n">px</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">poly_px_xiv_varphi_eqn</span> \
-                    <span class="o">=</span> <span class="n">poly</span><span class="p">(</span><span class="n">numer</span><span class="p">(</span><span class="n">tmp_eqn</span><span class="o">.</span><span class="n">lhs</span><span class="p">)</span>
-                           <span class="o">-</span> <span class="n">denom</span><span class="p">(</span><span class="n">tmp_eqn</span><span class="o">.</span><span class="n">lhs</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">tmp_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">),</span> <span class="n">px</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">poly_px_xiv_eqn</span> \
-                <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">poly_px_xiv_varphi_eqn</span>
-                     <span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">varphi_rx_eqn</span><span class="p">)),</span> <span class="mi">0</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">poly_px_xiv_varphi_eqn</span> <span class="o">=</span> <span class="n">poly</span><span class="p">(</span>
+                    <span class="n">numer</span><span class="p">(</span><span class="n">tmp_eqn</span><span class="o">.</span><span class="n">lhs</span><span class="p">)</span> <span class="o">-</span> <span class="n">denom</span><span class="p">(</span><span class="n">tmp_eqn</span><span class="o">.</span><span class="n">lhs</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">tmp_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">),</span> <span class="n">px</span>
+                <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">poly_px_xiv_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">poly_px_xiv_varphi_eqn</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">varphi_rx_eqn</span><span class="p">)),</span> <span class="mi">0</span>
+            <span class="p">)</span>
 
 
 <span class="c1">#</span>

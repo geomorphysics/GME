@@ -53,11 +53,11 @@
   <div class="section" id="module-gme.core.hamiltons">
 <span id="hamiltons-py"></span><h1><code class="docutils literal notranslate"><span class="pre">hamiltons.py</span></code><a class="headerlink" href="#module-gme.core.hamiltons" title="Permalink to this headline">¶</a></h1>
 <hr class="docutils" />
-<p>Equation definitions and derivations using <a class="reference external" href="https://docs.sympy.org/latest/modules/index.html#module-sympy" title="(in SymPy v1.9)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">SymPy</span></code></a>.</p>
+<p>Equation definitions and derivations using <a class="reference external" href="https://docs.sympy.org/latest/index.html#module-sympy" title="(in SymPy v1.10.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">SymPy</span></code></a>.</p>
 <hr class="docutils" />
 <dl class="simple">
 <dt>Requires Python packages/modules:</dt><dd><ul class="simple">
-<li><p><a class="reference external" href="https://docs.sympy.org/latest/modules/index.html#module-sympy" title="(in SymPy v1.9)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">SymPy</span></code></a></p></li>
+<li><p><a class="reference external" href="https://docs.sympy.org/latest/index.html#module-sympy" title="(in SymPy v1.10.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">SymPy</span></code></a></p></li>
 <li><p><a class="reference external" href="https://github.com/geomorphysics/GMPLib">GMPLib</a></p></li>
 <li><p><a class="reference external" href="https://github.com/geomorphysics/GME">GME</a></p></li>
 </ul>
@@ -304,13 +304,25 @@ p_{x}^{2 \eta} x_{1}^{- 4 \mu}
 <span class="kn">from</span> <span class="nn">gmplib.utils</span> <span class="kn">import</span> <span class="n">e2d</span>
 
 <span class="c1"># GME</span>
-<span class="kn">from</span> <span class="nn">gme.core.symbols</span> <span class="kn">import</span> \
-    <span class="n">rx</span><span class="p">,</span> <span class="n">px</span><span class="p">,</span> <span class="n">pz</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">rdot</span><span class="p">,</span> <span class="n">rdotx</span><span class="p">,</span> <span class="n">rdotz</span><span class="p">,</span> <span class="n">pdotx</span><span class="p">,</span> <span class="n">pdotz</span><span class="p">,</span> \
-    <span class="n">rvec</span><span class="p">,</span> <span class="n">rdotvec</span><span class="p">,</span> <span class="n">varphi_r</span><span class="p">,</span> <span class="n">pdotcovec</span>
+<span class="kn">from</span> <span class="nn">gme.core.symbols</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">rx</span><span class="p">,</span>
+    <span class="n">px</span><span class="p">,</span>
+    <span class="n">pz</span><span class="p">,</span>
+    <span class="n">alpha</span><span class="p">,</span>
+    <span class="n">rdot</span><span class="p">,</span>
+    <span class="n">rdotx</span><span class="p">,</span>
+    <span class="n">rdotz</span><span class="p">,</span>
+    <span class="n">pdotx</span><span class="p">,</span>
+    <span class="n">pdotz</span><span class="p">,</span>
+    <span class="n">rvec</span><span class="p">,</span>
+    <span class="n">rdotvec</span><span class="p">,</span>
+    <span class="n">varphi_r</span><span class="p">,</span>
+    <span class="n">pdotcovec</span><span class="p">,</span>
+<span class="p">)</span>
 
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
 
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;HamiltonsMixin&#39;</span><span class="p">]</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;HamiltonsMixin&quot;</span><span class="p">]</span>
 
 
 <span class="k">class</span> <span class="nc">HamiltonsMixin</span><span class="p">:</span>
@@ -323,9 +335,23 @@ p_{x}^{2 \eta} x_{1}^{- 4 \mu}
     <span class="n">H_varphi_rx_eqn</span><span class="p">:</span> <span class="n">Eq</span>
     <span class="n">varphi_rx_eqn</span><span class="p">:</span> <span class="n">Eq</span>
     <span class="n">tanbeta_pxpz_eqn</span><span class="p">:</span> <span class="n">Eq</span>
-
     <span class="n">vdotx_lambdified</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">]</span>
     <span class="n">vdotz_lambdified</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">]</span>
+
+    <span class="c1"># Definitions</span>
+    <span class="n">rdotx_rdot_alpha_eqn</span><span class="p">:</span> <span class="n">Eq</span>
+    <span class="n">rdotz_rdot_alpha_eqn</span><span class="p">:</span> <span class="n">Eq</span>
+    <span class="n">rdotx_pxpz_eqn</span><span class="p">:</span> <span class="n">Eq</span>
+    <span class="n">rdotz_pxpz_eqn</span><span class="p">:</span> <span class="n">Eq</span>
+    <span class="n">rdotz_on_rdotx_eqn</span><span class="p">:</span> <span class="n">Eq</span>
+    <span class="n">rdotz_on_rdotx_tanbeta_eqn</span><span class="p">:</span> <span class="n">Eq</span>
+    <span class="n">rdot_vec_eqn</span><span class="p">:</span> <span class="n">Eq</span>
+    <span class="n">rdot_p_unity_eqn</span><span class="p">:</span> <span class="n">Eq</span>
+    <span class="n">pdotx_pxpz_eqn</span><span class="p">:</span> <span class="n">Eq</span>
+    <span class="n">pdotz_pxpz_eqn</span><span class="p">:</span> <span class="n">Eq</span>
+    <span class="n">pdot_covec_eqn</span><span class="p">:</span> <span class="n">Eq</span>
+    <span class="n">hamiltons_eqns</span><span class="p">:</span> <span class="n">Matrix</span>
+    <span class="n">geodesic_eqns</span><span class="p">:</span> <span class="n">Matrix</span>  <span class="c1"># dummy</span>
 
     <span class="k">def</span> <span class="nf">define_rdot_eqns</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
@@ -371,9 +397,9 @@ p_{x}^{2 \eta} x_{1}^{- 4 \mu}
 <span class="sd">            rdot_p_unity_eqn (`Equality`_):</span>
 <span class="sd">                :math:`p_{x} v^{x} + p_{z} v^{z} = 1`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;gme.core.hamiltons.define_rdot_eqns&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rdotx_rdot_alpha_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">rdotx</span><span class="p">,</span> <span class="n">rdot</span><span class="o">*</span><span class="n">cos</span><span class="p">(</span><span class="n">alpha</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rdotz_rdot_alpha_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">rdotz</span><span class="p">,</span> <span class="n">rdot</span><span class="o">*</span><span class="n">sin</span><span class="p">(</span><span class="n">alpha</span><span class="p">))</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;gme.core.hamiltons.define_rdot_eqns&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rdotx_rdot_alpha_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">rdotx</span><span class="p">,</span> <span class="n">rdot</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="n">alpha</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rdotz_rdot_alpha_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">rdotz</span><span class="p">,</span> <span class="n">rdot</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">alpha</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">rdotx_pxpz_eqn</span> <span class="o">=</span> <span class="n">factor</span><span class="p">(</span><span class="n">Eq</span><span class="p">(</span><span class="n">rdotx</span><span class="p">,</span> <span class="n">diff</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">H_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">,</span> <span class="n">px</span><span class="p">)))</span>
         <span class="c1"># simplify(diff(self.H_eqn.rhs,px)).subs({Abs(px):px,sign(px):1}) ) )</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">rdotz_pxpz_eqn</span> <span class="o">=</span> <span class="n">factor</span><span class="p">(</span><span class="n">Eq</span><span class="p">(</span><span class="n">rdotz</span><span class="p">,</span> <span class="n">diff</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">H_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">,</span> <span class="n">pz</span><span class="p">)))</span>
@@ -382,18 +408,19 @@ p_{x}^{2 \eta} x_{1}^{- 4 \mu}
         <span class="c1">#                                 .subs({Abs(px):px,sign(px):1}) ) )</span>
         <span class="c1">#                                     .subs({px:pxp}) ) \</span>
         <span class="c1">#                                         .subs({pxp:px})</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rdotz_on_rdotx_eqn</span> \
-            <span class="o">=</span> <span class="n">factor</span><span class="p">(</span><span class="n">Eq</span><span class="p">(</span><span class="n">rdotz</span><span class="o">/</span><span class="n">rdotx</span><span class="p">,</span>
-                        <span class="n">simplify</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">rdotz_pxpz_eqn</span><span class="o">.</span><span class="n">rhs</span>
-                                  <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">rdotx_pxpz_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">)))</span>
-                     <span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">Abs</span><span class="p">(</span><span class="n">px</span><span class="p">):</span> <span class="n">px</span><span class="p">}))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rdotz_on_rdotx_tanbeta_eqn</span> \
-            <span class="o">=</span> <span class="n">factor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rdotz_on_rdotx_eqn</span>
-                     <span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">px</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">px_pz_tanbeta_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">}))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rdot_vec_eqn</span> \
-            <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">rdotvec</span><span class="p">,</span>
-                 <span class="n">Matrix</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">rdotx_pxpz_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">rdotz_pxpz_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">]))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rdot_p_unity_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">rdotx</span><span class="o">*</span><span class="n">px</span><span class="o">+</span><span class="n">rdotz</span><span class="o">*</span><span class="n">pz</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rdotz_on_rdotx_eqn</span> <span class="o">=</span> <span class="n">factor</span><span class="p">(</span>
+            <span class="n">Eq</span><span class="p">(</span>
+                <span class="n">rdotz</span> <span class="o">/</span> <span class="n">rdotx</span><span class="p">,</span>
+                <span class="n">simplify</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">rdotz_pxpz_eqn</span><span class="o">.</span><span class="n">rhs</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">rdotx_pxpz_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">)),</span>
+            <span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">Abs</span><span class="p">(</span><span class="n">px</span><span class="p">):</span> <span class="n">px</span><span class="p">})</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rdotz_on_rdotx_tanbeta_eqn</span> <span class="o">=</span> <span class="n">factor</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rdotz_on_rdotx_eqn</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">px</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">px_pz_tanbeta_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">})</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rdot_vec_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span>
+            <span class="n">rdotvec</span><span class="p">,</span> <span class="n">Matrix</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">rdotx_pxpz_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">rdotz_pxpz_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">])</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rdot_p_unity_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">rdotx</span> <span class="o">*</span> <span class="n">px</span> <span class="o">+</span> <span class="n">rdotz</span> <span class="o">*</span> <span class="n">pz</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">vdotx_lambdified</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">vdotz_lambdified</span> <span class="o">=</span> <span class="kc">None</span>
@@ -425,21 +452,33 @@ p_{x}^{2 \eta} x_{1}^{- 4 \mu}
 <span class="sd">                \left(\varepsilon x_{1}^{2 \mu} + \left(x_{1}</span>
 <span class="sd">                - {r}^x\right)^{2 \mu}\right) &amp; 0\end{matrix}\right]`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;gme.core.hamiltons.define_pdot_eqns&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">pdotx_pxpz_eqn</span> \
-            <span class="o">=</span> <span class="n">simplify</span><span class="p">(</span><span class="n">Eq</span><span class="p">(</span><span class="n">pdotx</span><span class="p">,</span> <span class="p">(</span><span class="o">-</span><span class="n">diff</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">H_varphi_rx_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">,</span> <span class="n">rx</span><span class="p">))))</span> \
-            <span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">Abs</span><span class="p">(</span><span class="n">pz</span><span class="p">):</span> <span class="o">-</span><span class="n">pz</span><span class="p">,</span>
-                   <span class="n">Abs</span><span class="p">(</span><span class="n">px</span><span class="p">):</span> <span class="n">px</span><span class="p">,</span>
-                   <span class="n">Abs</span><span class="p">(</span><span class="n">px</span><span class="o">*</span><span class="n">pz</span><span class="p">):</span> <span class="o">-</span><span class="n">px</span><span class="o">*</span><span class="n">pz</span><span class="p">,</span>
-                   <span class="n">Abs</span><span class="p">(</span><span class="n">px</span><span class="o">/</span><span class="n">pz</span><span class="p">):</span> <span class="o">-</span><span class="n">px</span><span class="o">/</span><span class="n">pz</span><span class="p">})</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">pdotz_pxpz_eqn</span> <span class="o">=</span> <span class="n">simplify</span><span class="p">(</span>
-            <span class="n">Eq</span><span class="p">(</span><span class="n">pdotz</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="o">*</span><span class="n">diff</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">varphi_rx_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">,</span> <span class="n">rx</span><span class="p">)</span>
-                       <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">tanbeta_pxpz_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">)</span>
-                       <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">H_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="o">/</span><span class="n">varphi_r</span><span class="p">(</span><span class="n">rvec</span><span class="p">)))</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;gme.core.hamiltons.define_pdot_eqns&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pdotx_pxpz_eqn</span> <span class="o">=</span> <span class="n">simplify</span><span class="p">(</span>
+            <span class="n">Eq</span><span class="p">(</span><span class="n">pdotx</span><span class="p">,</span> <span class="p">(</span><span class="o">-</span><span class="n">diff</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">H_varphi_rx_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">,</span> <span class="n">rx</span><span class="p">)))</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span>
+            <span class="p">{</span>
+                <span class="n">Abs</span><span class="p">(</span><span class="n">pz</span><span class="p">):</span> <span class="o">-</span><span class="n">pz</span><span class="p">,</span>
+                <span class="n">Abs</span><span class="p">(</span><span class="n">px</span><span class="p">):</span> <span class="n">px</span><span class="p">,</span>
+                <span class="n">Abs</span><span class="p">(</span><span class="n">px</span> <span class="o">*</span> <span class="n">pz</span><span class="p">):</span> <span class="o">-</span><span class="n">px</span> <span class="o">*</span> <span class="n">pz</span><span class="p">,</span>
+                <span class="n">Abs</span><span class="p">(</span><span class="n">px</span> <span class="o">/</span> <span class="n">pz</span><span class="p">):</span> <span class="o">-</span><span class="n">px</span> <span class="o">/</span> <span class="n">pz</span><span class="p">,</span>
+            <span class="p">}</span>
         <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">pdot_covec_eqn</span> \
-            <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">pdotcovec</span><span class="p">,</span> <span class="n">Matrix</span><span class="p">([[</span><span class="bp">self</span><span class="o">.</span><span class="n">pdotx_pxpz_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">],</span>
-                                    <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">pdotz_pxpz_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">]])</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pdotz_pxpz_eqn</span> <span class="o">=</span> <span class="n">simplify</span><span class="p">(</span>
+            <span class="n">Eq</span><span class="p">(</span>
+                <span class="n">pdotz</span><span class="p">,</span>
+                <span class="p">(</span>
+                    <span class="mi">0</span>
+                    <span class="o">*</span> <span class="n">diff</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">varphi_rx_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">,</span> <span class="n">rx</span><span class="p">)</span>
+                    <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">tanbeta_pxpz_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">)</span>
+                    <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">H_eqn</span><span class="o">.</span><span class="n">rhs</span>
+                    <span class="o">/</span> <span class="n">varphi_r</span><span class="p">(</span><span class="n">rvec</span><span class="p">)</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pdot_covec_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span>
+            <span class="n">pdotcovec</span><span class="p">,</span>
+            <span class="n">Matrix</span><span class="p">([[</span><span class="bp">self</span><span class="o">.</span><span class="n">pdotx_pxpz_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">],</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">pdotz_pxpz_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">]])</span><span class="o">.</span><span class="n">T</span><span class="p">,</span>
+        <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">define_Hamiltons_eqns</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
@@ -467,15 +506,16 @@ p_{x}^{2 \eta} x_{1}^{- 4 \mu}
 <span class="sd">                \dot{p}_z = 0</span>
 <span class="sd">                \end{matrix}\right]`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;gme.core.hamiltons.define_Hamiltons_eqns&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">hamiltons_eqns</span> \
-            <span class="o">=</span> <span class="n">Matrix</span><span class="p">((</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;gme.core.hamiltons.define_Hamiltons_eqns&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hamiltons_eqns</span> <span class="o">=</span> <span class="n">Matrix</span><span class="p">(</span>
+            <span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">rdotx_pxpz_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">varphi_rx_eqn</span><span class="p">)),</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">rdotz_pxpz_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">varphi_rx_eqn</span><span class="p">)),</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">pdotx_pxpz_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">varphi_rx_eqn</span><span class="p">)),</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">pdotz_pxpz_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">varphi_rx_eqn</span><span class="p">))</span>
                 <span class="c1"># .subs({pdotz:pdotz_tfn})</span>
-            <span class="p">))</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
 
 
 <span class="c1">#</span>

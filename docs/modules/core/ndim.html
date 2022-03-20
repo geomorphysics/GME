@@ -53,11 +53,11 @@
   <div class="section" id="module-gme.core.ndim">
 <span id="ndim-py"></span><h1><code class="docutils literal notranslate"><span class="pre">ndim.py</span></code><a class="headerlink" href="#module-gme.core.ndim" title="Permalink to this headline">¶</a></h1>
 <hr class="docutils" />
-<p>Equation definitions and derivations using <a class="reference external" href="https://docs.sympy.org/latest/modules/index.html#module-sympy" title="(in SymPy v1.9)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">SymPy</span></code></a>.</p>
+<p>Equation definitions and derivations using <a class="reference external" href="https://docs.sympy.org/latest/index.html#module-sympy" title="(in SymPy v1.10.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">SymPy</span></code></a>.</p>
 <hr class="docutils" />
 <dl class="simple">
 <dt>Requires Python packages/modules:</dt><dd><ul class="simple">
-<li><p><a class="reference external" href="https://docs.sympy.org/latest/modules/index.html#module-sympy" title="(in SymPy v1.9)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">SymPy</span></code></a></p></li>
+<li><p><a class="reference external" href="https://docs.sympy.org/latest/index.html#module-sympy" title="(in SymPy v1.10.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">SymPy</span></code></a></p></li>
 <li><p><a class="reference external" href="https://github.com/geomorphysics/GMPLib">GMPLib</a></p></li>
 <li><p><a class="reference external" href="https://github.com/geomorphysics/GME">GME</a></p></li>
 </ul>
@@ -116,24 +116,66 @@ define dimensionless channel incision number <span class="math notranslate nohig
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span>
 
 <span class="c1"># SymPy</span>
-<span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">Eq</span><span class="p">,</span> <span class="n">Rational</span><span class="p">,</span> <span class="n">sqrt</span><span class="p">,</span> <span class="n">simplify</span><span class="p">,</span> <span class="n">factor</span><span class="p">,</span> <span class="n">solve</span><span class="p">,</span> <span class="n">Matrix</span><span class="p">,</span> \
-                  <span class="n">sin</span><span class="p">,</span> <span class="n">cos</span><span class="p">,</span> <span class="n">tan</span><span class="p">,</span> <span class="n">asin</span><span class="p">,</span> <span class="n">Abs</span><span class="p">,</span> <span class="n">deg</span><span class="p">,</span> <span class="n">diff</span>
+<span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">Eq</span><span class="p">,</span>
+    <span class="n">Rational</span><span class="p">,</span>
+    <span class="n">sqrt</span><span class="p">,</span>
+    <span class="n">simplify</span><span class="p">,</span>
+    <span class="n">factor</span><span class="p">,</span>
+    <span class="n">solve</span><span class="p">,</span>
+    <span class="n">Matrix</span><span class="p">,</span>
+    <span class="n">sin</span><span class="p">,</span>
+    <span class="n">cos</span><span class="p">,</span>
+    <span class="n">tan</span><span class="p">,</span>
+    <span class="n">asin</span><span class="p">,</span>
+    <span class="n">Abs</span><span class="p">,</span>
+    <span class="n">deg</span><span class="p">,</span>
+    <span class="n">diff</span><span class="p">,</span>
+<span class="p">)</span>
 
 <span class="c1"># GMPLib</span>
 <span class="kn">from</span> <span class="nn">gmplib.utils</span> <span class="kn">import</span> <span class="n">e2d</span>
 
 <span class="c1"># GME</span>
-<span class="kn">from</span> <span class="nn">gme.core.symbols</span> <span class="kn">import</span> \
-    <span class="n">rx</span><span class="p">,</span> <span class="n">rz</span><span class="p">,</span> <span class="n">px</span><span class="p">,</span> <span class="n">pz</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">Lc</span><span class="p">,</span> <span class="n">rxhat</span><span class="p">,</span> <span class="n">rzhat</span><span class="p">,</span> <span class="n">rvec</span><span class="p">,</span> \
-    <span class="n">varepsilon</span><span class="p">,</span> <span class="n">varepsilonhat</span><span class="p">,</span> <span class="n">varphi_0</span><span class="p">,</span> <span class="n">varphi_r</span><span class="p">,</span> <span class="n">varphi_rxhat_fn</span><span class="p">,</span> \
-    <span class="n">xiv</span><span class="p">,</span> <span class="n">xih</span><span class="p">,</span> <span class="n">xiv_0</span><span class="p">,</span> <span class="n">xih_0</span><span class="p">,</span> <span class="n">beta_0</span><span class="p">,</span> \
-    <span class="n">eta</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">H</span><span class="p">,</span> <span class="n">Ci</span><span class="p">,</span> \
-    <span class="n">th_0</span><span class="p">,</span> <span class="n">tv_0</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">that</span><span class="p">,</span> <span class="n">pxhat</span><span class="p">,</span> <span class="n">pzhat</span><span class="p">,</span> \
-    <span class="n">rdotxhat_thatfn</span><span class="p">,</span> <span class="n">rdotzhat_thatfn</span><span class="p">,</span> <span class="n">pdotxhat_thatfn</span><span class="p">,</span> <span class="n">pdotzhat_thatfn</span>
+<span class="kn">from</span> <span class="nn">gme.core.symbols</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">rx</span><span class="p">,</span>
+    <span class="n">rz</span><span class="p">,</span>
+    <span class="n">px</span><span class="p">,</span>
+    <span class="n">pz</span><span class="p">,</span>
+    <span class="n">beta</span><span class="p">,</span>
+    <span class="n">Lc</span><span class="p">,</span>
+    <span class="n">rxhat</span><span class="p">,</span>
+    <span class="n">rzhat</span><span class="p">,</span>
+    <span class="n">rvec</span><span class="p">,</span>
+    <span class="n">varepsilon</span><span class="p">,</span>
+    <span class="n">varepsilonhat</span><span class="p">,</span>
+    <span class="n">varphi_0</span><span class="p">,</span>
+    <span class="n">varphi_r</span><span class="p">,</span>
+    <span class="n">varphi_rxhat_fn</span><span class="p">,</span>
+    <span class="n">xiv</span><span class="p">,</span>
+    <span class="n">xih</span><span class="p">,</span>
+    <span class="n">xiv_0</span><span class="p">,</span>
+    <span class="n">xih_0</span><span class="p">,</span>
+    <span class="n">beta_0</span><span class="p">,</span>
+    <span class="n">eta</span><span class="p">,</span>
+    <span class="n">mu</span><span class="p">,</span>
+    <span class="n">H</span><span class="p">,</span>
+    <span class="n">Ci</span><span class="p">,</span>
+    <span class="n">th_0</span><span class="p">,</span>
+    <span class="n">tv_0</span><span class="p">,</span>
+    <span class="n">t</span><span class="p">,</span>
+    <span class="n">that</span><span class="p">,</span>
+    <span class="n">pxhat</span><span class="p">,</span>
+    <span class="n">pzhat</span><span class="p">,</span>
+    <span class="n">rdotxhat_thatfn</span><span class="p">,</span>
+    <span class="n">rdotzhat_thatfn</span><span class="p">,</span>
+    <span class="n">pdotxhat_thatfn</span><span class="p">,</span>
+    <span class="n">pdotzhat_thatfn</span><span class="p">,</span>
+<span class="p">)</span>
 
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
 
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;NdimMixin&#39;</span><span class="p">]</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;NdimMixin&quot;</span><span class="p">]</span>
 
 
 <span class="k">class</span> <span class="nc">NdimMixin</span><span class="p">:</span>
@@ -146,6 +188,47 @@ define dimensionless channel incision number <span class="math notranslate nohig
     <span class="n">pz_xiv_eqn</span><span class="p">:</span> <span class="n">Eq</span>
     <span class="n">H_varphi_rx_eqn</span><span class="p">:</span> <span class="n">Eq</span>
 
+    <span class="c1"># Definitions</span>
+    <span class="n">rx_rxhat_eqn</span><span class="p">:</span> <span class="n">Eq</span>
+    <span class="n">rz_rzhat_eqn</span><span class="p">:</span> <span class="n">Eq</span>
+    <span class="n">varepsilon_varepsilonhat_eqn</span><span class="p">:</span> <span class="n">Eq</span>
+    <span class="n">varepsilonhat_varepsilon_eqn</span><span class="p">:</span> <span class="n">Eq</span>
+    <span class="n">varphi_rxhat_eqn</span><span class="p">:</span> <span class="n">Eq</span>
+    <span class="n">xi_rxhat_eqn</span><span class="p">:</span> <span class="n">Eq</span>
+    <span class="n">xih0_beta0_eqn</span><span class="p">:</span> <span class="n">Eq</span>
+    <span class="n">xiv0_beta0_eqn</span><span class="p">:</span> <span class="n">Eq</span>
+    <span class="n">xih0_xiv0_beta0_eqn</span><span class="p">:</span> <span class="n">Eq</span>
+    <span class="n">xih_xiv_tanbeta_eqn</span><span class="p">:</span> <span class="n">Eq</span>
+    <span class="n">xiv_xih_tanbeta_eqn</span><span class="p">:</span> <span class="n">Eq</span>
+    <span class="n">th0_xih0_eqn</span><span class="p">:</span> <span class="n">Eq</span>
+    <span class="n">tv0_xiv0_eqn</span><span class="p">:</span> <span class="n">Eq</span>
+    <span class="n">th0_beta0_eqn</span><span class="p">:</span> <span class="n">Eq</span>
+    <span class="n">tv0_beta0_eqn</span><span class="p">:</span> <span class="n">Eq</span>
+    <span class="n">t_that_eqn</span><span class="p">:</span> <span class="n">Eq</span>
+    <span class="n">px_pxhat_eqn</span><span class="p">:</span> <span class="n">Eq</span>
+    <span class="n">pz_pzhat_eqn</span><span class="p">:</span> <span class="n">Eq</span>
+    <span class="n">pzhat_xiv_eqn</span><span class="p">:</span> <span class="n">Eq</span>
+    <span class="n">H_varphi_rxhat_eqn</span><span class="p">:</span> <span class="n">Eq</span>
+    <span class="n">H_split</span><span class="p">:</span> <span class="n">Eq</span>
+    <span class="n">H_Ci_eqn</span><span class="p">:</span> <span class="n">Eq</span>
+    <span class="n">degCi_H0p5_eqn</span><span class="p">:</span> <span class="n">Eq</span>
+    <span class="n">sinCi_xih0_eqn</span><span class="p">:</span> <span class="n">Eq</span>
+    <span class="n">Ci_xih0_eqn</span><span class="p">:</span> <span class="n">Eq</span>
+    <span class="n">sinCi_beta0_eqn</span><span class="p">:</span> <span class="n">Eq</span>
+    <span class="n">Ci_beta0_eqn</span><span class="p">:</span> <span class="n">Eq</span>
+    <span class="n">beta0_Ci_eqn</span><span class="p">:</span> <span class="n">Eq</span>
+    <span class="n">rdotxhat_eqn</span><span class="p">:</span> <span class="n">Eq</span>
+    <span class="n">rdotzhat_eqn</span><span class="p">:</span> <span class="n">Eq</span>
+    <span class="n">pdotxhat_eqn</span><span class="p">:</span> <span class="n">Eq</span>
+    <span class="n">pdotzhat_eqn</span><span class="p">:</span> <span class="n">Eq</span>
+    <span class="n">xih0_Ci_eqn</span><span class="p">:</span> <span class="n">Eq</span>
+    <span class="n">xih0_Lc_varphi0_Ci_eqn</span><span class="p">:</span> <span class="n">Eq</span>
+    <span class="n">xiv0_xih0_Ci_eqn</span><span class="p">:</span> <span class="n">Eq</span>
+    <span class="n">xiv0_Lc_varphi0_Ci_eqn</span><span class="p">:</span> <span class="n">Eq</span>
+    <span class="n">varphi0_Lc_xiv0_Ci_eqn</span><span class="p">:</span> <span class="n">Eq</span>
+    <span class="n">ratio_xiv0_xih0_eqn</span><span class="p">:</span> <span class="n">Eq</span>
+    <span class="n">hamiltons_ndim_eqns</span><span class="p">:</span> <span class="n">Eq</span>
+
     <span class="k">def</span> <span class="nf">nondimensionalize</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Non-dimensionalize variables, Hamiltonian, and Hamilton&#39;s equations;</span>
@@ -153,151 +236,191 @@ define dimensionless channel incision number <span class="math notranslate nohig
 
 <span class="sd">        Attributes:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;gme.core.ndim.nondimensionalize&#39;</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;gme.core.ndim.nondimensionalize&quot;</span><span class="p">)</span>
         <span class="n">varsub</span><span class="p">:</span> <span class="n">Dict</span> <span class="o">=</span> <span class="p">{}</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">rx_rxhat_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">rx</span><span class="p">,</span> <span class="n">Lc</span><span class="o">*</span><span class="n">rxhat</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rz_rzhat_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">rz</span><span class="p">,</span> <span class="n">Lc</span><span class="o">*</span><span class="n">rzhat</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rx_rxhat_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">rx</span><span class="p">,</span> <span class="n">Lc</span> <span class="o">*</span> <span class="n">rxhat</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rz_rzhat_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">rz</span><span class="p">,</span> <span class="n">Lc</span> <span class="o">*</span> <span class="n">rzhat</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">varepsilon_varepsilonhat_eqn</span> \
-            <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">varepsilon</span><span class="p">,</span> <span class="n">Lc</span><span class="o">*</span><span class="n">varepsilonhat</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">varepsilonhat_varepsilon_eqn</span> \
-            <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">varepsilonhat</span><span class="p">,</span>
-                 <span class="n">solve</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">varepsilon_varepsilonhat_eqn</span><span class="p">,</span> <span class="n">varepsilonhat</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">varepsilon_varepsilonhat_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">varepsilon</span><span class="p">,</span> <span class="n">Lc</span> <span class="o">*</span> <span class="n">varepsilonhat</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">varepsilonhat_varepsilon_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span>
+            <span class="n">varepsilonhat</span><span class="p">,</span>
+            <span class="n">solve</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">varepsilon_varepsilonhat_eqn</span><span class="p">,</span> <span class="n">varepsilonhat</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span>
+        <span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">varphi_rxhat_eqn</span> \
-            <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">varphi_rxhat_fn</span><span class="p">(</span><span class="n">rxhat</span><span class="p">),</span>
-                 <span class="n">factor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">varphi_rx_eqn</span><span class="o">.</span><span class="n">rhs</span>
-                        <span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rx_rxhat_eqn</span><span class="p">))</span>
-                        <span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">varepsilon_varepsilonhat_eqn</span><span class="p">))</span>
-                        <span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">varsub</span><span class="p">)))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">varphi_rxhat_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span>
+            <span class="n">varphi_rxhat_fn</span><span class="p">(</span><span class="n">rxhat</span><span class="p">),</span>
+            <span class="n">factor</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">varphi_rx_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rx_rxhat_eqn</span><span class="p">))</span>
+                <span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">varepsilon_varepsilonhat_eqn</span><span class="p">))</span>
+                <span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">varsub</span><span class="p">)</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">xi_rxhat_eqn</span>\
-            <span class="o">=</span> <span class="n">simplify</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xi_varphi_beta_eqn</span>
-                       <span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">varphi_r</span><span class="p">(</span><span class="n">rvec</span><span class="p">):</span> <span class="n">varphi_rxhat_fn</span><span class="p">(</span><span class="n">rxhat</span><span class="p">)})</span>
-                       <span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">varphi_rxhat_eqn</span><span class="p">)))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">xi_rxhat_eqn</span> <span class="o">=</span> <span class="n">simplify</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">xi_varphi_beta_eqn</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span>
+                <span class="p">{</span><span class="n">varphi_r</span><span class="p">(</span><span class="n">rvec</span><span class="p">):</span> <span class="n">varphi_rxhat_fn</span><span class="p">(</span><span class="n">rxhat</span><span class="p">)}</span>
+            <span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">varphi_rxhat_eqn</span><span class="p">))</span>
+        <span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">xih0_beta0_eqn</span> \
-            <span class="o">=</span> <span class="n">simplify</span><span class="p">(</span><span class="n">Eq</span><span class="p">(</span><span class="n">xih_0</span><span class="p">,</span>
-                          <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xi_rxhat_eqn</span><span class="o">.</span><span class="n">rhs</span> <span class="o">/</span> <span class="n">sin</span><span class="p">(</span><span class="n">beta_0</span><span class="p">))</span>
-                          <span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">varphi_rx_eqn</span><span class="p">))</span>
-                          <span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">Abs</span><span class="p">(</span><span class="n">sin</span><span class="p">(</span><span class="n">beta</span><span class="p">)):</span> <span class="n">sin</span><span class="p">(</span><span class="n">beta_0</span><span class="p">)})</span>
-                          <span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">rxhat</span><span class="p">:</span> <span class="mi">0</span><span class="p">})</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">varsub</span><span class="p">)))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">xiv0_beta0_eqn</span> \
-            <span class="o">=</span> <span class="n">simplify</span><span class="p">(</span><span class="n">Eq</span><span class="p">(</span><span class="n">xiv_0</span><span class="p">,</span>
-                          <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xi_rxhat_eqn</span><span class="o">.</span><span class="n">rhs</span> <span class="o">/</span> <span class="n">cos</span><span class="p">(</span><span class="n">beta_0</span><span class="p">))</span>
-                          <span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">varphi_rx_eqn</span><span class="p">))</span>
-                          <span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">Abs</span><span class="p">(</span><span class="n">sin</span><span class="p">(</span><span class="n">beta</span><span class="p">)):</span> <span class="n">sin</span><span class="p">(</span><span class="n">beta_0</span><span class="p">)})</span>
-                          <span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">rxhat</span><span class="p">:</span> <span class="mi">0</span><span class="p">})</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">varsub</span><span class="p">)))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">xih0_xiv0_beta0_eqn</span> \
-            <span class="o">=</span> <span class="n">Eq</span><span class="p">((</span><span class="n">xih_0</span><span class="p">),</span>
-                 <span class="n">xiv_0</span><span class="o">*</span><span class="n">simplify</span><span class="p">((</span><span class="n">xih_0</span><span class="o">/</span><span class="n">xiv_0</span><span class="p">)</span>
-                                <span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xiv0_beta0_eqn</span><span class="p">))</span>
-                                <span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xih0_beta0_eqn</span><span class="p">))))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">xih_xiv_tanbeta_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">xih</span><span class="p">,</span> <span class="n">xiv</span><span class="o">/</span><span class="n">tan</span><span class="p">(</span><span class="n">beta</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">xih0_beta0_eqn</span> <span class="o">=</span> <span class="n">simplify</span><span class="p">(</span>
+            <span class="n">Eq</span><span class="p">(</span>
+                <span class="n">xih_0</span><span class="p">,</span>
+                <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xi_rxhat_eqn</span><span class="o">.</span><span class="n">rhs</span> <span class="o">/</span> <span class="n">sin</span><span class="p">(</span><span class="n">beta_0</span><span class="p">))</span>
+                <span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">varphi_rx_eqn</span><span class="p">))</span>
+                <span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">Abs</span><span class="p">(</span><span class="n">sin</span><span class="p">(</span><span class="n">beta</span><span class="p">)):</span> <span class="n">sin</span><span class="p">(</span><span class="n">beta_0</span><span class="p">)})</span>
+                <span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">rxhat</span><span class="p">:</span> <span class="mi">0</span><span class="p">})</span>
+                <span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">varsub</span><span class="p">),</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">xiv0_beta0_eqn</span> <span class="o">=</span> <span class="n">simplify</span><span class="p">(</span>
+            <span class="n">Eq</span><span class="p">(</span>
+                <span class="n">xiv_0</span><span class="p">,</span>
+                <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xi_rxhat_eqn</span><span class="o">.</span><span class="n">rhs</span> <span class="o">/</span> <span class="n">cos</span><span class="p">(</span><span class="n">beta_0</span><span class="p">))</span>
+                <span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">varphi_rx_eqn</span><span class="p">))</span>
+                <span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">Abs</span><span class="p">(</span><span class="n">sin</span><span class="p">(</span><span class="n">beta</span><span class="p">)):</span> <span class="n">sin</span><span class="p">(</span><span class="n">beta_0</span><span class="p">)})</span>
+                <span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">rxhat</span><span class="p">:</span> <span class="mi">0</span><span class="p">})</span>
+                <span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">varsub</span><span class="p">),</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">xih0_xiv0_beta0_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">xih_0</span><span class="p">),</span>
+            <span class="n">xiv_0</span>
+            <span class="o">*</span> <span class="n">simplify</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">xih_0</span> <span class="o">/</span> <span class="n">xiv_0</span><span class="p">)</span>
+                <span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xiv0_beta0_eqn</span><span class="p">))</span>
+                <span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xih0_beta0_eqn</span><span class="p">))</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">xih_xiv_tanbeta_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">xih</span><span class="p">,</span> <span class="n">xiv</span> <span class="o">/</span> <span class="n">tan</span><span class="p">(</span><span class="n">beta</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">xiv_xih_tanbeta_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span>
-            <span class="n">xiv</span><span class="p">,</span> <span class="n">solve</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xih_xiv_tanbeta_eqn</span><span class="p">,</span> <span class="n">xiv</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">xiv</span><span class="p">,</span> <span class="n">solve</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xih_xiv_tanbeta_eqn</span><span class="p">,</span> <span class="n">xiv</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="p">)</span>
         <span class="c1"># Eq(xiv, xih*tan(beta))</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">th0_xih0_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">th_0</span><span class="p">,</span> <span class="p">(</span><span class="n">Lc</span><span class="o">/</span><span class="n">xih_0</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">tv0_xiv0_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">tv_0</span><span class="p">,</span> <span class="p">(</span><span class="n">Lc</span><span class="o">/</span><span class="n">xiv_0</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">th0_xih0_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">th_0</span><span class="p">,</span> <span class="p">(</span><span class="n">Lc</span> <span class="o">/</span> <span class="n">xih_0</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tv0_xiv0_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">tv_0</span><span class="p">,</span> <span class="p">(</span><span class="n">Lc</span> <span class="o">/</span> <span class="n">xiv_0</span><span class="p">))</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">th0_beta0_eqn</span> \
-            <span class="o">=</span> <span class="n">factor</span><span class="p">(</span><span class="n">simplify</span><span class="p">(</span>
-                                <span class="bp">self</span><span class="o">.</span><span class="n">th0_xih0_eqn</span>
-                                <span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xih0_beta0_eqn</span><span class="p">))</span>
-                <span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">th0_beta0_eqn</span> <span class="o">=</span> <span class="n">factor</span><span class="p">(</span>
+            <span class="n">simplify</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">th0_xih0_eqn</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xih0_beta0_eqn</span><span class="p">)))</span>
+        <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tv0_beta0_eqn</span> <span class="o">=</span> <span class="n">simplify</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">tv0_xiv0_eqn</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xiv0_beta0_eqn</span><span class="p">)))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tv0_xiv0_eqn</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xiv0_beta0_eqn</span><span class="p">))</span>
+        <span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">t_that_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">th_0</span><span class="o">*</span><span class="n">that</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">px_pxhat_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">px</span><span class="p">,</span> <span class="n">pxhat</span><span class="o">/</span><span class="n">xih_0</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">pz_pzhat_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">pz</span><span class="p">,</span> <span class="n">pzhat</span><span class="o">/</span><span class="n">xih_0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">t_that_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">th_0</span> <span class="o">*</span> <span class="n">that</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">px_pxhat_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">px</span><span class="p">,</span> <span class="n">pxhat</span> <span class="o">/</span> <span class="n">xih_0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pz_pzhat_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">pz</span><span class="p">,</span> <span class="n">pzhat</span> <span class="o">/</span> <span class="n">xih_0</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">pzhat_xiv_eqn</span> \
-            <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">pzhat</span><span class="p">,</span>
-                 <span class="n">solve</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pz_xiv_eqn</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pz_pzhat_eqn</span><span class="p">)),</span> <span class="n">pzhat</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pzhat_xiv_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span>
+            <span class="n">pzhat</span><span class="p">,</span> <span class="n">solve</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pz_xiv_eqn</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pz_pzhat_eqn</span><span class="p">)),</span> <span class="n">pzhat</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">H_varphi_rxhat_eqn</span> <span class="o">=</span> <span class="n">factor</span><span class="p">(</span><span class="n">simplify</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">H_varphi_rx_eqn</span>
-                <span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">varsub</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">H_varphi_rxhat_eqn</span> <span class="o">=</span> <span class="n">factor</span><span class="p">(</span>
+            <span class="n">simplify</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">H_varphi_rx_eqn</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">varsub</span><span class="p">)</span>
                 <span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">varepsilon_varepsilonhat_eqn</span><span class="p">))</span>
                 <span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rx_rxhat_eqn</span><span class="p">))</span>
                 <span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">px_pxhat_eqn</span><span class="p">))</span>
                 <span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pz_pzhat_eqn</span><span class="p">))</span>
-        <span class="p">))</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">H_split</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="mi">2</span><span class="o">*</span><span class="n">pxhat</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">eta</span><span class="p">)</span>
-            <span class="o">*</span> <span class="p">(</span><span class="n">pxhat</span><span class="o">**</span><span class="mi">2</span><span class="o">+</span><span class="n">pzhat</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="n">eta</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-            <span class="o">*</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">rxhat</span><span class="o">+</span><span class="n">varepsilonhat</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="o">*</span><span class="n">mu</span><span class="p">)</span>
+            <span class="mi">2</span>
+            <span class="o">*</span> <span class="n">pxhat</span> <span class="o">**</span> <span class="p">(</span><span class="o">-</span><span class="mi">2</span> <span class="o">*</span> <span class="n">eta</span><span class="p">)</span>
+            <span class="o">*</span> <span class="p">(</span><span class="n">pxhat</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">pzhat</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">**</span> <span class="p">(</span><span class="n">eta</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">rxhat</span> <span class="o">+</span> <span class="n">varepsilonhat</span><span class="p">)</span> <span class="o">**</span> <span class="p">(</span><span class="o">-</span><span class="mi">4</span> <span class="o">*</span> <span class="n">mu</span><span class="p">)</span>
         <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">H_Ci_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">simplify</span><span class="p">(((</span><span class="n">sin</span><span class="p">(</span><span class="n">Ci</span><span class="p">))</span><span class="o">**</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">eta</span><span class="p">))</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">H_split</span><span class="p">)</span>
-                                       <span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">H_varphi_rxhat_eqn</span><span class="p">))))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">degCi_H0p5_eqn</span> \
-            <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">Ci</span><span class="p">,</span>
-                 <span class="n">deg</span><span class="p">(</span><span class="n">solve</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">H_Ci_eqn</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">H</span><span class="p">:</span> <span class="n">Rational</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)}),</span> <span class="n">Ci</span><span class="p">)[</span><span class="mi">0</span><span class="p">]))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">sinCi_xih0_eqn</span> \
-            <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">sin</span><span class="p">(</span><span class="n">Ci</span><span class="p">),</span> <span class="p">(((</span><span class="n">sqrt</span><span class="p">(</span><span class="n">simplify</span><span class="p">(</span>
-                    <span class="p">(</span><span class="n">H</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">H_split</span><span class="p">)</span>
-                    <span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">H_varphi_rxhat_eqn</span><span class="p">))</span>
-                <span class="p">)))</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">eta</span><span class="p">)))))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">H_Ci_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span>
+            <span class="n">H</span><span class="p">,</span>
+            <span class="n">simplify</span><span class="p">(</span>
+                <span class="p">((</span><span class="n">sin</span><span class="p">(</span><span class="n">Ci</span><span class="p">))</span> <span class="o">**</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">eta</span><span class="p">))</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">H_split</span><span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span>
+                    <span class="n">e2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">H_varphi_rxhat_eqn</span><span class="p">)</span>
+                <span class="p">)</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">degCi_H0p5_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span>
+            <span class="n">Ci</span><span class="p">,</span> <span class="n">deg</span><span class="p">(</span><span class="n">solve</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">H_Ci_eqn</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">H</span><span class="p">:</span> <span class="n">Rational</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)}),</span> <span class="n">Ci</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sinCi_xih0_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span>
+            <span class="n">sin</span><span class="p">(</span><span class="n">Ci</span><span class="p">),</span>
+            <span class="p">(</span>
+                <span class="n">sqrt</span><span class="p">(</span>
+                    <span class="n">simplify</span><span class="p">(</span>
+                        <span class="p">(</span><span class="n">H</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">H_split</span><span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">H_varphi_rxhat_eqn</span><span class="p">))</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+            <span class="o">**</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">eta</span><span class="p">)),</span>
+        <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">Ci_xih0_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">Ci</span><span class="p">,</span> <span class="n">asin</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sinCi_xih0_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">sinCi_beta0_eqn</span> \
-            <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">sin</span><span class="p">(</span><span class="n">Ci</span><span class="p">),</span>
-                 <span class="n">factor</span><span class="p">(</span><span class="n">simplify</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sinCi_xih0_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span>
-                  <span class="n">e2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xih0_beta0_eqn</span><span class="p">))))</span>
-                 <span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">sin</span><span class="p">(</span><span class="n">beta_0</span><span class="p">)</span><span class="o">*</span><span class="n">sin</span><span class="p">(</span><span class="n">beta_0</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="n">eta</span><span class="p">):</span>
-                        <span class="p">(</span><span class="n">sin</span><span class="p">(</span><span class="n">beta_0</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">eta</span><span class="p">))})</span>
-                 <span class="o">.</span><span class="n">subs</span><span class="p">({(</span><span class="n">sin</span><span class="p">(</span><span class="n">beta_0</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">eta</span><span class="p">))</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="n">eta</span><span class="o">-</span><span class="mi">1</span><span class="p">)):</span> <span class="n">sin</span><span class="p">(</span><span class="n">beta_0</span><span class="p">)}))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sinCi_beta0_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span>
+            <span class="n">sin</span><span class="p">(</span><span class="n">Ci</span><span class="p">),</span>
+            <span class="n">factor</span><span class="p">(</span>
+                <span class="n">simplify</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sinCi_xih0_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xih0_beta0_eqn</span><span class="p">)))</span>
+            <span class="p">)</span>
+            <span class="o">.</span><span class="n">subs</span><span class="p">(</span>
+                <span class="p">{</span>
+                    <span class="n">sin</span><span class="p">(</span><span class="n">beta_0</span><span class="p">)</span>
+                    <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">beta_0</span><span class="p">)</span> <span class="o">**</span> <span class="p">(</span><span class="o">-</span><span class="n">eta</span><span class="p">):</span> <span class="p">(</span><span class="n">sin</span><span class="p">(</span><span class="n">beta_0</span><span class="p">)</span> <span class="o">**</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">eta</span><span class="p">))</span>
+                <span class="p">}</span>
+            <span class="p">)</span>
+            <span class="o">.</span><span class="n">subs</span><span class="p">(</span>
+                <span class="p">{(</span><span class="n">sin</span><span class="p">(</span><span class="n">beta_0</span><span class="p">)</span> <span class="o">**</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">eta</span><span class="p">))</span> <span class="o">**</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="n">eta</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)):</span> <span class="n">sin</span><span class="p">(</span><span class="n">beta_0</span><span class="p">)}</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">Ci_beta0_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">Ci</span><span class="p">,</span> <span class="n">asin</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sinCi_beta0_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">beta0_Ci_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">beta_0</span><span class="p">,</span> <span class="n">solve</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Ci_beta0_eqn</span><span class="p">,</span> <span class="n">beta_0</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">rdotxhat_eqn</span> \
-            <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">rdotxhat_thatfn</span><span class="p">(</span><span class="n">that</span><span class="p">),</span>
-                 <span class="n">simplify</span><span class="p">(</span><span class="n">diff</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">H_Ci_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">,</span> <span class="n">pxhat</span><span class="p">)))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rdotzhat_eqn</span> \
-            <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">rdotzhat_thatfn</span><span class="p">(</span><span class="n">that</span><span class="p">),</span>
-                 <span class="n">simplify</span><span class="p">(</span><span class="n">diff</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">H_Ci_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">,</span> <span class="n">pzhat</span><span class="p">)))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rdotxhat_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span>
+            <span class="n">rdotxhat_thatfn</span><span class="p">(</span><span class="n">that</span><span class="p">),</span> <span class="n">simplify</span><span class="p">(</span><span class="n">diff</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">H_Ci_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">,</span> <span class="n">pxhat</span><span class="p">))</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rdotzhat_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span>
+            <span class="n">rdotzhat_thatfn</span><span class="p">(</span><span class="n">that</span><span class="p">),</span> <span class="n">simplify</span><span class="p">(</span><span class="n">diff</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">H_Ci_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">,</span> <span class="n">pzhat</span><span class="p">))</span>
+        <span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">pdotxhat_eqn</span> \
-            <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">pdotxhat_thatfn</span><span class="p">(</span><span class="n">that</span><span class="p">),</span>
-                 <span class="n">simplify</span><span class="p">(</span><span class="o">-</span><span class="n">diff</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">H_Ci_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">,</span> <span class="n">rxhat</span><span class="p">)))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">pdotzhat_eqn</span> \
-            <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">pdotzhat_thatfn</span><span class="p">(</span><span class="n">that</span><span class="p">),</span>
-                 <span class="n">simplify</span><span class="p">(</span><span class="o">-</span><span class="n">diff</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">H_Ci_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">,</span> <span class="n">rzhat</span><span class="p">)))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pdotxhat_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span>
+            <span class="n">pdotxhat_thatfn</span><span class="p">(</span><span class="n">that</span><span class="p">),</span> <span class="n">simplify</span><span class="p">(</span><span class="o">-</span><span class="n">diff</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">H_Ci_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">,</span> <span class="n">rxhat</span><span class="p">))</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pdotzhat_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span>
+            <span class="n">pdotzhat_thatfn</span><span class="p">(</span><span class="n">that</span><span class="p">),</span> <span class="n">simplify</span><span class="p">(</span><span class="o">-</span><span class="n">diff</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">H_Ci_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">,</span> <span class="n">rzhat</span><span class="p">))</span>
+        <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">xih0_Ci_eqn</span> <span class="o">=</span> <span class="n">factor</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">xih0_beta0_eqn</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">beta0_Ci_eqn</span><span class="p">)))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">xih0_beta0_eqn</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">beta0_Ci_eqn</span><span class="p">))</span>
+        <span class="p">)</span>
 
         <span class="c1"># .subs({varepsilonhat:0})</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">xih0_Lc_varphi0_Ci_eqn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">xih0_Ci_eqn</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">xiv0_xih0_Ci_eqn</span> \
-            <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">xiv_xih_tanbeta_eqn</span> \
-            <span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">xiv</span><span class="p">:</span> <span class="n">xiv_0</span><span class="p">,</span> <span class="n">xih</span><span class="p">:</span> <span class="n">xih_0</span><span class="p">,</span> <span class="n">beta</span><span class="p">:</span> <span class="n">beta_0</span><span class="p">})</span> \
-            <span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">beta0_Ci_eqn</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">xiv0_xih0_Ci_eqn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">xiv_xih_tanbeta_eqn</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span>
+            <span class="p">{</span><span class="n">xiv</span><span class="p">:</span> <span class="n">xiv_0</span><span class="p">,</span> <span class="n">xih</span><span class="p">:</span> <span class="n">xih_0</span><span class="p">,</span> <span class="n">beta</span><span class="p">:</span> <span class="n">beta_0</span><span class="p">}</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">beta0_Ci_eqn</span><span class="p">))</span>
         <span class="c1"># .subs({varepsilonhat:0})</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">xiv0_Lc_varphi0_Ci_eqn</span> \
-            <span class="o">=</span> <span class="n">simplify</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xiv0_xih0_Ci_eqn</span>
-                       <span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xih0_Lc_varphi0_Ci_eqn</span><span class="p">)))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">varphi0_Lc_xiv0_Ci_eqn</span> \
-            <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">varphi_0</span><span class="p">,</span> <span class="n">solve</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xiv0_Lc_varphi0_Ci_eqn</span><span class="p">,</span> <span class="n">varphi_0</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span> \
-            <span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">Abs</span><span class="p">(</span><span class="n">cos</span><span class="p">(</span><span class="n">Ci</span><span class="p">)):</span> <span class="n">cos</span><span class="p">(</span><span class="n">Ci</span><span class="p">)})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">xiv0_Lc_varphi0_Ci_eqn</span> <span class="o">=</span> <span class="n">simplify</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">xiv0_xih0_Ci_eqn</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xih0_Lc_varphi0_Ci_eqn</span><span class="p">))</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">varphi0_Lc_xiv0_Ci_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span>
+            <span class="n">varphi_0</span><span class="p">,</span> <span class="n">solve</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xiv0_Lc_varphi0_Ci_eqn</span><span class="p">,</span> <span class="n">varphi_0</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">Abs</span><span class="p">(</span><span class="n">cos</span><span class="p">(</span><span class="n">Ci</span><span class="p">)):</span> <span class="n">cos</span><span class="p">(</span><span class="n">Ci</span><span class="p">)})</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">ratio_xiv0_xih0_eqn</span> \
-            <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">xiv_0</span><span class="o">/</span><span class="n">xih_0</span><span class="p">,</span> <span class="p">(</span><span class="n">xiv_0</span><span class="o">/</span><span class="n">xih_0</span><span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xiv0_xih0_Ci_eqn</span><span class="p">)))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ratio_xiv0_xih0_eqn</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span>
+            <span class="n">xiv_0</span> <span class="o">/</span> <span class="n">xih_0</span><span class="p">,</span> <span class="p">(</span><span class="n">xiv_0</span> <span class="o">/</span> <span class="n">xih_0</span><span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xiv0_xih0_Ci_eqn</span><span class="p">))</span>
+        <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">define_nodimensionalized_Hamiltons_eqns</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Group Hamilton&#39;s equations into matrix form</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;gme.core.ndim.define_nodimensionalized_Hamiltons_eqns&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">hamiltons_ndim_eqns</span> <span class="o">=</span> <span class="n">Matrix</span><span class="p">((</span>
-                                        <span class="bp">self</span><span class="o">.</span><span class="n">rdotxhat_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">,</span>
-                                        <span class="bp">self</span><span class="o">.</span><span class="n">rdotzhat_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">,</span>
-                                        <span class="bp">self</span><span class="o">.</span><span class="n">pdotxhat_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">,</span>
-                                        <span class="bp">self</span><span class="o">.</span><span class="n">pdotzhat_eqn</span><span class="o">.</span><span class="n">rhs</span>
-                                    <span class="p">))</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;gme.core.ndim.define_nodimensionalized_Hamiltons_eqns&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hamiltons_ndim_eqns</span> <span class="o">=</span> <span class="n">Matrix</span><span class="p">(</span>
+            <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">rdotxhat_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">rdotzhat_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">pdotxhat_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">pdotzhat_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
 
 
 <span class="c1">#</span>

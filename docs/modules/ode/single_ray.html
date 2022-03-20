@@ -57,8 +57,8 @@
 <dl class="simple">
 <dt>Requires Python packages/modules:</dt><dd><ul class="simple">
 <li><p><a class="reference external" href="https://numpy.org/doc/stable/reference/index.html#module-numpy" title="(in NumPy v1.22)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">NumPy</span></code></a></p></li>
-<li><p><a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/index.html#module-scipy" title="(in SciPy v1.7.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">SciPy</span></code></a></p></li>
-<li><p><a class="reference external" href="https://docs.sympy.org/latest/modules/index.html#module-sympy" title="(in SymPy v1.9)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">SymPy</span></code></a></p></li>
+<li><p><a class="reference external" href="https://docs.scipy.org/doc/scipy/index.html#module-scipy" title="(in SciPy v1.8.0)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">SciPy</span></code></a></p></li>
+<li><p><a class="reference external" href="https://docs.sympy.org/latest/index.html#module-sympy" title="(in SymPy v1.10.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">SymPy</span></code></a></p></li>
 <li><p><a class="reference external" href="https://github.com/geomorphysics/GMPLib">GMPLib</a></p></li>
 <li><p><a class="reference external" href="https://github.com/geomorphysics/GME">GME</a></p></li>
 </ul>
@@ -72,7 +72,7 @@
 <p>Subclasses <code class="xref py py-class docutils literal notranslate"><span class="pre">gme.ode.base.ExtendedSolution</span></code>.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.ode.single_ray.SingleRaySolution.initial_conditions">
-<span class="sig-name descname"><span class="pre">initial_conditions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#gme.ode.single_ray.SingleRaySolution.initial_conditions" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">initial_conditions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t_lag</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xiv_0_</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#gme.ode.single_ray.SingleRaySolution.initial_conditions" title="Permalink to this definition">¶</a></dt>
 <dd><p>TBD</p>
 </dd></dl>
 
@@ -116,7 +116,7 @@
 <span class="c1"># Library</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">import</span> <span class="nn">logging</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">List</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Any</span>
 
 <span class="c1"># Numpy</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -128,14 +128,15 @@
 <span class="kn">from</span> <span class="nn">gme.core.symbols</span> <span class="kn">import</span> <span class="n">Lc</span>
 <span class="kn">from</span> <span class="nn">gme.core.utils</span> <span class="kn">import</span> <span class="n">pxpz0_from_xiv0</span>
 <span class="kn">from</span> <span class="nn">gme.ode.extended</span> <span class="kn">import</span> <span class="n">ExtendedSolution</span>
-<span class="kn">from</span> <span class="nn">gme.ode.solve</span> <span class="kn">import</span> <span class="n">solve_Hamiltons_equations</span><span class="p">,</span> <span class="n">rpt_tuple</span>
+<span class="kn">from</span> <span class="nn">gme.ode.base</span> <span class="kn">import</span> <span class="n">rpt_tuple</span>
+<span class="kn">from</span> <span class="nn">gme.ode.solve</span> <span class="kn">import</span> <span class="n">solve_Hamiltons_equations</span>
 
 <span class="c1"># SciPy</span>
 <span class="kn">from</span> <span class="nn">scipy.interpolate</span> <span class="kn">import</span> <span class="n">InterpolatedUnivariateSpline</span>
 
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
 
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;SingleRaySolution&#39;</span><span class="p">]</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;SingleRaySolution&quot;</span><span class="p">]</span>
 
 
 <span class="k">class</span> <span class="nc">SingleRaySolution</span><span class="p">(</span><span class="n">ExtendedSolution</span><span class="p">):</span>
@@ -145,15 +146,68 @@
 <span class="sd">    Subclasses :class:`gme.ode.base.ExtendedSolution`.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">initial_conditions</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+    <span class="c1"># Definitions</span>
+    <span class="n">ic_list</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]</span>
+    <span class="c1"># HACK: the Any lambda declarations should all be Callable decls but</span>
+    <span class="c1">#       Python 3.8/mypy have a bug assigning callables to class variables</span>
+    <span class="c1"># See: https://github.com/python/mypy/issues/708</span>
+    <span class="n">model_dXdt_lambda</span><span class="p">:</span> <span class="n">Any</span>
+    <span class="n">ivp_solns_list</span><span class="p">:</span> <span class="n">List</span>
+    <span class="n">pz0</span><span class="p">:</span> <span class="n">Any</span>
+    <span class="n">p_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+    <span class="n">rdot_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+    <span class="n">pdot_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+    <span class="n">t_interp_x</span><span class="p">:</span> <span class="n">InterpolatedUnivariateSpline</span>
+    <span class="n">rx_interp_t</span><span class="p">:</span> <span class="n">InterpolatedUnivariateSpline</span>
+    <span class="n">rz_interp_t</span><span class="p">:</span> <span class="n">InterpolatedUnivariateSpline</span>
+    <span class="n">x_interp_t</span><span class="p">:</span> <span class="n">InterpolatedUnivariateSpline</span>
+    <span class="n">rz_interp</span><span class="p">:</span> <span class="n">InterpolatedUnivariateSpline</span>
+    <span class="n">p_interp</span><span class="p">:</span> <span class="n">InterpolatedUnivariateSpline</span>
+    <span class="n">rdot_interp</span><span class="p">:</span> <span class="n">InterpolatedUnivariateSpline</span>
+    <span class="n">rdotx_interp</span><span class="p">:</span> <span class="n">InterpolatedUnivariateSpline</span>
+    <span class="n">rdotz_interp</span><span class="p">:</span> <span class="n">InterpolatedUnivariateSpline</span>
+    <span class="n">pdot_interp</span><span class="p">:</span> <span class="n">InterpolatedUnivariateSpline</span>
+    <span class="n">px_interp</span><span class="p">:</span> <span class="n">InterpolatedUnivariateSpline</span>
+    <span class="n">pz_interp</span><span class="p">:</span> <span class="n">InterpolatedUnivariateSpline</span>
+    <span class="n">rdotx_interp_t</span><span class="p">:</span> <span class="n">InterpolatedUnivariateSpline</span>
+    <span class="n">rdotz_interp_t</span><span class="p">:</span> <span class="n">InterpolatedUnivariateSpline</span>
+    <span class="n">rddotx_interp_t</span><span class="p">:</span> <span class="n">InterpolatedUnivariateSpline</span>
+    <span class="n">rddotz_interp_t</span><span class="p">:</span> <span class="n">InterpolatedUnivariateSpline</span>
+    <span class="n">tanbeta_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+    <span class="n">tanalpha_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+    <span class="n">beta_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+    <span class="n">beta_p_interp</span><span class="p">:</span> <span class="n">InterpolatedUnivariateSpline</span>
+    <span class="n">alpha_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+    <span class="n">alpha_interp</span><span class="p">:</span> <span class="n">InterpolatedUnivariateSpline</span>
+    <span class="n">cosbeta_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+    <span class="n">sinbeta_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+    <span class="n">u_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+    <span class="n">xiv_p_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+    <span class="n">xiv_v_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+    <span class="n">uhorizontal_p_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+    <span class="n">uhorizontal_v_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+    <span class="n">u_interp</span><span class="p">:</span> <span class="n">InterpolatedUnivariateSpline</span>
+    <span class="n">u_from_rdot_interp</span><span class="p">:</span> <span class="n">InterpolatedUnivariateSpline</span>
+    <span class="n">xiv_p_interp</span><span class="p">:</span> <span class="n">InterpolatedUnivariateSpline</span>
+    <span class="n">xiv_v_interp</span><span class="p">:</span> <span class="n">InterpolatedUnivariateSpline</span>
+    <span class="n">uhorizontal_p_interp</span><span class="p">:</span> <span class="n">InterpolatedUnivariateSpline</span>
+    <span class="n">uhorizontal_v_interp</span><span class="p">:</span> <span class="n">InterpolatedUnivariateSpline</span>
+
+    <span class="k">def</span> <span class="nf">initial_conditions</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">t_lag</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="n">xiv_0_</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        TBD</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">rz0_</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="n">rx0_</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="p">(</span><span class="n">px0_</span><span class="p">,</span> <span class="n">pz0_</span><span class="p">)</span> <span class="o">=</span> <span class="n">pxpz0_from_xiv0</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">,</span>
-                                       <span class="bp">self</span><span class="o">.</span><span class="n">gmeq</span><span class="o">.</span><span class="n">pz_xiv_eqn</span><span class="p">,</span>
-                                       <span class="bp">self</span><span class="o">.</span><span class="n">gmeq</span><span class="o">.</span><span class="n">poly_px_xiv0_eqn</span><span class="p">)</span>
+        <span class="c1"># HACK: poly_px_xiv0_eqn not actually defined...</span>
+        <span class="p">(</span><span class="n">px0_</span><span class="p">,</span> <span class="n">pz0_</span><span class="p">)</span> <span class="o">=</span> <span class="n">pxpz0_from_xiv0</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">gmeq</span><span class="o">.</span><span class="n">pz_xiv_eqn</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">gmeq</span><span class="o">.</span><span class="n">poly_px_xiv0_eqn</span>
+        <span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">pz0_</span><span class="p">))</span>
         <span class="k">return</span> <span class="p">(</span><span class="n">rz0_</span><span class="p">,</span> <span class="n">rx0_</span><span class="p">,</span> <span class="n">px0_</span><span class="p">,</span> <span class="n">pz0_</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">gmeq</span><span class="o">.</span><span class="n">xiv0_xih0_Ci_eqn</span><span class="p">)))</span>
 
     <span class="k">def</span> <span class="nf">solve</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -161,200 +215,197 @@
 <span class="sd">        TBD</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Record the ic as a list of one - to be used by solve_ODE_system</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ic_list</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]</span> \
-            <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">initial_conditions</span><span class="p">()]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ic_list</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">initial_conditions</span><span class="p">()</span>
+        <span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">model_dXdt_lambda</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_model</span><span class="p">()</span>
         <span class="n">parameters_</span> <span class="o">=</span> <span class="p">{</span><span class="n">Lc</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">Lc</span><span class="p">]}</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;gme.ode.single_ray.solve: calling solver&#39;</span><span class="p">)</span>
-        <span class="p">(</span><span class="n">ivp_soln</span><span class="p">,</span> <span class="n">rpt_arrays</span><span class="p">)</span> \
-            <span class="o">=</span> <span class="n">solve_Hamiltons_equations</span><span class="p">(</span>
-                <span class="n">model</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">model_dXdt_lambda</span><span class="p">,</span>
-                <span class="n">method</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="p">,</span>
-                <span class="n">do_dense</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">do_dense</span><span class="p">,</span>
-                <span class="n">ic</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ic_list</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
-                <span class="n">parameters</span><span class="o">=</span><span class="n">parameters_</span><span class="p">,</span>
-                <span class="n">t_array</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ref_t_array</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span>
-                <span class="n">x_stop</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">x_stop</span><span class="p">,</span>
-                <span class="n">t_lag</span><span class="o">=</span><span class="mf">0.0</span>
-            <span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;gme.ode.single_ray.solve: calling solver&quot;</span><span class="p">)</span>
+        <span class="p">(</span><span class="n">ivp_soln</span><span class="p">,</span> <span class="n">rpt_arrays</span><span class="p">)</span> <span class="o">=</span> <span class="n">solve_Hamiltons_equations</span><span class="p">(</span>
+            <span class="n">model</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">model_dXdt_lambda</span><span class="p">,</span>
+            <span class="n">method</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="p">,</span>
+            <span class="n">do_dense</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">do_dense</span><span class="p">,</span>
+            <span class="n">ic</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ic_list</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+            <span class="n">parameters</span><span class="o">=</span><span class="n">parameters_</span><span class="p">,</span>
+            <span class="n">t_array</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ref_t_array</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span>
+            <span class="n">x_stop</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">x_stop</span><span class="p">,</span>
+            <span class="n">t_lag</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+        <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ivp_solns_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">ivp_soln</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">rpt_arrays</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">postprocessing</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span>
-            <span class="n">spline_order</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-            <span class="n">extrapolation_mode</span><span class="o">=</span><span class="mi">0</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">postprocessing</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">spline_order</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">extrapolation_mode</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        TBD</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Basics</span>
-        <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">rx_array</span><span class="p">,</span>
-         <span class="bp">self</span><span class="o">.</span><span class="n">rz_array</span><span class="p">,</span>
-         <span class="bp">self</span><span class="o">.</span><span class="n">px_array</span><span class="p">,</span>
-         <span class="bp">self</span><span class="o">.</span><span class="n">pz_array</span><span class="p">,</span>
-         <span class="bp">self</span><span class="o">.</span><span class="n">t_array</span><span class="p">]</span> \
-            <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">rpt_arrays</span><span class="p">[</span><span class="n">rpt_</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">rpt_</span> <span class="ow">in</span> <span class="n">rpt_tuple</span><span class="p">]</span>
+        <span class="p">[</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rx_array</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rz_array</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">px_array</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pz_array</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">t_array</span><span class="p">,</span>
+        <span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">rpt_arrays</span><span class="p">[</span><span class="n">rpt_</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">rpt_</span> <span class="ow">in</span> <span class="n">rpt_tuple</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">pz0</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pz_array</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">p_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">px_array</span><span class="o">**</span><span class="mi">2</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">pz_array</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
-        <span class="n">rpdot_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">model_dXdt_lambda</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">rp_</span><span class="p">)</span>
-                                <span class="k">for</span> <span class="n">rp_</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rx_array</span><span class="p">,</span>
-                                               <span class="bp">self</span><span class="o">.</span><span class="n">rz_array</span><span class="p">,</span>
-                                               <span class="bp">self</span><span class="o">.</span><span class="n">px_array</span><span class="p">,</span>
-                                               <span class="bp">self</span><span class="o">.</span><span class="n">pz_array</span><span class="p">)])</span>
-        <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">rdotx_array</span><span class="p">,</span>
-         <span class="bp">self</span><span class="o">.</span><span class="n">rdotz_array</span><span class="p">,</span>
-         <span class="bp">self</span><span class="o">.</span><span class="n">pdotx_array</span><span class="p">,</span>
-         <span class="bp">self</span><span class="o">.</span><span class="n">pdotz_array</span><span class="p">]</span> \
-            <span class="o">=</span> <span class="p">[</span><span class="n">rpdot_array</span><span class="p">[:,</span> <span class="n">idx</span><span class="p">]</span> <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rdot_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rdotx_array</span><span class="o">**</span><span class="mi">2</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">rdotz_array</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">pdot_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pdotx_array</span><span class="o">**</span><span class="mi">2</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">pdotz_array</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">p_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">px_array</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">pz_array</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">rpdot_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+            <span class="p">[</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">model_dXdt_lambda</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">rp_</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">rp_</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">rx_array</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">rz_array</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">px_array</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pz_array</span>
+                <span class="p">)</span>
+            <span class="p">]</span>
+        <span class="p">)</span>
+        <span class="p">[</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rdotx_array</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rdotz_array</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pdotx_array</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pdotz_array</span><span class="p">,</span>
+        <span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">rpdot_array</span><span class="p">[:,</span> <span class="n">idx</span><span class="p">]</span> <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rdot_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rdotx_array</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">rdotz_array</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pdot_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pdotx_array</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">pdotz_array</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
 
         <span class="c1"># Interpolation functions to facilitate resampling and co-plotting</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">t_interp_x</span> \
-            <span class="o">=</span> <span class="n">InterpolatedUnivariateSpline</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rx_array</span><span class="p">,</span>
-                                           <span class="bp">self</span><span class="o">.</span><span class="n">t_array</span><span class="p">,</span>
-                                           <span class="n">k</span><span class="o">=</span><span class="n">spline_order</span><span class="p">,</span>
-                                           <span class="n">ext</span><span class="o">=</span><span class="n">extrapolation_mode</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rx_interp_t</span> \
-            <span class="o">=</span> <span class="n">InterpolatedUnivariateSpline</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">t_array</span><span class="p">,</span>
-                                           <span class="bp">self</span><span class="o">.</span><span class="n">rx_array</span><span class="p">,</span>
-                                           <span class="n">k</span><span class="o">=</span><span class="n">spline_order</span><span class="p">,</span>
-                                           <span class="n">ext</span><span class="o">=</span><span class="n">extrapolation_mode</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rz_interp_t</span> \
-            <span class="o">=</span> <span class="n">InterpolatedUnivariateSpline</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">t_array</span><span class="p">,</span>
-                                           <span class="bp">self</span><span class="o">.</span><span class="n">rz_array</span><span class="p">,</span>
-                                           <span class="n">k</span><span class="o">=</span><span class="n">spline_order</span><span class="p">,</span>
-                                           <span class="n">ext</span><span class="o">=</span><span class="n">extrapolation_mode</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">t_interp_x</span> <span class="o">=</span> <span class="n">InterpolatedUnivariateSpline</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rx_array</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">t_array</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="n">spline_order</span><span class="p">,</span> <span class="n">ext</span><span class="o">=</span><span class="n">extrapolation_mode</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rx_interp_t</span> <span class="o">=</span> <span class="n">InterpolatedUnivariateSpline</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">t_array</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">rx_array</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="n">spline_order</span><span class="p">,</span> <span class="n">ext</span><span class="o">=</span><span class="n">extrapolation_mode</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rz_interp_t</span> <span class="o">=</span> <span class="n">InterpolatedUnivariateSpline</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">t_array</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">rz_array</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="n">spline_order</span><span class="p">,</span> <span class="n">ext</span><span class="o">=</span><span class="n">extrapolation_mode</span>
+        <span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">x_interp_t</span> \
-            <span class="o">=</span> <span class="n">InterpolatedUnivariateSpline</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">t_array</span><span class="p">,</span>
-                                           <span class="bp">self</span><span class="o">.</span><span class="n">rx_array</span><span class="p">,</span>
-                                           <span class="n">k</span><span class="o">=</span><span class="n">spline_order</span><span class="p">,</span>
-                                           <span class="n">ext</span><span class="o">=</span><span class="n">extrapolation_mode</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rz_interp</span> \
-            <span class="o">=</span> <span class="n">InterpolatedUnivariateSpline</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rx_array</span><span class="p">,</span>
-                                           <span class="bp">self</span><span class="o">.</span><span class="n">rz_array</span><span class="p">,</span>
-                                           <span class="n">k</span><span class="o">=</span><span class="n">spline_order</span><span class="p">,</span>
-                                           <span class="n">ext</span><span class="o">=</span><span class="n">extrapolation_mode</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">p_interp</span> \
-            <span class="o">=</span> <span class="n">InterpolatedUnivariateSpline</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rx_array</span><span class="p">,</span>
-                                           <span class="bp">self</span><span class="o">.</span><span class="n">p_array</span><span class="p">,</span>
-                                           <span class="n">k</span><span class="o">=</span><span class="n">spline_order</span><span class="p">,</span>
-                                           <span class="n">ext</span><span class="o">=</span><span class="n">extrapolation_mode</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rdot_interp</span>\
-            <span class="o">=</span> <span class="n">InterpolatedUnivariateSpline</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rx_array</span><span class="p">,</span>
-                                           <span class="bp">self</span><span class="o">.</span><span class="n">rdot_array</span><span class="p">,</span>
-                                           <span class="n">k</span><span class="o">=</span><span class="n">spline_order</span><span class="p">,</span>
-                                           <span class="n">ext</span><span class="o">=</span><span class="n">extrapolation_mode</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rdotx_interp</span> \
-            <span class="o">=</span> <span class="n">InterpolatedUnivariateSpline</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rx_array</span><span class="p">,</span>
-                                           <span class="bp">self</span><span class="o">.</span><span class="n">rdotx_array</span><span class="p">,</span>
-                                           <span class="n">k</span><span class="o">=</span><span class="n">spline_order</span><span class="p">,</span>
-                                           <span class="n">ext</span><span class="o">=</span><span class="n">extrapolation_mode</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rdotz_interp</span> \
-            <span class="o">=</span> <span class="n">InterpolatedUnivariateSpline</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rx_array</span><span class="p">,</span>
-                                           <span class="bp">self</span><span class="o">.</span><span class="n">rdotz_array</span><span class="p">,</span>
-                                           <span class="n">k</span><span class="o">=</span><span class="n">spline_order</span><span class="p">,</span>
-                                           <span class="n">ext</span><span class="o">=</span><span class="n">extrapolation_mode</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">pdot_interp</span> \
-            <span class="o">=</span> <span class="n">InterpolatedUnivariateSpline</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rx_array</span><span class="p">,</span>
-                                           <span class="bp">self</span><span class="o">.</span><span class="n">pdot_array</span><span class="p">,</span>
-                                           <span class="n">k</span><span class="o">=</span><span class="n">spline_order</span><span class="p">,</span>
-                                           <span class="n">ext</span><span class="o">=</span><span class="n">extrapolation_mode</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">px_interp</span> \
-            <span class="o">=</span> <span class="n">InterpolatedUnivariateSpline</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rx_array</span><span class="p">,</span>
-                                           <span class="bp">self</span><span class="o">.</span><span class="n">px_array</span><span class="p">,</span>
-                                           <span class="n">k</span><span class="o">=</span><span class="n">spline_order</span><span class="p">,</span>
-                                           <span class="n">ext</span><span class="o">=</span><span class="n">extrapolation_mode</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">pz_interp</span> \
-            <span class="o">=</span> <span class="n">InterpolatedUnivariateSpline</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rx_array</span><span class="p">,</span>
-                                           <span class="bp">self</span><span class="o">.</span><span class="n">pz_array</span><span class="p">,</span>
-                                           <span class="n">k</span><span class="o">=</span><span class="n">spline_order</span><span class="p">,</span>
-                                           <span class="n">ext</span><span class="o">=</span><span class="n">extrapolation_mode</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x_interp_t</span> <span class="o">=</span> <span class="n">InterpolatedUnivariateSpline</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">t_array</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">rx_array</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="n">spline_order</span><span class="p">,</span> <span class="n">ext</span><span class="o">=</span><span class="n">extrapolation_mode</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rz_interp</span> <span class="o">=</span> <span class="n">InterpolatedUnivariateSpline</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rx_array</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">rz_array</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="n">spline_order</span><span class="p">,</span> <span class="n">ext</span><span class="o">=</span><span class="n">extrapolation_mode</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">p_interp</span> <span class="o">=</span> <span class="n">InterpolatedUnivariateSpline</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rx_array</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">p_array</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="n">spline_order</span><span class="p">,</span> <span class="n">ext</span><span class="o">=</span><span class="n">extrapolation_mode</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rdot_interp</span> <span class="o">=</span> <span class="n">InterpolatedUnivariateSpline</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rx_array</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rdot_array</span><span class="p">,</span>
+            <span class="n">k</span><span class="o">=</span><span class="n">spline_order</span><span class="p">,</span>
+            <span class="n">ext</span><span class="o">=</span><span class="n">extrapolation_mode</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rdotx_interp</span> <span class="o">=</span> <span class="n">InterpolatedUnivariateSpline</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rx_array</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rdotx_array</span><span class="p">,</span>
+            <span class="n">k</span><span class="o">=</span><span class="n">spline_order</span><span class="p">,</span>
+            <span class="n">ext</span><span class="o">=</span><span class="n">extrapolation_mode</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rdotz_interp</span> <span class="o">=</span> <span class="n">InterpolatedUnivariateSpline</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rx_array</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rdotz_array</span><span class="p">,</span>
+            <span class="n">k</span><span class="o">=</span><span class="n">spline_order</span><span class="p">,</span>
+            <span class="n">ext</span><span class="o">=</span><span class="n">extrapolation_mode</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pdot_interp</span> <span class="o">=</span> <span class="n">InterpolatedUnivariateSpline</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rx_array</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pdot_array</span><span class="p">,</span>
+            <span class="n">k</span><span class="o">=</span><span class="n">spline_order</span><span class="p">,</span>
+            <span class="n">ext</span><span class="o">=</span><span class="n">extrapolation_mode</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">px_interp</span> <span class="o">=</span> <span class="n">InterpolatedUnivariateSpline</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rx_array</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">px_array</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="n">spline_order</span><span class="p">,</span> <span class="n">ext</span><span class="o">=</span><span class="n">extrapolation_mode</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pz_interp</span> <span class="o">=</span> <span class="n">InterpolatedUnivariateSpline</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rx_array</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pz_array</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="n">spline_order</span><span class="p">,</span> <span class="n">ext</span><span class="o">=</span><span class="n">extrapolation_mode</span>
+        <span class="p">)</span>
         <span class="c1"># Ray acceleration</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rdotx_interp_t</span> \
-            <span class="o">=</span> <span class="n">InterpolatedUnivariateSpline</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">t_array</span><span class="p">,</span>
-                                           <span class="bp">self</span><span class="o">.</span><span class="n">rdotx_array</span><span class="p">,</span>
-                                           <span class="n">k</span><span class="o">=</span><span class="n">spline_order</span><span class="p">,</span>
-                                           <span class="n">ext</span><span class="o">=</span><span class="n">extrapolation_mode</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rdotz_interp_t</span> \
-            <span class="o">=</span> <span class="n">InterpolatedUnivariateSpline</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">t_array</span><span class="p">,</span>
-                                           <span class="bp">self</span><span class="o">.</span><span class="n">rdotz_array</span><span class="p">,</span>
-                                           <span class="n">k</span><span class="o">=</span><span class="n">spline_order</span><span class="p">,</span>
-                                           <span class="n">ext</span><span class="o">=</span><span class="n">extrapolation_mode</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rdotx_interp_t</span> <span class="o">=</span> <span class="n">InterpolatedUnivariateSpline</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">t_array</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rdotx_array</span><span class="p">,</span>
+            <span class="n">k</span><span class="o">=</span><span class="n">spline_order</span><span class="p">,</span>
+            <span class="n">ext</span><span class="o">=</span><span class="n">extrapolation_mode</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rdotz_interp_t</span> <span class="o">=</span> <span class="n">InterpolatedUnivariateSpline</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">t_array</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rdotz_array</span><span class="p">,</span>
+            <span class="n">k</span><span class="o">=</span><span class="n">spline_order</span><span class="p">,</span>
+            <span class="n">ext</span><span class="o">=</span><span class="n">extrapolation_mode</span><span class="p">,</span>
+        <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">rddotx_interp_t</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rdotx_interp_t</span><span class="o">.</span><span class="n">derivative</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">rddotz_interp_t</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rdotz_interp_t</span><span class="o">.</span><span class="n">derivative</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
         <span class="c1"># Angles</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">tanbeta_array</span> <span class="o">=</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">px_array</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">pz_array</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">tanalpha_array</span> <span class="o">=</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">rdotx_array</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">rdotz_array</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tanbeta_array</span> <span class="o">=</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">px_array</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">pz_array</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tanalpha_array</span> <span class="o">=</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">rdotx_array</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">rdotz_array</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">beta_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arctan</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tanbeta_array</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">beta_p_interp</span> \
-            <span class="o">=</span> <span class="n">InterpolatedUnivariateSpline</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rx_array</span><span class="p">,</span>
-                                           <span class="bp">self</span><span class="o">.</span><span class="n">beta_array</span><span class="p">,</span>
-                                           <span class="n">k</span><span class="o">=</span><span class="n">spline_order</span><span class="p">,</span>
-                                           <span class="n">ext</span><span class="o">=</span><span class="n">extrapolation_mode</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">beta_p_interp</span> <span class="o">=</span> <span class="n">InterpolatedUnivariateSpline</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rx_array</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">beta_array</span><span class="p">,</span>
+            <span class="n">k</span><span class="o">=</span><span class="n">spline_order</span><span class="p">,</span>
+            <span class="n">ext</span><span class="o">=</span><span class="n">extrapolation_mode</span><span class="p">,</span>
+        <span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">alpha_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mod</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">arctan</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tanalpha_array</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">alpha_interp</span> \
-            <span class="o">=</span> <span class="n">InterpolatedUnivariateSpline</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rx_array</span><span class="p">,</span>
-                                           <span class="bp">self</span><span class="o">.</span><span class="n">alpha_array</span><span class="p">,</span>
-                                           <span class="n">k</span><span class="o">=</span><span class="n">spline_order</span><span class="p">,</span>
-                                           <span class="n">ext</span><span class="o">=</span><span class="n">extrapolation_mode</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">alpha_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mod</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">arctan</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tanalpha_array</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">alpha_interp</span> <span class="o">=</span> <span class="n">InterpolatedUnivariateSpline</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rx_array</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">alpha_array</span><span class="p">,</span>
+            <span class="n">k</span><span class="o">=</span><span class="n">spline_order</span><span class="p">,</span>
+            <span class="n">ext</span><span class="o">=</span><span class="n">extrapolation_mode</span><span class="p">,</span>
+        <span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">cosbeta_array</span> <span class="o">=</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">pz_array</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">p_array</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">sinbeta_array</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">px_array</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">p_array</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cosbeta_array</span> <span class="o">=</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">pz_array</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">p_array</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sinbeta_array</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">px_array</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">p_array</span>
 
         <span class="c1"># Erosion rates</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">u_array</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">p_array</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">xiv_p_array</span> \
-            <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rdot_array</span><span class="o">*</span><span class="p">(</span>
-                <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">alpha_array</span><span class="p">)</span><span class="o">-</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">beta_array</span><span class="p">))</span>
-                               <span class="p">)</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">cosbeta_array</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">u_array</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">p_array</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">xiv_p_array</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rdot_array</span>
+            <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">alpha_array</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">beta_array</span><span class="p">)))</span>
+            <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">cosbeta_array</span>
+        <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">xiv_p_array</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xiv_p_array</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">xiv_v_array</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">u_array</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">cosbeta_array</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">uhorizontal_p_array</span> \
-            <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rdot_array</span><span class="o">*</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">alpha_array</span><span class="p">)</span><span class="o">-</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">beta_array</span><span class="p">)))</span> \
+        <span class="bp">self</span><span class="o">.</span><span class="n">xiv_v_array</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">u_array</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">cosbeta_array</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">uhorizontal_p_array</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rdot_array</span>
+            <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">alpha_array</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">beta_array</span><span class="p">)))</span>
             <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">sinbeta_array</span>
+        <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">uhorizontal_p_array</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">uhorizontal_p_array</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">uhorizontal_v_array</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">u_array</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">beta_array</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">u_interp</span> \
-            <span class="o">=</span> <span class="n">InterpolatedUnivariateSpline</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rx_array</span><span class="p">,</span>
-                                           <span class="bp">self</span><span class="o">.</span><span class="n">u_array</span><span class="p">,</span>
-                                           <span class="n">k</span><span class="o">=</span><span class="n">spline_order</span><span class="p">,</span>
-                                           <span class="n">ext</span><span class="o">=</span><span class="n">extrapolation_mode</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">u_from_rdot_interp</span> \
-            <span class="o">=</span> <span class="n">InterpolatedUnivariateSpline</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rx_array</span><span class="p">,</span>
-                                           <span class="bp">self</span><span class="o">.</span><span class="n">rdot_array</span>
-                                           <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">alpha_array</span><span class="p">)</span>
-                                              <span class="o">-</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">beta_array</span><span class="p">))),</span>
-                                           <span class="n">k</span><span class="o">=</span><span class="n">spline_order</span><span class="p">,</span>
-                                           <span class="n">ext</span><span class="o">=</span><span class="n">extrapolation_mode</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">uhorizontal_v_array</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">u_array</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">beta_array</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">u_interp</span> <span class="o">=</span> <span class="n">InterpolatedUnivariateSpline</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rx_array</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">u_array</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="n">spline_order</span><span class="p">,</span> <span class="n">ext</span><span class="o">=</span><span class="n">extrapolation_mode</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">u_from_rdot_interp</span> <span class="o">=</span> <span class="n">InterpolatedUnivariateSpline</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rx_array</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rdot_array</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">alpha_array</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">beta_array</span><span class="p">))),</span>
+            <span class="n">k</span><span class="o">=</span><span class="n">spline_order</span><span class="p">,</span>
+            <span class="n">ext</span><span class="o">=</span><span class="n">extrapolation_mode</span><span class="p">,</span>
+        <span class="p">)</span>
         <span class="c1"># u^\downarrow = \dot{r}*\cos(\alpha-\beta) / \cos(\beta)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">xiv_p_interp</span> \
-            <span class="o">=</span> <span class="n">InterpolatedUnivariateSpline</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rx_array</span><span class="p">,</span>
-                                           <span class="bp">self</span><span class="o">.</span><span class="n">xiv_p_array</span><span class="p">,</span>
-                                           <span class="n">k</span><span class="o">=</span><span class="n">spline_order</span><span class="p">,</span>
-                                           <span class="n">ext</span><span class="o">=</span><span class="n">extrapolation_mode</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">xiv_p_interp</span> <span class="o">=</span> <span class="n">InterpolatedUnivariateSpline</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rx_array</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">xiv_p_array</span><span class="p">,</span>
+            <span class="n">k</span><span class="o">=</span><span class="n">spline_order</span><span class="p">,</span>
+            <span class="n">ext</span><span class="o">=</span><span class="n">extrapolation_mode</span><span class="p">,</span>
+        <span class="p">)</span>
         <span class="c1"># u^\downarrow = u^\perp / \cos(\beta)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">xiv_v_interp</span> \
-            <span class="o">=</span> <span class="n">InterpolatedUnivariateSpline</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rx_array</span><span class="p">,</span>
-                                           <span class="bp">self</span><span class="o">.</span><span class="n">xiv_v_array</span><span class="p">,</span>
-                                           <span class="n">k</span><span class="o">=</span><span class="n">spline_order</span><span class="p">,</span>
-                                           <span class="n">ext</span><span class="o">=</span><span class="n">extrapolation_mode</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">xiv_v_interp</span> <span class="o">=</span> <span class="n">InterpolatedUnivariateSpline</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rx_array</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">xiv_v_array</span><span class="p">,</span>
+            <span class="n">k</span><span class="o">=</span><span class="n">spline_order</span><span class="p">,</span>
+            <span class="n">ext</span><span class="o">=</span><span class="n">extrapolation_mode</span><span class="p">,</span>
+        <span class="p">)</span>
         <span class="c1"># u^\downarrow = \dot{r}*\cos(\alpha-\beta) / \sin(\beta)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">uhorizontal_p_interp</span> \
-            <span class="o">=</span> <span class="n">InterpolatedUnivariateSpline</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rx_array</span><span class="p">,</span>
-                                           <span class="bp">self</span><span class="o">.</span><span class="n">uhorizontal_p_array</span><span class="p">,</span>
-                                           <span class="n">k</span><span class="o">=</span><span class="n">spline_order</span><span class="p">,</span>
-                                           <span class="n">ext</span><span class="o">=</span><span class="n">extrapolation_mode</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">uhorizontal_p_interp</span> <span class="o">=</span> <span class="n">InterpolatedUnivariateSpline</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rx_array</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">uhorizontal_p_array</span><span class="p">,</span>
+            <span class="n">k</span><span class="o">=</span><span class="n">spline_order</span><span class="p">,</span>
+            <span class="n">ext</span><span class="o">=</span><span class="n">extrapolation_mode</span><span class="p">,</span>
+        <span class="p">)</span>
         <span class="c1"># u^\downarrow = u^\perp / \sin(\beta)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">uhorizontal_v_interp</span> \
-            <span class="o">=</span> <span class="n">InterpolatedUnivariateSpline</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rx_array</span><span class="p">,</span>
-                                           <span class="bp">self</span><span class="o">.</span><span class="n">uhorizontal_v_array</span><span class="p">,</span>
-                                           <span class="n">k</span><span class="o">=</span><span class="n">spline_order</span><span class="p">,</span>
-                                           <span class="n">ext</span><span class="o">=</span><span class="n">extrapolation_mode</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">uhorizontal_v_interp</span> <span class="o">=</span> <span class="n">InterpolatedUnivariateSpline</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rx_array</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">uhorizontal_v_array</span><span class="p">,</span>
+            <span class="n">k</span><span class="o">=</span><span class="n">spline_order</span><span class="p">,</span>
+            <span class="n">ext</span><span class="o">=</span><span class="n">extrapolation_mode</span><span class="p">,</span>
+        <span class="p">)</span>
 
 
 <span class="c1">#</span>

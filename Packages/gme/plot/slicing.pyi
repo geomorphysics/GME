@@ -34,7 +34,7 @@ class SlicingMath:
 
 class SlicingPlots(Graphing):
     H_Ci_eqn: Eq
-    Ci_H0p5_eqn: Eq
+    degCi_H0p5_eqn: Eq
     gstarhat_eqn: Eq
     grid_array: np.ndarray
     pxpzhat_grids: List[np.ndarray]
