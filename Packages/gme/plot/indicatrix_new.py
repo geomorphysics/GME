@@ -1,9 +1,5 @@
 """
----------------------------------------------------------------------
-
-New, alternative way of visualizing indicatrix & figuratrix
-
----------------------------------------------------------------------
+New, alternative way of visualizing indicatrix & figuratrix.
 
 Requires Python packages:
   -  :mod:`NumPy <numpy>`
@@ -17,9 +13,6 @@ Requires Python packages:
 .. _GME: https://github.com/geomorphysics/GME
 .. _Matrix:
     https://docs.sympy.org/latest/modules/matrices/immutablematrices.html
-
----------------------------------------------------------------------
-
 """
 # pylint: disable = not-callable
 
@@ -104,9 +97,7 @@ class IndicatrixNew(Graphing):
         sub_: Dict,
         varphi_: float = 1,
     ) -> None:
-        """
-        Constructor method.
-        """
+        """Initialize: constructor method."""
         super().__init__()
         self.H_parametric_eqn = (
             Eq((2 * gmeq.H_eqn.rhs) ** 2, 1)
@@ -234,9 +225,7 @@ class IndicatrixNew(Graphing):
         self.v_supc_array = v_lambda(self.p_supc_array)
 
     def convex_concave_annotations(self, do_zoom: bool, eta_: float) -> None:
-        """
-        TBD
-        """
+        """Annotate with 'convex' or 'concave' labels."""
         if do_zoom:
             if eta_ > 1:
                 plt.text(
@@ -361,9 +350,7 @@ class IndicatrixNew(Graphing):
         fig_size: Optional[Tuple[float, float]] = None,
         dpi: Optional[int] = None,
     ) -> None:
-        """
-        TBD
-        """
+        """Plot :math:`F^*`, :math:`F` on rectilinear axes."""
         name: str = f'{job_name}_Fstar_F_rectlinear{"_zoom" if do_zoom else ""}'
         _ = self.create_figure(name, fig_size=fig_size, dpi=dpi)
         axes: Axes = plt.gca()
@@ -521,9 +508,7 @@ class IndicatrixNew(Graphing):
         fig_size: Optional[Tuple[float, float]] = None,
         dpi: Optional[int] = None,
     ) -> None:
-        """
-        TBD
-        """
+        """Plot :math:`F^*`, :math:`F` on log-polar axes."""
         name = f"{job_name}_Fstar_F_polar"
         _ = self.create_figure(name, fig_size=fig_size, dpi=dpi)
 

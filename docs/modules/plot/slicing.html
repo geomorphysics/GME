@@ -52,9 +52,7 @@
             
   <div class="section" id="module-gme.plot.slicing">
 <span id="slicing-py"></span><h1><code class="docutils literal notranslate"><span class="pre">slicing.py</span></code><a class="headerlink" href="#module-gme.plot.slicing" title="Permalink to this headline">¶</a></h1>
-<hr class="docutils" />
 <p>Visualization of slices of Hamiltonian phase space.</p>
-<hr class="docutils" />
 <dl class="simple">
 <dt>Requires Python packages:</dt><dd><ul class="simple">
 <li><p><a class="reference external" href="https://numpy.org/doc/stable/reference/index.html#module-numpy" title="(in NumPy v1.22)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">NumPy</span></code></a></p></li>
@@ -65,7 +63,6 @@
 </ul>
 </dd>
 </dl>
-<hr class="docutils" />
 <dl class="py class">
 <dt class="sig sig-object py" id="gme.plot.slicing.SlicingMath">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gme.plot.slicing.</span></span><span class="sig-name descname"><span class="pre">SlicingMath</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmeq</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="../core/equations.html#gme.core.equations.Equations" title="gme.core.equations.Equations"><span class="pre">gme.core.equations.Equations</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">sub_</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_list</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.sympy.org/latest/modules/core.html#sympy.core.symbol.Symbol" title="(in SymPy v1.10.1)"><span class="pre">sympy.core.symbol.Symbol</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_modv</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gme.plot.slicing.SlicingMath" title="Permalink to this definition">¶</a></dt>
@@ -86,43 +83,43 @@ the choices are <cite>(px,pz)</cite> and <cite>(rx,pz)</cite></p></li>
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.plot.slicing.SlicingMath.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmeq</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="../core/equations.html#gme.core.equations.Equations" title="gme.core.equations.Equations"><span class="pre">gme.core.equations.Equations</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">sub_</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_list</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.sympy.org/latest/modules/core.html#sympy.core.symbol.Symbol" title="(in SymPy v1.10.1)"><span class="pre">sympy.core.symbol.Symbol</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_modv</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.plot.slicing.SlicingMath.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Constructor method</p>
+<dd><p>Initialize: constructor method.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.plot.slicing.SlicingMath.define_Ci_lambda">
 <span class="sig-name descname"><span class="pre">define_Ci_lambda</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sub_</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_list</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.sympy.org/latest/modules/core.html#sympy.core.symbol.Symbol" title="(in SymPy v1.10.1)"><span class="pre">sympy.core.symbol.Symbol</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.plot.slicing.SlicingMath.define_Ci_lambda" title="Permalink to this definition">¶</a></dt>
-<dd><p>Generate lambda for <span class="math notranslate nohighlight">\(\mathsf{Ci}\)</span></p>
+<dd><p>Generate lambda for <span class="math notranslate nohighlight">\(\mathsf{Ci}\)</span>.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.plot.slicing.SlicingMath.define_H_lambda">
 <span class="sig-name descname"><span class="pre">define_H_lambda</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sub_</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_list</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.sympy.org/latest/modules/core.html#sympy.core.symbol.Symbol" title="(in SymPy v1.10.1)"><span class="pre">sympy.core.symbol.Symbol</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.plot.slicing.SlicingMath.define_H_lambda" title="Permalink to this definition">¶</a></dt>
-<dd><p>Generate lambda for <span class="math notranslate nohighlight">\(H\)</span></p>
+<dd><p>.Generate lambda for <span class="math notranslate nohighlight">\(H\)</span>.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.plot.slicing.SlicingMath.define_Hessian_eigenvals">
 <span class="sig-name descname"><span class="pre">define_Hessian_eigenvals</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sub_</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_list</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.sympy.org/latest/modules/core.html#sympy.core.symbol.Symbol" title="(in SymPy v1.10.1)"><span class="pre">sympy.core.symbol.Symbol</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.plot.slicing.SlicingMath.define_Hessian_eigenvals" title="Permalink to this definition">¶</a></dt>
-<dd><p>Generate lambda for eigenvalues of Hessian of H</p>
+<dd><p>Generate lambda for eigenvalues of Hessian of H.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.plot.slicing.SlicingMath.define_d2Hdpzhat2_lambda">
 <span class="sig-name descname"><span class="pre">define_d2Hdpzhat2_lambda</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sub_</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_list</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.sympy.org/latest/modules/core.html#sympy.core.symbol.Symbol" title="(in SymPy v1.10.1)"><span class="pre">sympy.core.symbol.Symbol</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.plot.slicing.SlicingMath.define_d2Hdpzhat2_lambda" title="Permalink to this definition">¶</a></dt>
-<dd><p>Generate lambda for <span class="math notranslate nohighlight">\(d^2H/d{p_\hat{z}}^2\)</span></p>
+<dd><p>Generate lambda for <span class="math notranslate nohighlight">\(d^2H/d{p_\hat{z}}^2\)</span>.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.plot.slicing.SlicingMath.define_detHessianSqrd_lambda">
 <span class="sig-name descname"><span class="pre">define_detHessianSqrd_lambda</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sub_</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_list</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.sympy.org/latest/modules/core.html#sympy.core.symbol.Symbol" title="(in SymPy v1.10.1)"><span class="pre">sympy.core.symbol.Symbol</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.plot.slicing.SlicingMath.define_detHessianSqrd_lambda" title="Permalink to this definition">¶</a></dt>
-<dd><p>Generate lambda for <span class="math notranslate nohighlight">\(|\det\{\mathrm{Hessian}\}|^2\)</span></p>
+<dd><p>Generate lambda for <span class="math notranslate nohighlight">\(|\det\{\mathrm{Hessian}\}|^2\)</span>.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.plot.slicing.SlicingMath.define_gstarhat_lambda">
 <span class="sig-name descname"><span class="pre">define_gstarhat_lambda</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sub_</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_list</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.sympy.org/latest/modules/core.html#sympy.core.symbol.Symbol" title="(in SymPy v1.10.1)"><span class="pre">sympy.core.symbol.Symbol</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.plot.slicing.SlicingMath.define_gstarhat_lambda" title="Permalink to this definition">¶</a></dt>
-<dd><p>Generate lambda for <span class="math notranslate nohighlight">\(\mathbf{\hat{g}}_*\)</span></p>
+<dd><p>Generate lambda for <span class="math notranslate nohighlight">\(\mathbf{\hat{g}}_*\)</span>.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -144,25 +141,25 @@ the choices are <cite>(px,pz)</cite> and <cite>(rx,pz)</cite></p></li>
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.plot.slicing.SlicingMath.get_rxhat_pzhat">
 <span class="sig-name descname"><span class="pre">get_rxhat_pzhat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sub_</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#gme.plot.slicing.SlicingMath.get_rxhat_pzhat" title="Permalink to this definition">¶</a></dt>
-<dd><p>TBD</p>
+<dd><p>Get values for <span class="math notranslate nohighlight">\(\hat{r}_x\)</span>, <span class="math notranslate nohighlight">\(\hat{p}_z\)</span>.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.plot.slicing.SlicingMath.pxhat_Ci_soln">
 <span class="sig-name descname"><span class="pre">pxhat_Ci_soln</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">eqn_</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.sympy.org/latest/modules/core.html#sympy.core.relational.Equality" title="(in SymPy v1.10.1)"><span class="pre">sympy.core.relational.Equality</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">sub_</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rxhat_</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">tolerance</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0.001</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><a class="headerlink" href="#gme.plot.slicing.SlicingMath.pxhat_Ci_soln" title="Permalink to this definition">¶</a></dt>
-<dd><p>TBD</p>
+<dd><p>Defineequation for <span class="math notranslate nohighlight">\(\hat{p}_x\)</span>.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.plot.slicing.SlicingMath.pxhatsqrd_Ci_polylike_eqn">
 <span class="sig-name descname"><span class="pre">pxhatsqrd_Ci_polylike_eqn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sub_</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pzhat_</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.sympy.org/latest/modules/core.html#sympy.core.relational.Equality" title="(in SymPy v1.10.1)"><span class="pre">sympy.core.relational.Equality</span></a><a class="headerlink" href="#gme.plot.slicing.SlicingMath.pxhatsqrd_Ci_polylike_eqn" title="Permalink to this definition">¶</a></dt>
-<dd><p>TBD</p>
+<dd><p>Define polynomial-form equation for <span class="math notranslate nohighlight">\(\hat{p}_x^2\)</span>.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.plot.slicing.SlicingMath.pxpzhat0_values">
 <span class="sig-name descname"><span class="pre">pxpzhat0_values</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">contour_values_</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sub_</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#gme.plot.slicing.SlicingMath.pxpzhat0_values" title="Permalink to this definition">¶</a></dt>
-<dd><p>TBD</p>
+<dd><p>Generate initial values for <span class="math notranslate nohighlight">\(\hat{p}_x\)</span>, <span class="math notranslate nohighlight">\(\hat{p}_z\)</span>.</p>
 </dd></dl>
 
 </dd></dl>
@@ -186,37 +183,37 @@ the choices are <cite>(px,pz)</cite> and <cite>(rx,pz)</cite></p></li>
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.plot.slicing.SlicingPlots.H_pxpz_contours">
 <span class="sig-name descname"><span class="pre">H_pxpz_contours</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sm</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#gme.plot.slicing.SlicingMath" title="gme.plot.slicing.SlicingMath"><span class="pre">gme.plot.slicing.SlicingMath</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">sub_</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">psf</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_Ci</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><a class="headerlink" href="#gme.plot.slicing.SlicingPlots.H_pxpz_contours" title="Permalink to this definition">¶</a></dt>
-<dd><p>TBD</p>
+<dd><p>Plot Hamiltonian contours on :math`p_x`, :math`p_z` axes.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.plot.slicing.SlicingPlots.H_rxpx_contours">
 <span class="sig-name descname"><span class="pre">H_rxpx_contours</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sm</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#gme.plot.slicing.SlicingMath" title="gme.plot.slicing.SlicingMath"><span class="pre">gme.plot.slicing.SlicingMath</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">sub_</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">psf</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_Ci</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><a class="headerlink" href="#gme.plot.slicing.SlicingPlots.H_rxpx_contours" title="Permalink to this definition">¶</a></dt>
-<dd><p>TBD</p>
+<dd><p>Plot Hamiltonian contours on :math`r_x`, :math`p_x` axes.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.plot.slicing.SlicingPlots.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmeq</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="../core/equations.html#gme.core.equations.Equations" title="gme.core.equations.Equations"><span class="pre">gme.core.equations.Equations</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid_res</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">301</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dpi</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">font_size</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">11</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.plot.slicing.SlicingPlots.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Constructor method.</p>
+<dd><p>Initialize: constructor method.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.plot.slicing.SlicingPlots.plot_Hetc_contours">
 <span class="sig-name descname"><span class="pre">plot_Hetc_contours</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sm</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#gme.plot.slicing.SlicingMath" title="gme.plot.slicing.SlicingMath"><span class="pre">gme.plot.slicing.SlicingMath</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">grids_</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sub_</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_Ci</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_modv</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_fmt_labels</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_aspect</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_rxpx</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pxpz_points</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_log2H</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_siggrid</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_black_contours</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_grid</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_at_rxcrit</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contour_nlevels</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span> </span><span class="pre">List</span><span class="p"><span class="pre">,</span> </span><span class="pre">Tuple</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contour_range</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">(0,</span> <span class="pre">1)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v_contour_range</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">(0,</span> <span class="pre">1)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contour_values</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contour_label_locs</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><a class="headerlink" href="#gme.plot.slicing.SlicingPlots.plot_Hetc_contours" title="Permalink to this definition">¶</a></dt>
-<dd><p>TBD</p>
+<dd><p>Plot Hamiltonian contours.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.plot.slicing.SlicingPlots.plot_dHdp_slice">
 <span class="sig-name descname"><span class="pre">plot_dHdp_slice</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sm</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#gme.plot.slicing.SlicingMath" title="gme.plot.slicing.SlicingMath"><span class="pre">gme.plot.slicing.SlicingMath</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">sub_</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">psub_</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pxhat_</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_detHessian</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_at_rxcrit</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><a class="headerlink" href="#gme.plot.slicing.SlicingPlots.plot_dHdp_slice" title="Permalink to this definition">¶</a></dt>
-<dd><p>TBD</p>
+<dd><p>Plot :math`dH/dp` slice.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.plot.slicing.SlicingPlots.plot_modv_slice">
 <span class="sig-name descname"><span class="pre">plot_modv_slice</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sm</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#gme.plot.slicing.SlicingMath" title="gme.plot.slicing.SlicingMath"><span class="pre">gme.plot.slicing.SlicingMath</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">sub_</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">psub_</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_at_rxcrit</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><a class="headerlink" href="#gme.plot.slicing.SlicingPlots.plot_modv_slice" title="Permalink to this definition">¶</a></dt>
-<dd><p>TBD</p>
+<dd><p>Plot :math`|v|` slice.</p>
 </dd></dl>
 
 </dd></dl>
@@ -224,11 +221,7 @@ the choices are <cite>(px,pz)</cite> and <cite>(rx,pz)</cite></p></li>
 <div class="section" id="code">
 <h2>Code<a class="headerlink" href="#code" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">---------------------------------------------------------------------</span>
-
 <span class="sd">Visualization of slices of Hamiltonian phase space.</span>
-
-<span class="sd">---------------------------------------------------------------------</span>
 
 <span class="sd">Requires Python packages:</span>
 <span class="sd">  -  :mod:`NumPy &lt;numpy&gt;`</span>
@@ -241,9 +234,6 @@ the choices are <cite>(px,pz)</cite> and <cite>(rx,pz)</cite></p></li>
 <span class="sd">.. _GME: https://github.com/geomorphysics/GME</span>
 <span class="sd">.. _Matrix:</span>
 <span class="sd">    https://docs.sympy.org/latest/modules/matrices/immutablematrices.html</span>
-
-<span class="sd">---------------------------------------------------------------------</span>
-
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="c1"># pylint: disable=invalid-unary-operand-type</span>
 
@@ -343,9 +333,7 @@ the choices are <cite>(px,pz)</cite> and <cite>(rx,pz)</cite></p></li>
         <span class="n">var_list</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Symbol</span><span class="p">],</span>
         <span class="n">do_modv</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Constructor method</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Initialize: constructor method.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">H_Ci_eqn</span><span class="p">:</span> <span class="n">Eq</span> <span class="o">=</span> <span class="n">gmeq</span><span class="o">.</span><span class="n">H_Ci_eqn</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">degCi_H0p5_eqn</span><span class="p">:</span> <span class="n">Eq</span> <span class="o">=</span> <span class="n">gmeq</span><span class="o">.</span><span class="n">degCi_H0p5_eqn</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">gstarhat_eqn</span><span class="p">:</span> <span class="n">Eq</span> <span class="o">=</span> <span class="n">gmeq</span><span class="o">.</span><span class="n">gstarhat_eqn</span>
@@ -385,9 +373,7 @@ the choices are <cite>(px,pz)</cite> and <cite>(rx,pz)</cite></p></li>
         <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">define_H_lambda</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sub_</span><span class="p">:</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">var_list</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Symbol</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Generate lambda for :math:`H`</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;.Generate lambda for :math:`H`.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">H_lambda</span><span class="p">:</span> <span class="n">Callable</span> <span class="o">=</span> <span class="n">lambdify</span><span class="p">(</span>
             <span class="n">var_list</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">H_Ci_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">mu</span><span class="p">:</span> <span class="n">eta</span> <span class="o">/</span> <span class="mi">2</span><span class="p">})</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">sub_</span><span class="p">),</span> <span class="s2">&quot;numpy&quot;</span>
         <span class="p">)</span>
@@ -395,9 +381,7 @@ the choices are <cite>(px,pz)</cite> and <cite>(rx,pz)</cite></p></li>
     <span class="k">def</span> <span class="nf">define_d2Hdpzhat2_lambda</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">sub_</span><span class="p">:</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">var_list</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Symbol</span><span class="p">]</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Generate lambda for :math:`d^2H/d{p_\hat{z}}^2`</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Generate lambda for :math:`d^2H/d{p_\hat{z}}^2`.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">d2Hdpzhat2_lambda</span><span class="p">:</span> <span class="n">Callable</span> <span class="o">=</span> <span class="n">lambdify</span><span class="p">(</span>
             <span class="n">var_list</span><span class="p">,</span>
             <span class="p">(</span><span class="n">diff</span><span class="p">(</span><span class="n">diff</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">H_Ci_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="p">,</span> <span class="n">pzhat</span><span class="p">),</span> <span class="n">pzhat</span><span class="p">))</span>
@@ -409,9 +393,7 @@ the choices are <cite>(px,pz)</cite> and <cite>(rx,pz)</cite></p></li>
     <span class="k">def</span> <span class="nf">define_detHessianSqrd_lambda</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">sub_</span><span class="p">:</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">var_list</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Symbol</span><span class="p">]</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Generate lambda for :math:`|\det\{\mathrm{Hessian}\}|^2`</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Generate lambda for :math:`|\det\{\mathrm{Hessian}\}|^2`.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">detHessianSqrd_lambda</span><span class="p">:</span> <span class="n">Callable</span> <span class="o">=</span> <span class="n">lambdify</span><span class="p">(</span>
             <span class="n">var_list</span><span class="p">,</span>
             <span class="p">(</span>
@@ -426,9 +408,7 @@ the choices are <cite>(px,pz)</cite> and <cite>(rx,pz)</cite></p></li>
         <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">define_Ci_lambda</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sub_</span><span class="p">:</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">var_list</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Symbol</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Generate lambda for :math:`\mathsf{Ci}`</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Generate lambda for :math:`\mathsf{Ci}`.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">Ci_lambda</span><span class="p">:</span> <span class="n">Callable</span> <span class="o">=</span> <span class="n">lambdify</span><span class="p">(</span>
             <span class="n">var_list</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">degCi_H0p5_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">H</span><span class="p">:</span> <span class="n">Rational</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">mu</span><span class="p">:</span> <span class="n">eta</span> <span class="o">/</span> <span class="mi">2</span><span class="p">})</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span>
@@ -440,9 +420,7 @@ the choices are <cite>(px,pz)</cite> and <cite>(rx,pz)</cite></p></li>
     <span class="k">def</span> <span class="nf">define_Hessian_eigenvals</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">sub_</span><span class="p">:</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">var_list</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Symbol</span><span class="p">]</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Generate lambda for eigenvalues of Hessian of H</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Generate lambda for eigenvalues of Hessian of H.&quot;&quot;&quot;</span>
         <span class="n">H_Ci_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">H_Ci_eqn</span><span class="o">.</span><span class="n">rhs</span>
         <span class="n">dHdpxhat_</span> <span class="o">=</span> <span class="n">simplify</span><span class="p">(</span><span class="n">diff</span><span class="p">(</span><span class="n">H_Ci_</span><span class="p">,</span> <span class="n">pxhat</span><span class="p">))</span>
         <span class="n">dHdpzhat_</span> <span class="o">=</span> <span class="n">simplify</span><span class="p">(</span><span class="n">diff</span><span class="p">(</span><span class="n">H_Ci_</span><span class="p">,</span> <span class="n">pzhat</span><span class="p">))</span>
@@ -478,9 +456,7 @@ the choices are <cite>(px,pz)</cite> and <cite>(rx,pz)</cite></p></li>
     <span class="k">def</span> <span class="nf">define_gstarhat_lambda</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">sub_</span><span class="p">:</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">var_list</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Symbol</span><span class="p">]</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Generate lambda for :math:`\mathbf{\hat{g}}_*`</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Generate lambda for :math:`\mathbf{\hat{g}}_*`.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">gstarhat_lambda</span><span class="p">:</span> <span class="n">Callable</span> <span class="o">=</span> <span class="n">lambdify</span><span class="p">(</span>
             <span class="n">var_list</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">gstarhat_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">mu</span><span class="p">:</span> <span class="n">eta</span> <span class="o">/</span> <span class="mi">2</span><span class="p">})</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">sub_</span><span class="p">),</span>
@@ -524,9 +500,7 @@ the choices are <cite>(px,pz)</cite> and <cite>(rx,pz)</cite></p></li>
         <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">pxhatsqrd_Ci_polylike_eqn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sub_</span><span class="p">:</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">pzhat_</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Eq</span><span class="p">:</span>
-        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        TBD</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Define polynomial-form equation for :math:`\hat{p}_x^2`.&quot;&quot;&quot;</span>
         <span class="n">tmp</span> <span class="o">=</span> <span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">H_Ci_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span>
                 <span class="p">{</span><span class="n">pzhat</span><span class="p">:</span> <span class="n">pzhat_</span><span class="p">,</span> <span class="n">H</span><span class="p">:</span> <span class="n">Rational</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">mu</span><span class="p">:</span> <span class="n">eta</span> <span class="o">/</span> <span class="mi">2</span><span class="p">}</span>
@@ -537,9 +511,7 @@ the choices are <cite>(px,pz)</cite> and <cite>(rx,pz)</cite></p></li>
     <span class="k">def</span> <span class="nf">pxhat_Ci_soln</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">eqn_</span><span class="p">:</span> <span class="n">Eq</span><span class="p">,</span> <span class="n">sub_</span><span class="p">:</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">rxhat_</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">tolerance</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-3</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        TBD</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Defineequation for :math:`\hat{p}_x`.&quot;&quot;&quot;</span>
         <span class="n">solns_</span> <span class="o">=</span> <span class="n">Matrix</span><span class="p">(</span><span class="n">solve</span><span class="p">(</span><span class="n">eqn_</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">sub_</span><span class="p">),</span> <span class="n">pxhat</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span>
             <span class="p">{</span><span class="n">rxhat</span><span class="p">:</span> <span class="n">rxhat_</span><span class="p">}</span>
         <span class="p">)</span>
@@ -556,9 +528,7 @@ the choices are <cite>(px,pz)</cite> and <cite>(rx,pz)</cite></p></li>
     <span class="k">def</span> <span class="nf">pxpzhat0_values</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">contour_values_</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">]],</span> <span class="n">sub_</span><span class="p">:</span> <span class="n">Dict</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]:</span>
-        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        TBD</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Generate initial values for :math:`\hat{p}_x`, :math:`\hat{p}_z`.&quot;&quot;&quot;</span>
         <span class="n">pxpzhat_values_</span> <span class="o">=</span> <span class="p">[(</span><span class="nb">float</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="nb">float</span><span class="p">(</span><span class="mi">0</span><span class="p">))]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">contour_values_</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">i_</span><span class="p">,</span> <span class="n">Ci_</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">contour_values_</span><span class="p">):</span>
             <span class="n">tmp_sub_</span> <span class="o">=</span> <span class="n">omitdict</span><span class="p">(</span><span class="n">sub_</span><span class="p">,</span> <span class="p">[</span><span class="n">rxhat</span><span class="p">,</span> <span class="n">Ci</span><span class="p">])</span>
@@ -572,9 +542,7 @@ the choices are <cite>(px,pz)</cite> and <cite>(rx,pz)</cite></p></li>
         <span class="k">return</span> <span class="n">pxpzhat_values_</span>
 
     <span class="k">def</span> <span class="nf">get_rxhat_pzhat</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sub_</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
-        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        TBD</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Get values for :math:`\hat{r}_x`, :math:`\hat{p}_z`.&quot;&quot;&quot;</span>
         <span class="c1"># logging.debug(omitdict(sub_,[rxhat]))</span>
         <span class="n">rxhat_solns</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">solve</span><span class="p">(</span>
             <span class="n">factor</span><span class="p">(</span>
@@ -619,9 +587,7 @@ the choices are <cite>(px,pz)</cite> and <cite>(rx,pz)</cite></p></li>
         <span class="n">dpi</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span>
         <span class="n">font_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">11</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Constructor method.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Initialize: constructor method.&quot;&quot;&quot;</span>
         <span class="c1"># Default construction</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">dpi</span><span class="p">,</span> <span class="n">font_size</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">H_Ci_eqn</span><span class="p">:</span> <span class="n">Eq</span> <span class="o">=</span> <span class="n">gmeq</span><span class="o">.</span><span class="n">H_Ci_eqn</span>
@@ -663,9 +629,7 @@ the choices are <cite>(px,pz)</cite> and <cite>(rx,pz)</cite></p></li>
         <span class="n">do_detHessian</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
         <span class="n">do_at_rxcrit</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        TBD</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Plot :math`dH/dp` slice.&quot;&quot;&quot;</span>
         <span class="n">rxhat_</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span>
             <span class="nb">float</span><span class="p">(</span><span class="n">rxhat</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">psub_</span><span class="p">)</span><span class="o">.</span><span class="n">n</span><span class="p">()),</span> <span class="mi">4</span> <span class="k">if</span> <span class="n">do_at_rxcrit</span> <span class="k">else</span> <span class="mi">4</span>
         <span class="p">)</span>
@@ -765,9 +729,7 @@ the choices are <cite>(px,pz)</cite> and <cite>(rx,pz)</cite></p></li>
         <span class="n">psub_</span><span class="p">:</span> <span class="n">Dict</span><span class="p">,</span>
         <span class="n">do_at_rxcrit</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        TBD</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Plot :math`|v|` slice.&quot;&quot;&quot;</span>
         <span class="n">rxhat_</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span>
             <span class="nb">float</span><span class="p">(</span><span class="n">rxhat</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">psub_</span><span class="p">)</span><span class="o">.</span><span class="n">n</span><span class="p">()),</span> <span class="mi">4</span> <span class="k">if</span> <span class="n">do_at_rxcrit</span> <span class="k">else</span> <span class="mi">4</span>
         <span class="p">)</span>
@@ -896,9 +858,7 @@ the choices are <cite>(px,pz)</cite> and <cite>(rx,pz)</cite></p></li>
     <span class="k">def</span> <span class="nf">H_rxpx_contours</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">sm</span><span class="p">:</span> <span class="n">SlicingMath</span><span class="p">,</span> <span class="n">sub_</span><span class="p">:</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">psf</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">do_Ci</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        TBD</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Plot Hamiltonian contours on :math`r_x`, :math`p_x` axes.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">plot_Hetc_contours</span><span class="p">(</span>
             <span class="n">sm</span><span class="p">,</span>
             <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rxpxhat_grids</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">rxpxhat_grids</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">psf</span><span class="p">),</span>
@@ -914,9 +874,7 @@ the choices are <cite>(px,pz)</cite> and <cite>(rx,pz)</cite></p></li>
     <span class="k">def</span> <span class="nf">H_pxpz_contours</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">sm</span><span class="p">:</span> <span class="n">SlicingMath</span><span class="p">,</span> <span class="n">sub_</span><span class="p">:</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">psf</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">do_Ci</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        TBD</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Plot Hamiltonian contours on :math`p_x`, :math`p_z` axes.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">plot_Hetc_contours</span><span class="p">(</span>
             <span class="n">sm</span><span class="p">,</span>
             <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pxpzhat_grids</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">psf</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pxpzhat_grids</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">psf</span><span class="p">),</span>
@@ -951,9 +909,7 @@ the choices are <cite>(px,pz)</cite> and <cite>(rx,pz)</cite></p></li>
         <span class="n">contour_values</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">contour_label_locs</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        TBD</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Plot Hamiltonian contours.&quot;&quot;&quot;</span>
         <span class="c1"># Create figure</span>
         <span class="n">rxhat_</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">do_rxpx</span> <span class="k">else</span> <span class="nb">round</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">rxhat</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">sub_</span><span class="p">)</span><span class="o">.</span><span class="n">n</span><span class="p">()),</span> <span class="mi">4</span><span class="p">)</span>
         <span class="n">fig_name_elements</span><span class="p">:</span> <span class="n">Tuple</span> <span class="o">=</span> <span class="p">(</span>

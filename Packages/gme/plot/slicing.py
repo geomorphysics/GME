@@ -1,9 +1,5 @@
 """
----------------------------------------------------------------------
-
 Visualization of slices of Hamiltonian phase space.
-
----------------------------------------------------------------------
 
 Requires Python packages:
   -  :mod:`NumPy <numpy>`
@@ -16,9 +12,6 @@ Requires Python packages:
 .. _GME: https://github.com/geomorphysics/GME
 .. _Matrix:
     https://docs.sympy.org/latest/modules/matrices/immutablematrices.html
-
----------------------------------------------------------------------
-
 """
 # pylint: disable=invalid-unary-operand-type
 
@@ -118,9 +111,7 @@ class SlicingMath:
         var_list: List[Symbol],
         do_modv: bool = True,
     ) -> None:
-        r"""
-        Constructor method
-        """
+        r"""Initialize: constructor method."""
         self.H_Ci_eqn: Eq = gmeq.H_Ci_eqn
         self.degCi_H0p5_eqn: Eq = gmeq.degCi_H0p5_eqn
         self.gstarhat_eqn: Eq = gmeq.gstarhat_eqn
@@ -160,9 +151,7 @@ class SlicingMath:
         )
 
     def define_H_lambda(self, sub_: Dict, var_list: List[Symbol]) -> None:
-        r"""
-        Generate lambda for :math:`H`
-        """
+        r""".Generate lambda for :math:`H`."""
         self.H_lambda: Callable = lambdify(
             var_list, self.H_Ci_eqn.rhs.subs({mu: eta / 2}).subs(sub_), "numpy"
         )
@@ -170,9 +159,7 @@ class SlicingMath:
     def define_d2Hdpzhat2_lambda(
         self, sub_: Dict, var_list: List[Symbol]
     ) -> None:
-        r"""
-        Generate lambda for :math:`d^2H/d{p_\hat{z}}^2`
-        """
+        r"""Generate lambda for :math:`d^2H/d{p_\hat{z}}^2`."""
         self.d2Hdpzhat2_lambda: Callable = lambdify(
             var_list,
             (diff(diff(self.H_Ci_eqn.rhs, pzhat), pzhat))
@@ -184,9 +171,7 @@ class SlicingMath:
     def define_detHessianSqrd_lambda(
         self, sub_: Dict, var_list: List[Symbol]
     ) -> None:
-        r"""
-        Generate lambda for :math:`|\det\{\mathrm{Hessian}\}|^2`
-        """
+        r"""Generate lambda for :math:`|\det\{\mathrm{Hessian}\}|^2`."""
         self.detHessianSqrd_lambda: Callable = lambdify(
             var_list,
             (
@@ -201,9 +186,7 @@ class SlicingMath:
         )
 
     def define_Ci_lambda(self, sub_: Dict, var_list: List[Symbol]) -> None:
-        r"""
-        Generate lambda for :math:`\mathsf{Ci}`
-        """
+        r"""Generate lambda for :math:`\mathsf{Ci}`."""
         self.Ci_lambda: Callable = lambdify(
             var_list,
             self.degCi_H0p5_eqn.rhs.subs({H: Rational(1, 2), mu: eta / 2}).subs(
@@ -215,9 +198,7 @@ class SlicingMath:
     def define_Hessian_eigenvals(
         self, sub_: Dict, var_list: List[Symbol]
     ) -> None:
-        r"""
-        Generate lambda for eigenvalues of Hessian of H
-        """
+        r"""Generate lambda for eigenvalues of Hessian of H."""
         H_Ci_ = self.H_Ci_eqn.rhs
         dHdpxhat_ = simplify(diff(H_Ci_, pxhat))
         dHdpzhat_ = simplify(diff(H_Ci_, pzhat))
@@ -253,9 +234,7 @@ class SlicingMath:
     def define_gstarhat_lambda(
         self, sub_: Dict, var_list: List[Symbol]
     ) -> None:
-        r"""
-        Generate lambda for :math:`\mathbf{\hat{g}}_*`
-        """
+        r"""Generate lambda for :math:`\mathbf{\hat{g}}_*`."""
         self.gstarhat_lambda: Callable = lambdify(
             var_list,
             self.gstarhat_eqn.rhs.subs({mu: eta / 2}).subs(sub_),
@@ -299,9 +278,7 @@ class SlicingMath:
         )
 
     def pxhatsqrd_Ci_polylike_eqn(self, sub_: Dict, pzhat_: float) -> Eq:
-        r"""
-        TBD
-        """
+        r"""Define polynomial-form equation for :math:`\hat{p}_x^2`."""
         tmp = (
             self.H_Ci_eqn.rhs.subs(
                 {pzhat: pzhat_, H: Rational(1, 2), mu: eta / 2}
@@ -312,9 +289,7 @@ class SlicingMath:
     def pxhat_Ci_soln(
         self, eqn_: Eq, sub_: Dict, rxhat_: float, tolerance: float = 1e-3
     ) -> float:
-        r"""
-        TBD
-        """
+        r"""Defineequation for :math:`\hat{p}_x`."""
         solns_ = Matrix(solve(eqn_.subs(sub_), pxhat ** 2)).subs(
             {rxhat: rxhat_}
         )
@@ -331,9 +306,7 @@ class SlicingMath:
     def pxpzhat0_values(
         self, contour_values_: Union[List[float], Tuple[float]], sub_: Dict
     ) -> List[Tuple[float, float]]:
-        r"""
-        TBD
-        """
+        r"""Generate initial values for :math:`\hat{p}_x`, :math:`\hat{p}_z`."""
         pxpzhat_values_ = [(float(0), float(0))] * len(contour_values_)
         for i_, Ci_ in enumerate(contour_values_):
             tmp_sub_ = omitdict(sub_, [rxhat, Ci])
@@ -347,9 +320,7 @@ class SlicingMath:
         return pxpzhat_values_
 
     def get_rxhat_pzhat(self, sub_: Dict[Any, Any]) -> List[float]:
-        r"""
-        TBD
-        """
+        r"""Get values for :math:`\hat{r}_x`, :math:`\hat{p}_z`."""
         # logging.debug(omitdict(sub_,[rxhat]))
         rxhat_solns: List[Any] = solve(
             factor(
@@ -394,9 +365,7 @@ class SlicingPlots(Graphing):
         dpi: int = 100,
         font_size: int = 11,
     ) -> None:
-        r"""
-        Constructor method.
-        """
+        r"""Initialize: constructor method."""
         # Default construction
         super().__init__(dpi, font_size)
         self.H_Ci_eqn: Eq = gmeq.H_Ci_eqn
@@ -438,9 +407,7 @@ class SlicingPlots(Graphing):
         do_detHessian: bool = False,
         do_at_rxcrit: bool = False,
     ) -> str:
-        r"""
-        TBD
-        """
+        r"""Plot :math`dH/dp` slice."""
         rxhat_: float = round(
             float(rxhat.subs(psub_).n()), 4 if do_at_rxcrit else 4
         )
@@ -540,9 +507,7 @@ class SlicingPlots(Graphing):
         psub_: Dict,
         do_at_rxcrit: bool = False,
     ) -> str:
-        r"""
-        TBD
-        """
+        r"""Plot :math`|v|` slice."""
         rxhat_: float = round(
             float(rxhat.subs(psub_).n()), 4 if do_at_rxcrit else 4
         )
@@ -671,9 +636,7 @@ class SlicingPlots(Graphing):
     def H_rxpx_contours(
         self, sm: SlicingMath, sub_: Dict, psf: float, do_Ci: bool, **kwargs
     ) -> str:
-        r"""
-        TBD
-        """
+        r"""Plot Hamiltonian contours on :math`r_x`, :math`p_x` axes."""
         return self.plot_Hetc_contours(
             sm,
             (self.rxpxhat_grids[0], self.rxpxhat_grids[1] * psf),
@@ -689,9 +652,7 @@ class SlicingPlots(Graphing):
     def H_pxpz_contours(
         self, sm: SlicingMath, sub_: Dict, psf: float, do_Ci: bool, **kwargs
     ) -> str:
-        r"""
-        TBD
-        """
+        r"""Plot Hamiltonian contours on :math`p_x`, :math`p_z` axes."""
         return self.plot_Hetc_contours(
             sm,
             (self.pxpzhat_grids[0] * psf, self.pxpzhat_grids[1] * psf),
@@ -726,9 +687,7 @@ class SlicingPlots(Graphing):
         contour_values: Optional[List[float]] = None,
         contour_label_locs: Optional[List] = None,
     ) -> str:
-        r"""
-        TBD
-        """
+        r"""Plot Hamiltonian contours."""
         # Create figure
         rxhat_: float = 0 if do_rxpx else round(float(rxhat.subs(sub_).n()), 4)
         fig_name_elements: Tuple = (

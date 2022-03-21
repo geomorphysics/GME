@@ -1,9 +1,5 @@
 """
----------------------------------------------------------------------
-
 Visualization of solutions with time-varying boundary conditions.
-
----------------------------------------------------------------------
 
 Requires Python packages:
   -  :mod:`NumPy <numpy>`
@@ -15,9 +11,6 @@ Requires Python packages:
 .. _GME: https://github.com/geomorphysics/GME
 .. _Matrix:
     https://docs.sympy.org/latest/modules/matrices/immutablematrices.html
-
----------------------------------------------------------------------
-
 """
 # Library
 import warnings

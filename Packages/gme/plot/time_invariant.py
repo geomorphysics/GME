@@ -1,9 +1,5 @@
 """
----------------------------------------------------------------------
-
 Visualization of time-invariant solutions.
-
----------------------------------------------------------------------
 
 Requires Python packages:
   -  :mod:`NumPy <numpy>`
@@ -15,9 +11,6 @@ Requires Python packages:
 .. _GME: https://github.com/geomorphysics/GME
 .. _Matrix:
     https://docs.sympy.org/latest/modules/matrices/immutablematrices.html
-
----------------------------------------------------------------------
-
 """
 # pylint: disable = too-few-public-methods, no-self-use
 
@@ -78,6 +71,8 @@ class TimeInvariant(Graphing):
         eta_label_xy: Optional[Tuple[float, float]] = None,
     ) -> None:
         r"""
+        Plot anisotropy-annotate topo profile.
+
         Plot time-invariant profile annotated with ray vectors,
         normal-slowness covector herringbones,
         and colorized for anisotropy (defined as the difference
@@ -324,24 +319,16 @@ class TimeInvariant(Graphing):
             plt.ylim(*y_limits)
 
         # Hand-made legend
-        class ArrivalTime:
-            """
-            Not used
-            """
+        class _ArrivalTime:
+            """Private class."""
 
             # pass
 
-        class HandlerArrivalTime:
-            """
-            TBD
-            """
-
+        class _HandlerArrivalTime:
             def legend_artist(
                 self, legend, orig_handle, fontsize, handlebox
             ) -> mpatches.Arrow:
-                """
-                TBD
-                """
+                """How to plot this legend element."""
                 del legend, orig_handle, fontsize
                 # x0, y0 = handlebox.xdescent, handlebox.ydescent
                 # width, height = handlebox.width, handlebox.height
@@ -351,31 +338,23 @@ class TimeInvariant(Graphing):
                 handlebox.add_artist(patch)
                 return patch
 
-        class RayPoint:
-            """
-            Not used
-            """
+        class _RayPoint:
+            """Private class."""
 
             # pass
 
-        class HandlerRayPoint:
-            """
-            TBD
-            """
+        class _HandlerRayPoint:
+            """Private class."""
 
             def __init__(self, fc: str = "gray"):
-                """
-                Constructor method
-                """
+                """Initialize: constructor method."""
                 super().__init__()
                 self.fc = fc
 
             def legend_artist(
                 self, legend, orig_handle, fontsize, handlebox
             ) -> mpatches.Circle:
-                """
-                TBD
-                """
+                """How to plot this legend element."""
                 del legend, orig_handle, fontsize
                 # x0, y0 = handlebox.xdescent, handlebox.ydescent
                 # width, height = handlebox.width, handlebox.height
@@ -383,24 +362,18 @@ class TimeInvariant(Graphing):
                 handlebox.add_artist(patch)
                 return patch
 
-        class RayArrow:
-            """
-            Not used
-            """
+        class _RayArrow:
+            """Private class."""
 
             # pass
 
-        class HandlerRayArrow:
-            """
-            TBD
-            """
+        class _HandlerRayArrow:
+            """Private class."""
 
             def legend_artist(
                 self, legend, orig_handle, fontsize, handlebox
             ) -> mpatches.FancyArrow:
-                """
-                TBD
-                """
+                """How to plot this legend element."""
                 del legend, orig_handle, fontsize
                 # x0, y0 = handlebox.xdescent, handlebox.ydescent
                 width, height = handlebox.width, handlebox.height
@@ -419,25 +392,19 @@ class TimeInvariant(Graphing):
                 handlebox.add_artist(patch)
                 return patch
 
-        class NormalStick:
-            """
-            Not used
-            """
+        class _NormalStick:
+            """Private class."""
 
             # pass
 
-        class HandlerNormalStick:
-            """
-            TBD
-            """
+        class _HandlerNormalStick:
+            """Private class."""
 
             def legend_artist(
                 self, legend, orig_handle, fontsize, handlebox
             ) -> mpatches.FancyArrow:
                 # legend, orig_handle, fontsize,
-                """
-                TBD
-                """
+                """How to plot this legend element."""
                 del legend, orig_handle, fontsize
                 # x0, y0 = handlebox.xdescent, handlebox.ydescent
                 width, height = handlebox.width, handlebox.height
@@ -472,7 +439,7 @@ class TimeInvariant(Graphing):
                     handlebox.add_artist(patch)
                 return patch
 
-        legend_fns1 = [ArrivalTime(), RayPoint(), RayArrow(), NormalStick()]
+        legend_fns1 = [_ArrivalTime(), _RayPoint(), _RayArrow(), _NormalStick()]
         legend_labels1 = [
             r"$T(\mathbf{r})$",
             r"$\mathbf{r}$",
@@ -480,10 +447,10 @@ class TimeInvariant(Graphing):
             r"$\mathbf{\widetilde{p}}$",
         ]
         legend_handlers1 = {
-            ArrivalTime: HandlerArrivalTime(),
-            RayPoint: HandlerRayPoint(),
-            RayArrow: HandlerRayArrow(),
-            NormalStick: HandlerNormalStick(),
+            _ArrivalTime: _HandlerArrivalTime(),
+            _RayPoint: _HandlerRayPoint(),
+            _RayArrow: _HandlerRayArrow(),
+            _NormalStick: _HandlerNormalStick(),
         }
         legend1 = plt.legend(
             legend_fns1,
@@ -533,6 +500,8 @@ class TimeInvariant(Graphing):
         pub_label: str = "",
     ) -> None:
         r"""
+        Plot covector tilt along a profile.
+
         For a time-invariant (steady-state) topographic profile,
         plot the surface-normal covector angle :math:`\beta` from vertical,
         aka the surface tilt angle from horizontal, as a function of
@@ -667,6 +636,8 @@ class TimeInvariant(Graphing):
         xf_stop: float = 0.995,
     ) -> None:
         r"""
+        Plot error in covector tilt calculation along profile.
+
         For a time-invariant (steady-state) topographic profile,
         plot the error in the estimated surface-normal covector
         angle :math:`\beta` as a function of dimensionless horizontal
@@ -764,6 +735,8 @@ class TimeInvariant(Graphing):
         xi_norm: Optional[float] = None,
     ) -> None:
         r"""
+        Plot erosion 'rate' along profile.
+
         Plot surface-normal erosion speed :math:`\xi^{\perp}`
         along a time-invariant profile.
 
@@ -911,6 +884,8 @@ class TimeInvariant(Graphing):
         xi_norm: Optional[float] = None,
     ) -> None:
         r"""
+        Plot horizontal erosion 'rate' along profile.
+
         Plot horizontal erosion speed :math:`\xi^{\rightarrow}`
         along a time-invariant profile.
 
@@ -1062,6 +1037,8 @@ class TimeInvariant(Graphing):
         xi_norm: Optional[float] = None,
     ) -> None:
         r"""
+        Plot vertical erosion 'rate' along profile.
+
         Plot vertical erosion speed
         :math:`\xi^{\downarrow}` along a time-invariant profile.
 
@@ -1198,6 +1175,8 @@ class TimeInvariant(Graphing):
         do_direct: bool = False,
     ) -> None:
         r"""
+        Plot 'steady-state' profile bundle.
+
         Plot set of time-invariant profiles for a selection of values of
         :math:`\mathsf{Ci}` and :math:`\eta`.
 

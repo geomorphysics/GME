@@ -52,19 +52,16 @@
             
   <div class="section" id="module-gme.plot.ray_velocities">
 <span id="ray-velocities-py"></span><h1><code class="docutils literal notranslate"><span class="pre">ray_velocities.py</span></code><a class="headerlink" href="#module-gme.plot.ray_velocities" title="Permalink to this headline">¶</a></h1>
-<hr class="docutils" />
 <p>Visualization of ray velocities.</p>
-<hr class="docutils" />
 <dl class="simple">
 <dt>Requires Python packages:</dt><dd><ul class="simple">
-<li><p><a class="reference external" href="https://numpy.org/doc/stable/reference/index.html#module-numpy" title="(in NumPy v1.21)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">NumPy</span></code></a></p></li>
-<li><p><a class="reference external" href="https://docs.sympy.org/latest/modules/index.html#module-sympy" title="(in SymPy v1.9)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">SymPy</span></code></a></p></li>
+<li><p><a class="reference external" href="https://numpy.org/doc/stable/reference/index.html#module-numpy" title="(in NumPy v1.22)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">NumPy</span></code></a></p></li>
+<li><p><a class="reference external" href="https://docs.sympy.org/latest/index.html#module-sympy" title="(in SymPy v1.10.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">SymPy</span></code></a></p></li>
 <li><p><a class="reference external" href="https://matplotlib.org/stable/index.html#module-matplotlib" title="(in Matplotlib v3.5.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">MatPlotLib</span></code></a></p></li>
 <li><p><a class="reference external" href="https://github.com/geomorphysics/GME">GME</a></p></li>
 </ul>
 </dd>
 </dl>
-<hr class="docutils" />
 <dl class="py class">
 <dt class="sig sig-object py" id="gme.plot.ray_velocities.RayVelocities">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gme.plot.ray_velocities.</span></span><span class="sig-name descname"><span class="pre">RayVelocities</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dpi</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">font_size</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">11</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gme.plot.ray_velocities.RayVelocities" title="Permalink to this definition">¶</a></dt>
@@ -119,11 +116,7 @@ equation substitutions</p></li>
 <div class="section" id="code">
 <h2>Code<a class="headerlink" href="#code" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">---------------------------------------------------------------------</span>
-
 <span class="sd">Visualization of ray velocities.</span>
-
-<span class="sd">---------------------------------------------------------------------</span>
 
 <span class="sd">Requires Python packages:</span>
 <span class="sd">  -  :mod:`NumPy &lt;numpy&gt;`</span>
@@ -135,9 +128,6 @@ equation substitutions</p></li>
 <span class="sd">.. _GME: https://github.com/geomorphysics/GME</span>
 <span class="sd">.. _Matrix:</span>
 <span class="sd">    https://docs.sympy.org/latest/modules/matrices/immutablematrices.html</span>
-
-<span class="sd">---------------------------------------------------------------------</span>
-
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="c1"># Library</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
@@ -160,7 +150,7 @@ equation substitutions</p></li>
 
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
 
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;RayVelocities&#39;</span><span class="p">]</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;RayVelocities&quot;</span><span class="p">]</span>
 
 
 <span class="k">class</span> <span class="nc">RayVelocities</span><span class="p">(</span><span class="n">Graphing</span><span class="p">):</span>
@@ -180,14 +170,14 @@ equation substitutions</p></li>
         <span class="n">dpi</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">n_points</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">201</span><span class="p">,</span>
         <span class="n">do_pub_label</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-        <span class="n">pub_label</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+        <span class="n">pub_label</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
         <span class="n">pub_label_xy</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span>
         <span class="n">do_etaxi_label</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
         <span class="n">eta_label_xy</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.81</span><span class="p">),</span>
         <span class="n">var_label_xy</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span>
         <span class="n">xi_norm</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">legend_loc</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;lower right&#39;</span><span class="p">,</span>
-        <span class="n">do_mod_v</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">legend_loc</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;lower right&quot;</span><span class="p">,</span>
+        <span class="n">do_mod_v</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Plot velocity :math:`\mathbf{v}` along a ray.</span>
@@ -217,34 +207,42 @@ equation substitutions</p></li>
 
         <span class="k">if</span> <span class="n">xi_norm</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">xi_norm</span> <span class="o">=</span> <span class="mi">1</span>
-            <span class="n">rate_label</span> <span class="o">=</span> <span class="s1">&#39;$</span><span class="si">{v}</span><span class="s1">$&#39;</span>
+            <span class="n">rate_label</span> <span class="o">=</span> <span class="s2">&quot;$</span><span class="si">{v}</span><span class="s2">$&quot;</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">xi_norm</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">N</span><span class="p">(</span><span class="n">xi_norm</span><span class="p">))</span>
-            <span class="n">rate_label</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;$</span><span class="si">{v}</span><span class="s1">/\xi^{\!\rightarrow_{\!\!0}}$  [-]&#39;</span>
+            <span class="n">rate_label</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;$</span><span class="si">{v}</span><span class="s2">/\xi^{\!\rightarrow_{\!\!0}}$  [-]&quot;</span>
         <span class="n">rx_array</span> <span class="o">=</span> <span class="n">gmes</span><span class="o">.</span><span class="n">rx_array</span>
         <span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span> <span class="o">=</span> <span class="n">rx_array</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">rx_array</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
         <span class="n">x_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span><span class="p">,</span> <span class="n">n_points</span><span class="p">)</span>
         <span class="c1"># t_array  = gmes.t_interp_x(x_array)</span>
-        <span class="n">vx_array</span> <span class="o">=</span> <span class="n">gmes</span><span class="o">.</span><span class="n">rdotx_interp</span><span class="p">(</span><span class="n">x_array</span><span class="p">)</span><span class="o">/</span><span class="n">xi_norm</span>
-        <span class="n">vz_array</span> <span class="o">=</span> <span class="n">gmes</span><span class="o">.</span><span class="n">rdotz_interp</span><span class="p">(</span><span class="n">x_array</span><span class="p">)</span><span class="o">/</span><span class="n">xi_norm</span>
-        <span class="n">v_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">vx_array</span><span class="o">**</span><span class="mi">2</span><span class="o">+</span><span class="n">vz_array</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">vx_array</span> <span class="o">=</span> <span class="n">gmes</span><span class="o">.</span><span class="n">rdotx_interp</span><span class="p">(</span><span class="n">x_array</span><span class="p">)</span> <span class="o">/</span> <span class="n">xi_norm</span>
+        <span class="n">vz_array</span> <span class="o">=</span> <span class="n">gmes</span><span class="o">.</span><span class="n">rdotz_interp</span><span class="p">(</span><span class="n">x_array</span><span class="p">)</span> <span class="o">/</span> <span class="n">xi_norm</span>
+        <span class="n">v_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">vx_array</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">vz_array</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
         <span class="c1"># vx_max = np.max(np.abs(vx_array))</span>
         <span class="n">vz_max</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">vz_array</span><span class="p">))</span>
         <span class="n">v_max</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">((</span><span class="n">v_array</span><span class="p">))</span>
 
         <span class="k">if</span> <span class="n">do_mod_v</span><span class="p">:</span>
-            <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_array</span><span class="p">,</span> <span class="n">v_array</span><span class="p">,</span> <span class="s1">&#39;DarkBlue&#39;</span><span class="p">,</span>
-                     <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$</span><span class="si">{v}</span><span class="s1">(x)$&#39;</span><span class="p">)</span>
-            <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Ray speed  &#39;</span><span class="o">+</span><span class="n">rate_label</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
-            <span class="n">legend_loc</span> <span class="o">=</span> <span class="s1">&#39;lower left&#39;</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+                <span class="n">x_array</span><span class="p">,</span> <span class="n">v_array</span><span class="p">,</span> <span class="s2">&quot;DarkBlue&quot;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;$</span><span class="si">{v}</span><span class="s2">(x)$&quot;</span>
+            <span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;Ray speed  &quot;</span> <span class="o">+</span> <span class="n">rate_label</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
+            <span class="n">legend_loc</span> <span class="o">=</span> <span class="s2">&quot;lower left&quot;</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">sfx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">vz_max</span><span class="o">/</span><span class="n">v_max</span><span class="p">),</span> <span class="mi">0</span><span class="p">))</span>
-            <span class="n">label_suffix</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span> <span class="k">if</span> <span class="n">sfx</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="sa">r</span><span class="s1">&#39;$\,\times\,$&#39;</span><span class="o">+</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">sfx</span><span class="si">}</span><span class="s1">&#39;</span>
-            <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_array</span><span class="p">,</span> <span class="n">vx_array</span><span class="o">*</span><span class="n">sfx</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span>
-                     <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$</span><span class="si">{v}</span><span class="s1">^x(x)$&#39;</span><span class="o">+</span><span class="n">label_suffix</span><span class="p">)</span>
-            <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_array</span><span class="p">,</span> <span class="n">vz_array</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span>
-                     <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$</span><span class="si">{v}</span><span class="s1">^z(x)$&#39;</span><span class="p">)</span>
-            <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Ray velocity  &#39;</span><span class="o">+</span><span class="n">rate_label</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
+            <span class="n">sfx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">vz_max</span> <span class="o">/</span> <span class="n">v_max</span><span class="p">),</span> <span class="mi">0</span><span class="p">))</span>
+            <span class="n">label_suffix</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span> <span class="k">if</span> <span class="n">sfx</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="sa">r</span><span class="s2">&quot;$\,\times\,$&quot;</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">sfx</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+                <span class="n">x_array</span><span class="p">,</span>
+                <span class="n">vx_array</span> <span class="o">*</span> <span class="n">sfx</span><span class="p">,</span>
+                <span class="s2">&quot;r&quot;</span><span class="p">,</span>
+                <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;-&quot;</span><span class="p">,</span>
+                <span class="n">lw</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span>
+                <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;$</span><span class="si">{v}</span><span class="s2">^x(x)$&quot;</span> <span class="o">+</span> <span class="n">label_suffix</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+                <span class="n">x_array</span><span class="p">,</span> <span class="n">vz_array</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;$</span><span class="si">{v}</span><span class="s2">^z(x)$&quot;</span>
+            <span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;Ray velocity  &quot;</span> <span class="o">+</span> <span class="n">rate_label</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
 
         <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
         <span class="n">ylim</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">()</span>
@@ -253,33 +251,40 @@ equation substitutions</p></li>
         <span class="k">if</span> <span class="n">ylim</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">axes</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">ylim</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
         <span class="c1"># axes.set_ylim( -(ylim[1]-ylim[0])/20,ylim[1] )</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Distance, $x/L_{\mathrm</span><span class="si">{c}</span><span class="s1">}$  [-]&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;:&quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;Distance, $x/L_{\mathrm</span><span class="si">{c}</span><span class="s2">}$  [-]&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="n">legend_loc</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">framealpha</span><span class="o">=</span><span class="mf">0.95</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">do_etaxi_label</span><span class="p">:</span>
-            <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">*</span><span class="n">eta_label_xy</span><span class="p">,</span>
-                     <span class="sa">rf</span><span class="s1">&#39;$\eta=</span><span class="si">{</span><span class="n">gmeq</span><span class="o">.</span><span class="n">eta_</span><span class="si">}</span><span class="s1">$&#39;</span><span class="o">+</span><span class="sa">r</span><span class="s1">&#39;$\quad\mathsf</span><span class="si">{Ci}</span><span class="s1">=$&#39;</span>
-                     <span class="o">+</span> <span class="sa">rf</span><span class="s1">&#39;$</span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">deg</span><span class="p">(</span><span class="n">Ci</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">sub</span><span class="p">))))</span><span class="si">}</span><span class="s1">\degree$&#39;</span><span class="p">,</span>
-                     <span class="n">transform</span><span class="o">=</span><span class="n">axes</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span>
-                     <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
-                     <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
-                     <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
-                     <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
+                <span class="o">*</span><span class="n">eta_label_xy</span><span class="p">,</span>
+                <span class="sa">rf</span><span class="s2">&quot;$\eta=</span><span class="si">{</span><span class="n">gmeq</span><span class="o">.</span><span class="n">eta_</span><span class="si">}</span><span class="s2">$&quot;</span>
+                <span class="o">+</span> <span class="sa">r</span><span class="s2">&quot;$\quad\mathsf</span><span class="si">{Ci}</span><span class="s2">=$&quot;</span>
+                <span class="o">+</span> <span class="sa">rf</span><span class="s2">&quot;$</span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">deg</span><span class="p">(</span><span class="n">Ci</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">sub</span><span class="p">))))</span><span class="si">}</span><span class="s2">\degree$&quot;</span><span class="p">,</span>
+                <span class="n">transform</span><span class="o">=</span><span class="n">axes</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span>
+                <span class="n">horizontalalignment</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span>
+                <span class="n">verticalalignment</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span>
+                <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
+                <span class="n">color</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
         <span class="k">if</span> <span class="n">do_pub_label</span><span class="p">:</span>
-            <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">*</span><span class="n">pub_label_xy</span><span class="p">,</span>
-                     <span class="n">pub_label</span><span class="p">,</span>
-                     <span class="n">transform</span><span class="o">=</span><span class="n">axes</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span>
-                     <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
-                     <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
-                     <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
-                     <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">*</span><span class="n">var_label_xy</span><span class="p">,</span>
-                 <span class="sa">r</span><span class="s1">&#39;$</span><span class="si">{v}</span><span class="s1">(x)$&#39;</span> <span class="k">if</span> <span class="n">do_mod_v</span> <span class="k">else</span> <span class="sa">r</span><span class="s1">&#39;$\mathbf</span><span class="si">{v}</span><span class="s1">(x)$&#39;</span><span class="p">,</span>
-                 <span class="n">transform</span><span class="o">=</span><span class="n">axes</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span>
-                 <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
-                 <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
-                 <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span>
-                 <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
+                <span class="o">*</span><span class="n">pub_label_xy</span><span class="p">,</span>
+                <span class="n">pub_label</span><span class="p">,</span>
+                <span class="n">transform</span><span class="o">=</span><span class="n">axes</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span>
+                <span class="n">horizontalalignment</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span>
+                <span class="n">verticalalignment</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span>
+                <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
+                <span class="n">color</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
+            <span class="o">*</span><span class="n">var_label_xy</span><span class="p">,</span>
+            <span class="sa">r</span><span class="s2">&quot;$</span><span class="si">{v}</span><span class="s2">(x)$&quot;</span> <span class="k">if</span> <span class="n">do_mod_v</span> <span class="k">else</span> <span class="sa">r</span><span class="s2">&quot;$\mathbf</span><span class="si">{v}</span><span class="s2">(x)$&quot;</span><span class="p">,</span>
+            <span class="n">transform</span><span class="o">=</span><span class="n">axes</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span>
+            <span class="n">horizontalalignment</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span>
+            <span class="n">verticalalignment</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span>
+            <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span>
+            <span class="n">color</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">profile_vdot</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -291,13 +296,13 @@ equation substitutions</p></li>
         <span class="n">dpi</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">n_points</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">201</span><span class="p">,</span>
         <span class="n">do_pub_label</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-        <span class="n">pub_label</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+        <span class="n">pub_label</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
         <span class="n">do_etaxi_label</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
         <span class="n">xi_norm</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">legend_loc</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;lower right&#39;</span><span class="p">,</span>
+        <span class="n">legend_loc</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;lower right&quot;</span><span class="p">,</span>
         <span class="n">do_legend</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
         <span class="n">do_mod_vdot</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-        <span class="n">do_geodesic</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">do_geodesic</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Plot acceleration :math:`\mathbf{}\dot{v}}` along a ray.</span>
@@ -326,10 +331,10 @@ equation substitutions</p></li>
         <span class="c1">#     renormalize velocities and accelns (up to T)</span>
         <span class="k">if</span> <span class="n">xi_norm</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">xi_norm</span> <span class="o">=</span> <span class="mi">1</span>
-            <span class="n">rate_label</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;$\dot</span><span class="si">{v}</span><span class="s1">$&#39;</span>
+            <span class="n">rate_label</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;$\dot</span><span class="si">{v}</span><span class="s2">$&quot;</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">xi_norm</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">N</span><span class="p">(</span><span class="n">xi_norm</span><span class="p">))</span>
-            <span class="n">rate_label</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;$\dot</span><span class="si">{v}</span><span class="s1">/\xi^{\!\rightarrow_{\!\!0}}$  [T$^{-1}$]&#39;</span>
+            <span class="n">rate_label</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;$\dot</span><span class="si">{v}</span><span class="s2">/\xi^{\!\rightarrow_{\!\!0}}$  [T$^{-1}$]&quot;</span>
 
         <span class="c1"># Specify sampling in x and t</span>
         <span class="n">rx_array</span> <span class="o">=</span> <span class="n">gmes</span><span class="o">.</span><span class="n">rx_array</span>
@@ -338,9 +343,9 @@ equation substitutions</p></li>
         <span class="n">t_array</span> <span class="o">=</span> <span class="n">gmes</span><span class="o">.</span><span class="n">t_interp_x</span><span class="p">(</span><span class="n">x_array</span><span class="p">)</span>
 
         <span class="c1"># Get ray velocities</span>
-        <span class="n">vdotx_array</span> <span class="o">=</span> <span class="n">gmes</span><span class="o">.</span><span class="n">rddotx_interp_t</span><span class="p">(</span><span class="n">t_array</span><span class="p">)</span><span class="o">/</span><span class="n">xi_norm</span>
-        <span class="n">vdotz_array</span> <span class="o">=</span> <span class="n">gmes</span><span class="o">.</span><span class="n">rddotz_interp_t</span><span class="p">(</span><span class="n">t_array</span><span class="p">)</span><span class="o">/</span><span class="n">xi_norm</span>
-        <span class="n">vdot_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">vdotx_array</span><span class="o">**</span><span class="mi">2</span><span class="o">+</span><span class="n">vdotz_array</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">vdotx_array</span> <span class="o">=</span> <span class="n">gmes</span><span class="o">.</span><span class="n">rddotx_interp_t</span><span class="p">(</span><span class="n">t_array</span><span class="p">)</span> <span class="o">/</span> <span class="n">xi_norm</span>
+        <span class="n">vdotz_array</span> <span class="o">=</span> <span class="n">gmes</span><span class="o">.</span><span class="n">rddotz_interp_t</span><span class="p">(</span><span class="n">t_array</span><span class="p">)</span> <span class="o">/</span> <span class="n">xi_norm</span>
+        <span class="n">vdot_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">vdotx_array</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">vdotz_array</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
 
         <span class="c1"># Prep to set vertical axis to span vdotz and thus scale vdotx to fit</span>
         <span class="c1"># vdotx_max = np.max(np.abs(vdotx_array))</span>
@@ -348,108 +353,122 @@ equation substitutions</p></li>
         <span class="n">vdot_max</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">((</span><span class="n">vdot_array</span><span class="p">))</span>
 
         <span class="c1"># Start doing some plotting</span>
-        <span class="n">sfx</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">vdotz_max</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">1e-20</span> \
-            <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">vdotz_max</span><span class="o">/</span><span class="n">vdot_max</span><span class="p">),</span> <span class="mi">0</span><span class="p">))</span>
-        <span class="n">label_suffix</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span> <span class="k">if</span> <span class="n">sfx</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="sa">rf</span><span class="s1">&#39;$\,\times\,$</span><span class="si">{</span><span class="n">sfx</span><span class="si">}</span><span class="s1">&#39;</span>
-        <span class="n">vdotx_label</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;$\dot</span><span class="si">{v}</span><span class="s1">^x_\mathrm</span><span class="si">{hmltn}</span><span class="s1">(x)$&#39;</span><span class="o">+</span><span class="n">label_suffix</span>
-        <span class="n">vdotz_label</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;$\dot</span><span class="si">{v}</span><span class="s1">^z_\mathrm</span><span class="si">{hmltn}</span><span class="s1">(x)$&#39;</span>
+        <span class="n">sfx</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="mi">1</span>
+            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">vdotz_max</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">1e-20</span>
+            <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">vdotz_max</span> <span class="o">/</span> <span class="n">vdot_max</span><span class="p">),</span> <span class="mi">0</span><span class="p">))</span>
+        <span class="p">)</span>
+        <span class="n">label_suffix</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span> <span class="k">if</span> <span class="n">sfx</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="sa">rf</span><span class="s2">&quot;$\,\times\,$</span><span class="si">{</span><span class="n">sfx</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="n">vdotx_label</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;$\dot</span><span class="si">{v}</span><span class="s2">^x_\mathrm</span><span class="si">{hmltn}</span><span class="s2">(x)$&quot;</span> <span class="o">+</span> <span class="n">label_suffix</span>
+        <span class="n">vdotz_label</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;$\dot</span><span class="si">{v}</span><span class="s2">^z_\mathrm</span><span class="si">{hmltn}</span><span class="s2">(x)$&quot;</span>
         <span class="k">if</span> <span class="n">do_mod_vdot</span><span class="p">:</span>
-            <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_array</span><span class="p">,</span>
-                     <span class="n">vdot_array</span><span class="p">,</span>
-                     <span class="s1">&#39;DarkBlue&#39;</span><span class="p">,</span>
-                     <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span>
-                     <span class="n">lw</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span>
-                     <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$\dot</span><span class="si">{v}</span><span class="s1">_\mathrm</span><span class="si">{hmltn}</span><span class="s1">(x)$&#39;</span><span class="p">)</span>
-            <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Ray acceleration  &#39;</span><span class="o">+</span><span class="n">rate_label</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
-            <span class="n">legend_loc</span> <span class="o">=</span> <span class="s1">&#39;lower left&#39;</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+                <span class="n">x_array</span><span class="p">,</span>
+                <span class="n">vdot_array</span><span class="p">,</span>
+                <span class="s2">&quot;DarkBlue&quot;</span><span class="p">,</span>
+                <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;-&quot;</span><span class="p">,</span>
+                <span class="n">lw</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span>
+                <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;$\dot</span><span class="si">{v}</span><span class="s2">_\mathrm</span><span class="si">{hmltn}</span><span class="s2">(x)$&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;Ray acceleration  &quot;</span> <span class="o">+</span> <span class="n">rate_label</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
+            <span class="n">legend_loc</span> <span class="o">=</span> <span class="s2">&quot;lower left&quot;</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_array</span><span class="p">,</span>
-                     <span class="n">vdotx_array</span><span class="o">*</span><span class="n">sfx</span><span class="p">,</span>
-                     <span class="s1">&#39;r&#39;</span><span class="p">,</span>
-                     <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span>
-                     <span class="n">lw</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span>
-                     <span class="n">label</span><span class="o">=</span><span class="n">vdotx_label</span><span class="p">)</span>
-            <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_array</span><span class="p">,</span>
-                     <span class="n">vdotz_array</span><span class="p">,</span>
-                     <span class="s1">&#39;b&#39;</span><span class="p">,</span>
-                     <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span>
-                     <span class="n">lw</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span>
-                     <span class="n">label</span><span class="o">=</span><span class="n">vdotz_label</span><span class="p">)</span>
-            <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Ray acceleration  &#39;</span><span class="o">+</span><span class="n">rate_label</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+                <span class="n">x_array</span><span class="p">,</span>
+                <span class="n">vdotx_array</span> <span class="o">*</span> <span class="n">sfx</span><span class="p">,</span>
+                <span class="s2">&quot;r&quot;</span><span class="p">,</span>
+                <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;-&quot;</span><span class="p">,</span>
+                <span class="n">lw</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span>
+                <span class="n">label</span><span class="o">=</span><span class="n">vdotx_label</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+                <span class="n">x_array</span><span class="p">,</span> <span class="n">vdotz_array</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">vdotz_label</span>
+            <span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;Ray acceleration  &quot;</span> <span class="o">+</span> <span class="n">rate_label</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
 
         <span class="n">ylim</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">()</span>
 
         <span class="c1"># Geodesic computation of acceln using Christoffel symbols</span>
-        <span class="k">if</span> <span class="n">do_geodesic</span> \
-                <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">gmeq</span><span class="p">,</span> <span class="s1">&#39;vdotx_lambdified&#39;</span><span class="p">)</span> \
-                <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">gmeq</span><span class="p">,</span> <span class="s1">&#39;vdotz_lambdified&#39;</span><span class="p">)</span> \
-                <span class="ow">and</span> <span class="n">gmeq</span><span class="o">.</span><span class="n">vdotx_lambdified</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> \
-                <span class="ow">and</span> <span class="n">gmeq</span><span class="o">.</span><span class="n">vdotz_lambdified</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="n">do_geodesic</span>
+            <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">gmeq</span><span class="p">,</span> <span class="s2">&quot;vdotx_lambdified&quot;</span><span class="p">)</span>
+            <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">gmeq</span><span class="p">,</span> <span class="s2">&quot;vdotz_lambdified&quot;</span><span class="p">)</span>
+            <span class="ow">and</span> <span class="n">gmeq</span><span class="o">.</span><span class="n">vdotx_lambdified</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+            <span class="ow">and</span> <span class="n">gmeq</span><span class="o">.</span><span class="n">vdotz_lambdified</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+        <span class="p">):</span>
             <span class="n">vx_array</span> <span class="o">=</span> <span class="n">gmes</span><span class="o">.</span><span class="n">rdotx_interp</span><span class="p">(</span><span class="n">x_array</span><span class="p">)</span>
             <span class="n">vz_array</span> <span class="o">=</span> <span class="n">gmes</span><span class="o">.</span><span class="n">rdotz_interp</span><span class="p">(</span><span class="n">x_array</span><span class="p">)</span>
-            <span class="n">vdotx_gdsc_array</span> \
-                <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+            <span class="n">vdotx_gdsc_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+                <span class="p">[</span>
                     <span class="n">gmeq</span><span class="o">.</span><span class="n">vdotx_lambdified</span><span class="p">(</span>
-                        <span class="nb">float</span><span class="p">(</span><span class="n">x</span><span class="p">),</span>
-                        <span class="nb">float</span><span class="p">(</span><span class="n">vx</span><span class="p">),</span>
-                        <span class="nb">float</span><span class="p">(</span><span class="n">vz</span><span class="p">),</span>
-                        <span class="n">varepsilon</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">sub</span><span class="p">)</span>
-                    <span class="p">)</span><span class="o">/</span><span class="n">xi_norm</span>
+                        <span class="nb">float</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="nb">float</span><span class="p">(</span><span class="n">vx</span><span class="p">),</span> <span class="nb">float</span><span class="p">(</span><span class="n">vz</span><span class="p">),</span> <span class="n">varepsilon</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">sub</span><span class="p">)</span>
+                    <span class="p">)</span>
+                    <span class="o">/</span> <span class="n">xi_norm</span>
                     <span class="k">for</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">vx</span><span class="p">,</span> <span class="n">vz</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">x_array</span><span class="p">,</span> <span class="n">vx_array</span><span class="p">,</span> <span class="n">vz_array</span><span class="p">)</span>
-                    <span class="p">])</span>
-            <span class="n">vdotz_gdsc_array</span> \
-                <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+                <span class="p">]</span>
+            <span class="p">)</span>
+            <span class="n">vdotz_gdsc_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+                <span class="p">[</span>
                     <span class="n">gmeq</span><span class="o">.</span><span class="n">vdotz_lambdified</span><span class="p">(</span>
-                        <span class="nb">float</span><span class="p">(</span><span class="n">x</span><span class="p">),</span>
-                        <span class="nb">float</span><span class="p">(</span><span class="n">vx</span><span class="p">),</span>
-                        <span class="nb">float</span><span class="p">(</span><span class="n">vz</span><span class="p">),</span>
-                        <span class="n">varepsilon</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">sub</span><span class="p">)</span>
-                    <span class="p">)</span><span class="o">/</span><span class="n">xi_norm</span>
+                        <span class="nb">float</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="nb">float</span><span class="p">(</span><span class="n">vx</span><span class="p">),</span> <span class="nb">float</span><span class="p">(</span><span class="n">vz</span><span class="p">),</span> <span class="n">varepsilon</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">sub</span><span class="p">)</span>
+                    <span class="p">)</span>
+                    <span class="o">/</span> <span class="n">xi_norm</span>
                     <span class="k">for</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">vx</span><span class="p">,</span> <span class="n">vz</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">x_array</span><span class="p">,</span> <span class="n">vx_array</span><span class="p">,</span> <span class="n">vz_array</span><span class="p">)</span>
-                    <span class="p">])</span>
-            <span class="n">vdot_gdsc_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">vdotx_gdsc_array</span><span class="o">**</span><span class="mi">2</span><span class="o">+</span><span class="n">vdotz_gdsc_array</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
-            <span class="n">vdotx_label</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;$\dot</span><span class="si">{v}</span><span class="s1">^x_\mathrm</span><span class="si">{gdsc}</span><span class="s1">(x)$&#39;</span><span class="o">+</span><span class="n">label_suffix</span>
-            <span class="n">vdotz_label</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;$\dot</span><span class="si">{v}</span><span class="s1">^z_\mathrm</span><span class="si">{gdsc}</span><span class="s1">(x)$&#39;</span>
+                <span class="p">]</span>
+            <span class="p">)</span>
+            <span class="n">vdot_gdsc_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span>
+                <span class="n">vdotx_gdsc_array</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">vdotz_gdsc_array</span> <span class="o">**</span> <span class="mi">2</span>
+            <span class="p">)</span>
+            <span class="n">vdotx_label</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;$\dot</span><span class="si">{v}</span><span class="s2">^x_\mathrm</span><span class="si">{gdsc}</span><span class="s2">(x)$&quot;</span> <span class="o">+</span> <span class="n">label_suffix</span>
+            <span class="n">vdotz_label</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;$\dot</span><span class="si">{v}</span><span class="s2">^z_\mathrm</span><span class="si">{gdsc}</span><span class="s2">(x)$&quot;</span>
             <span class="k">if</span> <span class="n">do_mod_vdot</span><span class="p">:</span>
-                <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_array</span><span class="p">,</span>
-                         <span class="n">vdot_gdsc_array</span><span class="p">,</span>
-                         <span class="s1">&#39;DarkBlue&#39;</span><span class="p">,</span>
-                         <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">,</span>
-                         <span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
-                         <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$\dot</span><span class="si">{v}</span><span class="s1">_\mathrm</span><span class="si">{gdsc}</span><span class="s1">(x)$&#39;</span><span class="p">)</span>
-                <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Ray acceleration  &#39;</span><span class="o">+</span><span class="n">rate_label</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
-                <span class="n">legend_loc</span> <span class="o">=</span> <span class="s1">&#39;lower left&#39;</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+                    <span class="n">x_array</span><span class="p">,</span>
+                    <span class="n">vdot_gdsc_array</span><span class="p">,</span>
+                    <span class="s2">&quot;DarkBlue&quot;</span><span class="p">,</span>
+                    <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;:&quot;</span><span class="p">,</span>
+                    <span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+                    <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;$\dot</span><span class="si">{v}</span><span class="s2">_\mathrm</span><span class="si">{gdsc}</span><span class="s2">(x)$&quot;</span><span class="p">,</span>
+                <span class="p">)</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;Ray acceleration  &quot;</span> <span class="o">+</span> <span class="n">rate_label</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
+                <span class="n">legend_loc</span> <span class="o">=</span> <span class="s2">&quot;lower left&quot;</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_array</span><span class="p">,</span>
-                         <span class="n">vdotx_gdsc_array</span><span class="o">*</span><span class="n">sfx</span><span class="p">,</span>
-                         <span class="s1">&#39;DarkRed&#39;</span><span class="p">,</span>
-                         <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">,</span>
-                         <span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
-                         <span class="n">label</span><span class="o">=</span><span class="n">vdotx_label</span><span class="p">)</span>
-                <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_array</span><span class="p">,</span>
-                         <span class="n">vdotz_gdsc_array</span><span class="p">,</span>
-                         <span class="s1">&#39;DarkBlue&#39;</span><span class="p">,</span>
-                         <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">,</span>
-                         <span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
-                         <span class="n">label</span><span class="o">=</span><span class="n">vdotz_label</span><span class="p">)</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+                    <span class="n">x_array</span><span class="p">,</span>
+                    <span class="n">vdotx_gdsc_array</span> <span class="o">*</span> <span class="n">sfx</span><span class="p">,</span>
+                    <span class="s2">&quot;DarkRed&quot;</span><span class="p">,</span>
+                    <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;:&quot;</span><span class="p">,</span>
+                    <span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+                    <span class="n">label</span><span class="o">=</span><span class="n">vdotx_label</span><span class="p">,</span>
+                <span class="p">)</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+                    <span class="n">x_array</span><span class="p">,</span>
+                    <span class="n">vdotz_gdsc_array</span><span class="p">,</span>
+                    <span class="s2">&quot;DarkBlue&quot;</span><span class="p">,</span>
+                    <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;:&quot;</span><span class="p">,</span>
+                    <span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+                    <span class="n">label</span><span class="o">=</span><span class="n">vdotz_label</span><span class="p">,</span>
+                <span class="p">)</span>
 
         <span class="c1"># Misc pretty stuff</span>
         <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
         <span class="n">axes</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">*</span><span class="n">ylim</span><span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;:&quot;</span><span class="p">)</span>
 
-        <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Distance, $x/L_{\mathrm</span><span class="si">{c}</span><span class="s1">}$  [-]&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;Distance, $x/L_{\mathrm</span><span class="si">{c}</span><span class="s2">}$  [-]&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">do_legend</span><span class="p">:</span>
             <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="n">legend_loc</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span> <span class="n">framealpha</span><span class="o">=</span><span class="mf">0.95</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">do_etaxi_label</span><span class="p">:</span>
-            <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.6</span><span class="p">,</span>
-                     <span class="mf">0.8</span><span class="p">,</span>
-                     <span class="n">pub_label</span> <span class="k">if</span> <span class="n">do_pub_label</span> <span class="k">else</span> <span class="sa">rf</span><span class="s1">&#39;$\eta=</span><span class="si">{</span><span class="n">gmeq</span><span class="o">.</span><span class="n">eta_</span><span class="si">}</span><span class="s1">$&#39;</span><span class="p">,</span>
-                     <span class="n">transform</span><span class="o">=</span><span class="n">axes</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span>
-                     <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
-                     <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
-                     <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span>
-                     <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
+                <span class="mf">0.6</span><span class="p">,</span>
+                <span class="mf">0.8</span><span class="p">,</span>
+                <span class="n">pub_label</span> <span class="k">if</span> <span class="n">do_pub_label</span> <span class="k">else</span> <span class="sa">rf</span><span class="s2">&quot;$\eta=</span><span class="si">{</span><span class="n">gmeq</span><span class="o">.</span><span class="n">eta_</span><span class="si">}</span><span class="s2">$&quot;</span><span class="p">,</span>
+                <span class="n">transform</span><span class="o">=</span><span class="n">axes</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span>
+                <span class="n">horizontalalignment</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span>
+                <span class="n">verticalalignment</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span>
+                <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span>
+                <span class="n">color</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
 </pre></div>
 </div>
 </div>

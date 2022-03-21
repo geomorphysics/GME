@@ -1,9 +1,5 @@
 """
----------------------------------------------------------------------
-
 Visualization of geodesics.
-
----------------------------------------------------------------------
 
 Requires Python packages/modules:
   -  :mod:`NumPy <numpy>`
@@ -16,9 +12,6 @@ Requires Python packages/modules:
 .. _GME: https://github.com/geomorphysics/GME
 .. _Matrix:
     https://docs.sympy.org/latest/modules/matrices/immutablematrices.html
-
----------------------------------------------------------------------
-
 """
 # Library
 import warnings
@@ -85,9 +78,7 @@ class RayGeodesics(Graphing):
         n_points: int,
         do_recompute: bool = False,
     ) -> None:
-        r"""
-        Constructor method
-        """
+        r"""Initialize: constructor method."""
         super().__init__()
         # if not hasattr(self,'x_array') or n_points!=len(self.x_array):
         # HACK!!!

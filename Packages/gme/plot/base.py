@@ -1,9 +1,5 @@
 """
----------------------------------------------------------------------
-
 GME visualization base class.
-
----------------------------------------------------------------------
 
 Requires Python packages:
   -  :mod:`NumPy <numpy>`
@@ -14,10 +10,6 @@ Requires Python packages:
 .. _GME: https://github.com/geomorphysics/GME
 .. _Matrix:
     https://docs.sympy.org/latest/modules/matrices/immutablematrices.html
-
-
----------------------------------------------------------------------
-
 """
 # Library
 import warnings
@@ -61,9 +53,7 @@ class Graphing(GraphingBase):
         do_smooth: bool = False,
         cmap_choice: str = "brg",
     ) -> List[str]:
-        r"""
-        Generate a color palette
-        """
+        r"""Generate a color palette."""
         if not do_smooth:
             colors_ = self.colors[(i // r) % self.n_colors]
         else:
@@ -72,13 +62,13 @@ class Graphing(GraphingBase):
         return colors_
 
     def gray_color(self, i_isochrone: int = 0, n_isochrones: int = 1) -> str:
-        r"""
-        Make a grey shade for to communicate isochrone time
-        """
+        r"""Make a grey shade for to communicate isochrone time."""
         return f"{(n_isochrones-1-i_isochrone)/(n_isochrones-1)*0.75}"
 
     def correct_quadrant(self, angle: float) -> float:
         r"""
+        Find correct quadrant.
+
         If angle :math:`|\theta|\approx 0`, set :math:`\theta=0`;
         otherwise, if angle :math:`\theta<0`,
         map :math:`\theta \rightarrow \pi-\theta`.
@@ -115,8 +105,7 @@ class Graphing(GraphingBase):
         do_one_ray: bool = False,
     ) -> None:
         """
-        Plot ray and arrowheads along the ray to visualize the
-        direction of motion.
+        Plot ray with arrowheads along the ray to visualize direction of motion.
 
         Args:
             axes:
@@ -207,8 +196,7 @@ class Graphing(GraphingBase):
         do_smooth_colors: bool = False,
     ) -> None:
         """
-        Add arrowheads to a ray trajectory to visualize
-        the direction of motion.
+        Add arrowheads to a ray trajectory to visualize the direction of motion.
 
         Args:
             rx_array:

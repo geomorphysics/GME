@@ -52,29 +52,28 @@
             
   <div class="section" id="module-gme.plot.ray_profiles">
 <span id="ray-profiles-py"></span><h1><code class="docutils literal notranslate"><span class="pre">ray_profiles.py</span></code><a class="headerlink" href="#module-gme.plot.ray_profiles" title="Permalink to this headline">¶</a></h1>
-<hr class="docutils" />
 <p>Visualization of ray properties along a profile.</p>
-<hr class="docutils" />
 <dl class="simple">
 <dt>Requires Python packages/modules:</dt><dd><ul class="simple">
 <li><p><a class="reference external" href="https://numpy.org/doc/stable/reference/index.html#module-numpy" title="(in NumPy v1.22)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">NumPy</span></code></a></p></li>
-<li><p><a class="reference external" href="https://docs.sympy.org/latest/modules/index.html#module-sympy" title="(in SymPy v1.9)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">SymPy</span></code></a></p></li>
+<li><p><a class="reference external" href="https://docs.sympy.org/latest/index.html#module-sympy" title="(in SymPy v1.10.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">SymPy</span></code></a></p></li>
 <li><p><a class="reference external" href="https://matplotlib.org/stable/index.html#module-matplotlib" title="(in Matplotlib v3.5.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">MatPlotLib</span></code></a></p></li>
 <li><p><a class="reference external" href="https://github.com/geomorphysics/GME">GME</a></p></li>
 </ul>
 </dd>
 </dl>
-<hr class="docutils" />
 <dl class="py class">
 <dt class="sig sig-object py" id="gme.plot.ray_profiles.RayProfiles">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gme.plot.ray_profiles.</span></span><span class="sig-name descname"><span class="pre">RayProfiles</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dpi</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">font_size</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">11</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gme.plot.ray_profiles.RayProfiles" title="Permalink to this definition">¶</a></dt>
-<dd><p>Visualization of ray properties as a function of distance along
+<dd><p>Plot rays along a profile.</p>
+<p>Visualization of ray properties as a function of distance along
 the profile.</p>
 <p>Extends <a class="reference internal" href="base.html#gme.plot.base.Graphing" title="gme.plot.base.Graphing"><code class="xref py py-class docutils literal notranslate"><span class="pre">gme.plot.base.Graphing</span></code></a>.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.plot.ray_profiles.RayProfiles.profile_h">
 <span class="sig-name descname"><span class="pre">profile_h</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmes</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="../ode/time_invariant.html#gme.ode.time_invariant.TimeInvariantSolution" title="gme.ode.time_invariant.TimeInvariantSolution"><span class="pre">gme.ode.time_invariant.TimeInvariantSolution</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">gmeq</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="../core/equations.html#gme.core.equations.Equations" title="gme.core.equations.Equations"><span class="pre">gme.core.equations.Equations</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">sub</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">fig_size</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dpi</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_limits</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_legend</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_profile_points</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">profile_subsetting</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_pub_label</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pub_label</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pub_label_xy</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">(0.93,</span> <span class="pre">0.33)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_etaxi_label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eta_label_xy</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.plot.ray_profiles.RayProfiles.profile_h" title="Permalink to this definition">¶</a></dt>
-<dd><p>Plot a time-invariant topographic profile solution of
+<dd><p>Plot profile.</p>
+<p>Plot a time-invariant topographic profile solution of
 Hamilton’s equations.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -96,7 +95,8 @@ equation substitutions</p></li>
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.plot.ray_profiles.RayProfiles.profile_h_rays">
 <span class="sig-name descname"><span class="pre">profile_h_rays</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmes</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="../ode/time_invariant.html#gme.ode.time_invariant.TimeInvariantSolution" title="gme.ode.time_invariant.TimeInvariantSolution"><span class="pre">gme.ode.time_invariant.TimeInvariantSolution</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">gmeq</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="../core/equations.html#gme.core.equations.Equations" title="gme.core.equations.Equations"><span class="pre">gme.core.equations.Equations</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">sub</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">fig_size</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dpi</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_limits</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_limits</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_points</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">101</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_direct</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_rays</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_schematic</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_legend</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_fault_bdry</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_compute_xivh_ratio</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_one_ray</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_t_sampling</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_pub_label</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pub_label</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pub_label_xy</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">(0.93,</span> <span class="pre">0.33)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_etaxi_label</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eta_label_xy</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">(0.5,</span> <span class="pre">0.8)</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.plot.ray_profiles.RayProfiles.profile_h_rays" title="Permalink to this definition">¶</a></dt>
-<dd><p>Plot a set of erosion rays for a time-invariant
+<dd><p>Plot rays and profile.</p>
+<p>Plot a set of erosion rays for a time-invariant
 topographic profile solution of Hamilton’s equations.</p>
 <p>Hamilton’s equations are integrated once
 (from the left boundary to the divide)
@@ -167,11 +167,7 @@ equation substitutions</p></li>
 <div class="section" id="code">
 <h2>Code<a class="headerlink" href="#code" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">---------------------------------------------------------------------</span>
-
 <span class="sd">Visualization of ray properties along a profile.</span>
-
-<span class="sd">---------------------------------------------------------------------</span>
 
 <span class="sd">Requires Python packages/modules:</span>
 <span class="sd">  -  :mod:`NumPy &lt;numpy&gt;`</span>
@@ -183,9 +179,6 @@ equation substitutions</p></li>
 <span class="sd">.. _GME: https://github.com/geomorphysics/GME</span>
 <span class="sd">.. _Matrix:</span>
 <span class="sd">    https://docs.sympy.org/latest/modules/matrices/immutablematrices.html</span>
-
-<span class="sd">---------------------------------------------------------------------</span>
-
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="c1"># Library</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
@@ -210,11 +203,13 @@ equation substitutions</p></li>
 
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
 
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;RayProfiles&#39;</span><span class="p">]</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;RayProfiles&quot;</span><span class="p">]</span>
 
 
 <span class="k">class</span> <span class="nc">RayProfiles</span><span class="p">(</span><span class="n">Graphing</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Plot rays along a profile.</span>
+
 <span class="sd">    Visualization of ray properties as a function of distance along</span>
 <span class="sd">    the profile.</span>
 
@@ -237,7 +232,7 @@ equation substitutions</p></li>
         <span class="n">do_simple</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
         <span class="n">do_t_sampling</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
         <span class="n">do_pub_label</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-        <span class="n">pub_label</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+        <span class="n">pub_label</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
         <span class="n">pub_label_xy</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.15</span><span class="p">,</span> <span class="mf">0.50</span><span class="p">),</span>
         <span class="n">do_etaxi_label</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
         <span class="n">eta_label_xy</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -287,49 +282,62 @@ equation substitutions</p></li>
             <span class="n">t_rsmpld_array</span> <span class="o">=</span> <span class="n">gmes</span><span class="o">.</span><span class="n">t_interp_x</span><span class="p">(</span><span class="n">x_rsmpld_array</span><span class="p">)</span>
         <span class="n">rx_rsmpld_array</span> <span class="o">=</span> <span class="n">gmes</span><span class="o">.</span><span class="n">rx_interp_t</span><span class="p">(</span><span class="n">t_rsmpld_array</span><span class="p">)</span>
         <span class="n">rz_rsmpld_array</span> <span class="o">=</span> <span class="n">gmes</span><span class="o">.</span><span class="n">rz_interp_t</span><span class="p">(</span><span class="n">t_rsmpld_array</span><span class="p">)</span>
-        <span class="n">v_rsmpld_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">gmes</span><span class="o">.</span><span class="n">rdotx_interp_t</span><span class="p">(</span><span class="n">t_rsmpld_array</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
-                                 <span class="o">+</span> <span class="n">gmes</span><span class="o">.</span><span class="n">rdotz_interp_t</span><span class="p">(</span><span class="n">t_rsmpld_array</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">v_rsmpld_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span>
+            <span class="n">gmes</span><span class="o">.</span><span class="n">rdotx_interp_t</span><span class="p">(</span><span class="n">t_rsmpld_array</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
+            <span class="o">+</span> <span class="n">gmes</span><span class="o">.</span><span class="n">rdotz_interp_t</span><span class="p">(</span><span class="n">t_rsmpld_array</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
+        <span class="p">)</span>
 
         <span class="c1"># Plot arrow-annotated rays</span>
-        <span class="n">xi_vh_ratio</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="o">-</span><span class="n">tan</span><span class="p">(</span><span class="n">Ci</span><span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">sub</span><span class="p">))</span> <span class="k">if</span> <span class="n">do_ndim</span> \
-            <span class="k">else</span> <span class="nb">float</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">xiv_0</span><span class="o">/</span><span class="n">xih_0</span><span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">sub</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">draw_rays_with_arrows_simple</span><span class="p">(</span><span class="n">axes</span><span class="p">,</span>
-                                          <span class="n">sub</span><span class="p">,</span> <span class="n">xi_vh_ratio</span><span class="p">,</span>
-                                          <span class="n">t_rsmpld_array</span><span class="p">,</span>
-                                          <span class="n">rx_rsmpld_array</span><span class="p">,</span>
-                                          <span class="n">rz_rsmpld_array</span><span class="p">,</span>
-                                          <span class="n">v_rsmpld_array</span><span class="p">,</span>
-                                          <span class="n">n_rays</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-                                          <span class="n">n_t</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                                          <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span>
-                                          <span class="n">sf</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-                                          <span class="n">do_one_ray</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                                          <span class="n">color</span><span class="o">=</span><span class="s1">&#39;0.5&#39;</span><span class="p">)</span>
+        <span class="n">xi_vh_ratio</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="nb">float</span><span class="p">(</span><span class="o">-</span><span class="n">tan</span><span class="p">(</span><span class="n">Ci</span><span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">sub</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">do_ndim</span>
+            <span class="k">else</span> <span class="nb">float</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">xiv_0</span> <span class="o">/</span> <span class="n">xih_0</span><span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">sub</span><span class="p">))</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">draw_rays_with_arrows_simple</span><span class="p">(</span>
+            <span class="n">axes</span><span class="p">,</span>
+            <span class="n">sub</span><span class="p">,</span>
+            <span class="n">xi_vh_ratio</span><span class="p">,</span>
+            <span class="n">t_rsmpld_array</span><span class="p">,</span>
+            <span class="n">rx_rsmpld_array</span><span class="p">,</span>
+            <span class="n">rz_rsmpld_array</span><span class="p">,</span>
+            <span class="n">v_rsmpld_array</span><span class="p">,</span>
+            <span class="n">n_rays</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+            <span class="n">n_t</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;-&quot;</span><span class="p">,</span>
+            <span class="n">sf</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+            <span class="n">do_one_ray</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">color</span><span class="o">=</span><span class="s2">&quot;0.5&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
 
         <span class="n">axes</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="n">aspect</span> <span class="k">if</span> <span class="n">aspect</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="mi">1</span><span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Distance, $x/L_{\mathrm</span><span class="si">{c}</span><span class="s1">}$  [-]&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Elevation, $z/L_{\mathrm</span><span class="si">{c}</span><span class="s1">}$  [-]&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;:&quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;Distance, $x/L_{\mathrm</span><span class="si">{c}</span><span class="s2">}$  [-]&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;Elevation, $z/L_{\mathrm</span><span class="si">{c}</span><span class="s2">}$  [-]&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">eta_label_xy</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">eta_label_xy</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.92</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">do_schematic</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">do_simple</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">do_etaxi_label</span><span class="p">:</span>
-                <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">*</span><span class="n">eta_label_xy</span><span class="p">,</span>
-                         <span class="sa">rf</span><span class="s1">&#39;$\eta=</span><span class="si">{</span><span class="n">gmeq</span><span class="o">.</span><span class="n">eta_</span><span class="si">}</span><span class="s1">$&#39;</span><span class="o">+</span><span class="sa">r</span><span class="s1">&#39;$\quad\mathsf</span><span class="si">{Ci}</span><span class="s1">=$&#39;</span>
-                         <span class="o">+</span> <span class="sa">rf</span><span class="s1">&#39;$</span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">deg</span><span class="p">(</span><span class="n">Ci</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">sub</span><span class="p">))))</span><span class="si">}</span><span class="s1">\degree$&#39;</span><span class="p">,</span>
-                         <span class="n">transform</span><span class="o">=</span><span class="n">axes</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span>
-                         <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
-                         <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
-                         <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span>
-                         <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
+                    <span class="o">*</span><span class="n">eta_label_xy</span><span class="p">,</span>
+                    <span class="sa">rf</span><span class="s2">&quot;$\eta=</span><span class="si">{</span><span class="n">gmeq</span><span class="o">.</span><span class="n">eta_</span><span class="si">}</span><span class="s2">$&quot;</span>
+                    <span class="o">+</span> <span class="sa">r</span><span class="s2">&quot;$\quad\mathsf</span><span class="si">{Ci}</span><span class="s2">=$&quot;</span>
+                    <span class="o">+</span> <span class="sa">rf</span><span class="s2">&quot;$</span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">deg</span><span class="p">(</span><span class="n">Ci</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">sub</span><span class="p">))))</span><span class="si">}</span><span class="s2">\degree$&quot;</span><span class="p">,</span>
+                    <span class="n">transform</span><span class="o">=</span><span class="n">axes</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span>
+                    <span class="n">horizontalalignment</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span>
+                    <span class="n">verticalalignment</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span>
+                    <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span>
+                    <span class="n">color</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">,</span>
+                <span class="p">)</span>
             <span class="k">if</span> <span class="n">do_pub_label</span><span class="p">:</span>
-                <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">*</span><span class="n">pub_label_xy</span><span class="p">,</span>
-                         <span class="n">pub_label</span><span class="p">,</span>
-                         <span class="n">transform</span><span class="o">=</span><span class="n">axes</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span>
-                         <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
-                         <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
-                         <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
-                         <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
+                    <span class="o">*</span><span class="n">pub_label_xy</span><span class="p">,</span>
+                    <span class="n">pub_label</span><span class="p">,</span>
+                    <span class="n">transform</span><span class="o">=</span><span class="n">axes</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span>
+                    <span class="n">horizontalalignment</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span>
+                    <span class="n">verticalalignment</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span>
+                    <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
+                    <span class="n">color</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">,</span>
+                <span class="p">)</span>
         <span class="k">if</span> <span class="n">y_limits</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">*</span><span class="n">y_limits</span><span class="p">)</span>
 
@@ -353,12 +361,14 @@ equation substitutions</p></li>
         <span class="n">do_one_ray</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
         <span class="n">do_t_sampling</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
         <span class="n">do_pub_label</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-        <span class="n">pub_label</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+        <span class="n">pub_label</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
         <span class="n">pub_label_xy</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.93</span><span class="p">,</span> <span class="mf">0.33</span><span class="p">),</span>
         <span class="n">do_etaxi_label</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-        <span class="n">eta_label_xy</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">)</span>
+        <span class="n">eta_label_xy</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">),</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Plot rays and profile.</span>
+
 <span class="sd">        Plot a set of erosion rays for a time-invariant</span>
 <span class="sd">        topographic profile solution of Hamilton&#39;s equations.</span>
 
@@ -427,34 +437,41 @@ equation substitutions</p></li>
         <span class="n">rz_rsmpld_array</span> <span class="o">=</span> <span class="n">gmes</span><span class="o">.</span><span class="n">rz_interp_t</span><span class="p">(</span><span class="n">t_rsmpld_array</span><span class="p">)</span>
 
         <span class="c1"># Plot arrow-annotated rays</span>
-        <span class="n">xi_vh_ratio</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="o">-</span><span class="n">tan</span><span class="p">(</span><span class="n">Ci</span><span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">sub</span><span class="p">))</span> <span class="k">if</span> <span class="n">do_compute_xivh_ratio</span> \
-            <span class="k">else</span> <span class="nb">float</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">xiv_0</span><span class="o">/</span><span class="n">xih_0</span><span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">sub</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">draw_rays_with_arrows_simple</span><span class="p">(</span><span class="n">axes</span><span class="p">,</span>
-                                          <span class="n">sub</span><span class="p">,</span>
-                                          <span class="n">xi_vh_ratio</span><span class="p">,</span>
-                                          <span class="n">t_rsmpld_array</span><span class="p">,</span>
-                                          <span class="n">rx_rsmpld_array</span><span class="p">,</span>
-                                          <span class="n">rz_rsmpld_array</span><span class="p">,</span>
-                                          <span class="n">n_rays</span><span class="o">=</span><span class="n">n_rays</span><span class="p">,</span>
-                                          <span class="n">n_t</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                                          <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;-&#39;</span> <span class="k">if</span> <span class="n">do_schematic</span> <span class="k">else</span> <span class="s1">&#39;-&#39;</span><span class="p">,</span>
-                                          <span class="n">sf</span><span class="o">=</span><span class="mf">0.5</span> <span class="k">if</span> <span class="n">do_schematic</span> <span class="k">else</span> <span class="mi">1</span><span class="p">,</span>
-                                          <span class="n">do_one_ray</span><span class="o">=</span><span class="n">do_one_ray</span><span class="p">)</span>
+        <span class="n">xi_vh_ratio</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="nb">float</span><span class="p">(</span><span class="o">-</span><span class="n">tan</span><span class="p">(</span><span class="n">Ci</span><span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">sub</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">do_compute_xivh_ratio</span>
+            <span class="k">else</span> <span class="nb">float</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">xiv_0</span> <span class="o">/</span> <span class="n">xih_0</span><span class="p">)</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">sub</span><span class="p">))</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">draw_rays_with_arrows_simple</span><span class="p">(</span>
+            <span class="n">axes</span><span class="p">,</span>
+            <span class="n">sub</span><span class="p">,</span>
+            <span class="n">xi_vh_ratio</span><span class="p">,</span>
+            <span class="n">t_rsmpld_array</span><span class="p">,</span>
+            <span class="n">rx_rsmpld_array</span><span class="p">,</span>
+            <span class="n">rz_rsmpld_array</span><span class="p">,</span>
+            <span class="n">n_rays</span><span class="o">=</span><span class="n">n_rays</span><span class="p">,</span>
+            <span class="n">n_t</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;-&quot;</span> <span class="k">if</span> <span class="n">do_schematic</span> <span class="k">else</span> <span class="s2">&quot;-&quot;</span><span class="p">,</span>
+            <span class="n">sf</span><span class="o">=</span><span class="mf">0.5</span> <span class="k">if</span> <span class="n">do_schematic</span> <span class="k">else</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="n">do_one_ray</span><span class="o">=</span><span class="n">do_one_ray</span><span class="p">,</span>
+        <span class="p">)</span>
 
         <span class="k">if</span> <span class="n">do_schematic</span><span class="p">:</span>
             <span class="c1"># For schematic fig, also plot mirror-image topo profile</span>
             <span class="c1">#                     on opposite side of drainage divide</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">draw_rays_with_arrows_simple</span><span class="p">(</span><span class="n">axes</span><span class="p">,</span>
-                                              <span class="n">sub</span><span class="p">,</span>
-                                              <span class="n">xi_vh_ratio</span><span class="p">,</span>
-                                              <span class="n">t_rsmpld_array</span><span class="p">,</span>
-                                              <span class="mi">2</span><span class="o">-</span><span class="n">rx_rsmpld_array</span><span class="p">,</span>
-                                              <span class="n">rz_rsmpld_array</span><span class="p">,</span>
-                                              <span class="n">n_rays</span><span class="o">=</span><span class="n">n_rays</span><span class="p">,</span>
-                                              <span class="n">n_t</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                                              <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;-&#39;</span> <span class="k">if</span> <span class="n">do_schematic</span> <span class="k">else</span> <span class="s1">&#39;-&#39;</span><span class="p">,</span>
-                                              <span class="n">sf</span><span class="o">=</span><span class="mf">0.5</span> <span class="k">if</span> <span class="n">do_schematic</span> <span class="k">else</span> <span class="mi">1</span><span class="p">,</span>
-                                              <span class="n">do_labels</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">draw_rays_with_arrows_simple</span><span class="p">(</span>
+                <span class="n">axes</span><span class="p">,</span>
+                <span class="n">sub</span><span class="p">,</span>
+                <span class="n">xi_vh_ratio</span><span class="p">,</span>
+                <span class="n">t_rsmpld_array</span><span class="p">,</span>
+                <span class="mi">2</span> <span class="o">-</span> <span class="n">rx_rsmpld_array</span><span class="p">,</span>
+                <span class="n">rz_rsmpld_array</span><span class="p">,</span>
+                <span class="n">n_rays</span><span class="o">=</span><span class="n">n_rays</span><span class="p">,</span>
+                <span class="n">n_t</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;-&quot;</span> <span class="k">if</span> <span class="n">do_schematic</span> <span class="k">else</span> <span class="s2">&quot;-&quot;</span><span class="p">,</span>
+                <span class="n">sf</span><span class="o">=</span><span class="mf">0.5</span> <span class="k">if</span> <span class="n">do_schematic</span> <span class="k">else</span> <span class="mi">1</span><span class="p">,</span>
+                <span class="n">do_labels</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="p">)</span>
 
         <span class="c1"># # Markers = topo profile from ray terminations</span>
         <span class="c1"># if not do_schematic and not do_one_ray:</span>
@@ -465,131 +482,167 @@ equation substitutions</p></li>
 
         <span class="c1"># Solid line = topo profile from direct integration of gradient array</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">do_direct</span> <span class="ow">or</span> <span class="n">do_schematic</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">do_one_ray</span><span class="p">:</span>
-            <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">gmes</span><span class="o">.</span><span class="n">h_x_array</span><span class="p">,</span>
-                     <span class="n">gmes</span><span class="o">.</span><span class="n">h_z_array</span><span class="o">-</span><span class="n">gmes</span><span class="o">.</span><span class="n">h_z_array</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
-                     <span class="s1">&#39;k&#39;</span><span class="p">,</span>
-                     <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$T(\mathbf</span><span class="si">{r}</span><span class="s1">)$&#39;</span> <span class="k">if</span> <span class="n">do_schematic</span>
-                     <span class="k">else</span> <span class="sa">r</span><span class="s1">&#39;$T(\mathbf</span><span class="si">{r}</span><span class="s1">)$&#39;</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+                <span class="n">gmes</span><span class="o">.</span><span class="n">h_x_array</span><span class="p">,</span>
+                <span class="n">gmes</span><span class="o">.</span><span class="n">h_z_array</span> <span class="o">-</span> <span class="n">gmes</span><span class="o">.</span><span class="n">h_z_array</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                <span class="s2">&quot;k&quot;</span><span class="p">,</span>
+                <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;$T(\mathbf</span><span class="si">{r}</span><span class="s2">)$&quot;</span>
+                <span class="k">if</span> <span class="n">do_schematic</span>
+                <span class="k">else</span> <span class="sa">r</span><span class="s2">&quot;$T(\mathbf</span><span class="si">{r}</span><span class="s2">)$&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
             <span class="k">if</span> <span class="n">do_schematic</span><span class="p">:</span>
-                <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">gmes</span><span class="o">.</span><span class="n">h_x_array</span><span class="p">,</span>
-                         <span class="n">gmes</span><span class="o">.</span><span class="n">h_z_array</span><span class="o">-</span><span class="n">gmes</span><span class="o">.</span><span class="n">h_z_array</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mf">0.26</span><span class="p">,</span>
-                         <span class="s1">&#39;0.75&#39;</span><span class="p">,</span>
-                         <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-                         <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
-                <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">gmes</span><span class="o">.</span><span class="n">h_x_array</span><span class="p">,</span>
-                         <span class="n">gmes</span><span class="o">.</span><span class="n">h_z_array</span><span class="o">-</span><span class="n">gmes</span><span class="o">.</span><span class="n">h_z_array</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mf">0.13</span><span class="p">,</span>
-                         <span class="s1">&#39;0.5&#39;</span><span class="p">,</span>
-                         <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-                         <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
-                <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="mi">2</span><span class="o">-</span><span class="n">gmes</span><span class="o">.</span><span class="n">h_x_array</span><span class="p">,</span>
-                         <span class="n">gmes</span><span class="o">.</span><span class="n">h_z_array</span><span class="o">-</span><span class="n">gmes</span><span class="o">.</span><span class="n">h_z_array</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
-                         <span class="s1">&#39;k&#39;</span><span class="p">)</span>
-                <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="mi">2</span><span class="o">-</span><span class="n">gmes</span><span class="o">.</span><span class="n">h_x_array</span><span class="p">,</span>
-                         <span class="n">gmes</span><span class="o">.</span><span class="n">h_z_array</span><span class="o">-</span><span class="n">gmes</span><span class="o">.</span><span class="n">h_z_array</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mf">0.13</span><span class="p">,</span>
-                         <span class="s1">&#39;0.5&#39;</span><span class="p">,</span>
-                         <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-                         <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
-                <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="mi">2</span><span class="o">-</span><span class="n">gmes</span><span class="o">.</span><span class="n">h_x_array</span><span class="p">,</span>
-                         <span class="n">gmes</span><span class="o">.</span><span class="n">h_z_array</span><span class="o">-</span><span class="n">gmes</span><span class="o">.</span><span class="n">h_z_array</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mf">0.26</span><span class="p">,</span>
-                         <span class="s1">&#39;0.75&#39;</span><span class="p">,</span>
-                         <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-                         <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+                    <span class="n">gmes</span><span class="o">.</span><span class="n">h_x_array</span><span class="p">,</span>
+                    <span class="n">gmes</span><span class="o">.</span><span class="n">h_z_array</span> <span class="o">-</span> <span class="n">gmes</span><span class="o">.</span><span class="n">h_z_array</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mf">0.26</span><span class="p">,</span>
+                    <span class="s2">&quot;0.75&quot;</span><span class="p">,</span>
+                    <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                    <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">,</span>
+                <span class="p">)</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+                    <span class="n">gmes</span><span class="o">.</span><span class="n">h_x_array</span><span class="p">,</span>
+                    <span class="n">gmes</span><span class="o">.</span><span class="n">h_z_array</span> <span class="o">-</span> <span class="n">gmes</span><span class="o">.</span><span class="n">h_z_array</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mf">0.13</span><span class="p">,</span>
+                    <span class="s2">&quot;0.5&quot;</span><span class="p">,</span>
+                    <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                    <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">,</span>
+                <span class="p">)</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+                    <span class="mi">2</span> <span class="o">-</span> <span class="n">gmes</span><span class="o">.</span><span class="n">h_x_array</span><span class="p">,</span> <span class="n">gmes</span><span class="o">.</span><span class="n">h_z_array</span> <span class="o">-</span> <span class="n">gmes</span><span class="o">.</span><span class="n">h_z_array</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">&quot;k&quot;</span>
+                <span class="p">)</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+                    <span class="mi">2</span> <span class="o">-</span> <span class="n">gmes</span><span class="o">.</span><span class="n">h_x_array</span><span class="p">,</span>
+                    <span class="n">gmes</span><span class="o">.</span><span class="n">h_z_array</span> <span class="o">-</span> <span class="n">gmes</span><span class="o">.</span><span class="n">h_z_array</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mf">0.13</span><span class="p">,</span>
+                    <span class="s2">&quot;0.5&quot;</span><span class="p">,</span>
+                    <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                    <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">,</span>
+                <span class="p">)</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+                    <span class="mi">2</span> <span class="o">-</span> <span class="n">gmes</span><span class="o">.</span><span class="n">h_x_array</span><span class="p">,</span>
+                    <span class="n">gmes</span><span class="o">.</span><span class="n">h_z_array</span> <span class="o">-</span> <span class="n">gmes</span><span class="o">.</span><span class="n">h_z_array</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mf">0.26</span><span class="p">,</span>
+                    <span class="s2">&quot;0.75&quot;</span><span class="p">,</span>
+                    <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                    <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">,</span>
+                <span class="p">)</span>
 
         <span class="n">axes</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Distance, $x/L_{\mathrm</span><span class="si">{c}</span><span class="s1">}$  [-]&#39;</span><span class="p">,</span>
-                   <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span> <span class="k">if</span> <span class="n">do_schematic</span> <span class="k">else</span> <span class="mi">16</span><span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Elevation, $z/L_{\mathrm</span><span class="si">{c}</span><span class="s1">}$  [-]&#39;</span><span class="p">,</span>
-                   <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span> <span class="k">if</span> <span class="n">do_schematic</span> <span class="k">else</span> <span class="mi">16</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;:&quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span>
+            <span class="sa">r</span><span class="s2">&quot;Distance, $x/L_{\mathrm</span><span class="si">{c}</span><span class="s2">}$  [-]&quot;</span><span class="p">,</span>
+            <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span> <span class="k">if</span> <span class="n">do_schematic</span> <span class="k">else</span> <span class="mi">16</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span>
+            <span class="sa">r</span><span class="s2">&quot;Elevation, $z/L_{\mathrm</span><span class="si">{c}</span><span class="s2">}$  [-]&quot;</span><span class="p">,</span>
+            <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span> <span class="k">if</span> <span class="n">do_schematic</span> <span class="k">else</span> <span class="mi">16</span><span class="p">,</span>
+        <span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">do_schematic</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">do_one_ray</span> <span class="ow">and</span> <span class="n">do_legend</span><span class="p">:</span>
-            <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span> <span class="k">if</span> <span class="n">do_schematic</span> <span class="k">else</span> <span class="s1">&#39;upper left&#39;</span><span class="p">,</span>
-                       <span class="n">fontsize</span><span class="o">=</span><span class="mi">9</span> <span class="k">if</span> <span class="n">do_schematic</span> <span class="k">else</span> <span class="mi">11</span><span class="p">,</span>
-                       <span class="n">framealpha</span><span class="o">=</span><span class="mf">0.95</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span>
+                <span class="n">loc</span><span class="o">=</span><span class="s2">&quot;upper right&quot;</span> <span class="k">if</span> <span class="n">do_schematic</span> <span class="k">else</span> <span class="s2">&quot;upper left&quot;</span><span class="p">,</span>
+                <span class="n">fontsize</span><span class="o">=</span><span class="mi">9</span> <span class="k">if</span> <span class="n">do_schematic</span> <span class="k">else</span> <span class="mi">11</span><span class="p">,</span>
+                <span class="n">framealpha</span><span class="o">=</span><span class="mf">0.95</span><span class="p">,</span>
+            <span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">do_schematic</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">do_etaxi_label</span><span class="p">:</span>
-                <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">*</span><span class="n">eta_label_xy</span><span class="p">,</span>
-                         <span class="sa">rf</span><span class="s1">&#39;$\eta=</span><span class="si">{</span><span class="n">gmeq</span><span class="o">.</span><span class="n">eta_</span><span class="si">}</span><span class="s1">$&#39;</span>
-                         <span class="o">+</span> <span class="sa">r</span><span class="s1">&#39;$\quad\mathsf</span><span class="si">{Ci}</span><span class="s1">=$&#39;</span>
-                         <span class="o">+</span> <span class="sa">rf</span><span class="s1">&#39;$</span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">deg</span><span class="p">(</span><span class="n">Ci</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">sub</span><span class="p">))))</span><span class="si">}</span><span class="s1">\degree$&#39;</span><span class="p">,</span>
-                         <span class="n">transform</span><span class="o">=</span><span class="n">axes</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span>
-                         <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
-                         <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
-                         <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
-                         <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
+                    <span class="o">*</span><span class="n">eta_label_xy</span><span class="p">,</span>
+                    <span class="sa">rf</span><span class="s2">&quot;$\eta=</span><span class="si">{</span><span class="n">gmeq</span><span class="o">.</span><span class="n">eta_</span><span class="si">}</span><span class="s2">$&quot;</span>
+                    <span class="o">+</span> <span class="sa">r</span><span class="s2">&quot;$\quad\mathsf</span><span class="si">{Ci}</span><span class="s2">=$&quot;</span>
+                    <span class="o">+</span> <span class="sa">rf</span><span class="s2">&quot;$</span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">deg</span><span class="p">(</span><span class="n">Ci</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">sub</span><span class="p">))))</span><span class="si">}</span><span class="s2">\degree$&quot;</span><span class="p">,</span>
+                    <span class="n">transform</span><span class="o">=</span><span class="n">axes</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span>
+                    <span class="n">horizontalalignment</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span>
+                    <span class="n">verticalalignment</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span>
+                    <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
+                    <span class="n">color</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">,</span>
+                <span class="p">)</span>
             <span class="k">if</span> <span class="n">do_pub_label</span><span class="p">:</span>
-                <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">*</span><span class="n">pub_label_xy</span><span class="p">,</span>
-                         <span class="n">pub_label</span><span class="p">,</span>
-                         <span class="n">transform</span><span class="o">=</span><span class="n">axes</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span>
-                         <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
-                         <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
-                         <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
-                         <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
+                    <span class="o">*</span><span class="n">pub_label_xy</span><span class="p">,</span>
+                    <span class="n">pub_label</span><span class="p">,</span>
+                    <span class="n">transform</span><span class="o">=</span><span class="n">axes</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span>
+                    <span class="n">horizontalalignment</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span>
+                    <span class="n">verticalalignment</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span>
+                    <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
+                    <span class="n">color</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">,</span>
+                <span class="p">)</span>
         <span class="k">if</span> <span class="n">x_limits</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="o">*</span><span class="n">x_limits</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">y_limits</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">*</span><span class="n">y_limits</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">do_schematic</span><span class="p">:</span>
-            <span class="k">for</span> <span class="n">x_</span><span class="p">,</span> <span class="n">align_</span> <span class="ow">in</span> <span class="p">((</span><span class="mf">0.03</span><span class="p">,</span> <span class="s1">&#39;center&#39;</span><span class="p">),</span> <span class="p">(</span><span class="mf">1.97</span><span class="p">,</span> <span class="s1">&#39;center&#39;</span><span class="p">)):</span>
-                <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">x_</span><span class="p">,</span>
-                         <span class="mf">0.45</span><span class="p">,</span>
-                         <span class="s1">&#39;rays initiated&#39;</span><span class="p">,</span>
-                         <span class="n">rotation</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-                         <span class="n">horizontalalignment</span><span class="o">=</span><span class="n">align_</span><span class="p">,</span>
-                         <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
-                         <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span>
-                         <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
-            <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span>
-                     <span class="mf">0.53</span><span class="p">,</span>
-                     <span class="s1">&#39;rays annihilated&#39;</span><span class="p">,</span>
-                     <span class="n">rotation</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-                     <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
-                     <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
-                     <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span>
-                     <span class="n">color</span><span class="o">=</span><span class="s1">&#39;0.25&#39;</span><span class="p">)</span>
-            <span class="k">for</span> <span class="n">x_</span><span class="p">,</span> <span class="n">align_</span> <span class="ow">in</span> <span class="p">((</span><span class="o">-</span><span class="mf">0.03</span><span class="p">,</span> <span class="s1">&#39;right&#39;</span><span class="p">),</span> <span class="p">(</span><span class="mf">2.03</span><span class="p">,</span> <span class="s1">&#39;left&#39;</span><span class="p">)):</span>
-                <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">x_</span><span class="p">,</span>
-                         <span class="mf">0.17</span><span class="p">,</span>
-                         <span class="s1">&#39;fault slip b.c.&#39;</span> <span class="k">if</span> <span class="n">do_fault_bdry</span>
-                         <span class="k">else</span> <span class="s1">&#39;const. erosion rate&#39;</span><span class="p">,</span>
-                         <span class="n">rotation</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span>
-                         <span class="n">horizontalalignment</span><span class="o">=</span><span class="n">align_</span><span class="p">,</span>
-                         <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
-                         <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span>
-                         <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span>
-                         <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
-            <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.46</span><span class="p">,</span>
-                     <span class="mf">0.38</span><span class="p">,</span>
-                     <span class="sa">r</span><span class="s1">&#39;surface isochrone $T(\mathbf</span><span class="si">{r}</span><span class="s1">)=\mathrm</span><span class="si">{past}</span><span class="s1">$&#39;</span><span class="p">,</span>
-                     <span class="n">rotation</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span>
-                     <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
-                     <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
-                     <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
-                     <span class="n">color</span><span class="o">=</span><span class="s1">&#39;0.2&#39;</span><span class="p">)</span>
-            <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.52</span><span class="p">,</span>
-                     <span class="mf">0.05</span><span class="p">,</span>
-                     <span class="sa">r</span><span class="s1">&#39;surface isochrone $T(\mathbf</span><span class="si">{r}</span><span class="s1">)=\mathrm</span><span class="si">{now}</span><span class="s1">$&#39;</span><span class="p">,</span>
-                     <span class="n">rotation</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span>
-                     <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
-                     <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
-                     <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
-                     <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
-            <span class="k">for</span> <span class="p">(</span><span class="n">x_</span><span class="p">,</span> <span class="n">y_</span><span class="p">,</span> <span class="n">dx_</span><span class="p">,</span> <span class="n">dy_</span><span class="p">,</span> <span class="n">shape_</span><span class="p">)</span> <span class="ow">in</span> <span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.15</span><span class="p">,</span> <span class="s1">&#39;left&#39;</span><span class="p">),</span>
-                                               <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.15</span><span class="p">,</span> <span class="s1">&#39;left&#39;</span><span class="p">),</span>
-                                               <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.15</span><span class="p">,</span> <span class="s1">&#39;left&#39;</span><span class="p">),</span>
-                                               <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.15</span><span class="p">,</span> <span class="s1">&#39;right&#39;</span><span class="p">),</span>
-                                               <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.15</span><span class="p">,</span> <span class="s1">&#39;right&#39;</span><span class="p">),</span>
-                                               <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.15</span><span class="p">,</span> <span class="s1">&#39;right&#39;</span><span class="p">)):</span>
-                <span class="n">plt</span><span class="o">.</span><span class="n">arrow</span><span class="p">(</span><span class="n">x_</span><span class="p">,</span>
-                          <span class="n">y_</span><span class="p">,</span>
-                          <span class="n">dx_</span><span class="p">,</span>
-                          <span class="n">dy_</span><span class="p">,</span>
-                          <span class="n">head_length</span><span class="o">=</span><span class="mf">0.04</span><span class="p">,</span>
-                          <span class="n">head_width</span><span class="o">=</span><span class="mf">0.03</span><span class="p">,</span>
-                          <span class="n">length_includes_head</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                          <span class="n">shape</span><span class="o">=</span><span class="n">shape_</span><span class="p">,</span>
-                          <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span>
-                          <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">x_</span><span class="p">,</span> <span class="n">align_</span> <span class="ow">in</span> <span class="p">((</span><span class="mf">0.03</span><span class="p">,</span> <span class="s2">&quot;center&quot;</span><span class="p">),</span> <span class="p">(</span><span class="mf">1.97</span><span class="p">,</span> <span class="s2">&quot;center&quot;</span><span class="p">)):</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
+                    <span class="n">x_</span><span class="p">,</span>
+                    <span class="mf">0.45</span><span class="p">,</span>
+                    <span class="s2">&quot;rays initiated&quot;</span><span class="p">,</span>
+                    <span class="n">rotation</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                    <span class="n">horizontalalignment</span><span class="o">=</span><span class="n">align_</span><span class="p">,</span>
+                    <span class="n">verticalalignment</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span>
+                    <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span>
+                    <span class="n">color</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
+                <span class="mi">1</span><span class="p">,</span>
+                <span class="mf">0.53</span><span class="p">,</span>
+                <span class="s2">&quot;rays annihilated&quot;</span><span class="p">,</span>
+                <span class="n">rotation</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                <span class="n">horizontalalignment</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span>
+                <span class="n">verticalalignment</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span>
+                <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span>
+                <span class="n">color</span><span class="o">=</span><span class="s2">&quot;0.25&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="k">for</span> <span class="n">x_</span><span class="p">,</span> <span class="n">align_</span> <span class="ow">in</span> <span class="p">((</span><span class="o">-</span><span class="mf">0.03</span><span class="p">,</span> <span class="s2">&quot;right&quot;</span><span class="p">),</span> <span class="p">(</span><span class="mf">2.03</span><span class="p">,</span> <span class="s2">&quot;left&quot;</span><span class="p">)):</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
+                    <span class="n">x_</span><span class="p">,</span>
+                    <span class="mf">0.17</span><span class="p">,</span>
+                    <span class="s2">&quot;fault slip b.c.&quot;</span>
+                    <span class="k">if</span> <span class="n">do_fault_bdry</span>
+                    <span class="k">else</span> <span class="s2">&quot;const. erosion rate&quot;</span><span class="p">,</span>
+                    <span class="n">rotation</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span>
+                    <span class="n">horizontalalignment</span><span class="o">=</span><span class="n">align_</span><span class="p">,</span>
+                    <span class="n">verticalalignment</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span>
+                    <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span>
+                    <span class="n">color</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">,</span>
+                    <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
+                <span class="mf">0.46</span><span class="p">,</span>
+                <span class="mf">0.38</span><span class="p">,</span>
+                <span class="sa">r</span><span class="s2">&quot;surface isochrone $T(\mathbf</span><span class="si">{r}</span><span class="s2">)=\mathrm</span><span class="si">{past}</span><span class="s2">$&quot;</span><span class="p">,</span>
+                <span class="n">rotation</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span>
+                <span class="n">horizontalalignment</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span>
+                <span class="n">verticalalignment</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span>
+                <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+                <span class="n">color</span><span class="o">=</span><span class="s2">&quot;0.2&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
+                <span class="mf">0.52</span><span class="p">,</span>
+                <span class="mf">0.05</span><span class="p">,</span>
+                <span class="sa">r</span><span class="s2">&quot;surface isochrone $T(\mathbf</span><span class="si">{r}</span><span class="s2">)=\mathrm</span><span class="si">{now}</span><span class="s2">$&quot;</span><span class="p">,</span>
+                <span class="n">rotation</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span>
+                <span class="n">horizontalalignment</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span>
+                <span class="n">verticalalignment</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span>
+                <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+                <span class="n">color</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="k">for</span> <span class="p">(</span><span class="n">x_</span><span class="p">,</span> <span class="n">y_</span><span class="p">,</span> <span class="n">dx_</span><span class="p">,</span> <span class="n">dy_</span><span class="p">,</span> <span class="n">shape_</span><span class="p">)</span> <span class="ow">in</span> <span class="p">(</span>
+                <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.15</span><span class="p">,</span> <span class="s2">&quot;left&quot;</span><span class="p">),</span>
+                <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.15</span><span class="p">,</span> <span class="s2">&quot;left&quot;</span><span class="p">),</span>
+                <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.15</span><span class="p">,</span> <span class="s2">&quot;left&quot;</span><span class="p">),</span>
+                <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.15</span><span class="p">,</span> <span class="s2">&quot;right&quot;</span><span class="p">),</span>
+                <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.15</span><span class="p">,</span> <span class="s2">&quot;right&quot;</span><span class="p">),</span>
+                <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.15</span><span class="p">,</span> <span class="s2">&quot;right&quot;</span><span class="p">),</span>
+            <span class="p">):</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">arrow</span><span class="p">(</span>
+                    <span class="n">x_</span><span class="p">,</span>
+                    <span class="n">y_</span><span class="p">,</span>
+                    <span class="n">dx_</span><span class="p">,</span>
+                    <span class="n">dy_</span><span class="p">,</span>
+                    <span class="n">head_length</span><span class="o">=</span><span class="mf">0.04</span><span class="p">,</span>
+                    <span class="n">head_width</span><span class="o">=</span><span class="mf">0.03</span><span class="p">,</span>
+                    <span class="n">length_includes_head</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                    <span class="n">shape</span><span class="o">=</span><span class="n">shape_</span><span class="p">,</span>
+                    <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">,</span>
+                    <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">,</span>
+                <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">profile_h</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -604,12 +657,14 @@ equation substitutions</p></li>
         <span class="n">do_profile_points</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
         <span class="n">profile_subsetting</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
         <span class="n">do_pub_label</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-        <span class="n">pub_label</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+        <span class="n">pub_label</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
         <span class="n">pub_label_xy</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.93</span><span class="p">,</span> <span class="mf">0.33</span><span class="p">),</span>
         <span class="n">do_etaxi_label</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="n">eta_label_xy</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Plot profile.</span>
+
 <span class="sd">        Plot a time-invariant topographic profile solution of</span>
 <span class="sd">        Hamilton&#39;s equations.</span>
 
@@ -649,42 +704,51 @@ equation substitutions</p></li>
         <span class="c1"># # rz_rsmpld_array = gmes.rz_interp_t(t_rsmpld_array)</span>
 
         <span class="c1"># Markers = topo profile from ray terminations</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">gmes</span><span class="o">.</span><span class="n">x_array</span><span class="p">[::</span><span class="n">profile_subsetting</span><span class="p">],</span>
-                 <span class="n">gmes</span><span class="o">.</span><span class="n">h_array</span><span class="p">[::</span><span class="n">profile_subsetting</span><span class="p">],</span>
-                 <span class="s1">&#39;k&#39;</span><span class="o">+</span><span class="p">(</span><span class="s1">&#39;s&#39;</span> <span class="k">if</span> <span class="n">do_profile_points</span> <span class="k">else</span> <span class="s1">&#39;-&#39;</span><span class="p">),</span>
-                 <span class="n">ms</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
-                 <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$T(\mathbf</span><span class="si">{r}</span><span class="s1">)$ from rays $\mathbf</span><span class="si">{r}</span><span class="s1">(t)$&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+            <span class="n">gmes</span><span class="o">.</span><span class="n">x_array</span><span class="p">[::</span><span class="n">profile_subsetting</span><span class="p">],</span>
+            <span class="n">gmes</span><span class="o">.</span><span class="n">h_array</span><span class="p">[::</span><span class="n">profile_subsetting</span><span class="p">],</span>
+            <span class="s2">&quot;k&quot;</span> <span class="o">+</span> <span class="p">(</span><span class="s2">&quot;s&quot;</span> <span class="k">if</span> <span class="n">do_profile_points</span> <span class="k">else</span> <span class="s2">&quot;-&quot;</span><span class="p">),</span>
+            <span class="n">ms</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+            <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;$T(\mathbf</span><span class="si">{r}</span><span class="s2">)$ from rays $\mathbf</span><span class="si">{r}</span><span class="s2">(t)$&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
 
         <span class="c1"># Solid line = topo profile from direct integration of gradient array</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">gmes</span><span class="o">.</span><span class="n">h_x_array</span><span class="p">,</span>
-                 <span class="p">(</span><span class="n">gmes</span><span class="o">.</span><span class="n">h_z_array</span><span class="o">-</span><span class="n">gmes</span><span class="o">.</span><span class="n">h_z_array</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span>
-                 <span class="s1">&#39;k&#39;</span><span class="p">,</span>
-                 <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$T(\mathbf</span><span class="si">{r}</span><span class="s1">)$ by integration&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+            <span class="n">gmes</span><span class="o">.</span><span class="n">h_x_array</span><span class="p">,</span>
+            <span class="p">(</span><span class="n">gmes</span><span class="o">.</span><span class="n">h_z_array</span> <span class="o">-</span> <span class="n">gmes</span><span class="o">.</span><span class="n">h_z_array</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span>
+            <span class="s2">&quot;k&quot;</span><span class="p">,</span>
+            <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;$T(\mathbf</span><span class="si">{r}</span><span class="s2">)$ by integration&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
         <span class="n">axes</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Distance, $x/L_{\mathrm</span><span class="si">{c}</span><span class="s1">}$  [-]&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Elevation, $z/L_{\mathrm</span><span class="si">{c}</span><span class="s1">}$  [-]&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;:&quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;Distance, $x/L_{\mathrm</span><span class="si">{c}</span><span class="s2">}$  [-]&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;Elevation, $z/L_{\mathrm</span><span class="si">{c}</span><span class="s2">}$  [-]&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">do_legend</span><span class="p">:</span>
             <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="p">(</span><span class="mf">0.38</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span> <span class="n">framealpha</span><span class="o">=</span><span class="mf">0.95</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">eta_label_xy</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">eta_label_xy</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.92</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">do_etaxi_label</span><span class="p">:</span>
-            <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">*</span><span class="n">eta_label_xy</span><span class="p">,</span>
-                     <span class="sa">rf</span><span class="s1">&#39;$\eta=</span><span class="si">{</span><span class="n">gmeq</span><span class="o">.</span><span class="n">eta_</span><span class="si">}</span><span class="s1">$&#39;</span><span class="o">+</span><span class="sa">r</span><span class="s1">&#39;$\quad\mathsf</span><span class="si">{Ci}</span><span class="s1">=$&#39;</span>
-                     <span class="o">+</span> <span class="sa">rf</span><span class="s1">&#39;$</span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">deg</span><span class="p">(</span><span class="n">Ci</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">sub</span><span class="p">))))</span><span class="si">}</span><span class="s1">\degree$&#39;</span><span class="p">,</span>
-                     <span class="n">transform</span><span class="o">=</span><span class="n">axes</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span>
-                     <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
-                     <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
-                     <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
-                     <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
+                <span class="o">*</span><span class="n">eta_label_xy</span><span class="p">,</span>
+                <span class="sa">rf</span><span class="s2">&quot;$\eta=</span><span class="si">{</span><span class="n">gmeq</span><span class="o">.</span><span class="n">eta_</span><span class="si">}</span><span class="s2">$&quot;</span>
+                <span class="o">+</span> <span class="sa">r</span><span class="s2">&quot;$\quad\mathsf</span><span class="si">{Ci}</span><span class="s2">=$&quot;</span>
+                <span class="o">+</span> <span class="sa">rf</span><span class="s2">&quot;$</span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">deg</span><span class="p">(</span><span class="n">Ci</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">sub</span><span class="p">))))</span><span class="si">}</span><span class="s2">\degree$&quot;</span><span class="p">,</span>
+                <span class="n">transform</span><span class="o">=</span><span class="n">axes</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span>
+                <span class="n">horizontalalignment</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span>
+                <span class="n">verticalalignment</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span>
+                <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
+                <span class="n">color</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
         <span class="k">if</span> <span class="n">do_pub_label</span><span class="p">:</span>
-            <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">*</span><span class="n">pub_label_xy</span><span class="p">,</span>
-                     <span class="n">pub_label</span><span class="p">,</span>
-                     <span class="n">transform</span><span class="o">=</span><span class="n">axes</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span>
-                     <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
-                     <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
-                     <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
-                     <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
+                <span class="o">*</span><span class="n">pub_label_xy</span><span class="p">,</span>
+                <span class="n">pub_label</span><span class="p">,</span>
+                <span class="n">transform</span><span class="o">=</span><span class="n">axes</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span>
+                <span class="n">horizontalalignment</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span>
+                <span class="n">verticalalignment</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span>
+                <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
+                <span class="n">color</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
         <span class="k">if</span> <span class="n">y_limits</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">*</span><span class="n">y_limits</span><span class="p">)</span>
 </pre></div>
