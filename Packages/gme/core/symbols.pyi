@@ -1,4 +1,4 @@
-from sympy import Function, MatrixSymbol, Symbol as Symbol
+from sympy import Function, MatrixSymbol, Symbol
 
 i: Symbol
 j: Symbol
@@ -88,7 +88,7 @@ x_sigma: Symbol
 h: Symbol
 hx: Symbol
 hz: Symbol
-h_fn: Symbol
+h_fn: Function
 h_0: Symbol
 h_0p9: Symbol
 theta: Symbol
