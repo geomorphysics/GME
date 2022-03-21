@@ -52,7 +52,6 @@
             
   <div class="section" id="module-gme.core.pxpoly">
 <span id="pxpoly-py"></span><h1><code class="docutils literal notranslate"><span class="pre">pxpoly.py</span></code><a class="headerlink" href="#module-gme.core.pxpoly" title="Permalink to this headline">¶</a></h1>
-<hr class="docutils" />
 <p>Equation definitions and derivations using <a class="reference external" href="https://docs.sympy.org/latest/index.html#module-sympy" title="(in SymPy v1.10.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">SymPy</span></code></a>.</p>
 <hr class="docutils" />
 <dl class="simple">
@@ -67,11 +66,12 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="gme.core.pxpoly.PxpolyMixin">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gme.core.pxpoly.</span></span><span class="sig-name descname"><span class="pre">PxpolyMixin</span></span><a class="headerlink" href="#gme.core.pxpoly.PxpolyMixin" title="Permalink to this definition">¶</a></dt>
-<dd><p>Polynomial <span class="math notranslate nohighlight">\(p_x\)</span> equations supplement to equation definition class.</p>
+<dd><p>Polynomial <span class="math notranslate nohighlight">\(p_x\)</span> eqns supplement to equation definition class.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.core.pxpoly.PxpolyMixin.define_px_poly_eqn">
 <span class="sig-name descname"><span class="pre">define_px_poly_eqn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">eta_choice</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.sympy.org/latest/modules/core.html#sympy.core.numbers.Rational" title="(in SymPy v1.10.1)"><span class="pre">sympy.core.numbers.Rational</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_ndim</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.core.pxpoly.PxpolyMixin.define_px_poly_eqn" title="Permalink to this definition">¶</a></dt>
-<dd><p>TODO: remove ref to xiv_0</p>
+<dd><p>Define <span class="math notranslate nohighlight">\(p_x\)</span> polynomial.</p>
+<p>TODO: remove ref to xiv_0</p>
 <p>Define polynomial form of function combining normal-slowness
 covector components <span class="math notranslate nohighlight">\((p_x,p_z)\)</span>
 (where the latter is given in terms of the vertical erosion rate
@@ -123,8 +123,6 @@ domain=\mathbb{Z}\left[\varphi{\left(\mathbf{r} \right)},
 <div class="section" id="code">
 <h2>Code<a class="headerlink" href="#code" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">---------------------------------------------------------------------</span>
-
 <span class="sd">Equation definitions and derivations using :mod:`SymPy &lt;sympy&gt;`.</span>
 
 <span class="sd">---------------------------------------------------------------------</span>
@@ -140,7 +138,6 @@ domain=\mathbb{Z}\left[\varphi{\left(\mathbf{r} \right)},
 <span class="sd">    https://docs.sympy.org/latest/modules/matrices/immutablematrices.html</span>
 
 <span class="sd">---------------------------------------------------------------------</span>
-
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="c1"># Disable these pylint errors because it doesn&#39;t understand SymPy syntax</span>
 <span class="c1">#   - notably minus signs in equations flag an error</span>
@@ -185,9 +182,8 @@ domain=\mathbb{Z}\left[\varphi{\left(\mathbf{r} \right)},
 
 
 <span class="k">class</span> <span class="nc">PxpolyMixin</span><span class="p">:</span>
-    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Polynomial :math:`p_x` equations supplement to equation definition class.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Polynomial :math:`p_x` eqns supplement to equation definition class.&quot;&quot;&quot;</span>
+
     <span class="c1"># Prerequisites</span>
     <span class="n">sinCi_xih0_eqn</span><span class="p">:</span> <span class="n">Eq</span>
     <span class="n">px_xiv_varphi_eqn</span><span class="p">:</span> <span class="n">Eq</span>
@@ -207,6 +203,8 @@ domain=\mathbb{Z}\left[\varphi{\left(\mathbf{r} \right)},
         <span class="bp">self</span><span class="p">,</span> <span class="n">eta_choice</span><span class="p">:</span> <span class="n">Rational</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">do_ndim</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Define :math:`p_x` polynomial.</span>
+
 <span class="sd">        TODO: remove ref to xiv_0</span>
 
 <span class="sd">        Define polynomial form of function combining normal-slowness</span>

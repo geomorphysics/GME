@@ -1,6 +1,4 @@
 """
----------------------------------------------------------------------
-
 ODE integration of Hamilton's equations.
 
 ---------------------------------------------------------------------
@@ -12,9 +10,7 @@ Requires Python packages/modules:
 
 .. _GMPLib: https://github.com/geomorphysics/GMPLib
 .. _GME: https://github.com/geomorphysics/GME
-.. _Matrix:
-    https://docs.sympy.org/latest/modules/matrices/immutablematrices.html
-
+.. _Matrix: https://docs.sympy.org/latest/modules/matrices/immutablematrices.html
 
 ---------------------------------------------------------------------
 
@@ -38,7 +34,7 @@ from gme.ode.base import BaseSolution
 from gme.ode.velocity_boundary import VelocityBoundarySolution
 from gme.core.symbols import x, rx, Lc, beta, px, pz
 
-# from gme.ode.base import rpt_tuple
+from gme.ode.base import rpt_tuple
 from gme.core.equations import Equations
 from gme.ode.utils import report_progress
 
@@ -70,8 +66,17 @@ __all__ = [
 
 class InitialProfileSolution(BaseSolution):
     """
-    Integration of Hamilton's equations (ODEs) from an initial
-    topographic profile.
+    Integrate Hamilton's equations from an initial topographic profile.
+
+    Args:
+        gmeq:
+            GME model equations class instance defined in
+            :mod:`gme.core.equations`
+        parameters:
+            dictionary of model parameter values to be used for
+            equation substitutions
+        **kwargs:
+            remaining keyword arguments (see base class for details)
     """
 
     # Prerequisites
@@ -84,19 +89,7 @@ class InitialProfileSolution(BaseSolution):
     ic: Tuple[float, float, float, float]
 
     def __init__(self, gmeq: Equations, parameters: Dict, **kwargs) -> None:
-        """
-        Constructor method.
-
-        Args:
-            gmeq:
-                GME model equations class instance defined in
-                :mod:`gme.core.equations`
-            parameters:
-                dictionary of model parameter values to be used for
-                equation substitutions
-            **kwargs:
-                remaining keyword arguments (see base class for details)
-        """
+        """Initialize."""
         super().__init__(gmeq, parameters, **kwargs)
 
         # Initial condition equations
@@ -105,7 +98,7 @@ class InitialProfileSolution(BaseSolution):
     def initial_conditions(
         self, x_: float
     ) -> Tuple[float, float, float, float]:
-        """ """
+        """Define initial conditions."""
         rx0_: float = x_
         rz0_ = float(
             self.rz_initial_surface_eqn.rhs.subs({x: x_}).subs(self.parameters)
@@ -119,7 +112,7 @@ class InitialProfileSolution(BaseSolution):
         return (rx0_, rz0_, px0_, pz0_)
 
     def solve(self, report_pc_step=1):
-        """ """
+        """Solve."""
         self.prep_arrays()
         Lc_ = float(Lc.subs(self.parameters))
         # print(self.t_end)
@@ -153,7 +146,7 @@ class InitialProfileSolution(BaseSolution):
 
 class InitialCornerSolution(BaseSolution):
     """
-    Integration of Hamilton's equations (ODEs) from a 'corner' point.
+    Integrate Hamilton's equations (ODEs) from a 'corner' point.
 
     Provides a set of ray integrations to span solutions along an initial
     profile and solutions from a slip velocity boundary.
@@ -174,7 +167,7 @@ class InitialCornerSolution(BaseSolution):
 
     def __init__(self, gmeq: Equations, parameters: Dict, **kwargs) -> None:
         """
-        Constructor method.
+        Initialize.
 
         Args:
             gmeq:
@@ -297,7 +290,9 @@ class InitialCornerSolution(BaseSolution):
 
 class CompositeSolution(BaseSolution):
     """
-    Combine rays integrations from (1) initial profile,
+    Combine ray integrations.
+
+    From (1) initial profile,
     (2) initial corner, and (3) velocity boundary
     to generate a 'complete' ray integration solution from a
     complex topographic boundary.
@@ -319,7 +314,7 @@ class CompositeSolution(BaseSolution):
 
     def __init__(self, gmeq: Equations, parameters: Dict, **kwargs) -> None:
         """
-        Constructor method.
+        Initialize.
 
         Args:
             gmeq:

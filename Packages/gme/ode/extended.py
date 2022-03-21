@@ -1,6 +1,4 @@
 """
----------------------------------------------------------------------
-
 Base module for performing ray tracing of Hamilton's equations.
 
 ---------------------------------------------------------------------
@@ -15,10 +13,10 @@ Requires Python packages/modules:
     https://docs.sympy.org/latest/modules/matrices/immutablematrices.html
 
 ---------------------------------------------------------------------
-
 """
 # Library
 import warnings
+
 # import logging
 # from functools import lru_cache
 # from enum import Enum, auto
@@ -29,20 +27,20 @@ import numpy as np
 
 # GME
 from gme.core.equations import Equations
-from gme.core.equations_extended \
-    import EquationsGeodesic, EquationsIdtx, EquationsIbc
+from gme.core.equations_extended import (
+    EquationsGeodesic,
+    EquationsIdtx,
+    EquationsIbc,
+)
 from gme.ode.base import BaseSolution
 
 warnings.filterwarnings("ignore")
 
-__all__ = ['ExtendedSolution']
+__all__ = ["ExtendedSolution"]
 
 
 class ExtendedSolution(BaseSolution):
-    """
-    Integration of Hamilton's equations (ODEs) to solve for
-    propagation of a single ray.
-    """
+    """Integrate Hamilton's equations (ODEs) to propagate a single ray."""
 
     pz0: float
     rays: List
@@ -111,10 +109,7 @@ class ExtendedSolution(BaseSolution):
 
     def __init__(
         self,
-        gmeq: Union[Equations,
-                    EquationsGeodesic,
-                    EquationsIdtx,
-                    EquationsIbc],
+        gmeq: Union[Equations, EquationsGeodesic, EquationsIdtx, EquationsIbc],
         parameters: Dict,
         **kwargs
     ) -> None:

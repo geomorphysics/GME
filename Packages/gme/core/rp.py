@@ -1,6 +1,4 @@
 """
----------------------------------------------------------------------
-
 Equation definitions and derivations using :mod:`SymPy <sympy>`.
 
 ---------------------------------------------------------------------
@@ -16,7 +14,6 @@ Requires Python packages/modules:
     https://docs.sympy.org/latest/modules/matrices/immutablematrices.html
 
 ---------------------------------------------------------------------
-
 """
 # Disable these pylint errors because it doesn't understand SymPy syntax
 #   - notably minus signs in equations flag an error
@@ -44,6 +41,8 @@ __all__ = ["RpMixin"]
 
 class RpMixin:
     r"""
+    Define ray vector and normal-slowness covector equations.
+
     Basic :math:`\mathbf{r}` and :math:`\mathbf{\tilde{p}}`
     equations supplement to equation definition class.
     """
@@ -64,7 +63,7 @@ class RpMixin:
 
     def define_p_eqns(self) -> None:
         r"""
-        Define normal slowness :math:`p` and derive related equations
+        Define normal slowness :math:`p` and derive related equations.
 
         Attributes:
             p_covec_eqn (:class:`~sympy.core.relational.Equality`):
@@ -120,7 +119,7 @@ class RpMixin:
 
     def define_r_eqns(self) -> None:
         r"""
-        Define equations for ray position :math:`\vec{r}`
+        Define equations for ray position :math:`\vec{r}`.
 
         Attributes:
             rx_r_alpha_eqn (:class:`~sympy.core.relational.Equality`):

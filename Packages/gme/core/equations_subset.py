@@ -1,5 +1,5 @@
 """
----------------------------------------------------------------------
+Subset equations.
 
 Extract a minimal subset of equations - only those needed for a
 particular numerical solution.
@@ -17,7 +17,6 @@ Requires Python packages/modules:
     https://docs.sympy.org/latest/modules/matrices/immutablematrices.html
 
 ---------------------------------------------------------------------
-
 """
 # Disable these pylint errors because it doesn't understand SymPy syntax
 #   - notably minus signs in equations flag an error
@@ -68,9 +67,7 @@ __all__ = ["EquationSubset"]
 
 
 class EquationSubset:
-    """
-    TBD
-    """
+    """Extract a subset of equations."""
 
     # Definitions
     pz_xiv_eqn: Eq
@@ -85,9 +82,7 @@ class EquationSubset:
         do_ndim: bool = False,
         do_revert: bool = True,
     ) -> None:
-        """
-        TBD
-        """
+        """Initialize: constructor method."""
         logging.info("gme.core.equations_subset.EquationSubset")
         sub = parameters.copy()
         if do_revert and do_ndim:

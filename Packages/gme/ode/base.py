@@ -1,6 +1,4 @@
 """
----------------------------------------------------------------------
-
 Base module for performing ray tracing of Hamilton's equations.
 
 ---------------------------------------------------------------------
@@ -17,7 +15,6 @@ Requires Python packages/modules:
     https://docs.sympy.org/latest/modules/matrices/immutablematrices.html
 
 ---------------------------------------------------------------------
-
 """
 # Library
 import warnings
@@ -61,10 +58,7 @@ rpt_tuple: Tuple[str, str, str, str, str] = rp_tuple + ("t",)
 
 
 class BaseSolution(ABC):
-    """
-    Base class for classes performing integration of
-    Hamilton's equations (ODEs).
-    """
+    """Abstract class for performing integration of Hamilton's eqns (ODEs)."""
 
     # Definitions
     gmeq: Equations
@@ -197,28 +191,33 @@ class BaseSolution(ABC):
         self.vx_interp_slow: Optional[Callable[[float], float]] = None
 
     @abstractmethod
-    def initial_conditions(self,
-        t_lag: float = 0, 
+    def initial_conditions(
+        self,
+        t_lag: float = 0,
         xiv_0_: float = 0,
     ) -> Tuple[float, float, float, float]:
         """
-        Dummy method of generating initial conditions that must be defined by
-        any subclass
+        Generate initial conditions (dummy).
+
+        Actual initial conditions must be defined by any subclass.
         """
 
     @abstractmethod
     def solve(self) -> None:
         """
-        Dummy method of solution that must be defined by any subclass
+        Solve ray tracing equations (dummy).
+
+        Actual method of solution that must be defined by any subclass.
         """
 
     def make_model(
         self,
     ) -> Callable[[float, Tuple[Any, Any, Any, Any]], np.ndarray]:
         """
-        Generate a lambda for Hamilton's equations (or the geodesic equations)
-           that returns a matrix of dr/dt and dp/dt (resp. dr/dt and dv/dt)
-           for a given state [rx,px,pz] (resp. [rx,vx,vx])
+        Generate a lambda for Hamilton's equations (or the geodesic equations).
+
+        Returns a matrix of dr/dt and dp/dt (resp. dr/dt and dv/dt)
+        for a given state [rx,px,pz] (resp. [rx,vx,vx])
         """
         # Requires self.parameters to have all the important Hamilton eqns'
         # constants set
@@ -248,9 +247,7 @@ class BaseSolution(ABC):
     def postprocessing(
         self, spline_order: int = 2, extrapolation_mode: int = 0
     ) -> None:
-        """
-        Generate interpolating functions for (r,p)[t] using ray samples
-        """
+        """Generate interpolating functions for (r,p)[t] using ray samples."""
         # dummy, to avoid "overriding parameters" warnings in subclasses
         #  that override this method
         _ = (spline_order, extrapolation_mode)
@@ -282,6 +279,8 @@ class BaseSolution(ABC):
         dont_crop_cusps: bool = False,
     ) -> None:
         r"""
+        Resolve isochrones.
+
         Resample the ensemble of rays at selected time slices to generate
         synchronous values of :math:`(\mathbf{r},\mathbf{\widetilde{p}})`
         aka isochrones.
@@ -316,10 +315,8 @@ class BaseSolution(ABC):
         #                  if (idx//x_subset-idx/x_subset)==0]
         #                 for array_ in [rpt_isochrone[rp_]] ][0]
         #     self.rpt_isochrones_lowres['t'][i_isochrone] = rpt_isochrone['t']
-        def prepare_isochrones() -> None:
-            """
-            TBD
-            """
+        def _prepare_isochrones() -> None:
+            """Set up."""
             # Record important parameters
             self.t_isochrone_max = t_isochrone_max
             self.n_isochrones = n_isochrones
@@ -333,24 +330,20 @@ class BaseSolution(ABC):
             # self.rpt_isochrones_lowres = self.rpt_isochrones.copy()
             # self.trxz_cusps: List[Tuple[np.ndarray,Any,Any]] = []
 
-        def truncate_isochrone(
+        def _truncate_isochrone(
             rpt_isochrone: Dict[str, np.ndarray],
             i_from: Optional[int] = None,
             i_to: Optional[int] = None,
         ) -> Dict[str, np.ndarray]:
-            """
-            TBD
-            """
+            """Truncate isochrone."""
             for rp_ in rp_tuple:
                 rpt_isochrone[rp_] = rpt_isochrone[rp_][i_from:i_to]
             return rpt_isochrone
 
-        def find_intercept(
+        def _find_intercept(
             rpt_isochrone, slice1, slice2
         ) -> Tuple[Any, Any, Any, Any]:
-            """
-            TBD
-            """
+            """Find where rays intersect."""
             x1_array = rpt_isochrone["rx"][slice1]
             x2_array = rpt_isochrone["rx"][slice2]
             z1_array = rpt_isochrone["rz"][slice1]
@@ -425,7 +418,7 @@ class BaseSolution(ABC):
                 pxz2_intercept,
             )
 
-        def eliminate_caustic(
+        def _eliminate_caustic(
             is_good_pt_array: np.ndarray, rpt_isochrone
         ) -> Tuple[
             Dict[str, np.ndarray],
@@ -433,9 +426,7 @@ class BaseSolution(ABC):
                 Optional[np.ndarray], Optional[np.ndarray], Optional[np.ndarray]
             ],
         ]:
-            """
-            TBD
-            """
+            """Find and remove ray caustic."""
             # Locate and remove caustic and render into a cusp
             #    - if there is one
 
@@ -452,7 +443,7 @@ class BaseSolution(ABC):
             if len(rpt_isochrone["rx"][is_good_pt_array]) == 0:
                 # print('empty curve')
                 return (
-                    truncate_isochrone(rpt_isochrone, -1, -1),
+                    _truncate_isochrone(rpt_isochrone, -1, -1),
                     (None, None, None),
                 )
 
@@ -468,7 +459,7 @@ class BaseSolution(ABC):
             if false_indexes[0] == 0:
                 # print('right half')
                 return (
-                    truncate_isochrone(rpt_isochrone, false_indexes[-1], None),
+                    _truncate_isochrone(rpt_isochrone, false_indexes[-1], None),
                     (None, None, None),
                 )
 
@@ -498,13 +489,13 @@ class BaseSolution(ABC):
             ):
                 # print('left half')
                 return (
-                    truncate_isochrone(rpt_isochrone, 0, false_indexes[0]),
+                    _truncate_isochrone(rpt_isochrone, 0, false_indexes[0]),
                     (None, None, None),
                 )
 
             # At this point, we presumably have a caustic,
             #    so find the cusp intercept
-            rxz1_intercept, _, pxz1_intercept, pxz2_intercept = find_intercept(
+            rxz1_intercept, _, pxz1_intercept, pxz2_intercept = _find_intercept(
                 rpt_isochrone, slice1, slice2
             )
             # print('Intercept @ ', rxz1_intercept,rxz2_intercept)
@@ -545,10 +536,8 @@ class BaseSolution(ABC):
                 intercept = (None, None, None)
             return (rpt_isochrone_rtn, intercept)
 
-        def compose_isochrone(t_: float) -> Dict[str, np.ndarray]:
-            """
-            TBD
-            """
+        def _compose_isochrone(t_: float) -> Dict[str, np.ndarray]:
+            """Generate an isochrone."""
             # Prepare a tmp dictionary for the rx,rz,px,pz component arrays
             #   delineating this isochrone
             rpt_isochrone: Dict[str, Any] = {}
@@ -564,12 +553,10 @@ class BaseSolution(ABC):
             rpt_isochrone.update({"t": t_})
             return rpt_isochrone
 
-        def resample_isochrone(
+        def _resample_isochrone(
             rpt_isochrone_in: Dict, n_resample_pts: int
         ) -> Dict[str, np.ndarray]:
-            """
-            TBD
-            """
+            """Resample along an isochrone."""
             n_s_pts = n_resample_pts
             rpt_isochrone_out = rpt_isochrone_in.copy()
             s_array = np.cumsum(
@@ -610,7 +597,7 @@ class BaseSolution(ABC):
         # Crop out-of-bounds points and points on caustics
         #   for the current isochrone
 
-        def clean_isochrone(
+        def _clean_isochrone(
             rpt_isochrone: Dict,
         ) -> Tuple[
             Optional[Dict[str, np.ndarray]],
@@ -618,9 +605,7 @@ class BaseSolution(ABC):
                 Optional[np.ndarray], Optional[np.ndarray], Optional[np.ndarray]
             ],
         ]:
-            """
-            TBD
-            """
+            """Clean up isochrone so it doesn't exceed profile bounds."""
             # Cusps: eliminate all points beyond the first
             #      whose rx sequence is negative (left-ward)
             #  - do this by creating a flag array whose elements are True
@@ -652,7 +637,7 @@ class BaseSolution(ABC):
             # (rpt_isochrone,
             #  (t_rxz_intercept, pxz1_intercept, pxz2_intercept)) \
             if do_eliminate_caustics:
-                rtn = eliminate_caustic(is_good_pt_array, rpt_isochrone)
+                rtn = _eliminate_caustic(is_good_pt_array, rpt_isochrone)
             else:
                 rtn = (None, (None, None, None))
             # print(rpt_isochrone_try)
@@ -660,10 +645,8 @@ class BaseSolution(ABC):
             #                          is not None else rpt_isochrone
             return rtn
 
-        def prune_isochrone(rpt_isochrone_in: Dict) -> Dict[str, np.ndarray]:
-            """
-            TBD
-            """
+        def _prune_isochrone(rpt_isochrone_in: Dict) -> Dict[str, np.ndarray]:
+            """Prune/extend isochrone."""
             rpt_isochrone_out = rpt_isochrone_in.copy()
             rx_array = rpt_isochrone_out["rx"]
             i_bounded_array = (rx_array >= 0) & (rx_array <= 1.0)
@@ -686,30 +669,24 @@ class BaseSolution(ABC):
                     )
             return rpt_isochrone_out
 
-        def record_isochrone(rpt_isochrone: Dict, i_isochrone: int) -> None:
-            """
-            TBD
-            """
+        def _record_isochrone(rpt_isochrone: Dict, i_isochrone: int) -> None:
+            """Put this isochrone in the dict of isochrones."""
             # Record this isochrone
             for rpt_ in rpt_tuple:
                 self.rpt_isochrones[rpt_][i_isochrone] = rpt_isochrone[rpt_]
 
-        def record_cusp(
+        def _record_cusp(
             trxz_cusp: Optional[np.ndarray], pxz1_intercept, pxz2_intercept
         ) -> None:
-            """
-            TBD
-            """
+            """Record cusp location."""
             if trxz_cusp is not None:
                 # Record this intercept
                 self.trxz_cusps.append(
                     (trxz_cusp, pxz1_intercept, pxz2_intercept)
                 )
 
-        def organize_cusps() -> None:
-            """
-            TBD
-            """
+        def _organize_cusps() -> None:
+            """Organize cusps into dict."""
             # self.cusps: Dict[str,np.ndarray] = {}
             self.cusps["t"] = np.array(
                 [
@@ -754,27 +731,25 @@ class BaseSolution(ABC):
 
         # Time sequence - with resolution n_isochrones and
         #    limit t_isochrone_max
-        prepare_isochrones()
+        _prepare_isochrones()
         t_array = np.linspace(0, t_isochrone_max, n_isochrones)
         for i_isochrone, t_ in enumerate(t_array):
-            rpt_isochrone = compose_isochrone(t_)  # i_isochrone,
-            rpt_isochrone_resampled = resample_isochrone(
+            rpt_isochrone = _compose_isochrone(t_)  # i_isochrone,
+            rpt_isochrone_resampled = _resample_isochrone(
                 rpt_isochrone, n_resample_pts
             )
             (
                 rpt_isochrone_clean,
                 (trxz_cusp, pxz1_intercept, pxz2_intercept),
-            ) = clean_isochrone(rpt_isochrone_resampled)
+            ) = _clean_isochrone(rpt_isochrone_resampled)
             if rpt_isochrone_clean is not None:
-                rpt_isochrone_pruned = prune_isochrone(rpt_isochrone_clean)
-                record_isochrone(rpt_isochrone_pruned, i_isochrone)
-                record_cusp(trxz_cusp, pxz1_intercept, pxz2_intercept)
-        organize_cusps()
+                rpt_isochrone_pruned = _prune_isochrone(rpt_isochrone_clean)
+                _record_isochrone(rpt_isochrone_pruned, i_isochrone)
+                _record_cusp(trxz_cusp, pxz1_intercept, pxz2_intercept)
+        _organize_cusps()
 
     def measure_cusp_propagation(self) -> None:
-        """
-        TBD
-        """
+        """Measure how fast cusp is moving."""
         kwargs_ = dict(
             kind="linear", fill_value="extrapolate", assume_sorted=True
         )
@@ -884,9 +859,7 @@ class BaseSolution(ABC):
         self.vx_interp_slow = vx_interp_slow
 
     def save(self, rpt_arrays: Dict, idx: int) -> None:
-        """
-        TBD
-        """
+        """Record results in arrays."""
         logging.debug("ode.base.BaseSolution.save")
         for rpt_ in rpt_tuple:
             self.rpt_arrays[rpt_][idx] = rpt_arrays[rpt_]

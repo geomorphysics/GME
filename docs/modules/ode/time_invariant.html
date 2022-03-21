@@ -51,9 +51,8 @@
             
   <div class="section" id="module-gme.ode.time_invariant">
 <span id="time-invariant-py"></span><h1><code class="docutils literal notranslate"><span class="pre">time_invariant.py</span></code><a class="headerlink" href="#module-gme.ode.time_invariant" title="Permalink to this headline">¶</a></h1>
-<hr class="docutils" />
-<p>Time-invariant topographic profile construction by ray tracing
-aka ODE integration of Hamilton’s equations.</p>
+<p>Time-invariant topographic profile construction.</p>
+<p>Performed by ray tracing aka ODE integration of Hamilton’s equations.</p>
 <hr class="docutils" />
 <dl class="simple">
 <dt>Requires Python packages/modules:</dt><dd><ul class="simple">
@@ -69,14 +68,13 @@ aka ODE integration of Hamilton’s equations.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="gme.ode.time_invariant.TimeInvariantSolution">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gme.ode.time_invariant.</span></span><span class="sig-name descname"><span class="pre">TimeInvariantSolution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmeq</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="../core/equations.html#gme.core.equations.Equations" title="gme.core.equations.Equations"><span class="pre">gme.core.equations.Equations</span></a><span class="p"><span class="pre">,</span> </span><a class="reference internal" href="../core/equations_extended.html#gme.core.equations_extended.EquationsGeodesic" title="gme.core.equations_extended.EquationsGeodesic"><span class="pre">gme.core.equations_extended.EquationsGeodesic</span></a><span class="p"><span class="pre">,</span> </span><a class="reference internal" href="../core/equations_extended.html#gme.core.equations_extended.EquationsIdtx" title="gme.core.equations_extended.EquationsIdtx"><span class="pre">gme.core.equations_extended.EquationsIdtx</span></a><span class="p"><span class="pre">,</span> </span><a class="reference internal" href="../core/equations_extended.html#gme.core.equations_extended.EquationsIbc" title="gme.core.equations_extended.EquationsIbc"><span class="pre">gme.core.equations_extended.EquationsIbc</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gme.ode.time_invariant.TimeInvariantSolution" title="Permalink to this definition">¶</a></dt>
-<dd><p>Integration of Hamilton’s equations (ODEs) to generate time-invariant
-(steady-state) profile solutions.</p>
+<dd><p>Integrate Hamilton’s equations to generate time-invariant solutions.</p>
 <p>Extends <a class="reference internal" href="single_ray.html#gme.ode.single_ray.SingleRaySolution" title="gme.ode.single_ray.SingleRaySolution"><code class="xref py py-class docutils literal notranslate"><span class="pre">gme.ode.single_ray.SingleRaySolution</span></code></a>.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.ode.time_invariant.TimeInvariantSolution.integrate_h_profile">
 <span class="sig-name descname"><span class="pre">integrate_h_profile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_pts</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">301</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_max</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_truncate</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_use_newton</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.ode.time_invariant.TimeInvariantSolution.integrate_h_profile" title="Permalink to this definition">¶</a></dt>
-<dd><p>Generate topographic profile by numerically integrating gradient
-using simple quadrature.</p>
+<dd><p>Generate topographic profile by numerically integrating gradient.</p>
+<p>Uses simple quadrature.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -93,8 +91,8 @@ using simple quadrature.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.ode.time_invariant.TimeInvariantSolution.postprocessing">
 <span class="sig-name descname"><span class="pre">postprocessing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spline_order</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extrapolation_mode</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.ode.time_invariant.TimeInvariantSolution.postprocessing" title="Permalink to this definition">¶</a></dt>
-<dd><p>Process the results of ODE integration, supplementing the
-standard set of array generations.</p>
+<dd><p>Process the results of ODE integrations.</p>
+<p>Supplements the standard set of array generations.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -112,10 +110,9 @@ at the end of the interpolation span</p></li>
 <div class="section" id="code">
 <h2>Code<a class="headerlink" href="#code" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">---------------------------------------------------------------------</span>
+<span class="sd">Time-invariant topographic profile construction.</span>
 
-<span class="sd">Time-invariant topographic profile construction by ray tracing</span>
-<span class="sd">aka ODE integration of Hamilton&#39;s equations.</span>
+<span class="sd">Performed by ray tracing aka ODE integration of Hamilton&#39;s equations.</span>
 
 <span class="sd">---------------------------------------------------------------------</span>
 
@@ -132,8 +129,8 @@ at the end of the interpolation span</p></li>
 <span class="sd">    https://docs.sympy.org/latest/modules/matrices/immutablematrices.html</span>
 
 <span class="sd">---------------------------------------------------------------------</span>
-
 <span class="sd">&quot;&quot;&quot;</span>
+
 <span class="c1"># Library</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">import</span> <span class="nn">logging</span>
@@ -164,8 +161,7 @@ at the end of the interpolation span</p></li>
 
 <span class="k">class</span> <span class="nc">TimeInvariantSolution</span><span class="p">(</span><span class="n">SingleRaySolution</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Integration of Hamilton&#39;s equations (ODEs) to generate time-invariant</span>
-<span class="sd">    (steady-state) profile solutions.</span>
+<span class="sd">    Integrate Hamilton&#39;s equations to generate time-invariant solutions.</span>
 
 <span class="sd">    Extends :class:`gme.ode.single_ray.SingleRaySolution`.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -187,8 +183,9 @@ at the end of the interpolation span</p></li>
         <span class="bp">self</span><span class="p">,</span> <span class="n">spline_order</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">extrapolation_mode</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Process the results of ODE integration, supplementing the</span>
-<span class="sd">        standard set of array generations.</span>
+<span class="sd">        Process the results of ODE integrations.</span>
+
+<span class="sd">        Supplements the standard set of array generations.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            spline_order:</span>
@@ -256,8 +253,9 @@ at the end of the interpolation span</p></li>
         <span class="n">do_use_newton</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Generate topographic profile by numerically integrating gradient</span>
-<span class="sd">        using simple quadrature.</span>
+<span class="sd">        Generate topographic profile by numerically integrating gradient.</span>
+
+<span class="sd">        Uses simple quadrature.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            n_pts:</span>

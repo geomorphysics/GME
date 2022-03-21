@@ -1,6 +1,8 @@
 r"""
 Equation definitions for angular properties such as :math:`\alpha` and :math:`\beta`.
 
+---------------------------------------------------------------------
+
 Requires Python packages/modules:
   -  :mod:`SymPy <sympy>`
   -  `GMPLib`_
@@ -10,6 +12,8 @@ Requires Python packages/modules:
 .. _GME: https://github.com/geomorphysics/GME
 .. _Matrix:
     https://docs.sympy.org/latest/modules/matrices/immutablematrices.html
+
+---------------------------------------------------------------------
 """
 # Disable these pylint errors because it doesn't understand SymPy syntax
 #   - notably minus signs in equations flag an error

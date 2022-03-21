@@ -51,8 +51,7 @@
             
   <div class="section" id="module-gme.ode.utils">
 <span id="utils-py"></span><h1><code class="docutils literal notranslate"><span class="pre">utils.py</span></code><a class="headerlink" href="#module-gme.ode.utils" title="Permalink to this headline">¶</a></h1>
-<hr class="docutils" />
-<p>Utility functions</p>
+<p>Utility functions.</p>
 <hr class="docutils" />
 <dl class="simple">
 <dt>Requires Python packages/modules:</dt><dd><ul class="simple">
@@ -64,15 +63,13 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="gme.ode.utils.report_progress">
 <span class="sig-prename descclassname"><span class="pre">gme.ode.utils.</span></span><span class="sig-name descname"><span class="pre">report_progress</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress_was</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pc_step</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_initial_step</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><a class="headerlink" href="#gme.ode.utils.report_progress" title="Permalink to this definition">¶</a></dt>
-<dd><p>Print percentage estimated progress of some ongoing job</p>
+<dd><p>Print percentage estimated progress of some ongoing job.</p>
 </dd></dl>
 
 <div class="section" id="code">
 <h2>Code<a class="headerlink" href="#code" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">---------------------------------------------------------------------</span>
-
-<span class="sd">Utility functions</span>
+<span class="sd">Utility functions.</span>
 
 <span class="sd">---------------------------------------------------------------------</span>
 
@@ -111,9 +108,7 @@
     <span class="n">pc_step</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
     <span class="n">is_initial_step</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Print percentage estimated progress of some ongoing job</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;Print percentage estimated progress of some ongoing job.&quot;&quot;&quot;</span>
     <span class="n">progress_now</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="p">(</span>
         <span class="mi">100</span>
         <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">((</span><span class="mi">100</span> <span class="o">/</span> <span class="n">pc_step</span><span class="p">)</span> <span class="o">*</span> <span class="n">i</span> <span class="o">/</span> <span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="mi">1</span><span class="p">))</span>
@@ -136,9 +131,10 @@
     <span class="n">x_end</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.999</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Numerically integrate a sequence of $\mathrm{d}z/\mathrm{d}x$ values,</span>
-<span class="sd">    computed at regular $x$ values, to generate a topographic profile</span>
-<span class="sd">    $h(x)$.</span>
+<span class="sd">    Generate a topographic profile $h(x)$.</span>
+
+<span class="sd">    Achieved by numerically integrating a sequence of $\mathrm{d}z/\mathrm{d}x$</span>
+<span class="sd">    values at regular $x$ values.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">sub_copy</span> <span class="o">=</span> <span class="n">sub_</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
     <span class="n">sub_copy</span><span class="p">[</span><span class="n">xivhat_0</span><span class="p">]</span> <span class="o">=</span> <span class="n">xivhat0_</span>

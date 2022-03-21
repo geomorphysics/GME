@@ -50,7 +50,6 @@
             
   <div class="section" id="module-gme.knickpoints.base">
 <span id="base-py"></span><h1><code class="docutils literal notranslate"><span class="pre">base.py</span></code><a class="headerlink" href="#module-gme.knickpoints.base" title="Permalink to this headline">¶</a></h1>
-<hr class="docutils" />
 <p>ODE integration of Hamilton’s equations.</p>
 <hr class="docutils" />
 <dl class="simple">
@@ -66,14 +65,15 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="gme.knickpoints.base.CompositeSolution">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gme.knickpoints.base.</span></span><span class="sig-name descname"><span class="pre">CompositeSolution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmeq</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="../core/equations.html#gme.core.equations.Equations" title="gme.core.equations.Equations"><span class="pre">gme.core.equations.Equations</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gme.knickpoints.base.CompositeSolution" title="Permalink to this definition">¶</a></dt>
-<dd><p>Combine rays integrations from (1) initial profile,
+<dd><p>Combine ray integrations.</p>
+<p>From (1) initial profile,
 (2) initial corner, and (3) velocity boundary
 to generate a ‘complete’ ray integration solution from a
 complex topographic boundary.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.knickpoints.base.CompositeSolution.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmeq</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="../core/equations.html#gme.core.equations.Equations" title="gme.core.equations.Equations"><span class="pre">gme.core.equations.Equations</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.knickpoints.base.CompositeSolution.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Constructor method.</p>
+<dd><p>Initialize.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -107,13 +107,13 @@ to be used for equation substitutions</p></li>
 <dl class="py class">
 <dt class="sig sig-object py" id="gme.knickpoints.base.InitialCornerSolution">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gme.knickpoints.base.</span></span><span class="sig-name descname"><span class="pre">InitialCornerSolution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmeq</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="../core/equations.html#gme.core.equations.Equations" title="gme.core.equations.Equations"><span class="pre">gme.core.equations.Equations</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gme.knickpoints.base.InitialCornerSolution" title="Permalink to this definition">¶</a></dt>
-<dd><p>Integration of Hamilton’s equations (ODEs) from a ‘corner’ point.</p>
+<dd><p>Integrate Hamilton’s equations (ODEs) from a ‘corner’ point.</p>
 <p>Provides a set of ray integrations to span solutions along an initial
 profile and solutions from a slip velocity boundary.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.knickpoints.base.InitialCornerSolution.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmeq</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="../core/equations.html#gme.core.equations.Equations" title="gme.core.equations.Equations"><span class="pre">gme.core.equations.Equations</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.knickpoints.base.InitialCornerSolution.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Constructor method.</p>
+<dd><p>Initialize.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -142,12 +142,7 @@ for equation substitutions</p></li>
 <dl class="py class">
 <dt class="sig sig-object py" id="gme.knickpoints.base.InitialProfileSolution">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gme.knickpoints.base.</span></span><span class="sig-name descname"><span class="pre">InitialProfileSolution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmeq</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="../core/equations.html#gme.core.equations.Equations" title="gme.core.equations.Equations"><span class="pre">gme.core.equations.Equations</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gme.knickpoints.base.InitialProfileSolution" title="Permalink to this definition">¶</a></dt>
-<dd><p>Integration of Hamilton’s equations (ODEs) from an initial
-topographic profile.</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="gme.knickpoints.base.InitialProfileSolution.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmeq</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="../core/equations.html#gme.core.equations.Equations" title="gme.core.equations.Equations"><span class="pre">gme.core.equations.Equations</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.knickpoints.base.InitialProfileSolution.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Constructor method.</p>
+<dd><p>Integrate Hamilton’s equations from an initial topographic profile.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -159,25 +154,29 @@ equation substitutions</p></li>
 </ul>
 </dd>
 </dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="gme.knickpoints.base.InitialProfileSolution.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmeq</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="../core/equations.html#gme.core.equations.Equations" title="gme.core.equations.Equations"><span class="pre">gme.core.equations.Equations</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.knickpoints.base.InitialProfileSolution.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.knickpoints.base.InitialProfileSolution.initial_conditions">
 <span class="sig-name descname"><span class="pre">initial_conditions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#gme.knickpoints.base.InitialProfileSolution.initial_conditions" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Define initial conditions.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.knickpoints.base.InitialProfileSolution.solve">
 <span class="sig-name descname"><span class="pre">solve</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">report_pc_step</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gme.knickpoints.base.InitialProfileSolution.solve" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Solve.</p>
+</dd></dl>
 
 </dd></dl>
 
 <div class="section" id="code">
 <h2>Code<a class="headerlink" href="#code" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">---------------------------------------------------------------------</span>
-
 <span class="sd">ODE integration of Hamilton&#39;s equations.</span>
 
 <span class="sd">---------------------------------------------------------------------</span>
@@ -189,9 +188,7 @@ equation substitutions</p></li>
 
 <span class="sd">.. _GMPLib: https://github.com/geomorphysics/GMPLib</span>
 <span class="sd">.. _GME: https://github.com/geomorphysics/GME</span>
-<span class="sd">.. _Matrix:</span>
-<span class="sd">    https://docs.sympy.org/latest/modules/matrices/immutablematrices.html</span>
-
+<span class="sd">.. _Matrix: https://docs.sympy.org/latest/modules/matrices/immutablematrices.html</span>
 
 <span class="sd">---------------------------------------------------------------------</span>
 
@@ -215,7 +212,7 @@ equation substitutions</p></li>
 <span class="kn">from</span> <span class="nn">gme.ode.velocity_boundary</span> <span class="kn">import</span> <span class="n">VelocityBoundarySolution</span>
 <span class="kn">from</span> <span class="nn">gme.core.symbols</span> <span class="kn">import</span> <span class="n">x</span><span class="p">,</span> <span class="n">rx</span><span class="p">,</span> <span class="n">Lc</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">px</span><span class="p">,</span> <span class="n">pz</span>
 
-<span class="c1"># from gme.ode.base import rpt_tuple</span>
+<span class="kn">from</span> <span class="nn">gme.ode.base</span> <span class="kn">import</span> <span class="n">rpt_tuple</span>
 <span class="kn">from</span> <span class="nn">gme.core.equations</span> <span class="kn">import</span> <span class="n">Equations</span>
 <span class="kn">from</span> <span class="nn">gme.ode.utils</span> <span class="kn">import</span> <span class="n">report_progress</span>
 
@@ -247,8 +244,17 @@ equation substitutions</p></li>
 
 <span class="k">class</span> <span class="nc">InitialProfileSolution</span><span class="p">(</span><span class="n">BaseSolution</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Integration of Hamilton&#39;s equations (ODEs) from an initial</span>
-<span class="sd">    topographic profile.</span>
+<span class="sd">    Integrate Hamilton&#39;s equations from an initial topographic profile.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        gmeq:</span>
+<span class="sd">            GME model equations class instance defined in</span>
+<span class="sd">            :mod:`gme.core.equations`</span>
+<span class="sd">        parameters:</span>
+<span class="sd">            dictionary of model parameter values to be used for</span>
+<span class="sd">            equation substitutions</span>
+<span class="sd">        **kwargs:</span>
+<span class="sd">            remaining keyword arguments (see base class for details)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1"># Prerequisites</span>
@@ -261,19 +267,7 @@ equation substitutions</p></li>
     <span class="n">ic</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gmeq</span><span class="p">:</span> <span class="n">Equations</span><span class="p">,</span> <span class="n">parameters</span><span class="p">:</span> <span class="n">Dict</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Constructor method.</span>
-
-<span class="sd">        Args:</span>
-<span class="sd">            gmeq:</span>
-<span class="sd">                GME model equations class instance defined in</span>
-<span class="sd">                :mod:`gme.core.equations`</span>
-<span class="sd">            parameters:</span>
-<span class="sd">                dictionary of model parameter values to be used for</span>
-<span class="sd">                equation substitutions</span>
-<span class="sd">            **kwargs:</span>
-<span class="sd">                remaining keyword arguments (see base class for details)</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Initialize.&quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">gmeq</span><span class="p">,</span> <span class="n">parameters</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
         <span class="c1"># Initial condition equations</span>
@@ -282,7 +276,7 @@ equation substitutions</p></li>
     <span class="k">def</span> <span class="nf">initial_conditions</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">x_</span><span class="p">:</span> <span class="nb">float</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot; &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Define initial conditions.&quot;&quot;&quot;</span>
         <span class="n">rx0_</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">x_</span>
         <span class="n">rz0_</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">rz_initial_surface_eqn</span><span class="o">.</span><span class="n">rhs</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">x</span><span class="p">:</span> <span class="n">x_</span><span class="p">})</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">)</span>
@@ -296,7 +290,7 @@ equation substitutions</p></li>
         <span class="k">return</span> <span class="p">(</span><span class="n">rx0_</span><span class="p">,</span> <span class="n">rz0_</span><span class="p">,</span> <span class="n">px0_</span><span class="p">,</span> <span class="n">pz0_</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">solve</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">report_pc_step</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Solve.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">prep_arrays</span><span class="p">()</span>
         <span class="n">Lc_</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">Lc</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">))</span>
         <span class="c1"># print(self.t_end)</span>
@@ -330,7 +324,7 @@ equation substitutions</p></li>
 
 <span class="k">class</span> <span class="nc">InitialCornerSolution</span><span class="p">(</span><span class="n">BaseSolution</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Integration of Hamilton&#39;s equations (ODEs) from a &#39;corner&#39; point.</span>
+<span class="sd">    Integrate Hamilton&#39;s equations (ODEs) from a &#39;corner&#39; point.</span>
 
 <span class="sd">    Provides a set of ray integrations to span solutions along an initial</span>
 <span class="sd">    profile and solutions from a slip velocity boundary.</span>
@@ -351,7 +345,7 @@ equation substitutions</p></li>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gmeq</span><span class="p">:</span> <span class="n">Equations</span><span class="p">,</span> <span class="n">parameters</span><span class="p">:</span> <span class="n">Dict</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Constructor method.</span>
+<span class="sd">        Initialize.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            gmeq:</span>
@@ -474,7 +468,9 @@ equation substitutions</p></li>
 
 <span class="k">class</span> <span class="nc">CompositeSolution</span><span class="p">(</span><span class="n">BaseSolution</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Combine rays integrations from (1) initial profile,</span>
+<span class="sd">    Combine ray integrations.</span>
+
+<span class="sd">    From (1) initial profile,</span>
 <span class="sd">    (2) initial corner, and (3) velocity boundary</span>
 <span class="sd">    to generate a &#39;complete&#39; ray integration solution from a</span>
 <span class="sd">    complex topographic boundary.</span>
@@ -496,7 +492,7 @@ equation substitutions</p></li>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gmeq</span><span class="p">:</span> <span class="n">Equations</span><span class="p">,</span> <span class="n">parameters</span><span class="p">:</span> <span class="n">Dict</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Constructor method.</span>
+<span class="sd">        Initialize.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            gmeq:</span>

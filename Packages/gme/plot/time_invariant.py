@@ -1,6 +1,8 @@
 """
 Visualization of time-invariant solutions.
 
+---------------------------------------------------------------------
+
 Requires Python packages:
   -  :mod:`NumPy <numpy>`
   -  :mod:`SymPy <sympy>`
@@ -11,6 +13,8 @@ Requires Python packages:
 .. _GME: https://github.com/geomorphysics/GME
 .. _Matrix:
     https://docs.sympy.org/latest/modules/matrices/immutablematrices.html
+
+---------------------------------------------------------------------
 """
 # pylint: disable = too-few-public-methods, no-self-use
 

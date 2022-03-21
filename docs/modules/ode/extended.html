@@ -51,12 +51,11 @@
             
   <div class="section" id="module-gme.ode.extended">
 <span id="extended-py"></span><h1><code class="docutils literal notranslate"><span class="pre">extended.py</span></code><a class="headerlink" href="#module-gme.ode.extended" title="Permalink to this headline">¶</a></h1>
-<hr class="docutils" />
 <p>Base module for performing ray tracing of Hamilton’s equations.</p>
 <hr class="docutils" />
 <dl class="simple">
 <dt>Requires Python packages/modules:</dt><dd><ul class="simple">
-<li><p><a class="reference external" href="https://numpy.org/doc/stable/reference/index.html#module-numpy" title="(in NumPy v1.21)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">NumPy</span></code></a></p></li>
+<li><p><a class="reference external" href="https://numpy.org/doc/stable/reference/index.html#module-numpy" title="(in NumPy v1.22)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">NumPy</span></code></a></p></li>
 <li><p><a class="reference external" href="https://github.com/geomorphysics/GME">GME</a></p></li>
 </ul>
 </dd>
@@ -65,8 +64,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="gme.ode.extended.ExtendedSolution">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gme.ode.extended.</span></span><span class="sig-name descname"><span class="pre">ExtendedSolution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmeq</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="../core/equations.html#gme.core.equations.Equations" title="gme.core.equations.Equations"><span class="pre">gme.core.equations.Equations</span></a><span class="p"><span class="pre">,</span> </span><a class="reference internal" href="../core/equations_extended.html#gme.core.equations_extended.EquationsGeodesic" title="gme.core.equations_extended.EquationsGeodesic"><span class="pre">gme.core.equations_extended.EquationsGeodesic</span></a><span class="p"><span class="pre">,</span> </span><a class="reference internal" href="../core/equations_extended.html#gme.core.equations_extended.EquationsIdtx" title="gme.core.equations_extended.EquationsIdtx"><span class="pre">gme.core.equations_extended.EquationsIdtx</span></a><span class="p"><span class="pre">,</span> </span><a class="reference internal" href="../core/equations_extended.html#gme.core.equations_extended.EquationsIbc" title="gme.core.equations_extended.EquationsIbc"><span class="pre">gme.core.equations_extended.EquationsIbc</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gme.ode.extended.ExtendedSolution" title="Permalink to this definition">¶</a></dt>
-<dd><p>Integration of Hamilton’s equations (ODEs) to solve for
-propagation of a single ray.</p>
+<dd><p>Integrate Hamilton’s equations (ODEs) to propagate a single ray.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.ode.extended.ExtendedSolution.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmeq</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="../core/equations.html#gme.core.equations.Equations" title="gme.core.equations.Equations"><span class="pre">gme.core.equations.Equations</span></a><span class="p"><span class="pre">,</span> </span><a class="reference internal" href="../core/equations_extended.html#gme.core.equations_extended.EquationsGeodesic" title="gme.core.equations_extended.EquationsGeodesic"><span class="pre">gme.core.equations_extended.EquationsGeodesic</span></a><span class="p"><span class="pre">,</span> </span><a class="reference internal" href="../core/equations_extended.html#gme.core.equations_extended.EquationsIdtx" title="gme.core.equations_extended.EquationsIdtx"><span class="pre">gme.core.equations_extended.EquationsIdtx</span></a><span class="p"><span class="pre">,</span> </span><a class="reference internal" href="../core/equations_extended.html#gme.core.equations_extended.EquationsIbc" title="gme.core.equations_extended.EquationsIbc"><span class="pre">gme.core.equations_extended.EquationsIbc</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.ode.extended.ExtendedSolution.__init__" title="Permalink to this definition">¶</a></dt>
@@ -89,8 +87,6 @@ equation substitutions</p></li>
 <div class="section" id="code">
 <h2>Code<a class="headerlink" href="#code" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">---------------------------------------------------------------------</span>
-
 <span class="sd">Base module for performing ray tracing of Hamilton&#39;s equations.</span>
 
 <span class="sd">---------------------------------------------------------------------</span>
@@ -105,10 +101,10 @@ equation substitutions</p></li>
 <span class="sd">    https://docs.sympy.org/latest/modules/matrices/immutablematrices.html</span>
 
 <span class="sd">---------------------------------------------------------------------</span>
-
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="c1"># Library</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
+
 <span class="c1"># import logging</span>
 <span class="c1"># from functools import lru_cache</span>
 <span class="c1"># from enum import Enum, auto</span>
@@ -119,20 +115,20 @@ equation substitutions</p></li>
 
 <span class="c1"># GME</span>
 <span class="kn">from</span> <span class="nn">gme.core.equations</span> <span class="kn">import</span> <span class="n">Equations</span>
-<span class="kn">from</span> <span class="nn">gme.core.equations_extended</span> \
-    <span class="kn">import</span> <span class="nn">EquationsGeodesic</span><span class="o">,</span> <span class="nn">EquationsIdtx</span><span class="o">,</span> <span class="nn">EquationsIbc</span>
+<span class="kn">from</span> <span class="nn">gme.core.equations_extended</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">EquationsGeodesic</span><span class="p">,</span>
+    <span class="n">EquationsIdtx</span><span class="p">,</span>
+    <span class="n">EquationsIbc</span><span class="p">,</span>
+<span class="p">)</span>
 <span class="kn">from</span> <span class="nn">gme.ode.base</span> <span class="kn">import</span> <span class="n">BaseSolution</span>
 
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
 
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ExtendedSolution&#39;</span><span class="p">]</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;ExtendedSolution&quot;</span><span class="p">]</span>
 
 
 <span class="k">class</span> <span class="nc">ExtendedSolution</span><span class="p">(</span><span class="n">BaseSolution</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Integration of Hamilton&#39;s equations (ODEs) to solve for</span>
-<span class="sd">    propagation of a single ray.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;Integrate Hamilton&#39;s equations (ODEs) to propagate a single ray.&quot;&quot;&quot;</span>
 
     <span class="n">pz0</span><span class="p">:</span> <span class="nb">float</span>
     <span class="n">rays</span><span class="p">:</span> <span class="n">List</span>
@@ -201,10 +197,7 @@ equation substitutions</p></li>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">gmeq</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Equations</span><span class="p">,</span>
-                    <span class="n">EquationsGeodesic</span><span class="p">,</span>
-                    <span class="n">EquationsIdtx</span><span class="p">,</span>
-                    <span class="n">EquationsIbc</span><span class="p">],</span>
+        <span class="n">gmeq</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Equations</span><span class="p">,</span> <span class="n">EquationsGeodesic</span><span class="p">,</span> <span class="n">EquationsIdtx</span><span class="p">,</span> <span class="n">EquationsIbc</span><span class="p">],</span>
         <span class="n">parameters</span><span class="p">:</span> <span class="n">Dict</span><span class="p">,</span>
         <span class="o">**</span><span class="n">kwargs</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>

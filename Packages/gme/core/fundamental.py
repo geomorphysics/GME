@@ -1,5 +1,5 @@
 r"""
----------------------------------------------------------------------
+Define fundamental function and Hamiltonian.
 
 Derive equations for the geomorphic surface fundamental function
 :math:`\mathcal{F}` and the corresponding Hamiltonian
@@ -17,7 +17,6 @@ Requires Python packages/modules:
     https://docs.sympy.org/latest/modules/matrices/immutablematrices.html
 
 ---------------------------------------------------------------------
-
 """
 
 # Disable these pylint errors because it doesn't understand SymPy syntax
@@ -42,10 +41,13 @@ __all__ = ["FundamentalMixin"]
 
 
 class FundamentalMixin:
-    r"""
+    """
+    Define fundamental function.
+
     Fundamental function and Hamiltonian equations supplement
     to equation definition class.
     """
+
     # Prerequisites
     p_norm_pxpz_eqn: Eq
     p_varphi_pxpz_eqn: Eq
@@ -62,7 +64,6 @@ class FundamentalMixin:
         Define the fundamental function.
 
         Attributes:
-
             Okubo_Fstar_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`\dfrac{\sqrt{p_{x}^{2} + p_{z}^{2}}}{F^{*}}
                 = \dfrac{p_{x}^{- \eta}
@@ -93,7 +94,6 @@ class FundamentalMixin:
         Define the Hamiltonian.
 
         Attributes:
-
             H_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`H
                 = \dfrac{p_{x}^{2 \eta}

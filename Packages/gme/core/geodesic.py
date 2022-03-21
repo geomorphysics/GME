@@ -1,6 +1,4 @@
 """
----------------------------------------------------------------------
-
 Equation definitions and derivations using :mod:`SymPy <sympy>`.
 
 ---------------------------------------------------------------------
@@ -16,7 +14,6 @@ Requires Python packages/modules:
     https://docs.sympy.org/latest/modules/matrices/immutablematrices.html
 
 ---------------------------------------------------------------------
-
 """
 # Disable these pylint errors because it doesn't understand SymPy syntax
 #   - notably minus signs in equations flag an error
@@ -75,9 +72,8 @@ __all__ = ["GeodesicMixin"]
 
 
 class GeodesicMixin:
-    r"""
-    Geodesic equations supplement to equation definition class.
-    """
+    """Geodesic equations supplement to equation definition class."""
+
     # Prerequisites
     eta_: float
     mu_: float
@@ -269,7 +265,7 @@ class GeodesicMixin:
 
     def define_geodesic_eqns(self):
         r"""
-        Define geodesic equations
+        Define geodesic equations.
 
         Attributes:
             dg_rk_ij_mat (`Matrix`_):

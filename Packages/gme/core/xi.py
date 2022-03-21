@@ -1,6 +1,4 @@
 """
----------------------------------------------------------------------
-
 Equation definitions and derivations using :mod:`SymPy <sympy>`.
 
 ---------------------------------------------------------------------
@@ -43,10 +41,8 @@ __all__ = ["XiMixin"]
 
 
 class XiMixin:
-    r"""
-    Erosion model :math:`\xi` equations supplement
-    to equation definition class.
-    """
+    r"""Erosion model :math:`\xi` eqns supplement to eqn definition class."""
+
     # Prerequisites
     beta_type: str
     do_raw: bool
@@ -68,8 +64,9 @@ class XiMixin:
 
     def define_xi_eqns(self) -> None:
         r"""
-        Define equations for surface erosion speed :math:`\xi`
-        and its vertical behavior
+        Define eqns for surface erosion speed :math:`\xi`.
+
+        Also for its vertical behavior.
 
         Attributes:
             xi_p_eqn (:class:`~sympy.core.relational.Equality`):
@@ -89,6 +86,8 @@ class XiMixin:
 
     def define_xi_model_eqn(self) -> None:
         r"""
+        Define the equation for erosion rate model.
+
         Define the form of the surface erosion model,
         giving the speed of surface motion in its normal direction
         :math:`\xi^{\perp}``.
@@ -124,6 +123,8 @@ class XiMixin:
 
     def define_xi_related_eqns(self) -> None:
         r"""
+        Define equations related to the erosion model.
+        
         Define equations related to surface erosion speed :math:`\xi`
         and its vertical behavior.
         The derivations below are for an erosion model with

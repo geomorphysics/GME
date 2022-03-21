@@ -1,6 +1,8 @@
 """
 GME visualization base class.
 
+---------------------------------------------------------------------
+
 Requires Python packages:
   -  :mod:`NumPy <numpy>`
   -  :mod:`MatPlotLib <matplotlib>`
@@ -10,6 +12,8 @@ Requires Python packages:
 .. _GME: https://github.com/geomorphysics/GME
 .. _Matrix:
     https://docs.sympy.org/latest/modules/matrices/immutablematrices.html
+
+---------------------------------------------------------------------
 """
 # Library
 import warnings

@@ -51,7 +51,7 @@
             
   <div class="section" id="module-gme.core.equations_subset">
 <span id="equations-subset-py"></span><h1><code class="docutils literal notranslate"><span class="pre">equations_subset.py</span></code><a class="headerlink" href="#module-gme.core.equations_subset" title="Permalink to this headline">¶</a></h1>
-<hr class="docutils" />
+<p>Subset equations.</p>
 <p>Extract a minimal subset of equations - only those needed for a
 particular numerical solution.</p>
 <hr class="docutils" />
@@ -67,11 +67,11 @@ particular numerical solution.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="gme.core.equations_subset.EquationSubset">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gme.core.equations_subset.</span></span><span class="sig-name descname"><span class="pre">EquationSubset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmeq</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="equations.html#gme.core.equations.Equations" title="gme.core.equations.Equations"><span class="pre">gme.core.equations.Equations</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_ndim</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_revert</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gme.core.equations_subset.EquationSubset" title="Permalink to this definition">¶</a></dt>
-<dd><p>TBD</p>
+<dd><p>Extract a subset of equations.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.core.equations_subset.EquationSubset.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmeq</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="equations.html#gme.core.equations.Equations" title="gme.core.equations.Equations"><span class="pre">gme.core.equations.Equations</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_ndim</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_revert</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.core.equations_subset.EquationSubset.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>TBD</p>
+<dd><p>Initialize: constructor method.</p>
 </dd></dl>
 
 </dd></dl>
@@ -79,7 +79,7 @@ particular numerical solution.</p>
 <div class="section" id="code">
 <h2>Code<a class="headerlink" href="#code" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">---------------------------------------------------------------------</span>
+<span class="sd">Subset equations.</span>
 
 <span class="sd">Extract a minimal subset of equations - only those needed for a</span>
 <span class="sd">particular numerical solution.</span>
@@ -97,7 +97,6 @@ particular numerical solution.</p>
 <span class="sd">    https://docs.sympy.org/latest/modules/matrices/immutablematrices.html</span>
 
 <span class="sd">---------------------------------------------------------------------</span>
-
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="c1"># Disable these pylint errors because it doesn&#39;t understand SymPy syntax</span>
 <span class="c1">#   - notably minus signs in equations flag an error</span>
@@ -148,9 +147,7 @@ particular numerical solution.</p>
 
 
 <span class="k">class</span> <span class="nc">EquationSubset</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    TBD</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;Extract a subset of equations.&quot;&quot;&quot;</span>
 
     <span class="c1"># Definitions</span>
     <span class="n">pz_xiv_eqn</span><span class="p">:</span> <span class="n">Eq</span>
@@ -165,9 +162,7 @@ particular numerical solution.</p>
         <span class="n">do_ndim</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
         <span class="n">do_revert</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        TBD</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Initialize: constructor method.&quot;&quot;&quot;</span>
         <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;gme.core.equations_subset.EquationSubset&quot;</span><span class="p">)</span>
         <span class="n">sub</span> <span class="o">=</span> <span class="n">parameters</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">do_revert</span> <span class="ow">and</span> <span class="n">do_ndim</span><span class="p">:</span>

@@ -1,8 +1,7 @@
 """
----------------------------------------------------------------------
+Generate a sequence of topographic profiles for a velocity-boundary condition.
 
-Generate a sequence of topographic profiles, using ray tracing
-aka ODE integration of Hamilton's equations, for a velocity-boundary condition.
+Achieved by ray tracing aka ODE integration of Hamilton's equations.
 
 ---------------------------------------------------------------------
 
@@ -16,7 +15,6 @@ Requires Python packages/modules:
     https://docs.sympy.org/latest/modules/matrices/immutablematrices.html
 
 ---------------------------------------------------------------------
-
 """
 
 # Library
@@ -40,8 +38,7 @@ __all__ = ["VelocityBoundarySolution"]
 
 class VelocityBoundarySolution(ExtendedSolution):
     """
-    Integration of Hamilton's equations (ODEs) from a 'fault slip'
-    velocity boundary.
+    Integrate Hamilton's equations (ODEs) from a 'fault slip' velocity boundary.
 
     Currently the velocity boundary is required to lie along the
     left domain edge and to be vertical.
@@ -58,9 +55,7 @@ class VelocityBoundarySolution(ExtendedSolution):
         t_lag: float = 0,
         xiv_0_: float = 0,
     ) -> Tuple[float, float, float, float]:
-        """
-        TBD
-        """
+        """Initialize."""
         # self.parameters[xiv_0] = xiv_0_
         # px0_, pz0_ = pxpz0_from_xiv0( self.parameters,
         #                               #xiv_0_, self.parameters[xih_0],
@@ -75,9 +70,7 @@ class VelocityBoundarySolution(ExtendedSolution):
         return (rx0_, rz0_, px0_, pz0_)
 
     def solve(self, report_pc_step: int = 1) -> None:
-        """
-        TBD
-        """
+        """Solve ray tracing equations."""
         # self.prep_arrays()
         self.t_ensemble_max = 0.0
 

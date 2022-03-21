@@ -1,6 +1,4 @@
 """
----------------------------------------------------------------------
-
 Equation definitions and derivations using :mod:`SymPy <sympy>`.
 
 ---------------------------------------------------------------------
@@ -16,7 +14,6 @@ Requires Python packages/modules:
     https://docs.sympy.org/latest/modules/matrices/immutablematrices.html
 
 ---------------------------------------------------------------------
-
 """
 
 # Library
@@ -77,9 +74,7 @@ def pxpz0_from_xiv0(
     pz0_xiv0_eqn: Eq,
     poly_px_xiv0_eqn: Eq,
 ) -> Tuple[Any, Any]:
-    """
-    TBD
-    """
+    r"""Get initial slowness covector."""
     # pz0_xiv0_eqn = pz_xiv_eqn.subs({xiv:xiv_0}).subs(parameters)
     px0_poly_rx0_eqn = simplify(poly_px_xiv0_eqn.subs({rx: 0}))
     # .subs(parameters))
@@ -113,9 +108,7 @@ def pxpz0_from_xiv0(
 def gradient_value(
     x_: float, pz_: float, px_poly_eqn: Eq, do_use_newton: bool = False
 ) -> float:
-    """
-    TBD
-    """
+    """Compute surface gradient from slowness covector components."""
     px_: float = (
         -px_value_search(x_, pz_, px_poly_eqn)
         if do_use_newton
@@ -134,9 +127,7 @@ def px_value_search(
     pz_var_: Symbol = pz,
     bracket: Tuple[float, float] = (0, 30),
 ) -> float:
-    """
-    TBD
-    """
+    r"""Find :math:`p_x` root by nonlinear search."""
     px_poly_eqn_: Eq = px_poly_eqn.subs({rx: x_, x: x_, pz_var_: pz_})
     px_poly_lambda: Callable = lambdify([px_var_], px_poly_eqn_.as_expr())
     dpx_poly_lambda: Callable = (

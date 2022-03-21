@@ -1,9 +1,5 @@
 """
----------------------------------------------------------------------
-
 Derive an ensemble of GME equations using :mod:`SymPy <sympy>`.
-
----------------------------------------------------------------------
 
 This module provides a derivation of GME theory using :mod:`SymPy <sympy>`
 for a 2D slice of a 3D landscape along a channel transect.
@@ -28,7 +24,6 @@ Requires Python packages/modules:
     https://docs.sympy.org/latest/modules/matrices/immutablematrices.html
 
 ---------------------------------------------------------------------
-
 """
 # Library
 import warnings
@@ -60,9 +55,7 @@ __all__ = ["EquationsBase", "EquationsMixedIn", "Equations"]
 
 
 class EquationsBase:
-    r"""
-    Bare-bones base class for equation definitions.
-    """
+    """Bare-bones base class for equation definitions."""
 
     # Definitions
     eta_: Eq
@@ -81,10 +74,7 @@ class EquationsBase:
         # ibc_type: str = 'convex-up',
         do_raw: bool = True,
     ):
-        r"""
-        Constructor method.
-        """
-
+        """Initialize: constructor method."""
         logging.info("gme.core.equations.EquationsBase")
 
         self.eta_ = eta_
@@ -108,16 +98,16 @@ class EquationsMixedIn(
     MetricTensorMixin,
     PxpolyMixin,
 ):
-    r"""
+    """
+    Equation definitions mixin.
+
     Extended base class that's furnished with
     mixins providing all the basic equation definitions, but none of
     which are automatically acted upon.
     """
 
     def __init__(self, **kwargs) -> None:
-        r"""
-        Constructor method.
-        """
+        """Initialize: constructor method."""
         logging.info("gme.core.equations.EquationsMixedIn")
 
         super().__init__(**kwargs)
@@ -125,6 +115,8 @@ class EquationsMixedIn(
 
 class Equations(EquationsMixedIn):
     r"""
+    Equation definitions.
+
     Class to solve the set of GME equations(using: mod: `SymPy < sympy >`)
     and to provide them in a form(sometimes lambdified) that can be used for
     numerical evaluation.
@@ -169,9 +161,7 @@ class Equations(EquationsMixedIn):
     """
 
     def __init__(self, parameters: Optional[Dict] = None, **kwargs) -> None:
-        r"""
-        Constructor method.
-        """
+        """Initialize: constructor method."""
         logging.info("gme.core.equations.Equations")
 
         super().__init__(parameters=parameters, **kwargs)

@@ -1,6 +1,4 @@
 """
----------------------------------------------------------------------
-
 Equation definitions and derivations using :mod:`SymPy <sympy>`.
 
 ---------------------------------------------------------------------
@@ -16,7 +14,6 @@ Requires Python packages/modules:
     https://docs.sympy.org/latest/modules/matrices/immutablematrices.html
 
 ---------------------------------------------------------------------
-
 """
 # Disable these pylint errors because it doesn't understand SymPy syntax
 #   - notably minus signs in equations flag an error
@@ -62,10 +59,8 @@ __all__ = ["IbcMixin"]
 
 
 class IbcMixin:
-    r"""
-    Initial condition/boundary condition equations supplement
-    to equation definition class.
-    """
+    """Initial condition/boundary condition eqns supplement to eqn def class."""
+
     # Prerequisites
     pz0_xiv0_eqn: Eq
     pzpx_unity_eqn: Eq
@@ -86,10 +81,9 @@ class IbcMixin:
 
     def prep_ibc_eqns(self) -> None:
         r"""
-        Define boundary (ray initial) condition equations
+        Define boundary (ray initial) condition equations.
 
         Attributes:
-
             pz0_xiv0_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`p_{z_0} = - \dfrac{1}{\xi^{\downarrow{0}}}`
 
@@ -113,7 +107,7 @@ class IbcMixin:
 
     def define_ibc_eqns(self) -> None:
         r"""
-        Define initial profile equations
+        Define initial profile equations.
 
         Attributes:
             boundary_eqns (`dict` of :class:`~sympy.core.relational.Equality`):
@@ -180,10 +174,9 @@ class IbcMixin:
 
     def set_ibc_eqns(self) -> None:
         r"""
-        Define initial condition equations
+        Define initial condition equations.
 
         Attributes:
-
             rz_initial_eqn (:class:`~sympy.core.relational.Equality`):
                 :math:`{r}^z = \dfrac{h_{0} \tanh{\left(\frac{
                 \kappa_\mathrm{h} {r}^x}{x_{1}} \right)}}{\tanh{\left(

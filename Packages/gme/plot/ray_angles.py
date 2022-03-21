@@ -1,6 +1,8 @@
 """
 Visualization of ray angles.
 
+---------------------------------------------------------------------
+
 Requires Python packages/modules:
   -  :mod:`NumPy <numpy>`
   -  :mod:`SymPy <sympy>`
@@ -13,6 +15,8 @@ Requires Python packages/modules:
 .. _Matrix:
     https://docs.sympy.org/latest/modules/matrices/immutablematrices.html
 .. _Cycler: https://matplotlib.org/cycler/
+
+---------------------------------------------------------------------
 """
 # Library
 import warnings

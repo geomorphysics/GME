@@ -52,7 +52,7 @@
             
   <div class="section" id="module-gme.core.fundamental">
 <span id="fundamental-py"></span><h1><code class="docutils literal notranslate"><span class="pre">fundamental.py</span></code><a class="headerlink" href="#module-gme.core.fundamental" title="Permalink to this headline">¶</a></h1>
-<hr class="docutils" />
+<p>Define fundamental function and Hamiltonian.</p>
 <p>Derive equations for the geomorphic surface fundamental function
 <span class="math notranslate nohighlight">\(\mathcal{F}\)</span> and the corresponding Hamiltonian
 <span class="math notranslate nohighlight">\(\mathcal{H}\)</span>.</p>
@@ -68,7 +68,8 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="gme.core.fundamental.FundamentalMixin">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gme.core.fundamental.</span></span><span class="sig-name descname"><span class="pre">FundamentalMixin</span></span><a class="headerlink" href="#gme.core.fundamental.FundamentalMixin" title="Permalink to this definition">¶</a></dt>
-<dd><p>Fundamental function and Hamiltonian equations supplement
+<dd><p>Define fundamental function.</p>
+<p>Fundamental function and Hamiltonian equations supplement
 to equation definition class.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.core.fundamental.FundamentalMixin.define_Fstar_eqns">
@@ -143,7 +144,7 @@ to equation definition class.</p>
 <div class="section" id="code">
 <h2>Code<a class="headerlink" href="#code" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">---------------------------------------------------------------------</span>
+<span class="sd">Define fundamental function and Hamiltonian.</span>
 
 <span class="sd">Derive equations for the geomorphic surface fundamental function</span>
 <span class="sd">:math:`\mathcal{F}` and the corresponding Hamiltonian</span>
@@ -161,7 +162,6 @@ to equation definition class.</p>
 <span class="sd">    https://docs.sympy.org/latest/modules/matrices/immutablematrices.html</span>
 
 <span class="sd">---------------------------------------------------------------------</span>
-
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="c1"># Disable these pylint errors because it doesn&#39;t understand SymPy syntax</span>
@@ -186,10 +186,13 @@ to equation definition class.</p>
 
 
 <span class="k">class</span> <span class="nc">FundamentalMixin</span><span class="p">:</span>
-    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Define fundamental function.</span>
+
 <span class="sd">    Fundamental function and Hamiltonian equations supplement</span>
 <span class="sd">    to equation definition class.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="c1"># Prerequisites</span>
     <span class="n">p_norm_pxpz_eqn</span><span class="p">:</span> <span class="n">Eq</span>
     <span class="n">p_varphi_pxpz_eqn</span><span class="p">:</span> <span class="n">Eq</span>
@@ -206,7 +209,6 @@ to equation definition class.</p>
 <span class="sd">        Define the fundamental function.</span>
 
 <span class="sd">        Attributes:</span>
-
 <span class="sd">            Okubo_Fstar_eqn (:class:`~sympy.core.relational.Equality`):</span>
 <span class="sd">                :math:`\dfrac{\sqrt{p_{x}^{2} + p_{z}^{2}}}{F^{*}}</span>
 <span class="sd">                = \dfrac{p_{x}^{- \eta}</span>
@@ -237,7 +239,6 @@ to equation definition class.</p>
 <span class="sd">        Define the Hamiltonian.</span>
 
 <span class="sd">        Attributes:</span>
-
 <span class="sd">            H_eqn (:class:`~sympy.core.relational.Equality`):</span>
 <span class="sd">                :math:`H</span>
 <span class="sd">                = \dfrac{p_{x}^{2 \eta}</span>

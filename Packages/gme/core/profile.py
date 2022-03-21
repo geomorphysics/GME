@@ -1,6 +1,4 @@
 """
----------------------------------------------------------------------
-
 Equation definitions and derivations using :mod:`SymPy <sympy>`.
 
 ---------------------------------------------------------------------
@@ -69,9 +67,7 @@ __all__ = ["ProfileMixin"]
 
 
 class ProfileMixin:
-    r"""
-    Generate differential equation(s) for time-invariant topographic profile.
-    """
+    """Generate differential eqn(s) for time-invariant topographic profile."""
 
     # Definitions
     xiv_eqn: Eq
@@ -82,11 +78,10 @@ class ProfileMixin:
 
     def define_z_eqns(self) -> None:
         r"""
-        Form a polynomial-type ODE in $\hat{z}(\hat{x})$
+        Form a polynomial-type ODE in $\hat{z}(\hat{x})$.
 
         Attributes:
             dzdx_Ci_polylike_eqn
-
         """
         logging.info("gme.core.profile.define_z_eqns")
         tmp_eqn = Eq(

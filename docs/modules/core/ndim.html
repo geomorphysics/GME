@@ -52,7 +52,6 @@
             
   <div class="section" id="module-gme.core.ndim">
 <span id="ndim-py"></span><h1><code class="docutils literal notranslate"><span class="pre">ndim.py</span></code><a class="headerlink" href="#module-gme.core.ndim" title="Permalink to this headline">¶</a></h1>
-<hr class="docutils" />
 <p>Equation definitions and derivations using <a class="reference external" href="https://docs.sympy.org/latest/index.html#module-sympy" title="(in SymPy v1.10.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">SymPy</span></code></a>.</p>
 <hr class="docutils" />
 <dl class="simple">
@@ -71,15 +70,15 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.core.ndim.NdimMixin.define_nodimensionalized_Hamiltons_eqns">
 <span class="sig-name descname"><span class="pre">define_nodimensionalized_Hamiltons_eqns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.core.ndim.NdimMixin.define_nodimensionalized_Hamiltons_eqns" title="Permalink to this definition">¶</a></dt>
-<dd><p>Group Hamilton’s equations into matrix form</p>
+<dd><p>Group Hamilton’s equations into matrix form.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.core.ndim.NdimMixin.nondimensionalize">
 <span class="sig-name descname"><span class="pre">nondimensionalize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.core.ndim.NdimMixin.nondimensionalize" title="Permalink to this definition">¶</a></dt>
-<dd><p>Non-dimensionalize variables, Hamiltonian, and Hamilton’s equations;
+<dd><p>Non-dimensionalization.</p>
+<p>Non-dimensionalize variables, Hamiltonian, and Hamilton’s equations;
 define dimensionless channel incision number <span class="math notranslate nohighlight">\(\mathsf{Ci}\)</span>.</p>
-<p>Attributes:</p>
 </dd></dl>
 
 </dd></dl>
@@ -87,8 +86,6 @@ define dimensionless channel incision number <span class="math notranslate nohig
 <div class="section" id="code">
 <h2>Code<a class="headerlink" href="#code" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">---------------------------------------------------------------------</span>
-
 <span class="sd">Equation definitions and derivations using :mod:`SymPy &lt;sympy&gt;`.</span>
 
 <span class="sd">---------------------------------------------------------------------</span>
@@ -104,7 +101,6 @@ define dimensionless channel incision number <span class="math notranslate nohig
 <span class="sd">    https://docs.sympy.org/latest/modules/matrices/immutablematrices.html</span>
 
 <span class="sd">---------------------------------------------------------------------</span>
-
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="c1"># Disable these pylint errors because it doesn&#39;t understand SymPy syntax</span>
 <span class="c1">#   - notably minus signs in equations flag an error</span>
@@ -179,9 +175,8 @@ define dimensionless channel incision number <span class="math notranslate nohig
 
 
 <span class="k">class</span> <span class="nc">NdimMixin</span><span class="p">:</span>
-    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Non-dimensionalization supplement to equation definition class.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;Non-dimensionalization supplement to equation definition class.&quot;&quot;&quot;</span>
+
     <span class="c1"># Prerequisites</span>
     <span class="n">varphi_rx_eqn</span><span class="p">:</span> <span class="n">Eq</span>
     <span class="n">xi_varphi_beta_eqn</span><span class="p">:</span> <span class="n">Eq</span>
@@ -231,10 +226,10 @@ define dimensionless channel incision number <span class="math notranslate nohig
 
     <span class="k">def</span> <span class="nf">nondimensionalize</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Non-dimensionalization.</span>
+
 <span class="sd">        Non-dimensionalize variables, Hamiltonian, and Hamilton&#39;s equations;</span>
 <span class="sd">        define dimensionless channel incision number :math:`\mathsf{Ci}`.</span>
-
-<span class="sd">        Attributes:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;gme.core.ndim.nondimensionalize&quot;</span><span class="p">)</span>
         <span class="n">varsub</span><span class="p">:</span> <span class="n">Dict</span> <span class="o">=</span> <span class="p">{}</span>
@@ -409,9 +404,7 @@ define dimensionless channel incision number <span class="math notranslate nohig
         <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">define_nodimensionalized_Hamiltons_eqns</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Group Hamilton&#39;s equations into matrix form</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Group Hamilton&#39;s equations into matrix form.&quot;&quot;&quot;</span>
         <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;gme.core.ndim.define_nodimensionalized_Hamiltons_eqns&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">hamiltons_ndim_eqns</span> <span class="o">=</span> <span class="n">Matrix</span><span class="p">(</span>
             <span class="p">(</span>

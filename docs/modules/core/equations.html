@@ -52,9 +52,7 @@
             
   <div class="section" id="module-gme.core.equations">
 <span id="equations-py"></span><h1><code class="docutils literal notranslate"><span class="pre">equations.py</span></code><a class="headerlink" href="#module-gme.core.equations" title="Permalink to this headline">¶</a></h1>
-<hr class="docutils" />
 <p>Derive an ensemble of GME equations using <a class="reference external" href="https://docs.sympy.org/latest/index.html#module-sympy" title="(in SymPy v1.10.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">SymPy</span></code></a>.</p>
-<hr class="docutils" />
 <p>This module provides a derivation of GME theory using <a class="reference external" href="https://docs.sympy.org/latest/index.html#module-sympy" title="(in SymPy v1.10.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">SymPy</span></code></a>
 for a 2D slice of a 3D landscape along a channel transect.</p>
 <p>Starting from a model equation for the surface-normal erosion rate in terms of
@@ -76,7 +74,8 @@ The rest of the equations are derived from these core results.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="gme.core.equations.Equations">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gme.core.equations.</span></span><span class="sig-name descname"><span class="pre">Equations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gme.core.equations.Equations" title="Permalink to this definition">¶</a></dt>
-<dd><p>Class to solve the set of GME equations(using: mod: <cite>SymPy &lt; sympy &gt;</cite>)
+<dd><p>Equation definitions.</p>
+<p>Class to solve the set of GME equations(using: mod: <cite>SymPy &lt; sympy &gt;</cite>)
 and to provide them in a form(sometimes lambdified) that can be used for
 numerical evaluation.</p>
 <p>unspecified, up until the Hamiltonian is defined, but eventually values
@@ -125,7 +124,7 @@ See below</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.core.equations.Equations.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.core.equations.Equations.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Constructor method.</p>
+<dd><p>Initialize: constructor method.</p>
 </dd></dl>
 
 </dd></dl>
@@ -137,7 +136,7 @@ See below</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.core.equations.EquationsBase.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eta_</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.sympy.org/latest/modules/core.html#sympy.core.numbers.Rational" title="(in SymPy v1.10.1)"><span class="pre">sympy.core.numbers.Rational</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">3</span> <span class="pre">/</span> <span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mu_</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.sympy.org/latest/modules/core.html#sympy.core.numbers.Rational" title="(in SymPy v1.10.1)"><span class="pre">sympy.core.numbers.Rational</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">3</span> <span class="pre">/</span> <span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta_type</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'sin'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">varphi_type</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'ramp'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_raw</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gme.core.equations.EquationsBase.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Constructor method.</p>
+<dd><p>Initialize: constructor method.</p>
 </dd></dl>
 
 </dd></dl>
@@ -145,13 +144,14 @@ See below</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="gme.core.equations.EquationsMixedIn">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gme.core.equations.</span></span><span class="sig-name descname"><span class="pre">EquationsMixedIn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gme.core.equations.EquationsMixedIn" title="Permalink to this definition">¶</a></dt>
-<dd><p>Extended base class that’s furnished with
+<dd><p>Equation definitions mixin.</p>
+<p>Extended base class that’s furnished with
 mixins providing all the basic equation definitions, but none of
 which are automatically acted upon.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.core.equations.EquationsMixedIn.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.core.equations.EquationsMixedIn.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Constructor method.</p>
+<dd><p>Initialize: constructor method.</p>
 </dd></dl>
 
 </dd></dl>
@@ -159,11 +159,7 @@ which are automatically acted upon.</p>
 <div class="section" id="code">
 <h2>Code<a class="headerlink" href="#code" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">---------------------------------------------------------------------</span>
-
 <span class="sd">Derive an ensemble of GME equations using :mod:`SymPy &lt;sympy&gt;`.</span>
-
-<span class="sd">---------------------------------------------------------------------</span>
 
 <span class="sd">This module provides a derivation of GME theory using :mod:`SymPy &lt;sympy&gt;`</span>
 <span class="sd">for a 2D slice of a 3D landscape along a channel transect.</span>
@@ -188,7 +184,6 @@ which are automatically acted upon.</p>
 <span class="sd">    https://docs.sympy.org/latest/modules/matrices/immutablematrices.html</span>
 
 <span class="sd">---------------------------------------------------------------------</span>
-
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="c1"># Library</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
@@ -220,9 +215,7 @@ which are automatically acted upon.</p>
 
 
 <span class="k">class</span> <span class="nc">EquationsBase</span><span class="p">:</span>
-    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Bare-bones base class for equation definitions.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;Bare-bones base class for equation definitions.&quot;&quot;&quot;</span>
 
     <span class="c1"># Definitions</span>
     <span class="n">eta_</span><span class="p">:</span> <span class="n">Eq</span>
@@ -241,10 +234,7 @@ which are automatically acted upon.</p>
         <span class="c1"># ibc_type: str = &#39;convex-up&#39;,</span>
         <span class="n">do_raw</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="p">):</span>
-        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Constructor method.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-
+        <span class="sd">&quot;&quot;&quot;Initialize: constructor method.&quot;&quot;&quot;</span>
         <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;gme.core.equations.EquationsBase&quot;</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">eta_</span> <span class="o">=</span> <span class="n">eta_</span>
@@ -268,16 +258,16 @@ which are automatically acted upon.</p>
     <span class="n">MetricTensorMixin</span><span class="p">,</span>
     <span class="n">PxpolyMixin</span><span class="p">,</span>
 <span class="p">):</span>
-    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Equation definitions mixin.</span>
+
 <span class="sd">    Extended base class that&#39;s furnished with</span>
 <span class="sd">    mixins providing all the basic equation definitions, but none of</span>
 <span class="sd">    which are automatically acted upon.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Constructor method.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Initialize: constructor method.&quot;&quot;&quot;</span>
         <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;gme.core.equations.EquationsMixedIn&quot;</span><span class="p">)</span>
 
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
@@ -285,6 +275,8 @@ which are automatically acted upon.</p>
 
 <span class="k">class</span> <span class="nc">Equations</span><span class="p">(</span><span class="n">EquationsMixedIn</span><span class="p">):</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Equation definitions.</span>
+
 <span class="sd">    Class to solve the set of GME equations(using: mod: `SymPy &lt; sympy &gt;`)</span>
 <span class="sd">    and to provide them in a form(sometimes lambdified) that can be used for</span>
 <span class="sd">    numerical evaluation.</span>
@@ -329,9 +321,7 @@ which are automatically acted upon.</p>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parameters</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Constructor method.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Initialize: constructor method.&quot;&quot;&quot;</span>
         <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;gme.core.equations.Equations&quot;</span><span class="p">)</span>
 
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">parameters</span><span class="o">=</span><span class="n">parameters</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>

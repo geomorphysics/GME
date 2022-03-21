@@ -1,6 +1,4 @@
 """
----------------------------------------------------------------------
-
 Equation definitions and derivations using :mod:`SymPy <sympy>`.
 
 ---------------------------------------------------------------------
@@ -19,7 +17,6 @@ Requires Python packages/modules:
     #sympy.core.relational.Equality
 
 ---------------------------------------------------------------------
-
 """
 # Disable these pylint errors because it doesn't understand SymPy syntax
 #   - notably minus signs in equations flag an error
@@ -59,9 +56,8 @@ __all__ = ["HamiltonsMixin"]
 
 
 class HamiltonsMixin:
-    r"""
-    Hamilton's equations supplement to equation definition class.
-    """
+    """Hamilton's equations supplement to equation definition class."""
+
     # Prerequisites
     H_eqn: Eq
     px_pz_tanbeta_eqn: Eq
@@ -88,10 +84,9 @@ class HamiltonsMixin:
 
     def define_rdot_eqns(self) -> None:
         r"""
-        Define equations for :math:`\dot{r}`, the rate of change of position
+        Define equations for :math:`\dot{r}`, the rate of change of position.
 
         Attributes:
-
             rdotx_rdot_alpha_eqn (`Equality`_):
                 :math:`v^{x} = v \cos{\left(\alpha \right)}`
 
@@ -160,11 +155,9 @@ class HamiltonsMixin:
 
     def define_pdot_eqns(self) -> None:
         r"""
-        Define equations for :math:`\dot{p}`, the rate of change of
-        normal slowness
+        Define eqns for :math:`\dot{p}`, the rate of change of normal slowness.
 
         Attributes:
-
             pdotx_pxpz_eqn (`Equality`_):
                 :math:`\dot{p}_x = 2 \mu \varphi_0^{2}
                 p_{x}^{2 \eta} x_{1}^{- 4 \mu} \left(p_{x}^{2}
@@ -215,10 +208,9 @@ class HamiltonsMixin:
 
     def define_Hamiltons_eqns(self) -> None:
         r"""
-        Define Hamilton's equations
+        Define Hamilton's equations.
 
         Attributes:
-
             hamiltons_eqns (`Matrix`_):
                 :math:`\left[\begin{matrix}\
                 \dot{r}^x = \varphi_0^{2} p_{x}^{2 \eta - 1} x_{1}^{- 4 \mu}

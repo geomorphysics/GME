@@ -1,9 +1,7 @@
 """
----------------------------------------------------------------------
+Mathematical symbols used in GME equations.
 
-Mathematical symbols used in GME equations,
-and their latex representation for pretty printing in notebooks.
-
+Also their latex representation for pretty printing in notebooks.
 
 ---------------------------------------------------------------------
 
@@ -11,7 +9,6 @@ Requires Python packages/modules:
   -  :mod:`SymPy <sympy>`
 
 ---------------------------------------------------------------------
-
 """
 from sympy.physics.units.systems import SI
 from sympy.physics.units import length, time

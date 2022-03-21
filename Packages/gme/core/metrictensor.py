@@ -1,6 +1,4 @@
 """
----------------------------------------------------------------------
-
 Equation definitions and derivations using :mod:`SymPy <sympy>`.
 
 ---------------------------------------------------------------------
@@ -17,7 +15,6 @@ Requires Python packages/modules:
     #sympy.core.relational.Equality
 
 ---------------------------------------------------------------------
-
 """
 # Disable these pylint errors because it doesn't understand SymPy syntax
 #   - notably minus signs in equations flag an error
@@ -41,9 +38,8 @@ __all__ = ["MetricTensorMixin"]
 
 
 class MetricTensorMixin:
-    r"""
-    Metric tensor equations supplement to equation definition class.
-    """
+    """Metric tensor equations supplement to equation definition class."""
+
     # Prerequisites
     eta_: float
     beta_type: str
@@ -62,8 +58,7 @@ class MetricTensorMixin:
 
     def define_g_eqns(self) -> None:
         r"""
-        Define equations for the metric tensor :math:`g` and
-        its dual  :math:`g^*`
+        Define eqns for metric tensor :math:`g` and its dual  :math:`g^*`.
 
         Attributes:
             gstar_varphi_pxpz_eqn (`Equality`_):

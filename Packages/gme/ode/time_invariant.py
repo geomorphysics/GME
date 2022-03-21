@@ -1,8 +1,7 @@
 """
----------------------------------------------------------------------
+Time-invariant topographic profile construction.
 
-Time-invariant topographic profile construction by ray tracing
-aka ODE integration of Hamilton's equations.
+Performed by ray tracing aka ODE integration of Hamilton's equations.
 
 ---------------------------------------------------------------------
 
@@ -19,8 +18,8 @@ Requires Python packages/modules:
     https://docs.sympy.org/latest/modules/matrices/immutablematrices.html
 
 ---------------------------------------------------------------------
-
 """
+
 # Library
 import warnings
 import logging
@@ -51,8 +50,7 @@ __all__ = ["TimeInvariantSolution"]
 
 class TimeInvariantSolution(SingleRaySolution):
     """
-    Integration of Hamilton's equations (ODEs) to generate time-invariant
-    (steady-state) profile solutions.
+    Integrate Hamilton's equations to generate time-invariant solutions.
 
     Extends :class:`gme.ode.single_ray.SingleRaySolution`.
     """
@@ -74,8 +72,9 @@ class TimeInvariantSolution(SingleRaySolution):
         self, spline_order: int = 2, extrapolation_mode: int = 0
     ) -> None:
         """
-        Process the results of ODE integration, supplementing the
-        standard set of array generations.
+        Process the results of ODE integrations.
+
+        Supplements the standard set of array generations.
 
         Args:
             spline_order:
@@ -143,8 +142,9 @@ class TimeInvariantSolution(SingleRaySolution):
         do_use_newton: bool = False,
     ) -> None:
         """
-        Generate topographic profile by numerically integrating gradient
-        using simple quadrature.
+        Generate topographic profile by numerically integrating gradient.
+
+        Uses simple quadrature.
 
         Args:
             n_pts:

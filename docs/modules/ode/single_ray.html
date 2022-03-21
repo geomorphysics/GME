@@ -51,7 +51,6 @@
             
   <div class="section" id="module-gme.ode.single_ray">
 <span id="single-ray-py"></span><h1><code class="docutils literal notranslate"><span class="pre">single_ray.py</span></code><a class="headerlink" href="#module-gme.ode.single_ray" title="Permalink to this headline">¶</a></h1>
-<hr class="docutils" />
 <p>Single-ray tracing through ODE integration of Hamilton’s equations.</p>
 <hr class="docutils" />
 <dl class="simple">
@@ -68,24 +67,24 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="gme.ode.single_ray.SingleRaySolution">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gme.ode.single_ray.</span></span><span class="sig-name descname"><span class="pre">SingleRaySolution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmeq</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="../core/equations.html#gme.core.equations.Equations" title="gme.core.equations.Equations"><span class="pre">gme.core.equations.Equations</span></a><span class="p"><span class="pre">,</span> </span><a class="reference internal" href="../core/equations_extended.html#gme.core.equations_extended.EquationsGeodesic" title="gme.core.equations_extended.EquationsGeodesic"><span class="pre">gme.core.equations_extended.EquationsGeodesic</span></a><span class="p"><span class="pre">,</span> </span><a class="reference internal" href="../core/equations_extended.html#gme.core.equations_extended.EquationsIdtx" title="gme.core.equations_extended.EquationsIdtx"><span class="pre">gme.core.equations_extended.EquationsIdtx</span></a><span class="p"><span class="pre">,</span> </span><a class="reference internal" href="../core/equations_extended.html#gme.core.equations_extended.EquationsIbc" title="gme.core.equations_extended.EquationsIbc"><span class="pre">gme.core.equations_extended.EquationsIbc</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gme.ode.single_ray.SingleRaySolution" title="Permalink to this definition">¶</a></dt>
-<dd><p>Single-ray tracing through ODE integration of Hamilton’s equations.</p>
+<dd><p>Trace a single-ray by ODE integration of Hamilton’s equations.</p>
 <p>Subclasses <code class="xref py py-class docutils literal notranslate"><span class="pre">gme.ode.base.ExtendedSolution</span></code>.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.ode.single_ray.SingleRaySolution.initial_conditions">
 <span class="sig-name descname"><span class="pre">initial_conditions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t_lag</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xiv_0_</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#gme.ode.single_ray.SingleRaySolution.initial_conditions" title="Permalink to this definition">¶</a></dt>
-<dd><p>TBD</p>
+<dd><p>Initialize.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.ode.single_ray.SingleRaySolution.postprocessing">
 <span class="sig-name descname"><span class="pre">postprocessing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spline_order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extrapolation_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.ode.single_ray.SingleRaySolution.postprocessing" title="Permalink to this definition">¶</a></dt>
-<dd><p>TBD</p>
+<dd><p>Process integration results into a ray trace.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.ode.single_ray.SingleRaySolution.solve">
 <span class="sig-name descname"><span class="pre">solve</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.ode.single_ray.SingleRaySolution.solve" title="Permalink to this definition">¶</a></dt>
-<dd><p>TBD</p>
+<dd><p>Solve Hamilton’s equations for one ray.</p>
 </dd></dl>
 
 </dd></dl>
@@ -93,7 +92,6 @@
 <div class="section" id="code">
 <h2>Code<a class="headerlink" href="#code" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">---------------------------------------------------------------------</span>
 
 <span class="sd">Single-ray tracing through ODE integration of Hamilton&#39;s equations.</span>
 
@@ -141,7 +139,7 @@
 
 <span class="k">class</span> <span class="nc">SingleRaySolution</span><span class="p">(</span><span class="n">ExtendedSolution</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Single-ray tracing through ODE integration of Hamilton&#39;s equations.</span>
+<span class="sd">    Trace a single-ray by ODE integration of Hamilton&#39;s equations.</span>
 
 <span class="sd">    Subclasses :class:`gme.ode.base.ExtendedSolution`.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -198,9 +196,7 @@
         <span class="n">t_lag</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
         <span class="n">xiv_0_</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        TBD</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Initialize.&quot;&quot;&quot;</span>
         <span class="n">rz0_</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="n">rx0_</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="c1"># HACK: poly_px_xiv0_eqn not actually defined...</span>
@@ -211,9 +207,7 @@
         <span class="k">return</span> <span class="p">(</span><span class="n">rz0_</span><span class="p">,</span> <span class="n">rx0_</span><span class="p">,</span> <span class="n">px0_</span><span class="p">,</span> <span class="n">pz0_</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">e2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">gmeq</span><span class="o">.</span><span class="n">xiv0_xih0_Ci_eqn</span><span class="p">)))</span>
 
     <span class="k">def</span> <span class="nf">solve</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        TBD</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Solve Hamilton&#39;s equations for one ray.&quot;&quot;&quot;</span>
         <span class="c1"># Record the ic as a list of one - to be used by solve_ODE_system</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ic_list</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">initial_conditions</span><span class="p">()</span>
@@ -235,9 +229,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">rpt_arrays</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">postprocessing</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">spline_order</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">extrapolation_mode</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        TBD</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Process integration results into a ray trace.&quot;&quot;&quot;</span>
         <span class="c1"># Basics</span>
         <span class="p">[</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">rx_array</span><span class="p">,</span>

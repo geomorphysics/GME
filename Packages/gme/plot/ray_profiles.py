@@ -1,6 +1,8 @@
 """
 Visualization of ray properties along a profile.
 
+---------------------------------------------------------------------
+
 Requires Python packages/modules:
   -  :mod:`NumPy <numpy>`
   -  :mod:`SymPy <sympy>`
@@ -11,6 +13,8 @@ Requires Python packages/modules:
 .. _GME: https://github.com/geomorphysics/GME
 .. _Matrix:
     https://docs.sympy.org/latest/modules/matrices/immutablematrices.html
+
+---------------------------------------------------------------------
 """
 # Library
 import warnings

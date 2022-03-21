@@ -1,5 +1,5 @@
 """
----------------------------------------------------------------------
+Extended equations.
 
 Derive extended sets of equations, including those describing the loci
 of the indicatrix and figuratrix, those for handling convex and concave
@@ -17,7 +17,6 @@ Requires Python packages/modules:
 /immutablematrices.html
 
 ---------------------------------------------------------------------
-
 """
 # Disable these pylint errors because it doesn't understand SymPy syntax
 #   - notably minus signs in equations flag an error
@@ -46,17 +45,13 @@ __all__ = [
 
 
 class EquationsGeodesic(Equations, GeodesicMixin):
-    r"""
-    Generate set of equations including geodesic equations.
-    """
+    """Generate set of equations including geodesic equations."""
 
     # Definitions
     ibc_type: str
 
     def __init__(self, parameters: Optional[Dict] = None, **kwargs) -> None:
-        r"""
-        Constructor method
-        """
+        """Initialize: constructor method."""
         super().__init__(parameters=parameters, **kwargs)
         logging.info("gme.core.equations_extended.EquationsGeodesic")
 
@@ -66,14 +61,10 @@ class EquationsGeodesic(Equations, GeodesicMixin):
 
 
 class EquationsIdtx(Equations, IdtxMixin):
-    r"""
-    Generate set of equations including indicatrix/figuratrix equations.
-    """
+    """Generate set of equations including indicatrix/figuratrix equations."""
 
     def __init__(self, parameters: Optional[Dict] = None, **kwargs) -> None:
-        r"""
-        Constructor method
-        """
+        """Initialize: constructor method."""
         super().__init__(parameters=parameters, **kwargs)
         logging.info("gme.core.equations_extended.EquationsIdtx")
 
@@ -81,9 +72,7 @@ class EquationsIdtx(Equations, IdtxMixin):
 
 
 class EquationsIbc(Equations, IbcMixin):
-    r"""
-    Generate set of equations including initial/boundary condition equations.
-    """
+    """Generate set of equations including initial/boundary conditions."""
 
     # Definitions
     ibc_type: str
@@ -94,9 +83,7 @@ class EquationsIbc(Equations, IbcMixin):
         ibc_type: str = "convex-up",
         **kwargs
     ) -> None:
-        r"""
-        Constructor method
-        """
+        """Initialize: constructor method."""
         super().__init__(parameters=parameters, **kwargs)
         logging.info("gme.core.equations_extended.EquationsIbc")
         self.ibc_type: str = ibc_type
@@ -107,10 +94,7 @@ class EquationsIbc(Equations, IbcMixin):
 
 
 class EquationsIdtxIbc(EquationsIdtx, IbcMixin):
-    r"""
-    Generate set of equations including indicatrix/figuratrix
-    and initial/boundary condition equations.
-    """
+    """Generate set of equations inc idtx/fgtx & initial/boundary conditions."""
 
     # Definitions
     ibc_type: str
@@ -121,9 +105,7 @@ class EquationsIdtxIbc(EquationsIdtx, IbcMixin):
         ibc_type: str = "convex-up",
         **kwargs
     ) -> None:
-        r"""
-        Constructor method
-        """
+        """Initialize: constructor method."""
         super().__init__(parameters=parameters, **kwargs)
         logging.info("gme.core.equations_extended.EquationsIdtxIbc")
         self.ibc_type = ibc_type
@@ -134,17 +116,13 @@ class EquationsIdtxIbc(EquationsIdtx, IbcMixin):
 
 
 class EquationsSetupOnly(EquationsMixedIn, GeodesicMixin, IdtxMixin, IbcMixin):
-    r"""
-    Generate methods to perform equation definitions but don't act on them.
-    """
+    r"""Generate methods to perform equation defs but don't act on them."""
 
     # Definitions
     ibc_type: str
 
     def __init__(self, ibc_type: str = "convex-up", **kwargs) -> None:
-        r"""
-        Constructor method.
-        """
+        r"""Initialize: constructor method."""
         logging.info("gme.core.equations_extended.EquationsSetup")
         self.ibc_type = ibc_type
 

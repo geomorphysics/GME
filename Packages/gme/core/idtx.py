@@ -1,6 +1,4 @@
 """
----------------------------------------------------------------------
-
 Equation definitions and derivations using :mod:`SymPy <sympy>`.
 
 ---------------------------------------------------------------------
@@ -17,7 +15,6 @@ Requires Python packages/modules:
     #sympy.core.relational.Equality
 
 ---------------------------------------------------------------------
-
 """
 # Disable these pylint errors because it doesn't understand SymPy syntax
 #   - notably minus signs in equations flag an error
@@ -65,7 +62,8 @@ __all__ = ["IdtxMixin"]
 
 
 class IdtxMixin:
-    r""" """
+    """Define indicatrix and figuratrix equations."""
+
     # Prerequisites
     eta_: float
     beta_type: str
@@ -85,7 +83,7 @@ class IdtxMixin:
 
     def define_idtx_fgtx_eqns(self) -> None:
         r"""
-        Define indicatrix and figuratrix equations
+        Define indicatrix and figuratrix equations.
 
         Attributes:
             pz_cosbeta_varphi_eqn (`Equality`_):

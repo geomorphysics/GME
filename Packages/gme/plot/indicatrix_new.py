@@ -1,6 +1,8 @@
 """
 New, alternative way of visualizing indicatrix & figuratrix.
 
+---------------------------------------------------------------------
+
 Requires Python packages:
   -  :mod:`NumPy <numpy>`
   -  :mod:`SciPy <scipy>`
@@ -13,6 +15,8 @@ Requires Python packages:
 .. _GME: https://github.com/geomorphysics/GME
 .. _Matrix:
     https://docs.sympy.org/latest/modules/matrices/immutablematrices.html
+
+---------------------------------------------------------------------
 """
 # pylint: disable = not-callable
 

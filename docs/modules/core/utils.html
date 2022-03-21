@@ -13,6 +13,7 @@
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     
     <script src="../../_static/sidebar.js"></script>
     
@@ -51,7 +52,6 @@
             
   <div class="section" id="module-gme.core.utils">
 <span id="utils-py"></span><h1><code class="docutils literal notranslate"><span class="pre">utils.py</span></code><a class="headerlink" href="#module-gme.core.utils" title="Permalink to this headline">¶</a></h1>
-<hr class="docutils" />
 <p>Equation definitions and derivations using <a class="reference external" href="https://docs.sympy.org/latest/index.html#module-sympy" title="(in SymPy v1.10.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">SymPy</span></code></a>.</p>
 <hr class="docutils" />
 <dl class="simple">
@@ -77,7 +77,7 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="gme.core.utils.gradient_value">
 <span class="sig-prename descclassname"><span class="pre">gme.core.utils.</span></span><span class="sig-name descname"><span class="pre">gradient_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">pz_</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">px_poly_eqn</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.sympy.org/latest/modules/core.html#sympy.core.relational.Equality" title="(in SymPy v1.10.1)"><span class="pre">sympy.core.relational.Equality</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_use_newton</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><a class="headerlink" href="#gme.core.utils.gradient_value" title="Permalink to this definition">¶</a></dt>
-<dd><p>TBD</p>
+<dd><p>Compute surface gradient from slowness covector components.</p>
 </dd></dl>
 
 <dl class="py function">
@@ -105,20 +105,18 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="gme.core.utils.px_value_search">
 <span class="sig-prename descclassname"><span class="pre">gme.core.utils.</span></span><span class="sig-name descname"><span class="pre">px_value_search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">pz_</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">px_poly_eqn</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.sympy.org/latest/modules/core.html#sympy.core.relational.Equality" title="(in SymPy v1.10.1)"><span class="pre">sympy.core.relational.Equality</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'newton'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">px_guess</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">px_var_</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.sympy.org/latest/modules/core.html#sympy.core.symbol.Symbol" title="(in SymPy v1.10.1)"><span class="pre">sympy.core.symbol.Symbol</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">p_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pz_var_</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.sympy.org/latest/modules/core.html#sympy.core.symbol.Symbol" title="(in SymPy v1.10.1)"><span class="pre">sympy.core.symbol.Symbol</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">p_z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bracket</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">(0,</span> <span class="pre">30)</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><a class="headerlink" href="#gme.core.utils.px_value_search" title="Permalink to this definition">¶</a></dt>
-<dd><p>TBD</p>
+<dd><p>Find <span class="math notranslate nohighlight">\(p_x\)</span> root by nonlinear search.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="gme.core.utils.pxpz0_from_xiv0">
 <span class="sig-prename descclassname"><span class="pre">gme.core.utils.</span></span><span class="sig-name descname"><span class="pre">pxpz0_from_xiv0</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pz0_xiv0_eqn</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.sympy.org/latest/modules/core.html#sympy.core.relational.Equality" title="(in SymPy v1.10.1)"><span class="pre">sympy.core.relational.Equality</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">poly_px_xiv0_eqn</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.sympy.org/latest/modules/core.html#sympy.core.relational.Equality" title="(in SymPy v1.10.1)"><span class="pre">sympy.core.relational.Equality</span></a></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#gme.core.utils.pxpz0_from_xiv0" title="Permalink to this definition">¶</a></dt>
-<dd><p>TBD</p>
+<dd><p>Get initial slowness covector.</p>
 </dd></dl>
 
 <div class="section" id="code">
 <h2>Code<a class="headerlink" href="#code" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">---------------------------------------------------------------------</span>
-
 <span class="sd">Equation definitions and derivations using :mod:`SymPy &lt;sympy&gt;`.</span>
 
 <span class="sd">---------------------------------------------------------------------</span>
@@ -134,7 +132,6 @@
 <span class="sd">    https://docs.sympy.org/latest/modules/matrices/immutablematrices.html</span>
 
 <span class="sd">---------------------------------------------------------------------</span>
-
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="c1"># Library</span>
@@ -195,9 +192,7 @@
     <span class="n">pz0_xiv0_eqn</span><span class="p">:</span> <span class="n">Eq</span><span class="p">,</span>
     <span class="n">poly_px_xiv0_eqn</span><span class="p">:</span> <span class="n">Eq</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    TBD</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Get initial slowness covector.&quot;&quot;&quot;</span>
     <span class="c1"># pz0_xiv0_eqn = pz_xiv_eqn.subs({xiv:xiv_0}).subs(parameters)</span>
     <span class="n">px0_poly_rx0_eqn</span> <span class="o">=</span> <span class="n">simplify</span><span class="p">(</span><span class="n">poly_px_xiv0_eqn</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">rx</span><span class="p">:</span> <span class="mi">0</span><span class="p">}))</span>
     <span class="c1"># .subs(parameters))</span>
@@ -231,9 +226,7 @@
 <span class="k">def</span> <span class="nf">gradient_value</span><span class="p">(</span>
     <span class="n">x_</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">pz_</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">px_poly_eqn</span><span class="p">:</span> <span class="n">Eq</span><span class="p">,</span> <span class="n">do_use_newton</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    TBD</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;Compute surface gradient from slowness covector components.&quot;&quot;&quot;</span>
     <span class="n">px_</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="p">(</span>
         <span class="o">-</span><span class="n">px_value_search</span><span class="p">(</span><span class="n">x_</span><span class="p">,</span> <span class="n">pz_</span><span class="p">,</span> <span class="n">px_poly_eqn</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">do_use_newton</span>
@@ -252,9 +245,7 @@
     <span class="n">pz_var_</span><span class="p">:</span> <span class="n">Symbol</span> <span class="o">=</span> <span class="n">pz</span><span class="p">,</span>
     <span class="n">bracket</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    TBD</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Find :math:`p_x` root by nonlinear search.&quot;&quot;&quot;</span>
     <span class="n">px_poly_eqn_</span><span class="p">:</span> <span class="n">Eq</span> <span class="o">=</span> <span class="n">px_poly_eqn</span><span class="o">.</span><span class="n">subs</span><span class="p">({</span><span class="n">rx</span><span class="p">:</span> <span class="n">x_</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">x_</span><span class="p">,</span> <span class="n">pz_var_</span><span class="p">:</span> <span class="n">pz_</span><span class="p">})</span>
     <span class="n">px_poly_lambda</span><span class="p">:</span> <span class="n">Callable</span> <span class="o">=</span> <span class="n">lambdify</span><span class="p">([</span><span class="n">px_var_</span><span class="p">],</span> <span class="n">px_poly_eqn_</span><span class="o">.</span><span class="n">as_expr</span><span class="p">())</span>
     <span class="n">dpx_poly_lambda</span><span class="p">:</span> <span class="n">Callable</span> <span class="o">=</span> <span class="p">(</span>

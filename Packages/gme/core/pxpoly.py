@@ -1,6 +1,4 @@
 """
----------------------------------------------------------------------
-
 Equation definitions and derivations using :mod:`SymPy <sympy>`.
 
 ---------------------------------------------------------------------
@@ -16,7 +14,6 @@ Requires Python packages/modules:
     https://docs.sympy.org/latest/modules/matrices/immutablematrices.html
 
 ---------------------------------------------------------------------
-
 """
 # Disable these pylint errors because it doesn't understand SymPy syntax
 #   - notably minus signs in equations flag an error
@@ -61,9 +58,8 @@ __all__ = ["PxpolyMixin"]
 
 
 class PxpolyMixin:
-    r"""
-    Polynomial :math:`p_x` equations supplement to equation definition class.
-    """
+    r"""Polynomial :math:`p_x` eqns supplement to equation definition class."""
+
     # Prerequisites
     sinCi_xih0_eqn: Eq
     px_xiv_varphi_eqn: Eq
@@ -83,6 +79,8 @@ class PxpolyMixin:
         self, eta_choice: Rational = None, do_ndim: bool = False
     ) -> None:
         r"""
+        Define :math:`p_x` polynomial.
+
         TODO: remove ref to xiv_0
 
         Define polynomial form of function combining normal-slowness

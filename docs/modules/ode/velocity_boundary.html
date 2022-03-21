@@ -51,9 +51,8 @@
             
   <div class="section" id="module-gme.ode.velocity_boundary">
 <span id="velocity-boundary-py"></span><h1><code class="docutils literal notranslate"><span class="pre">velocity_boundary.py</span></code><a class="headerlink" href="#module-gme.ode.velocity_boundary" title="Permalink to this headline">¶</a></h1>
-<hr class="docutils" />
-<p>Generate a sequence of topographic profiles, using ray tracing
-aka ODE integration of Hamilton’s equations, for a velocity-boundary condition.</p>
+<p>Generate a sequence of topographic profiles for a velocity-boundary condition.</p>
+<p>Achieved by ray tracing aka ODE integration of Hamilton’s equations.</p>
 <hr class="docutils" />
 <dl class="simple">
 <dt>Requires Python packages/modules:</dt><dd><ul class="simple">
@@ -66,20 +65,19 @@ aka ODE integration of Hamilton’s equations, for a velocity-boundary condition
 <dl class="py class">
 <dt class="sig sig-object py" id="gme.ode.velocity_boundary.VelocityBoundarySolution">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gme.ode.velocity_boundary.</span></span><span class="sig-name descname"><span class="pre">VelocityBoundarySolution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmeq</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="../core/equations.html#gme.core.equations.Equations" title="gme.core.equations.Equations"><span class="pre">gme.core.equations.Equations</span></a><span class="p"><span class="pre">,</span> </span><a class="reference internal" href="../core/equations_extended.html#gme.core.equations_extended.EquationsGeodesic" title="gme.core.equations_extended.EquationsGeodesic"><span class="pre">gme.core.equations_extended.EquationsGeodesic</span></a><span class="p"><span class="pre">,</span> </span><a class="reference internal" href="../core/equations_extended.html#gme.core.equations_extended.EquationsIdtx" title="gme.core.equations_extended.EquationsIdtx"><span class="pre">gme.core.equations_extended.EquationsIdtx</span></a><span class="p"><span class="pre">,</span> </span><a class="reference internal" href="../core/equations_extended.html#gme.core.equations_extended.EquationsIbc" title="gme.core.equations_extended.EquationsIbc"><span class="pre">gme.core.equations_extended.EquationsIbc</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gme.ode.velocity_boundary.VelocityBoundarySolution" title="Permalink to this definition">¶</a></dt>
-<dd><p>Integration of Hamilton’s equations (ODEs) from a ‘fault slip’
-velocity boundary.</p>
+<dd><p>Integrate Hamilton’s equations (ODEs) from a ‘fault slip’ velocity boundary.</p>
 <p>Currently the velocity boundary is required to lie along the
 left domain edge and to be vertical.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.ode.velocity_boundary.VelocityBoundarySolution.initial_conditions">
 <span class="sig-name descname"><span class="pre">initial_conditions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t_lag</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xiv_0_</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#gme.ode.velocity_boundary.VelocityBoundarySolution.initial_conditions" title="Permalink to this definition">¶</a></dt>
-<dd><p>TBD</p>
+<dd><p>Initialize.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.ode.velocity_boundary.VelocityBoundarySolution.solve">
 <span class="sig-name descname"><span class="pre">solve</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">report_pc_step</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.ode.velocity_boundary.VelocityBoundarySolution.solve" title="Permalink to this definition">¶</a></dt>
-<dd><p>TBD</p>
+<dd><p>Solve ray tracing equations.</p>
 </dd></dl>
 
 </dd></dl>
@@ -87,10 +85,9 @@ left domain edge and to be vertical.</p>
 <div class="section" id="code">
 <h2>Code<a class="headerlink" href="#code" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">---------------------------------------------------------------------</span>
+<span class="sd">Generate a sequence of topographic profiles for a velocity-boundary condition.</span>
 
-<span class="sd">Generate a sequence of topographic profiles, using ray tracing</span>
-<span class="sd">aka ODE integration of Hamilton&#39;s equations, for a velocity-boundary condition.</span>
+<span class="sd">Achieved by ray tracing aka ODE integration of Hamilton&#39;s equations.</span>
 
 <span class="sd">---------------------------------------------------------------------</span>
 
@@ -104,7 +101,6 @@ left domain edge and to be vertical.</p>
 <span class="sd">    https://docs.sympy.org/latest/modules/matrices/immutablematrices.html</span>
 
 <span class="sd">---------------------------------------------------------------------</span>
-
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="c1"># Library</span>
@@ -128,8 +124,7 @@ left domain edge and to be vertical.</p>
 
 <span class="k">class</span> <span class="nc">VelocityBoundarySolution</span><span class="p">(</span><span class="n">ExtendedSolution</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Integration of Hamilton&#39;s equations (ODEs) from a &#39;fault slip&#39;</span>
-<span class="sd">    velocity boundary.</span>
+<span class="sd">    Integrate Hamilton&#39;s equations (ODEs) from a &#39;fault slip&#39; velocity boundary.</span>
 
 <span class="sd">    Currently the velocity boundary is required to lie along the</span>
 <span class="sd">    left domain edge and to be vertical.</span>
@@ -146,9 +141,7 @@ left domain edge and to be vertical.</p>
         <span class="n">t_lag</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
         <span class="n">xiv_0_</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        TBD</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Initialize.&quot;&quot;&quot;</span>
         <span class="c1"># self.parameters[xiv_0] = xiv_0_</span>
         <span class="c1"># px0_, pz0_ = pxpz0_from_xiv0( self.parameters,</span>
         <span class="c1">#                               #xiv_0_, self.parameters[xih_0],</span>
@@ -163,9 +156,7 @@ left domain edge and to be vertical.</p>
         <span class="k">return</span> <span class="p">(</span><span class="n">rx0_</span><span class="p">,</span> <span class="n">rz0_</span><span class="p">,</span> <span class="n">px0_</span><span class="p">,</span> <span class="n">pz0_</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">solve</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">report_pc_step</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        TBD</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Solve ray tracing equations.&quot;&quot;&quot;</span>
         <span class="c1"># self.prep_arrays()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">t_ensemble_max</span> <span class="o">=</span> <span class="mf">0.0</span>
 

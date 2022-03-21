@@ -1,6 +1,4 @@
 """
----------------------------------------------------------------------
-
 Equation definitions and derivations using :mod:`SymPy <sympy>`.
 
 ---------------------------------------------------------------------
@@ -16,7 +14,6 @@ Requires Python packages/modules:
     https://docs.sympy.org/latest/modules/matrices/immutablematrices.html
 
 ---------------------------------------------------------------------
-
 """
 # Disable these pylint errors because it doesn't understand SymPy syntax
 #   - notably minus signs in equations flag an error
@@ -91,9 +88,8 @@ __all__ = ["NdimMixin"]
 
 
 class NdimMixin:
-    r"""
-    Non-dimensionalization supplement to equation definition class.
-    """
+    """Non-dimensionalization supplement to equation definition class."""
+
     # Prerequisites
     varphi_rx_eqn: Eq
     xi_varphi_beta_eqn: Eq
@@ -143,10 +139,10 @@ class NdimMixin:
 
     def nondimensionalize(self) -> None:
         r"""
+        Non-dimensionalization.
+
         Non-dimensionalize variables, Hamiltonian, and Hamilton's equations;
         define dimensionless channel incision number :math:`\mathsf{Ci}`.
-
-        Attributes:
         """
         logging.info("gme.core.ndim.nondimensionalize")
         varsub: Dict = {}
@@ -321,9 +317,7 @@ class NdimMixin:
         )
 
     def define_nodimensionalized_Hamiltons_eqns(self) -> None:
-        """
-        Group Hamilton's equations into matrix form
-        """
+        """Group Hamilton's equations into matrix form."""
         logging.info("gme.core.ndim.define_nodimensionalized_Hamiltons_eqns")
         self.hamiltons_ndim_eqns = Matrix(
             (

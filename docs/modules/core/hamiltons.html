@@ -52,7 +52,6 @@
             
   <div class="section" id="module-gme.core.hamiltons">
 <span id="hamiltons-py"></span><h1><code class="docutils literal notranslate"><span class="pre">hamiltons.py</span></code><a class="headerlink" href="#module-gme.core.hamiltons" title="Permalink to this headline">¶</a></h1>
-<hr class="docutils" />
 <p>Equation definitions and derivations using <a class="reference external" href="https://docs.sympy.org/latest/index.html#module-sympy" title="(in SymPy v1.10.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">SymPy</span></code></a>.</p>
 <hr class="docutils" />
 <dl class="simple">
@@ -71,7 +70,7 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.core.hamiltons.HamiltonsMixin.define_Hamiltons_eqns">
 <span class="sig-name descname"><span class="pre">define_Hamiltons_eqns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.core.hamiltons.HamiltonsMixin.define_Hamiltons_eqns" title="Permalink to this definition">¶</a></dt>
-<dd><p>Define Hamilton’s equations</p>
+<dd><p>Define Hamilton’s equations.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="gme.core.hamiltons.HamiltonsMixin.hamiltons_eqns">
 <span class="sig-name descname"><span class="pre">hamiltons_eqns</span></span><a class="headerlink" href="#gme.core.hamiltons.HamiltonsMixin.hamiltons_eqns" title="Permalink to this definition">¶</a></dt>
@@ -105,8 +104,7 @@ x_{1}^{- 4 \mu} \left(\eta - 1\right) \left(p_{x}^{2}
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.core.hamiltons.HamiltonsMixin.define_pdot_eqns">
 <span class="sig-name descname"><span class="pre">define_pdot_eqns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.core.hamiltons.HamiltonsMixin.define_pdot_eqns" title="Permalink to this definition">¶</a></dt>
-<dd><p>Define equations for <span class="math notranslate nohighlight">\(\dot{p}\)</span>, the rate of change of
-normal slowness</p>
+<dd><p>Define eqns for <span class="math notranslate nohighlight">\(\dot{p}\)</span>, the rate of change of normal slowness.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="gme.core.hamiltons.HamiltonsMixin.pdotx_pxpz_eqn">
 <span class="sig-name descname"><span class="pre">pdotx_pxpz_eqn</span></span><a class="headerlink" href="#gme.core.hamiltons.HamiltonsMixin.pdotx_pxpz_eqn" title="Permalink to this definition">¶</a></dt>
@@ -156,7 +154,7 @@ p_{x}^{2 \eta} x_{1}^{- 4 \mu}
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.core.hamiltons.HamiltonsMixin.define_rdot_eqns">
 <span class="sig-name descname"><span class="pre">define_rdot_eqns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.core.hamiltons.HamiltonsMixin.define_rdot_eqns" title="Permalink to this definition">¶</a></dt>
-<dd><p>Define equations for <span class="math notranslate nohighlight">\(\dot{r}\)</span>, the rate of change of position</p>
+<dd><p>Define equations for <span class="math notranslate nohighlight">\(\dot{r}\)</span>, the rate of change of position.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="gme.core.hamiltons.HamiltonsMixin.rdotx_rdot_alpha_eqn">
 <span class="sig-name descname"><span class="pre">rdotx_rdot_alpha_eqn</span></span><a class="headerlink" href="#gme.core.hamiltons.HamiltonsMixin.rdotx_rdot_alpha_eqn" title="Permalink to this definition">¶</a></dt>
@@ -266,8 +264,6 @@ p_{x}^{2 \eta} x_{1}^{- 4 \mu}
 <div class="section" id="code">
 <h2>Code<a class="headerlink" href="#code" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">---------------------------------------------------------------------</span>
-
 <span class="sd">Equation definitions and derivations using :mod:`SymPy &lt;sympy&gt;`.</span>
 
 <span class="sd">---------------------------------------------------------------------</span>
@@ -286,7 +282,6 @@ p_{x}^{2 \eta} x_{1}^{- 4 \mu}
 <span class="sd">    #sympy.core.relational.Equality</span>
 
 <span class="sd">---------------------------------------------------------------------</span>
-
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="c1"># Disable these pylint errors because it doesn&#39;t understand SymPy syntax</span>
 <span class="c1">#   - notably minus signs in equations flag an error</span>
@@ -326,9 +321,8 @@ p_{x}^{2 \eta} x_{1}^{- 4 \mu}
 
 
 <span class="k">class</span> <span class="nc">HamiltonsMixin</span><span class="p">:</span>
-    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Hamilton&#39;s equations supplement to equation definition class.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;Hamilton&#39;s equations supplement to equation definition class.&quot;&quot;&quot;</span>
+
     <span class="c1"># Prerequisites</span>
     <span class="n">H_eqn</span><span class="p">:</span> <span class="n">Eq</span>
     <span class="n">px_pz_tanbeta_eqn</span><span class="p">:</span> <span class="n">Eq</span>
@@ -355,10 +349,9 @@ p_{x}^{2 \eta} x_{1}^{- 4 \mu}
 
     <span class="k">def</span> <span class="nf">define_rdot_eqns</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Define equations for :math:`\dot{r}`, the rate of change of position</span>
+<span class="sd">        Define equations for :math:`\dot{r}`, the rate of change of position.</span>
 
 <span class="sd">        Attributes:</span>
-
 <span class="sd">            rdotx_rdot_alpha_eqn (`Equality`_):</span>
 <span class="sd">                :math:`v^{x} = v \cos{\left(\alpha \right)}`</span>
 
@@ -427,11 +420,9 @@ p_{x}^{2 \eta} x_{1}^{- 4 \mu}
 
     <span class="k">def</span> <span class="nf">define_pdot_eqns</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Define equations for :math:`\dot{p}`, the rate of change of</span>
-<span class="sd">        normal slowness</span>
+<span class="sd">        Define eqns for :math:`\dot{p}`, the rate of change of normal slowness.</span>
 
 <span class="sd">        Attributes:</span>
-
 <span class="sd">            pdotx_pxpz_eqn (`Equality`_):</span>
 <span class="sd">                :math:`\dot{p}_x = 2 \mu \varphi_0^{2}</span>
 <span class="sd">                p_{x}^{2 \eta} x_{1}^{- 4 \mu} \left(p_{x}^{2}</span>
@@ -482,10 +473,9 @@ p_{x}^{2 \eta} x_{1}^{- 4 \mu}
 
     <span class="k">def</span> <span class="nf">define_Hamiltons_eqns</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Define Hamilton&#39;s equations</span>
+<span class="sd">        Define Hamilton&#39;s equations.</span>
 
 <span class="sd">        Attributes:</span>
-
 <span class="sd">            hamiltons_eqns (`Matrix`_):</span>
 <span class="sd">                :math:`\left[\begin{matrix}\</span>
 <span class="sd">                \dot{r}^x = \varphi_0^{2} p_{x}^{2 \eta - 1} x_{1}^{- 4 \mu}</span>

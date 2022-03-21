@@ -1,6 +1,4 @@
 """
----------------------------------------------------------------------
-
 Equation definitions and derivations using :mod:`SymPy <sympy>`.
 
 ---------------------------------------------------------------------
@@ -18,7 +16,6 @@ Requires Python packages/modules:
     #sympy.core.relational.Equality
 
 ---------------------------------------------------------------------
-
 """
 # Disable these pylint errors because it doesn't understand SymPy syntax
 #   - notably minus signs in equations flag an error
@@ -74,10 +71,8 @@ __all__ = ["VarphiMixin"]
 
 
 class VarphiMixin:
-    r"""
-    Flow model :math:`\varphi` equations supplement
-    to equation definition class.
-    """
+    r"""Flow model :math:`\varphi` eqns supplement to eqn definition class."""
+
     # Prerequisites
     varphi_type: str
     mu_: float
@@ -109,7 +104,7 @@ class VarphiMixin:
 
     def define_varphi_model_eqns(self) -> None:
         r"""
-        Define flow component of erosion model function
+        Define flow component of erosion model function.
 
         Args:
             do_new: use new form of flow model
@@ -187,7 +182,7 @@ class VarphiMixin:
 
     def define_varphi_related_eqns(self) -> None:
         r"""
-        Define further equations related to normal slowness :math:`p`
+        Define further equations related to normal slowness :math:`p`.
 
         Attributes:
             p_varphi_beta_eqn (`Equality`_):

@@ -52,7 +52,6 @@
             
   <div class="section" id="module-gme.core.metrictensor">
 <span id="metrictensor-py"></span><h1><code class="docutils literal notranslate"><span class="pre">metrictensor.py</span></code><a class="headerlink" href="#module-gme.core.metrictensor" title="Permalink to this headline">¶</a></h1>
-<hr class="docutils" />
 <p>Equation definitions and derivations using <a class="reference external" href="https://docs.sympy.org/latest/index.html#module-sympy" title="(in SymPy v1.10.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">SymPy</span></code></a>.</p>
 <hr class="docutils" />
 <dl class="simple">
@@ -70,8 +69,7 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.core.metrictensor.MetricTensorMixin.define_g_eqns">
 <span class="sig-name descname"><span class="pre">define_g_eqns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.core.metrictensor.MetricTensorMixin.define_g_eqns" title="Permalink to this definition">¶</a></dt>
-<dd><p>Define equations for the metric tensor <span class="math notranslate nohighlight">\(g\)</span> and
-its dual  <span class="math notranslate nohighlight">\(g^*\)</span></p>
+<dd><p>Define eqns for metric tensor <span class="math notranslate nohighlight">\(g\)</span> and its dual  <span class="math notranslate nohighlight">\(g^*\)</span>.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="gme.core.metrictensor.MetricTensorMixin.gstar_varphi_pxpz_eqn">
 <span class="sig-name descname"><span class="pre">gstar_varphi_pxpz_eqn</span></span><a class="headerlink" href="#gme.core.metrictensor.MetricTensorMixin.gstar_varphi_pxpz_eqn" title="Permalink to this definition">¶</a></dt>
@@ -254,8 +252,6 @@ p_{z}^{8} + 16 p_{x}^{2} p_{z}^{10} + 4 p_{z}^{12}}}\\ \
 <div class="section" id="code">
 <h2>Code<a class="headerlink" href="#code" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">---------------------------------------------------------------------</span>
-
 <span class="sd">Equation definitions and derivations using :mod:`SymPy &lt;sympy&gt;`.</span>
 
 <span class="sd">---------------------------------------------------------------------</span>
@@ -272,7 +268,6 @@ p_{z}^{8} + 16 p_{x}^{2} p_{z}^{10} + 4 p_{z}^{12}}}\\ \
 <span class="sd">    #sympy.core.relational.Equality</span>
 
 <span class="sd">---------------------------------------------------------------------</span>
-
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="c1"># Disable these pylint errors because it doesn&#39;t understand SymPy syntax</span>
 <span class="c1">#   - notably minus signs in equations flag an error</span>
@@ -296,9 +291,8 @@ p_{z}^{8} + 16 p_{x}^{2} p_{z}^{10} + 4 p_{z}^{12}}}\\ \
 
 
 <span class="k">class</span> <span class="nc">MetricTensorMixin</span><span class="p">:</span>
-    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Metric tensor equations supplement to equation definition class.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;Metric tensor equations supplement to equation definition class.&quot;&quot;&quot;</span>
+
     <span class="c1"># Prerequisites</span>
     <span class="n">eta_</span><span class="p">:</span> <span class="nb">float</span>
     <span class="n">beta_type</span><span class="p">:</span> <span class="nb">str</span>
@@ -317,8 +311,7 @@ p_{z}^{8} + 16 p_{x}^{2} p_{z}^{10} + 4 p_{z}^{12}}}\\ \
 
     <span class="k">def</span> <span class="nf">define_g_eqns</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Define equations for the metric tensor :math:`g` and</span>
-<span class="sd">        its dual  :math:`g^*`</span>
+<span class="sd">        Define eqns for metric tensor :math:`g` and its dual  :math:`g^*`.</span>
 
 <span class="sd">        Attributes:</span>
 <span class="sd">            gstar_varphi_pxpz_eqn (`Equality`_):</span>

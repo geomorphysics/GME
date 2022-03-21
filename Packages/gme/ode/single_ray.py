@@ -1,5 +1,4 @@
 """
----------------------------------------------------------------------
 
 Single-ray tracing through ODE integration of Hamilton's equations.
 
@@ -47,7 +46,7 @@ __all__ = ["SingleRaySolution"]
 
 class SingleRaySolution(ExtendedSolution):
     """
-    Single-ray tracing through ODE integration of Hamilton's equations.
+    Trace a single-ray by ODE integration of Hamilton's equations.
 
     Subclasses :class:`gme.ode.base.ExtendedSolution`.
     """
@@ -104,9 +103,7 @@ class SingleRaySolution(ExtendedSolution):
         t_lag: float = 0,
         xiv_0_: float = 0,
     ) -> Tuple[float, float, float, float]:
-        """
-        TBD
-        """
+        """Initialize."""
         rz0_: float = 0
         rx0_: float = 0
         # HACK: poly_px_xiv0_eqn not actually defined...
@@ -117,9 +114,7 @@ class SingleRaySolution(ExtendedSolution):
         return (rz0_, rx0_, px0_, pz0_.subs(e2d(self.gmeq.xiv0_xih0_Ci_eqn)))
 
     def solve(self) -> None:
-        """
-        TBD
-        """
+        """Solve Hamilton's equations for one ray."""
         # Record the ic as a list of one - to be used by solve_ODE_system
         self.ic_list: List[Tuple[float, float, float, float]] = [
             self.initial_conditions()
@@ -141,9 +136,7 @@ class SingleRaySolution(ExtendedSolution):
         self.save(rpt_arrays, 0)
 
     def postprocessing(self, spline_order=2, extrapolation_mode=0) -> None:
-        """
-        TBD
-        """
+        """Process integration results into a ray trace."""
         # Basics
         [
             self.rx_array,

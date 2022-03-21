@@ -52,7 +52,6 @@
             
   <div class="section" id="module-gme.core.rp">
 <span id="rp-py"></span><h1><code class="docutils literal notranslate"><span class="pre">rp.py</span></code><a class="headerlink" href="#module-gme.core.rp" title="Permalink to this headline">¶</a></h1>
-<hr class="docutils" />
 <p>Equation definitions and derivations using <a class="reference external" href="https://docs.sympy.org/latest/index.html#module-sympy" title="(in SymPy v1.10.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">SymPy</span></code></a>.</p>
 <hr class="docutils" />
 <dl class="simple">
@@ -67,12 +66,13 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="gme.core.rp.RpMixin">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gme.core.rp.</span></span><span class="sig-name descname"><span class="pre">RpMixin</span></span><a class="headerlink" href="#gme.core.rp.RpMixin" title="Permalink to this definition">¶</a></dt>
-<dd><p>Basic <span class="math notranslate nohighlight">\(\mathbf{r}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{\tilde{p}}\)</span>
+<dd><p>Define ray vector and normal-slowness covector equations.</p>
+<p>Basic <span class="math notranslate nohighlight">\(\mathbf{r}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{\tilde{p}}\)</span>
 equations supplement to equation definition class.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.core.rp.RpMixin.define_p_eqns">
 <span class="sig-name descname"><span class="pre">define_p_eqns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.core.rp.RpMixin.define_p_eqns" title="Permalink to this definition">¶</a></dt>
-<dd><p>Define normal slowness <span class="math notranslate nohighlight">\(p\)</span> and derive related equations</p>
+<dd><p>Define normal slowness <span class="math notranslate nohighlight">\(p\)</span> and derive related equations.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="gme.core.rp.RpMixin.p_covec_eqn">
 <span class="sig-name descname"><span class="pre">p_covec_eqn</span></span><a class="headerlink" href="#gme.core.rp.RpMixin.p_covec_eqn" title="Permalink to this definition">¶</a></dt>
@@ -188,7 +188,7 @@ equations supplement to equation definition class.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.core.rp.RpMixin.define_r_eqns">
 <span class="sig-name descname"><span class="pre">define_r_eqns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.core.rp.RpMixin.define_r_eqns" title="Permalink to this definition">¶</a></dt>
-<dd><p>Define equations for ray position <span class="math notranslate nohighlight">\(\vec{r}\)</span></p>
+<dd><p>Define equations for ray position <span class="math notranslate nohighlight">\(\vec{r}\)</span>.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="gme.core.rp.RpMixin.rx_r_alpha_eqn">
 <span class="sig-name descname"><span class="pre">rx_r_alpha_eqn</span></span><a class="headerlink" href="#gme.core.rp.RpMixin.rx_r_alpha_eqn" title="Permalink to this definition">¶</a></dt>
@@ -218,8 +218,6 @@ equations supplement to equation definition class.</p>
 <div class="section" id="code">
 <h2>Code<a class="headerlink" href="#code" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">---------------------------------------------------------------------</span>
-
 <span class="sd">Equation definitions and derivations using :mod:`SymPy &lt;sympy&gt;`.</span>
 
 <span class="sd">---------------------------------------------------------------------</span>
@@ -235,7 +233,6 @@ equations supplement to equation definition class.</p>
 <span class="sd">    https://docs.sympy.org/latest/modules/matrices/immutablematrices.html</span>
 
 <span class="sd">---------------------------------------------------------------------</span>
-
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="c1"># Disable these pylint errors because it doesn&#39;t understand SymPy syntax</span>
 <span class="c1">#   - notably minus signs in equations flag an error</span>
@@ -263,6 +260,8 @@ equations supplement to equation definition class.</p>
 
 <span class="k">class</span> <span class="nc">RpMixin</span><span class="p">:</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Define ray vector and normal-slowness covector equations.</span>
+
 <span class="sd">    Basic :math:`\mathbf{r}` and :math:`\mathbf{\tilde{p}}`</span>
 <span class="sd">    equations supplement to equation definition class.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -283,7 +282,7 @@ equations supplement to equation definition class.</p>
 
     <span class="k">def</span> <span class="nf">define_p_eqns</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Define normal slowness :math:`p` and derive related equations</span>
+<span class="sd">        Define normal slowness :math:`p` and derive related equations.</span>
 
 <span class="sd">        Attributes:</span>
 <span class="sd">            p_covec_eqn (:class:`~sympy.core.relational.Equality`):</span>
@@ -339,7 +338,7 @@ equations supplement to equation definition class.</p>
 
     <span class="k">def</span> <span class="nf">define_r_eqns</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Define equations for ray position :math:`\vec{r}`</span>
+<span class="sd">        Define equations for ray position :math:`\vec{r}`.</span>
 
 <span class="sd">        Attributes:</span>
 <span class="sd">            rx_r_alpha_eqn (:class:`~sympy.core.relational.Equality`):</span>

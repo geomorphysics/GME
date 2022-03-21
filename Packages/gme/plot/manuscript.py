@@ -1,6 +1,8 @@
 """
 Generate plots for publications.
 
+---------------------------------------------------------------------
+
 Requires Python packages/modules:
   -  :mod:`NumPy <numpy>`
   -  :mod:`SymPy <sympy>`
@@ -12,6 +14,8 @@ Requires Python packages/modules:
 .. _GME: https://github.com/geomorphysics/GME
 .. _Matrix:
     https://docs.sympy.org/latest/modules/matrices/immutablematrices.html
+
+---------------------------------------------------------------------
 """
 # Library
 import warnings
@@ -57,7 +61,7 @@ class Manuscript(Graphing):
         """
         Plot point pairing.
 
-        Schematic illustrating how points pair between successive erosion 
+        Schematic illustrating how points pair between successive erosion
         surfaces.
 
         Args:
@@ -675,8 +679,8 @@ class Manuscript(Graphing):
         """
         Plot covector schematic.
 
-        Schematic illustrating relationship between normal erosion rate vector, 
-        normal slowness covector, isochrones, covector components, 
+        Schematic illustrating relationship between normal erosion rate vector,
+        normal slowness covector, isochrones, covector components,
         and vertical/normal erosion rates.
 
         Args:
@@ -1150,8 +1154,8 @@ class Manuscript(Graphing):
         r"""
         Plot Huygens wavelets.
 
-        Plot the loci of :math:`\mathbf{\widetilde{p}}` and :math:`\mathbf{r}` 
-        and their behavior defined by :math:`F` relative to 
+        Plot the loci of :math:`\mathbf{\widetilde{p}}` and :math:`\mathbf{r}`
+        and their behavior defined by :math:`F` relative to
         the :math:`\xi` circle.
 
         Args:

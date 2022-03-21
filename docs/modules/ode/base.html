@@ -52,7 +52,6 @@
             
   <div class="section" id="module-gme.ode.base">
 <span id="base-py"></span><h1><code class="docutils literal notranslate"><span class="pre">base.py</span></code><a class="headerlink" href="#module-gme.ode.base" title="Permalink to this headline">¶</a></h1>
-<hr class="docutils" />
 <p>Base module for performing ray tracing of Hamilton’s equations.</p>
 <hr class="docutils" />
 <dl class="simple">
@@ -68,8 +67,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="gme.ode.base.BaseSolution">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gme.ode.base.</span></span><span class="sig-name descname"><span class="pre">BaseSolution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmeq</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="../core/equations.html#gme.core.equations.Equations" title="gme.core.equations.Equations"><span class="pre">gme.core.equations.Equations</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">choice</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'Hamilton'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'Radau'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_dense</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_stop</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0.999</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_end</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0.04</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_slip_end</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0.08</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_distribn</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_rays</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_t</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">101</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tp_xiv0_list</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">customize_t_fn</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Callable</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gme.ode.base.BaseSolution" title="Permalink to this definition">¶</a></dt>
-<dd><p>Base class for classes performing integration of
-Hamilton’s equations (ODEs).</p>
+<dd><p>Abstract class for performing integration of Hamilton’s eqns (ODEs).</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.ode.base.BaseSolution.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gmeq</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="../core/equations.html#gme.core.equations.Equations" title="gme.core.equations.Equations"><span class="pre">gme.core.equations.Equations</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">choice</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'Hamilton'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'Radau'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_dense</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_stop</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0.999</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_end</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0.04</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_slip_end</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0.08</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_distribn</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_rays</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_t</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">101</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tp_xiv0_list</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">customize_t_fn</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Callable</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.ode.base.BaseSolution.__init__" title="Permalink to this definition">¶</a></dt>
@@ -89,36 +87,35 @@ equation substitutions</p></li>
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.ode.base.BaseSolution.initial_conditions">
 <em class="property"><span class="pre">abstract</span> </em><span class="sig-name descname"><span class="pre">initial_conditions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t_lag</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xiv_0_</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#gme.ode.base.BaseSolution.initial_conditions" title="Permalink to this definition">¶</a></dt>
-<dd><p>Dummy method of generating initial conditions that must be defined by
-any subclass</p>
+<dd><p>Generate initial conditions (dummy).</p>
+<p>Actual initial conditions must be defined by any subclass.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.ode.base.BaseSolution.make_model">
 <span class="sig-name descname"><span class="pre">make_model</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span> </span><span class="pre">Any</span><span class="p"><span class="pre">,</span> </span><span class="pre">Any</span><span class="p"><span class="pre">,</span> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.22)"><span class="pre">numpy.ndarray</span></a><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#gme.ode.base.BaseSolution.make_model" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="simple">
-<dt>Generate a lambda for Hamilton’s equations (or the geodesic equations)</dt><dd><p>that returns a matrix of dr/dt and dp/dt (resp. dr/dt and dv/dt)
+<dd><p>Generate a lambda for Hamilton’s equations (or the geodesic equations).</p>
+<p>Returns a matrix of dr/dt and dp/dt (resp. dr/dt and dv/dt)
 for a given state [rx,px,pz] (resp. [rx,vx,vx])</p>
-</dd>
-</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.ode.base.BaseSolution.measure_cusp_propagation">
 <span class="sig-name descname"><span class="pre">measure_cusp_propagation</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.ode.base.BaseSolution.measure_cusp_propagation" title="Permalink to this definition">¶</a></dt>
-<dd><p>TBD</p>
+<dd><p>Measure how fast cusp is moving.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.ode.base.BaseSolution.postprocessing">
 <span class="sig-name descname"><span class="pre">postprocessing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spline_order</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extrapolation_mode</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.ode.base.BaseSolution.postprocessing" title="Permalink to this definition">¶</a></dt>
-<dd><p>Generate interpolating functions for (r,p)[t] using ray samples</p>
+<dd><p>Generate interpolating functions for (r,p)[t] using ray samples.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.ode.base.BaseSolution.resolve_isochrones">
 <span class="sig-name descname"><span class="pre">resolve_isochrones</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_subset</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_isochrone_max</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0.04</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_isochrones</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">25</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_resample_pts</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">301</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tolerance</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0.001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_eliminate_caustics</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dont_crop_cusps</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.ode.base.BaseSolution.resolve_isochrones" title="Permalink to this definition">¶</a></dt>
-<dd><p>Resample the ensemble of rays at selected time slices to generate
+<dd><p>Resolve isochrones.</p>
+<p>Resample the ensemble of rays at selected time slices to generate
 synchronous values of <span class="math notranslate nohighlight">\((\mathbf{r},\mathbf{\widetilde{p}})\)</span>
 aka isochrones.</p>
 <p>Each ray trajectory is numerically integrated independently, and
@@ -145,13 +142,14 @@ ray at a cusp.</p></li>
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.ode.base.BaseSolution.save">
 <span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rpt_arrays</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idx</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.ode.base.BaseSolution.save" title="Permalink to this definition">¶</a></dt>
-<dd><p>TBD</p>
+<dd><p>Record results in arrays.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.ode.base.BaseSolution.solve">
 <em class="property"><span class="pre">abstract</span> </em><span class="sig-name descname"><span class="pre">solve</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.ode.base.BaseSolution.solve" title="Permalink to this definition">¶</a></dt>
-<dd><p>Dummy method of solution that must be defined by any subclass</p>
+<dd><p>Solve ray tracing equations (dummy).</p>
+<p>Actual method of solution that must be defined by any subclass.</p>
 </dd></dl>
 
 </dd></dl>
@@ -159,8 +157,6 @@ ray at a cusp.</p></li>
 <div class="section" id="code">
 <h2>Code<a class="headerlink" href="#code" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">---------------------------------------------------------------------</span>
-
 <span class="sd">Base module for performing ray tracing of Hamilton&#39;s equations.</span>
 
 <span class="sd">---------------------------------------------------------------------</span>
@@ -177,7 +173,6 @@ ray at a cusp.</p></li>
 <span class="sd">    https://docs.sympy.org/latest/modules/matrices/immutablematrices.html</span>
 
 <span class="sd">---------------------------------------------------------------------</span>
-
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="c1"># Library</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
@@ -221,10 +216,7 @@ ray at a cusp.</p></li>
 
 
 <span class="k">class</span> <span class="nc">BaseSolution</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Base class for classes performing integration of</span>
-<span class="sd">    Hamilton&#39;s equations (ODEs).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;Abstract class for performing integration of Hamilton&#39;s eqns (ODEs).&quot;&quot;&quot;</span>
 
     <span class="c1"># Definitions</span>
     <span class="n">gmeq</span><span class="p">:</span> <span class="n">Equations</span>
@@ -357,28 +349,33 @@ ray at a cusp.</p></li>
         <span class="bp">self</span><span class="o">.</span><span class="n">vx_interp_slow</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">[[</span><span class="nb">float</span><span class="p">],</span> <span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="nd">@abstractmethod</span>
-    <span class="k">def</span> <span class="nf">initial_conditions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
-        <span class="n">t_lag</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> 
+    <span class="k">def</span> <span class="nf">initial_conditions</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">t_lag</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
         <span class="n">xiv_0_</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Dummy method of generating initial conditions that must be defined by</span>
-<span class="sd">        any subclass</span>
+<span class="sd">        Generate initial conditions (dummy).</span>
+
+<span class="sd">        Actual initial conditions must be defined by any subclass.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">solve</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Dummy method of solution that must be defined by any subclass</span>
+<span class="sd">        Solve ray tracing equations (dummy).</span>
+
+<span class="sd">        Actual method of solution that must be defined by any subclass.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">make_model</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">float</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">]],</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Generate a lambda for Hamilton&#39;s equations (or the geodesic equations)</span>
-<span class="sd">           that returns a matrix of dr/dt and dp/dt (resp. dr/dt and dv/dt)</span>
-<span class="sd">           for a given state [rx,px,pz] (resp. [rx,vx,vx])</span>
+<span class="sd">        Generate a lambda for Hamilton&#39;s equations (or the geodesic equations).</span>
+
+<span class="sd">        Returns a matrix of dr/dt and dp/dt (resp. dr/dt and dv/dt)</span>
+<span class="sd">        for a given state [rx,px,pz] (resp. [rx,vx,vx])</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Requires self.parameters to have all the important Hamilton eqns&#39;</span>
         <span class="c1"># constants set</span>
@@ -408,9 +405,7 @@ ray at a cusp.</p></li>
     <span class="k">def</span> <span class="nf">postprocessing</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">spline_order</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">extrapolation_mode</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Generate interpolating functions for (r,p)[t] using ray samples</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Generate interpolating functions for (r,p)[t] using ray samples.&quot;&quot;&quot;</span>
         <span class="c1"># dummy, to avoid &quot;overriding parameters&quot; warnings in subclasses</span>
         <span class="c1">#  that override this method</span>
         <span class="n">_</span> <span class="o">=</span> <span class="p">(</span><span class="n">spline_order</span><span class="p">,</span> <span class="n">extrapolation_mode</span><span class="p">)</span>
@@ -442,6 +437,8 @@ ray at a cusp.</p></li>
         <span class="n">dont_crop_cusps</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Resolve isochrones.</span>
+
 <span class="sd">        Resample the ensemble of rays at selected time slices to generate</span>
 <span class="sd">        synchronous values of :math:`(\mathbf{r},\mathbf{\widetilde{p}})`</span>
 <span class="sd">        aka isochrones.</span>
@@ -476,10 +473,8 @@ ray at a cusp.</p></li>
         <span class="c1">#                  if (idx//x_subset-idx/x_subset)==0]</span>
         <span class="c1">#                 for array_ in [rpt_isochrone[rp_]] ][0]</span>
         <span class="c1">#     self.rpt_isochrones_lowres[&#39;t&#39;][i_isochrone] = rpt_isochrone[&#39;t&#39;]</span>
-        <span class="k">def</span> <span class="nf">prepare_isochrones</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">            TBD</span>
-<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="k">def</span> <span class="nf">_prepare_isochrones</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="sd">&quot;&quot;&quot;Set up.&quot;&quot;&quot;</span>
             <span class="c1"># Record important parameters</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">t_isochrone_max</span> <span class="o">=</span> <span class="n">t_isochrone_max</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">n_isochrones</span> <span class="o">=</span> <span class="n">n_isochrones</span>
@@ -493,24 +488,20 @@ ray at a cusp.</p></li>
             <span class="c1"># self.rpt_isochrones_lowres = self.rpt_isochrones.copy()</span>
             <span class="c1"># self.trxz_cusps: List[Tuple[np.ndarray,Any,Any]] = []</span>
 
-        <span class="k">def</span> <span class="nf">truncate_isochrone</span><span class="p">(</span>
+        <span class="k">def</span> <span class="nf">_truncate_isochrone</span><span class="p">(</span>
             <span class="n">rpt_isochrone</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span>
             <span class="n">i_from</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
             <span class="n">i_to</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
-            <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">            TBD</span>
-<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="sd">&quot;&quot;&quot;Truncate isochrone.&quot;&quot;&quot;</span>
             <span class="k">for</span> <span class="n">rp_</span> <span class="ow">in</span> <span class="n">rp_tuple</span><span class="p">:</span>
                 <span class="n">rpt_isochrone</span><span class="p">[</span><span class="n">rp_</span><span class="p">]</span> <span class="o">=</span> <span class="n">rpt_isochrone</span><span class="p">[</span><span class="n">rp_</span><span class="p">][</span><span class="n">i_from</span><span class="p">:</span><span class="n">i_to</span><span class="p">]</span>
             <span class="k">return</span> <span class="n">rpt_isochrone</span>
 
-        <span class="k">def</span> <span class="nf">find_intercept</span><span class="p">(</span>
+        <span class="k">def</span> <span class="nf">_find_intercept</span><span class="p">(</span>
             <span class="n">rpt_isochrone</span><span class="p">,</span> <span class="n">slice1</span><span class="p">,</span> <span class="n">slice2</span>
         <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
-            <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">            TBD</span>
-<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="sd">&quot;&quot;&quot;Find where rays intersect.&quot;&quot;&quot;</span>
             <span class="n">x1_array</span> <span class="o">=</span> <span class="n">rpt_isochrone</span><span class="p">[</span><span class="s2">&quot;rx&quot;</span><span class="p">][</span><span class="n">slice1</span><span class="p">]</span>
             <span class="n">x2_array</span> <span class="o">=</span> <span class="n">rpt_isochrone</span><span class="p">[</span><span class="s2">&quot;rx&quot;</span><span class="p">][</span><span class="n">slice2</span><span class="p">]</span>
             <span class="n">z1_array</span> <span class="o">=</span> <span class="n">rpt_isochrone</span><span class="p">[</span><span class="s2">&quot;rz&quot;</span><span class="p">][</span><span class="n">slice1</span><span class="p">]</span>
@@ -585,7 +576,7 @@ ray at a cusp.</p></li>
                 <span class="n">pxz2_intercept</span><span class="p">,</span>
             <span class="p">)</span>
 
-        <span class="k">def</span> <span class="nf">eliminate_caustic</span><span class="p">(</span>
+        <span class="k">def</span> <span class="nf">_eliminate_caustic</span><span class="p">(</span>
             <span class="n">is_good_pt_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">rpt_isochrone</span>
         <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span>
             <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span>
@@ -593,9 +584,7 @@ ray at a cusp.</p></li>
                 <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span>
             <span class="p">],</span>
         <span class="p">]:</span>
-            <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">            TBD</span>
-<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="sd">&quot;&quot;&quot;Find and remove ray caustic.&quot;&quot;&quot;</span>
             <span class="c1"># Locate and remove caustic and render into a cusp</span>
             <span class="c1">#    - if there is one</span>
 
@@ -612,7 +601,7 @@ ray at a cusp.</p></li>
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">rpt_isochrone</span><span class="p">[</span><span class="s2">&quot;rx&quot;</span><span class="p">][</span><span class="n">is_good_pt_array</span><span class="p">])</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="c1"># print(&#39;empty curve&#39;)</span>
                 <span class="k">return</span> <span class="p">(</span>
-                    <span class="n">truncate_isochrone</span><span class="p">(</span><span class="n">rpt_isochrone</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span>
+                    <span class="n">_truncate_isochrone</span><span class="p">(</span><span class="n">rpt_isochrone</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span>
                     <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
                 <span class="p">)</span>
 
@@ -628,7 +617,7 @@ ray at a cusp.</p></li>
             <span class="k">if</span> <span class="n">false_indexes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="c1"># print(&#39;right half&#39;)</span>
                 <span class="k">return</span> <span class="p">(</span>
-                    <span class="n">truncate_isochrone</span><span class="p">(</span><span class="n">rpt_isochrone</span><span class="p">,</span> <span class="n">false_indexes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="kc">None</span><span class="p">),</span>
+                    <span class="n">_truncate_isochrone</span><span class="p">(</span><span class="n">rpt_isochrone</span><span class="p">,</span> <span class="n">false_indexes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="kc">None</span><span class="p">),</span>
                     <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
                 <span class="p">)</span>
 
@@ -658,13 +647,13 @@ ray at a cusp.</p></li>
             <span class="p">):</span>
                 <span class="c1"># print(&#39;left half&#39;)</span>
                 <span class="k">return</span> <span class="p">(</span>
-                    <span class="n">truncate_isochrone</span><span class="p">(</span><span class="n">rpt_isochrone</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">false_indexes</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span>
+                    <span class="n">_truncate_isochrone</span><span class="p">(</span><span class="n">rpt_isochrone</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">false_indexes</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span>
                     <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
                 <span class="p">)</span>
 
             <span class="c1"># At this point, we presumably have a caustic,</span>
             <span class="c1">#    so find the cusp intercept</span>
-            <span class="n">rxz1_intercept</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">pxz1_intercept</span><span class="p">,</span> <span class="n">pxz2_intercept</span> <span class="o">=</span> <span class="n">find_intercept</span><span class="p">(</span>
+            <span class="n">rxz1_intercept</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">pxz1_intercept</span><span class="p">,</span> <span class="n">pxz2_intercept</span> <span class="o">=</span> <span class="n">_find_intercept</span><span class="p">(</span>
                 <span class="n">rpt_isochrone</span><span class="p">,</span> <span class="n">slice1</span><span class="p">,</span> <span class="n">slice2</span>
             <span class="p">)</span>
             <span class="c1"># print(&#39;Intercept @ &#39;, rxz1_intercept,rxz2_intercept)</span>
@@ -705,10 +694,8 @@ ray at a cusp.</p></li>
                 <span class="n">intercept</span> <span class="o">=</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
             <span class="k">return</span> <span class="p">(</span><span class="n">rpt_isochrone_rtn</span><span class="p">,</span> <span class="n">intercept</span><span class="p">)</span>
 
-        <span class="k">def</span> <span class="nf">compose_isochrone</span><span class="p">(</span><span class="n">t_</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
-            <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">            TBD</span>
-<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="k">def</span> <span class="nf">_compose_isochrone</span><span class="p">(</span><span class="n">t_</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+            <span class="sd">&quot;&quot;&quot;Generate an isochrone.&quot;&quot;&quot;</span>
             <span class="c1"># Prepare a tmp dictionary for the rx,rz,px,pz component arrays</span>
             <span class="c1">#   delineating this isochrone</span>
             <span class="n">rpt_isochrone</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
@@ -724,12 +711,10 @@ ray at a cusp.</p></li>
             <span class="n">rpt_isochrone</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s2">&quot;t&quot;</span><span class="p">:</span> <span class="n">t_</span><span class="p">})</span>
             <span class="k">return</span> <span class="n">rpt_isochrone</span>
 
-        <span class="k">def</span> <span class="nf">resample_isochrone</span><span class="p">(</span>
+        <span class="k">def</span> <span class="nf">_resample_isochrone</span><span class="p">(</span>
             <span class="n">rpt_isochrone_in</span><span class="p">:</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">n_resample_pts</span><span class="p">:</span> <span class="nb">int</span>
         <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
-            <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">            TBD</span>
-<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="sd">&quot;&quot;&quot;Resample along an isochrone.&quot;&quot;&quot;</span>
             <span class="n">n_s_pts</span> <span class="o">=</span> <span class="n">n_resample_pts</span>
             <span class="n">rpt_isochrone_out</span> <span class="o">=</span> <span class="n">rpt_isochrone_in</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
             <span class="n">s_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span>
@@ -770,7 +755,7 @@ ray at a cusp.</p></li>
         <span class="c1"># Crop out-of-bounds points and points on caustics</span>
         <span class="c1">#   for the current isochrone</span>
 
-        <span class="k">def</span> <span class="nf">clean_isochrone</span><span class="p">(</span>
+        <span class="k">def</span> <span class="nf">_clean_isochrone</span><span class="p">(</span>
             <span class="n">rpt_isochrone</span><span class="p">:</span> <span class="n">Dict</span><span class="p">,</span>
         <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span>
             <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]],</span>
@@ -778,9 +763,7 @@ ray at a cusp.</p></li>
                 <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span>
             <span class="p">],</span>
         <span class="p">]:</span>
-            <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">            TBD</span>
-<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="sd">&quot;&quot;&quot;Clean up isochrone so it doesn&#39;t exceed profile bounds.&quot;&quot;&quot;</span>
             <span class="c1"># Cusps: eliminate all points beyond the first</span>
             <span class="c1">#      whose rx sequence is negative (left-ward)</span>
             <span class="c1">#  - do this by creating a flag array whose elements are True</span>
@@ -812,7 +795,7 @@ ray at a cusp.</p></li>
             <span class="c1"># (rpt_isochrone,</span>
             <span class="c1">#  (t_rxz_intercept, pxz1_intercept, pxz2_intercept)) \</span>
             <span class="k">if</span> <span class="n">do_eliminate_caustics</span><span class="p">:</span>
-                <span class="n">rtn</span> <span class="o">=</span> <span class="n">eliminate_caustic</span><span class="p">(</span><span class="n">is_good_pt_array</span><span class="p">,</span> <span class="n">rpt_isochrone</span><span class="p">)</span>
+                <span class="n">rtn</span> <span class="o">=</span> <span class="n">_eliminate_caustic</span><span class="p">(</span><span class="n">is_good_pt_array</span><span class="p">,</span> <span class="n">rpt_isochrone</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">rtn</span> <span class="o">=</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span>
             <span class="c1"># print(rpt_isochrone_try)</span>
@@ -820,10 +803,8 @@ ray at a cusp.</p></li>
             <span class="c1">#                          is not None else rpt_isochrone</span>
             <span class="k">return</span> <span class="n">rtn</span>
 
-        <span class="k">def</span> <span class="nf">prune_isochrone</span><span class="p">(</span><span class="n">rpt_isochrone_in</span><span class="p">:</span> <span class="n">Dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
-            <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">            TBD</span>
-<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="k">def</span> <span class="nf">_prune_isochrone</span><span class="p">(</span><span class="n">rpt_isochrone_in</span><span class="p">:</span> <span class="n">Dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+            <span class="sd">&quot;&quot;&quot;Prune/extend isochrone.&quot;&quot;&quot;</span>
             <span class="n">rpt_isochrone_out</span> <span class="o">=</span> <span class="n">rpt_isochrone_in</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
             <span class="n">rx_array</span> <span class="o">=</span> <span class="n">rpt_isochrone_out</span><span class="p">[</span><span class="s2">&quot;rx&quot;</span><span class="p">]</span>
             <span class="n">i_bounded_array</span> <span class="o">=</span> <span class="p">(</span><span class="n">rx_array</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">rx_array</span> <span class="o">&lt;=</span> <span class="mf">1.0</span><span class="p">)</span>
@@ -846,30 +827,24 @@ ray at a cusp.</p></li>
                     <span class="p">)</span>
             <span class="k">return</span> <span class="n">rpt_isochrone_out</span>
 
-        <span class="k">def</span> <span class="nf">record_isochrone</span><span class="p">(</span><span class="n">rpt_isochrone</span><span class="p">:</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">i_isochrone</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">            TBD</span>
-<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="k">def</span> <span class="nf">_record_isochrone</span><span class="p">(</span><span class="n">rpt_isochrone</span><span class="p">:</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">i_isochrone</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="sd">&quot;&quot;&quot;Put this isochrone in the dict of isochrones.&quot;&quot;&quot;</span>
             <span class="c1"># Record this isochrone</span>
             <span class="k">for</span> <span class="n">rpt_</span> <span class="ow">in</span> <span class="n">rpt_tuple</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">rpt_isochrones</span><span class="p">[</span><span class="n">rpt_</span><span class="p">][</span><span class="n">i_isochrone</span><span class="p">]</span> <span class="o">=</span> <span class="n">rpt_isochrone</span><span class="p">[</span><span class="n">rpt_</span><span class="p">]</span>
 
-        <span class="k">def</span> <span class="nf">record_cusp</span><span class="p">(</span>
+        <span class="k">def</span> <span class="nf">_record_cusp</span><span class="p">(</span>
             <span class="n">trxz_cusp</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span> <span class="n">pxz1_intercept</span><span class="p">,</span> <span class="n">pxz2_intercept</span>
         <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">            TBD</span>
-<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="sd">&quot;&quot;&quot;Record cusp location.&quot;&quot;&quot;</span>
             <span class="k">if</span> <span class="n">trxz_cusp</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="c1"># Record this intercept</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">trxz_cusps</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
                     <span class="p">(</span><span class="n">trxz_cusp</span><span class="p">,</span> <span class="n">pxz1_intercept</span><span class="p">,</span> <span class="n">pxz2_intercept</span><span class="p">)</span>
                 <span class="p">)</span>
 
-        <span class="k">def</span> <span class="nf">organize_cusps</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">            TBD</span>
-<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="k">def</span> <span class="nf">_organize_cusps</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="sd">&quot;&quot;&quot;Organize cusps into dict.&quot;&quot;&quot;</span>
             <span class="c1"># self.cusps: Dict[str,np.ndarray] = {}</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">cusps</span><span class="p">[</span><span class="s2">&quot;t&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
                 <span class="p">[</span>
@@ -914,27 +889,25 @@ ray at a cusp.</p></li>
 
         <span class="c1"># Time sequence - with resolution n_isochrones and</span>
         <span class="c1">#    limit t_isochrone_max</span>
-        <span class="n">prepare_isochrones</span><span class="p">()</span>
+        <span class="n">_prepare_isochrones</span><span class="p">()</span>
         <span class="n">t_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">t_isochrone_max</span><span class="p">,</span> <span class="n">n_isochrones</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">i_isochrone</span><span class="p">,</span> <span class="n">t_</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">t_array</span><span class="p">):</span>
-            <span class="n">rpt_isochrone</span> <span class="o">=</span> <span class="n">compose_isochrone</span><span class="p">(</span><span class="n">t_</span><span class="p">)</span>  <span class="c1"># i_isochrone,</span>
-            <span class="n">rpt_isochrone_resampled</span> <span class="o">=</span> <span class="n">resample_isochrone</span><span class="p">(</span>
+            <span class="n">rpt_isochrone</span> <span class="o">=</span> <span class="n">_compose_isochrone</span><span class="p">(</span><span class="n">t_</span><span class="p">)</span>  <span class="c1"># i_isochrone,</span>
+            <span class="n">rpt_isochrone_resampled</span> <span class="o">=</span> <span class="n">_resample_isochrone</span><span class="p">(</span>
                 <span class="n">rpt_isochrone</span><span class="p">,</span> <span class="n">n_resample_pts</span>
             <span class="p">)</span>
             <span class="p">(</span>
                 <span class="n">rpt_isochrone_clean</span><span class="p">,</span>
                 <span class="p">(</span><span class="n">trxz_cusp</span><span class="p">,</span> <span class="n">pxz1_intercept</span><span class="p">,</span> <span class="n">pxz2_intercept</span><span class="p">),</span>
-            <span class="p">)</span> <span class="o">=</span> <span class="n">clean_isochrone</span><span class="p">(</span><span class="n">rpt_isochrone_resampled</span><span class="p">)</span>
+            <span class="p">)</span> <span class="o">=</span> <span class="n">_clean_isochrone</span><span class="p">(</span><span class="n">rpt_isochrone_resampled</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">rpt_isochrone_clean</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">rpt_isochrone_pruned</span> <span class="o">=</span> <span class="n">prune_isochrone</span><span class="p">(</span><span class="n">rpt_isochrone_clean</span><span class="p">)</span>
-                <span class="n">record_isochrone</span><span class="p">(</span><span class="n">rpt_isochrone_pruned</span><span class="p">,</span> <span class="n">i_isochrone</span><span class="p">)</span>
-                <span class="n">record_cusp</span><span class="p">(</span><span class="n">trxz_cusp</span><span class="p">,</span> <span class="n">pxz1_intercept</span><span class="p">,</span> <span class="n">pxz2_intercept</span><span class="p">)</span>
-        <span class="n">organize_cusps</span><span class="p">()</span>
+                <span class="n">rpt_isochrone_pruned</span> <span class="o">=</span> <span class="n">_prune_isochrone</span><span class="p">(</span><span class="n">rpt_isochrone_clean</span><span class="p">)</span>
+                <span class="n">_record_isochrone</span><span class="p">(</span><span class="n">rpt_isochrone_pruned</span><span class="p">,</span> <span class="n">i_isochrone</span><span class="p">)</span>
+                <span class="n">_record_cusp</span><span class="p">(</span><span class="n">trxz_cusp</span><span class="p">,</span> <span class="n">pxz1_intercept</span><span class="p">,</span> <span class="n">pxz2_intercept</span><span class="p">)</span>
+        <span class="n">_organize_cusps</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">measure_cusp_propagation</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        TBD</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Measure how fast cusp is moving.&quot;&quot;&quot;</span>
         <span class="n">kwargs_</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
             <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;linear&quot;</span><span class="p">,</span> <span class="n">fill_value</span><span class="o">=</span><span class="s2">&quot;extrapolate&quot;</span><span class="p">,</span> <span class="n">assume_sorted</span><span class="o">=</span><span class="kc">True</span>
         <span class="p">)</span>
@@ -1044,9 +1017,7 @@ ray at a cusp.</p></li>
         <span class="bp">self</span><span class="o">.</span><span class="n">vx_interp_slow</span> <span class="o">=</span> <span class="n">vx_interp_slow</span>
 
     <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rpt_arrays</span><span class="p">:</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">idx</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        TBD</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Record results in arrays.&quot;&quot;&quot;</span>
         <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;ode.base.BaseSolution.save&quot;</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">rpt_</span> <span class="ow">in</span> <span class="n">rpt_tuple</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">rpt_arrays</span><span class="p">[</span><span class="n">rpt_</span><span class="p">][</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">rpt_arrays</span><span class="p">[</span><span class="n">rpt_</span><span class="p">]</span>

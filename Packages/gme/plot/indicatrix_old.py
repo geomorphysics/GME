@@ -1,6 +1,8 @@
 """
 Old way of visualizing indicatrix & figuratrix.
 
+---------------------------------------------------------------------
+
 Requires Python packages/modules:
   -  :mod:`NumPy <numpy>`
   -  :mod:`SymPy <sympy>`
@@ -11,6 +13,8 @@ Requires Python packages/modules:
 .. _GME: https://github.com/geomorphysics/GME
 .. _Matrix:
     https://docs.sympy.org/latest/modules/matrices/immutablematrices.html
+
+---------------------------------------------------------------------
 """
 # Library
 import warnings

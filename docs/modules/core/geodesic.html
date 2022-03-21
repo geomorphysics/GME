@@ -52,7 +52,6 @@
             
   <div class="section" id="module-gme.core.geodesic">
 <span id="geodesic-py"></span><h1><code class="docutils literal notranslate"><span class="pre">geodesic.py</span></code><a class="headerlink" href="#module-gme.core.geodesic" title="Permalink to this headline">¶</a></h1>
-<hr class="docutils" />
 <p>Equation definitions and derivations using <a class="reference external" href="https://docs.sympy.org/latest/index.html#module-sympy" title="(in SymPy v1.10.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">SymPy</span></code></a>.</p>
 <hr class="docutils" />
 <dl class="simple">
@@ -71,7 +70,7 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.core.geodesic.GeodesicMixin.define_geodesic_eqns">
 <span class="sig-name descname"><span class="pre">define_geodesic_eqns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gme.core.geodesic.GeodesicMixin.define_geodesic_eqns" title="Permalink to this definition">¶</a></dt>
-<dd><p>Define geodesic equations</p>
+<dd><p>Define geodesic equations.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="gme.core.geodesic.GeodesicMixin.dg_rk_ij_mat">
 <span class="sig-name descname"><span class="pre">dg_rk_ij_mat</span></span><a class="headerlink" href="#gme.core.geodesic.GeodesicMixin.dg_rk_ij_mat" title="Permalink to this definition">¶</a></dt>
@@ -298,8 +297,6 @@ particular choice of model parameters)</p>
 <div class="section" id="code">
 <h2>Code<a class="headerlink" href="#code" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">---------------------------------------------------------------------</span>
-
 <span class="sd">Equation definitions and derivations using :mod:`SymPy &lt;sympy&gt;`.</span>
 
 <span class="sd">---------------------------------------------------------------------</span>
@@ -315,7 +312,6 @@ particular choice of model parameters)</p>
 <span class="sd">    https://docs.sympy.org/latest/modules/matrices/immutablematrices.html</span>
 
 <span class="sd">---------------------------------------------------------------------</span>
-
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="c1"># Disable these pylint errors because it doesn&#39;t understand SymPy syntax</span>
 <span class="c1">#   - notably minus signs in equations flag an error</span>
@@ -374,9 +370,8 @@ particular choice of model parameters)</p>
 
 
 <span class="k">class</span> <span class="nc">GeodesicMixin</span><span class="p">:</span>
-    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Geodesic equations supplement to equation definition class.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;Geodesic equations supplement to equation definition class.&quot;&quot;&quot;</span>
+
     <span class="c1"># Prerequisites</span>
     <span class="n">eta_</span><span class="p">:</span> <span class="nb">float</span>
     <span class="n">mu_</span><span class="p">:</span> <span class="nb">float</span>
@@ -568,7 +563,7 @@ particular choice of model parameters)</p>
 
     <span class="k">def</span> <span class="nf">define_geodesic_eqns</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Define geodesic equations</span>
+<span class="sd">        Define geodesic equations.</span>
 
 <span class="sd">        Attributes:</span>
 <span class="sd">            dg_rk_ij_mat (`Matrix`_):</span>

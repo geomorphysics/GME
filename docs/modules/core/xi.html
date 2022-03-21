@@ -52,7 +52,6 @@
             
   <div class="section" id="module-gme.core.xi">
 <span id="xi-py"></span><h1><code class="docutils literal notranslate"><span class="pre">xi.py</span></code><a class="headerlink" href="#module-gme.core.xi" title="Permalink to this headline">¶</a></h1>
-<hr class="docutils" />
 <p>Equation definitions and derivations using <a class="reference external" href="https://docs.sympy.org/latest/index.html#module-sympy" title="(in SymPy v1.10.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">SymPy</span></code></a>.</p>
 <hr class="docutils" />
 <dl class="simple">
@@ -67,13 +66,12 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="gme.core.xi.XiMixin">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gme.core.xi.</span></span><span class="sig-name descname"><span class="pre">XiMixin</span></span><a class="headerlink" href="#gme.core.xi.XiMixin" title="Permalink to this definition">¶</a></dt>
-<dd><p>Erosion model <span class="math notranslate nohighlight">\(\xi\)</span> equations supplement
-to equation definition class.</p>
+<dd><p>Erosion model <span class="math notranslate nohighlight">\(\xi\)</span> eqns supplement to eqn definition class.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.core.xi.XiMixin.define_xi_eqns">
 <span class="sig-name descname"><span class="pre">define_xi_eqns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.core.xi.XiMixin.define_xi_eqns" title="Permalink to this definition">¶</a></dt>
-<dd><p>Define equations for surface erosion speed <span class="math notranslate nohighlight">\(\xi\)</span>
-and its vertical behavior</p>
+<dd><p>Define eqns for surface erosion speed <span class="math notranslate nohighlight">\(\xi\)</span>.</p>
+<p>Also for its vertical behavior.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="gme.core.xi.XiMixin.xi_p_eqn">
 <span class="sig-name descname"><span class="pre">xi_p_eqn</span></span><a class="headerlink" href="#gme.core.xi.XiMixin.xi_p_eqn" title="Permalink to this definition">¶</a></dt>
@@ -123,7 +121,8 @@ and its vertical behavior</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.core.xi.XiMixin.define_xi_model_eqn">
 <span class="sig-name descname"><span class="pre">define_xi_model_eqn</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.core.xi.XiMixin.define_xi_model_eqn" title="Permalink to this definition">¶</a></dt>
-<dd><p>Define the form of the surface erosion model,
+<dd><p>Define the equation for erosion rate model.</p>
+<p>Define the form of the surface erosion model,
 giving the speed of surface motion in its normal direction
 <span class="math notranslate nohighlight">\(\xi^{\perp}\)</span>.
 For now, the model must have a separable dependence on
@@ -152,7 +151,8 @@ take a rational value.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.core.xi.XiMixin.define_xi_related_eqns">
 <span class="sig-name descname"><span class="pre">define_xi_related_eqns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.core.xi.XiMixin.define_xi_related_eqns" title="Permalink to this definition">¶</a></dt>
-<dd><p>Define equations related to surface erosion speed <span class="math notranslate nohighlight">\(\xi\)</span>
+<dd><p>Define equations related to the erosion model.</p>
+<p>Define equations related to surface erosion speed <span class="math notranslate nohighlight">\(\xi\)</span>
 and its vertical behavior.
 The derivations below are for an erosion model with
 <span class="math notranslate nohighlight">\(\left|\tan\beta\right|^\eta\)</span>, <span class="math notranslate nohighlight">\(\eta=3/2\)</span>.</p>
@@ -215,8 +215,6 @@ The derivations below are for an erosion model with
 <div class="section" id="code">
 <h2>Code<a class="headerlink" href="#code" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">---------------------------------------------------------------------</span>
-
 <span class="sd">Equation definitions and derivations using :mod:`SymPy &lt;sympy&gt;`.</span>
 
 <span class="sd">---------------------------------------------------------------------</span>
@@ -259,10 +257,8 @@ The derivations below are for an erosion model with
 
 
 <span class="k">class</span> <span class="nc">XiMixin</span><span class="p">:</span>
-    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Erosion model :math:`\xi` equations supplement</span>
-<span class="sd">    to equation definition class.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Erosion model :math:`\xi` eqns supplement to eqn definition class.&quot;&quot;&quot;</span>
+
     <span class="c1"># Prerequisites</span>
     <span class="n">beta_type</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">do_raw</span><span class="p">:</span> <span class="nb">bool</span>
@@ -284,8 +280,9 @@ The derivations below are for an erosion model with
 
     <span class="k">def</span> <span class="nf">define_xi_eqns</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Define equations for surface erosion speed :math:`\xi`</span>
-<span class="sd">        and its vertical behavior</span>
+<span class="sd">        Define eqns for surface erosion speed :math:`\xi`.</span>
+
+<span class="sd">        Also for its vertical behavior.</span>
 
 <span class="sd">        Attributes:</span>
 <span class="sd">            xi_p_eqn (:class:`~sympy.core.relational.Equality`):</span>
@@ -305,6 +302,8 @@ The derivations below are for an erosion model with
 
     <span class="k">def</span> <span class="nf">define_xi_model_eqn</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Define the equation for erosion rate model.</span>
+
 <span class="sd">        Define the form of the surface erosion model,</span>
 <span class="sd">        giving the speed of surface motion in its normal direction</span>
 <span class="sd">        :math:`\xi^{\perp}``.</span>
@@ -340,6 +339,8 @@ The derivations below are for an erosion model with
 
     <span class="k">def</span> <span class="nf">define_xi_related_eqns</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Define equations related to the erosion model.</span>
+<span class="sd">        </span>
 <span class="sd">        Define equations related to surface erosion speed :math:`\xi`</span>
 <span class="sd">        and its vertical behavior.</span>
 <span class="sd">        The derivations below are for an erosion model with</span>

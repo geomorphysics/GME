@@ -1,7 +1,5 @@
 """
----------------------------------------------------------------------
-
-Utility functions
+Utility functions.
 
 ---------------------------------------------------------------------
 
@@ -40,9 +38,7 @@ def report_progress(
     pc_step: float = 1,
     is_initial_step: bool = False,
 ) -> float:
-    """
-    Print percentage estimated progress of some ongoing job
-    """
+    """Print percentage estimated progress of some ongoing job."""
     progress_now: float = (
         100
         * np.round((100 / pc_step) * i / (n - 1 if n > 1 else 1))
@@ -65,9 +61,10 @@ def integrate_dzdx(
     x_end: float = 0.999,
 ) -> Tuple[np.ndarray, np.ndarray]:
     r"""
-    Numerically integrate a sequence of $\mathrm{d}z/\mathrm{d}x$ values,
-    computed at regular $x$ values, to generate a topographic profile
-    $h(x)$.
+    Generate a topographic profile $h(x)$.
+
+    Achieved by numerically integrating a sequence of $\mathrm{d}z/\mathrm{d}x$
+    values at regular $x$ values.
     """
     sub_copy = sub_.copy()
     sub_copy[xivhat_0] = xivhat0_

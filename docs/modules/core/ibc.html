@@ -52,7 +52,6 @@
             
   <div class="section" id="module-gme.core.ibc">
 <span id="ibc-py"></span><h1><code class="docutils literal notranslate"><span class="pre">ibc.py</span></code><a class="headerlink" href="#module-gme.core.ibc" title="Permalink to this headline">¶</a></h1>
-<hr class="docutils" />
 <p>Equation definitions and derivations using <a class="reference external" href="https://docs.sympy.org/latest/index.html#module-sympy" title="(in SymPy v1.10.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">SymPy</span></code></a>.</p>
 <hr class="docutils" />
 <dl class="simple">
@@ -67,12 +66,11 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="gme.core.ibc.IbcMixin">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">gme.core.ibc.</span></span><span class="sig-name descname"><span class="pre">IbcMixin</span></span><a class="headerlink" href="#gme.core.ibc.IbcMixin" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initial condition/boundary condition equations supplement
-to equation definition class.</p>
+<dd><p>Initial condition/boundary condition eqns supplement to eqn def class.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.core.ibc.IbcMixin.define_ibc_eqns">
 <span class="sig-name descname"><span class="pre">define_ibc_eqns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.core.ibc.IbcMixin.define_ibc_eqns" title="Permalink to this definition">¶</a></dt>
-<dd><p>Define initial profile equations</p>
+<dd><p>Define initial profile equations.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="gme.core.ibc.IbcMixin.boundary_eqns">
 <span class="sig-name descname"><span class="pre">boundary_eqns</span></span><a class="headerlink" href="#gme.core.ibc.IbcMixin.boundary_eqns" title="Permalink to this definition">¶</a></dt>
@@ -109,7 +107,7 @@ to equation definition class.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.core.ibc.IbcMixin.prep_ibc_eqns">
 <span class="sig-name descname"><span class="pre">prep_ibc_eqns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.core.ibc.IbcMixin.prep_ibc_eqns" title="Permalink to this definition">¶</a></dt>
-<dd><p>Define boundary (ray initial) condition equations</p>
+<dd><p>Define boundary (ray initial) condition equations.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="gme.core.ibc.IbcMixin.pz0_xiv0_eqn">
 <span class="sig-name descname"><span class="pre">pz0_xiv0_eqn</span></span><a class="headerlink" href="#gme.core.ibc.IbcMixin.pz0_xiv0_eqn" title="Permalink to this definition">¶</a></dt>
@@ -139,7 +137,7 @@ p_{z}^{2} \left(p_{x}^{2} + p_{z}^{2}\right)^{- \eta} = 1\)</span></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.core.ibc.IbcMixin.set_ibc_eqns">
 <span class="sig-name descname"><span class="pre">set_ibc_eqns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.core.ibc.IbcMixin.set_ibc_eqns" title="Permalink to this definition">¶</a></dt>
-<dd><p>Define initial condition equations</p>
+<dd><p>Define initial condition equations.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="gme.core.ibc.IbcMixin.rz_initial_eqn">
 <span class="sig-name descname"><span class="pre">rz_initial_eqn</span></span><a class="headerlink" href="#gme.core.ibc.IbcMixin.rz_initial_eqn" title="Permalink to this definition">¶</a></dt>
@@ -228,8 +226,6 @@ x_{1}^{2 \mu} + \left(- x + x_{1}\right)^{2 \mu}\right)}\)</span></p>
 <div class="section" id="code">
 <h2>Code<a class="headerlink" href="#code" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">---------------------------------------------------------------------</span>
-
 <span class="sd">Equation definitions and derivations using :mod:`SymPy &lt;sympy&gt;`.</span>
 
 <span class="sd">---------------------------------------------------------------------</span>
@@ -245,7 +241,6 @@ x_{1}^{2 \mu} + \left(- x + x_{1}\right)^{2 \mu}\right)}\)</span></p>
 <span class="sd">    https://docs.sympy.org/latest/modules/matrices/immutablematrices.html</span>
 
 <span class="sd">---------------------------------------------------------------------</span>
-
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="c1"># Disable these pylint errors because it doesn&#39;t understand SymPy syntax</span>
 <span class="c1">#   - notably minus signs in equations flag an error</span>
@@ -291,10 +286,8 @@ x_{1}^{2 \mu} + \left(- x + x_{1}\right)^{2 \mu}\right)}\)</span></p>
 
 
 <span class="k">class</span> <span class="nc">IbcMixin</span><span class="p">:</span>
-    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Initial condition/boundary condition equations supplement</span>
-<span class="sd">    to equation definition class.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;Initial condition/boundary condition eqns supplement to eqn def class.&quot;&quot;&quot;</span>
+
     <span class="c1"># Prerequisites</span>
     <span class="n">pz0_xiv0_eqn</span><span class="p">:</span> <span class="n">Eq</span>
     <span class="n">pzpx_unity_eqn</span><span class="p">:</span> <span class="n">Eq</span>
@@ -315,10 +308,9 @@ x_{1}^{2 \mu} + \left(- x + x_{1}\right)^{2 \mu}\right)}\)</span></p>
 
     <span class="k">def</span> <span class="nf">prep_ibc_eqns</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Define boundary (ray initial) condition equations</span>
+<span class="sd">        Define boundary (ray initial) condition equations.</span>
 
 <span class="sd">        Attributes:</span>
-
 <span class="sd">            pz0_xiv0_eqn (:class:`~sympy.core.relational.Equality`):</span>
 <span class="sd">                :math:`p_{z_0} = - \dfrac{1}{\xi^{\downarrow{0}}}`</span>
 
@@ -342,7 +334,7 @@ x_{1}^{2 \mu} + \left(- x + x_{1}\right)^{2 \mu}\right)}\)</span></p>
 
     <span class="k">def</span> <span class="nf">define_ibc_eqns</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Define initial profile equations</span>
+<span class="sd">        Define initial profile equations.</span>
 
 <span class="sd">        Attributes:</span>
 <span class="sd">            boundary_eqns (`dict` of :class:`~sympy.core.relational.Equality`):</span>
@@ -409,10 +401,9 @@ x_{1}^{2 \mu} + \left(- x + x_{1}\right)^{2 \mu}\right)}\)</span></p>
 
     <span class="k">def</span> <span class="nf">set_ibc_eqns</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Define initial condition equations</span>
+<span class="sd">        Define initial condition equations.</span>
 
 <span class="sd">        Attributes:</span>
-
 <span class="sd">            rz_initial_eqn (:class:`~sympy.core.relational.Equality`):</span>
 <span class="sd">                :math:`{r}^z = \dfrac{h_{0} \tanh{\left(\frac{</span>
 <span class="sd">                \kappa_\mathrm{h} {r}^x}{x_{1}} \right)}}{\tanh{\left(</span>
