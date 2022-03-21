@@ -13,11 +13,15 @@ class EquationsIdtx(Equations, IdtxMixin):
 
 class EquationsIbc(Equations, IbcMixin):
     ibc_type: str
-    def __init__(self, parameters: Optional[Dict] = ..., ibc_type: str = ..., **kwargs) -> None: ...
+    def __init__(
+        self, parameters: Optional[Dict] = ..., ibc_type: str = ..., **kwargs
+    ) -> None: ...
 
 class EquationsIdtxIbc(EquationsIdtx, IbcMixin):
     ibc_type: str
-    def __init__(self, parameters: Optional[Dict] = ..., ibc_type: str = ..., **kwargs) -> None: ...
+    def __init__(
+        self, parameters: Optional[Dict] = ..., ibc_type: str = ..., **kwargs
+    ) -> None: ...
 
 class EquationsSetupOnly(EquationsMixedIn, GeodesicMixin, IdtxMixin, IbcMixin):
     ibc_type: str

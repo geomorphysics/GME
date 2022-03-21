@@ -7,4 +7,10 @@ class EquationSubset:
     poly_px_xiv0_eqn: Eq
     xiv0_xih0_Ci_eqn: Eq
     hamiltons_eqns: Eq
-    def __init__(self, gmeq: Type[Equations], parameters: Dict, do_ndim: bool = ..., do_revert: bool = ...) -> None: ...
+    def __init__(
+        self,
+        gmeq: Type[Equations],
+        parameters: Dict,
+        do_ndim: bool = ...,
+        do_revert: bool = ...,
+    ) -> None: ...

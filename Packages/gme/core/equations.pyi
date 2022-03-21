@@ -17,9 +17,29 @@ class EquationsBase:
     beta_type: Eq
     varphi_type: Eq
     do_raw: Eq
-    def __init__(self, parameters: Optional[Dict] = ..., eta_: Rational = ..., mu_: Rational = ..., beta_type: str = ..., varphi_type: str = ..., do_raw: bool = ...) -> None: ...
+    def __init__(
+        self,
+        parameters: Optional[Dict] = ...,
+        eta_: Rational = ...,
+        mu_: Rational = ...,
+        beta_type: str = ...,
+        varphi_type: str = ...,
+        do_raw: bool = ...,
+    ) -> None: ...
 
-class EquationsMixedIn(EquationsBase, RpMixin, XiMixin, VarphiMixin, FundamentalMixin, HamiltonsMixin, NdimMixin, ProfileMixin, AnglesMixin, MetricTensorMixin, PxpolyMixin):
+class EquationsMixedIn(
+    EquationsBase,
+    RpMixin,
+    XiMixin,
+    VarphiMixin,
+    FundamentalMixin,
+    HamiltonsMixin,
+    NdimMixin,
+    ProfileMixin,
+    AnglesMixin,
+    MetricTensorMixin,
+    PxpolyMixin,
+):
     def __init__(self, **kwargs) -> None: ...
 
 class Equations(EquationsMixedIn):

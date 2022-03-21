@@ -1,7 +1,11 @@
 import abc
 import numpy as np
 from gme.core.equations import Equations
-from gme.core.equations_extended import EquationsGeodesic, EquationsIbc, EquationsIdtx
+from gme.core.equations_extended import (
+    EquationsGeodesic,
+    EquationsIbc,
+    EquationsIdtx,
+)
 from gme.ode.base import BaseSolution
 from typing import Any, Callable, Dict, List, Union
 
@@ -68,4 +72,9 @@ class ExtendedSolution(BaseSolution, metaclass=abc.ABCMeta):
     xiv_p_interp: Callable
     alpha_interp: Callable
     h_interp: Callable
-    def __init__(self, gmeq: Union[Equations, EquationsGeodesic, EquationsIdtx, EquationsIbc], parameters: Dict, **kwargs) -> None: ...
+    def __init__(
+        self,
+        gmeq: Union[Equations, EquationsGeodesic, EquationsIdtx, EquationsIbc],
+        parameters: Dict,
+        **kwargs
+    ) -> None: ...

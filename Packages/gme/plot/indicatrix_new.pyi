@@ -15,7 +15,30 @@ class IndicatrixNew(Graphing):
     v_from_gstar_lambda: Any
     v_infc_array: np.ndarray
     v_supc_array: np.ndarray
-    def __init__(self, gmeq: Union[Equations, EquationsIdtx], pr: Parameters, sub_: Dict, varphi_: float = ...): ...
-    def convex_concave_annotations(self, do_zoom: bool, eta_: float) -> None: ...
-    def Fstar_F_rectlinear(self, gmeq: Union[Equations, EquationsIdtx], job_name: str, pr: Parameters, do_zoom: bool = ..., fig_size: Optional[Tuple[float, float]] = ..., dpi: Optional[int] = ...) -> None: ...
-    def Fstar_F_polar(self, gmeq: Union[Equations, EquationsIdtx], job_name: str, pr: Parameters, fig_size: Optional[Tuple[float, float]] = ..., dpi: Optional[int] = ...) -> None: ...
+    def __init__(
+        self,
+        gmeq: Union[Equations, EquationsIdtx],
+        pr: Parameters,
+        sub_: Dict,
+        varphi_: float = ...,
+    ): ...
+    def convex_concave_annotations(
+        self, do_zoom: bool, eta_: float
+    ) -> None: ...
+    def Fstar_F_rectlinear(
+        self,
+        gmeq: Union[Equations, EquationsIdtx],
+        job_name: str,
+        pr: Parameters,
+        do_zoom: bool = ...,
+        fig_size: Optional[Tuple[float, float]] = ...,
+        dpi: Optional[int] = ...,
+    ) -> None: ...
+    def Fstar_F_polar(
+        self,
+        gmeq: Union[Equations, EquationsIdtx],
+        job_name: str,
+        pr: Parameters,
+        fig_size: Optional[Tuple[float, float]] = ...,
+        dpi: Optional[int] = ...,
+    ) -> None: ...
