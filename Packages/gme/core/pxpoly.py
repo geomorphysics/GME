@@ -95,7 +95,6 @@ class PxpolyMixin:
                 instantiation; otherwise the latter value is used
 
         Attributes:
-
             poly_px_xiv_varphi_eqn (:class:`~sympy.polys.polytools.Poly`):
                 :math:`\operatorname{Poly}{\left(
                 \left(\xi^{\downarrow}\right)^{4}

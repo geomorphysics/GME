@@ -90,17 +90,20 @@ to be used for equation substitutions</p></li>
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.knickpoints.base.CompositeSolution.create_solutions">
 <span class="sig-name descname"><span class="pre">create_solutions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t_end</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0.04</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_slip_end</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0.08</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_solns</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">{'ic':</span> <span class="pre">True,</span> <span class="pre">'ip':</span> <span class="pre">True,</span> <span class="pre">'vb':</span> <span class="pre">True}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_rays</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">{'ic':</span> <span class="pre">31,</span> <span class="pre">'ip':</span> <span class="pre">101,</span> <span class="pre">'vb':</span> <span class="pre">101}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_t</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">{'ic':</span> <span class="pre">1001,</span> <span class="pre">'ip':</span> <span class="pre">1001,</span> <span class="pre">'vb':</span> <span class="pre">1001}</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.knickpoints.base.CompositeSolution.create_solutions" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Create a set of solutions obtained by different methods.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.knickpoints.base.CompositeSolution.merge_rays">
 <span class="sig-name descname"><span class="pre">merge_rays</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.knickpoints.base.CompositeSolution.merge_rays" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Merge rays from different solution methods.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.knickpoints.base.CompositeSolution.solve">
 <span class="sig-name descname"><span class="pre">solve</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><a class="headerlink" href="#gme.knickpoints.base.CompositeSolution.solve" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Solve.</p>
+</dd></dl>
 
 </dd></dl>
 
@@ -130,12 +133,14 @@ for equation substitutions</p></li>
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.knickpoints.base.InitialCornerSolution.initial_conditions">
 <span class="sig-name descname"><span class="pre">initial_conditions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">beta0_</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#gme.knickpoints.base.InitialCornerSolution.initial_conditions" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Define initial conditions.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="gme.knickpoints.base.InitialCornerSolution.solve">
 <span class="sig-name descname"><span class="pre">solve</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">report_pc_step</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gme.knickpoints.base.InitialCornerSolution.solve" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Solve Hamilton’s equations.</p>
+</dd></dl>
 
 </dd></dl>
 
@@ -392,7 +397,7 @@ equation substitutions</p></li>
             <span class="bp">self</span><span class="o">.</span><span class="n">rdot</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="k">def</span> <span class="nf">initial_conditions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">beta0_</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot; &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Define initial conditions.&quot;&quot;&quot;</span>
         <span class="n">rx0_</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="n">rz0_</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="n">px0_</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span>
@@ -419,7 +424,7 @@ equation substitutions</p></li>
             <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">solve</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">report_pc_step</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Solve Hamilton&#39;s equations.&quot;&quot;&quot;</span>
         <span class="nb">print</span><span class="p">(</span>
             <span class="s2">&quot;Solving Hamilton&#39;s equations&quot;</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">choice</span> <span class="o">==</span> <span class="s2">&quot;Hamilton&quot;</span>
@@ -514,7 +519,7 @@ equation substitutions</p></li>
         <span class="n">n_rays</span><span class="p">:</span> <span class="n">Dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">ip</span><span class="o">=</span><span class="mi">101</span><span class="p">,</span> <span class="n">ic</span><span class="o">=</span><span class="mi">31</span><span class="p">,</span> <span class="n">vb</span><span class="o">=</span><span class="mi">101</span><span class="p">),</span>
         <span class="n">n_t</span><span class="p">:</span> <span class="n">Dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">ip</span><span class="o">=</span><span class="mi">1001</span><span class="p">,</span> <span class="n">ic</span><span class="o">=</span><span class="mi">1001</span><span class="p">,</span> <span class="n">vb</span><span class="o">=</span><span class="mi">1001</span><span class="p">),</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot; &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Create a set of solutions obtained by different methods.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">do_solns</span><span class="p">:</span> <span class="n">Dict</span> <span class="o">=</span> <span class="n">do_solns</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">t_end</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">t_end</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">t_slip_end</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">t_slip_end</span>
@@ -564,7 +569,7 @@ equation substitutions</p></li>
         <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">solve</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot; &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Solve.&quot;&quot;&quot;</span>
         <span class="n">soln_method</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span>
             <span class="n">InitialProfileSolution</span><span class="p">,</span>
             <span class="n">InitialCornerSolution</span><span class="p">,</span>
@@ -599,7 +604,7 @@ equation substitutions</p></li>
     <span class="c1">#         else None</span>
 
     <span class="k">def</span> <span class="nf">merge_rays</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot; &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Merge rays from different solution methods.&quot;&quot;&quot;</span>
         <span class="c1"># Combine all three solutions such that rays are all in rz order</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">rpt_arrays</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="n">soln_method</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span>

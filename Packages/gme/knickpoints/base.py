@@ -214,7 +214,7 @@ class InitialCornerSolution(BaseSolution):
             self.rdot = None
 
     def initial_conditions(self, beta0_) -> Tuple[float, float, float, float]:
-        """ """
+        """Define initial conditions."""
         rx0_ = 0
         rz0_ = 0
         px0_ = float(
@@ -241,7 +241,7 @@ class InitialCornerSolution(BaseSolution):
             )
 
     def solve(self, report_pc_step=1, verbose=True):
-        """ """
+        """Solve Hamilton's equations."""
         print(
             "Solving Hamilton's equations"
             if self.choice == "Hamilton"
@@ -336,7 +336,7 @@ class CompositeSolution(BaseSolution):
         n_rays: Dict = dict(ip=101, ic=31, vb=101),
         n_t: Dict = dict(ip=1001, ic=1001, vb=1001),
     ) -> None:
-        """ """
+        """Create a set of solutions obtained by different methods."""
         self.do_solns: Dict = do_solns
         self.t_end: float = t_end
         self.t_slip_end: float = t_slip_end
@@ -386,7 +386,7 @@ class CompositeSolution(BaseSolution):
         )
 
     def solve(self) -> None:
-        """ """
+        """Solve."""
         soln_method: Union[
             InitialProfileSolution,
             InitialCornerSolution,
@@ -421,7 +421,7 @@ class CompositeSolution(BaseSolution):
     #         else None
 
     def merge_rays(self) -> None:
-        """ """
+        """Merge rays from different solution methods."""
         # Combine all three solutions such that rays are all in rz order
         self.rpt_arrays = {}
         soln_method: Union[
