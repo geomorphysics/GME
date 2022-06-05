@@ -162,7 +162,7 @@ class TriangleInequality(Graphing):
             )
             plt.xlabel(xlabel)
             plt.ylabel(ylabel)
-            axes.text(
+            text_annotation_ = axes.text(
                 0.13,
                 0.85,
                 r"$\dfrac{\alpha_0}{\alpha_{\mathrm{ext}}} = "
@@ -172,4 +172,7 @@ class TriangleInequality(Graphing):
                 transform=axes.transAxes,
                 fontsize=14,
                 color="k",
+            )
+            text_annotation_.set_bbox(
+                dict(facecolor="white", alpha=0.9, edgecolor="white")
             )
