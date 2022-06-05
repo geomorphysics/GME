@@ -161,8 +161,8 @@ class XiMixin:
         """
         logging.info("gme.core.xi.define_xi_related_eqns")
         eta_dbldenom = 2 * denom(self.eta_)
-        # Cut simplify() because of hang (2022/6/5)
-        self.xiv_varphi_pxpz_eqn = Eq(
+        # Adaptive simplify() because of hang (2022/6/5)
+        _ = Eq(
             xiv,
             (self.xi_varphi_beta_eqn.rhs / cos(beta))
             .subs(e2d(self.tanbeta_pxpz_eqn))
@@ -170,13 +170,21 @@ class XiMixin:
             .subs(e2d(self.sinbeta_pxpz_eqn))
             .subs({Abs(px): px}),
         )
+        if self.do_raw:
+            self.xiv_varphi_pxpz_eqn = _
+        else:
+            self.xiv_varphi_pxpz_eqn = simplify(_)
         xiv_eqn = self.xiv_varphi_pxpz_eqn
-        # Cut simplify() because of hang (2022/6/5)
-        px_xiv_varphi_eqn = Eq(
+        # Adaptive simplify() because of hang (2022/6/5)
+        _ = Eq(
             (xiv_eqn.subs({Abs(px): px})).rhs ** eta_dbldenom
             - xiv_eqn.lhs ** eta_dbldenom,
             0,
         ).subs(e2d(self.pz_xiv_eqn))
+        if self.do_raw:
+            px_xiv_varphi_eqn = _
+        else:
+            px_xiv_varphi_eqn = simplify(_)
         # HACK!!
         # Get rid of xiv**2 multiplier...
         #    should be a cleaner way of doing this
