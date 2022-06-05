@@ -60,7 +60,7 @@ class XiMixin:
     xi_varphi_beta_eqn: Eq
     xiv_varphi_pxpz_eqn: Eq
     px_xiv_varphi_eqn: Eq
-    eta__dbldenom: Eq
+    eta_dbldenom: Eq
 
     def define_xi_eqns(self) -> None:
         r"""
@@ -161,29 +161,27 @@ class XiMixin:
         """
         logging.info("gme.core.xi.define_xi_related_eqns")
         eta_dbldenom = 2 * denom(self.eta_)
-        self.xiv_varphi_pxpz_eqn = simplify(
-            Eq(
-                xiv,
-                (self.xi_varphi_beta_eqn.rhs / cos(beta))
-                .subs(e2d(self.tanbeta_pxpz_eqn))
-                .subs(e2d(self.cosbeta_pxpz_eqn))
-                .subs(e2d(self.sinbeta_pxpz_eqn))
-                .subs({Abs(px): px}),
-            )
+        # Cut simplify() because of hang (2022/6/5)
+        self.xiv_varphi_pxpz_eqn = Eq(
+            xiv,
+            (self.xi_varphi_beta_eqn.rhs / cos(beta))
+            .subs(e2d(self.tanbeta_pxpz_eqn))
+            .subs(e2d(self.cosbeta_pxpz_eqn))
+            .subs(e2d(self.sinbeta_pxpz_eqn))
+            .subs({Abs(px): px}),
         )
         xiv_eqn = self.xiv_varphi_pxpz_eqn
-        px_xiv_varphi_eqn = simplify(
-            Eq(
-                (xiv_eqn.subs({Abs(px): px})).rhs ** eta_dbldenom
-                - xiv_eqn.lhs ** eta_dbldenom,
-                0,
-            ).subs(e2d(self.pz_xiv_eqn))
-        )
+        # Cut simplify() because of hang (2022/6/5)
+        px_xiv_varphi_eqn = Eq(
+            (xiv_eqn.subs({Abs(px): px})).rhs ** eta_dbldenom
+            - xiv_eqn.lhs ** eta_dbldenom,
+            0,
+        ).subs(e2d(self.pz_xiv_eqn))
         # HACK!!
         # Get rid of xiv**2 multiplier...
         #    should be a cleaner way of doing this
         self.px_xiv_varphi_eqn = factor(Eq(px_xiv_varphi_eqn.lhs / xiv ** 2, 0))
-        self.eta__dbldenom = eta_dbldenom
+        self.eta_dbldenom = eta_dbldenom
 
 
 #

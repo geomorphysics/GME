@@ -67,6 +67,7 @@ from gme.core.symbols import (
     pz_min,
     H,
     beta_max,
+    alpha,
 )
 from gme.plot.base import Graphing
 from gme.core.equations import Equations
@@ -350,6 +351,7 @@ class IndicatrixNew(Graphing):
         gmeq: Union[Equations, EquationsIdtx],
         job_name: str,
         pr: Parameters,
+        r_eqns: Optional[Tuple[Eq, Eq]] = None,
         do_zoom: bool = False,
         fig_size: Optional[Tuple[float, float]] = None,
         dpi: Optional[int] = None,
@@ -402,6 +404,23 @@ class IndicatrixNew(Graphing):
                 label=r"$\alpha_{\mathrm{lim}}$",
             )
 
+        # Fundamental function F=1 as r(alpha) from closed-form Lagrangian
+        if r_eqns is not None:
+            x_array = self.v_infc_array[:, 0]
+            y_array = self.v_infc_array[:, 1]
+            alpha_array = np.arctan(y_array / x_array)
+            for i_, r_eqn_ in enumerate(r_eqns):
+                r_sinalpha_lambdified = lambdify((alpha), r_eqn_.rhs)
+                r_sinalpha_lambda = lambda alpha_: r_sinalpha_lambdified(alpha_)
+                r_array = r_sinalpha_lambda(alpha_array)
+                plt.plot(
+                    r_array * np.cos(alpha_array),
+                    r_array * np.sin(alpha_array),
+                    ("r", "DarkRed")[i_] if eta_ < 1 else ("DarkRed", "r_")[i_],
+                    lw=3,
+                    ls=":",
+                )
+
         # Indicatrix aka F=1 for rays
         plt.plot(
             self.v_supc_array[:, 0],
@@ -417,7 +436,7 @@ class IndicatrixNew(Graphing):
             "-.",
             color="DarkRed" if eta_ > 1 else "r",
             lw=1,
-            label=r"$\alpha_{\mathrm{c}}$",
+            label=r"$\alpha_{\mathrm{ext}}$",
         )
         plt.plot(
             self.v_infc_array[:, 0],
@@ -561,7 +580,7 @@ class IndicatrixNew(Graphing):
             "-.",
             color="DarkRed" if eta_ > 1 else "r",
             lw=1,
-            label=r"$\alpha_{\mathrm{c}}$",
+            label=r"$\alpha_{\mathrm{ext}}$",
         )
         plt.polar(
             alpha_fn(
