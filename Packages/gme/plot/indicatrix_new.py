@@ -351,7 +351,7 @@ class IndicatrixNew(Graphing):
         gmeq: Union[Equations, EquationsIdtx],
         job_name: str,
         pr: Parameters,
-        r_eqns: Optional[Tuple[Eq, Eq]] = None,
+        v_eqns: Optional[Tuple[Eq, Eq]] = None,
         do_zoom: bool = False,
         fig_size: Optional[Tuple[float, float]] = None,
         dpi: Optional[int] = None,
@@ -405,17 +405,17 @@ class IndicatrixNew(Graphing):
             )
 
         # Fundamental function F=1 as r(alpha) from closed-form Lagrangian
-        if r_eqns is not None:
-            x_array = self.v_infc_array[:, 0]
-            y_array = self.v_infc_array[:, 1]
-            alpha_array = np.arctan(y_array / x_array)
-            for i_, r_eqn_ in enumerate(r_eqns):
-                r_sinalpha_lambdified = lambdify((alpha), r_eqn_.rhs)
-                r_sinalpha_lambda = lambda alpha_: r_sinalpha_lambdified(alpha_)
-                r_array = r_sinalpha_lambda(alpha_array)
+        if v_eqns is not None:
+            vx_array = self.v_infc_array[:, 0]
+            vy_array = self.v_infc_array[:, 1]
+            alpha_array = np.arctan(vy_array / vx_array)
+            for i_, r_eqn_ in enumerate(v_eqns):
+                v_alpha_lambdified = lambdify((alpha), r_eqn_.rhs)
+                v_alpha_lambda = lambda alpha_: v_alpha_lambdified(alpha_)
+                v_array = v_alpha_lambda(alpha_array)
                 plt.plot(
-                    r_array * np.cos(alpha_array),
-                    r_array * np.sin(alpha_array),
+                    v_array * np.cos(alpha_array),
+                    v_array * np.sin(alpha_array),
                     ("r", "DarkRed")[i_] if eta_ < 1 else ("DarkRed", "r_")[i_],
                     lw=3,
                     ls=":",
