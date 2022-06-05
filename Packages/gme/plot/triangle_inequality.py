@@ -118,7 +118,7 @@ class TriangleInequality(Graphing):
         alpha0_array = -np.deg2rad(f_alpha0_array * alpha_ext_)
         alpha0_array
         for f_alpha0_, alpha0_ in zip(f_alpha0_array, alpha0_array):
-            name = f"{job_name}_falpha{f_alpha0_}"
+            name = f"{job_name}_falpha{f_alpha0_}".replace(".", "p")
             _ = self.create_figure(name, fig_size=fig_size, dpi=dpi)
             # print(f"alpha_0 = {np.rad2deg(alpha0_):.2f}º", flush=True)
             # figs[alpha0_] = gr.create_figure("tri ineq", fig_size=(6, 6))
