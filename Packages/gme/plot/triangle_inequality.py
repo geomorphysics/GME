@@ -102,8 +102,8 @@ class TriangleInequality(Graphing):
         self,
         job_name: str,
         alpha1_arrays: np.ndarray,
-        delta_t1_arrays: np.ndarray,
-        delta_t12_grids: np.ndarray,
+        ndelta_t1_arrays: np.ndarray,
+        ndelta_t12_grids: np.ndarray,
         alpha0_array: np.ndarray,
         fig_size: Optional[Tuple[float, float]] = None,
         dpi: Optional[int] = None,
@@ -126,12 +126,12 @@ class TriangleInequality(Graphing):
             _ = self.create_figure(name, fig_size=fig_size, dpi=dpi)
             axes: Axes = plt.gca()
             contour_step = 0.1 / 5
-            delta_t12_grid_ = delta_t12_grids[alpha0_].copy()
+            ndelta_t12_grid_ = ndelta_t12_grids[alpha0_].copy()
             delta_t12_min = np.round(
-                np.min(delta_t12_grid_[~np.isnan(delta_t12_grid_)]), 1
+                np.min(ndelta_t12_grid_[~np.isnan(ndelta_t12_grid_)]), 1
             )
             delta_t12_max = (
-                np.max(delta_t12_grid_[~np.isnan(delta_t12_grid_)])
+                np.max(ndelta_t12_grid_[~np.isnan(ndelta_t12_grid_)])
                 + contour_step
             )
             print(delta_t12_min, delta_t12_max)
@@ -148,45 +148,52 @@ class TriangleInequality(Graphing):
                             0.98,
                             0.99,
                             0.999,
-                            # 0.9999,
-                            0.99999,
+                            0.9999,
+                            # 0.99999,
                         ]
                     ),
                 ]
             )
-            delta_t12_grid_dummy = delta_t12_grid_.copy()
-            delta_t12_grid_dummy[~np.isnan(delta_t12_grid_)] = -1
-            delta_t12_grid_dummy[np.isnan(delta_t12_grid_)] = 1
-            delta_t12_grid_masked = np.ma.array(
-                delta_t12_grid_, mask=np.isnan(delta_t12_grid_)
+            ndelta_t12_grid_dummy = ndelta_t12_grid_.copy()
+            ndelta_t12_grid_dummy[~np.isnan(ndelta_t12_grid_)] = -1
+            ndelta_t12_grid_dummy[np.isnan(ndelta_t12_grid_)] = 1
+            ndelta_t12_grid_masked = np.ma.array(
+                ndelta_t12_grid_, mask=np.isnan(ndelta_t12_grid_)
             )
             xlabel = r"$\alpha_1$  [$\degree$]"
             ylabel = r"$\Delta{t}_1/\Delta{t}_0$"
             contour_fn = axes.contourf if do_smooth else axes.contour
             contours = contour_fn(
                 -np.rad2deg(alpha1_arrays[alpha0_]),
-                delta_t1_arrays[alpha0_],
-                delta_t12_grid_masked,
+                ndelta_t1_arrays[alpha0_],
+                ndelta_t12_grid_masked.T,
                 levels=51 if do_smooth else contour_levels,
                 cmap=color_cmap_,
             )
 
             def fmt(x):
-                s = f"{x:.3f}"
+                s = f"{x:.5f}"
+                # Some horrible code here
                 if s.endswith("0"):
-                    s = f"{x:.2f}"
+                    s = f"{x:.4f}"
+                    if s.endswith("0"):
+                        s = f"{x:.3f}"
+                        if s.endswith("0"):
+                            s = f"{x:.2f}"
                 return rf"{s}"
 
             if not do_smooth:
                 axes.clabel(contours, inline=True, fmt=fmt, fontsize=10)
+
             _ = axes.contourf(
                 -np.rad2deg(alpha1_arrays[alpha0_]),
-                delta_t1_arrays[alpha0_],
-                delta_t12_grid_dummy,
+                ndelta_t1_arrays[alpha0_],
+                ndelta_t12_grid_dummy.T,
                 levels=[0, 1],
                 cmap=grey_cmap_,
                 alpha=0.3,
             )
+
             plt.xlabel(xlabel)
             plt.ylabel(ylabel)
             text_props = {
@@ -198,7 +205,7 @@ class TriangleInequality(Graphing):
                 axes.text(
                     *xy_,
                     text_,
-                    horizontalalignment="right",
+                    horizontalalignment="center",
                     verticalalignment="center",
                     transform=axes.transAxes,
                     fontsize=14,
@@ -208,7 +215,7 @@ class TriangleInequality(Graphing):
                 for (xy_, text_) in (
                     (
                         (
-                            0.9,
+                            0.8 if alpha0_ > -np.deg2rad(10) else 0.2,
                             0.9,
                         ),
                         r"$\alpha_0 = $"
@@ -238,3 +245,5 @@ class TriangleInequality(Graphing):
             #     dict(facecolor="white", alpha=0.9, edgecolor="white")
             # )
             plt.grid(":", alpha=0.3)
+            plt.xlim(None, None)
+            plt.ylim(None, 1.0)
