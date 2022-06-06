@@ -104,75 +104,137 @@ class TriangleInequality(Graphing):
         alpha1_arrays: np.ndarray,
         delta_t1_arrays: np.ndarray,
         delta_t12_grids: np.ndarray,
-        f_alpha0_list: Tuple[float] = [0.10, 0.4, 0.75],
+        alpha0_array: np.ndarray,
         fig_size: Optional[Tuple[float, float]] = None,
         dpi: Optional[int] = None,
+        do_smooth: bool = False,
     ) -> None:
         """xxx"""
         name: str
         axes: Axes
-        cmap_: LinearSegmentedColormap = plt.get_cmap("Greys")
+        color_cmap_: LinearSegmentedColormap = plt.get_cmap("winter_r")
+        # color_cmap_: LinearSegmentedColormap = plt.get_cmap("copper_r")
+        # color_cmap_: LinearSegmentedColormap = plt.get_cmap("brg")
+        grey_cmap_: LinearSegmentedColormap = plt.get_cmap("Greys")
 
-        f_alpha0_array = np.array(f_alpha0_list)
-        alpha_ext_: float = float(self.alpha_ext_eqn_.rhs)
-        alpha0_array = -np.deg2rad(f_alpha0_array * alpha_ext_)
-        alpha0_array
-        for f_alpha0_, alpha0_ in zip(f_alpha0_array, alpha0_array):
-            name = f"{job_name}_falpha{f_alpha0_}".replace(".", "p")
+        alpha_ext_: float = -np.deg2rad(float(self.alpha_ext_eqn_.rhs))
+        for alpha0_ in alpha0_array:
+            f_alpha0_ = alpha0_ / alpha_ext_
+            name = f"{job_name}_falpha{np.round(f_alpha0_+0.05,2)}".replace(
+                ".", "p"
+            )
             _ = self.create_figure(name, fig_size=fig_size, dpi=dpi)
-            # print(f"alpha_0 = {np.rad2deg(alpha0_):.2f}º", flush=True)
-            # figs[alpha0_] = gr.create_figure("tri ineq", fig_size=(6, 6))
             axes: Axes = plt.gca()
-            contour_step = 0.1
+            contour_step = 0.1 / 5
             delta_t12_grid_ = delta_t12_grids[alpha0_].copy()
             delta_t12_min = np.round(
-                np.min(delta_t12_grid_[~np.isnan(delta_t12_grid_)])
+                np.min(delta_t12_grid_[~np.isnan(delta_t12_grid_)]), 1
             )
-            delta_t12_max = np.round(
+            delta_t12_max = (
                 np.max(delta_t12_grid_[~np.isnan(delta_t12_grid_)])
                 + contour_step
             )
+            print(delta_t12_min, delta_t12_max)
             contour_levels = np.arange(
-                delta_t12_min, delta_t12_max, contour_step
+                delta_t12_min, delta_t12_max + contour_step, contour_step
             )
-            # delta_t12_grid_[np.isnan(delta_t12_grid_)] = 0
+            contour_levels = np.concatenate(
+                [
+                    np.arange(delta_t12_min, 0.97, 0.02),
+                    # np.arange(0.98, 1.0 - 0.001, 0.001),
+                    np.array(
+                        [
+                            0.97,
+                            0.98,
+                            0.99,
+                            0.999,
+                            # 0.9999,
+                            0.99999,
+                        ]
+                    ),
+                ]
+            )
             delta_t12_grid_dummy = delta_t12_grid_.copy()
             delta_t12_grid_dummy[~np.isnan(delta_t12_grid_)] = -1
             delta_t12_grid_dummy[np.isnan(delta_t12_grid_)] = 1
             delta_t12_grid_masked = np.ma.array(
                 delta_t12_grid_, mask=np.isnan(delta_t12_grid_)
             )
-            xlabel = r"$\alpha_1$  [$^{\circ}$]"
+            xlabel = r"$\alpha_1$  [$\degree$]"
             ylabel = r"$\Delta{t}_1/\Delta{t}_0$"
-            contours = axes.contour(
+            contour_fn = axes.contourf if do_smooth else axes.contour
+            contours = contour_fn(
                 -np.rad2deg(alpha1_arrays[alpha0_]),
                 delta_t1_arrays[alpha0_],
                 delta_t12_grid_masked,
-                levels=contour_levels,
-                # cmap=cmap_,
+                levels=51 if do_smooth else contour_levels,
+                cmap=color_cmap_,
             )
-            axes.clabel(contours, inline=True, fmt=None, fontsize=10)
+
+            def fmt(x):
+                s = f"{x:.3f}"
+                if s.endswith("0"):
+                    s = f"{x:.2f}"
+                return rf"{s}"
+
+            if not do_smooth:
+                axes.clabel(contours, inline=True, fmt=fmt, fontsize=10)
             _ = axes.contourf(
                 -np.rad2deg(alpha1_arrays[alpha0_]),
                 delta_t1_arrays[alpha0_],
                 delta_t12_grid_dummy,
                 levels=[0, 1],
-                cmap=cmap_,
+                cmap=grey_cmap_,
                 alpha=0.3,
             )
             plt.xlabel(xlabel)
             plt.ylabel(ylabel)
-            text_annotation_ = axes.text(
-                0.13,
-                0.85,
-                r"$\dfrac{\alpha_0}{\alpha_{\mathrm{ext}}} = "
-                + f"{f_alpha0_}$",
-                horizontalalignment="left",
-                verticalalignment="center",
-                transform=axes.transAxes,
-                fontsize=14,
-                color="k",
-            )
-            text_annotation_.set_bbox(
-                dict(facecolor="white", alpha=0.9, edgecolor="white")
-            )
+            text_props = {
+                "facecolor": "white",
+                "alpha": 0.9,
+                "edgecolor": "white",
+            }
+            [
+                axes.text(
+                    *xy_,
+                    text_,
+                    horizontalalignment="right",
+                    verticalalignment="center",
+                    transform=axes.transAxes,
+                    fontsize=14,
+                    color="k",
+                    bbox=text_props,
+                )
+                for (xy_, text_) in (
+                    (
+                        (
+                            0.9,
+                            0.9,
+                        ),
+                        r"$\alpha_0 = $"
+                        + rf"{-np.rad2deg(alpha0_):.1f}$\degree$",
+                    ),
+                    # (
+                    #     (
+                    #         0.1,
+                    #         0.79,
+                    #     ),
+                    #     r"$\alpha_{\mathrm{ext}} = $"
+                    #     + rf"{-np.rad2deg(alpha_ext_ ):.1f}$^\degree$",
+                    # ),
+                    # (
+                    #     (
+                    #         r"$ = $",
+                    #         # + f"{-np.rad2deg(alpha0_):.1f}"
+                    #         # + r"$^\degree$",
+                    #         # r"$\alpha_{\mathrm{ext}} = $",
+                    #         # # + f"{-np.rad2deg(alpha_ext_):.1f}"
+                    #         # # + r"$^\degree$",
+                    #     ),
+                    # ),
+                )
+            ]
+            # text_annotation.set_bbox(
+            #     dict(facecolor="white", alpha=0.9, edgecolor="white")
+            # )
+            plt.grid(":", alpha=0.3)
