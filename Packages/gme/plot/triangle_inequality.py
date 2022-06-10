@@ -160,13 +160,13 @@ class TriangleInequality(Graphing):
             ndelta_t12_grid_masked = np.ma.array(
                 ndelta_t12_grid_, mask=np.isnan(ndelta_t12_grid_)
             )
-            xlabel = r"$\alpha_1$  [$\degree$]"
-            ylabel = r"$\Delta{t}_1/\Delta{t}_0$"
+            ylabel = r"$\alpha_1$  [$\degree$]"
+            xlabel = r"$\Delta{t}_1/\Delta{t}_0$"
             contour_fn = axes.contourf if do_smooth else axes.contour
             contours = contour_fn(
-                -np.rad2deg(alpha1_arrays[alpha0_]),
                 ndelta_t1_arrays[alpha0_],
-                ndelta_t12_grid_masked.T,
+                -np.rad2deg(alpha1_arrays[alpha0_]),
+                ndelta_t12_grid_masked,
                 levels=51 if do_smooth else contour_levels,
                 cmap=color_cmap_,
             )
@@ -186,9 +186,9 @@ class TriangleInequality(Graphing):
                 axes.clabel(contours, inline=True, fmt=fmt, fontsize=10)
 
             _ = axes.contourf(
-                -np.rad2deg(alpha1_arrays[alpha0_]),
                 ndelta_t1_arrays[alpha0_],
-                ndelta_t12_grid_dummy.T,
+                -np.rad2deg(alpha1_arrays[alpha0_]),
+                ndelta_t12_grid_dummy,
                 levels=[0, 1],
                 cmap=grey_cmap_,
                 alpha=0.3,
@@ -215,8 +215,8 @@ class TriangleInequality(Graphing):
                 for (xy_, text_) in (
                     (
                         (
-                            0.8 if alpha0_ > -np.deg2rad(10) else 0.2,
-                            0.9,
+                            0.8,
+                            0.9 if alpha0_ > -np.deg2rad(10) else 0.2,
                         ),
                         r"$\alpha_0 = $"
                         + rf"{-np.rad2deg(alpha0_):.1f}$\degree$",
@@ -245,5 +245,5 @@ class TriangleInequality(Graphing):
             #     dict(facecolor="white", alpha=0.9, edgecolor="white")
             # )
             plt.grid(":", alpha=0.3)
-            plt.xlim(None, None)
-            plt.ylim(None, 1.0)
+            plt.ylim(None, None)
+            plt.xlim(None, 1.0)
