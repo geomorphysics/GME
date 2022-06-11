@@ -127,7 +127,8 @@ class TriangleInequality(Graphing):
             _ = self.create_figure(name, fig_size=fig_size, dpi=dpi)
             axes: Axes = plt.gca()
             contour_step = 0.1 / 5
-            ndelta_t12_grid_ = ndelta_t12_grids[alpha0_].copy()
+            print(alpha0_)
+            ndelta_t12_grid_ = np.abs(ndelta_t12_grids[alpha0_].copy())
             delta_t12_min = np.round(
                 np.min(ndelta_t12_grid_[~np.isnan(ndelta_t12_grid_)]), 1
             )
@@ -159,7 +160,11 @@ class TriangleInequality(Graphing):
             ndelta_t12_grid_dummy[~np.isnan(ndelta_t12_grid_)] = -1
             ndelta_t12_grid_dummy[np.isnan(ndelta_t12_grid_)] = 1
             ndelta_t12_grid_masked = np.ma.array(
-                ndelta_t12_grid_, mask=np.isnan(ndelta_t12_grid_)
+                ndelta_t12_grid_,
+                mask=(
+                    np.isnan(ndelta_t12_grid_)
+                    | np.iscomplex(np.isnan(ndelta_t12_grid_))
+                ),
             )
             ylabel = r"$\alpha_1$  [$\degree$]"
             xlabel = r"$\Delta{t}_1/\Delta{t}_0$"
