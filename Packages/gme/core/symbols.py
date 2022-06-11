@@ -135,14 +135,10 @@ xi: Symbol = Symbol(r"\xi^{\perp}", real=True, positive=True)
 xiv: Symbol = Symbol(r"\xi^{\downarrow}", real=True)
 xivhat: Symbol = Symbol(r"\hat{\xi}^{\downarrow}", real=True)
 xivhat_0: Symbol = Symbol(r"\hat{\xi}^{\downarrow_0}", real=True)
-xiv_0: Symbol = Symbol(
-    r"\xi^{\downarrow_{0}}", real=True, positive=True
-)
+xiv_0: Symbol = Symbol(r"\xi^{\downarrow_{0}}", real=True, positive=True)
 xih: Symbol = Symbol(r"\xi^{\rightarrow}", real=True)
 xihhat: Symbol = Symbol(r"\hat{\xi}^{\rightarrow}", real=True)
-xih_0: Symbol = Symbol(
-    r"\xi^{\rightarrow_{0}}", real=True, positive=True
-)
+xih_0: Symbol = Symbol(r"\xi^{\rightarrow_{0}}", real=True, positive=True)
 xiv_0_sqrd: Symbol = Symbol(r"\xi^{\downarrow_{0}}^2", real=True)
 
 varphi_rx: Function = Function(r"\varphi", real=True, positive=True)
@@ -219,3 +215,9 @@ SI.set_quantity_dimension(tv_0, time)
 SI.set_quantity_dimension(t_oneyear, time)
 SI.set_quantity_dimension(t_My, time)
 SI.set_quantity_dimension(varphi_c, length / time)
+
+
+s: Symbol = Symbol(r"s", real=True)
+vx: Symbol = Symbol(r"x", real=True)
+vz: Symbol = Symbol(r"z", real=True)
+v: Symbol = Symbol(r"v", real=True, positive=True)
