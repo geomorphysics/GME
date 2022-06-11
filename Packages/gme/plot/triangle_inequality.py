@@ -1,4 +1,6 @@
 """
+Exploration of triangle inequality for geomorphic 'metric'.
+
 Exploration of whether triangle inequality holds for non-convex 
 portions of the Hamiltonian/Lagrangian.
 
@@ -72,8 +74,7 @@ __all__ = ["TriangleInequality"]
 
 class TriangleInequality(Graphing):
     """
-    Exploration of whether triangle inequality holds for non-convex
-    portions of the Hamiltonian/Lagrangian.
+    Check if triangle inequality holds for non-convex Hamiltonian/Lagrangian.
 
     Extends :class:`gme.plot.base.Graphing`.
     """
@@ -109,7 +110,7 @@ class TriangleInequality(Graphing):
         dpi: Optional[int] = None,
         do_smooth: bool = False,
     ) -> None:
-        """xxx"""
+        """Contour plot shortest time for indirect paths."""
         name: str
         axes: Axes
         color_cmap_: LinearSegmentedColormap = plt.get_cmap("winter_r")
