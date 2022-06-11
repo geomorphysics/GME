@@ -97,6 +97,7 @@ class TriangleInequality(Graphing):
     ) -> None:
         """Initialize: constructor method."""
         super().__init__()
+        self.gmeq: Equations = gmeq
         self.alpha_ext_eqn_: Eq = gmeq.alpha_ext_eqn.subs({eta: gmeq.eta_}).n()
 
     def contoured_delta_t12(
@@ -118,7 +119,7 @@ class TriangleInequality(Graphing):
         # color_cmap_: LinearSegmentedColormap = plt.get_cmap("brg")
         grey_cmap_: LinearSegmentedColormap = plt.get_cmap("Greys")
 
-        alpha_ext_: float = -np.deg2rad(float(self.alpha_ext_eqn_.rhs))
+        alpha_ext_: float = np.deg2rad(float(self.alpha_ext_eqn_.rhs))
         for alpha0_ in alpha0_array:
             f_alpha0_ = alpha0_ / alpha_ext_
             name = f"{job_name}_falpha{np.round(f_alpha0_+0.05,2)}".replace(
@@ -127,35 +128,35 @@ class TriangleInequality(Graphing):
             _ = self.create_figure(name, fig_size=fig_size, dpi=dpi)
             axes: Axes = plt.gca()
             contour_step = 0.1 / 5
-            print(alpha0_)
+            # print(alpha0_)
             ndelta_t12_grid_ = np.abs(ndelta_t12_grids[alpha0_].copy())
-            delta_t12_min = np.round(
-                np.min(ndelta_t12_grid_[~np.isnan(ndelta_t12_grid_)]), 1
-            )
-            delta_t12_max = (
-                np.max(ndelta_t12_grid_[~np.isnan(ndelta_t12_grid_)])
-                + contour_step
-            )
-            print(delta_t12_min, delta_t12_max)
-            contour_levels = np.arange(
-                delta_t12_min, delta_t12_max + contour_step, contour_step
-            )
-            contour_levels = np.concatenate(
-                [
-                    np.arange(delta_t12_min, 0.97, 0.02),
-                    # np.arange(0.98, 1.0 - 0.001, 0.001),
-                    np.array(
-                        [
-                            0.97,
-                            0.98,
-                            0.99,
-                            0.999,
-                            0.9999,
-                            # 0.99999,
-                        ]
-                    ),
-                ]
-            )
+            # delta_t12_min = np.round(
+            #     np.min(ndelta_t12_grid_[~np.isnan(ndelta_t12_grid_)]), 1
+            # )
+            # delta_t12_max = (
+            #     np.max(ndelta_t12_grid_[~np.isnan(ndelta_t12_grid_)])
+            #     + contour_step
+            # )
+            # print(delta_t12_min, delta_t12_max)
+            # contour_levels = np.arange(
+            #     delta_t12_min, delta_t12_max + contour_step, contour_step
+            # )
+            # contour_levels = np.concatenate(
+            #     [
+            #         np.arange(delta_t12_min, 0.97, 0.02),
+            #         # np.arange(0.98, 1.0 - 0.001, 0.001),
+            #         np.array(
+            #             [
+            #                 0.97,
+            #                 0.98,
+            #                 0.99,
+            #                 0.999,
+            #                 0.9999,
+            #                 # 0.99999,
+            #             ]
+            #         ),
+            #     ]
+            # )
             ndelta_t12_grid_dummy = ndelta_t12_grid_.copy()
             ndelta_t12_grid_dummy[~np.isnan(ndelta_t12_grid_)] = -1
             ndelta_t12_grid_dummy[np.isnan(ndelta_t12_grid_)] = 1
@@ -167,13 +168,13 @@ class TriangleInequality(Graphing):
                 ),
             )
             ylabel = r"$\alpha_1$  [$\degree$]"
-            xlabel = r"$\Delta{t}_1/\Delta{t}_0$"
+            xlabel = r"$\Delta{t}_{12}/\Delta{t}_0$"
             contour_fn = axes.contourf if do_smooth else axes.contour
             contours = contour_fn(
                 ndelta_t1_arrays[alpha0_],
-                -np.rad2deg(alpha1_arrays[alpha0_]),
+                np.rad2deg(alpha1_arrays[alpha0_]),
                 ndelta_t12_grid_masked,
-                levels=51 if do_smooth else contour_levels,
+                levels=51,  # if do_smooth else contour_levels,
                 cmap=color_cmap_,
             )
 
@@ -193,7 +194,7 @@ class TriangleInequality(Graphing):
 
             _ = axes.contourf(
                 ndelta_t1_arrays[alpha0_],
-                -np.rad2deg(alpha1_arrays[alpha0_]),
+                np.rad2deg(alpha1_arrays[alpha0_]),
                 ndelta_t12_grid_dummy,
                 levels=[0, 1],
                 cmap=grey_cmap_,
@@ -207,6 +208,7 @@ class TriangleInequality(Graphing):
                 "alpha": 0.9,
                 "edgecolor": "white",
             }
+            y_ = 0.9 if np.abs(alpha0_) > np.deg2rad(10) else 0.6
             [
                 axes.text(
                     *xy_,
@@ -216,40 +218,34 @@ class TriangleInequality(Graphing):
                     transform=axes.transAxes,
                     fontsize=14,
                     color="k",
-                    bbox=text_props,
+                    # bbox=text_props,
                 )
                 for (xy_, text_) in (
                     (
                         (
-                            0.8,
-                            0.9 if alpha0_ > -np.deg2rad(10) else 0.2,
+                            0.85,
+                            y_,
+                        ),
+                        rf"$\eta = ${self.gmeq.eta_}",
+                    ),
+                    (
+                        (
+                            0.85,
+                            y_ - 0.07 * 1,
+                        ),
+                        r"$\alpha_{\mathrm{ext}} = $"
+                        + rf"{np.rad2deg(alpha_ext_):.1f}$\degree$",
+                    ),
+                    (
+                        (
+                            0.85,
+                            y_ - 0.07 * 2,
                         ),
                         r"$\alpha_0 = $"
-                        + rf"{-np.rad2deg(alpha0_):.1f}$\degree$",
+                        + rf"{np.rad2deg(alpha0_):.0f}$\degree$",
                     ),
-                    # (
-                    #     (
-                    #         0.1,
-                    #         0.79,
-                    #     ),
-                    #     r"$\alpha_{\mathrm{ext}} = $"
-                    #     + rf"{-np.rad2deg(alpha_ext_ ):.1f}$^\degree$",
-                    # ),
-                    # (
-                    #     (
-                    #         r"$ = $",
-                    #         # + f"{-np.rad2deg(alpha0_):.1f}"
-                    #         # + r"$^\degree$",
-                    #         # r"$\alpha_{\mathrm{ext}} = $",
-                    #         # # + f"{-np.rad2deg(alpha_ext_):.1f}"
-                    #         # # + r"$^\degree$",
-                    #     ),
-                    # ),
                 )
             ]
-            # text_annotation.set_bbox(
-            #     dict(facecolor="white", alpha=0.9, edgecolor="white")
-            # )
             plt.grid(":", alpha=0.3)
             plt.ylim(None, None)
             plt.xlim(None, 1.0)
