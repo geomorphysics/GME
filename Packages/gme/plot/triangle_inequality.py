@@ -208,7 +208,7 @@ class TriangleInequality(Graphing):
                 "alpha": 0.9,
                 "edgecolor": "white",
             }
-            y_ = 0.9 if np.abs(alpha0_) > np.deg2rad(10) else 0.6
+            y_ = 0.55
             [
                 axes.text(
                     *xy_,
