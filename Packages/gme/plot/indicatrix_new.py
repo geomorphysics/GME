@@ -353,6 +353,11 @@ class IndicatrixNew(Graphing):
         pr: Parameters,
         v_eqns: Optional[Tuple[Eq, Eq]] = None,
         do_zoom: bool = False,
+        n_subset: int = 10,
+        limits: Tuple[Tuple[float, float], Tuple[float, float]] = (
+            (0.98, 1.07),
+            (0.15, 0.23),
+        ),
         fig_size: Optional[Tuple[float, float]] = None,
         dpi: Optional[int] = None,
     ) -> None:
@@ -364,8 +369,8 @@ class IndicatrixNew(Graphing):
         eta_ = pr.model.eta
         if do_zoom:
             if eta_ == Rational(3, 2):
-                plt.xlim(0.98, 1.07)
-                plt.ylim(0.15, 0.23)
+                plt.xlim(*limits[0])
+                plt.ylim(*limits[1])
                 eta_xy_label = (0.2, 0.85)
             else:
                 plt.xlim(0.7, 1.2)
@@ -406,10 +411,18 @@ class IndicatrixNew(Graphing):
 
         # Fundamental function F=1 as r(alpha) from closed-form Lagrangian
         if v_eqns is not None:
-            vx_array = self.v_infc_array[:, 0]
-            vy_array = self.v_infc_array[:, 1]
-            alpha_array = np.arctan(vy_array / vx_array)
             for i_, r_eqn_ in enumerate(v_eqns):
+                v_array = self.v_supc_array if i_ == 1 else self.v_infc_array
+                vx_array = v_array[:, 0]
+                vy_array = v_array[:, 1]
+                n_subset_ = 5 if do_zoom else n_subset
+                vx_array = vx_array[::n_subset_]
+                vy_array = vy_array[::n_subset_]
+                alpha_array = np.arctan(vy_array / vx_array)
+                alpha_inf = 0.0012  # Hack - v(alpha) inaccurate for small alpha
+                vx_array = vx_array[np.abs(alpha_array) > alpha_inf]
+                vy_array = vy_array[np.abs(alpha_array) > alpha_inf]
+                alpha_array = alpha_array[np.abs(alpha_array) > alpha_inf]
                 v_alpha_lambdified = lambdify((alpha), r_eqn_.rhs)
                 v_alpha_lambda = lambda alpha_: v_alpha_lambdified(alpha_)
                 v_array = v_alpha_lambda(alpha_array)
@@ -417,8 +430,10 @@ class IndicatrixNew(Graphing):
                     v_array * np.cos(alpha_array),
                     v_array * np.sin(alpha_array),
                     ("r", "DarkRed")[i_] if eta_ < 1 else ("DarkRed", "r_")[i_],
-                    lw=3,
-                    ls=":",
+                    lw=0,
+                    marker=".",
+                    ms=10 if do_zoom else 5
+                    # ls="-",
                 )
 
         # Indicatrix aka F=1 for rays
@@ -528,6 +543,7 @@ class IndicatrixNew(Graphing):
         gmeq: Union[Equations, EquationsIdtx],
         job_name: str,
         pr: Parameters,
+        v_eqns: Optional[Tuple[Eq, Eq]] = None,
         fig_size: Optional[Tuple[float, float]] = None,
         dpi: Optional[int] = None,
     ) -> None:
@@ -705,15 +721,15 @@ class IndicatrixNew(Graphing):
                 fontsize=15,
                 color="DarkRed",
             )
-            plt.text(
-                *[(np.pi / 2) * 1.17, 0.28],
-                "concave",
-                horizontalalignment="center",
-                verticalalignment="center",
-                rotation=13,
-                fontsize=11,
-                color="r",
-            )
+            # plt.text(
+            #     *[(np.pi / 2) * 1.17, 0.28],
+            #     "concave",
+            #     horizontalalignment="center",
+            #     verticalalignment="center",
+            #     rotation=13,
+            #     fontsize=11,
+            #     color="r",
+            # )
             plt.text(
                 *[(np.pi / 3) * 0.925, 0.5],
                 "concave",
