@@ -1,108 +1,159 @@
 {
 	"job": {
 		"title": "Unset",
-		"subtitle" : "",
+		"subtitle": "",
 		"group_name": "Theory",
 		"short_name": "unnamed",
-		"verbose" : true,
-		"very_verbose" : false,
-		"debug" : false
+		"verbose": true,
+		"very_verbose": false,
+		"debug": false
 	},
-
 	"model": {
-		"eta" : "sy.Rational(1,2)",
-		"mu" :  "sy.Rational(1,4)",
-		"beta_type" : "sin",
-		"varphi_type" : "ramp",
-		"ibc_type" : "concave-up",
-		"Lc" : 10000,
-		"Ci" :  "sy.rad(4)",
-		"varphi_0" : 2.641e-5,
-		"varepsilonhat" : "sy.Rational(1,100)",
-		"xiv_0" : "None",
-		"t_xiv0_list" : "None",
-		"kappa_h" : "sy.Rational(3,2)",
-		"h_0" : "sy.Rational(1,2)",
-		"x_sigma" : 0.01,
-		"x_h" : 1,
-		"do_geodesic" : false
+		"eta": "sy.Rational(1,2)",
+		"mu": "sy.Rational(1,4)",
+		"beta_type": "sin",
+		"varphi_type": "ramp",
+		"ibc_type": "concave-up",
+		"Lc": 10000,
+		"Ci": "sy.rad(4)",
+		"varphi_0": 2.641e-5,
+		"varepsilonhat": "sy.Rational(1,100)",
+		"xiv_0": "None",
+		"t_xiv0_list": "None",
+		"kappa_h": "sy.Rational(3,2)",
+		"h_0": "sy.Rational(1,2)",
+		"x_sigma": 0.01,
+		"x_h": 1,
+		"do_geodesic": false
 	},
-
 	"solve": {
-		"do_dense" : true,
-		"choice" : "Hamilton",
-		"method" : {"Hamilton": "DOP853", "geodesic": "LSODA",
-					"choices": ["RK45", "RK23", "Radau", "DOP853", "LSODA"]},
-		"t_end" : 0.01,
-		"ray_n_t" : 301,
-		"t_distribn" : 2,
-		"do_ip" : false,
-		"do_ic" : false,
-		"do_vb" : false,
-		"ip_res" : 101,
-		"ic_res" : 31,
-		"vb_res" : 101,
-		"do_geodesic" : true
+		"do_dense": true,
+		"choice": "Hamilton",
+		"method": {
+			"Hamilton": "DOP853",
+			"geodesic": "LSODA",
+			"choices": [
+				"RK45",
+				"RK23",
+				"Radau",
+				"DOP853",
+				"LSODA"
+			]
+		},
+		"t_end": 0.01,
+		"ray_n_t": 301,
+		"t_distribn": 2,
+		"do_ip": false,
+		"do_ic": false,
+		"do_vb": false,
+		"ip_res": 101,
+		"ic_res": 31,
+		"vb_res": 101,
+		"do_geodesic": true
 	},
-
 	"resolve": {
-		"t_isochrone_max" : 0.01,
-		"tolerance" : "None",
-		"n_isochrones" : 30,
+		"t_isochrone_max": 0.01,
+		"tolerance": "None",
+		"n_isochrones": 30,
 		"do_eliminate_caustics": true,
-		"spline_order" : 3
+		"spline_order": 3
 	},
-
 	"plot": {
 		"do_pub_labeling": false,
 		"do_etaxi_labeling": true,
-		"pub_labels": ["(a)","(a)","(b)"],
 		"do_profile_schematic": false,
 		"do_profile_extra": false,
 		"do_ray_conjugacy": false,
 		"do_huygens_wavelets": false,
-		"fig_size" : [8,8],
-		"big_fig_size" : [10,7],
-		"medium_fig_size" : [7,6],
-		"small_fig_size" : [7,3],
+		"fig_size": [
+			8,
+			8
+		],
+		"big_fig_size": [
+			10,
+			7
+		],
+		"medium_fig_size": [
+			7,
+			6
+		],
+		"small_fig_size": [
+			7,
+			3
+		],
 		"n_rays": 4,
 		"profile_subsetting": 8,
-		"ray_x_limits" : [-0.02,1.02],
-		"ray_y_limits" : "None",
-		"aniso_y_limits" : "None",
-		"aniso_n_points" : 45,
-		"aniso_arrow_exponent" : 0.9,
-		"aniso_arrow_size" : 0.5,
-		"ray_eta_xy": [0.85,0.15],
-		"dimx_limits" : [-0.03,1.03],
-		"dimz_limits" : [-0.01,0.6],
-		"dimx_limits_zoom" : [0.2,0.3],
-		"dimz_limits_zoom" : [-0.25,-0.23],
-		"isochrone_subsetting" : 1,
-		"do_extra_annotations" : false,
-		"ang_x_limits" : "None",
-		"ang_y_limits" : "None",
-		"angdisp_x_limits" : "None",
-		"angdisp_y_limits" : "None",
-		"idtx_logpolar_y_limits" : [-2,1],
-		"idtx_pz_min" : 1e-3,
-		"idtx_pz_max" : 1e5,
-		"fgtx_pz_min" : 1e-3,
-		"fgtx_pz_max" : 1e5,
-		"idtx_n_points" : 100,
-		"idtx_varphi_list" : [0.1, 0.15, 0.5, 1, 1.3, 2, 3],
-		"ray_n_points" : 26,
-		"rays_n_points" : 40,
-		"profile_n_points" : 101,
-		"profile_ray_n_points" : 121,
-		"misc_n_points" : 101,
-		"ray_acceln_legend_loc" : "lower right",
-		"profile_evec_legend_loc" : "upper left",
-		"profile_det_eta_label_xy" : [0.5,0.5],
-		"profile_evec_eta_label_xy" : "None",
-		"profile_eval_eta_label_xy" : "None",
-		"profile_cusp_speed_legend_loc" : "None",
-		"profile_cusp_speed_y_limits" : [-10,30],
+		"ray_x_limits": [
+			-0.02,
+			1.02
+		],
+		"ray_y_limits": "None",
+		"aniso_y_limits": "None",
+		"aniso_n_points": 45,
+		"aniso_arrow_exponent": 0.9,
+		"aniso_arrow_size": 0.5,
+		"ray_eta_xy": [
+			0.85,
+			0.15
+		],
+		"dimx_limits": [
+			-0.03,
+			1.03
+		],
+		"dimz_limits": [
+			-0.01,
+			0.6
+		],
+		"dimx_limits_zoom": [
+			0.2,
+			0.3
+		],
+		"dimz_limits_zoom": [
+			-0.25,
+			-0.23
+		],
+		"isochrone_subsetting": 1,
+		"do_extra_annotations": false,
+		"ang_x_limits": "None",
+		"ang_y_limits": "None",
+		"angdisp_x_limits": "None",
+		"angdisp_y_limits": "None",
+		"idtx_logpolar_y_limits": [
+			-2,
+			1
+		],
+		"idtx_pz_min": 1e-3,
+		"idtx_pz_max": 1e5,
+		"fgtx_pz_min": 1e-3,
+		"fgtx_pz_max": 1e5,
+		"idtx_n_points": 100,
+		"idtx_varphi_list": [
+			0.1,
+			0.15,
+			0.5,
+			1,
+			1.3,
+			2,
+			3
+		],
+		"ray_n_points": 26,
+		"rays_n_points": 40,
+		"profile_n_points": 101,
+		"profile_ray_n_points": 121,
+		"misc_n_points": 101,
+		"ray_acceln_legend_loc": "lower right",
+		"profile_evec_legend_loc": "upper left",
+		"profile_det_eta_label_xy": [
+			0.5,
+			0.5
+		],
+		"profile_evec_eta_label_xy": "None",
+		"profile_eval_eta_label_xy": "None",
+		"profile_cusp_speed_legend_loc": "None",
+		"profile_cusp_speed_y_limits": [
+			-10,
+			30
+		],
 		"pub_labels": {
 			"profile_vdot": "",
 			"profile_v": "",
@@ -126,22 +177,49 @@
 			"profile_xihorizontal": "None",
 			"profile_xivertical": "None",
 			"profile_aniso": "None",
-			"profile_beta": [0.93,0.2],
-			"profile_h_rays": [0.93,0.35],
-			"profile_h_ray": [0.85,0.7],
-			"alpha_beta": [0.88,0.3],
-			"angular_disparity": [0.15,0.15],
-			"profile_angular_disparity": [0.6,0.35],
-			"etaxi_label": [0.65,0.85]
+			"profile_beta": [
+				0.93,
+				0.2
+			],
+			"profile_h_rays": [
+				0.93,
+				0.35
+			],
+			"profile_h_ray": [
+				0.85,
+				0.7
+			],
+			"alpha_beta": [
+				0.88,
+				0.3
+			],
+			"angular_disparity": [
+				0.15,
+				0.15
+			],
+			"profile_angular_disparity": [
+				0.6,
+				0.35
+			],
+			"etaxi_label": [
+				0.65,
+				0.85
+			]
 		}
 	},
-
 	"save": {
-		"figs_path" : ["..","..","Plots"],
-		"figs_format" : ["jpg", "pdf"],
-		"figs_options" : {
+		"figs_path": [
+			"..",
+			"..",
+			"Plots"
+		],
+		"figs_format": [
+			"jpg",
+			"pdf"
+		],
+		"figs_options": {
 			"dpi": 100,
 			"bbox_inches": "tight"
-			}
+		}
 	}
 }

@@ -4,18 +4,25 @@
 		"group_name": "Theory",
 		"short_name": "triangle_inequality"
 	},
-
 	"model": {
-		"eta" : "sy.Rational(3,2)",
-		"beta_type" : "sin",
-		"varphi_type" : "ramp"
+		"eta": "sy.Rational(3,2)",
+		"beta_type": "sin",
+		"varphi_type": "ramp"
 	},
-
 	"plot": {
-		"idtx_logpolar_y_limits" : [-2,1],
-		"idtx_pz_min" : 1e-4,
-		"idtx_pz_max" : 1e5,
-		"fgtx_pz_min" : 1e-3,
-		"fgtx_pz_max" : 1e5
+		"annote_xy": [
+			[
+				0.8,
+				0.7
+			],
+			[
+				0.8,
+				0.9
+			],
+			[
+				0.8,
+				0.5
+			]
+		]
 	}
 }
