@@ -218,7 +218,7 @@
 			"pdf"
 		],
 		"figs_options": {
-			"dpi": 100,
+			"dpi": 200,
 			"bbox_inches": "tight"
 		}
 	}

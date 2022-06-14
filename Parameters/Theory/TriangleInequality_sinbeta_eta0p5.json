@@ -1,11 +1,11 @@
 {
 	"job": {
-		"title": "Triangle inequality testing, eta=1/2, sin[beta] xi model",
+		"title": "Triangle inequality testing, eta=1/2, sin(beta) xi model",
 		"group_name": "Theory",
 		"short_name": "triangle_inequality"
 	},
 	"model": {
-		"eta": "sy.Rational[1,2]",
+		"eta": "sy.Rational(1,2)",
 		"beta_type": "sin",
 		"varphi_type": "ramp"
 	},
