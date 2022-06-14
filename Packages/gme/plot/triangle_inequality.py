@@ -107,6 +107,7 @@ class TriangleInequality(Graphing):
         ndelta_t1_arrays: np.ndarray,
         ndelta_t12_grids: np.ndarray,
         alpha0_array: np.ndarray,
+        alpha1_grids: Optional[np.ndarray] = None,
         fig_size: Optional[Tuple[float, float]] = None,
         dpi: Optional[int] = None,
         do_smooth: bool = False,
@@ -205,13 +206,38 @@ class TriangleInequality(Graphing):
                 return rf"{s}"
 
             if not do_smooth:
-                axes.clabel(contours, inline=True, fmt=fmt, fontsize=10)
+                axes.clabel(
+                    contours,
+                    inline=True,
+                    fmt=fmt,
+                    fontsize=10,
+                )
+
+            def fmt_alpha0(x):
+                return "1.0"
+
+            alpha0_contour = axes.contour(
+                ndelta_t1_arrays[alpha0_],
+                np.rad2deg(alpha1_arrays[alpha0_]),
+                alpha1_grids[alpha0_] - alpha0_,
+                levels=(-10000, 0)
+                if self.gmeq.eta_ == Rational(1, 2)
+                else (0, 10000),
+                cmap=color_cmap_,
+            )
+            axes.clabel(
+                alpha0_contour,
+                inline=True,
+                fmt=fmt_alpha0,
+                fontsize=10,
+                manual=((0.4, alpha0_),),
+            )
 
             _ = axes.contourf(
                 ndelta_t1_arrays[alpha0_],
                 np.rad2deg(alpha1_arrays[alpha0_]),
                 ndelta_t12_grid_dummy,
-                levels=[0, 1],
+                levels=(0, 1),
                 cmap=grey_cmap_,
                 alpha=0.3,
             )
