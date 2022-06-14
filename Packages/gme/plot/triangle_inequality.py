@@ -110,6 +110,7 @@ class TriangleInequality(Graphing):
         fig_size: Optional[Tuple[float, float]] = None,
         dpi: Optional[int] = None,
         do_smooth: bool = False,
+        annote_xy: Optional[Tuple[Tuple, Tuple, Tuple]] = None,
     ) -> None:
         """Contour plot shortest time for indirect paths."""
         name: str
@@ -119,8 +120,22 @@ class TriangleInequality(Graphing):
         # color_cmap_: LinearSegmentedColormap = plt.get_cmap("brg")
         grey_cmap_: LinearSegmentedColormap = plt.get_cmap("Greys")
 
+        if annote_xy is None:
+            annote_xy = np.array(
+                (
+                    (0.8, 0.3),
+                    (0.8, 0.9),
+                    (0.8, 0.7),
+                )
+                if self.gmeq.eta_ == Rational(1, 2)
+                else (
+                    (0.8, 0.7),
+                    (0.8, 0.9),
+                    (0.8, 0.5),
+                )
+            )
         alpha_ext_: float = np.deg2rad(float(self.alpha_ext_eqn_.rhs))
-        for alpha0_ in alpha0_array:
+        for alpha0_, annote_xy_ in zip(alpha0_array, annote_xy):
             f_alpha0_ = alpha0_ / alpha_ext_
             name = f"{job_name}_falpha{np.round(f_alpha0_+0.05,2)}".replace(
                 ".", "p"
@@ -203,13 +218,28 @@ class TriangleInequality(Graphing):
 
             plt.xlabel(xlabel)
             plt.ylabel(ylabel)
-            text_props = {
-                "facecolor": "white",
-                "alpha": 0.9,
-                "edgecolor": "white",
-            }
-            y_ = 0.55
-            [
+            # text_props = {
+            #     "facecolor": "white",
+            #     "alpha": 0.9,
+            #     "edgecolor": "white",
+            # }
+            annote_text = (
+                rf"$\eta = ${self.gmeq.eta_}",
+                r"$\alpha_{\mathrm{ext}} = $"
+                + rf"{np.rad2deg(alpha_ext_):.1f}$\degree$",
+                r"$\alpha_0 = $" + rf"{np.rad2deg(alpha0_):.0f}$\degree$",
+            )
+            annote_xys_ = [
+                annote_xy_
+                + np.array(
+                    (
+                        0,
+                        y_off_,
+                    )
+                )
+                for y_off_ in (0, -0.07, -0.14)
+            ]
+            for (xy_, text_) in zip(annote_xys_, annote_text):
                 axes.text(
                     *xy_,
                     text_,
@@ -220,32 +250,6 @@ class TriangleInequality(Graphing):
                     color="k",
                     # bbox=text_props,
                 )
-                for (xy_, text_) in (
-                    (
-                        (
-                            0.85,
-                            y_,
-                        ),
-                        rf"$\eta = ${self.gmeq.eta_}",
-                    ),
-                    (
-                        (
-                            0.85,
-                            y_ - 0.07 * 1,
-                        ),
-                        r"$\alpha_{\mathrm{ext}} = $"
-                        + rf"{np.rad2deg(alpha_ext_):.1f}$\degree$",
-                    ),
-                    (
-                        (
-                            0.85,
-                            y_ - 0.07 * 2,
-                        ),
-                        r"$\alpha_0 = $"
-                        + rf"{np.rad2deg(alpha0_):.0f}$\degree$",
-                    ),
-                )
-            ]
             plt.grid(":", alpha=0.3)
             plt.ylim(None, None)
             plt.xlim(None, 1.0)
