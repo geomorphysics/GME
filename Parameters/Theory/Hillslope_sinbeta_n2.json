@@ -1,0 +1,15 @@
+{
+	"job": {
+		"title": "Hillslope erosion with sin(beta) model, n=2",
+		"group_name": "Theory",
+		"short_name": "hillslope"
+	},
+	"model": {
+		"n_h": 2,
+		"beta_type": "sin",
+		"phi_h": "sy.rad(45)",
+		"xi_rs0": 1,
+		"beta_h_crit": "sy.rad(36)"
+	},
+	"plot": {}
+}

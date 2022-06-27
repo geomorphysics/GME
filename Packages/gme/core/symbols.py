@@ -221,3 +221,20 @@ s: Symbol = Symbol(r"s", real=True)
 vx: Symbol = Symbol(r"x", real=True)
 vz: Symbol = Symbol(r"z", real=True)
 v: Symbol = Symbol(r"v", real=True, positive=True)
+
+
+# Hillslope additions
+px_h: Symbol = Symbol(r"p_x", real=True, positive=True)
+pz_h: Symbol = Symbol(r"p_z", real=True, negative=True)
+
+xi_rs0: Symbol = Symbol(
+    r"\xi^{\perp_0}_{\mathrm{rs}}", real=True, positive=True
+)
+xi_rs: Function = Function(
+    r"\xi^{\perp}_{\mathrm{rs}}", real=True, positive=True
+)
+
+n_h: Symbol = Symbol(r"n", real=True, positive=True)
+
+phi: Symbol = Symbol(r"\phi", real=True, positive=True)
+beta_h: Symbol = Symbol(r"\beta", real=True, positive=True)
