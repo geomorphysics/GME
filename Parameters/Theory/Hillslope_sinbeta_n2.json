@@ -1,7 +1,7 @@
 {
 	"job": {
 		"title": "Hillslope erosion with sin(beta) model, n=2",
-		"group_name": "Theory",
+		"group_name": "Notes",
 		"short_name": "hillslope"
 	},
 	"model": {
