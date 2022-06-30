@@ -439,9 +439,11 @@ Such an erosion model encompasses the SPIM, ``granular flow hillslopes''
 (in the sense of Pauli \& Gioia, 2007), and others. It assumes that
 nonlocal properties such as water volume flux are spatially constant
 properties that can be parameterized using \(\mathbf{r}\) alone. It
-disallows, for example, changes in drainage network pattern or extent.
-It is essentially a static model, which is why we can convert it into a
-static Hamiltonian, and can rewrite it as an eikonal equation (a static
+disallows, for example, changes in drainage network pattern or extent --
+unless the erosion model erosion rate is independent of drainage
+pattern, which is the case for ``granular flow hillslopes''. It is
+essentially a static model, which is why we can convert it into a static
+Hamiltonian, and can rewrite it as an eikonal equation (a static
 Hamilton-Jacobi equation).
 
 We recognize that surface erosion rate direction and magnitude are best
