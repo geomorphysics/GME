@@ -380,11 +380,49 @@ equivalent to the Stream-Power Incision Model (SPIM). However, a more
 generic form for a geomorphic Hamiltonian can be derived using the same
 techniques. This notebook demonstrates this generality.
 
+    To get from an erosion equation to a geomorphic Hamiltonian, we need to
+make the following conceptual leaps:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  accept that \emph{erosion takes place normal to the erosion surface}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    so the erosion equation should be written as an \emph{erosion speed
+    in the surface-normal direction};
+  \end{itemize}
+\item
+  accept that the rate of motion of a surface is correctly expressed as
+  a covector, aka a covariant rank-1 tensor, rather than as a vector,
+  aka a contravariant rank-1 tensor
+
+  \begin{itemize}
+  \tightlist
+  \item
+    so the erosion equation should in fact be written as an
+    \emph{erosion slowness in the surface-normal direction};
+  \end{itemize}
+\item
+  realize that by writing normal slowness as a function of local
+  properties we actually have an eikonal, or static Hamilton-Jacobi
+  equation
+
+  \begin{itemize}
+  \tightlist
+  \item
+    which means we have a geomorphic Hamiltonian.
+  \end{itemize}
+\end{enumerate}
+
     \hypertarget{derivation}{%
 \section*{Derivation}\label{derivation}}
 
-    \hypertarget{in-n-d}{%
-\subsubsection*{In N-D}\label{in-n-d}}
+    \hypertarget{in-3-d-or-2-d}{%
+\subsubsection*{In 3-D or 2-D}\label{in-3-d-or-2-d}}
 
     Let's define a general equation for the speed of surface erosion
 \(\xi^{\perp}\) in the normal direction that is a function of the local
@@ -487,8 +525,9 @@ Hamilton's equations are given in the usual way: \begin{align}
     = -\dfrac{\partial{\mathcal{H}}}{\partial{r^i}}
 \end{align}
 
-    \hypertarget{in-2d}{%
-\subsubsection*{In 2D}\label{in-2d}}
+    \hypertarget{simpler-treatment-in-2d-vertical-section}{%
+\subsubsection*{Simpler treatment in 2D (vertical
+section)}\label{simpler-treatment-in-2d-vertical-section}}
 
     The above explanation is a bit abstract, so to make it more concrete
 here it is for 2D. Using the same coordinates \(x\)-\(z\) as Stark \&
