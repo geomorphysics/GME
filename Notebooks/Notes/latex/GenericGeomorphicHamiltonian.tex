@@ -498,29 +498,35 @@ Stark (2022), and having only one local angle to worry about
     \xi^{\perp}\!\left(\beta, \mathbf{r}\right) = f\!\left(\tan\beta, r^x, r^z\right)
 \end{equation}
 
-Okubo gives us the fundamental function \begin{equation}
+We could just write the eikonal equation directly, given the definition
+of the surface-normal erosion slowness covector \(\mathbf{p}\):
+\begin{equation}
+    \|\mathbf{p}\|_{L_2}= \dfrac{1}{f\!\left(\tan\beta, \mathbf{r}\right)}
+\end{equation}
+
+or we can use the Okubo trick to obtain the fundamental function
+\begin{equation}
     \dfrac{\mathcal{F}_*(\mathbf{p},\mathbf{r})}{\sqrt{p_x^2+p_z^2}} 
     = f\!\left(\dfrac{p_x}{p_z}, r^x, r^z\right)
 \end{equation}
 
-which for \(\mathcal{F}_*=1\) is the eikonal equation \begin{equation}
-    \|\mathbf{p}\|_{L_2}= f\!\left(\tan\beta, \mathbf{r}\right)
-\end{equation}
-
-The generic 2D geomorphic Hamiltonian is therefore \begin{equation}
+and put \(\mathcal{F}_*=1\). The generic 2D geomorphic Hamiltonian is
+defined in terms of \(\mathcal{F}_*\) as \begin{equation}
     \mathcal{H}(\mathbf{p},\mathbf{r})
      := \dfrac{1}{2}\left(p_x^2+p_z^2\right) \, f^2\!\left(\dfrac{p_x}{p_z}, r^x, r^z\right)
 \end{equation}
 
-Euler order-2 homogeneity is inevitable given the manner in which
-\(\mathcal{F}_*\) was obtained \begin{align}
+Euler order-2 homogeneity for \(\mathcal{H}\) is inevitable given the
+manner in which \(\mathcal{F}_*\) was obtained \begin{align}
     \mathcal{H}(\lambda\mathbf{p},\mathbf{r}) 
     &= \dfrac{1}{2}(\lambda^2 p_x^2+\lambda^2 p_z^2) \, f^2\!\left(\dfrac{\lambda p_x}{\lambda p_z}, r^x, r^z\right) \\
     &= \dfrac{1}{2}\lambda^2 (p_x^2+p_z^2) \, f^2\!\left(\dfrac{p_i}{p_j}, r^x, r^z\right) \\
     &= \lambda^2 \mathcal{H}(\mathbf{p},\mathbf{r}) 
 \end{align}
 
-Hamilton's equations are then: \begin{align}
+Hamilton's equations are then:
+
+\begin{align}
     v^x 
     = \dfrac{\mathrm{d}r^x}{\mathrm{d}t} 
     & = \dfrac{\partial{\mathcal{H}}}{\partial{p_x}}
