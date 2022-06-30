@@ -437,8 +437,8 @@ components are scaled by a positive factor \(\mathcal{F}_*\),
 substituted into the rate equation, the equation rearranged, and
 \(\mathcal{F}_*\) equated with the fundamental function, we get
 \begin{equation}
-    \dfrac{\mathcal{F}_*(\mathbf{p},\mathbf{r})}{\|\mathbf{p}\|_{L_2}} 
-    = f\!\left(\left\{\dfrac{p_i}{p_j}\right\}, \{r^k\}\right)
+    {\mathcal{F}_*(\mathbf{p},\mathbf{r})} 
+    = {\|\mathbf{p}\|_{L_2}}\,f\!\left(\left\{\dfrac{p_i}{p_j}\right\}, \{r^k\}\right)
 \end{equation}
 
 where \(\mathcal{F}_*=1\), obviously. So we have the eikonal equation
@@ -456,10 +456,11 @@ From the fundamental function we get the generic geomorphic Hamiltonian
 \begin{equation}
     \mathcal{H}(\mathbf{p},\mathbf{r}) 
     := \dfrac{1}{2}\|\mathbf{p}\|_{L_2}^2 \, f^2\!\left(\left\{\dfrac{p_i}{p_j}\right\}, \{r^k\}\right)
+    = \dfrac{1}{2}
 \end{equation}
 
 Given how the Hamiltonian \(\mathcal{H}\) is constructed from
-\(\mathcal{F}_*\) which was obtained by the Okubo substitution, it is
+\(\mathcal{F}_*\), which was obtained by the Okubo substitution, it is
 inevitable that \(\mathcal{H}\) is Euler order-2 homogeneous in
 \(\mathbf{p}\): \begin{align}
     \mathcal{H}(\lambda\mathbf{p},\mathbf{r}) 
@@ -506,14 +507,16 @@ of the surface-normal erosion slowness covector \(\mathbf{p}\):
 
 or we can use the Okubo trick to obtain the fundamental function
 \begin{equation}
-    \dfrac{\mathcal{F}_*(\mathbf{p},\mathbf{r})}{\sqrt{p_x^2+p_z^2}} 
-    = f\!\left(\dfrac{p_x}{p_z}, r^x, r^z\right)
+    {\mathcal{F}_*(\mathbf{p},\mathbf{r})}
+    = {\sqrt{p_x^2+p_z^2}} \,f\!\left(\dfrac{p_x}{p_z}, r^x, r^z\right)
 \end{equation}
 
-and put \(\mathcal{F}_*=1\). The generic 2D geomorphic Hamiltonian is
-defined in terms of \(\mathcal{F}_*\) as \begin{equation}
+where we know that \(\mathcal{F}_*=1\). The generic 2D geomorphic
+Hamiltonian is then defined in terms of \(\mathcal{F}_*\) as
+\begin{equation}
     \mathcal{H}(\mathbf{p},\mathbf{r})
      := \dfrac{1}{2}\left(p_x^2+p_z^2\right) \, f^2\!\left(\dfrac{p_x}{p_z}, r^x, r^z\right)
+     = \dfrac{1}{2}
 \end{equation}
 
 Euler order-2 homogeneity for \(\mathcal{H}\) is inevitable given the
