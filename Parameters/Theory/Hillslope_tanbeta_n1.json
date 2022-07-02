@@ -27,6 +27,7 @@
 		"idtx_ylim": [
 			-0.1,
 			3.0
-		]
+		],
+		"idtx_fontsize": "None"
 	}
 }
