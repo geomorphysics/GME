@@ -8,7 +8,7 @@
 		"n_h": 2,
 		"beta_type": "tan",
 		"phi_h": "sy.rad(45)",
-		"xi_rs0": 1,
+		"xi_h0": 1,
 		"beta_h_crit": "None"
 	},
 	"plot": {

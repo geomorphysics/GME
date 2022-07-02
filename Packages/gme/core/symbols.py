@@ -227,12 +227,8 @@ v: Symbol = Symbol(r"v", real=True, positive=True)
 px_h: Symbol = Symbol(r"p_x", real=True, positive=True)
 pz_h: Symbol = Symbol(r"p_z", real=True, negative=True)
 
-xi_rs0: Symbol = Symbol(
-    r"\xi^{\perp_0}_{\mathrm{rs}}", real=True, positive=True
-)
-xi_rs: Function = Function(
-    r"\xi^{\perp}_{\mathrm{rs}}", real=True, positive=True
-)
+xi_h0: Symbol = Symbol(r"\xi^{\perp_0}_{\mathrm{s}}", real=True, positive=True)
+xi_h: Function = Function(r"\xi^{\perp}_{\mathrm{s}}", real=True, positive=True)
 
 n_h: Symbol = Symbol(r"n", real=True, positive=True)
 
