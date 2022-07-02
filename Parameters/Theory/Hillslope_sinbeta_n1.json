@@ -20,7 +20,7 @@
 			-4.0,
 			0.1
 		],
-		"idtx_xlim": [],
+		"idtx_xlim": "None",
 		"idtx_ylim": [
 			-0.15,
 			0.5

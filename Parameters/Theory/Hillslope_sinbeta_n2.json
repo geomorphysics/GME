@@ -20,8 +20,8 @@
 			-4.0,
 			0.1
 		],
-		"idtx_xlim": [],
-		"idtx_ylim": [],
+		"idtx_xlim": "None",
+		"idtx_ylim": "None",
 		"idtx_fontsize": "None"
 	}
 }
