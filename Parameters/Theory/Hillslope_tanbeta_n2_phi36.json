@@ -1,0 +1,28 @@
+{
+	"job": {
+		"title": "Hillslope erosion with tan(beta) model, n=2, phi=36º",
+		"group_name": "Notes",
+		"short_name": "hillslope"
+	},
+	"model": {
+		"n_h": 2,
+		"beta_type": "tan",
+		"phi_h": "sy.rad(36)",
+		"xi_h0": 1
+	},
+	"plot": {
+		"fgtx_xlim": [
+			-0.1,
+			2.5
+		],
+		"fgtx_ylim": [
+			-4,
+			0.1
+		],
+		"idtx_legend_loc": [
+			0.03,
+			0.65
+		],
+		"idtx_fontsize": 11
+	}
+}

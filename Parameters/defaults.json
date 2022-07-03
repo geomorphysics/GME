@@ -205,7 +205,58 @@
 				0.65,
 				0.85
 			]
-		}
+		},
+		"fgtx_xlim": "None",
+		"fgtx_ylim": "None",
+		"idtx_xlim": "None",
+		"idtx_ylim": "None",
+		"idtx_fontsize": 9,
+		"idtx_fgtx_markers": [
+			{
+				"angle": "0.05",
+				"colors": [
+					"DarkBlue",
+					"DarkRed"
+				],
+				"marker": "o",
+				"label": "$\\beta=0\\degree$",
+				"size": 6
+			},
+			{
+				"angle": "phi_h",
+				"colors": [
+					"DarkBlue",
+					"DarkRed"
+				],
+				"marker": "h",
+				"label": "$\\beta=\\phi=phi_h\\degree$",
+				"size": 9
+			},
+			{
+				"angle": "beta_crit",
+				"colors": [
+					"lightseagreen",
+					"violet"
+				],
+				"marker": [
+					"^",
+					"v"
+				],
+				"label": "$\\beta_\\mathrm{crit}=beta_crit\\degree$",
+				"size": 9
+			},
+			{
+				"angle": "pi/2",
+				"colors": [
+					"b",
+					"r"
+				],
+				"marker": "s",
+				"label": "$\\beta=90\\degree$",
+				"size": 6
+			}
+		],
+		"idtx_legend_loc": "upper left"
 	},
 	"save": {
 		"figs_path": [
