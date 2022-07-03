@@ -264,6 +264,7 @@
 			0.4,
 			0.9
 		],
+		"fgtx_legend_loc": "upper right",
 		"idtx_legend_loc": "upper left"
 	},
 	"save": {
