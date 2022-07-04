@@ -211,7 +211,7 @@
 		"idtx_xlim": "None",
 		"idtx_ylim": "None",
 		"idtx_fontsize": 9,
-		"idtx_fgtx_markers": [
+		"idtx_fgtx_zero_marker": [
 			{
 				"angle": "0.05",
 				"colors": [
@@ -221,7 +221,9 @@
 				"marker": "o",
 				"label": "$\\beta \\rightarrow 0\\degree$",
 				"size": 6
-			},
+			}
+		],
+		"idtx_fgtx_markers": [
 			{
 				"angle": "phi_h",
 				"colors": [

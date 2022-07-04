@@ -11,7 +11,7 @@
 		"xi_h0": 1
 	},
 	"plot": {
-		"idtx_fgtx_markers": [
+		"idtx_fgtx_zero_marker": [
 			{
 				"angle": "0.22",
 				"colors": [
@@ -20,39 +20,6 @@
 				],
 				"marker": "o",
 				"label": "$\\beta \\rightarrow 0\\degree$",
-				"size": 6
-			},
-			{
-				"angle": "phi_h",
-				"colors": [
-					"DarkBlue",
-					"DarkRed"
-				],
-				"marker": "h",
-				"label": "$\\beta=\\phi=phi_h\\degree$",
-				"size": 9
-			},
-			{
-				"angle": "beta_crit",
-				"colors": [
-					"lightseagreen",
-					"violet"
-				],
-				"marker": [
-					"^",
-					"v"
-				],
-				"label": "$\\beta_\\mathrm{crit}=beta_crit\\degree$",
-				"size": 9
-			},
-			{
-				"angle": "pi/2",
-				"colors": [
-					"b",
-					"r"
-				],
-				"marker": "s",
-				"label": "$\\beta=90\\degree$",
 				"size": 6
 			}
 		],
