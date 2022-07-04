@@ -11,7 +11,7 @@
 		"xi_h0": 1
 	},
 	"plot": {
-		"idtx_fgtx_maidtx_fgtx_zero_markerrkers": [
+		"idtx_fgtx_zero_marker": [
 			{
 				"angle": "0.65",
 				"colors": [
@@ -25,10 +25,10 @@
 		],
 		"fgtx_xlim": [
 			-0.1,
-			2.0
+			2.5
 		],
 		"fgtx_ylim": [
-			-3.0,
+			-2.5,
 			0.1
 		],
 		"fgtx_label_loc": [

@@ -230,7 +230,7 @@ pz_h: Symbol = Symbol(r"p_z", real=True, negative=True)
 xi_h0: Symbol = Symbol(r"\xi^{\perp_0}_{\mathrm{s}}", real=True, positive=True)
 xi_h: Function = Function(r"\xi^{\perp}_{\mathrm{s}}", real=True, positive=True)
 
-n_h: Symbol = Symbol(r"n", real=True, positive=True)
+n_h: Symbol = Symbol(r"n", int=True, positive=True)
 
 phi: Symbol = Symbol(r"\phi", real=True, positive=True)
 beta_h: Symbol = Symbol(r"\beta", real=True, positive=True)
