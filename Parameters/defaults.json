@@ -227,17 +227,17 @@
 			{
 				"angle": "phi_h",
 				"colors": [
-					"DarkBlue",
-					"DarkRed"
+					"b",
+					"r"
 				],
 				"marker": "h",
 				"label": "$\\beta=\\phi=phi_h\\degree$",
-				"size": 9
+				"size": 7
 			},
 			{
 				"angle": "beta_crit",
 				"colors": [
-					"lightseagreen",
+					"violet",
 					"violet"
 				],
 				"marker": [
@@ -250,8 +250,8 @@
 			{
 				"angle": "pi/2",
 				"colors": [
-					"b",
-					"r"
+					"blueviolet",
+					"darkorange"
 				],
 				"marker": "s",
 				"label": "$\\beta=90\\degree$",

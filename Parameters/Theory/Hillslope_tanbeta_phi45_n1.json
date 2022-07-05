@@ -11,6 +11,18 @@
 		"xi_h0": 1
 	},
 	"plot": {
+		"idtx_fgtx_zero_marker": [
+			{
+				"angle": "0.01",
+				"colors": [
+					"DarkBlue",
+					"DarkRed"
+				],
+				"marker": "o",
+				"label": "$\\beta \\rightarrow 0\\degree$",
+				"size": 6
+			}
+		],
 		"fgtx_xlim": [
 			-0.1,
 			3.0
@@ -25,7 +37,7 @@
 		],
 		"idtx_label_loc": [
 			0.43,
-			0.87
+			0.8
 		],
 		"fgtx_legend_loc": "lower left",
 		"idtx_fontsize": 11
