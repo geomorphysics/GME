@@ -196,7 +196,7 @@ pdotxhat_thatfn: Function = Function(r"\dot{\hat{p}}_x", real=True)  # (that)
 pdotzhat_thatfn: Function = Function(r"\dot{\hat{p}}_z", real=True)  # (that)
 
 astar_riem: Symbol = Symbol(r"\alpha^*_{\mathrm{Kr}}", real=True)
-bstar_1form: Symbol = Symbol(r"\beta^*_{\mathrm{Kr}}", real=True)
+bstar_vec: Symbol = Symbol(r"\beta^*_{\mathrm{Kr}}", real=True)
 
 # Channel incision number
 Ci: Symbol = Symbol(r"\mathsf{Ci}", real=True, negative=False)
@@ -227,8 +227,8 @@ v: Symbol = Symbol(r"v", real=True, positive=True)
 px_h: Symbol = Symbol(r"p_x", real=True, positive=True)
 pz_h: Symbol = Symbol(r"p_z", real=True, negative=True)
 
-xi_h0: Symbol = Symbol(r"\xi^{\perp_0}_{\mathrm{s}}", real=True, positive=True)
-xi_h: Function = Function(r"\xi^{\perp}_{\mathrm{s}}", real=True, positive=True)
+xi_h0: Symbol = Symbol(r"\xi^{\perp_0}", real=True, positive=True)
+xi_h: Function = Function(r"\xi^{\perp}", real=True, positive=True)
 
 n_h: Symbol = Symbol(r"n", int=True, positive=True)
 

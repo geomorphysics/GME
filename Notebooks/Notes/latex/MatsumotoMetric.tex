@@ -1,0 +1,897 @@
+\documentclass[11pt]{article}
+
+    \usepackage[breakable]{tcolorbox}
+    \usepackage{parskip} % Stop auto-indenting (to mimic markdown behaviour)
+    
+    \usepackage{iftex}
+    \ifPDFTeX
+    	\usepackage[T1]{fontenc}
+    	\usepackage{mathpazo}
+    \else
+    	\usepackage{fontspec}
+    \fi
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % Maintain compatibility with old templates. Remove in nbconvert 6.0
+    \let\Oldincludegraphics\includegraphics
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionFormat{nocaption}{}
+    \captionsetup{format=nocaption,aboveskip=0pt,belowskip=0pt}
+
+    \usepackage[Export]{adjustbox} % Used to constrain images to a maximum size
+    \adjustboxset{max size={0.9\linewidth}{0.9\paperheight}}
+    \usepackage{float}
+    \floatplacement{figure}{H} % forces figures to be placed at the correct location
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range
+    \makeatletter % fix for grffile with XeLaTeX
+    \def\Gread@@xetex#1{%
+      \IfFileExists{"\Gin@base".bb}%
+      {\Gread@eps{\Gin@base.bb}}%
+      {\Gread@@xetex@aux#1}%
+    }
+    \makeatother
+
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    % The default LaTeX title has an obnoxious amount of whitespace. By default,
+    % titling removes some of it. It also provides customization options.
+    \usepackage{titling}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    \usepackage{mathrsfs}
+    
+
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+    \definecolor{ansi-default-inverse-fg}{HTML}{FFFFFF}
+    \definecolor{ansi-default-inverse-bg}{HTML}{000000}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatibility definitions
+    \def\gt{>}
+    \def\lt{<}
+    \let\Oldtex\TeX
+    \let\Oldlatex\LaTeX
+    \renewcommand{\TeX}{\textrm{\Oldtex}}
+    \renewcommand{\LaTeX}{\textrm{\Oldlatex}}
+    % Document parameters
+    % Document title
+\title{Matsumoto's \textit{Slope of a mountain} metric}
+    
+    
+    
+    
+    
+% Pygments definitions
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\@namedef{PY@tok@w}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\@namedef{PY@tok@c}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\@namedef{PY@tok@cp}{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\@namedef{PY@tok@k}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kp}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kt}{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\@namedef{PY@tok@o}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@ow}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\@namedef{PY@tok@nb}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@nf}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\@namedef{PY@tok@nc}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\@namedef{PY@tok@nn}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\@namedef{PY@tok@ne}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\@namedef{PY@tok@nv}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@no}{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\@namedef{PY@tok@nl}{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\@namedef{PY@tok@ni}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\@namedef{PY@tok@na}{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\@namedef{PY@tok@nt}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@nd}{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\@namedef{PY@tok@s}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@sd}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@si}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\@namedef{PY@tok@se}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\@namedef{PY@tok@sr}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\@namedef{PY@tok@ss}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@sx}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@m}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@gh}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\@namedef{PY@tok@gu}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\@namedef{PY@tok@gd}{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\@namedef{PY@tok@gi}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\@namedef{PY@tok@gr}{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\@namedef{PY@tok@ge}{\let\PY@it=\textit}
+\@namedef{PY@tok@gs}{\let\PY@bf=\textbf}
+\@namedef{PY@tok@gp}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\@namedef{PY@tok@go}{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\@namedef{PY@tok@gt}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\@namedef{PY@tok@err}{\def\PY@bc##1{{\setlength{\fboxsep}{\string -\fboxrule}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}}
+\@namedef{PY@tok@kc}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kd}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kn}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kr}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@bp}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@fm}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\@namedef{PY@tok@vc}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@vg}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@vi}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@vm}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@sa}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@sb}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@sc}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@dl}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@s2}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@sh}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@s1}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@mb}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@mf}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@mh}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@mi}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@il}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@mo}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@ch}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\@namedef{PY@tok@cm}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\@namedef{PY@tok@cpf}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\@namedef{PY@tok@c1}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\@namedef{PY@tok@cs}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % For linebreaks inside Verbatim environment from package fancyvrb. 
+    \makeatletter
+        \newbox\Wrappedcontinuationbox 
+        \newbox\Wrappedvisiblespacebox 
+        \newcommand*\Wrappedvisiblespace {\textcolor{red}{\textvisiblespace}} 
+        \newcommand*\Wrappedcontinuationsymbol {\textcolor{red}{\llap{\tiny$\m@th\hookrightarrow$}}} 
+        \newcommand*\Wrappedcontinuationindent {3ex } 
+        \newcommand*\Wrappedafterbreak {\kern\Wrappedcontinuationindent\copy\Wrappedcontinuationbox} 
+        % Take advantage of the already applied Pygments mark-up to insert 
+        % potential linebreaks for TeX processing. 
+        %        {, <, #, %, $, ' and ": go to next line. 
+        %        _, }, ^, &, >, - and ~: stay at end of broken line. 
+        % Use of \textquotesingle for straight quote. 
+        \newcommand*\Wrappedbreaksatspecials {% 
+            \def\PYGZus{\discretionary{\char`\_}{\Wrappedafterbreak}{\char`\_}}% 
+            \def\PYGZob{\discretionary{}{\Wrappedafterbreak\char`\{}{\char`\{}}% 
+            \def\PYGZcb{\discretionary{\char`\}}{\Wrappedafterbreak}{\char`\}}}% 
+            \def\PYGZca{\discretionary{\char`\^}{\Wrappedafterbreak}{\char`\^}}% 
+            \def\PYGZam{\discretionary{\char`\&}{\Wrappedafterbreak}{\char`\&}}% 
+            \def\PYGZlt{\discretionary{}{\Wrappedafterbreak\char`\<}{\char`\<}}% 
+            \def\PYGZgt{\discretionary{\char`\>}{\Wrappedafterbreak}{\char`\>}}% 
+            \def\PYGZsh{\discretionary{}{\Wrappedafterbreak\char`\#}{\char`\#}}% 
+            \def\PYGZpc{\discretionary{}{\Wrappedafterbreak\char`\%}{\char`\%}}% 
+            \def\PYGZdl{\discretionary{}{\Wrappedafterbreak\char`\$}{\char`\$}}% 
+            \def\PYGZhy{\discretionary{\char`\-}{\Wrappedafterbreak}{\char`\-}}% 
+            \def\PYGZsq{\discretionary{}{\Wrappedafterbreak\textquotesingle}{\textquotesingle}}% 
+            \def\PYGZdq{\discretionary{}{\Wrappedafterbreak\char`\"}{\char`\"}}% 
+            \def\PYGZti{\discretionary{\char`\~}{\Wrappedafterbreak}{\char`\~}}% 
+        } 
+        % Some characters . , ; ? ! / are not pygmentized. 
+        % This macro makes them "active" and they will insert potential linebreaks 
+        \newcommand*\Wrappedbreaksatpunct {% 
+            \lccode`\~`\.\lowercase{\def~}{\discretionary{\hbox{\char`\.}}{\Wrappedafterbreak}{\hbox{\char`\.}}}% 
+            \lccode`\~`\,\lowercase{\def~}{\discretionary{\hbox{\char`\,}}{\Wrappedafterbreak}{\hbox{\char`\,}}}% 
+            \lccode`\~`\;\lowercase{\def~}{\discretionary{\hbox{\char`\;}}{\Wrappedafterbreak}{\hbox{\char`\;}}}% 
+            \lccode`\~`\:\lowercase{\def~}{\discretionary{\hbox{\char`\:}}{\Wrappedafterbreak}{\hbox{\char`\:}}}% 
+            \lccode`\~`\?\lowercase{\def~}{\discretionary{\hbox{\char`\?}}{\Wrappedafterbreak}{\hbox{\char`\?}}}% 
+            \lccode`\~`\!\lowercase{\def~}{\discretionary{\hbox{\char`\!}}{\Wrappedafterbreak}{\hbox{\char`\!}}}% 
+            \lccode`\~`\/\lowercase{\def~}{\discretionary{\hbox{\char`\/}}{\Wrappedafterbreak}{\hbox{\char`\/}}}% 
+            \catcode`\.\active
+            \catcode`\,\active 
+            \catcode`\;\active
+            \catcode`\:\active
+            \catcode`\?\active
+            \catcode`\!\active
+            \catcode`\/\active 
+            \lccode`\~`\~ 	
+        }
+    \makeatother
+
+    \let\OriginalVerbatim=\Verbatim
+    \makeatletter
+    \renewcommand{\Verbatim}[1][1]{%
+        %\parskip\z@skip
+        \sbox\Wrappedcontinuationbox {\Wrappedcontinuationsymbol}%
+        \sbox\Wrappedvisiblespacebox {\FV@SetupFont\Wrappedvisiblespace}%
+        \def\FancyVerbFormatLine ##1{\hsize\linewidth
+            \vtop{\raggedright\hyphenpenalty\z@\exhyphenpenalty\z@
+                \doublehyphendemerits\z@\finalhyphendemerits\z@
+                \strut ##1\strut}%
+        }%
+        % If the linebreak is at a space, the latter will be displayed as visible
+        % space at end of first line, and a continuation symbol starts next line.
+        % Stretch/shrink are however usually zero for typewriter font.
+        \def\FV@Space {%
+            \nobreak\hskip\z@ plus\fontdimen3\font minus\fontdimen4\font
+            \discretionary{\copy\Wrappedvisiblespacebox}{\Wrappedafterbreak}
+            {\kern\fontdimen2\font}%
+        }%
+        
+        % Allow breaks at special characters using \PYG... macros.
+        \Wrappedbreaksatspecials
+        % Breaks at punctuation characters . , ; ? ! and / need catcode=\active 	
+        \OriginalVerbatim[#1,codes*=\Wrappedbreaksatpunct]%
+    }
+    \makeatother
+
+    % Exact colors from NB
+    \definecolor{incolor}{HTML}{303F9F}
+    \definecolor{outcolor}{HTML}{D84315}
+    \definecolor{cellborder}{HTML}{CFCFCF}
+    \definecolor{cellbackground}{HTML}{F7F7F7}
+    
+    % prompt
+    \makeatletter
+    \newcommand{\boxspacing}{\kern\kvtcb@left@rule\kern\kvtcb@boxsep}
+    \makeatother
+    \newcommand{\prompt}[4]{
+        \ttfamily\llap{{\color{#2}[#3]:\hspace{3pt}#4}}\vspace{-\baselineskip}
+    }
+    
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+\pagecolor{white}
+\author{Colin P. Stark}
+\begin{document}
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{summary}{%
+\section*{Summary}\label{summary}}
+
+
+    In the first of three 2019 lectures on Finsler spacetime, Javaloyes
+summarizes the Matsumoto metric like this:
+
+ 
+            
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{MatsumotoMetric_files/MatsumotoMetric_3_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    Matsumoto's idea -- which was inspired by a question raised by Paul
+Finsler himself -- is to measure how far a mountain hiker will walk in a
+given direction in unit time \emph{if they maintain the same effort
+regardless of the local slope}.
+
+The physics boils down to this:
+
+\begin{itemize}
+\tightlist
+\item
+  choose a map direction \(\phi\) for the hike
+\item
+  specify a step interval \(\Delta{t} \ll {}\) unit time
+\item
+  take a step in the chosen direction with an fixed impulse
+\item
+  terminate the step with another fixed impulse
+\item
+  choose this impulse pair so that \emph{on a horizontal surface} a
+  constant chosen speed \(c\) is maintained
+\item
+  on a sloping surface, the speed will be faster or slower than \(c\)
+  depending on the tilt
+\item
+  include in the termination impulse a lateral component to compensate
+  for any ``off-axis'' acceleration and to ensure the path continues in
+  the chosen direction
+\item
+  keep stepping so that a steady pace is established
+\item
+  measure the distance traveled in unit time (ignoring the vagaries of
+  the first few steps)
+\end{itemize}
+
+Horizontal walking speed in the chosen direction is set by two things:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  the step-wise accelerations and decelerations induced by the walking
+  impulses
+\item
+  the step-wise accelerations induced by the component of gravity
+  resolved in the walking direction
+\end{enumerate}
+
+    \hypertarget{derivation}{%
+\section*{Derivation}\label{derivation}}
+
+    \hypertarget{original-version-hiker-on-a-mountain-slope}{%
+\subsection*{Original version: Hiker on a mountain
+slope}\label{original-version-hiker-on-a-mountain-slope}}
+
+    Matsumoto's original paper invokes a hiker who somehow achieves an
+orientation-dependent ``terminal velocity'' after a few steps. The
+physics of this seem a bit vague to me, so in the next section I have
+adapted it into a more carefully crafted form. First, though, here is
+the Bao \& Robles (2004) version of Matsumoto (1989)
+
+    \hypertarget{preliminaries}{%
+\subsubsection*{Preliminaries}\label{preliminaries}}
+
+ 
+            
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{MatsumotoMetric_files/MatsumotoMetric_9_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    A topographic surface \(S\) in 3D space is defined by a function
+\(z=f(x,y)\) and described parametrically by \((x,y,f(x,y))\) {[}see
+Matsumoto, 1989, p.22{]}.
+
+The tangent plane at (\(x\),\(y\)) has local basis vectors \((1,0,f_x)\)
+and \((0,1,f_y)\) and these are respectively abusively denoted by
+\(\partial_x\) and \(\partial_y\) (abusive, because they not simple
+derivatives). The dual basis is denoted by \(dx, dy\).
+
+We can define a covariant metric tensor \(g\) (Bao \& Robles denote it
+as \(h\)) for this surface using the mutual Euclidean (3D) lengths of
+the vectors \((1,0,f_x)\) and \((0,1,f_y)\) and the tensor products of
+the dual basis elements:
+
+\begin{align}
+    g
+%    :=&  \, \partial_x \otimes \partial_x + \partial_x \otimes \partial_y + \partial_y \otimes \partial_x + \partial_y \otimes \partial_y \\
+%    =&
+%    \begin{bmatrix}
+%    \partial_x & \partial_y
+%    \end{bmatrix}
+%    \otimes 
+%    \begin{bmatrix}
+%   \partial_x &  \partial_y
+%    \end{bmatrix} 
+%    \\
+%    =& \,
+%    \begin{bmatrix}
+%    (1,0,f_x) & (0,1,f_y)
+%    \end{bmatrix}
+%    \otimes
+%    \begin{bmatrix}
+%        (1,0,f_x) & (0,1,f_y)
+%    \end{bmatrix} \\
+%    =& \, 
+%    \begin{bmatrix}
+%    [(1+f_x^2)\, dx \otimes dx & f_x f_y \, dx \otimes dy] & [f_y f_x \, dy \otimes dx & \, (1+f_y^2) \, dy \otimes dy] 
+%    \end{bmatrix}
+%    \\
+    =& \, 
+      \left((1,0,f_x)\cdot(1,0,f_x)\right) \, dx \otimes dx 
+    + \left((1,0,f_x)\cdot(0,1,f_y)\right) \, (dx \otimes dy + dy \otimes dx) 
+    + \left((0,1,f_y)\cdot(0,1,f_y)\right) \, dy \otimes dy
+    \\
+    =& \, (1+f_x^2)\, dx \otimes dx + f_x f_y \, (dx \otimes dy + dy \otimes dx) + (1+f_y^2)\, dy \otimes dy
+    \\
+    =& 
+    \begin{bmatrix}
+        (1+f_x^2) & f_x f_y  \\
+        f_x f_y  & (1+f_y^2)
+    \end{bmatrix}
+\end{align}
+
+    The metric tensor provides a means of measuring the length of a tangent
+vector \(Y := u\partial_x + v\partial_y\) on \(S\):
+
+\begin{align}
+    \| Y \|_{g}^2
+    &= g(Y,Y) = g_{ij} Y^i Y^j\\
+    &= 
+    \begin{bmatrix}
+    u & v
+    \end{bmatrix}
+    \begin{bmatrix}
+        (1+f_x^2) & f_x f_y  \\
+        f_y f_x  & (1+f_y^2)
+    \end{bmatrix}
+    \begin{bmatrix}
+    u \\ v
+    \end{bmatrix} 
+    \\
+    &=
+    \begin{bmatrix}
+    u & v
+    \end{bmatrix}
+    \begin{bmatrix}
+    u(1+f_x^2) + v \,f_x f_y  \\ 
+    u \,f_y f_x   + v (1+f_y^2)
+    \end{bmatrix} \\
+    &= u^2(1+f_x^2) + v uf_x f_y  + u v f_y f_x   + v^2(1+f_y^2)  \\
+    &= u^2 + v^2 + u^2 f_x^2  + 2 u v f_x  f_y  + v^2 f_y^2 \\
+    &= u^2 + v^2 + (u f_x  +  vf_y)^2
+\end{align}
+
+    The dual (contravariant) metric tensor is the inverse of \(g\)
+\begin{equation}
+    g^{-1}
+    =
+    \begin{bmatrix}
+        (1+f_x^2) & f_x f_y  \\
+        f_y f_x  & (1+f_y^2)
+    \end{bmatrix}^{-1}
+%    =
+%    \begin{bmatrix}
+%        (1+f_y^2) & -f_x f_y  \\
+%        -f_y f_x  & (1+f_x^2)
+%    \end{bmatrix}\bigg/((1+f_x^2)(1+f_y^2)-f_x^2 f_y^2)
+    =
+    \dfrac{1}{1+f_x^2+f_y^2}
+    \begin{bmatrix}
+        {1+f_y^2}  & -{f_x f_y}  \\
+        -{f_y f_x} & {1+f_x^2}
+    \end{bmatrix}
+\end{equation}
+
+    We can also map the covector differential \(df\) to its dual
+contravariant vector using \(g^{-1}\):
+
+\begin{align}
+    (df)^{\sharp}  
+    & = g^{-1} df\\
+    &= 
+    \dfrac{
+        1
+    }{1+f_x^2+f_y^2}
+    \begin{bmatrix}
+        {1+f_y^2}  & -{f_x f_y}  \\
+        -{f_y f_x} & {1+f_x^2}
+    \end{bmatrix}
+    \begin{bmatrix}
+        f_x & f_y
+    \end{bmatrix}^T
+    \\
+    &= 
+    \dfrac{1}{1+f_x^2+f_y^2}
+    \begin{bmatrix}
+    (1+f_y^2)f_x  - {f_x f_y} f_y \\
+    -{f_y f_x}f_x + (1+f_x^2)f_y
+    \end{bmatrix}
+    \\
+    &= 
+    \dfrac{1}{1+f_x^2+f_y^2}
+    \begin{bmatrix}
+    f_x \\ f_y
+    \end{bmatrix}
+    \\
+    &= 
+    \dfrac{f_x \partial_x + f_y \partial_y}{1+f_x^2+f_y^2}
+\end{align}
+
+The length of this vector is
+
+\begin{align}
+    \|(df)^{\sharp}\|_g^2
+    & = g\left((df)^{\sharp}, (df)^{\sharp}\right) \\
+    & = g g^{-1} df\, g^{-1} df \\
+    & = df\, g^{-1} \,df \\
+    &= 
+    \dfrac{1}{1+f_x^2+f_y^2}
+    \begin{bmatrix}
+    f_x & f_y
+    \end{bmatrix}
+    \begin{bmatrix}
+        (1+f_x^2) & -f_x f_y  \\
+        -f_y f_x  & (1+f_y^2)
+    \end{bmatrix}
+    \begin{bmatrix}
+    f_x \\ f_y
+    \end{bmatrix} 
+    \\
+    &=
+    \dfrac{1}{1+f_x^2+f_y^2}
+    \begin{bmatrix}
+    f_x & f_y
+    \end{bmatrix}
+    \begin{bmatrix}
+    f_x(1+f_x^2) - f_y \,f_x f_y  \\ 
+    -f_x \,f_y f_x + f_y (1+f_y^2)
+    \end{bmatrix} 
+    \\
+    &=
+    \dfrac{1}{1+f_x^2+f_y^2}
+    \begin{bmatrix}
+    f_x & f_y
+    \end{bmatrix}
+    \begin{bmatrix}
+    f_x  \\ 
+    f_y
+    \end{bmatrix} 
+    \\
+    &=
+    \dfrac{f_x^2+f_y^2}{1+f_x^2+f_y^2}
+\end{align}
+
+    \hypertarget{model}{%
+\subsubsection*{Model}\label{model}}
+
+ 
+            
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{MatsumotoMetric_files/MatsumotoMetric_15_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    \hypertarget{modified-version-robot-on-a-mountain-slope}{%
+\subsection*{Modified version: Robot on a mountain
+slope}\label{modified-version-robot-on-a-mountain-slope}}
+
+    Imagine a bipedal robot walking across a smooth plane inclined towards
+the south at an angle \(\phi\) from the horizontal. Between one step and
+the next, the robot is surface-parallel accelerated or decelerated
+depending on the orientation \(\theta\) of its motion relative to south.
+As a step ends, the robot applies just the right impulse through its
+feet that it:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  compensates for any step-orthogonal motion making it veer away from
+  the intended direction of motion;
+\item
+  recovers the step-wise, surface-parallel speed \(c\) as it begins the
+  next step.
+\end{enumerate}
+
+In this way, it maintains \emph{on average} a constant step-wise,
+surface-parallel speed (that may be greater or less than \(c\)) in the
+chosen direction of motion.
+
+The question is, how far will it walk in a given direction \(\theta\) in
+a fixed time averaged over many steps?
+
+The incremental distance \(\Delta{r}\) traversed between each step
+interval \(\Delta{t}\) will be the result of (a) the speed \(v\)
+asserted when each step is taken, plus (b) the speed boost (or loss)
+from the component of acceleration due to gravity \(g_{\mathrm{acc}}\)
+acting along the generally non-horizontal path.
+
+\begin{equation}
+    \Delta{r} = c\Delta{t} 
+        + \tfrac{1}{2} g_{\mathrm{acc}} \Delta{t}^2 \sin\phi\,\cos\theta 
+\end{equation}
+
+\begin{equation}
+    \dfrac{\Delta{r}}{\Delta{t}}
+        = c + \tfrac{1}{2} g_{\mathrm{acc}} \Delta{t} \sin\phi\,\cos\theta 
+\end{equation}
+
+So the normalized speed is:
+
+\begin{equation}
+    \tilde{c}
+        = 1 + a \cos\theta 
+\end{equation}
+
+where
+
+\begin{equation}
+    a = \dfrac{g_{\mathrm{acc}}\Delta{t}}{2c} \sin\phi
+\end{equation}
+
+As the time interval \(\Delta{t}\) is reduced (to make motion smoother),
+\(c\) is reduced to ensure \(a\) remains constant.
+
+As far as the robot is concerned, assuming it can only sense enough to
+maintain surface-parallel \(v\) at each step, distance appears to vary
+with orientation. In other words, its distance metric is strongly
+anisotropic and Finsler: it has a form that cannot be expressed in a
+simple inner product that applies a metric tensor dependent only on
+position: if it were, a Riemannian metric would apply. The anisotropy of
+this metric is encapsulated in its speed-vs-orientation indicatrix,
+which takes the interesting form of a \emph{limaçon}.
+
+Note that, blithely ignoring units, Bao \& Robles assume
+\(c = g_{\mathrm{acc}}/2\) towards the end of their explanation, such
+that
+
+\begin{equation}
+    a = \Delta{t} \sin\phi
+\end{equation}
+
+Presumably they also assume \(\Delta{t}=1\), and since their
+\((f_x, f_y)\) is here \((0,\tan\phi)\),
+
+\begin{equation}
+    f_y^2 =  \dfrac{1}{1-a^2} - 1 =  \dfrac{a^2}{1-a^2}
+\end{equation}
+
+or
+
+\begin{equation}
+    a^2 =  1-\dfrac{1}{1+\tan^2\phi}  =  \dfrac{\tan^2\phi}{1+\tan^2\phi} =  \dfrac{f_y^2}{1+f_y^2}
+\end{equation}
+
+If \(f_x=0\), \(f_y^2<\tfrac{1}{3}\), meaning the surface tilt must be
+less than \(\phi < \pi/6\), then
+
+\begin{equation}
+    a < \sqrt{\dfrac{1/3}{1+1/3}} = \dfrac{1}{2}
+\end{equation}
+
+which means that most of the interesting limaçon-shaped metrics
+\(a\geq 1/2\) are not strongly convex, and thus are not Finsler metrics
+\emph{sensu stricto}.
+
+    Let's simplify the Bao \& Robles version of the Matsumoto metric using
+again the assumption that the surface is planar and tilted only to the
+south at an angle \(f_y = \tan\phi\). Then
+
+\begin{equation}
+    |Y|^2 = u^2 + v^2 + v^2 f_y^2 = u^2 + v^2 (1+f_y^2) 
+\end{equation} and
+
+\begin{equation}
+    |(df)^\#|^2 = \dfrac{f_y^2}{1+f_y^2}
+\end{equation}
+
+which makes the metric function
+
+\begin{equation}
+    F = \dfrac{|Y|^2}{|Y|-v f_y} = \dfrac{u^2 + v^2 (1+f_y^2) }{\sqrt{u^2 + v^2 (1+f_y^2)}-v f_y}
+\end{equation}
+
+    \begin{equation}
+    F = \dfrac{|Y|^2}{|Y|-v f_y} = \dfrac{u^2 + v^2 (1+f_y^2) }{\sqrt{u^2 + v^2 (1+f_y^2)}-v f_y}
+\end{equation}
+
+    \hypertarget{plots-of-the-indicatrix-and-figuratrix}{%
+\subsection*{Plots of the indicatrix and
+figuratrix}\label{plots-of-the-indicatrix-and-figuratrix}}
+
+
+
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{MatsumotoMetric_files/MatsumotoMetric_24_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{MatsumotoMetric_files/MatsumotoMetric_25_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{references}{%
+\section*{References}\label{references}}
+
+    \href{http://doi.org/10.1007/978-94-009-5329-1}{Asanov, G. S. (1985).
+Finsler Geometry, Relativity and Gauge Theories. Springer Science \&
+Business Media.}
+
+\href{http://library.msri.org/books/Book50/contents.html}{Bao, D., \&
+Robles, C. (2004). Ricci and Flag Curvatures in Finsler Geometry. In D.
+Bao, R. L. Bryant, S.-S. Chern, \& Z. Shen (Eds.), Riemann-Finsler
+Geometry (Vol. 50, pp.~197--259).}
+
+\href{http://doi.org/10.1007/978-3-642-18855-8}{Gallot, S., Hulin, D.,
+\& Lafontaine, J. (2004). Riemannian geometry (3rd ed., pp.~1--337).
+Springer.}
+
+\href{http://doi.org/10.1063/5.0065944}{Hohmann, M., Pfeifer, C., \&
+Voicu, N. (2022). Mathematical foundations for field theories on Finsler
+spacetimes. Journal of Mathematical Physics, 63(3), 032503--48.}
+
+\href{https://www.icmat.es/congresos/2019/IFWGP/program.php}{Javaloyes,
+M. Á. (2019). Finsler Geometry: Riemannian foundations and relativistic
+applications. Lecture 1: Definitions, examples and basic properties
+(pp.~1--122). Presented at the XXVIII International Fall Workshop on
+Geometry and Physics ICMAT.}
+
+\href{http://projecteuclid.org/download/pdf_1/euclid.kjm/1250520303}{Matsumoto,
+M. (1989). A slope of a mountain is a Finsler surface with respect to a
+time measure. Journal of Mathematics of Kyoto University, 29(1),
+17--25.}
+
+    \hypertarget{appendix}{%
+\section*{Appendix}\label{appendix}}
+
+    For reference, here is the conservative definition of a Finsler metric
+from Bao \& Robles {[}2004{]}, pp.199-200. It adopts the requirement
+that the fundamental tensor \(g_{ij}\) be positive definite.
+
+ 
+            
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{MatsumotoMetric_files/MatsumotoMetric_30_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    However, Asanov {[}1985{]} is more relaxed, noting that by insisting on
+positive-definiteness we throw out any GR applications, since
+pseudo-Riemannian manifolds are not positive definite:
+
+ 
+            
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{MatsumotoMetric_files/MatsumotoMetric_32_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    Gallot et al {[}2004{]} discuss some of the consequences of allowing for
+a mixed signature (metric tensor with negative eigenvalues) in the
+context of Riemannian manifolds (they don't touch on Finsler spaces):
+
+ 
+            
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{MatsumotoMetric_files/MatsumotoMetric_34_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    At the risk of terminal obfuscation, here is a very recent paper by
+Hohmann et al {[}2022{]} and their prescription of a Finsler spacetime:
+note how, echoing Asanov, they require only that the fundamental tensor
+be non-degenerate. I don't understand how they deal with light-like
+(null) curves, but that would seem to be precisely where the determinant
+of \(g_{ij}\) is zero\ldots{}
+
+ 
+            
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{MatsumotoMetric_files/MatsumotoMetric_36_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+\end{document}
